@@ -1,0 +1,15 @@
+.metadata/
+
+.classpath
+.directory
+.project
+.settings
+bin/
+gen/
+local.properties
+*~
+.checkstyle
+.DS_Store
+*.log
+
+lint.xml
