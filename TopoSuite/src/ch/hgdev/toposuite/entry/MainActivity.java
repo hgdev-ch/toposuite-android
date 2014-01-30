@@ -1,9 +1,15 @@
-package ch.hgdev.toposuite;
+package ch.hgdev.toposuite.entry;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+import ch.hgdev.toposuite.R;
 
+/**
+ * 
+ * @author HGdev
+ *
+ */
 public class MainActivity extends Activity {
 
     @Override
