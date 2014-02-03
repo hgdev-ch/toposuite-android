@@ -1,6 +1,5 @@
 package ch.hgdev.toposuite.points;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -9,6 +8,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
@@ -17,7 +17,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * @author HGdev
  * 
  */
-public class PointsManagerActivity extends Activity {
+public class PointsManagerActivity extends TopoSuiteActivity {
 
     private TableLayout mainTable;
 
