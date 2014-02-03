@@ -48,6 +48,7 @@ public class TopoSuiteActivity extends Activity {
         this.drawerListLeftMenu.setAdapter(new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item,
                 new ActivityItem[] { new ActivityItem("Home", MainActivity.class),
                         new ActivityItem("Points management", PointsManagerActivity.class) }));
+
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListLeftMenu));
 
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
