@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,8 @@ import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ch.hgdev.toposuite.entry.MainActivity;
+import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
  * 
@@ -42,8 +45,10 @@ public class TopoSuiteActivity extends Activity {
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
-        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<Class<?>>(this, R.layout.drawer_list_item,
-                new Class<?>[] {}));
+        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item,
+                new ActivityItem[] { new ActivityItem("Home", MainActivity.class),
+                        new ActivityItem("Points management", PointsManagerActivity.class) }));
+        this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListLeftMenu));
 
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
 
@@ -112,11 +117,41 @@ public class TopoSuiteActivity extends Activity {
         }
     }
 
+    public void startActivity(Class<?> activityClass) {
+        Intent newActivityIntent = new Intent(this, activityClass);
+        this.startActivity(newActivityIntent);
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        private ListView list;
+
+        public DrawerItemClickListener(ListView list_) {
+            this.list = list_;
+        }
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            ListView list = (ListView) view;
-            list.getItemAtPosition(position);
+            ActivityItem item = (ActivityItem) this.list.getItemAtPosition(position);
+            TopoSuiteActivity.this.startActivity(item.getActivityClass());
+        }
+    }
+
+    private class ActivityItem {
+        private String   title;
+        private Class<?> activityClass;
+
+        public ActivityItem(String title_, Class<?> activityClass) {
+            this.title = title_;
+            this.activityClass = activityClass;
+        }
+
+        @Override
+        public String toString() {
+            return this.title;
+        }
+
+        public Class<?> getActivityClass() {
+            return this.activityClass;
         }
     }
 }
