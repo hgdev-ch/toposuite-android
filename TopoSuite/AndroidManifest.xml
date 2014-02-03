@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.hgdev.toposuite"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0-BETA1" >
 
     <uses-sdk
         android:minSdkVersion="15"
