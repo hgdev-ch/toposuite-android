@@ -60,7 +60,7 @@ public class TopoSuiteActivity extends Activity {
 
         // set the titles that will appear in the action bar
         this.title = this.getString(R.string.app_name);
-        this.drawerLeftTitle = getString(R.string.points_manager);
+        this.drawerLeftTitle = getString(R.string.title_activity_points_manager);
 
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
@@ -69,7 +69,8 @@ public class TopoSuiteActivity extends Activity {
         this.drawerListLeftMenu.setAdapter(
                 new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{
                         new ActivityItem(getString(R.string.home), MainActivity.class),
-                        new ActivityItem(getString(R.string.points_manager), PointsManagerActivity.class)}));
+                        new ActivityItem(getString(R.string.title_activity_points_manager),
+                                PointsManagerActivity.class)}));
         
         // set the content of the right sliding menu
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);

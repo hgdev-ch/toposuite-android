@@ -3,7 +3,7 @@
 
     <string name="app_name">TopoSuite</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_points_manager">PointsManagerActivity</string>
+    <string name="title_activity_points_manager">Points manager</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="toggle_right_menu_button">Calculations</string>
@@ -12,7 +12,6 @@
     <string name="north">North</string>
     <string name="altitude">Altitude</string>
     <string name="base_point">Base point</string>
-    <string name="points_manager">Points Manager</string>
     <string name="home">Home</string>
 
 </resources>
