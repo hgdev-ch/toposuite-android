@@ -17,6 +17,8 @@ import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
+ * TopoSuiteActivity is the base class for all activities created in TopoSuite.
+ * It automatically provides an action bar with left and right sliding menus.
  * 
  * @author HGdev
  */
@@ -30,7 +32,6 @@ public class TopoSuiteActivity extends Activity {
 
     private CharSequence          title;
     private CharSequence          drawerLeftTitle;
-    private CharSequence          drawerRightTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,7 @@ public class TopoSuiteActivity extends Activity {
         super.setContentView(R.layout.global_layout);
 
         this.title = this.getString(R.string.app_name);
-        // TODO replace by R.string.XXX
-        this.drawerLeftTitle = "Gestion des points";
-        this.drawerRightTitle = "Calculs";
+        this.drawerLeftTitle = getString(R.string.points_manager);
 
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
@@ -119,14 +118,28 @@ public class TopoSuiteActivity extends Activity {
         }
     }
 
+    /**
+     * Starts a new activity.
+     * 
+     * @param activityClass Activity class
+     */
     public void startActivity(Class<?> activityClass) {
         Intent newActivityIntent = new Intent(this, activityClass);
         this.startActivity(newActivityIntent);
     }
 
+    /**
+     * Click listener for a drawer items list.
+     * 
+     * @author HGdev
+     */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         private ListView list;
 
+        /**
+         * Constructs a new DrawerItemClickListener. 
+         * @param list_ the items list
+         */
         public DrawerItemClickListener(ListView list_) {
             this.list = list_;
         }
@@ -138,10 +151,27 @@ public class TopoSuiteActivity extends Activity {
         }
     }
 
+    /**
+     * ActivityItem holds a pair of activity's title/class. 
+     * 
+     * @author HGdev
+     */
     private class ActivityItem {
+        /**
+         * The title that will appear in the left or right sliding menu.
+         */
         private String   title;
+        
+        /**
+         * The activity class to start on item click. 
+         */
         private Class<?> activityClass;
 
+        /**
+         * Constructs a new ActivityItem.
+         * @param _title Activity title
+         * @param activityClass Activity class
+         */
         public ActivityItem(String _title, Class<?> activityClass) {
             this.title = _title;
             this.activityClass = activityClass;
@@ -152,6 +182,10 @@ public class TopoSuiteActivity extends Activity {
             return this.title;
         }
 
+        /**
+         * Getter for activityClass.
+         * @return the activity class
+         */
         public Class<?> getActivityClass() {
             return this.activityClass;
         }
