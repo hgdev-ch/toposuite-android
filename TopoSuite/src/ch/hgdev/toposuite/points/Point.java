@@ -45,39 +45,39 @@ public class Point {
         return this.number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setNumber(int _number) {
+        this.number = _number;
     }
 
     public double getEast() {
         return this.east;
     }
 
-    public void setEast(double east) {
-        this.east = east;
+    public void setEast(double _east) {
+        this.east = _east;
     }
 
     public double getNorth() {
         return this.north;
     }
 
-    public void setNorth(double north) {
-        this.north = north;
+    public void setNorth(double _north) {
+        this.north = _north;
     }
 
     public double getAltitude() {
         return this.altitude;
     }
 
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
+    public void setAltitude(double _altitude) {
+        this.altitude = _altitude;
     }
 
     public int getBasePoint() {
         return this.basePoint;
     }
 
-    public void setBasePoint(int basePoint) {
-        this.basePoint = basePoint;
+    public void setBasePoint(int _basePoint) {
+        this.basePoint = _basePoint;
     }
 }
