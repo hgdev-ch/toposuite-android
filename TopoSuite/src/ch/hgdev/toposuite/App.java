@@ -12,5 +12,9 @@ import android.app.Application;
  * 
  */
 public class App extends Application {
+    /**
+     * Number of decimal to display with dealing with numbers.
+     */
+    public static String numberOfDecimals = "%.4f";
 
 }
