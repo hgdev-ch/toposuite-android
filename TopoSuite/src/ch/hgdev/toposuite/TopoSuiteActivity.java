@@ -47,11 +47,6 @@ public class TopoSuiteActivity extends Activity {
      * The title that will appear in the action bar when no sliding menu is toggled.
      */
     private CharSequence          title;
-    
-    /**
-     * The title that will appear in the action bar when the left sliding menu is toggled.
-     */
-    private CharSequence          drawerLeftTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +55,6 @@ public class TopoSuiteActivity extends Activity {
 
         // set the titles that will appear in the action bar
         this.title = this.getString(R.string.app_name);
-        this.drawerLeftTitle = getString(R.string.title_activity_points_manager);
 
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
@@ -89,13 +83,11 @@ public class TopoSuiteActivity extends Activity {
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View view) {
-                TopoSuiteActivity.this.getActionBar().setTitle(TopoSuiteActivity.this.title);
                 TopoSuiteActivity.this.invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                TopoSuiteActivity.this.getActionBar().setTitle(TopoSuiteActivity.this.drawerLeftTitle);
                 TopoSuiteActivity.this.invalidateOptionsMenu();
             }
         };
