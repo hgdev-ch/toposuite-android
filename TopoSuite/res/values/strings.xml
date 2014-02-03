@@ -24,4 +24,5 @@
     <string name="point_number">Point No</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
+
 </resources>
