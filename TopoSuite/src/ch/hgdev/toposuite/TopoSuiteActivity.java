@@ -34,7 +34,7 @@ public class TopoSuiteActivity extends Activity {
     private ListView              drawerListLeftMenu;
     
     /**
-     * The right items list that contains the list of available calculus.
+     * The right items list that contains the list of available calculations.
      */
     private ListView              drawerListRightMenu;
     
@@ -42,11 +42,6 @@ public class TopoSuiteActivity extends Activity {
      * The action bar drawer toggle.
      */
     private ActionBarDrawerToggle drawerToggle;
-    
-    /**
-     * The title that will appear in the action bar when no sliding menu is toggled.
-     */
-    private CharSequence          title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +49,7 @@ public class TopoSuiteActivity extends Activity {
         super.setContentView(R.layout.global_layout);
 
         // set the titles that will appear in the action bar
-        this.title = this.getString(R.string.app_name);
+        getActionBar().setTitle(getString(R.string.app_name));
 
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
