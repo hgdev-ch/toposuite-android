@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     
-    <string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string><string name="action_settings">Settings</string>
+    <string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string>
+    <string name="action_settings">Settings</string>
     <string name="altitude">Altitude</string>
     <string name="app_copyright">Copyright <xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
     <string name="app_developer">HGdev</string>
@@ -15,9 +16,11 @@
     <string name="base_point">Base point</string>
     <string name="crag">CRAG (Commission Romande des Apprentis Géomaticiens)</string>
     <string name="developed_by">Developed by</string>
+    <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
+    <string name="home">Home</string>
     <string name="north">North</string>
     <string name="point_number">Point No</string>
     <string name="title_activity_points_manager">Points Manager</string>

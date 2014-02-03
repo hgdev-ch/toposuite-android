@@ -17,38 +17,54 @@ import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
+ * TopoSuiteActivity is the base class for all activities created in TopoSuite.
+ * It automatically provides an action bar with left and right sliding menus.
  * 
  * @author HGdev
  */
 public class TopoSuiteActivity extends Activity {
+    /**
+     * The drawer layout that contains the left/right sliding menus and the activity layout.
+     */
     private DrawerLayout          drawerLayout;
+    
+    /**
+     * The left items list that contains the app main menus.
+     */
     private ListView              drawerListLeftMenu;
+    
+    /**
+     * The right items list that contains the list of available calculations.
+     */
     private ListView              drawerListRightMenu;
-
+    
+    /**
+     * The action bar drawer toggle.
+     */
     private ActionBarDrawerToggle drawerToggle;
-    private MenuItem              rightMenuToggle;
-
-    private CharSequence          title;
-    private CharSequence          drawerLeftTitle;
-    private CharSequence          drawerRightTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.global_layout);
 
-        this.title = this.getString(R.string.app_name);
-        // TODO replace by R.string.XXX
-        this.drawerLeftTitle = "Gestion des points";
-        this.drawerRightTitle = "Calculs";
+        // set the titles that will appear in the action bar
+        getActionBar().setTitle(getString(R.string.app_name));
 
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
+        // set the content of the left sliding menu
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
         this.drawerListLeftMenu.setAdapter(
                 new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{
-                        new ActivityItem("Home", MainActivity.class),
-                        new ActivityItem("Points management", PointsManagerActivity.class)}));
+                        new ActivityItem(getString(R.string.home), MainActivity.class),
+                        new ActivityItem(getString(R.string.title_activity_points_manager),
+                                PointsManagerActivity.class)}));
+        
+        // set the content of the right sliding menu
+        this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
+        this.drawerListRightMenu.setAdapter(
+                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{}));
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListLeftMenu));
 
@@ -57,17 +73,16 @@ public class TopoSuiteActivity extends Activity {
         this.getActionBar().setDisplayHomeAsUpEnabled(true);
         this.getActionBar().setHomeButtonEnabled(true);
 
+        // the drawerToggle handles the actions when a sliding menu is opened or closed
         this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, R.drawable.ic_launcher,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View view) {
-                TopoSuiteActivity.this.getActionBar().setTitle(TopoSuiteActivity.this.title);
                 TopoSuiteActivity.this.invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                TopoSuiteActivity.this.getActionBar().setTitle(TopoSuiteActivity.this.drawerLeftTitle);
                 TopoSuiteActivity.this.invalidateOptionsMenu();
             }
         };
@@ -119,14 +134,28 @@ public class TopoSuiteActivity extends Activity {
         }
     }
 
+    /**
+     * Starts a new activity.
+     * 
+     * @param activityClass Activity class
+     */
     public void startActivity(Class<?> activityClass) {
         Intent newActivityIntent = new Intent(this, activityClass);
         this.startActivity(newActivityIntent);
     }
 
+    /**
+     * Click listener for a drawer items list.
+     * 
+     * @author HGdev
+     */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         private ListView list;
 
+        /**
+         * Constructs a new DrawerItemClickListener. 
+         * @param list_ the items list
+         */
         public DrawerItemClickListener(ListView list_) {
             this.list = list_;
         }
@@ -138,10 +167,27 @@ public class TopoSuiteActivity extends Activity {
         }
     }
 
+    /**
+     * ActivityItem holds a pair of activity's title/class. 
+     * 
+     * @author HGdev
+     */
     private class ActivityItem {
+        /**
+         * The title that will appear in the left or right sliding menu.
+         */
         private String   title;
+        
+        /**
+         * The activity class to start on item click. 
+         */
         private Class<?> activityClass;
 
+        /**
+         * Constructs a new ActivityItem.
+         * @param _title Activity title
+         * @param activityClass Activity class
+         */
         public ActivityItem(String _title, Class<?> activityClass) {
             this.title = _title;
             this.activityClass = activityClass;
@@ -152,6 +198,10 @@ public class TopoSuiteActivity extends Activity {
             return this.title;
         }
 
+        /**
+         * Getter for activityClass.
+         * @return the activity class
+         */
         public Class<?> getActivityClass() {
             return this.activityClass;
         }
