@@ -1,8 +1,8 @@
 package ch.hgdev.toposuite.utils;
 
-import android.R;
 import android.content.Context;
 import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 
 /**
  * Utility functions to format things to display.
