@@ -45,9 +45,10 @@ public class TopoSuiteActivity extends Activity {
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
-        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item,
-                new ActivityItem[] { new ActivityItem("Home", MainActivity.class),
-                        new ActivityItem("Points management", PointsManagerActivity.class) }));
+        this.drawerListLeftMenu.setAdapter(
+                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{
+                        new ActivityItem("Home", MainActivity.class),
+                        new ActivityItem("Points management", PointsManagerActivity.class)}));
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListLeftMenu));
 
@@ -141,8 +142,8 @@ public class TopoSuiteActivity extends Activity {
         private String   title;
         private Class<?> activityClass;
 
-        public ActivityItem(String title_, Class<?> activityClass) {
-            this.title = title_;
+        public ActivityItem(String _title, Class<?> activityClass) {
+            this.title = _title;
             this.activityClass = activityClass;
         }
 
