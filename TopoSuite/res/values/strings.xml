@@ -20,9 +20,11 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
     <string name="home">Home</string>
+    <string name="no">No</string>
     <string name="north">North</string>
     <string name="point_number">Point No</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
+    <string name="yes">Yes</string>
 
 </resources>

@@ -12,15 +12,15 @@ package ch.hgdev.toposuite.points;
  */
 public class Point {
 
-    private int    number;
-    private double east;
-    private double north;
-    private double altitude;
-    private int    basePoint;
+    private int     number;
+    private double  east;
+    private double  north;
+    private double  altitude;
+    private boolean basePoint;
 
     /**
      * A point is characterized by its number, distance to the east and north
-     * and its altitude. A base point is a referrer point.
+     * and its altitude.
      * 
      * @param number
      *            Point number.
@@ -31,9 +31,10 @@ public class Point {
      * @param altitude
      *            Point altitude.
      * @param basePoint
-     *            Referrer point.
+     *            Determine if this point is a base point. A base point is a
+     *            point that has been added as is and NOT computed.
      */
-    public Point(int number, double east, double north, double altitude, int basePoint) {
+    public Point(int number, double east, double north, double altitude, boolean basePoint) {
         this.number = number;
         this.east = east;
         this.north = north;
@@ -73,11 +74,11 @@ public class Point {
         this.altitude = _altitude;
     }
 
-    public int getBasePoint() {
+    public boolean getBasePoint() {
         return this.basePoint;
     }
 
-    public void setBasePoint(int _basePoint) {
+    public void setBasePoint(boolean _basePoint) {
         this.basePoint = _basePoint;
     }
 }

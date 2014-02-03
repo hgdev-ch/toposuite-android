@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.utils;
 
+import android.R;
+import android.content.Context;
 import ch.hgdev.toposuite.App;
 
 /**
@@ -16,9 +18,24 @@ public class DisplayUtils {
      * 
      * @param value
      *            The value to convert to a String.
+     * @return Value as a String.
      */
     public static String toString(double value) {
         return String.format(App.numberOfDecimals, value);
     }
 
+    /**
+     * Convert a value of type boolean to a string. If value is true, if will
+     * return "yes" in the appropriate language, otherwise "no" in the
+     * appropriate language.
+     * 
+     * @param context
+     *            Calling activity.
+     * @param value
+     *            The value to convert to a String.
+     * @return Value as a String.
+     */
+    public static String toString(Context context, boolean value) {
+        return value ? context.getString(R.string.yes) : context.getString(R.string.no);
+    }
 }
