@@ -58,17 +58,20 @@ public class TopoSuiteActivity extends Activity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.global_layout);
 
+        // set the titles that will appear in the action bar
         this.title = this.getString(R.string.app_name);
         this.drawerLeftTitle = getString(R.string.points_manager);
 
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
+        // set the content of the left sliding menu
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
         this.drawerListLeftMenu.setAdapter(
                 new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{
                         new ActivityItem(getString(R.string.home), MainActivity.class),
                         new ActivityItem(getString(R.string.points_manager), PointsManagerActivity.class)}));
         
+        // set the content of the right sliding menu
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
         this.drawerListRightMenu.setAdapter(
                 new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{}));
@@ -80,6 +83,7 @@ public class TopoSuiteActivity extends Activity {
         this.getActionBar().setDisplayHomeAsUpEnabled(true);
         this.getActionBar().setHomeButtonEnabled(true);
 
+        // the drawerToggle handles the actions when a sliding menu is opened or closed
         this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, R.drawable.ic_launcher,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
