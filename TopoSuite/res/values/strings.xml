@@ -3,11 +3,10 @@
 
     <string name="app_name">TopoSuite</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_points_manager">PointsManagerActivity</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="toggle_right_menu_button">Calculs</string>
+    <string name="toggle_right_menu_button">Calculations</string>
     <string name="point_number">Point No</string>
     <string name="east">East</string>
     <string name="north">North</string>
