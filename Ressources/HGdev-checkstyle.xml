@@ -5,8 +5,8 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: HGdev Code Conventions
-    Description: Checkstyle rules for HGdev Android applications.
+    Checkstyle-Configuration: HGdev
+    Description: none
 -->
 <module name="Checker">
   <property name="severity" value="warning"/>
@@ -20,6 +20,7 @@
     </module>
     <module name="JavadocType">
       <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="JavadocVariable">
       <property name="severity" value="ignore"/>
@@ -30,7 +31,9 @@
       <property name="checkFirstSentence" value="false"/>
     </module>
     <module name="ConstantName"/>
-    <module name="LocalFinalVariableName"/>
+    <module name="LocalFinalVariableName">
+      <property name="format" value="^_?[a-z][a-zA-Z0-9]*$"/>
+    </module>
     <module name="LocalVariableName"/>
     <module name="MemberName"/>
     <module name="MethodName"/>
@@ -76,17 +79,12 @@
     <module name="EmptyStatement"/>
     <module name="EqualsHashCode"/>
     <module name="HiddenField">
-        <property name="ignoreConstructorParameter" value="true"/>
+      <property name="ignoreConstructorParameter" value="true"/>
     </module>
     <module name="IllegalInstantiation"/>
     <module name="InnerAssignment"/>
     <module name="MagicNumber"/>
     <module name="MissingSwitchDefault"/>
-    <!-- <module name="RedundantThrows"> -->
-    <!--   <property name="suppressLoadErrors" value="true"/> -->
-    <!--   <property name="allowSubclasses" value="true"/> -->
-    <!--   <property name="logLoadErrors" value="false"/> -->
-    <!-- </module> -->
     <module name="SimplifyBooleanReturn"/>
     <module name="FinalClass"/>
     <module name="InterfaceIsType"/>
