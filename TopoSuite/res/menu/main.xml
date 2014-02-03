@@ -1,9 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
-
+    <item android:id="@+id/toggle_right_menu"
+          android:title="@string/toggle_right_menu_button"
+          android:showAsAction="ifRoom|withText"
+          android:icon="@drawable/ic_action_next_item"/>
 </menu>
