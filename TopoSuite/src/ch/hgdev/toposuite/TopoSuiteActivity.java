@@ -23,14 +23,34 @@ import ch.hgdev.toposuite.points.PointsManagerActivity;
  * @author HGdev
  */
 public class TopoSuiteActivity extends Activity {
+    /**
+     * The drawer layout that contains the left/right sliding menus and the activity layout.
+     */
     private DrawerLayout          drawerLayout;
+    
+    /**
+     * The left items list that contains the app main menus.
+     */
     private ListView              drawerListLeftMenu;
+    
+    /**
+     * The right items list that contains the list of available calculus.
+     */
     private ListView              drawerListRightMenu;
-
+    
+    /**
+     * The action bar drawer toggle.
+     */
     private ActionBarDrawerToggle drawerToggle;
-    private MenuItem              rightMenuToggle;
-
+    
+    /**
+     * The title that will appear in the action bar when no sliding menu is toggled.
+     */
     private CharSequence          title;
+    
+    /**
+     * The title that will appear in the action bar when the left sliding menu is toggled.
+     */
     private CharSequence          drawerLeftTitle;
 
     @Override
@@ -46,8 +66,12 @@ public class TopoSuiteActivity extends Activity {
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
         this.drawerListLeftMenu.setAdapter(
                 new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{
-                        new ActivityItem("Home", MainActivity.class),
-                        new ActivityItem("Points management", PointsManagerActivity.class)}));
+                        new ActivityItem(getString(R.string.home), MainActivity.class),
+                        new ActivityItem(getString(R.string.points_manager), PointsManagerActivity.class)}));
+        
+        this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
+        this.drawerListRightMenu.setAdapter(
+                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{}));
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListLeftMenu));
 

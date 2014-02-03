@@ -14,5 +14,6 @@
     <string name="altitude">Altitude</string>
     <string name="base_point">Base point</string>
     <string name="points_manager">Points Manager</string>
+    <string name="home">Home</string>
 
 </resources>
