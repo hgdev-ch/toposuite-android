@@ -39,7 +39,7 @@ public class Gisement extends Calculation {
     private double              altitude;
 
     /**
-     * The slope.
+     * The slope given in percentage
      */
     private double              slope;
 
@@ -114,6 +114,10 @@ public class Gisement extends Calculation {
             // TODO create a separate helper for converting grad to rad
             this.horizDist = deltaY / Math.sin((this.gisement * Math.PI) / 200);
         }
+
+        this.altitude = this.orientation.getAltitude() - this.origin.getAltitude();
+
+        this.slope = (this.altitude / this.horizDist) * 100;
 
         // update the calculation last modification date
         this.updateLastModification();
