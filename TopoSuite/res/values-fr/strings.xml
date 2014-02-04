@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="about_title">À propos <xliff:g id="app_name">%s</xliff:g></string>
-    <string name="action_settings">Paramètre</string>
+    <string name="about_title">À propos 
+        <xliff:g id="app_name">%s</xliff:g>
+    </string>
+    <string name="action_settings">Paramètres</string>
     <string name="add">Ajouter</string>
     <string name="add_3dots">Ajouter&#8230;</string>
     <string name="altitude">Altitude</string>
-    <string name="altitude_label">Dénivelée [m]</string>
-    <string name="app_copyright">Copyright <xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
+    <string name="altitude_label">Dénivelé [m]</string>
+    <string name="app_copyright">Copyright 
+        <xliff:g>%s</xliff:g> - 
+        <xliff:g id="crag">%s</xliff:g>
+    </string>
     <string name="app_developer">HGdev</string>
     <string name="app_developer_full_info">
         <xliff:g id="app_developer">%s</xliff:g> -
@@ -15,29 +20,34 @@
     </string>
     <string name="app_developer_webpage_url">http://www.hgdev.ch/</string>
     <string name="app_name">TopoSuite</string>
-    <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
+    <string name="app_version">Version: 
+        <xliff:g id="version">%s</xliff:g>
+    </string>
     <string name="base_point">Point de base</string>
+    <string name="calculation_description">Description</string>
+    <string name="calculation_last_modification">Dernière Modification</string>
+    <string name="calculation_type">Type</string>
+    <string name="cancel">Annuler</string>
     <string name="crag">CRAG (Commission Romande des Apprentis Géomaticiens)</string>
     <string name="developed_by">Developpé par</string>
     <string name="dialog_add_point">Ajouter un point</string>
-    <string name="distance_label">Distance (horiz.) [m]</string><string name="drawer_close">Ferme le menu de navigation</string>
+    <string name="distance_label">Distance (horiz.) [m]</string>
+    <string name="drawer_close">Ferme le menu de navigation</string>
     <string name="drawer_open">Ouvre le menu de navigation</string>
-    <string name="east">Est</string><string name="error_same_points">Les points doivent être différents!</string>
-    <string name="gisement_label">Gisement [g]</string><string name="home">Accueil</string>
+    <string name="east">Est</string>
+    <string name="error_same_points">Les points doivent être différents!</string>
+    <string name="gisement_label">Gisement [g]</string>
+    <string name="home">Accueil</string>
     <string name="no">Non</string>
-    <string name="north">Nord</string><string name="orientation_label">Second point (orient.)</string>
-    <string name="origin_label">Premier point (origine)</string><string name="point_number">No du point</string>
-    <string name="slope_label">Pente [%]</string><string name="title_activity_gisement">Gisement / Distance</string><string name="title_activity_history">Historique</string><string name="title_activity_points_manager">Gestion des points</string>
+    <string name="no_value">-</string>
+    <string name="north">Nord</string>
+    <string name="orientation_label">Second point (orient.)</string>
+    <string name="origin_label">Premier point (origine)</string>
+    <string name="point_number">No du point</string>
+    <string name="slope_label">Pente [%]</string>
+    <string name="title_activity_gisement">Gisement / Distance</string>
+    <string name="title_activity_history">Historique</string>
+    <string name="title_activity_points_manager">Gestion des points</string>
     <string name="toggle_right_menu_button">Calculs</string>
     <string name="yes">Oui</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 </resources>
