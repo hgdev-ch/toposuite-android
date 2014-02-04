@@ -90,7 +90,7 @@
 	    <LinearLayout
 	        android:layout_width="223dp"
 	        android:layout_height="fill_parent"
-	        android:layout_weight="0.03"
+	        android:layout_weight="0.09"
 	        android:orientation="vertical" >
 
 	        <LinearLayout
