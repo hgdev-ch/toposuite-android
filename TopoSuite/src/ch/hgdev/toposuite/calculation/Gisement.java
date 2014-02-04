@@ -147,6 +147,18 @@ public class Gisement extends Calculation {
         return complement;
     }
 
+    /**
+     * Calculate the "gisement" using the following formula:
+     * <i>atan(deltaY/deltaX)</i>
+     * 
+     * @param deltaY
+     *            delta Y
+     * @param deltaX
+     *            delta X
+     * @param complement
+     *            the complement
+     * @return the gisement
+     */
     private double computeGisement(double deltaY, double deltaX, double complement) {
         // handle division by zero
         double tmp = 0.0;
@@ -157,6 +169,18 @@ public class Gisement extends Calculation {
         return MathUtils.radToGrad(tmp) + complement;
     }
 
+    /**
+     * Calculate the horizontal distance using the following formula: <i>deltaY
+     * / sin(gisement)</i>
+     * 
+     * @param deltaY
+     *            delta Y
+     * @param deltaX
+     *            delta X
+     * @param gisement
+     *            the gisement
+     * @return the horizontal distance
+     */
     private double computeHorizDist(double deltaY, double deltaX, double gisement) {
         if (MathUtils.isZero(this.gisement) || MathUtils.isZero(deltaY)) {
             // TODO check if it's a correct assumption...
@@ -165,10 +189,25 @@ public class Gisement extends Calculation {
         return deltaY / Math.sin(MathUtils.gradToRad(this.gisement));
     }
 
+    /**
+     * Calculate the altitude.
+     * 
+     * @return the altitude
+     */
     private double computeAltitude() {
         return this.orientation.getAltitude() - this.origin.getAltitude();
     }
 
+    /**
+     * Calculate the slope in percent using the following formula: <i>(altitude
+     * / distance) * 100</i>
+     * 
+     * @param altitude
+     *            the altitude
+     * @param horizDist
+     *            the horizontal distance
+     * @return the slope in percent
+     */
     private double computeSlope(double altitude, double horizDist) {
         if (MathUtils.isZero(horizDist)) {
             return 0.0;
