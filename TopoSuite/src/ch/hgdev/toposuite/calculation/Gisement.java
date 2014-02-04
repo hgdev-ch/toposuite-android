@@ -92,7 +92,7 @@ public class Gisement extends Calculation {
         } else if (this.isNegative(deltaY) && this.isZero(deltaX)) {
             complement = 300.0;
         } else if ((this.isZero(deltaY) && this.isNegative(deltaX))
-                || (this.isPositive(deltaY) && this.isNegative(deltaY))
+                || (this.isPositive(deltaY) && this.isNegative(deltaX))
                 || (this.isNegative(deltaY) && this.isNegative(deltaX))) {
             complement = 200.0;
         } else if (this.isNegative(deltaY) && this.isPositive(deltaX)) {
