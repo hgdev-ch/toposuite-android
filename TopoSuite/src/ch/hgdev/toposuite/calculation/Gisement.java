@@ -77,6 +77,7 @@ public class Gisement extends Calculation {
 
     public void setOrigin(Point _origin) {
         this.origin = _origin;
+        this.compute();
     }
 
     public Point getOrientation() {
@@ -85,6 +86,7 @@ public class Gisement extends Calculation {
 
     public void setOrientation(Point _orientation) {
         this.orientation = _orientation;
+        this.compute();
     }
 
     public double getGisement() {
