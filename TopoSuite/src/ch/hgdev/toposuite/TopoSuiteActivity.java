@@ -1,9 +1,9 @@
 package ch.hgdev.toposuite;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.Menu;
@@ -22,22 +22,23 @@ import ch.hgdev.toposuite.points.PointsManagerActivity;
  * 
  * @author HGdev
  */
-public class TopoSuiteActivity extends Activity {
+public class TopoSuiteActivity extends FragmentActivity {
     /**
-     * The drawer layout that contains the left/right sliding menus and the activity layout.
+     * The drawer layout that contains the left/right sliding menus and the
+     * activity layout.
      */
     private DrawerLayout          drawerLayout;
-    
+
     /**
      * The left items list that contains the app main menus.
      */
     private ListView              drawerListLeftMenu;
-    
+
     /**
      * The right items list that contains the list of available calculations.
      */
     private ListView              drawerListRightMenu;
-    
+
     /**
      * The action bar drawer toggle.
      */
@@ -56,15 +57,15 @@ public class TopoSuiteActivity extends Activity {
         // set the content of the left sliding menu
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
         this.drawerListLeftMenu.setAdapter(
-                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{
+                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[] {
                         new ActivityItem(getString(R.string.home), MainActivity.class),
                         new ActivityItem(getString(R.string.title_activity_points_manager),
-                                PointsManagerActivity.class)}));
-        
+                                PointsManagerActivity.class) }));
+
         // set the content of the right sliding menu
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
         this.drawerListRightMenu.setAdapter(
-                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[]{}));
+                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[] {}));
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListLeftMenu));
 
@@ -73,7 +74,8 @@ public class TopoSuiteActivity extends Activity {
         this.getActionBar().setDisplayHomeAsUpEnabled(true);
         this.getActionBar().setHomeButtonEnabled(true);
 
-        // the drawerToggle handles the actions when a sliding menu is opened or closed
+        // the drawerToggle handles the actions when a sliding menu is opened or
+        // closed
         this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, R.drawable.ic_launcher,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
@@ -137,7 +139,8 @@ public class TopoSuiteActivity extends Activity {
     /**
      * Starts a new activity.
      * 
-     * @param activityClass Activity class
+     * @param activityClass
+     *            Activity class
      */
     public void startActivity(Class<?> activityClass) {
         Intent newActivityIntent = new Intent(this, activityClass);
@@ -150,11 +153,13 @@ public class TopoSuiteActivity extends Activity {
      * @author HGdev
      */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        private ListView list;
+        private final ListView list;
 
         /**
-         * Constructs a new DrawerItemClickListener. 
-         * @param list_ the items list
+         * Constructs a new DrawerItemClickListener.
+         * 
+         * @param list_
+         *            the items list
          */
         public DrawerItemClickListener(ListView list_) {
             this.list = list_;
@@ -168,7 +173,7 @@ public class TopoSuiteActivity extends Activity {
     }
 
     /**
-     * ActivityItem holds a pair of activity's title/class. 
+     * ActivityItem holds a pair of activity's title/class.
      * 
      * @author HGdev
      */
@@ -176,17 +181,20 @@ public class TopoSuiteActivity extends Activity {
         /**
          * The title that will appear in the left or right sliding menu.
          */
-        private String   title;
-        
+        private final String   title;
+
         /**
-         * The activity class to start on item click. 
+         * The activity class to start on item click.
          */
-        private Class<?> activityClass;
+        private final Class<?> activityClass;
 
         /**
          * Constructs a new ActivityItem.
-         * @param _title Activity title
-         * @param activityClass Activity class
+         * 
+         * @param _title
+         *            Activity title
+         * @param activityClass
+         *            Activity class
          */
         public ActivityItem(String _title, Class<?> activityClass) {
             this.title = _title;
@@ -200,6 +208,7 @@ public class TopoSuiteActivity extends Activity {
 
         /**
          * Getter for activityClass.
+         * 
          * @return the activity class
          */
         public Class<?> getActivityClass() {
