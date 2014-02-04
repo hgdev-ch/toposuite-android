@@ -17,6 +17,11 @@ task :build do
 	system('cd "$PWD/TopoSuite" && ant clean debug')
 end
 
+desc "Create a release APK"
+task :release do
+	system('cd "$PWD/TopoSuite" && ant clean release')
+end
+
 desc "Build and install the application on the emulator"
 task :install do
 	system('cd "$PWD/TopoSuite" && ant clean debug install')
