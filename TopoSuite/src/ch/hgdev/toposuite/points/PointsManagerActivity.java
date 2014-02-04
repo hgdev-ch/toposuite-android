@@ -123,25 +123,28 @@ public class PointsManagerActivity extends TopoSuiteActivity
         cellParams.width = LayoutParams.WRAP_CONTENT;
         cellParams.gravity = Gravity.CENTER;
 
-        TextView cell = new TextView(this);
-
         // point number cell
-        cell.setText(point.getNumber());
+        TextView cell = new TextView(this);
+        cell.setText(String.valueOf(point.getNumber()));
         row.addView(cell, cellParams);
 
         // east cell
+        cell = new TextView(this);
         cell.setText(DisplayUtils.toString(point.getEast()));
         row.addView(cell, cellParams);
 
         // north cell
+        cell = new TextView(this);
         cell.setText(DisplayUtils.toString(point.getNorth()));
         row.addView(cell, cellParams);
 
         // altitude cell
+        cell = new TextView(this);
         cell.setText(DisplayUtils.toString(point.getAltitude()));
         row.addView(cell, cellParams);
 
         // base point cell
+        cell = new TextView(this);
         cell.setText(DisplayUtils.toString(this, point.getBasePoint()));
         row.addView(cell, cellParams);
 
