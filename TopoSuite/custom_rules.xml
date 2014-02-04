@@ -46,17 +46,15 @@
     </target>
 
     <target name="-commit-version">
-<!-- TODO ommit it for now but should use it later
         <exec executable="git" failonerror="true">
             <arg line="add AndroidManifest.xml" />
         </exec>
         <exec executable="git" failonerror="true">
-            <arg line="commit -m 'bump manifest to ${current-git-version-name}'" />
+            <arg line="commit -m 'bump manifest to nightly-1.0.0-${current-git-version-name}'" />
         </exec>
         <exec executable="git" failonerror="true">
-            <arg line="tag ${current-git-version-name}'" />
+            <arg line="tag nightly-1.0.0-${current-git-version-name}" />
         </exec>
--->
     </target>
 
     <!-- override android ant default release name -->
