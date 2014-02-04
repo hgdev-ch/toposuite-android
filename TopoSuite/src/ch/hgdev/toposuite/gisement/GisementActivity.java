@@ -121,8 +121,6 @@ public class GisementActivity extends TopoSuiteActivity {
             this.slopeValue.setText(getString(R.string.no_value));
         } else if (p1.getNumber() == p2.getNumber()) {
             Toast.makeText(this, R.string.error_same_points, Toast.LENGTH_LONG).show();
-            this.orientationSpinner.setSelection(0);
-            this.orientationPoint.setText("");
         } else {
             if (this.gisement == null) {
                 this.gisement = new Gisement(p1, p2);
