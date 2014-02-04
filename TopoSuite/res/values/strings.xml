@@ -14,7 +14,7 @@
     <string name="base_point">Base point</string>
     <string name="crag">CRAG (Commission Romande des Apprentis Géomaticiens)</string>
     <string name="developed_by">Developed by</string>
-    <string name="distance_label">Horiz. Distance</string><string name="drawer_close">Close navigation drawer</string>
+    <string name="distance_label">Horiz. Distance</string>
     <string name="dialog_add_point">Add a point</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
