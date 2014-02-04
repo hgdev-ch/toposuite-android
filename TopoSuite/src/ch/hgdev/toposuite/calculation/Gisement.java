@@ -144,7 +144,7 @@ public class Gisement extends Calculation {
      * @return true if d is smaller than 0, false otherwise.
      */
     private boolean isNegative(double d) {
-        return d < Gisement.EPSILON;
+        return d < -Gisement.EPSILON;
     }
 
     /**
