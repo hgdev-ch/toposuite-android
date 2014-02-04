@@ -12,5 +12,6 @@ local.properties
 .checkstyle
 .DS_Store
 *.log
+*.swp
 
 lint.xml
