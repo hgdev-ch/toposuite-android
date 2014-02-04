@@ -8,7 +8,7 @@ import ch.hgdev.toposuite.points.Point;
  * @author HGdev
  */
 public class Gisement extends Calculation {
-    private final static double EPSILON = 0.0001;
+    private final static double EPSILON = Double.MIN_VALUE;
 
     private Point               origin;
     private Point               orientation;
