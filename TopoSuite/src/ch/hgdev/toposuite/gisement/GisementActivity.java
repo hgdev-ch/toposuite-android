@@ -14,6 +14,10 @@ import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
+/**
+ * Activity providing an interface for calculating the Gisement / Distance.
+ * @author HGdev
+ */
 public class GisementActivity extends TopoSuiteActivity {
     private Spinner  originSpinner;
     private Spinner  orientationSpinner;
@@ -98,6 +102,10 @@ public class GisementActivity extends TopoSuiteActivity {
         this.orientationSpinner.setAdapter(a);
     }
     
+    /**
+     * itemSelected is triggered when the selected item of one of the spinners is 
+     * changed. 
+     */
     private void itemSelected() {
         Point p1 = (Point) this.originSpinner.getSelectedItem();
         Point p2 = (Point) this.orientationSpinner.getSelectedItem();
@@ -126,6 +134,9 @@ public class GisementActivity extends TopoSuiteActivity {
         }
     }
     
+    /**
+     * Reset the TextViews that contains the results. 
+     */
     private void resetResults() {
         this.gisementValue.setText(getString(R.string.no_value));
         this.distValue.setText(getString(R.string.no_value));
@@ -133,6 +144,11 @@ public class GisementActivity extends TopoSuiteActivity {
         this.slopeValue.setText(getString(R.string.no_value));
     }
     
+    /**
+     * Format a point in order to display it in a TextView.
+     * @param pt a Point
+     * @return formatted Point
+     */
     private String formatPoint(Point pt) {
         return String.format(
                 "%s: %s, %s: %s, %s: %s",
