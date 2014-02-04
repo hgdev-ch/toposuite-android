@@ -50,10 +50,7 @@
             <arg line="add AndroidManifest.xml" />
         </exec>
         <exec executable="git" failonerror="true">
-            <arg line="commit -m 'bump manifest to nightly-1.0.0-${current-git-version-name}'" />
-        </exec>
-        <exec executable="git" failonerror="true">
-            <arg line="tag nightly-1.0.0-${current-git-version-name}" />
+            <arg line="commit -m 'bump manifest to 1.0.0-${current-git-version-name}'" />
         </exec>
     </target>
 
