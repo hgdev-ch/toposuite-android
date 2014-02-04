@@ -1,7 +1,5 @@
 package ch.hgdev.toposuite.gisement;
 
-import java.util.TreeSet;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -89,17 +87,7 @@ public class GisementActivity extends TopoSuiteActivity {
     protected void onResume() {
         super.onResume();
         
-        // TODO remove this and use the points added by the PointsManager activity
-        /*this.pointsList = new TreeSet<Point>(new Comparator<Point>() {
-            @Override
-            public int compare(Point lhs, Point rhs) {
-                return (lhs.getNumber() < rhs.getNumber()) ? 1 : -1;
-            }
-        });
-        
-        this.pointsList.add(new Point(2, 683.064, 194.975, 0.0, true));
-        this.pointsList.add(new Point(1, 600.245, 200.729, 0.0, true));*/
-        
+        // TODO remove this and use the points added by the PointsManager activity        
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this, R.layout.spinner_list_item, new Point[]{
                         new Point(-1, 0.0, 0.0, 0.0, true),
