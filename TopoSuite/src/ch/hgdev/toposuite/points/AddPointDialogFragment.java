@@ -90,21 +90,21 @@ public class AddPointDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
-        // TODO use strings.xml
         this.numberEditText = new EditText(this.getActivity());
-        this.numberEditText.setHint("point number...");
+        this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
         this.numberEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.eastEditText = new EditText(this.getActivity());
-        this.eastEditText.setHint("east...");
+        this.eastEditText.setHint(this.getActivity().getString(R.string.east_3dots));
         this.eastEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.northEditText = new EditText(this.getActivity());
-        this.northEditText.setHint("north...");
+        this.northEditText.setHint(this.getActivity().getString(R.string.north_3dots));
+
         this.northEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.altitudeEditText = new EditText(this.getActivity());
-        this.altitudeEditText.setHint("altitude...");
+        this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude_3dots));
         this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.number = 0;
@@ -122,7 +122,7 @@ public class AddPointDialogFragment extends DialogFragment {
      */
     private View genAddPointView() {
         LinearLayout layout = new LinearLayout(this.getActivity());
-        
+
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(this.numberEditText);
         layout.addView(this.eastEditText);
