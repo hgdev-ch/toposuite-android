@@ -69,6 +69,11 @@ public class PointsManagerActivity extends TopoSuiteActivity
                 ((AddPointDialogFragment) dialog).getAltitude());
     }
 
+    @Override
+    public void onDialogCancel(DialogFragment dialog) {
+        // do nothing
+    }
+
     /**
      * Display a dialog to allow the user to insert a new point.
      */

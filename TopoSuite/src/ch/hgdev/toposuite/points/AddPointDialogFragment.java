@@ -30,6 +30,8 @@ public class AddPointDialogFragment extends DialogFragment {
      */
     public interface AddPointDialogListener {
         public void onDialogAdd(DialogFragment dialog);
+
+        public void onDialogCancel(DialogFragment dialog);
     }
 
     AddPointDialogListener listener;
@@ -63,6 +65,13 @@ public class AddPointDialogFragment extends DialogFragment {
                                 .parseDouble(AddPointDialogFragment.this.northEditText.getText().toString());
                         AddPointDialogFragment.this.listener.onDialogAdd(AddPointDialogFragment.this);
                     }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AddPointDialogFragment.this.listener.onDialogCancel(AddPointDialogFragment.this);
+                    }
+
                 });
         return builder.create();
     }
