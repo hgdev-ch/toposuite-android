@@ -8,6 +8,8 @@ import ch.hgdev.toposuite.points.Point;
  * @author HGdev
  */
 public class Gisement extends Calculation {
+    private final static double EPSILON = 0.01;
+    
     private Point origine;
     private Point orientation;
     
@@ -33,26 +35,36 @@ public class Gisement extends Calculation {
         // and if deltaY is 0.0 and deltaX is positive.
         double complement = 0.0;
         
-        if (deltaY > 0.0 && isZero(deltaX)) {
+        // FIXME precision problem
+        if (isPositive(deltaY) && isZero(deltaX)) {
             complement = 100.0;
-        } else if (deltaY < 0.0 && isZero(deltaX)) {
+        } else if (isNegative(deltaY) && isZero(deltaX)) {
             complement = 300.0;
-        } else if ((isZero(deltaY) && deltaX < 0.0) || (deltaY > 0.0 && deltaY < 0.0) || (deltaY < 0.0 && deltaX < 0.0)) {
+        } else if ((isZero(deltaY) && isNegative(deltaX)) || (isPositive(deltaY) && isNegative(deltaY))
+                || (isNegative(deltaY) && isNegative(deltaX))) {
             complement = 200.0;
-        } else if (deltaY < 0.0 && deltaX > 0.0) {
+        } else if (isNegative(deltaY) && isPositive(deltaX)) {
             complement = 400.0;
         }
         
         // TODO create a separate helper for converting rad to grad
         this.gisement = (Math.atan(deltaY/deltaX)/Math.PI) * 200 + complement;
         
-     // TODO create a separate helper for converting grad to rad
+        // TODO create a separate helper for converting grad to rad
         this.distHoriz = deltaY / ((Math.sin((this.gisement * Math.PI) / 200)));
     }
     
     private boolean isZero(double d) {
         final double EPSILON = 0.0001; 
         return d < EPSILON && d > -EPSILON;
+    }
+    
+    private boolean isPositive(double d) {
+        return d > EPSILON;
+    }
+    
+    private boolean isNegative(double d) {
+        return d < EPSILON;
     }
 
     public Point getOrigine() {
