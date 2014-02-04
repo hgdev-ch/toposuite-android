@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.calculation;
 
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * Gisement provides methods for the calculation of a gisement/distance.
@@ -9,39 +10,34 @@ import ch.hgdev.toposuite.points.Point;
  */
 public class Gisement extends Calculation {
     /**
-     * The machine precision used to perform logical operation on doubles.
-     */
-    private final static double EPSILON = Double.MIN_VALUE;
-
-    /**
      * The origin.
      */
-    private Point               origin;
+    private Point  origin;
 
     /**
      * The orientation.
      */
-    private Point               orientation;
+    private Point  orientation;
 
     /**
      * The "gisement", also called Z0.
      */
-    private double              gisement;
+    private double gisement;
 
     /**
      * The horizontal distance.
      */
-    private double              horizDist;
+    private double horizDist;
 
     /**
      * The altitude.
      */
-    private double              altitude;
+    private double altitude;
 
     /**
      * The slope given in percentage
      */
-    private double              slope;
+    private double slope;
 
     /**
      * Constructs a new Gisement object. It also calls the
@@ -87,27 +83,27 @@ public class Gisement extends Calculation {
         // and if deltaY is 0.0 and deltaX is positive.
         double complement = 0.0;
 
-        if (this.isPositive(deltaY) && this.isZero(deltaX)) {
+        if (MathUtils.isPositive(deltaY) && MathUtils.isZero(deltaX)) {
             complement = 100.0;
-        } else if (this.isNegative(deltaY) && this.isZero(deltaX)) {
+        } else if (MathUtils.isNegative(deltaY) && MathUtils.isZero(deltaX)) {
             complement = 300.0;
-        } else if ((this.isZero(deltaY) && this.isNegative(deltaX))
-                || (this.isPositive(deltaY) && this.isNegative(deltaX))
-                || (this.isNegative(deltaY) && this.isNegative(deltaX))) {
+        } else if ((MathUtils.isZero(deltaY) && MathUtils.isNegative(deltaX))
+                || (MathUtils.isPositive(deltaY) && MathUtils.isNegative(deltaX))
+                || (MathUtils.isNegative(deltaY) && MathUtils.isNegative(deltaX))) {
             complement = 200.0;
-        } else if (this.isNegative(deltaY) && this.isPositive(deltaX)) {
+        } else if (MathUtils.isNegative(deltaY) && MathUtils.isPositive(deltaX)) {
             complement = 400.0;
         }
 
         // handle division by zero
         double tmp = 0.0;
-        if (!this.isZero(deltaX)) {
+        if (!MathUtils.isZero(deltaX)) {
             tmp = Math.atan(deltaY / deltaX);
         }
         // TODO create a separate helper for converting rad to grad
         this.gisement = ((tmp / Math.PI) * 200) + complement;
 
-        if (this.isZero(this.gisement) || this.isZero(deltaY)) {
+        if (MathUtils.isZero(this.gisement) || MathUtils.isZero(deltaY)) {
             // TODO check if it's a correct assumption...
             this.horizDist = Math.abs(deltaX);
         } else {
@@ -121,39 +117,6 @@ public class Gisement extends Calculation {
 
         // update the calculation last modification date
         this.updateLastModification();
-    }
-
-    /**
-     * Check if a double is zero.
-     * 
-     * @param d
-     *            a double
-     * @return true if d is equal to 0, false otherwise.
-     */
-    private boolean isZero(double d) {
-        return (d < Gisement.EPSILON) && (d > -Gisement.EPSILON);
-    }
-
-    /**
-     * Check if a double is strictly positive.
-     * 
-     * @param d
-     *            a double
-     * @return true if d is bigger than 0, false otherwise.
-     */
-    private boolean isPositive(double d) {
-        return d > Gisement.EPSILON;
-    }
-
-    /**
-     * Check if a double is strictly negative.
-     * 
-     * @param d
-     *            a double
-     * @return true if d is smaller than 0, false otherwise.
-     */
-    private boolean isNegative(double d) {
-        return d < -Gisement.EPSILON;
     }
 
     /**
