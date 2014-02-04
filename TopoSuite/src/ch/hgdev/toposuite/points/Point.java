@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ch.hgdev.toposuite.points;
 
 /**

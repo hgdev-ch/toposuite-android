@@ -1,5 +1,6 @@
 /**
  * Manage everything related to points.
+ *
  * @author HGdev
  *
  */

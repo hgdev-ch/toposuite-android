@@ -1,7 +1,11 @@
 package ch.hgdev.toposuite.test.entry;
 
-import junit.framework.TestCase;
+import ch.hgdev.toposuite.entry.MainActivity;
+import ch.hgdev.toposuite.test.utils.TestActivity;
 
-public class MainActivityTest extends TestCase {
+public class MainActivityTest extends TestActivity<MainActivity> {
 
+    public MainActivityTest() {
+        super(MainActivity.class);
+    }
 }

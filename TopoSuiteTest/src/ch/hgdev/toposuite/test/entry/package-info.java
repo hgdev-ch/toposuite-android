@@ -1,8 +1,7 @@
 /**
+ * Test package for application entry package.
  * 
- */
-/**
- * @author robin
+ * @author HGdev
  *
  */
 package ch.hgdev.toposuite.test.entry;

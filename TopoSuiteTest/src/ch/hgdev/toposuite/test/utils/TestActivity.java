@@ -15,27 +15,27 @@ import com.robotium.solo.Solo;
  *            The activity under test.
  */
 public class TestActivity<T extends android.app.Activity> extends
-	ActivityInstrumentationTestCase2<T> {
+        ActivityInstrumentationTestCase2<T> {
 
     private Solo solo;
 
     public TestActivity(Class<T> activityClass) {
-	super(activityClass);
+        super(activityClass);
     }
 
     public Solo getSolo() {
-	return this.solo;
+        return this.solo;
     }
 
     @Override
     protected void setUp() throws Exception {
-	super.setUp();
-	this.solo = new Solo(this.getInstrumentation());
+        super.setUp();
+        this.solo = new Solo(this.getInstrumentation());
     }
 
     @Override
     protected void tearDown() throws Exception {
-	this.solo.finishOpenedActivities();
-	super.tearDown();
+        this.solo.finishOpenedActivities();
+        super.tearDown();
     }
 }

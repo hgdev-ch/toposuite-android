@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ch.hgdev.toposuite;
 
 import android.app.Application;

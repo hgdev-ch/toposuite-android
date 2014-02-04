@@ -1,7 +1,6 @@
 /**
+ * Test package for the calculation package.
  * 
- */
-/**
  * @author HGdev
  *
  */
