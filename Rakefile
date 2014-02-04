@@ -19,7 +19,7 @@ end
 
 desc "Create a release APK"
 task :release do
-	system('cd "$PWD/TopoSuite" && ant clean release')
+	system('cd "$PWD/TopoSuite" && ant bump-version clean release')
 end
 
 desc "Build and install the application on the emulator"
