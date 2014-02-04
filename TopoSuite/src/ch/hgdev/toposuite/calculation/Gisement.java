@@ -47,8 +47,14 @@ public class Gisement extends Calculation {
             complement = 400.0;
         }
         
+
+        // handle division by zero
+        double tmp = 0.0;
+        if (deltaX > 0.0) {
+            tmp = Math.atan(deltaY/deltaX);
+        }
         // TODO create a separate helper for converting rad to grad
-        this.gisement = (Math.atan(deltaY/deltaX)/Math.PI) * 200 + complement;
+        this.gisement = (tmp/Math.PI) * 200 + complement;
         
         // TODO create a separate helper for converting grad to rad
         this.distHoriz = deltaY / ((Math.sin((this.gisement * Math.PI) / 200)));
