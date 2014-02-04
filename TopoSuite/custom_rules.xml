@@ -59,8 +59,22 @@
 -->
     </target>
 
+    <!-- override android ant default release name -->
+    <target name="-rename-release" depends="-get-version-name">
+        <!--  see ${sdk.dir}/tools/ant/build.xml -set-release-mode -->
+        <property name="out.packaged.file" 
+                  location="${out.absolute.dir}/${ant.project.name}-${current-version-name}-release-unsigned.apk" />
+        <property name="out.final.file" 
+                  location="${out.absolute.dir}/${ant.project.name}-${current-version-name}-release.apk" />
+    </target>
+    <target name="-set-release-mode"
+         depends="-rename-release,android_rules.-set-release-mode">
+        <echo message="target: ${build.target}"></echo>
+    </target>
+
     <!-- rules -->
     <target name="bump-version" depends="-set-version,-commit-version">
         <echo>Bumped TopoSuite to ${version-name}</echo>
     </target>
+
 </project>
