@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.gisement.GisementActivity;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
@@ -61,7 +62,9 @@ public class TopoSuiteActivity extends FragmentActivity {
                 new ActivityItem[] {
                         new ActivityItem(this.getString(R.string.home), MainActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_points_manager),
-                                PointsManagerActivity.class) }));
+                                PointsManagerActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_history),
+                                HistoryActivity.class)}));
 
         // set the content of the right sliding menu
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);

@@ -25,10 +25,11 @@
     <string name="no">Non</string>
     <string name="north">Nord</string><string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">Premier point (origine)</string><string name="point_number">No du point</string>
-    <string name="slope_label">Pente [%]</string><string name="title_activity_points_manager">Gestion des points</string>
+    <string name="slope_label">Pente [%]</string><string name="title_activity_gisement">Gisement / Distance</string><string name="title_activity_history">Historique</string><string name="title_activity_points_manager">Gestion des points</string>
     <string name="toggle_right_menu_button">Calculs</string>
     <string name="yes">Oui</string>
-    <string name="title_activity_gisement">Gisement / Distance</string>
+    
+    
     
     
     
