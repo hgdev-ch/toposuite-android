@@ -101,7 +101,7 @@ public class Gisement extends Calculation {
 
         // handle division by zero
         double tmp = 0.0;
-        if (deltaX > 0.0) {
+        if (!this.isZero(deltaX)) {
             tmp = Math.atan(deltaY / deltaX);
         }
         // TODO create a separate helper for converting rad to grad
