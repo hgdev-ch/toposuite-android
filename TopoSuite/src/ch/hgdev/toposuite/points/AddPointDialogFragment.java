@@ -122,7 +122,8 @@ public class AddPointDialogFragment extends DialogFragment {
      */
     private View genAddPointView() {
         LinearLayout layout = new LinearLayout(this.getActivity());
-
+        
+        layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(this.numberEditText);
         layout.addView(this.eastEditText);
         layout.addView(this.northEditText);
