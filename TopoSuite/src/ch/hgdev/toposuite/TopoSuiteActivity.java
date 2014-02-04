@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ch.hgdev.toposuite.entry.MainActivity;
+import ch.hgdev.toposuite.gisement.GisementActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
@@ -50,24 +51,26 @@ public class TopoSuiteActivity extends FragmentActivity {
         super.setContentView(R.layout.global_layout);
 
         // set the titles that will appear in the action bar
-        getActionBar().setTitle(getString(R.string.app_name));
+        this.getActionBar().setTitle(this.getString(R.string.app_name));
 
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
         // set the content of the left sliding menu
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
-        this.drawerListLeftMenu.setAdapter(
-                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[] {
-                        new ActivityItem(getString(R.string.home), MainActivity.class),
-                        new ActivityItem(getString(R.string.title_activity_points_manager),
+        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item,
+                new ActivityItem[] {
+                        new ActivityItem(this.getString(R.string.home), MainActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_points_manager),
                                 PointsManagerActivity.class) }));
 
         // set the content of the right sliding menu
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
-        this.drawerListRightMenu.setAdapter(
-                new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item, new ActivityItem[] {}));
+        this.drawerListRightMenu.setAdapter(new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item,
+                new ActivityItem[] { new ActivityItem(this.getString(R.string.title_activity_gisement),
+                        GisementActivity.class) }));
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListLeftMenu));
+        this.drawerListRightMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListRightMenu));
 
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
 
