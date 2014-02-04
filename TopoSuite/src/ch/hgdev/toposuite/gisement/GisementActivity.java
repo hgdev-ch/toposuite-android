@@ -115,11 +115,9 @@ public class GisementActivity extends TopoSuiteActivity {
         Point p2 = (Point) this.orientationSpinner.getSelectedItem();
         
         if (p1.getNumber() == -1 || p2.getNumber() == -1) {
-            this.gisementValue.setText(getString(R.string.no_value));
-            this.distValue.setText(getString(R.string.no_value));
-            this.altitudeValue.setText(getString(R.string.no_value));
-            this.slopeValue.setText(getString(R.string.no_value));
+            resetResults();
         } else if (p1.getNumber() == p2.getNumber()) {
+            resetResults();
             Toast.makeText(this, R.string.error_same_points, Toast.LENGTH_LONG).show();
         } else {
             if (this.gisement == null) {
@@ -138,6 +136,13 @@ public class GisementActivity extends TopoSuiteActivity {
             this.slopeValue.setText(
                     DisplayUtils.toString(this.gisement.getSlope()));
         }
+    }
+    
+    private void resetResults() {
+        this.gisementValue.setText(getString(R.string.no_value));
+        this.distValue.setText(getString(R.string.no_value));
+        this.altitudeValue.setText(getString(R.string.no_value));
+        this.slopeValue.setText(getString(R.string.no_value));
     }
     
     private String formatPoint(Point pt) {
