@@ -183,7 +183,6 @@ public class Gisement extends Calculation {
      */
     private double computeHorizDist(double deltaY, double deltaX, double gisement) {
         if (MathUtils.isZero(this.gisement) || MathUtils.isZero(deltaY)) {
-            // TODO check if it's a correct assumption...
             return Math.abs(deltaX);
         }
         return deltaY / Math.sin(MathUtils.gradToRad(this.gisement));
