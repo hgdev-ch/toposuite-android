@@ -1,10 +1,10 @@
 package ch.hgdev.toposuite.history;
 
-import android.app.Activity;
 import android.os.Bundle;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.TopoSuiteActivity;
 
-public class HistoryActivity extends Activity {
+public class HistoryActivity extends TopoSuiteActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
