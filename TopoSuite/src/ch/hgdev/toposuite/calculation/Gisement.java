@@ -100,19 +100,18 @@ public class Gisement extends Calculation {
         if (!MathUtils.isZero(deltaX)) {
             tmp = Math.atan(deltaY / deltaX);
         }
-        // TODO create a separate helper for converting rad to grad
+
         this.gisement = MathUtils.radToGrad(tmp) + complement;
 
         if (MathUtils.isZero(this.gisement) || MathUtils.isZero(deltaY)) {
             // TODO check if it's a correct assumption...
             this.horizDist = Math.abs(deltaX);
         } else {
-            // TODO create a separate helper for converting grad to rad
             this.horizDist = deltaY / Math.sin(MathUtils.gradToRad(this.gisement));
         }
 
+        // TODO add some verification to avoid division by zero...
         this.altitude = this.orientation.getAltitude() - this.origin.getAltitude();
-
         this.slope = (this.altitude / this.horizDist) * 100;
 
         // update the calculation last modification date
