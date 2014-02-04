@@ -107,8 +107,13 @@ public class Gisement extends Calculation {
         // TODO create a separate helper for converting rad to grad
         this.gisement = ((tmp / Math.PI) * 200) + complement;
 
-        // TODO create a separate helper for converting grad to rad
-        this.horizDist = deltaY / Math.sin((this.gisement * Math.PI) / 200);
+        if (this.isZero(this.gisement) || this.isZero(deltaY)) {
+            // TODO check if it's a correct assumption...
+            this.horizDist = Math.abs(deltaX);
+        } else {
+            // TODO create a separate helper for converting grad to rad
+            this.horizDist = deltaY / Math.sin((this.gisement * Math.PI) / 200);
+        }
 
         // update the calculation last modification date
         this.updateLastModification();
