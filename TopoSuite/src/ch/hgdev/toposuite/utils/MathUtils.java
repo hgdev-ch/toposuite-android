@@ -38,4 +38,26 @@ public class MathUtils {
     public static boolean isNegative(double d) {
         return d < -MathUtils.EPSILON;
     }
+
+    /**
+     * Convert radian to gradian
+     * 
+     * @param rad
+     *            angle in radian
+     * @return angle in gradian
+     */
+    public static double radToGrad(double rad) {
+        return (rad / Math.PI) * 200;
+    }
+
+    /**
+     * Convert gradian to radian
+     * 
+     * @param grad
+     *            angle in gradian
+     * @return angle in radian
+     */
+    public static double gradToRad(double grad) {
+        return (grad * Math.PI) / 200;
+    }
 }
