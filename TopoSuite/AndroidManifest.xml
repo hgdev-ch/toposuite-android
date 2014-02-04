@@ -26,6 +26,10 @@
             android:name="ch.hgdev.toposuite.points.PointsManagerActivity"
             android:label="@string/title_activity_points_manager" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.gisement.GisementActivity"
+            android:label="@string/title_activity_gisement" >
+        </activity>
     </application>
 
 </manifest>
