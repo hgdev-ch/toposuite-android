@@ -8,6 +8,7 @@
     <string name="add">Add</string>
     <string name="add_3dots">Add&#8230;</string>
     <string name="altitude">Altitude</string>
+    <string name="altitude_3dots">Altitude&#8230;</string>
     <string name="altitude_label">Altitude [m]</string>
     <string name="app_copyright">Copyright 
         <xliff:g>%s</xliff:g> - 
@@ -35,15 +36,18 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
+    <string name="east_3dots">East&#8230;</string>
     <string name="error_same_points">The points must be different!</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Home</string>
     <string name="no">No</string>
     <string name="no_value">-</string>
     <string name="north">North</string>
+    <string name="north_3dots">North&#8230;</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">First point (origin)</string>
     <string name="point_number">Point No</string>
+    <string name="point_number_3dots">Point No&#8230;</string>
     <string name="slope_label">Slope [%]</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">History</string>
