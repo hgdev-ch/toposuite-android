@@ -78,4 +78,13 @@ public class Point {
     public void setBasePoint(boolean _basePoint) {
         this.basePoint = _basePoint;
     }
+    
+    @Override
+    public String toString() {
+        // the -1 number is used to put an empty item into the spinner
+        if (this.number == -1) {
+            return "";
+        }
+        return String.valueOf(this.number);
+    }
 }

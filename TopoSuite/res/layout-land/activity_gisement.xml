@@ -1,0 +1,194 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+	    <LinearLayout
+	        android:layout_width="273dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.12"
+	        android:orientation="vertical" >
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:paddingBottom="8dp"
+	            android:paddingTop="8dp" >
+
+	            <TextView
+	                android:id="@+id/origin_label"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.40"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/origin_label" />
+
+	            <Spinner
+	                android:id="@+id/origin_spinner"
+	                android:layout_width="145dp"
+	                android:layout_height="match_parent" />
+	        </LinearLayout>
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal" >
+
+	            <TextView
+	                android:id="@+id/origin_point"
+	                android:layout_width="0dip"
+	                android:layout_height="30dp"
+	                android:layout_gravity="center"
+	                android:layout_weight="0.86"
+	                android:gravity="center"
+	                android:text="" />
+	        </LinearLayout>
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:paddingBottom="8dp"
+	            android:paddingTop="8dp" >
+
+	            <TextView
+	                android:id="@+id/orientation_label"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.94"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/orientation_label" />
+
+	            <Spinner
+	                android:id="@+id/orientation_spinner"
+	                android:layout_width="145dp"
+	                android:layout_height="50dp" />
+	        </LinearLayout>
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal" >
+
+	            <TextView
+	                android:id="@+id/orientation_point"
+	                android:layout_width="0dip"
+	                android:layout_height="31dp"
+	                android:layout_weight="0.86"
+	                android:gravity="center"
+	                android:text="" />
+	        </LinearLayout>
+	    </LinearLayout>
+
+	    <LinearLayout
+	        android:layout_width="223dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="0.09"
+	        android:orientation="vertical" >
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="60dp"
+	            android:orientation="horizontal" >
+
+	            <TextView
+	                android:id="@+id/gisement_label"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.86"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/gisement_label" />
+
+	            <TextView
+	                android:id="@+id/gisement_value"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.86"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/no_value" />
+	        </LinearLayout>
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="60dp"
+	            android:orientation="horizontal" >
+
+	            <TextView
+	                android:id="@+id/distance_label"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.86"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/distance_label" />
+
+	            <TextView
+	                android:id="@+id/distance_value"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.86"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/no_value" />
+	        </LinearLayout>
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="30dp"
+	            android:orientation="horizontal" >
+
+	            <TextView
+	                android:id="@+id/altitude_label"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.86"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/altitude_label" />
+
+	            <TextView
+	                android:id="@+id/altitude_value"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.86"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/no_value" />
+	        </LinearLayout>
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="60dp"
+	            android:orientation="horizontal" >
+
+	            <TextView
+	                android:id="@+id/slope_label"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.86"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/slope_label" />
+
+	            <TextView
+	                android:id="@+id/slope_value"
+	                android:layout_width="0dip"
+	                android:layout_height="match_parent"
+	                android:layout_weight="0.86"
+	                android:gravity="left|center_vertical"
+	                android:paddingLeft="@dimen/activity_horizontal_margin"
+	                android:text="@string/no_value" />
+	        </LinearLayout>
+	    </LinearLayout>
+	</LinearLayout>
+
+</ScrollView>
