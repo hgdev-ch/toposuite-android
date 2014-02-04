@@ -164,8 +164,8 @@ public class TopoSuiteActivity extends FragmentActivity {
          * @param list_
          *            the items list
          */
-        public DrawerItemClickListener(ListView list_) {
-            this.list = list_;
+        public DrawerItemClickListener(ListView _list) {
+            this.list = _list;
         }
 
         @Override
