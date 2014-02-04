@@ -23,7 +23,9 @@
     <string name="no">No</string>
     <string name="no_value">-</string><string name="north">North</string><string name="orientation_label">Second point (orient.)</string><string name="origin_label">First point (origin)</string>
     <string name="point_number">Point No</string>
-    <string name="slope_label">Slope</string><string name="title_activity_gisement">Gisement / Distance</string><string name="title_activity_points_manager">Points Manager</string>
+    <string name="slope_label">Slope</string>
+    <string name="title_activity_gisement">Gisement / Distance</string>
+    <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="yes">Yes</string>
 </resources>
