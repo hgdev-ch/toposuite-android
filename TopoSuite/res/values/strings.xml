@@ -3,6 +3,7 @@
 
     <string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string>
     <string name="action_settings">Settings</string>
+    <string name="add">Add</string>
     <string name="altitude">Altitude</string>
     <string name="altitude_label">Altitiude</string><string name="app_copyright">Copyright <xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
     <string name="app_developer">HGdev</string>
@@ -14,6 +15,8 @@
     <string name="crag">CRAG (Commission Romande des Apprentis Géomaticiens)</string>
     <string name="developed_by">Developed by</string>
     <string name="distance_label">Horiz. Distance</string><string name="drawer_close">Close navigation drawer</string>
+    <string name="dialog_add_point">Add a point</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
     <string name="gisement_label">Gisement</string><string name="home">Home</string>
@@ -23,15 +26,4 @@
     <string name="slope_label">Slope</string><string name="title_activity_gisement">Gisement / Distance</string><string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="yes">Yes</string>
-    <string name="hello_world">Hello world!</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 </resources>

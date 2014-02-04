@@ -3,6 +3,7 @@
 
     <string name="about_title">À propos <xliff:g id="app_name">%s</xliff:g></string>
     <string name="action_settings">Paramètre</string>
+    <string name="add">Ajouter</string>
     <string name="altitude">Altitude</string>
     <string name="app_copyright">Copyright <xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
     <string name="app_developer">HGdev</string>
@@ -16,6 +17,7 @@
     <string name="base_point">Point de base</string>
     <string name="crag">CRAG (Commission Romande des Apprentis Géomaticiens)</string>
     <string name="developed_by">Developpé par</string>
+    <string name="dialog_add_point">Ajouter un point</string>
     <string name="drawer_close">Ferme le menu de navigation</string>
     <string name="drawer_open">Ouvre le menu de navigation</string>
     <string name="east">Est</string>
