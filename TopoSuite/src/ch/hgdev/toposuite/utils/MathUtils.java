@@ -1,5 +1,10 @@
 package ch.hgdev.toposuite.utils;
 
+/**
+ * MathUtils provides static helpers for mathematical operation/conversion.
+ * 
+ * @author HGdev
+ */
 public class MathUtils {
     /**
      * The machine precision used to perform logical operation on doubles.
