@@ -1,6 +1,6 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/toggle_right_menu"
-          android:title="@string/toggle_right_menu_button"
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >    
+    <item android:id="@+id/add_point_button"
+          android:title="@string/add_3dots"
           android:showAsAction="ifRoom|withText"
-          android:icon="@drawable/ic_action_next_item"/>
+          android:icon="@drawable/ic_action_new"/>
 </menu>

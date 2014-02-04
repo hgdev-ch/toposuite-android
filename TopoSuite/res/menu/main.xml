@@ -2,5 +2,6 @@
     <item android:id="@+id/toggle_right_menu"
           android:title="@string/toggle_right_menu_button"
           android:showAsAction="ifRoom|withText"
-          android:icon="@drawable/ic_action_next_item"/>
+          android:icon="@drawable/ic_action_next_item"
+          android:orderInCategory="100"/>
 </menu>
