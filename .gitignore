@@ -8,6 +8,7 @@
 .settings
 bin/
 gen/
+doc/
 local.properties
 *~
 .checkstyle

@@ -35,7 +35,7 @@ public class Gisement extends Calculation {
     private double altitude;
 
     /**
-     * The slope given in percentage
+     * The slope given in percent.
      */
     private double slope;
 
@@ -79,6 +79,55 @@ public class Gisement extends Calculation {
         double deltaY = this.orientation.getEast() - this.origin.getEast();
         double deltaX = this.orientation.getNorth() - this.origin.getNorth();
 
+        // gisement
+        double complement = this.computeComplement(deltaY, deltaX);
+        this.gisement = this.computeGisement(deltaY, deltaX, complement);
+
+        // distance
+        this.horizDist = this.computeHorizDist(deltaY, deltaX, this.gisement);
+
+        // altitude
+        this.altitude = this.computeAltitude();
+
+        // slope in percent
+        this.slope = this.computeSlope(this.altitude, this.horizDist);
+
+        // update the calculation last modification date
+        this.updateLastModification();
+    }
+
+    /**
+     * Calculate the complement using the following rules:
+     * 
+     * <pre>
+     * +==========+==========+============+
+     * |  DeltaY  | Delta X  | Complement |
+     * +==========+==========+============+
+     * | Positive | Positive |      0     |
+     * +----------+----------+------------+
+     * | Positive | Negative |     200    |
+     * +----------+----------+------------+
+     * | Negative | Negative |     200    |
+     * +----------+----------+------------+
+     * | Negative | Positive |     400    |
+     * +----------+----------+------------+
+     * | Zero     | Positive |      0     |
+     * +----------+----------+------------+
+     * | Zero     | Negative |     200    |
+     * +----------+----------+------------+
+     * | Positive | Zero     |     100    |
+     * +----------+----------+------------+
+     * | Negative | Zero     |     300    |
+     * +----------+----------+------------+
+     * </pre>
+     * 
+     * @param deltaY
+     *            delta Y
+     * @param deltaX
+     *            delta X
+     * @return the complement
+     */
+    private double computeComplement(double deltaY, double deltaX) {
         // complement remains 0.0 if deltaY is positive and deltaX is positive
         // and if deltaY is 0.0 and deltaX is positive.
         double complement = 0.0;
@@ -95,27 +144,75 @@ public class Gisement extends Calculation {
             complement = 400.0;
         }
 
+        return complement;
+    }
+
+    /**
+     * Calculate the "gisement" using the following formula:
+     * <i>atan(deltaY/deltaX)</i>
+     * 
+     * @param deltaY
+     *            delta Y
+     * @param deltaX
+     *            delta X
+     * @param complement
+     *            the complement
+     * @return the gisement
+     */
+    private double computeGisement(double deltaY, double deltaX, double complement) {
         // handle division by zero
         double tmp = 0.0;
         if (!MathUtils.isZero(deltaX)) {
             tmp = Math.atan(deltaY / deltaX);
         }
 
-        this.gisement = MathUtils.radToGrad(tmp) + complement;
+        return MathUtils.radToGrad(tmp) + complement;
+    }
 
+    /**
+     * Calculate the horizontal distance using the following formula: <i>deltaY
+     * / sin(gisement)</i>
+     * 
+     * @param deltaY
+     *            delta Y
+     * @param deltaX
+     *            delta X
+     * @param gisement
+     *            the gisement
+     * @return the horizontal distance
+     */
+    private double computeHorizDist(double deltaY, double deltaX, double gisement) {
         if (MathUtils.isZero(this.gisement) || MathUtils.isZero(deltaY)) {
             // TODO check if it's a correct assumption...
-            this.horizDist = Math.abs(deltaX);
-        } else {
-            this.horizDist = deltaY / Math.sin(MathUtils.gradToRad(this.gisement));
+            return Math.abs(deltaX);
         }
+        return deltaY / Math.sin(MathUtils.gradToRad(this.gisement));
+    }
 
-        // TODO add some verification to avoid division by zero...
-        this.altitude = this.orientation.getAltitude() - this.origin.getAltitude();
-        this.slope = (this.altitude / this.horizDist) * 100;
+    /**
+     * Calculate the altitude.
+     * 
+     * @return the altitude
+     */
+    private double computeAltitude() {
+        return this.orientation.getAltitude() - this.origin.getAltitude();
+    }
 
-        // update the calculation last modification date
-        this.updateLastModification();
+    /**
+     * Calculate the slope in percent using the following formula: <i>(altitude
+     * / distance) * 100</i>
+     * 
+     * @param altitude
+     *            the altitude
+     * @param horizDist
+     *            the horizontal distance
+     * @return the slope in percent
+     */
+    private double computeSlope(double altitude, double horizDist) {
+        if (MathUtils.isZero(horizDist)) {
+            return 0.0;
+        }
+        return (altitude / horizDist) * 100;
     }
 
     /**
