@@ -30,6 +30,7 @@
     <string name="calculation_type">Type</string>
     <string name="cancel">Cancel</string>
     <string name="crag">CRAG (Commission Romande des Apprentis Géomaticiens)</string>
+    <string name="delete">Delete</string>
     <string name="developed_by">Developed by</string>
     <string name="dialog_add_point">Add a point</string>
     <string name="distance_label">Horiz. Distance [m]</string>
@@ -37,6 +38,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
     <string name="east_3dots">East&#8230;</string>
+    <string name="edit">Edit</string>
     <string name="error_fill_data">Every field must be field!</string>
     <string name="error_same_points">The points must be different!</string>
     <string name="gisement_label">Gisement [g]</string>
