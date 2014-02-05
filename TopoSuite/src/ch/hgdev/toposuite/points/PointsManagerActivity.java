@@ -33,6 +33,12 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
     }
 
     @Override
+    protected void onResume() {
+        this.drawMainTable();
+        super.onResume();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -136,5 +142,14 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
         row.addView(cell, cellParams);
 
         this.mainTable.addView(row, rowParams);
+    }
+
+    /**
+     * Draw the main table containing all the points.
+     */
+    private void drawMainTable() {
+        for (Point p : SharedResources.getSetOfPoints()) {
+            this.addPointToMainTable(p);
+        }
     }
 }
