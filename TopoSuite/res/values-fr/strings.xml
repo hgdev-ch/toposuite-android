@@ -46,6 +46,9 @@
     <string name="north_3dots">Nord&#8230;</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">Premier point (origine)</string>
+    <string name="point_class">Classe</string>
+    <string name="point_control">Contrôle</string>
+    <string name="point_measure">Mesure</string>
     <string name="point_number">No du point</string>
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="slope_label">Pente [%]</string>

@@ -1,5 +1,8 @@
 package ch.hgdev.toposuite.points;
 
+import android.content.Context;
+import ch.hgdev.toposuite.R;
+
 import com.google.common.base.Preconditions;
 
 /**
@@ -77,6 +80,10 @@ public class Point {
 
     public boolean getBasePoint() {
         return this.basePoint;
+    }
+
+    public String getBasePointAsString(Context context) {
+        return this.basePoint ? context.getString(R.string.point_control) : context.getString(R.string.point_measure);
     }
 
     public void setBasePoint(boolean _basePoint) {
