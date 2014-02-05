@@ -37,6 +37,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
     <string name="east_3dots">East&#8230;</string>
+    <string name="error_fill_data">Every field must be field!</string>
     <string name="error_same_points">The points must be different!</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Home</string>

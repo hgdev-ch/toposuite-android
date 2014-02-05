@@ -37,6 +37,7 @@
     <string name="drawer_open">Ouvre le menu de navigation</string>
     <string name="east">Est</string>
     <string name="east_3dots">Est&#8230;</string>
+    <string name="error_fill_data">Tous les champs doivent être remplis!</string>
     <string name="error_same_points">Les points doivent être différents!</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Accueil</string>
