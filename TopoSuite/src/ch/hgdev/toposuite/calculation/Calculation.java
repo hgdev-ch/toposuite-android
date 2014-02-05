@@ -66,7 +66,7 @@ public abstract class Calculation {
      * Getter for the last modification date.
      * @return the last modification date
      */
-    public Date getUpdatedAt() {
+    public Date getLastModification() {
         return lastModification;
     }
     
