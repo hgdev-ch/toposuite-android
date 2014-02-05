@@ -37,6 +37,7 @@
     <string name="drawer_open">Ouvre le menu de navigation</string>
     <string name="east">Est</string>
     <string name="east_3dots">Est&#8230;</string>
+    <string name="error_fill_data">Tous les champs doivent être remplis!</string>
     <string name="error_same_points">Les points doivent être différents!</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Accueil</string>
@@ -46,6 +47,9 @@
     <string name="north_3dots">Nord&#8230;</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">Premier point (origine)</string>
+    <string name="point_class">Classe</string>
+    <string name="point_control">Contrôle</string>
+    <string name="point_measure">Mesure</string>
     <string name="point_number">No du point</string>
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="slope_label">Pente [%]</string>

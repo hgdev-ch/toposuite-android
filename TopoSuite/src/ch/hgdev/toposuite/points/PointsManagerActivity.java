@@ -1,9 +1,5 @@
 package ch.hgdev.toposuite.points;
 
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
-
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,6 +10,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
@@ -23,11 +20,9 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * @author HGdev
  * 
  */
-public class PointsManagerActivity extends TopoSuiteActivity
-        implements AddPointDialogFragment.AddPointDialogListener {
+public class PointsManagerActivity extends TopoSuiteActivity implements AddPointDialogFragment.AddPointDialogListener {
 
     private TableLayout mainTable;
-    private Set<Point>  setOfPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +30,12 @@ public class PointsManagerActivity extends TopoSuiteActivity
         this.setContentView(R.layout.activity_points_manager);
 
         this.mainTable = (TableLayout) this.findViewById(R.id.apm_header_table_main);
-        this.setOfPoints = new TreeSet<Point>(new Comparator<Point>() {
-            @Override
-            public int compare(Point lhs, Point rhs) {
-                return lhs.getNumber() < rhs.getNumber() ? 1 : -1;
-            }
-        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.drawMainTable();
     }
 
     @Override
@@ -63,10 +58,9 @@ public class PointsManagerActivity extends TopoSuiteActivity
 
     @Override
     public void onDialogAdd(DialogFragment dialog) {
-        this.addPoint(((AddPointDialogFragment) dialog).getNumber(),
-                ((AddPointDialogFragment) dialog).getEast(),
-                ((AddPointDialogFragment) dialog).getNorth(),
-                ((AddPointDialogFragment) dialog).getAltitude());
+        this.addPoint(((AddPointDialogFragment) dialog).getNumber(), ((AddPointDialogFragment) dialog).getEast(),
+                ((AddPointDialogFragment) dialog).getNorth(), ((AddPointDialogFragment) dialog).getAltitude());
+        this.drawMainTable();
     }
 
     @Override
@@ -99,8 +93,7 @@ public class PointsManagerActivity extends TopoSuiteActivity
         // when created by a user and not computed, a point IS a basepoint
         boolean basePoint = true;
         Point point = new Point(number, east, north, altitude, basePoint);
-        this.setOfPoints.add(point);
-        this.addPointToMainTable(point);
+        SharedResources.getSetOfPoints().add(point);
     }
 
     /**
@@ -149,5 +142,15 @@ public class PointsManagerActivity extends TopoSuiteActivity
         row.addView(cell, cellParams);
 
         this.mainTable.addView(row, rowParams);
+    }
+
+    /**
+     * Draw the main table containing all the points.
+     */
+    private void drawMainTable() {
+        this.mainTable.removeAllViews();
+        for (Point p : SharedResources.getSetOfPoints()) {
+            this.addPointToMainTable(p);
+        }
     }
 }

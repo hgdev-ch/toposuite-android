@@ -32,7 +32,7 @@
 	            android:layout_margin="1dp"
 	            android:layout_weight="1"/>
 	        <TextView
-	            android:text="@string/base_point"
+	            android:text="@string/point_class"
 	            android:layout_margin="1dp"
 	            android:layout_weight="1"/>
 	     </TableRow>
