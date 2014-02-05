@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.calculation;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -23,7 +24,7 @@ public abstract class Calculation {
     /**
      * Date of the last modification.
      */
-    private Date lastModification;
+    private Calendar lastModification;
     
     /**
      * Constructs a new Calculation.
@@ -66,7 +67,7 @@ public abstract class Calculation {
      * Getter for the last modification date.
      * @return the last modification date
      */
-    public Date getLastModification() {
+    public Calendar getLastModification() {
         return lastModification;
     }
     
@@ -74,6 +75,6 @@ public abstract class Calculation {
      * Update the last modification date with the current date.
      */
     public void updateLastModification() {
-        this.lastModification = new Date();
+        this.lastModification = Calendar.getInstance();
     }
 }
