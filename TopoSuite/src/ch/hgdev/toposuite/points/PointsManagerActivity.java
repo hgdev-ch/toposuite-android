@@ -34,8 +34,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
 
     @Override
     protected void onResume() {
-        this.drawMainTable();
         super.onResume();
+        this.drawMainTable();
     }
 
     @Override
@@ -60,6 +60,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
     public void onDialogAdd(DialogFragment dialog) {
         this.addPoint(((AddPointDialogFragment) dialog).getNumber(), ((AddPointDialogFragment) dialog).getEast(),
                 ((AddPointDialogFragment) dialog).getNorth(), ((AddPointDialogFragment) dialog).getAltitude());
+        this.drawMainTable();
     }
 
     @Override
@@ -93,7 +94,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
         boolean basePoint = true;
         Point point = new Point(number, east, north, altitude, basePoint);
         SharedResources.getSetOfPoints().add(point);
-        this.addPointToMainTable(point);
     }
 
     /**
@@ -148,6 +148,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
      * Draw the main table containing all the points.
      */
     private void drawMainTable() {
+        this.mainTable.removeAllViews();
         for (Point p : SharedResources.getSetOfPoints()) {
             this.addPointToMainTable(p);
         }

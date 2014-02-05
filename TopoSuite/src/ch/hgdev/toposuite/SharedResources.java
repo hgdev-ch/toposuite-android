@@ -46,8 +46,10 @@ public class SharedResources {
         if (setOfPoints == null) {
             setOfPoints = new TreeSet<Point>(new Comparator<Point>() {
                 @Override
-                public int compare(Point lhs, Point rhs) {
-                    return lhs.getNumber() < rhs.getNumber() ? 1 : -1;
+                public int compare(Point left, Point right) {
+                    int l = left.getNumber();
+                    int r = right.getNumber();
+                    return (r > l ? -1 : (r == l ? 0 : 1));
                 }
             });
         }
