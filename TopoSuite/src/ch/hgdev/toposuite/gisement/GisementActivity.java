@@ -16,6 +16,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
  * Activity providing an interface for calculating the Gisement / Distance.
+ * 
  * @author HGdev
  */
 public class GisementActivity extends TopoSuiteActivity {
@@ -24,7 +25,7 @@ public class GisementActivity extends TopoSuiteActivity {
 
     private TextView originPoint;
     private TextView orientationPoint;
-    
+
     private TextView gisementValue;
     private TextView distValue;
     private TextView altitudeValue;
@@ -42,7 +43,7 @@ public class GisementActivity extends TopoSuiteActivity {
 
         this.originPoint = (TextView) this.findViewById(R.id.origin_point);
         this.orientationPoint = (TextView) this.findViewById(R.id.orientation_point);
-        
+
         this.gisementValue = (TextView) this.findViewById(R.id.gisement_value);
         this.distValue = (TextView) this.findViewById(R.id.distance_value);
         this.altitudeValue = (TextView) this.findViewById(R.id.altitude_value);
@@ -51,13 +52,13 @@ public class GisementActivity extends TopoSuiteActivity {
         this.originSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point pt = (Point) originSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() != -1) {
-                    originPoint.setText(formatPoint(pt));
+                Point pt = (Point) GisementActivity.this.originSpinner.getItemAtPosition(pos);
+                if (pt.getNumber() > 0) {
+                    GisementActivity.this.originPoint.setText(GisementActivity.this.formatPoint(pt));
                 } else {
-                    originPoint.setText("");
+                    GisementActivity.this.originPoint.setText("");
                 }
-                itemSelected();
+                GisementActivity.this.itemSelected();
             }
 
             @Override
@@ -69,13 +70,13 @@ public class GisementActivity extends TopoSuiteActivity {
         this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point pt = (Point) orientationSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() != -1) {
-                    orientationPoint.setText(formatPoint(pt));
+                Point pt = (Point) GisementActivity.this.orientationSpinner.getItemAtPosition(pos);
+                if (pt.getNumber() > 0) {
+                    GisementActivity.this.orientationPoint.setText(GisementActivity.this.formatPoint(pt));
                 } else {
-                    orientationPoint.setText("");
+                    GisementActivity.this.orientationPoint.setText("");
                 }
-                itemSelected();
+                GisementActivity.this.itemSelected();
             }
 
             @Override
@@ -90,30 +91,28 @@ public class GisementActivity extends TopoSuiteActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        
-        // TODO remove this and use the points added by the PointsManager activity        
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, new Point[]{
-                        new Point(-1, 0.0, 0.0, 0.0, true),
-                        new Point(1, 683.064, 194.975, 0.0, true),
-                        new Point(2, 600.245, 200.729, 0.0, true)
-                });
+
+        // TODO remove this and use the points added by the PointsManager
+        // activity
+        ArrayAdapter<Point> a = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, new Point[] {
+                new Point(0, 0.0, 0.0, 0.0, true), new Point(1, 683.064, 194.975, 0.0, true),
+                new Point(2, 600.245, 200.729, 0.0, true) });
         this.originSpinner.setAdapter(a);
         this.orientationSpinner.setAdapter(a);
     }
-    
+
     /**
-     * itemSelected is triggered when the selected item of one of the spinners is 
-     * changed. 
+     * itemSelected is triggered when the selected item of one of the spinners
+     * is changed.
      */
     private void itemSelected() {
         Point p1 = (Point) this.originSpinner.getSelectedItem();
         Point p2 = (Point) this.orientationSpinner.getSelectedItem();
-        
-        if (p1.getNumber() == -1 || p2.getNumber() == -1) {
-            resetResults();
+
+        if ((p1.getNumber() == 0) || (p2.getNumber() == 0)) {
+            this.resetResults();
         } else if (p1.getNumber() == p2.getNumber()) {
-            resetResults();
+            this.resetResults();
             Toast.makeText(this, R.string.error_same_points, Toast.LENGTH_LONG).show();
         } else {
             if (this.gisement == null) {
@@ -122,41 +121,35 @@ public class GisementActivity extends TopoSuiteActivity {
                 this.gisement.setOrigin(p1);
                 this.gisement.setOrientation(p2);
             }
-            
-            this.gisementValue.setText(
-                    DisplayUtils.toString(this.gisement.getGisement()));
-            this.distValue.setText(
-                    DisplayUtils.toString(this.gisement.getHorizDist()));
-            this.altitudeValue.setText(
-                    DisplayUtils.toString(this.gisement.getAltitude()));
-            this.slopeValue.setText(
-                    DisplayUtils.toString(this.gisement.getSlope()));
+
+            this.gisementValue.setText(DisplayUtils.toString(this.gisement.getGisement()));
+            this.distValue.setText(DisplayUtils.toString(this.gisement.getHorizDist()));
+            this.altitudeValue.setText(DisplayUtils.toString(this.gisement.getAltitude()));
+            this.slopeValue.setText(DisplayUtils.toString(this.gisement.getSlope()));
         }
     }
-    
+
     /**
-     * Reset the TextViews that contains the results. 
+     * Reset the TextViews that contains the results.
      */
     private void resetResults() {
-        this.gisementValue.setText(getString(R.string.no_value));
-        this.distValue.setText(getString(R.string.no_value));
-        this.altitudeValue.setText(getString(R.string.no_value));
-        this.slopeValue.setText(getString(R.string.no_value));
+        this.gisementValue.setText(this.getString(R.string.no_value));
+        this.distValue.setText(this.getString(R.string.no_value));
+        this.altitudeValue.setText(this.getString(R.string.no_value));
+        this.slopeValue.setText(this.getString(R.string.no_value));
     }
-    
+
     /**
      * Format a point in order to display it in a TextView.
-     * @param pt a Point
+     * 
+     * @param pt
+     *            a Point
      * @return formatted Point
      */
     private String formatPoint(Point pt) {
-        return String.format(
-                "%s: %s, %s: %s, %s: %s",
-                getString(R.string.east),
-                DisplayUtils.toString(pt.getEast()),
-                getString(R.string.north),
-                DisplayUtils.toString(pt.getNorth()),
-                getString(R.string.altitude),
+        return String.format("%s: %s, %s: %s, %s: %s", this.getString(R.string.east),
+                DisplayUtils.toString(pt.getEast()), this.getString(R.string.north),
+                DisplayUtils.toString(pt.getNorth()), this.getString(R.string.altitude),
                 DisplayUtils.toString(pt.getAltitude()));
     }
 }

@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.points;
 
+import com.google.common.base.Preconditions;
+
 /**
  * A point is defined by a number, its distance to the east and the north and
  * its altitude.
@@ -32,6 +34,8 @@ public class Point {
      *            point that has been added as is and NOT computed.
      */
     public Point(int number, double east, double north, double altitude, boolean basePoint) {
+        Preconditions.checkArgument(number >= 0, "A point number must be a positive integer: %s", number);
+
         this.number = number;
         this.east = east;
         this.north = north;
@@ -78,11 +82,11 @@ public class Point {
     public void setBasePoint(boolean _basePoint) {
         this.basePoint = _basePoint;
     }
-    
+
     @Override
     public String toString() {
-        // the -1 number is used to put an empty item into the spinner
-        if (this.number == -1) {
+        // the 0 number is used to put an empty item into the spinner
+        if (this.number == 0) {
             return "";
         }
         return String.valueOf(this.number);
