@@ -22,14 +22,14 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  */
 public class PointsManagerActivity extends TopoSuiteActivity implements AddPointDialogFragment.AddPointDialogListener {
 
-    private TableLayout mainTable;
+    private TableLayout pointsTableContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_points_manager);
 
-        this.mainTable = (TableLayout) this.findViewById(R.id.apm_header_table_main);
+        this.pointsTableContent = (TableLayout) this.findViewById(R.id.apm_content_table_main);
     }
 
     @Override
@@ -141,14 +141,14 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
         cell.setText(DisplayUtils.toString(this, point.getBasePoint()));
         row.addView(cell, cellParams);
 
-        this.mainTable.addView(row, rowParams);
+        this.pointsTableContent.addView(row, rowParams);
     }
 
     /**
      * Draw the main table containing all the points.
      */
     private void drawMainTable() {
-        this.mainTable.removeAllViews();
+        this.pointsTableContent.removeAllViews();
         for (Point p : SharedResources.getSetOfPoints()) {
             this.addPointToMainTable(p);
         }
