@@ -24,7 +24,7 @@ public abstract class Calculation {
     /**
      * Date of the last modification.
      */
-    private Calendar lastModification;
+    private Date lastModification;
     
     /**
      * Constructs a new Calculation.
@@ -36,7 +36,7 @@ public abstract class Calculation {
         this.description = _description;
         
         // set the updateAt to the current time
-        this.lastModification = new Date();
+        this.lastModification = Calendar.getInstance().getTime();
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class Calculation {
      * Getter for the last modification date.
      * @return the last modification date
      */
-    public Calendar getLastModification() {
+    public Date getLastModification() {
         return lastModification;
     }
     
@@ -75,6 +75,6 @@ public abstract class Calculation {
      * Update the last modification date with the current date.
      */
     public void updateLastModification() {
-        this.lastModification = Calendar.getInstance();
+        this.lastModification = Calendar.getInstance().getTime();
     }
 }
