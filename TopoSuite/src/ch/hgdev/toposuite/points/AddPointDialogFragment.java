@@ -73,10 +73,13 @@ public class AddPointDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (AddPointDialogFragment.this.checkDialogInputs()) {
+                            // altitude is not mandatory
+                            if (AddPointDialogFragment.this.altitudeEditText.length() > 0) {
+                                AddPointDialogFragment.this.altitude = Double
+                                        .parseDouble(AddPointDialogFragment.this.altitudeEditText.getText().toString());
+                            }
                             AddPointDialogFragment.this.number = Integer
                                     .parseInt(AddPointDialogFragment.this.numberEditText.getText().toString());
-                            AddPointDialogFragment.this.altitude = Double
-                                    .parseDouble(AddPointDialogFragment.this.altitudeEditText.getText().toString());
                             AddPointDialogFragment.this.east = Double
                                     .parseDouble(AddPointDialogFragment.this.eastEditText.getText().toString());
                             AddPointDialogFragment.this.north = Double
@@ -129,7 +132,8 @@ public class AddPointDialogFragment extends DialogFragment {
         this.northEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.altitudeEditText = new EditText(this.getActivity());
-        this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude_3dots));
+        this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude_3dots)
+                + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.number = 0;
@@ -151,14 +155,15 @@ public class AddPointDialogFragment extends DialogFragment {
     }
 
     /**
-     * Verify that the user has entered all required data.
+     * Verify that the user has entered all required data. Note that the
+     * altitude is not required and should be set to 0 if no data was inserted.
      * 
      * @return True if every EditTexts of the dialog have been filled, false
      *         otherwise.
      */
     private boolean checkDialogInputs() {
         if ((this.numberEditText.length() == 0) || (this.eastEditText.length() == 0)
-                || (this.northEditText.length() == 0) || (this.altitudeEditText.length() == 0)) {
+                || (this.northEditText.length() == 0)) {
             return false;
         }
 
