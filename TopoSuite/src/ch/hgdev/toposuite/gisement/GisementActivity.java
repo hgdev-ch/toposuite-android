@@ -1,5 +1,9 @@
 package ch.hgdev.toposuite.gisement;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
@@ -91,12 +96,13 @@ public class GisementActivity extends TopoSuiteActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // TODO remove this and use the points added by the PointsManager
-        // activity
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, new Point[] {
-                new Point(0, 0.0, 0.0, 0.0, true), new Point(1, 683.064, 194.975, 0.0, true),
-                new Point(2, 600.245, 200.729, 0.0, true) });
+        
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.addAll(SharedResources.getSetOfPoints());
+      
+        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+                this, R.layout.spinner_list_item,points);
         this.originSpinner.setAdapter(a);
         this.orientationSpinner.setAdapter(a);
     }
