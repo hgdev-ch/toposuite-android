@@ -20,6 +20,7 @@
         <xliff:g id="app_developer_webpage_url">%s</xliff:g>
     </string>
     <string name="app_developer_webpage_url">http://www.hgdev.ch/</string>
+    <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
     <string name="app_version">Version: 
         <xliff:g id="version">%s</xliff:g>
