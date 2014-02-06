@@ -24,6 +24,7 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     private List<DAO> daoList;
     
     /**
+     * FIXME update comment
      * Control whether methods that change the list automatically call notifyObservers().
      * If set to false, caller must manually call
      * {@link DAOMapperArrayList#notifyObservers()} to have the changes reflected in 
