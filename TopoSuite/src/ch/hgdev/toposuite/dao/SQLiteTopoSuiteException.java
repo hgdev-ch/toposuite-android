@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.persistence;
+package ch.hgdev.toposuite.dao;
 
 import android.database.sqlite.SQLiteException;
 

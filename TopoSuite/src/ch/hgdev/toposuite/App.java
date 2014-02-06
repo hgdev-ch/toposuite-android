@@ -2,9 +2,11 @@ package ch.hgdev.toposuite;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import ch.hgdev.toposuite.patterns.ObservableTreeSet;
-import ch.hgdev.toposuite.persistence.DBPointEntity;
+import ch.hgdev.toposuite.calculation.Calculation;
+import ch.hgdev.toposuite.dao.DBHelper;
+import ch.hgdev.toposuite.dao.PointsDataSource;
+import ch.hgdev.toposuite.dao.collections.DAOMapperArrayList;
+import ch.hgdev.toposuite.dao.collections.DAOMapperTreeSet;
 import ch.hgdev.toposuite.points.Point;
 
 /**
@@ -37,21 +39,26 @@ public class App extends Application {
      */
     public static String dateFormat = "MM-dd-yyyy HH:mm";
     
-    public static DBPointEntity dbPointEntity;
+    /**
+     * Database helper.
+     */
+    public static DBHelper dbHelper;
 
-    
     @Override
     public void onCreate() {
         super.onCreate();
         
-        Log.d("FOOBAR", "PLOP");
-        Log.d("TOPOSUITE", "HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-        App.dbPointEntity = new DBPointEntity(this.getApplicationContext());
+        App.dbHelper = new DBHelper(this.getApplicationContext());
         
-        ObservableTreeSet<Point> points = SharedResources.getSetOfPoints();
+        DAOMapperTreeSet<Point> points = SharedResources.getSetOfPoints();
         points.setNotifyOnChange(false);
-        
-        points.addAll(App.dbPointEntity.findAll());
+        points.addAll(PointsDataSource.getInstance().findAll());
         points.setNotifyOnChange(true);
+        
+        DAOMapperArrayList<Calculation> calculations =
+                SharedResources.getCalculationsHistory();
+        calculations.setNotifyOnChange(false);
+        calculations.addAll(calculations);
+        calculations.setNotifyOnChange(true);
     }
 }

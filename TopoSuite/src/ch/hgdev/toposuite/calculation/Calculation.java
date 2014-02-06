@@ -3,7 +3,6 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
@@ -14,7 +13,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  *  
  * @author HGdev
  */
-public abstract class Calculation {
+public class Calculation {
     /**
      * Type of calculation.
      */
@@ -43,6 +42,17 @@ public abstract class Calculation {
         this.lastModification = Calendar.getInstance().getTime();
         
         SharedResources.getCalculationsHistory().add(0, this);
+    }
+    
+    /**
+     * TODO add ID parameter
+     * @param _type
+     * @param _description
+     * @param lastModificationDate
+     */
+    public Calculation(String _type, String _description, String lastModificationDate) {
+        // TODO parse the last modification date
+        this(_type, _description);
     }
 
     /**

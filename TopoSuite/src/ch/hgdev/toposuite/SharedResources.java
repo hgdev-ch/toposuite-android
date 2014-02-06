@@ -1,13 +1,12 @@
 package ch.hgdev.toposuite;
 
 import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
 
 import ch.hgdev.toposuite.calculation.Calculation;
-import ch.hgdev.toposuite.patterns.ObservableArrayList;
-import ch.hgdev.toposuite.patterns.ObservableTreeSet;
-import ch.hgdev.toposuite.persistence.PersistencePointCache;
+import ch.hgdev.toposuite.dao.CalculationsDataSource;
+import ch.hgdev.toposuite.dao.PointsDataSource;
+import ch.hgdev.toposuite.dao.collections.DAOMapperArrayList;
+import ch.hgdev.toposuite.dao.collections.DAOMapperTreeSet;
 import ch.hgdev.toposuite.points.Point;
 
 /**
@@ -20,20 +19,21 @@ public class SharedResources {
     /**
      * Calculations history.
      */
-    private static ObservableArrayList<Calculation> calculationsHistory;
+    private static DAOMapperArrayList<Calculation> calculationsHistory;
     /**
      * Set of points.
      */
-    private static ObservableTreeSet<Point>        setOfPoints;
+    private static DAOMapperTreeSet<Point>        setOfPoints;
 
     /**
      * Static getter for the calculations history.
      * 
      * @return the calculations history
      */
-    public static ObservableArrayList<Calculation> getCalculationsHistory() {
+    public static DAOMapperArrayList<Calculation> getCalculationsHistory() {
         if (calculationsHistory == null) {
-            calculationsHistory = new ObservableArrayList<Calculation>();
+            calculationsHistory = new DAOMapperArrayList<Calculation>();
+            calculationsHistory.registerDAO(CalculationsDataSource.getInstance());
         }
         
         return calculationsHistory;
@@ -44,9 +44,9 @@ public class SharedResources {
      * 
      * @return The set of points.
      */
-    public static ObservableTreeSet<Point> getSetOfPoints() {
+    public static DAOMapperTreeSet<Point> getSetOfPoints() {
         if (setOfPoints == null) {
-            setOfPoints = new ObservableTreeSet<Point>(new Comparator<Point>() {
+            setOfPoints = new DAOMapperTreeSet<Point>(new Comparator<Point>() {
                 @Override
                 public int compare(Point left, Point right) {
                     int l = left.getNumber();
@@ -54,7 +54,7 @@ public class SharedResources {
                     return (r > l ? -1 : (r == l ? 0 : 1));
                 }
             });
-            setOfPoints.addObserver(new PersistencePointCache());
+            setOfPoints.registerDAO(PointsDataSource.getInstance());
         }
         return setOfPoints;
     }
