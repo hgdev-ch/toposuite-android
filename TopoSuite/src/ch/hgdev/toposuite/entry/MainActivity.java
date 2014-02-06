@@ -49,6 +49,9 @@ public class MainActivity extends TopoSuiteActivity {
                 .append("</p><p>")
                 .append(this.getString(R.string.developed_by))
                 .append(":<br/>")
+                .append("<img src=\"file:///android_asset/hgdev_logo.png\" alt=\"")
+                .append(this.getString(R.string.app_developer))
+                .append("\"/><br/>")
                 .append(String.format(
                         this.getString(R.string.app_developer_full_info),
                         this.getString(R.string.app_developer),
