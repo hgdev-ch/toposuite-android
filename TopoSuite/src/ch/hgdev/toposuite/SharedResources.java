@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import ch.hgdev.toposuite.calculation.Calculation;
+import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
 
 /**
@@ -33,6 +34,18 @@ public class SharedResources {
     public static List<Calculation> getCalculationsHistory() {
         if (calculationsHistory == null) {
             calculationsHistory = new ArrayList<Calculation>();
+            /*calculationsHistory.add(
+                    new Gisement("foobar", new Point(1, 322.3232, 323.323, 134.564, true),
+                            new Point(1, 322.3232, 323.323, 134.564, true)));
+            calculationsHistory.add(
+                    new Gisement("foobar", new Point(1, 322.3232, 323.323, 134.564, true),
+                            new Point(1, 322.3232, 323.323, 134.564, true)));
+            calculationsHistory.add(
+                    new Gisement("foobar", new Point(1, 322.3232, 323.323, 134.564, true),
+                            new Point(1, 322.3232, 323.323, 134.564, true)));
+            calculationsHistory.add(
+                    new Gisement("foobar", new Point(1, 322.3232, 323.323, 134.564, true),
+                            new Point(1, 322.3232, 323.323, 134.564, true)));*/
         }
         return calculationsHistory;
     }
