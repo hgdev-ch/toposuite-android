@@ -21,7 +21,7 @@ public class Logger {
      * @return formatted point
      */
     public static String formatPoint(Point point) {
-        return String.format("Point: {No: %d,  E: %f, N: %f, A: %d, BP: %b}",
+        return String.format("Point: {No: %d,  E: %f, N: %f, A: %f, BP: %b}",
                 point.getNumber(), point.getEast(), point.getNorth(),
                 point.getAltitude(), point.isBasePoint());
     }

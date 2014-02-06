@@ -2,6 +2,10 @@ package ch.hgdev.toposuite;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import ch.hgdev.toposuite.patterns.ObservableTreeSet;
+import ch.hgdev.toposuite.persistence.DBPointEntity;
+import ch.hgdev.toposuite.points.Point;
 
 /**
  * Handle every settings that need to be global to the application.
@@ -16,7 +20,7 @@ public class App extends Application {
     public static final String DATABASE = "topo_suite.db";
     
     /**
-     * Database version. This number must be increase whenever the database
+     * Database version. This number must be increased whenever the database
      * schema is upgraded in order to trigger the
      * {@link SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)}
      * method.
@@ -32,4 +36,22 @@ public class App extends Application {
      * Date format.
      */
     public static String dateFormat = "MM-dd-yyyy HH:mm";
+    
+    public static DBPointEntity dbPointEntity;
+
+    
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        
+        Log.d("FOOBAR", "PLOP");
+        Log.d("TOPOSUITE", "HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        App.dbPointEntity = new DBPointEntity(this.getApplicationContext());
+        
+        ObservableTreeSet<Point> points = SharedResources.getSetOfPoints();
+        points.setNotifyOnChange(false);
+        
+        points.addAll(App.dbPointEntity.findAll());
+        points.setNotifyOnChange(true);
+    }
 }
