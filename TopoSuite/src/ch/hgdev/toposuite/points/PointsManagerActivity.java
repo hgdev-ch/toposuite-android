@@ -4,12 +4,19 @@ import java.util.ArrayList;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+
+import com.google.common.collect.Iterables;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
@@ -19,7 +26,7 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
  */
 public class PointsManagerActivity extends TopoSuiteActivity implements AddPointDialogFragment.AddPointDialogListener {
 
-    private ListView             pointsListView;
+    private ListView                 pointsListView;
     private ArrayListOfPointsAdapter adapter;
 
     @Override
@@ -28,6 +35,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
         this.setContentView(R.layout.activity_points_manager);
 
         this.pointsListView = (ListView) this.findViewById(R.id.apm_list_of_points);
+        this.registerForContextMenu(this.pointsListView);
     }
 
     @Override
@@ -64,6 +72,28 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
     @Override
     public void onDialogCancel(DialogFragment dialog) {
         // do nothing
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.points_list_row_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+        case R.id.delete_point:
+            Point point = Iterables.get(SharedResources.getSetOfPoints(), (int) info.id);
+            this.adapter.remove(point);
+            this.adapter.notifyDataSetChanged();
+            SharedResources.getSetOfPoints().remove(point);
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
     }
 
     /**
