@@ -1,5 +1,5 @@
 /**
- * Generic utility classes useful for Android application testing.
+ * Tests for the utils package.
  * 
  * @author HGdev
  *

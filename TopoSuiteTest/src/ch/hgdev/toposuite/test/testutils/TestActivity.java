@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.test.utils;
+package ch.hgdev.toposuite.test.testutils;
 
 import android.test.ActivityInstrumentationTestCase2;
 
