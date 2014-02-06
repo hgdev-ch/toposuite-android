@@ -1,18 +1,22 @@
 package ch.hgdev.toposuite.points;
 
+import java.util.ArrayList;
+
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.utils.DisplayUtils;
+
+import com.google.common.collect.Iterables;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
@@ -22,20 +26,22 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  */
 public class PointsManagerActivity extends TopoSuiteActivity implements AddPointDialogFragment.AddPointDialogListener {
 
-    private TableLayout pointsTableContent;
+    private ListView                 pointsListView;
+    private ArrayListOfPointsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_points_manager);
 
-        this.pointsTableContent = (TableLayout) this.findViewById(R.id.apm_content_table_main);
+        this.pointsListView = (ListView) this.findViewById(R.id.apm_list_of_points);
+        this.registerForContextMenu(this.pointsListView);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.drawMainTable();
+        this.drawList();
     }
 
     @Override
@@ -60,12 +66,34 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
     public void onDialogAdd(DialogFragment dialog) {
         this.addPoint(((AddPointDialogFragment) dialog).getNumber(), ((AddPointDialogFragment) dialog).getEast(),
                 ((AddPointDialogFragment) dialog).getNorth(), ((AddPointDialogFragment) dialog).getAltitude());
-        this.drawMainTable();
+        this.drawList();
     }
 
     @Override
     public void onDialogCancel(DialogFragment dialog) {
         // do nothing
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.points_list_row_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+        case R.id.delete_point:
+            Point point = Iterables.get(SharedResources.getSetOfPoints(), (int) info.id);
+            this.adapter.remove(point);
+            this.adapter.notifyDataSetChanged();
+            SharedResources.getSetOfPoints().remove(point);
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
     }
 
     /**
@@ -97,60 +125,11 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
     }
 
     /**
-     * Add a point to the main table of points.
-     * 
-     * @param point
-     *            Point to be added.
-     */
-    private void addPointToMainTable(Point point) {
-        TableRow row = new TableRow(this);
-        TableRow.LayoutParams rowParams = new TableRow.LayoutParams();
-
-        // wrap the content of a row
-        rowParams.height = LayoutParams.WRAP_CONTENT;
-        rowParams.width = LayoutParams.WRAP_CONTENT;
-
-        // wrap the content of a cell
-        TableRow.LayoutParams cellParams = new TableRow.LayoutParams();
-        cellParams.height = LayoutParams.WRAP_CONTENT;
-        cellParams.width = LayoutParams.WRAP_CONTENT;
-        cellParams.gravity = Gravity.CENTER;
-
-        // point number cell
-        TextView cell = new TextView(this);
-        cell.setText(String.valueOf(point.getNumber()));
-        row.addView(cell, cellParams);
-
-        // east cell
-        cell = new TextView(this);
-        cell.setText(DisplayUtils.toString(point.getEast()));
-        row.addView(cell, cellParams);
-
-        // north cell
-        cell = new TextView(this);
-        cell.setText(DisplayUtils.toString(point.getNorth()));
-        row.addView(cell, cellParams);
-
-        // altitude cell
-        cell = new TextView(this);
-        cell.setText(DisplayUtils.toString(point.getAltitude()));
-        row.addView(cell, cellParams);
-
-        // base point cell
-        cell = new TextView(this);
-        cell.setText(point.getBasePointAsString(this));
-        row.addView(cell, cellParams);
-
-        this.pointsTableContent.addView(row, rowParams);
-    }
-
-    /**
      * Draw the main table containing all the points.
      */
-    private void drawMainTable() {
-        this.pointsTableContent.removeAllViews();
-        for (Point p : SharedResources.getSetOfPoints()) {
-            this.addPointToMainTable(p);
-        }
+    private void drawList() {
+        ArrayList<Point> points = new ArrayList<Point>(SharedResources.getSetOfPoints());
+        this.adapter = new ArrayListOfPointsAdapter(this, R.layout.points_list_item, points);
+        this.pointsListView.setAdapter(this.adapter);
     }
 }
