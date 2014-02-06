@@ -31,9 +31,6 @@ public class HistoryActivity extends TopoSuiteActivity {
 
         this.list = (ListView) findViewById(R.id.history_list);
         this.registerForContextMenu(list);
-        this.adapter = new ArrayAdapter<Calculation>(
-                this, R.layout.history_list_item, SharedResources.getCalculationsHistory());
-        this.list.setAdapter(this.adapter);
     }
     
     @Override
