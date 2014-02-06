@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/points_list_item"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
     <TextView
@@ -11,9 +11,9 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_vertical"
+        android:gravity="center_horizontal"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="16dp"
+        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
@@ -24,9 +24,9 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_vertical"
+        android:gravity="center_horizontal"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="16dp"
+        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
@@ -37,9 +37,9 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_vertical"
+        android:gravity="center_horizontal"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="16dp"
+        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
@@ -50,9 +50,9 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_vertical"
+        android:gravity="center_horizontal"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="16dp"
+        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
@@ -63,9 +63,9 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_vertical"
+        android:gravity="center_horizontal"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="16dp"
+        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 

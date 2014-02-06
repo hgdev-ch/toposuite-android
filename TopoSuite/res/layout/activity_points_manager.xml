@@ -15,35 +15,50 @@
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:text="@string/point_number" />
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="@string/point_number"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:text="@string/east" />
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="@string/east"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:text="@string/north" />
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="@string/north"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:text="@string/altitude" />
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="@string/altitude"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:text="@string/point_class" />
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:text="@string/point_class"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
     </LinearLayout>
 
     <ListView
