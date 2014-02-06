@@ -78,7 +78,7 @@ public class Point {
         this.altitude = _altitude;
     }
 
-    public boolean getBasePoint() {
+    public boolean isBasePoint() {
         return this.basePoint;
     }
 
