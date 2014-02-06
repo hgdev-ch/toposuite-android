@@ -60,7 +60,7 @@ public class DBPointEntity extends SQLiteOpenHelper {
     }
     
     public ArrayList<Point> findAll() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor  cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME_POINTS +
                 " ORDER BY number ASC", null);
         
