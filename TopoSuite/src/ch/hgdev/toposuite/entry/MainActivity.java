@@ -37,10 +37,9 @@ public class MainActivity extends TopoSuiteActivity {
         WebView view = new WebView(this);
         StringBuilder html = new StringBuilder()
                 .append("<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />")
-                // TODO add logo image
-                // .append("<img src=\"file:///android_asset/icon.png\" alt=\"")
-                // .append(appName)
-                // .append("\"/>")
+                // TODO add logo of the application
+                // .append("<img src=\"file:///android_asset/app_logo.png\" alt=\"")
+                // .append(appName) .append("\"/>")
                 .append("<h1>")
                 .append(String.format(this.getString(R.string.about_title), appName))
                 .append("</h1><p>")
@@ -50,6 +49,9 @@ public class MainActivity extends TopoSuiteActivity {
                 .append("</p><p>")
                 .append(this.getString(R.string.developed_by))
                 .append(":<br/>")
+                .append("<img src=\"file:///android_asset/hgdev_logo.png\" alt=\"")
+                .append(this.getString(R.string.app_developer))
+                .append("\"/><br/>")
                 .append(String.format(
                         this.getString(R.string.app_developer_full_info),
                         this.getString(R.string.app_developer),
@@ -58,6 +60,9 @@ public class MainActivity extends TopoSuiteActivity {
                 .append("</p>")
                 .append(this.getString(R.string.with_support_from))
                 .append(":<br/>")
+                .append("<img src=\"file:///android_asset/cf_geo.png\" alt=\"")
+                .append(this.getString(R.string.cfgeo))
+                .append("\"/><br/>")
                 .append(this.getString(R.string.cfgeo))
                 .append(" - " + "<a href=\"" + this.getString(R.string.cfgeo_webpage_url) + "\">"
                         + this.getString(R.string.cfgeo_webpage_url_short) + "</a>").append("</p></p>")
