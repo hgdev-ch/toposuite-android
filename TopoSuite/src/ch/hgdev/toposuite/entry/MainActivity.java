@@ -54,7 +54,13 @@ public class MainActivity extends TopoSuiteActivity {
                         this.getString(R.string.app_developer_full_info),
                         this.getString(R.string.app_developer),
                         "<a href=\"" + this.getString(R.string.app_developer_webpage_url) + "\">"
-                                + this.getString(R.string.app_developer_webpage_url_short) + "</a>")).append("</p>")
+                                + this.getString(R.string.app_developer_webpage_url_short) + "</a>"))
+                .append("</p>")
+                .append(this.getString(R.string.with_support_from))
+                .append(":<br/>")
+                .append(this.getString(R.string.cfgeo))
+                .append(" - " + "<a href=\"" + this.getString(R.string.cfgeo_webpage_url) + "\">"
+                        + this.getString(R.string.cfgeo_webpage_url_short) + "</a>").append("</p></p>")
                 .append(String.format(this.getString(R.string.app_copyright), year, this.getString(R.string.crag)))
                 .append("</p>");
         view.loadDataWithBaseURL("file:///android_res/drawable/", html.toString(), "text/html", "utf-8", null);
