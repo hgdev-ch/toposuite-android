@@ -83,7 +83,7 @@ public class Point {
     }
 
     public String getBasePointAsString(Context context) {
-        return this.basePoint ? context.getString(R.string.point_control) : context.getString(R.string.point_measure);
+        return this.basePoint ? context.getString(R.string.point_provided) : context.getString(R.string.point_computed);
     }
 
     public void setBasePoint(boolean _basePoint) {
