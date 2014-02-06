@@ -42,7 +42,7 @@ public abstract class Calculation {
         // set the updateAt to the current time
         this.lastModification = Calendar.getInstance().getTime();
         
-        SharedResources.getCalculationsHistory().add(this);
+        SharedResources.getCalculationsHistory().add(0, this);
     }
 
     /**
