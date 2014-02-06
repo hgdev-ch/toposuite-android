@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Calendar;
 import java.util.Date;
 
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
@@ -39,6 +40,8 @@ public abstract class Calculation {
         
         // set the updateAt to the current time
         this.lastModification = Calendar.getInstance().getTime();
+        
+        SharedResources.getCalculationsHistory().add(this);
     }
 
     /**
