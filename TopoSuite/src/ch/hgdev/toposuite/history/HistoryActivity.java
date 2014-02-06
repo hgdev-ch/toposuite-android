@@ -1,7 +1,7 @@
 package ch.hgdev.toposuite.history;
 
-import android.opengl.Visibility;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -36,6 +35,7 @@ public class HistoryActivity extends TopoSuiteActivity {
     protected void onResume() {
         super.onResume();
         drawList();
+        Log.d("DEBUG_CALCULATION_HISTORY_LIST", SharedResources.getCalculationsHistory().toString());
     }
     
     @Override
