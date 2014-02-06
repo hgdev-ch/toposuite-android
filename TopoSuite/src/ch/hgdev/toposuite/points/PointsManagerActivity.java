@@ -138,7 +138,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
 
         // base point cell
         cell = new TextView(this);
-        cell.setText(DisplayUtils.toString(this, point.getBasePoint()));
+        cell.setText(DisplayUtils.toString(this, point.isBasePoint()));
         row.addView(cell, cellParams);
 
         this.pointsTableContent.addView(row, rowParams);
