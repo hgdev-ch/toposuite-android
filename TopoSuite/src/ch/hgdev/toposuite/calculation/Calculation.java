@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
