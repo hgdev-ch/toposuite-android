@@ -11,9 +11,8 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
@@ -24,9 +23,8 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
@@ -37,9 +35,8 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
@@ -50,9 +47,8 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
@@ -63,9 +59,8 @@
         android:layout_margin="1dp"
         android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:padding="5dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000" />
 
