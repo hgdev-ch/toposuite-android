@@ -39,7 +39,7 @@
     <string name="east">East</string>
     <string name="east_3dots">East&#8230;</string>
     <string name="edit">Edit</string>
-    <string name="error_fill_data">Every field must be field!</string>
+    <string name="error_fill_data">Every mandatory field must be field!</string>
     <string name="error_same_points">The points must be different!</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Home</string>
@@ -47,6 +47,7 @@
     <string name="no_value">-</string>
     <string name="north">North</string>
     <string name="north_3dots">North&#8230;</string>
+    <string name="optional_prths">(optional)</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">First point (origin)</string>
     <string name="point_class">Class</string>
