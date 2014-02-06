@@ -3,6 +3,8 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Calendar;
 import java.util.Date;
 
+import ch.hgdev.toposuite.utils.DisplayUtils;
+
 /**
  * Calculation is the base class for all calculations. Each subclass of Calculation <b>must</b>
  * call {@link Calculation#updateLastModification()} when they update their attributes in order
@@ -76,5 +78,12 @@ public abstract class Calculation {
      */
     public void updateLastModification() {
         this.lastModification = Calendar.getInstance().getTime();
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s    %s",
+                DisplayUtils.formatDate(this.lastModification),
+                this.type);
     }
 }

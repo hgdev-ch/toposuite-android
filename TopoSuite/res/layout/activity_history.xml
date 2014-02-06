@@ -8,50 +8,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".HistoryActivity" >
 
-    <ScrollView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content">
-
-	   <TableLayout
-	       android:id="@+id/history_table"
-	       android:layout_width="wrap_content"
-	       android:layout_height="wrap_content"
-	       android:collapseColumns="*"
-	       android:stretchColumns="*" >
-
-		    <TableRow
-		        android:id="@+id/history_table_headers"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:background="@drawable/table_header"
-		        android:baselineAligned="true"
-		        android:focusableInTouchMode="true"
-		        android:paddingBottom="12dp"
-		        android:paddingLeft="8dp"
-		        android:paddingTop="12dp" >
-
-		        <TextView
-		            android:layout_margin="1dp"
-		            android:layout_weight="1"
-		            android:gravity="center"
-		            android:text="@string/calculation_type"
-		            android:textStyle="bold" />
-
-		        <TextView
-		            android:layout_margin="1dp"
-		            android:layout_weight="1"
-		            android:gravity="center"
-		            android:text="@string/calculation_description"
-		            android:textStyle="bold" />
-
-		        <TextView
-		            android:layout_margin="1dp"
-		            android:layout_weight="1"
-		            android:gravity="center"
-		            android:text="@string/calculation_last_modification"
-		            android:textStyle="bold" />
-
-		     </TableRow>
-		</TableLayout>
-	</ScrollView>
+     <ListView
+	       android:id="@+id/history_list"
+	       android:layout_width="fill_parent"
+	       android:layout_height="wrap_content">
+	</ListView>
 </RelativeLayout>
