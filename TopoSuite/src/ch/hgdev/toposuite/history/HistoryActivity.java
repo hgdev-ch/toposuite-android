@@ -15,6 +15,11 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Calculation;
 
+/**
+ * Activity for visualizing the calculations history.
+ * 
+ * @author HGdev
+ */
 public class HistoryActivity extends TopoSuiteActivity {
     private ListView list;
     private ArrayAdapter<Calculation> adapter;
@@ -61,6 +66,9 @@ public class HistoryActivity extends TopoSuiteActivity {
         }
     }
     
+    /**
+     * Draw the list.
+     */
     public void drawList() {
         this.adapter = new ArrayAdapter<Calculation>(
                 this, R.layout.history_list_item, SharedResources.getCalculationsHistory());
