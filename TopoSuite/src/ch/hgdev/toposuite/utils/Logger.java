@@ -7,5 +7,5 @@ package ch.hgdev.toposuite.utils;
  * 
  */
 public class Logger {
-    public final static String RESSOURCE_NOT_FOUND = "RESSOURCE NOT FOUND: ";
+    public final static String TOPOSUITE_RESSOURCE_NOT_FOUND = "RESSOURCE NOT FOUND: ";
 }

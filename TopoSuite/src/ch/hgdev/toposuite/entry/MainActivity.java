@@ -78,7 +78,7 @@ public class MainActivity extends TopoSuiteActivity {
             PackageInfo pi = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
             version = pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(Logger.RESSOURCE_NOT_FOUND, "Application name", e);
+            Log.e(Logger.TOPOSUITE_RESSOURCE_NOT_FOUND, "Application name", e);
         }
         return version;
     }
