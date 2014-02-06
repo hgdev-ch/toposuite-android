@@ -13,7 +13,7 @@ public class App extends Application {
     /**
      * Database file name.
      */
-    public static final String DATABASE = "TopoSuite.db";
+    public static final String DATABASE = "topo_suite.db";
     
     /**
      * Database version. This number must be increase whenever the database
