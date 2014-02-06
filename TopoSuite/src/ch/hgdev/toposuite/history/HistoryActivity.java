@@ -35,7 +35,6 @@ public class HistoryActivity extends TopoSuiteActivity {
     protected void onResume() {
         super.onResume();
         drawList();
-        Log.d("DEBUG_CALCULATION_HISTORY_LIST", SharedResources.getCalculationsHistory().toString());
     }
     
     @Override
