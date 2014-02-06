@@ -6,8 +6,10 @@
 
     <TextView
         android:id="@+id/point_number_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
@@ -17,8 +19,10 @@
 
     <TextView
         android:id="@+id/point_east_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
@@ -28,8 +32,10 @@
 
     <TextView
         android:id="@+id/point_north_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
@@ -39,8 +45,10 @@
 
     <TextView
         android:id="@+id/point_altitude_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
@@ -50,8 +58,10 @@
 
     <TextView
         android:id="@+id/point_basepoint_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
