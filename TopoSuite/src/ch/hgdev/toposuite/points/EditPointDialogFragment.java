@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.utils.DisplayUtils;
+
+import com.google.common.collect.Iterables;
 
 /**
  * Dialog window to allow the user to add a new point to the list of points.
@@ -21,48 +25,50 @@ import ch.hgdev.toposuite.R;
  * @author HGdev
  * 
  */
-public class AddPointDialogFragment extends DialogFragment {
+public class EditPointDialogFragment extends DialogFragment {
     /**
-     * The activity that creates an instance of AddPointDialogFragment must
+     * The activity that creates an instance of EditPointDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
      * 
      * @author HGdev
      * 
      */
-    public interface AddPointDialogListener {
+    public interface EditPointDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
          * 
          * @param dialog
          *            Dialog with NO useful information to fetch from.
          */
-        public void onDialogCancel(AddPointDialogFragment dialog);
+        public void onDialogCancel(EditPointDialogFragment dialog);
 
         /**
-         * Define what to do when the "Add" button is clicked.
+         * Define what to do when the "Edit" button is clicked.
          * 
          * @param dialog
          *            Dialog to fetch information from.
          */
-        public void onDialogAdd(AddPointDialogFragment dialog);
+        public void onDialogEdit(EditPointDialogFragment dialog);
     }
 
-    AddPointDialogListener listener;
-    private int            number;
-    private double         altitude;
-    private double         east;
-    private double         north;
-    private LinearLayout   layout;
-    private EditText       altitudeEditText;
-    private EditText       eastEditText;
-    private EditText       northEditText;
-    private EditText       numberEditText;
+    public final static String POINT_POSITION = "Point position";
+    private Bundle             bundle;
+    EditPointDialogListener    listener;
+    private int                number;
+    private double             altitude;
+    private double             east;
+    private double             north;
+    private LinearLayout       layout;
+    private EditText           altitudeEditText;
+    private EditText           eastEditText;
+    private EditText           northEditText;
+    private EditText           numberEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
-        this.genAddPointView();
+        this.genEditPointView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(R.string.dialog_add_point).setView(this.layout)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
@@ -72,8 +78,8 @@ public class AddPointDialogFragment extends DialogFragment {
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AddPointDialogFragment.this.listener
-                                .onDialogCancel(AddPointDialogFragment.this);
+                        EditPointDialogFragment.this.listener
+                                .onDialogCancel(EditPointDialogFragment.this);
                     }
                 });
         Dialog dialog = builder.create();
@@ -85,29 +91,29 @@ public class AddPointDialogFragment extends DialogFragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (AddPointDialogFragment.this.checkDialogInputs()) {
+                        if (EditPointDialogFragment.this.checkDialogInputs()) {
                             // altitude is not mandatory
-                            if (AddPointDialogFragment.this.altitudeEditText.length() > 0) {
-                                AddPointDialogFragment.this.altitude = Double
-                                        .parseDouble(AddPointDialogFragment.this.altitudeEditText
+                            if (EditPointDialogFragment.this.altitudeEditText.length() > 0) {
+                                EditPointDialogFragment.this.altitude = Double
+                                        .parseDouble(EditPointDialogFragment.this.altitudeEditText
                                                 .getText().toString());
                             }
-                            AddPointDialogFragment.this.number = Integer
-                                    .parseInt(AddPointDialogFragment.this.numberEditText.getText()
+                            EditPointDialogFragment.this.number = Integer
+                                    .parseInt(EditPointDialogFragment.this.numberEditText.getText()
                                             .toString());
-                            AddPointDialogFragment.this.east = Double
-                                    .parseDouble(AddPointDialogFragment.this.eastEditText.getText()
-                                            .toString());
-                            AddPointDialogFragment.this.north = Double
-                                    .parseDouble(AddPointDialogFragment.this.northEditText
+                            EditPointDialogFragment.this.east = Double
+                                    .parseDouble(EditPointDialogFragment.this.eastEditText
                                             .getText().toString());
-                            AddPointDialogFragment.this.listener
-                                    .onDialogAdd(AddPointDialogFragment.this);
+                            EditPointDialogFragment.this.north = Double
+                                    .parseDouble(EditPointDialogFragment.this.northEditText
+                                            .getText().toString());
+                            EditPointDialogFragment.this.listener
+                                    .onDialogEdit(EditPointDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
-                                    AddPointDialogFragment.this.getActivity(),
-                                    AddPointDialogFragment.this.getActivity().getString(
+                                    EditPointDialogFragment.this.getActivity(),
+                                    EditPointDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data),
                                     Toast.LENGTH_SHORT);
                             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -125,10 +131,10 @@ public class AddPointDialogFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            this.listener = (AddPointDialogListener) activity;
+            this.listener = (EditPointDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement AddPointDialogListener");
+                    + " must implement EditPointDialogListener");
         }
     }
 
@@ -136,43 +142,47 @@ public class AddPointDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
+        this.bundle = this.getArguments();
+
+        Point point = Iterables.get(SharedResources.getSetOfPoints(),
+                this.bundle.getInt(EditPointDialogFragment.POINT_POSITION));
+        this.number = point.getNumber();
+        this.east = point.getEast();
+        this.north = point.getNorth();
+        this.altitude = point.getAltitude();
+
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
-        this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
-        this.numberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        this.numberEditText.setText(DisplayUtils.toString(this.number));
+        this.numberEditText.setEnabled(false);
 
         this.eastEditText = new EditText(this.getActivity());
-        this.eastEditText.setHint(this.getActivity().getString(R.string.east_3dots));
-        this.eastEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        this.eastEditText.setText(DisplayUtils.toString(this.east));
+        this.eastEditText.setInputType(
+                InputType.TYPE_CLASS_NUMBER
+                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.northEditText = new EditText(this.getActivity());
-        this.northEditText.setHint(this.getActivity().getString(R.string.north_3dots));
-
-        this.northEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        this.northEditText.setText(DisplayUtils.toString(this.north));
+        this.northEditText.setInputType(
+                InputType.TYPE_CLASS_NUMBER
+                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.altitudeEditText = new EditText(this.getActivity());
-        this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude_3dots)
-                + this.getActivity().getString(R.string.optional_prths));
-        this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
-        this.number = 0;
-        this.east = 0.0;
-        this.north = 0.0;
-        this.altitude = 0.0;
+        this.altitudeEditText.setText(DisplayUtils.toString(this.altitude));
+        this.altitudeEditText.setInputType(
+                InputType.TYPE_CLASS_NUMBER
+                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     }
 
     /**
-     * Create a view to get number, east, north and altitude of a point from the
-     * user.
+     * Create a view to get updated east, north and altitude value of a point
+     * from the user.
      * 
      */
-    private void genAddPointView() {
+    private void genEditPointView() {
         this.layout.addView(this.numberEditText);
         this.layout.addView(this.eastEditText);
         this.layout.addView(this.northEditText);
@@ -187,8 +197,7 @@ public class AddPointDialogFragment extends DialogFragment {
      *         otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.numberEditText.length() == 0) || (this.eastEditText.length() == 0)
-                || (this.northEditText.length() == 0)) {
+        if ((this.eastEditText.length() == 0) || (this.northEditText.length() == 0)) {
             return false;
         }
 

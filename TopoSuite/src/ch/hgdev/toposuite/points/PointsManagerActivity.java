@@ -2,7 +2,6 @@ package ch.hgdev.toposuite.points;
 
 import java.util.ArrayList;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -24,8 +23,13 @@ import com.google.common.collect.Iterables;
  * @author HGdev
  * 
  */
-public class PointsManagerActivity extends TopoSuiteActivity implements AddPointDialogFragment.AddPointDialogListener {
+public class PointsManagerActivity extends TopoSuiteActivity implements
+        AddPointDialogFragment.AddPointDialogListener,
+        EditPointDialogFragment.EditPointDialogListener {
 
+    // FIXME add a generic method in DAOMapperTreeSet to get a point by its
+    // number attribute
+    private int                      itemId;
     private ListView                 pointsListView;
     private ArrayListOfPointsAdapter adapter;
 
@@ -41,13 +45,15 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
     @Override
     protected void onResume() {
         super.onResume();
+        this.itemId = 0;
         this.drawList();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-        switch (item.getItemId()) {
+        switch (id) {
         case R.id.add_point_button:
             this.showAddPointDialog();
             return true;
@@ -63,14 +69,28 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
     }
 
     @Override
-    public void onDialogAdd(DialogFragment dialog) {
-        this.addPoint(((AddPointDialogFragment) dialog).getNumber(), ((AddPointDialogFragment) dialog).getEast(),
-                ((AddPointDialogFragment) dialog).getNorth(), ((AddPointDialogFragment) dialog).getAltitude());
+    public void onDialogAdd(AddPointDialogFragment dialog) {
+        this.addPoint(dialog.getNumber(), dialog.getEast(),
+                dialog.getNorth(), dialog.getAltitude());
         this.drawList();
     }
 
     @Override
-    public void onDialogCancel(DialogFragment dialog) {
+    public void onDialogCancel(AddPointDialogFragment dialog) {
+        // do nothing
+    }
+
+    @Override
+    public void onDialogEdit(EditPointDialogFragment dialog) {
+        Point point = Iterables.get(SharedResources.getSetOfPoints(), this.itemId);
+        point.setEast(dialog.getEast());
+        point.setNorth(dialog.getNorth());
+        point.setAltitude(dialog.getAltitude());
+        this.drawList();
+    }
+
+    @Override
+    public void onDialogCancel(EditPointDialogFragment dialog) {
         // do nothing
     }
 
@@ -84,12 +104,16 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        Point point;
         switch (item.getItemId()) {
         case R.id.delete_point:
-            Point point = Iterables.get(SharedResources.getSetOfPoints(), (int) info.id);
+            point = Iterables.get(SharedResources.getSetOfPoints(), (int) info.id);
             this.adapter.remove(point);
             this.adapter.notifyDataSetChanged();
             SharedResources.getSetOfPoints().remove(point);
+            return true;
+        case R.id.edit_point:
+            this.showEditPointDialog((int) info.id);
             return true;
         default:
             return super.onContextItemSelected(item);
@@ -100,8 +124,24 @@ public class PointsManagerActivity extends TopoSuiteActivity implements AddPoint
      * Display a dialog to allow the user to insert a new point.
      */
     private void showAddPointDialog() {
-        DialogFragment dialog = new AddPointDialogFragment();
+        AddPointDialogFragment dialog = new AddPointDialogFragment();
         dialog.show(this.getFragmentManager(), "AddPointDialogFragment");
+    }
+
+    /**
+     * Display a dialog to allow the user to edit a point.
+     * 
+     * @param id
+     *            Id of the point to be edited.
+     */
+    private void showEditPointDialog(int id) {
+        EditPointDialogFragment dialog = new EditPointDialogFragment();
+        Bundle args = new Bundle();
+        this.itemId = id;
+        args.putInt(EditPointDialogFragment.POINT_POSITION, id);
+        dialog.setArguments(args);
+
+        dialog.show(this.getFragmentManager(), "EditPointDialogFragment");
     }
 
     /**
