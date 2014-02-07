@@ -53,3 +53,12 @@ task :test do
 	system('cd "$PWD/TopoSuiteTest" && ant clean emma debug install test')
 end
 
+desc "Generate javadoc for the project"
+task :doc do
+	system('cd "$PWD/TopoSuite" && ant javadoc')
+end
+
+desc "Analyze projet with lint"
+task :lint do
+	system('cd "$PWD/TopoSuite" && ant lint')
+end

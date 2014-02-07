@@ -16,4 +16,7 @@ local.properties
 *.log
 *.swp
 
-lint.xml
+TopoSuite/javadoc/*
+!TopoSuite/javadoc/.keep
+TopoSuite/lint.html
+TopoSuite/lint_files

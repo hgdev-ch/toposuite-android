@@ -10,7 +10,21 @@
             classname="net.sf.antcontrib.math.MathTask"
             classpathref="antcontrib" />
 
-    <!-- target rules dependencies -->
+    <!--  PROPERTIES -->
+    <!-- allow environment variables to be accessable by prepending "env." -->
+    <property environment="env" />
+
+    <!-- android tools dir -->
+    <property name="android.tools.dir" location="${sdk.dir}/tools" />
+
+    <!-- javadoc folder relative to ${basedir} -->
+    <property name="javadoc.dir" location="javadoc" />
+
+    <!-- path to lint -->
+    <property name="lint" location="${android.tools.dir}/lint" />
+
+    
+    <!-- TARGET RULES DEPENDENCIES -->
     <target name="-get-version" depends="-get-version-name">
         <echo>Building version number ${current-git-version-name}</echo>
     </target>
@@ -67,9 +81,34 @@
         <echo message="target: ${build.target}"></echo>
     </target>
 
-    <!-- rules -->
+    <!-- RULES -->
+    
+    <!--  update application version -->
     <target name="bump-version" depends="-set-version,-commit-version">
         <echo>Bumped TopoSuite to ${version-name}</echo>
+    </target>
+
+    <!-- create javadoc in ${javadoc.dir} -->
+    <target name="javadoc" description="build javadoc" depends="-get-version-name">
+        <mkdir dir="${javadoc.dir}"/>
+        <javadoc
+            destdir="${javadoc.dir}"
+            doctitle="Documentation for ${ant.project.name} revision ${current-version-name}"
+            verbose="on"
+            use="true"
+            classpath="${env.ANDROID_HOME}/platforms/${target}/android.jar"
+            sourcepath="gen;src"
+            linkoffline="http://d.android.com/reference ${env.ANDROID_HOME}/docs/reference/"
+        />
+    </target>
+
+    <!-- create lint.html and lint_files/ -->
+    <target name="lint">
+        <exec executable="${lint}" failonerror="true">
+            <arg value="--html" />
+            <arg value="lint.html" />
+            <arg path="${basedir}" />
+        </exec>
     </target>
 
 </project>
