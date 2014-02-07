@@ -2,6 +2,11 @@ package ch.hgdev.toposuite.dao;
 
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * Handle migration for the calculations table.
+ * 
+ * @author HGdev
+ */
 public class CalculationsTable {
     public static final String TABLE_NAME_CALCULATIONS           = "calculations";
     public static final String COLUMN_NAME_ID                    = "id";

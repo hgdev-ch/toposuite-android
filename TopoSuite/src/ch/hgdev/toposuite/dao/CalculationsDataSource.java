@@ -17,6 +17,11 @@ import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 
+/**
+ * DAO for {@link Calculation}.
+ * 
+ * @author HGdev
+ */
 public class CalculationsDataSource implements DAO {
     private static final String           ERROR_CREATE       = "Unable to create a new calculation!";
     private static final String           ERROR_DELETE       = "Unable to delete a calculation!";
@@ -35,8 +40,9 @@ public class CalculationsDataSource implements DAO {
     }
 
     /**
+     * Find all calculations.
      * 
-     * @return
+     * @return the list of all calculations
      */
     public ArrayList<Calculation> findAll() {
         SQLiteDatabase db = App.dbHelper.getReadableDatabase();
@@ -59,7 +65,6 @@ public class CalculationsDataSource implements DAO {
                 String serializedInputDate = cursor.getString(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA));
 
-                // TODO
                 SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat);
                 Date d;
                 try {

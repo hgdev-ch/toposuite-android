@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.dao;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
+ * Handle migration for the points table.
  * 
  * @author HGdev
  */
@@ -19,20 +20,20 @@ public class PointsTable {
      * See {@link SQLiteDatabase#onCreate(SQLiteDatabase}
      */
     public static void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME_POINTS + "(" +
-                    COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    COLUMN_NAME_NUMBER + " INTEGER," +
-                    COLUMN_NAME_EAST + " REAL," +
-                    COLUMN_NAME_NORTH + " REAL," +
-                    COLUMN_NAME_ALTITUDE + " REAL," +
-                    COLUMN_NAME_BASE_POINT + " INTEGER)");
+        db.execSQL("CREATE TABLE " + PointsTable.TABLE_NAME_POINTS + "(" +
+                PointsTable.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                PointsTable.COLUMN_NAME_NUMBER + " INTEGER," +
+                PointsTable.COLUMN_NAME_EAST + " REAL," +
+                PointsTable.COLUMN_NAME_NORTH + " REAL," +
+                PointsTable.COLUMN_NAME_ALTITUDE + " REAL," +
+                PointsTable.COLUMN_NAME_BASE_POINT + " INTEGER)");
     }
 
     /**
      * See {@link SQLiteDatabase#onUpgrade(SQLiteDatabase}
      */
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_POINTS);
-        onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS " + PointsTable.TABLE_NAME_POINTS);
+        PointsTable.onCreate(db);
     }
 }

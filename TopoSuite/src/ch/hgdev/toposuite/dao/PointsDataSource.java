@@ -12,32 +12,34 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 
 /**
+ * DAO for {@link Point}
  * 
  * @author HGdev
  */
 public class PointsDataSource implements DAO {
-    private static final String ERROR_CREATE = "Unable to create a new point!";
-    private static final String ERROR_DELETE = "Unable to delete a point!";
-    
-    private static final String SUCCESS_CREATE = "Point successfully created!";
-    private static final String SUCCESS_DELETE = "Point successfully deleted!";
-    
+    private static final String     ERROR_CREATE   = "Unable to create a new point!";
+    private static final String     ERROR_DELETE   = "Unable to delete a point!";
+
+    private static final String     SUCCESS_CREATE = "Point successfully created!";
+    private static final String     SUCCESS_DELETE = "Point successfully deleted!";
+
     private static PointsDataSource pointsDataSource;
-    
+
     public static PointsDataSource getInstance() {
-        if (pointsDataSource == null) {
-            pointsDataSource = new PointsDataSource();
+        if (PointsDataSource.pointsDataSource == null) {
+            PointsDataSource.pointsDataSource = new PointsDataSource();
         }
-        return pointsDataSource;
+        return PointsDataSource.pointsDataSource;
     }
-    
+
     /**
+     * Find all points.
      * 
-     * @return
+     * @return the list of all points.
      */
     public ArrayList<Point> findAll() {
         SQLiteDatabase db = App.dbHelper.getReadableDatabase();
-        
+
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM " + PointsTable.TABLE_NAME_POINTS + " ORDER BY number ASC", null);
         ArrayList<Point> points = new ArrayList<Point>();
@@ -50,7 +52,8 @@ public class PointsDataSource implements DAO {
                         cursor.getColumnIndex(PointsTable.COLUMN_NAME_EAST));
                 double north = cursor.getDouble(
                         cursor.getColumnIndex(PointsTable.COLUMN_NAME_NORTH));
-                double altitude = cursor.getDouble(cursor.getColumnIndex(PointsTable.COLUMN_NAME_ALTITUDE));
+                double altitude = cursor.getDouble(cursor
+                        .getColumnIndex(PointsTable.COLUMN_NAME_ALTITUDE));
                 boolean isBasePoint = cursor.getInt(
                         cursor.getColumnIndex(PointsTable.COLUMN_NAME_BASE_POINT)) == 1;
 
@@ -83,15 +86,15 @@ public class PointsDataSource implements DAO {
 
         long rowID = db.insert(PointsTable.TABLE_NAME_POINTS, null, pointValues);
         if (rowID == -1) {
-            Log.e(Logger.TOPOSUITE_SQL_ERROR, ERROR_CREATE + " => " +
+            Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_CREATE + " => " +
                     Logger.formatPoint(point));
-            throw new SQLiteTopoSuiteException(ERROR_CREATE);
+            throw new SQLiteTopoSuiteException(PointsDataSource.ERROR_CREATE);
         }
 
-        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, SUCCESS_CREATE + " => " +
+        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, PointsDataSource.SUCCESS_CREATE + " => " +
                 Logger.formatPoint(point));
     }
-    
+
     @Override
     public void update(Object obj) {
         // TODO
@@ -108,16 +111,16 @@ public class PointsDataSource implements DAO {
     public void delete(Object obj) throws SQLiteTopoSuiteException {
         Point point = (Point) obj;
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
-        
+
         long rowID = db.delete(PointsTable.TABLE_NAME_POINTS,
                 PointsTable.COLUMN_NAME_NUMBER + "=" + point.getNumber(), null);
         if (rowID == -1) {
-            Log.e(Logger.TOPOSUITE_SQL_ERROR, ERROR_DELETE + " => " +
+            Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_DELETE + " => " +
                     Logger.formatPoint(point));
-            throw new SQLiteTopoSuiteException(ERROR_DELETE);
+            throw new SQLiteTopoSuiteException(PointsDataSource.ERROR_DELETE);
         }
 
-        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, SUCCESS_DELETE + " => " +
+        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, PointsDataSource.SUCCESS_DELETE + " => " +
                 Logger.formatPoint(point));
     }
 }
