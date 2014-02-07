@@ -25,9 +25,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         AddPointDialogFragment.AddPointDialogListener,
         EditPointDialogFragment.EditPointDialogListener {
 
-    // FIXME add a generic method in DAOMapperTreeSet to get a point by its
-    // number attribute
-    private int                      itemId;
+    private int                      selectedPointId;
     private ListView                 pointsListView;
     private ArrayListOfPointsAdapter adapter;
 
@@ -43,7 +41,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        this.itemId = 0;
+        this.selectedPointId = 0;
         this.drawList();
     }
 
@@ -80,7 +78,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditPointDialogFragment dialog) {
-        Point point = SharedResources.getSetOfPoints().get(this.itemId);
+        Point point = SharedResources.getSetOfPoints().get(this.selectedPointId);
         point.setEast(dialog.getEast());
         point.setNorth(dialog.getNorth());
         point.setAltitude(dialog.getAltitude());
@@ -135,7 +133,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private void showEditPointDialog(int id) {
         EditPointDialogFragment dialog = new EditPointDialogFragment();
         Bundle args = new Bundle();
-        this.itemId = id;
+        this.selectedPointId = id;
         args.putInt(EditPointDialogFragment.POINT_POSITION, id);
         dialog.setArguments(args);
 
