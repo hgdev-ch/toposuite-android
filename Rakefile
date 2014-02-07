@@ -62,3 +62,14 @@ desc "Analyze projet with lint"
 task :lint do
 	system('cd "$PWD/TopoSuite" && ant lint')
 end
+
+desc "Pull database from the emulator to /tmp"
+task :pulldb do
+	system(ADB + 'pull /data/data/ch.hgdev.toposuite/databases/topo_suite.db /tmp')
+	puts "Database has been dowloaded to /tmp/topo_suite.db"
+end
+
+desc "Remove the database file from the emulator"
+task :rmdb do
+	system(ADB + 'shell rm /data/data/ch.hgdev.toposuite/databases/topo_suite.db')
+end
