@@ -70,6 +70,8 @@ public class Gisement extends Calculation {
         this.orientation = _orientation;
 
         this.compute();
+
+        SharedResources.getCalculationsHistory().add(0, this);
     }
 
     /**
@@ -318,8 +320,14 @@ public class Gisement extends Calculation {
     @Override
     public String exportToJSON() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(Gisement.ORIGIN_POINT_NUMBER, this.origin.getNumber());
-        json.put(Gisement.ORIENTATION_POINT_NUMBER, this.orientation.getNumber());
+
+        if (this.origin != null) {
+            json.put(Gisement.ORIGIN_POINT_NUMBER, this.origin.getNumber());
+        }
+
+        if (this.orientation != null) {
+            json.put(Gisement.ORIENTATION_POINT_NUMBER, this.orientation.getNumber());
+        }
 
         return json.toString();
     }

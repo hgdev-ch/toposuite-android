@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.interfaces.Exportable;
 import ch.hgdev.toposuite.calculation.interfaces.Importable;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
@@ -69,6 +68,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
         }
 
         this.daoList = new ArrayList<DAO>();
+        this.registerDAO(CalculationsDataSource.getInstance());
     }
 
     /**
@@ -82,8 +82,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
         // since no ID is provided, this a new calculation and then, we have to
         // add it
         // into the calculation history.
-        SharedResources.getCalculationsHistory().add(0, this);
-        this.registerDAO(CalculationsDataSource.getInstance());
+        // SharedResources.getCalculationsHistory().add(0, this);
     }
 
     public abstract Class<?> getActivityClass();

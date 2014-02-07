@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONException;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -62,7 +64,7 @@ public class CalculationsDataSource implements DAO {
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_DESCRIPTION));
                 String lastModification = cursor.getString(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_LAST_MODIFICATION));
-                String serializedInputDate = cursor.getString(
+                String serializedInputData = cursor.getString(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA));
 
                 SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat);
@@ -70,7 +72,7 @@ public class CalculationsDataSource implements DAO {
                 try {
                     d = sdf.parse(lastModification);
                     Calculation calculation = CalculationFactory.createCalculation(
-                            CalculationType.valueOf(type), id, description, d, serializedInputDate);
+                            CalculationType.valueOf(type), id, description, d, serializedInputData);
                     calculations.add(calculation);
                 } catch (ParseException e) {
                     Log.e(Logger.TOPOSUITE_PARSE_ERROR, CalculationsDataSource.ERROR_PARSING_DATE);
@@ -95,6 +97,14 @@ public class CalculationsDataSource implements DAO {
         Calculation calculation = (Calculation) obj;
         SQLiteDatabase db = App.dbHelper.getReadableDatabase();
 
+        String json = "";
+
+        try {
+            json = calculation.exportToJSON();
+        } catch (JSONException e) {
+            Log.e(Logger.TOPOSUITE_PARSE_ERROR, "Error while exporting calculation to JSON!");
+        }
+
         ContentValues calculationValues = new ContentValues();
         calculationValues.put(CalculationsTable.COLUMN_NAME_TYPE,
                 calculation.getType().toString());
@@ -102,6 +112,8 @@ public class CalculationsDataSource implements DAO {
                 calculation.getDescription());
         calculationValues.put(CalculationsTable.COLUMN_NAME_LAST_MODIFICATION,
                 DisplayUtils.formatDate(calculation.getLastModification()));
+        calculationValues.put(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA,
+                json);
 
         long rowID = db.insert(CalculationsTable.TABLE_NAME_CALCULATIONS, null, calculationValues);
         if (rowID == -1) {
