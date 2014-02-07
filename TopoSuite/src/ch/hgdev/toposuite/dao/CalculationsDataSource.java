@@ -48,7 +48,8 @@ public class CalculationsDataSource implements DAO {
                 String lastModification = cursor.getString(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_LAST_MODIFICATION));
 
-                calculations.add(new Calculation(type, description, lastModification));
+                // TODO
+                //calculations.add(new Calculation(type, description, lastModification));
                 cursor.moveToNext();
             }
         }
@@ -83,6 +84,9 @@ public class CalculationsDataSource implements DAO {
                     Logger.formatCalculation(calculation));
             throw new SQLiteTopoSuiteException(ERROR_CREATE);
         }
+        
+        // we update the object ID now we have one
+        calculation.setId(rowID);
 
         Log.i(Logger.TOPOSUITE_SQL_SUCCESS, SUCCESS_CREATE + " => " +
                 Logger.formatCalculation(calculation));
@@ -106,7 +110,7 @@ public class CalculationsDataSource implements DAO {
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
         
         long rowID = db.delete(CalculationsTable.TABLE_NAME_CALCULATIONS,
-                CalculationsTable.COLUMN_NAME_ID + "= 42", null);
+                CalculationsTable.COLUMN_NAME_ID + " = " + calculation.getId(), null);
         if (rowID == -1) {
             Log.e(Logger.TOPOSUITE_SQL_ERROR, ERROR_DELETE + " => " +
                     Logger.formatCalculation(calculation));

@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.interfaces.Exportable;
+import ch.hgdev.toposuite.calculation.interfaces.Importable;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
@@ -13,7 +15,12 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  *  
  * @author HGdev
  */
-public class Calculation {
+public abstract class Calculation implements Exportable, Importable {
+    /**
+     * The ID used by the database.
+     */
+    private long id;
+    
     /**
      * Type of calculation.
      */
@@ -29,30 +36,53 @@ public class Calculation {
      */
     private Date lastModification;
     
+    
     /**
      * Constructs a new Calculation.
-     * @param _type type of calculation
-     * @param _description description of the calculation
+     * @param _id
+     *            the calculation ID
+     * @param _type
+     *            type of calculation
+     * @param _description
+     *            description of the calculation
+     * @param _lastModification
+     *            the last modification date
      */
-    public Calculation(String _type, String _description) {
+    public Calculation(long _id, String _type, String _description, Date _lastModification) {
+        this.id = _id;
         this.type = _type;
         this.description = _description;
-        
-        // set the updateAt to the current time
-        this.lastModification = Calendar.getInstance().getTime();
-        
-        SharedResources.getCalculationsHistory().add(0, this);
+        this.lastModification = _lastModification;
     }
     
     /**
      * TODO add ID parameter
      * @param _type
      * @param _description
-     * @param lastModificationDate
      */
-    public Calculation(String _type, String _description, String lastModificationDate) {
+    public Calculation(String _type, String _description) {
         // TODO parse the last modification date
-        this(_type, _description);
+        this(0, _type, _description, Calendar.getInstance().getTime());
+        
+        // since no ID is provided, this a new calculation and then, we have to add it
+        // into the calculation history.
+        SharedResources.getCalculationsHistory().add(0, this);
+    }
+    
+    /**
+     * Getter for the ID.
+     * @return the ID
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * Setter for the ID.
+     * @param _id
+     */
+    public void setId(long _id) {
+        this.id = _id;
     }
 
     /**

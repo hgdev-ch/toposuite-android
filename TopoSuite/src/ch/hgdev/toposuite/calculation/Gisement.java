@@ -1,5 +1,9 @@
 package ch.hgdev.toposuite.calculation;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -9,6 +13,9 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class Gisement extends Calculation {
+    public static final String ORIGIN_POINT_NUMBER      = "origin_point_number";
+    public static final String ORIENTATION_POINT_NUMBER = "orientation_point_number";
+    
     /**
      * The origin.
      */
@@ -290,5 +297,24 @@ public class Gisement extends Calculation {
      */
     public double getSlope() {
         return this.slope;
+    }
+
+    @Override
+    public String exportToJSON() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put(ORIGIN_POINT_NUMBER, this.origin.getNumber());
+        json.put(ORIENTATION_POINT_NUMBER, this.orientation.getNumber());
+        
+        return json.toString();
+    }
+
+    @Override
+    public void importFromJSON(String jsonInputArgs) throws JSONException {
+        JSONObject json = new JSONObject(jsonInputArgs);
+        int originPointNumber = json.getInt(ORIGIN_POINT_NUMBER);
+        int orientationPointNumber = json.getInt(ORIENTATION_POINT_NUMBER);
+        
+        this.origin = SharedResources.getSetOfPoints().find(originPointNumber);
+        this.orientation = SharedResources.getSetOfPoints().find(orientationPointNumber);
     }
 }

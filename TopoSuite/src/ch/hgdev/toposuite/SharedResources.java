@@ -7,6 +7,7 @@ import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.collections.DAOMapperArrayList;
 import ch.hgdev.toposuite.dao.collections.DAOMapperTreeSet;
+import ch.hgdev.toposuite.dao.collections.Searcher;
 import ch.hgdev.toposuite.points.Point;
 
 /**
@@ -52,6 +53,12 @@ public class SharedResources {
                     int l = left.getNumber();
                     int r = right.getNumber();
                     return (r > l ? -1 : (r == l ? 0 : 1));
+                }
+            }, new Searcher<Point>() {
+                @Override
+                public boolean isFound(Point currentElement, Object expectedElement) {
+                    Integer expectedNumber = (Integer) expectedElement;
+                    return currentElement.getNumber() == (int)expectedNumber;
                 }
             });
             setOfPoints.registerDAO(PointsDataSource.getInstance());

@@ -22,6 +22,11 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     private static final long serialVersionUID = 310907601029773320L;
     
     /**
+     * Searcher interface for finding object in the collection.
+     */
+    private Searcher<? super E> searcher;
+    
+    /**
      * List of observers.
      */
     private List<DAO> daoList;
@@ -42,6 +47,11 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
         this.daoList = new ArrayList<DAO>();
         this.notifyOnChange = true;
     }
+    
+    public DAOMapperTreeSet(Comparator<? super E> comparator, Searcher<? super E>  _searcher) {
+        this(comparator);
+        this.searcher = _searcher;
+    }
 
     @Override
     public boolean add(E obj) {
@@ -59,6 +69,21 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
             this.notifyDeletion(obj);
         }
         return status;
+    }
+    
+    /**
+     * Find a object E in the TreeSet.
+     * @param needle
+     *            the needle to find in the haystack
+     * @return the object that match the search criteria
+     */
+    public E find(Object needle) {
+        for (E element : this) {
+            if (this.searcher.isFound(element, needle)) {
+                return element;
+            }
+        }
+        return null;
     }
     
     /**
@@ -105,5 +130,14 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     @Override
     public void notifyUpdate(Object obj) {
      // actually not used
+    }
+
+    /**
+     * Setter for the searcher interface.
+     * @param searcher
+     *            searcher interface implementation
+     */
+    public void setSearcheable(Searcher<E> _searcher) {
+        this.searcher = _searcher;
     }
 }

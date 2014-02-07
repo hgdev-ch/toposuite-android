@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.utils;
 
 import ch.hgdev.toposuite.calculation.Calculation;
+import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
 
 /**
