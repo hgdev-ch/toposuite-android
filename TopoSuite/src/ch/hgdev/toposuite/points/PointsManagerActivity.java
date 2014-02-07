@@ -15,8 +15,6 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 
-import com.google.common.collect.Iterables;
-
 /**
  * Activity to manage points, such as adding, removing or modifying them.
  * 
@@ -82,7 +80,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditPointDialogFragment dialog) {
-        Point point = Iterables.get(SharedResources.getSetOfPoints(), this.itemId);
+        Point point = SharedResources.getSetOfPoints().get(this.itemId);
         point.setEast(dialog.getEast());
         point.setNorth(dialog.getNorth());
         point.setAltitude(dialog.getAltitude());
@@ -107,7 +105,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         Point point;
         switch (item.getItemId()) {
         case R.id.delete_point:
-            point = Iterables.get(SharedResources.getSetOfPoints(), (int) info.id);
+            point = SharedResources.getSetOfPoints().get((int) info.id);
             this.adapter.remove(point);
             this.adapter.notifyDataSetChanged();
             SharedResources.getSetOfPoints().remove(point);
