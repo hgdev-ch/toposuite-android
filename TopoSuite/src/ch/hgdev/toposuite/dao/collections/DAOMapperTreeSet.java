@@ -5,8 +5,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
+
+import com.google.common.collect.Iterables;
 
 
 /**
@@ -69,6 +72,16 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
             this.notifyDeletion(obj);
         }
         return status;
+    }
+    
+    /**
+     * Get an element of the Set at a given position.
+     * @param position
+     *            position of the item in the Set.
+     * @return a element
+     */
+    public E get(int position) {
+        return Iterables.get(this, position);
     }
     
     /**
