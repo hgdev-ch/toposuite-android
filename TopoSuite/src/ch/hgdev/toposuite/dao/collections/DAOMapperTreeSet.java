@@ -66,6 +66,13 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     }
 
     @Override
+    public void clear() {
+        for (E element : this) {
+            this.remove(element);
+        }
+    }
+
+    @Override
     public boolean remove(Object obj) {
         boolean status = super.remove(obj);
         if (status && this.notifyOnChange) {
