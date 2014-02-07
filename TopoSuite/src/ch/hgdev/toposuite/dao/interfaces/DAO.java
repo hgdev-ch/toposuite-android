@@ -12,7 +12,7 @@ public interface DAO {
      * @param obj
      *            An Object
      */
-    public void create(Object obj);
+    void create(Object obj);
 
     /**
      * Update an existing object.
@@ -20,7 +20,7 @@ public interface DAO {
      * @param obj
      *            An Object
      */
-    public void update(Object obj);
+    void update(Object obj);
 
     /**
      * Delete an existing object.
@@ -28,5 +28,10 @@ public interface DAO {
      * @param obj
      *            An Object
      */
-    public void delete(Object obj);
+    void delete(Object obj);
+
+    /**
+     * Delete all element from table.
+     */
+    void deleteAll();
 }

@@ -145,4 +145,13 @@ public class CalculationsDataSource implements DAO {
         Log.i(Logger.TOPOSUITE_SQL_SUCCESS, CalculationsDataSource.SUCCESS_DELETE + " => " +
                 Logger.formatCalculation(calculation));
     }
+
+    /**
+     * Delete all Calculations.
+     */
+    @Override
+    public void deleteAll() {
+        SQLiteDatabase db = App.dbHelper.getWritableDatabase();
+        db.delete(CalculationsTable.TABLE_NAME_CALCULATIONS, null, null);
+    }
 }

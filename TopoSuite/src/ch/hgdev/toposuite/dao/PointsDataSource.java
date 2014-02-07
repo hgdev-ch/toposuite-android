@@ -123,4 +123,13 @@ public class PointsDataSource implements DAO {
         Log.i(Logger.TOPOSUITE_SQL_SUCCESS, PointsDataSource.SUCCESS_DELETE + " => " +
                 Logger.formatPoint(point));
     }
+
+    /**
+     * Delete all Points.
+     */
+    @Override
+    public void deleteAll() {
+        SQLiteDatabase db = App.dbHelper.getWritableDatabase();
+        db.delete(PointsTable.TABLE_NAME_POINTS, null, null);
+    }
 }

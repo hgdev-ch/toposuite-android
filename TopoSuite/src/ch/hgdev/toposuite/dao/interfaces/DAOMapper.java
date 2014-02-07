@@ -12,7 +12,7 @@ public interface DAOMapper extends DAOLinker {
      * @param obj
      *            an object
      */
-    public void notifyCreation(Object obj);
+    void notifyCreation(Object obj);
 
     /**
      * Notify all the DAO that a new Object has been deleted.
@@ -20,5 +20,10 @@ public interface DAOMapper extends DAOLinker {
      * @param obj
      *            an object
      */
-    public void notifyDeletion(Object obj);
+    void notifyDeletion(Object obj);
+
+    /**
+     * Notify all that all elements from a table have been cleared.
+     */
+    void notifyClear();
 }

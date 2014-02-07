@@ -23,7 +23,7 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     /**
      * List of observers.
      */
-    private List<DAO>         daoList;
+    private final List<DAO>   daoList;
 
     /**
      * Control whether methods that change the list automatically call the
@@ -80,6 +80,14 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
         return status;
     }
 
+    @Override
+    public void clear() {
+        super.clear();
+        if (this.notifyOnChange) {
+            this.notifyClear();
+        }
+    }
+
     /**
      * Getter for notifyOnChange flag.
      * 
@@ -120,6 +128,13 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     public void notifyDeletion(Object obj) {
         for (DAO dao : this.daoList) {
             dao.delete(obj);
+        }
+    }
+
+    @Override
+    public void notifyClear() {
+        for (DAO dao : this.daoList) {
+            dao.deleteAll();
         }
     }
 }

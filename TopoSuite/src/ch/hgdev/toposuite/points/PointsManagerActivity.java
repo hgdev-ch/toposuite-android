@@ -2,6 +2,8 @@ package ch.hgdev.toposuite.points;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -52,6 +54,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         switch (id) {
         case R.id.add_point_button:
             this.showAddPointDialog();
+            return true;
+        case R.id.delete_points_button:
+            this.removeAllPoints();
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -158,6 +163,33 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         boolean basePoint = true;
         Point point = new Point(number, east, north, altitude, basePoint);
         SharedResources.getSetOfPoints().add(point);
+    }
+
+    /**
+     * Remove all the points from the list and prompt the user beforehand.
+     */
+    private void removeAllPoints() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.delete_all_points)
+                .setMessage(R.string.loose_calculations)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.delete_all,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedResources.getSetOfPoints().clear();
+                                PointsManagerActivity.this.drawList();
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+        builder.create().show();
     }
 
     /**

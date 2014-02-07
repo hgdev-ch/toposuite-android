@@ -36,6 +36,8 @@
     <string name="crag">CRAG (Commission paritaire romande d\'apprentissage de géomaticien&#47;ne)</string>
     <string name="delete">Supprimer</string>
     <string name="delete_3dots">Supprimer&#8230;</string>
+    <string name="delete_all">Tout supprimer</string>
+    <string name="delete_all_points">Effacer tous les points?</string>
     <string name="developed_by">Developpé par</string>
     <string name="dialog_add_point">Ajouter un point</string>
     <string name="distance_label">Distance (horiz.) [m]</string>
@@ -48,6 +50,7 @@
     <string name="error_same_points">Les points doivent être différents!</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Accueil</string>
+    <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="no">Non</string>
     <string name="no_value">-</string>
     <string name="north">Nord</string>
