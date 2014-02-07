@@ -5,53 +5,50 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
 
 import com.google.common.collect.Iterables;
 
-
 /**
  * 
  * @author HGdev
- *
+ * 
  * @param <E>
  */
 public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     /**
      * Serial UID.
      */
-    private static final long serialVersionUID = 310907601029773320L;
-    
+    private static final long   serialVersionUID = 310907601029773320L;
+
     /**
      * Searcher interface for finding object in the collection.
      */
     private Searcher<? super E> searcher;
-    
+
     /**
      * List of observers.
      */
-    private List<DAO> daoList;
-    
+    private List<DAO>           daoList;
+
     /**
-     * FIXME update comment
-     * Control whether methods that change the list automatically call notifyObservers().
-     * If set to false, caller must manually call
-     * {@link DAOMapperTreeSet#notifyObservers()} to have the changes reflected in 
-     * the observers.
+     * FIXME update comment Control whether methods that change the list
+     * automatically call notifyObservers(). If set to false, caller must
+     * manually call {@link DAOMapperTreeSet#notifyObservers()} to have the
+     * changes reflected in the observers.
      * 
      * The default value is set to true.
      */
-    private boolean notifyOnChange;
-   
+    private boolean             notifyOnChange;
+
     public DAOMapperTreeSet(Comparator<? super E> comparator) {
         super(comparator);
         this.daoList = new ArrayList<DAO>();
         this.notifyOnChange = true;
     }
-    
-    public DAOMapperTreeSet(Comparator<? super E> comparator, Searcher<? super E>  _searcher) {
+
+    public DAOMapperTreeSet(Comparator<? super E> comparator, Searcher<? super E> _searcher) {
         this(comparator);
         this.searcher = _searcher;
     }
@@ -59,7 +56,7 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     @Override
     public boolean add(E obj) {
         boolean status = super.add(obj);
-        if (status && notifyOnChange) {
+        if (status && this.notifyOnChange) {
             this.notifyCreation(obj);
         }
         return status;
@@ -68,14 +65,15 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     @Override
     public boolean remove(Object obj) {
         boolean status = super.remove(obj);
-        if (status && notifyOnChange) {
+        if (status && this.notifyOnChange) {
             this.notifyDeletion(obj);
         }
         return status;
     }
-    
+
     /**
      * Get an element of the Set at a given position.
+     * 
      * @param position
      *            position of the item in the Set.
      * @return a element
@@ -83,9 +81,10 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     public E get(int position) {
         return Iterables.get(this, position);
     }
-    
+
     /**
      * Find a object E in the TreeSet.
+     * 
      * @param needle
      *            the needle to find in the haystack
      * @return the object that match the search criteria
@@ -98,9 +97,10 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
         }
         return null;
     }
-    
+
     /**
      * Getter for notifyOnChange flag.
+     * 
      * @return the notifyOnChange
      */
     public boolean isNotifyOnChange() {
@@ -109,13 +109,14 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
 
     /**
      * Setter for notifyOnChange flag.
+     * 
      * @param notifyOnChange
      *            the notifyOnChange to set
      */
     public void setNotifyOnChange(boolean _notifyOnChange) {
         this.notifyOnChange = _notifyOnChange;
     }
-    
+
     @Override
     public void registerDAO(DAO dao) {
         this.daoList.add(dao);
@@ -131,7 +132,7 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
         for (DAO dao : this.daoList) {
             dao.create(obj);
         }
-    } 
+    }
 
     @Override
     public void notifyDeletion(Object obj) {
@@ -139,14 +140,15 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
             dao.delete(obj);
         }
     }
-    
+
     @Override
     public void notifyUpdate(Object obj) {
-     // actually not used
+        // actually not used
     }
 
     /**
      * Setter for the searcher interface.
+     * 
      * @param searcher
      *            searcher interface implementation
      */
