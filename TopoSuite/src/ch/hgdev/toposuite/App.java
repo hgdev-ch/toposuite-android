@@ -37,7 +37,7 @@ public class App extends Application {
     /**
      * Date format.
      */
-    public static String dateFormat = "MM-dd-yyyy HH:mm";
+    public static final String dateFormat = "MM-dd-yyyy HH:mm";
     
     /**
      * Database helper.

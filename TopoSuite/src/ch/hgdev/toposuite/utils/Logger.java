@@ -1,7 +1,6 @@
 package ch.hgdev.toposuite.utils;
 
 import ch.hgdev.toposuite.calculation.Calculation;
-import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
 
 /**
@@ -11,13 +10,16 @@ import ch.hgdev.toposuite.points.Point;
  * 
  */
 public class Logger {
-    public final static String TOPOSUITE_RESSOURCE_NOT_FOUND = "TOPOSUITE RESSOURCE NOT FOUND: ";
-    public final static String TOPOSUITE_SQL_ERROR = "TOPOSUITE SQL ERROR";
-    
-    public final static String TOPOSUITE_SQL_SUCCESS = "TOPOSUITE SQL SUCCESS";
-    
+    public final static String TOPOSUITE_RESSOURCE_NOT_FOUND      = "TOPOSUITE RESSOURCE NOT FOUND: ";
+    public final static String TOPOSUITE_SQL_ERROR                = "TOPOSUITE SQL ERROR";
+    public final static String TOPOSUITE_CALCULATION_IMPORT_ERROR = "TOPOSUITE CALCULATION IMPORT ERROR";
+    public final static String TOPOSUITE_PARSE_ERROR              = "TOPOSUITE PARSE ERROR";
+
+    public final static String TOPOSUITE_SQL_SUCCESS              = "TOPOSUITE SQL SUCCESS";
+
     /**
      * Format point for logging.
+     * 
      * @param point
      *            a Point
      * @return formatted point
@@ -27,9 +29,10 @@ public class Logger {
                 point.getNumber(), point.getEast(), point.getNorth(),
                 point.getAltitude(), point.isBasePoint());
     }
-    
+
     /**
      * Format calculation for logging.
+     * 
      * @param calculation
      *            a calculation
      * @return formatted calculation

@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.calculation;
 
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,7 +61,7 @@ public class Gisement extends Calculation {
      *            the orientation
      */
     public Gisement(String _description, Point _origin, Point _orientation) {
-        super("Gisement", _description);
+        super(CalculationType.GISEMENT, _description);
 
         this.origin = _origin;
         this.orientation = _orientation;
@@ -77,6 +79,16 @@ public class Gisement extends Calculation {
      */
     public Gisement(Point _origin, Point _orientation) {
         this("", _origin, _orientation);
+    }
+    
+    /**
+     * 
+     * @param id
+     * @param description
+     * @param lastModification
+     */
+    public Gisement(long id, String description, Date lastModification) {
+        super(id, CalculationType.GISEMENT, description, lastModification);
     }
 
     /**

@@ -11,10 +11,12 @@ import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
 import com.google.common.collect.Iterables;
 
 /**
+ * DAOMapperTreeSet is a TreeSet that is synchronized with the database through
+ * a DAO object.
  * 
  * @author HGdev
- * 
  * @param <E>
+ *            the type of the Set
  */
 public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     /**
@@ -33,10 +35,11 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
     private List<DAO>           daoList;
 
     /**
-     * FIXME update comment Control whether methods that change the list
-     * automatically call notifyObservers(). If set to false, caller must
-     * manually call {@link DAOMapperTreeSet#notifyObservers()} to have the
-     * changes reflected in the observers.
+     * Control whether methods that change the list automatically call the
+     * notify* methods. If set to false, caller must manually call
+     * {@link DAOMapperTreeSet#notifyCreation(Object)()} and
+     * {@link DAOMapperTreeSet#notifyDeletion(Object)()} to have the changes
+     * reflected in the DAO.
      * 
      * The default value is set to true.
      */
@@ -139,11 +142,6 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
         for (DAO dao : this.daoList) {
             dao.delete(obj);
         }
-    }
-
-    @Override
-    public void notifyUpdate(Object obj) {
-        // actually not used
     }
 
     /**
