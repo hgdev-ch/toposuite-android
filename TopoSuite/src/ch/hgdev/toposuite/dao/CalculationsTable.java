@@ -14,19 +14,19 @@ public class CalculationsTable {
      * See {@link SQLiteDatabase#onCreate(SQLiteDatabase}
      */
     public static void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME_CALCULATIONS + "(" +
-                    COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    COLUMN_NAME_TYPE + " TEXT," +
-                    COLUMN_NAME_DESCRIPTION + " TEXT," +
-                    COLUMN_NAME_LAST_MODIFICATION + " TEXT," +
-                    COLUMN_NAME_SERIALIZED_INPUT_DATA + " TEXT)");
+        db.execSQL("CREATE TABLE " + CalculationsTable.TABLE_NAME_CALCULATIONS + "(" +
+                CalculationsTable.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                CalculationsTable.COLUMN_NAME_TYPE + " TEXT," +
+                CalculationsTable.COLUMN_NAME_DESCRIPTION + " TEXT," +
+                CalculationsTable.COLUMN_NAME_LAST_MODIFICATION + " TEXT," +
+                CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA + " TEXT)");
     }
 
     /**
      * See {@link SQLiteDatabase#onUpgrade(SQLiteDatabase}
      */
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CALCULATIONS);
-        onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS " + CalculationsTable.TABLE_NAME_CALCULATIONS);
+        CalculationsTable.onCreate(db);
     }
 }
