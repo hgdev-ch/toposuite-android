@@ -6,8 +6,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.gisement.GisementActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
+
+import com.google.common.base.Strings;
 
 /**
  * Gisement provides methods for the calculation of a gisement/distance.
@@ -17,36 +20,36 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class Gisement extends Calculation {
     public static final String ORIGIN_POINT_NUMBER      = "origin_point_number";
     public static final String ORIENTATION_POINT_NUMBER = "orientation_point_number";
-    
+
     /**
      * The origin.
      */
-    private Point  origin;
+    private Point              origin;
 
     /**
      * The orientation.
      */
-    private Point  orientation;
+    private Point              orientation;
 
     /**
      * The "gisement", also called Z0.
      */
-    private double gisement;
+    private double             gisement;
 
     /**
      * The horizontal distance.
      */
-    private double horizDist;
+    private double             horizDist;
 
     /**
      * The altitude.
      */
-    private double altitude;
+    private double             altitude;
 
     /**
      * The slope given in percent.
      */
-    private double slope;
+    private double             slope;
 
     /**
      * Constructs a new Gisement object. It also calls the
@@ -80,7 +83,7 @@ public class Gisement extends Calculation {
     public Gisement(Point _origin, Point _orientation) {
         this("", _origin, _orientation);
     }
-    
+
     /**
      * 
      * @param id
@@ -113,6 +116,7 @@ public class Gisement extends Calculation {
 
         // update the calculation last modification date
         this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     /**
@@ -314,19 +318,28 @@ public class Gisement extends Calculation {
     @Override
     public String exportToJSON() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(ORIGIN_POINT_NUMBER, this.origin.getNumber());
-        json.put(ORIENTATION_POINT_NUMBER, this.orientation.getNumber());
-        
+        json.put(Gisement.ORIGIN_POINT_NUMBER, this.origin.getNumber());
+        json.put(Gisement.ORIENTATION_POINT_NUMBER, this.orientation.getNumber());
+
         return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
+        if (Strings.isNullOrEmpty(jsonInputArgs)) {
+            return;
+        }
+
         JSONObject json = new JSONObject(jsonInputArgs);
-        int originPointNumber = json.getInt(ORIGIN_POINT_NUMBER);
-        int orientationPointNumber = json.getInt(ORIENTATION_POINT_NUMBER);
-        
+        int originPointNumber = json.getInt(Gisement.ORIGIN_POINT_NUMBER);
+        int orientationPointNumber = json.getInt(Gisement.ORIENTATION_POINT_NUMBER);
+
         this.origin = SharedResources.getSetOfPoints().find(originPointNumber);
         this.orientation = SharedResources.getSetOfPoints().find(orientationPointNumber);
+    }
+
+    @Override
+    public Class<?> getActivityClass() {
+        return GisementActivity.class;
     }
 }

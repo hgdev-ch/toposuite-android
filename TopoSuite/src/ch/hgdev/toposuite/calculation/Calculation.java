@@ -1,11 +1,15 @@
 package ch.hgdev.toposuite.calculation;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.interfaces.Exportable;
 import ch.hgdev.toposuite.calculation.interfaces.Importable;
+import ch.hgdev.toposuite.dao.CalculationsDataSource;
+import ch.hgdev.toposuite.dao.interfaces.DAO;
+import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
@@ -16,7 +20,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * 
  * @author HGdev
  */
-public abstract class Calculation implements Exportable, Importable {
+public abstract class Calculation implements Exportable, Importable, DAOUpdater {
     /**
      * The ID used by the database.
      */
@@ -36,6 +40,11 @@ public abstract class Calculation implements Exportable, Importable {
      * Date of the last modification.
      */
     private Date            lastModification;
+
+    /**
+     * List of DAO linked.
+     */
+    private ArrayList<DAO>  daoList;
 
     /**
      * Constructs a new Calculation.
@@ -58,6 +67,8 @@ public abstract class Calculation implements Exportable, Importable {
         if (this.lastModification == null) {
             this.lastModification = Calendar.getInstance().getTime();
         }
+
+        this.daoList = new ArrayList<DAO>();
     }
 
     /**
@@ -72,7 +83,10 @@ public abstract class Calculation implements Exportable, Importable {
         // add it
         // into the calculation history.
         SharedResources.getCalculationsHistory().add(0, this);
+        this.registerDAO(CalculationsDataSource.getInstance());
     }
+
+    public abstract Class<?> getActivityClass();
 
     /**
      * Getter for the ID.
@@ -141,5 +155,22 @@ public abstract class Calculation implements Exportable, Importable {
         return String.format("%s    %s",
                 DisplayUtils.formatDate(this.lastModification),
                 this.type);
+    }
+
+    @Override
+    public void registerDAO(DAO dao) {
+        this.daoList.add(dao);
+    }
+
+    @Override
+    public void removeDAO(DAO dao) {
+        this.daoList.remove(dao);
+    }
+
+    @Override
+    public void notifyUpdate(Object obj) {
+        for (DAO dao : this.daoList) {
+            dao.update(obj);
+        }
     }
 }

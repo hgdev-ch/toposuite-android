@@ -1,7 +1,6 @@
 package ch.hgdev.toposuite.gisement;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Gisement;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
@@ -77,7 +77,8 @@ public class GisementActivity extends TopoSuiteActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Point pt = (Point) GisementActivity.this.orientationSpinner.getItemAtPosition(pos);
                 if (pt.getNumber() > 0) {
-                    GisementActivity.this.orientationPoint.setText(GisementActivity.this.formatPoint(pt));
+                    GisementActivity.this.orientationPoint.setText(GisementActivity.this
+                            .formatPoint(pt));
                 } else {
                     GisementActivity.this.orientationPoint.setText("");
                 }
@@ -90,21 +91,32 @@ public class GisementActivity extends TopoSuiteActivity {
             }
         });
 
-        this.gisement = null;
+        Bundle bundle = this.getIntent().getExtras();
+        if ((bundle != null)) {
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.gisement = (Gisement) SharedResources.getCalculationsHistory().get(position);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         List<Point> points = new ArrayList<Point>();
         points.add(new Point(0, 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
-      
+
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item,points);
+                this, R.layout.spinner_list_item, points);
         this.originSpinner.setAdapter(a);
         this.orientationSpinner.setAdapter(a);
+
+        if (this.gisement != null) {
+            this.originSpinner.setSelection(
+                    a.getPosition(this.gisement.getOrigin()));
+            this.orientationSpinner.setSelection(
+                    a.getPosition(this.gisement.getOrientation()));
+        }
     }
 
     /**
