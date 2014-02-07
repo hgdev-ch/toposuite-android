@@ -1,14 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/search_point_button"
-        android:icon="@drawable/ic_action_search"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/search_3dots"/>
-    <item
         android:id="@+id/add_point_button"
         android:icon="@drawable/ic_action_new"
         android:showAsAction="ifRoom|withText"
         android:title="@string/add_3dots"/>
+    <item
+        android:id="@+id/delete_points_button"
+        android:icon="@drawable/ic_action_discard"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/delete_3dots"/>
+    <item
+        android:id="@+id/search_point_button"
+        android:icon="@drawable/ic_action_search"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/search_3dots"/>
 
 </menu>
