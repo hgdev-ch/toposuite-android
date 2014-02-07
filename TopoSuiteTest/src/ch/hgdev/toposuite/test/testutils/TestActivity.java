@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.test.testutils;
 
+import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
@@ -14,7 +15,7 @@ import com.robotium.solo.Solo;
  * @param <T>
  *            The activity under test.
  */
-public class TestActivity<T extends android.app.Activity> extends
+public class TestActivity<T extends Activity> extends
         ActivityInstrumentationTestCase2<T> {
 
     private Solo solo;
