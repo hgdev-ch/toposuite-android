@@ -64,7 +64,7 @@
     <string name="point_number">No du point</string>
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Saisi</string>
-    <string name="search_3dots">Search&#8230;</string>
+    <string name="search_3dots">Rechercher&#8230;</string>
     <string name="slope_label">Pente [%]</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">Historique</string>
