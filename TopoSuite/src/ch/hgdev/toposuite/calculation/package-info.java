@@ -3,7 +3,7 @@
  * the application (gisement, station orientation, ...).
  * 
  * <p>Here is the procedure for creating a new calculation:</p>
- * <ul>
+ * <ol>
  *      <li>
  *          Create a new class that extends the abstract class
  *          {@link ch.hgdev.toposuite.calculation.Calculation}
@@ -47,7 +47,7 @@
  *          Don't forget to make appropriate constructors. See
  *          {@link ch.hgdev.toposuite.calculation.Gisement}
  *      </li>
- * </ul>
+ * </ol>
  * 
  * @author HGdev
 
