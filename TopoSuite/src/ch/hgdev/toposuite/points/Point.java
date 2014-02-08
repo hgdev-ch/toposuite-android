@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.dao.CalculationsDataSource;
+import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
 
@@ -57,7 +57,7 @@ public class Point implements DAOUpdater {
         this.basePoint = basePoint;
 
         this.daoList = new ArrayList<DAO>();
-        this.registerDAO(CalculationsDataSource.getInstance());
+        this.registerDAO(PointsDataSource.getInstance());
     }
 
     public int getNumber() {

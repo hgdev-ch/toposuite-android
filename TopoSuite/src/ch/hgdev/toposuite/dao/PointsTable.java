@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class PointsTable {
     public static final String TABLE_NAME_POINTS      = "points";
-    public static final String COLUMN_NAME_ID         = "id";
     public static final String COLUMN_NAME_NUMBER     = "number";
     public static final String COLUMN_NAME_EAST       = "east";
     public static final String COLUMN_NAME_NORTH      = "north";
@@ -21,8 +20,7 @@ public class PointsTable {
      */
     public static void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + PointsTable.TABLE_NAME_POINTS + "(" +
-                PointsTable.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                PointsTable.COLUMN_NAME_NUMBER + " INTEGER," +
+                PointsTable.COLUMN_NAME_NUMBER + " INTEGER PRIMARY KEY," +
                 PointsTable.COLUMN_NAME_EAST + " REAL," +
                 PointsTable.COLUMN_NAME_NORTH + " REAL," +
                 PointsTable.COLUMN_NAME_ALTITUDE + " REAL," +

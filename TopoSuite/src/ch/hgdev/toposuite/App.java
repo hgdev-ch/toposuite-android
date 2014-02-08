@@ -28,7 +28,7 @@ public class App extends Application {
      * {@link SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)}
      * method.
      */
-    public static final int    DATABASE_VERSION = 4;
+    public static final int    DATABASE_VERSION = 5;
 
     /**
      * Number of decimal to display with dealing with numbers.

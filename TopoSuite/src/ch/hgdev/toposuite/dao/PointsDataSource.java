@@ -9,6 +9,7 @@ import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 
 /**
@@ -19,9 +20,11 @@ import ch.hgdev.toposuite.utils.Logger;
 public class PointsDataSource implements DAO {
     private static final String     ERROR_CREATE   = "Unable to create a new point!";
     private static final String     ERROR_DELETE   = "Unable to delete a point!";
+    private static final String     ERROR_UPDATE   = "Unable to update a point!";
 
     private static final String     SUCCESS_CREATE = "Point successfully created!";
     private static final String     SUCCESS_DELETE = "Point successfully deleted!";
+    private static final String     SUCCESS_UPDATE = "Point successfully updated!";
 
     private static PointsDataSource pointsDataSource;
 
@@ -97,7 +100,26 @@ public class PointsDataSource implements DAO {
 
     @Override
     public void update(Object obj) {
-        // TODO
+        Point point = (Point) obj;
+        SQLiteDatabase db = App.dbHelper.getWritableDatabase();
+
+        ContentValues pointValues = new ContentValues();
+        pointValues.put(PointsTable.COLUMN_NAME_EAST, point.getEast());
+        pointValues.put(PointsTable.COLUMN_NAME_NORTH, point.getNorth());
+        pointValues.put(PointsTable.COLUMN_NAME_ALTITUDE, point.getAltitude());
+
+        long rowID = db.update(
+                PointsTable.TABLE_NAME_POINTS,
+                pointValues,
+                PointsTable.COLUMN_NAME_NUMBER + " = ?",
+                new String[] { DisplayUtils.toString(point.getNumber()) });
+        if (rowID == -1) {
+            Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_UPDATE + " => " +
+                    Logger.formatPoint(point));
+            throw new SQLiteTopoSuiteException(PointsDataSource.ERROR_UPDATE);
+        }
+        Log.i(Logger.TOPOSUITE_SQL_SUCCESS,
+                PointsDataSource.SUCCESS_UPDATE + " => " + Logger.formatPoint(point));
     }
 
     /**
