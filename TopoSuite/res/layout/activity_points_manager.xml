@@ -16,9 +16,8 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:padding="16dp"
             android:text="@string/point_number"
-            android:textAppearance="?android:attr/textAppearanceListItem" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
             android:layout_width="match_parent"
@@ -26,9 +25,8 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:padding="16dp"
             android:text="@string/east"
-            android:textAppearance="?android:attr/textAppearanceListItem" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,9 +34,8 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:padding="16dp"
             android:text="@string/north"
-            android:textAppearance="?android:attr/textAppearanceListItem" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
             android:layout_width="match_parent"
@@ -46,9 +43,8 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:padding="16dp"
             android:text="@string/altitude"
-            android:textAppearance="?android:attr/textAppearanceListItem" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
             android:layout_width="match_parent"
@@ -56,9 +52,8 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:padding="16dp"
             android:text="@string/point_class"
-            android:textAppearance="?android:attr/textAppearanceListItem" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
     </LinearLayout>
 
     <ListView
