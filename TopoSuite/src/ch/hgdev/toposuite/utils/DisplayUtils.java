@@ -30,6 +30,8 @@ public class DisplayUtils {
      * Convert a value of type double to a String according to the number of
      * decimals to display which are set in the application settings.
      * 
+     * TODO check rounding mode of String.format
+     * 
      * @param value
      *            The value to convert to a String.
      * @return Value as a String.
