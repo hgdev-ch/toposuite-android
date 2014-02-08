@@ -40,6 +40,7 @@
     <string name="delete_all_points">Effacer tous les points?</string>
     <string name="developed_by">Developpé par</string>
     <string name="dialog_add_point">Ajouter un point</string>
+    <string name="dialog_edit_point">Editer un point</string>
     <string name="distance_label">Distance (horiz.) [m]</string>
     <string name="drawer_close">Ferme le menu de navigation</string>
     <string name="drawer_open">Ouvre le menu de navigation</string>

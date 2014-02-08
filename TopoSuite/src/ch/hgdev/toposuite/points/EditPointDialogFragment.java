@@ -70,8 +70,8 @@ public class EditPointDialogFragment extends DialogFragment {
         this.initAttributes();
         this.genEditPointView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(R.string.dialog_add_point).setView(this.layout)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.dialog_edit_point).setView(this.layout)
+                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                     }
