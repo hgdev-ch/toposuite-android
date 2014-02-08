@@ -39,7 +39,7 @@
  *      <li>
  *          You also have to edit the {@link ch.hgdev.toposuite.calculation.CalculationFactory}.
  *          In the switch_case statement of
- *          {@link CalculationFactory#createCalculation(CalculationType, long, String, java.util.Date, String)},
+ *          {@link ch.hgdev.toposuite.calculation.CalculationFactory#createCalculation(CalculationType, long, String, java.util.Date, String)},
  *          you must add a case for the enum field of your new
  *          {@link ch.hgdev.toposuite.calculation.Calculation}.
  *      </li>
