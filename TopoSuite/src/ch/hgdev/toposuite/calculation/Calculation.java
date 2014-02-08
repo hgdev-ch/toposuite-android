@@ -153,7 +153,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
     public String toString() {
         return String.format("%s    %s",
                 DisplayUtils.formatDate(this.lastModification),
-                this.type);
+                this.description);
     }
 
     @Override

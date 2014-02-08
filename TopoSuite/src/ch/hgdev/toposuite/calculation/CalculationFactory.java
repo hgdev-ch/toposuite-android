@@ -41,7 +41,7 @@ public class CalculationFactory {
 
         switch (type) {
         case GISEMENT:
-            calculation = new Gisement(id, description, lastModification);
+            calculation = new Gisement(id, lastModification);
             break;
         }
 
