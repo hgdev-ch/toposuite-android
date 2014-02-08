@@ -23,7 +23,7 @@ public class Point implements DAOUpdater {
     private double               east;
     private double               north;
     private double               altitude;
-    private boolean              basePoint;
+    private final boolean        basePoint;
 
     /**
      * List of DAO linked.
@@ -98,11 +98,6 @@ public class Point implements DAOUpdater {
     public String getBasePointAsString(Context context) {
         return this.basePoint ? context.getString(R.string.point_provided) : context
                 .getString(R.string.point_computed);
-    }
-
-    public void setBasePoint(boolean _basePoint) {
-        this.basePoint = _basePoint;
-        this.notifyUpdate(this);
     }
 
     @Override
