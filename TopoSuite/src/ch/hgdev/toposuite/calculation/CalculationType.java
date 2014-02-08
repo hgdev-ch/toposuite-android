@@ -6,5 +6,6 @@ package ch.hgdev.toposuite.calculation;
  * @author HGdev
  */
 public enum CalculationType {
-    GISEMENT
+    GISEMENT,
+    ABRISS
 }
