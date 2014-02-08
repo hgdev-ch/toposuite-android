@@ -199,10 +199,18 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
      *            Point's altitude attribute.
      */
     private void addPoint(int number, double east, double north, double altitude) {
-        // when created by a user and not computed, a point IS a basepoint
-        boolean basePoint = true;
-        Point point = new Point(number, east, north, altitude, basePoint);
-        SharedResources.getSetOfPoints().add(point);
+        if (number < 1) {
+            Toast errorToast = Toast
+                    .makeText(this, this.getString(R.string.error_point_number),
+                            Toast.LENGTH_LONG);
+            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            errorToast.show();
+        } else {
+            // when created by a user and not computed, a point IS a basepoint
+            boolean basePoint = true;
+            Point point = new Point(number, east, north, altitude, basePoint);
+            SharedResources.getSetOfPoints().add(point);
+        }
     }
 
     /**

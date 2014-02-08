@@ -48,6 +48,7 @@
     <string name="east_3dots">East&#8230;</string>
     <string name="edit">Edit</string>
     <string name="error_fill_data">Every mandatory field must be field!</string>
+    <string name="error_point_number">A point\'s number must greater than or equal to 1.</string>
     <string name="error_same_points">The points must be different!</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Home</string>
