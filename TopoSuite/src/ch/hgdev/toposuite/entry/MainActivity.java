@@ -38,8 +38,9 @@ public class MainActivity extends TopoSuiteActivity {
         StringBuilder html = new StringBuilder()
                 .append("<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />")
                 // TODO add logo of the application
-                // .append("<img src=\"file:///android_asset/app_logo.png\" alt=\"")
-                // .append(appName) .append("\"/>")
+                .append("<img src=\"file:///android_asset/toposuite_logo.png\" alt=\"")
+                .append(appName)
+                .append("\"/>")
                 .append("<h1>")
                 .append(String.format(this.getString(R.string.about_title), appName))
                 .append("</h1><p>")
@@ -65,10 +66,13 @@ public class MainActivity extends TopoSuiteActivity {
                 .append("\"/><br/>")
                 .append(this.getString(R.string.cfgeo))
                 .append(" - " + "<a href=\"" + this.getString(R.string.cfgeo_webpage_url) + "\">"
-                        + this.getString(R.string.cfgeo_webpage_url_short) + "</a>").append("</p></p>")
-                .append(String.format(this.getString(R.string.app_copyright), year, this.getString(R.string.crag)))
+                        + this.getString(R.string.cfgeo_webpage_url_short) + "</a>")
+                .append("</p></p>")
+                .append(String.format(this.getString(R.string.app_copyright), year,
+                        this.getString(R.string.crag)))
                 .append("</p>");
-        view.loadDataWithBaseURL("file:///android_res/drawable/", html.toString(), "text/html", "utf-8", null);
+        view.loadDataWithBaseURL("file:///android_res/drawable/", html.toString(), "text/html",
+                "utf-8", null);
         return view;
     }
 
