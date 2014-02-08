@@ -18,6 +18,7 @@ import com.google.common.base.Strings;
  * @author HGdev
  */
 public class CalculationFactory {
+    public static final String CALCULATION_NOT_FOUND = "Calculation not found. Probably none existent or not implemented.";
 
     /**
      * Create a new calculation object and fill the input arguments with a
@@ -43,6 +44,12 @@ public class CalculationFactory {
         case GISEMENT:
             calculation = new Gisement(id, lastModification);
             break;
+        case LEVEPOLAIRE:
+            // TODO uncomment once the calculation has been implemented
+            // calculation = new LevePolaire(id, lastModification);
+            break;
+        default:
+            Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR, CALCULATION_NOT_FOUND);
         }
 
         if ((calculation != null) && !Strings.isNullOrEmpty(jsonInputArgs)) {

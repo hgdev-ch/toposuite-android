@@ -10,12 +10,13 @@ import ch.hgdev.toposuite.points.Point;
  * 
  */
 public class Logger {
-    public final static String TOPOSUITE_RESSOURCE_NOT_FOUND      = "TOPOSUITE RESSOURCE NOT FOUND: ";
-    public final static String TOPOSUITE_SQL_ERROR                = "TOPOSUITE SQL ERROR";
-    public final static String TOPOSUITE_CALCULATION_IMPORT_ERROR = "TOPOSUITE CALCULATION IMPORT ERROR";
-    public final static String TOPOSUITE_PARSE_ERROR              = "TOPOSUITE PARSE ERROR";
+    public final static String TOPOSUITE_RESSOURCE_NOT_FOUND         = "TOPOSUITE RESSOURCE NOT FOUND: ";
+    public final static String TOPOSUITE_SQL_ERROR                   = "TOPOSUITE SQL ERROR";
+    public final static String TOPOSUITE_CALCULATION_IMPORT_ERROR    = "TOPOSUITE CALCULATION IMPORT ERROR";
+    public final static String TOPOSUITE_CALCULATION_NOT_IMPLEMENTED = "TOPOSUITE CALCULATION NOT IMPLEMENTED";
+    public final static String TOPOSUITE_PARSE_ERROR                 = "TOPOSUITE PARSE ERROR";
 
-    public final static String TOPOSUITE_SQL_SUCCESS              = "TOPOSUITE SQL SUCCESS";
+    public final static String TOPOSUITE_SQL_SUCCESS                 = "TOPOSUITE SQL SUCCESS";
 
     /**
      * Format point for logging.
