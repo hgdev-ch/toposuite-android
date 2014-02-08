@@ -18,10 +18,11 @@ import com.google.common.base.Strings;
  * @author HGdev
  */
 public class CalculationFactory {
-    
+
     /**
-     * Create a new calculation object and fill the input arguments with a serialized set of
-     * input arguments.
+     * Create a new calculation object and fill the input arguments with a
+     * serialized set of input arguments.
+     * 
      * @param type
      *            The type of calculations as defined in CalculationType enum.
      * @param id
@@ -29,7 +30,7 @@ public class CalculationFactory {
      * @param description
      *            Calculation description
      * @param lastModification
-     *            The last modification date            
+     *            The last modification date
      * @param jsonInputArgs
      *            The serialized input arguments.
      * @return a calculation object with default values
@@ -37,30 +38,32 @@ public class CalculationFactory {
     public static Calculation createCalculation(CalculationType type, long id, String description,
             Date lastModification, String jsonInputArgs) {
         Calculation calculation = null;
-        
+
         switch (type) {
         case GISEMENT:
             calculation = new Gisement(id, description, lastModification);
+            break;
         }
-        
-        if (calculation != null && Strings.isNullOrEmpty(jsonInputArgs)) {
+
+        if ((calculation != null) && !Strings.isNullOrEmpty(jsonInputArgs)) {
             try {
                 calculation.importFromJSON(jsonInputArgs);
             } catch (JSONException e) {
                 Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR, e.getMessage());
             }
         }
-        
+
         return calculation;
     }
-    
+
     /**
      * See {@link CalculationFactory#createCalculation(CalculationType, String)}
+     * 
      * @param type
      *            The type of calculations as defined in CalculationType enum.
      * @return calculation object with empty fields
      */
     public static Calculation createCalculation(CalculationType type) {
-        return createCalculation(type, 0, "", null, null);
+        return CalculationFactory.createCalculation(type, 0, "", null, null);
     }
 }

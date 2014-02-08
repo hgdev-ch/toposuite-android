@@ -38,8 +38,9 @@ public class Logger {
      * @return formatted calculation
      */
     public static String formatCalculation(Calculation calculation) {
-        return String.format("Calculation: {Type: %s,  Description: %s, LastModification: %s}",
-                calculation.getType(), calculation.getDescription(),
+        return String.format(
+                "Calculation: {ID: %d, Type: %s,  Description: %s, LastModification: %s}",
+                calculation.getId(), calculation.getType(), calculation.getDescription(),
                 calculation.getLastModification());
     }
 }

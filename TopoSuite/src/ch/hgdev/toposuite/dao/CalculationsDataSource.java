@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONException;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,11 +26,13 @@ import ch.hgdev.toposuite.utils.Logger;
  */
 public class CalculationsDataSource implements DAO {
     private static final String           ERROR_CREATE       = "Unable to create a new calculation!";
-    private static final String           ERROR_DELETE       = "Unable to delete a calculation!";
+    private static final String           ERROR_DELETE       = "Unable to delete the calculation!";
+    private static final String           ERROR_UPDATE       = "Unable to update the calculation!";
     private static final String           ERROR_PARSING_DATE = "Error while parsing the last modification date!";
 
     private static final String           SUCCESS_CREATE     = "Calculation successfully created!";
     private static final String           SUCCESS_DELETE     = "Calculation successfully deleted!";
+    private static final String           SUCCESS_UPDATE     = "Calculation successfully updated!";
 
     private static CalculationsDataSource calculationsDataSource;
 
@@ -62,7 +66,7 @@ public class CalculationsDataSource implements DAO {
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_DESCRIPTION));
                 String lastModification = cursor.getString(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_LAST_MODIFICATION));
-                String serializedInputDate = cursor.getString(
+                String serializedInputData = cursor.getString(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA));
 
                 SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat);
@@ -70,7 +74,7 @@ public class CalculationsDataSource implements DAO {
                 try {
                     d = sdf.parse(lastModification);
                     Calculation calculation = CalculationFactory.createCalculation(
-                            CalculationType.valueOf(type), id, description, d, serializedInputDate);
+                            CalculationType.valueOf(type), id, description, d, serializedInputData);
                     calculations.add(calculation);
                 } catch (ParseException e) {
                     Log.e(Logger.TOPOSUITE_PARSE_ERROR, CalculationsDataSource.ERROR_PARSING_DATE);
@@ -93,7 +97,15 @@ public class CalculationsDataSource implements DAO {
     @Override
     public void create(Object obj) throws SQLiteTopoSuiteException {
         Calculation calculation = (Calculation) obj;
-        SQLiteDatabase db = App.dbHelper.getReadableDatabase();
+        SQLiteDatabase db = App.dbHelper.getWritableDatabase();
+
+        String json = "";
+
+        try {
+            json = calculation.exportToJSON();
+        } catch (JSONException e) {
+            Log.e(Logger.TOPOSUITE_PARSE_ERROR, "Error while exporting calculation to JSON!");
+        }
 
         ContentValues calculationValues = new ContentValues();
         calculationValues.put(CalculationsTable.COLUMN_NAME_TYPE,
@@ -102,6 +114,8 @@ public class CalculationsDataSource implements DAO {
                 calculation.getDescription());
         calculationValues.put(CalculationsTable.COLUMN_NAME_LAST_MODIFICATION,
                 DisplayUtils.formatDate(calculation.getLastModification()));
+        calculationValues.put(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA,
+                json);
 
         long rowID = db.insert(CalculationsTable.TABLE_NAME_CALCULATIONS, null, calculationValues);
         if (rowID == -1) {
@@ -119,7 +133,38 @@ public class CalculationsDataSource implements DAO {
 
     @Override
     public void update(Object obj) {
-        // TODO
+        Calculation calculation = (Calculation) obj;
+        SQLiteDatabase db = App.dbHelper.getWritableDatabase();
+
+        String json = "";
+
+        try {
+            json = calculation.exportToJSON();
+        } catch (JSONException e) {
+            Log.e(Logger.TOPOSUITE_PARSE_ERROR, "Error while exporting calculation to JSON!");
+        }
+
+        ContentValues calculationValues = new ContentValues();
+        calculationValues.put(CalculationsTable.COLUMN_NAME_TYPE,
+                calculation.getType().toString());
+        calculationValues.put(CalculationsTable.COLUMN_NAME_DESCRIPTION,
+                calculation.getDescription());
+        calculationValues.put(CalculationsTable.COLUMN_NAME_LAST_MODIFICATION,
+                DisplayUtils.formatDate(calculation.getLastModification()));
+        calculationValues.put(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA,
+                json);
+
+        long rowID = db.update(CalculationsTable.TABLE_NAME_CALCULATIONS, calculationValues,
+                CalculationsTable.COLUMN_NAME_ID + " = ?",
+                new String[] { String.valueOf(calculation.getId()) });
+        if (rowID == -1) {
+            Log.e(Logger.TOPOSUITE_SQL_ERROR, CalculationsDataSource.ERROR_UPDATE + " => " +
+                    Logger.formatCalculation(calculation));
+            throw new SQLiteTopoSuiteException(CalculationsDataSource.ERROR_UPDATE);
+        }
+
+        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, CalculationsDataSource.SUCCESS_UPDATE + " => " +
+                Logger.formatCalculation(calculation));
     }
 
     /**

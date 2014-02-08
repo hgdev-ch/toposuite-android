@@ -19,3 +19,5 @@ local.properties
 TopoSuite/javadoc
 TopoSuite/lint.html
 TopoSuite/lint_files
+
+TopoSuiteTest/lint.xml

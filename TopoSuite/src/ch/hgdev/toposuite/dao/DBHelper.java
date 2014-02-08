@@ -11,9 +11,10 @@ import ch.hgdev.toposuite.App;
  * @author HGdev
  */
 public class DBHelper extends SQLiteOpenHelper {
-    
+
     /**
      * Constructs a new DBPointEntity.
+     * 
      * @param context
      *            the context
      */
@@ -30,6 +31,6 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         PointsTable.onUpgrade(db, oldVersion, newVersion);
-        CalculationsTable.onCreate(db);
+        CalculationsTable.onUpgrade(db, oldVersion, newVersion);
     }
 }
