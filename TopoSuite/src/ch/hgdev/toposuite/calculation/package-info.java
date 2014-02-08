@@ -10,8 +10,10 @@
  *      </li>
  *      <li>
  *          Since {@link ch.hgdev.toposuite.calculation.Calculation} implements the
- *          {@link ch.hgdev.toposuite.calculation.interfaces.Exportable}, Importable and
- *          DAOUpdate interfaces, you have to Override the following methods:
+ *          {@link ch.hgdev.toposuite.calculation.interfaces.Exportable},
+ *          {@link ch.hgdev.toposuite.calculation.interfaces.Importable} and
+ *          {@link ch.hgdev.toposuite.dao.interfaces.DAOUpdater} interfaces, you have
+ *          to Override the following methods:
  *          <ul>
  *              <li>
  *                  <strong>{@link ch.hgdev.toposuite.calculation.interfaces.Exportable#exportToJSON()}:</strong>
