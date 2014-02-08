@@ -37,7 +37,7 @@ public class AddPointDialogFragment extends DialogFragment {
          * @param dialog
          *            Dialog with NO useful information to fetch from.
          */
-        public void onDialogCancel(AddPointDialogFragment dialog);
+        void onDialogCancel(AddPointDialogFragment dialog);
 
         /**
          * Define what to do when the "Add" button is clicked.
@@ -45,7 +45,7 @@ public class AddPointDialogFragment extends DialogFragment {
          * @param dialog
          *            Dialog to fetch information from.
          */
-        public void onDialogAdd(AddPointDialogFragment dialog);
+        void onDialogAdd(AddPointDialogFragment dialog);
     }
 
     AddPointDialogListener listener;
@@ -191,7 +191,6 @@ public class AddPointDialogFragment extends DialogFragment {
                 || (this.northEditText.length() == 0)) {
             return false;
         }
-
         return true;
     }
 

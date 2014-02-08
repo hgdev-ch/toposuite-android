@@ -41,7 +41,7 @@ public class EditPointDialogFragment extends DialogFragment {
          * @param dialog
          *            Dialog with NO useful information to fetch from.
          */
-        public void onDialogCancel(EditPointDialogFragment dialog);
+        void onDialogCancel(EditPointDialogFragment dialog);
 
         /**
          * Define what to do when the "Edit" button is clicked.
@@ -49,7 +49,7 @@ public class EditPointDialogFragment extends DialogFragment {
          * @param dialog
          *            Dialog to fetch information from.
          */
-        public void onDialogEdit(EditPointDialogFragment dialog);
+        void onDialogEdit(EditPointDialogFragment dialog);
     }
 
     public final static String POINT_POSITION = "Point position";
