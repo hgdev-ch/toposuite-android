@@ -7,12 +7,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -25,7 +27,8 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
  */
 public class PointsManagerActivity extends TopoSuiteActivity implements
         AddPointDialogFragment.AddPointDialogListener,
-        EditPointDialogFragment.EditPointDialogListener {
+        EditPointDialogFragment.EditPointDialogListener,
+        SearchPointDialogFragment.SearchPointDialogListener {
 
     private int                      selectedPointId;
     private ListView                 pointsListView;
@@ -57,6 +60,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             return true;
         case R.id.delete_points_button:
             this.removeAllPoints();
+            return true;
+        case R.id.search_point_button:
+            this.showSearchPointDialog();
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -96,6 +102,25 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    public void onDialogSearch(SearchPointDialogFragment dialog) {
+        Point point = SharedResources.getSetOfPoints().find(dialog.getPointNumber());
+        if (point != null) {
+            int position = PointsManagerActivity.this.adapter.getPosition(point);
+            this.showEditPointDialog(position);
+
+        } else {
+            Toast errorToast = Toast.makeText(this, "Point not found!", Toast.LENGTH_LONG);
+            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            errorToast.show();
+        }
+    }
+
+    @Override
+    public void onDialogCancel(SearchPointDialogFragment dialog) {
+        // do nothing
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
@@ -127,6 +152,11 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private void showAddPointDialog() {
         AddPointDialogFragment dialog = new AddPointDialogFragment();
         dialog.show(this.getFragmentManager(), "AddPointDialogFragment");
+    }
+
+    private void showSearchPointDialog() {
+        SearchPointDialogFragment dialog = new SearchPointDialogFragment();
+        dialog.show(this.getFragmentManager(), "SearchPointDialogFragment");
     }
 
     /**
