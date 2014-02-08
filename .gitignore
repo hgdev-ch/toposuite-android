@@ -9,6 +9,7 @@
 bin/
 gen/
 doc/
+stats/
 local.properties
 *~
 .checkstyle
