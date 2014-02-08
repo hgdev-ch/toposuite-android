@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ch.hgdev.toposuite.SharedResources;
-import ch.hgdev.toposuite.gisement.GisementActivity;
+import ch.hgdev.toposuite.calculation.activities.GisementActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 

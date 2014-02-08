@@ -28,7 +28,7 @@
             android:label="@string/title_activity_points_manager" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.gisement.GisementActivity"
+            android:name="ch.hgdev.toposuite.calculation.activities.GisementActivity"
             android:label="@string/title_activity_gisement" >
         </activity>
         <activity

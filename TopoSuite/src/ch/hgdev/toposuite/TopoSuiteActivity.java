@@ -13,8 +13,8 @@ import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ch.hgdev.toposuite.calculation.activities.GisementActivity;
 import ch.hgdev.toposuite.entry.MainActivity;
-import ch.hgdev.toposuite.gisement.GisementActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
