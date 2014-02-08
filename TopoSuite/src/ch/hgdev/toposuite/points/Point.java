@@ -1,7 +1,12 @@
 package ch.hgdev.toposuite.points;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.dao.CalculationsDataSource;
+import ch.hgdev.toposuite.dao.interfaces.DAO;
+import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
 
 import com.google.common.base.Preconditions;
 
@@ -12,13 +17,18 @@ import com.google.common.base.Preconditions;
  * @author HGdev
  * 
  */
-public class Point {
+public class Point implements DAOUpdater {
 
-    private int     number;
-    private double  east;
-    private double  north;
-    private double  altitude;
-    private boolean basePoint;
+    private final int            number;
+    private double               east;
+    private double               north;
+    private double               altitude;
+    private boolean              basePoint;
+
+    /**
+     * List of DAO linked.
+     */
+    private final ArrayList<DAO> daoList;
 
     /**
      * A point is characterized by its number, distance to the east and north
@@ -37,21 +47,21 @@ public class Point {
      *            point that has been added as is and NOT computed.
      */
     public Point(int number, double east, double north, double altitude, boolean basePoint) {
-        Preconditions.checkArgument(number >= 0, "A point number must be a positive integer: %s", number);
+        Preconditions.checkArgument(number >= 0, "A point number must be a positive integer: %s",
+                number);
 
         this.number = number;
         this.east = east;
         this.north = north;
         this.altitude = altitude;
         this.basePoint = basePoint;
+
+        this.daoList = new ArrayList<DAO>();
+        this.registerDAO(CalculationsDataSource.getInstance());
     }
 
     public int getNumber() {
         return this.number;
-    }
-
-    public void setNumber(int _number) {
-        this.number = _number;
     }
 
     public double getEast() {
@@ -60,6 +70,7 @@ public class Point {
 
     public void setEast(double _east) {
         this.east = _east;
+        this.notifyUpdate(this);
     }
 
     public double getNorth() {
@@ -68,6 +79,7 @@ public class Point {
 
     public void setNorth(double _north) {
         this.north = _north;
+        this.notifyUpdate(this);
     }
 
     public double getAltitude() {
@@ -76,6 +88,7 @@ public class Point {
 
     public void setAltitude(double _altitude) {
         this.altitude = _altitude;
+        this.notifyUpdate(this);
     }
 
     public boolean isBasePoint() {
@@ -83,11 +96,13 @@ public class Point {
     }
 
     public String getBasePointAsString(Context context) {
-        return this.basePoint ? context.getString(R.string.point_provided) : context.getString(R.string.point_computed);
+        return this.basePoint ? context.getString(R.string.point_provided) : context
+                .getString(R.string.point_computed);
     }
 
     public void setBasePoint(boolean _basePoint) {
         this.basePoint = _basePoint;
+        this.notifyUpdate(this);
     }
 
     @Override
@@ -97,5 +112,22 @@ public class Point {
             return "";
         }
         return String.valueOf(this.number);
+    }
+
+    @Override
+    public void registerDAO(DAO dao) {
+        this.daoList.add(dao);
+    }
+
+    @Override
+    public void removeDAO(DAO dao) {
+        this.daoList.remove(dao);
+    }
+
+    @Override
+    public void notifyUpdate(Object obj) {
+        for (DAO dao : this.daoList) {
+            dao.update(obj);
+        }
     }
 }
