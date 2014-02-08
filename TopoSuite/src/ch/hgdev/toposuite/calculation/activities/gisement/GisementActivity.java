@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.calculation.activities;
+package ch.hgdev.toposuite.calculation.activities.gisement;
 
 import java.util.ArrayList;
 import java.util.List;
