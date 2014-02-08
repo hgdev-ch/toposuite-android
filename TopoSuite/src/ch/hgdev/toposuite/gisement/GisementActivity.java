@@ -25,18 +25,24 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * @author HGdev
  */
 public class GisementActivity extends TopoSuiteActivity {
-    private Spinner  originSpinner;
-    private Spinner  orientationSpinner;
+    private static final String ORIGIN_SELECTED_POSITION      = "origin_selected_position";
+    private static final String ORIENTATION_SELECTED_POSITION = "orientation_selected_position";
 
-    private TextView originPoint;
-    private TextView orientationPoint;
+    private Spinner             originSpinner;
+    private Spinner             orientationSpinner;
 
-    private TextView gisementValue;
-    private TextView distValue;
-    private TextView altitudeValue;
-    private TextView slopeValue;
+    private TextView            originPoint;
+    private TextView            orientationPoint;
 
-    private Gisement gisement;
+    private TextView            gisementValue;
+    private TextView            distValue;
+    private TextView            altitudeValue;
+    private TextView            slopeValue;
+
+    private Gisement            gisement;
+
+    private int                 originSelectedPosition;
+    private int                 orientationSelectedPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,8 @@ public class GisementActivity extends TopoSuiteActivity {
         this.originSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                GisementActivity.this.originSelectedPosition = pos;
+
                 Point pt = (Point) GisementActivity.this.originSpinner.getItemAtPosition(pos);
                 if (pt.getNumber() > 0) {
                     GisementActivity.this.originPoint.setText(GisementActivity.this.formatPoint(pt));
@@ -75,6 +83,8 @@ public class GisementActivity extends TopoSuiteActivity {
         this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                GisementActivity.this.orientationSelectedPosition = pos;
+
                 Point pt = (Point) GisementActivity.this.orientationSpinner.getItemAtPosition(pos);
                 if (pt.getNumber() > 0) {
                     GisementActivity.this.orientationPoint.setText(GisementActivity.this
@@ -118,6 +128,38 @@ public class GisementActivity extends TopoSuiteActivity {
                     a.getPosition(this.gisement.getOrigin()));
             this.orientationSpinner.setSelection(
                     a.getPosition(this.gisement.getOrientation()));
+        } else {
+            if (this.originSelectedPosition > 0) {
+                this.originSpinner.setSelection(
+                        this.originSelectedPosition);
+            }
+
+            if (this.orientationSelectedPosition > 0) {
+                this.orientationSpinner.setSelection(
+                        this.orientationSelectedPosition);
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(GisementActivity.ORIGIN_SELECTED_POSITION,
+                this.originSelectedPosition);
+        outState.putInt(GisementActivity.ORIENTATION_SELECTED_POSITION,
+                this.orientationSelectedPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            this.originSelectedPosition = savedInstanceState.getInt(
+                    GisementActivity.ORIGIN_SELECTED_POSITION);
+            this.orientationSelectedPosition = savedInstanceState.getInt(
+                    GisementActivity.ORIENTATION_SELECTED_POSITION);
         }
     }
 
