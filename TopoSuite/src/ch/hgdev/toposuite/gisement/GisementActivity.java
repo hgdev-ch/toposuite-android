@@ -91,6 +91,8 @@ public class GisementActivity extends TopoSuiteActivity {
             }
         });
 
+        // check if we create a new gisement calculation or if we modify an
+        // existing one.
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
