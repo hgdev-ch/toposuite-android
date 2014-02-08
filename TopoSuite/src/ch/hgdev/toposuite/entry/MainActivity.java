@@ -37,7 +37,6 @@ public class MainActivity extends TopoSuiteActivity {
         WebView view = new WebView(this);
         StringBuilder html = new StringBuilder()
                 .append("<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />")
-                // TODO add logo of the application
                 .append("<img src=\"file:///android_asset/toposuite_logo.png\" alt=\"")
                 .append(appName)
                 .append("\"/>")
