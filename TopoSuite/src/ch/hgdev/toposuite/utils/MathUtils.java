@@ -45,7 +45,7 @@ public class MathUtils {
     }
 
     /**
-     * Convert radian to gradian
+     * Convert an angle in radian to its equivalent in gradian.
      * 
      * @param rad
      *            angle in radian
@@ -56,7 +56,7 @@ public class MathUtils {
     }
 
     /**
-     * Convert gradian to radian
+     * Convert an angle in gradian to its equivalent radian.
      * 
      * @param grad
      *            angle in gradian
@@ -64,5 +64,49 @@ public class MathUtils {
      */
     public static double gradToRad(double grad) {
         return (grad * Math.PI) / 200;
+    }
+
+    /**
+     * Convert an angle in gradian to its equivalent in degree.
+     * 
+     * @param grad
+     *            The angle to convert.
+     * @return The angle in degree.
+     */
+    public static double gradToDeg(double grad) {
+        return grad * ((Math.PI / 200) / (Math.PI / 180));
+    }
+
+    /**
+     * Convert an angle in degree to its equivalent in gradian.
+     * 
+     * @param deg
+     *            The angle to convert.
+     * @return The angle in gradian.
+     */
+    public static double degToGrad(double deg) {
+        return deg * ((Math.PI / 180) / (Math.PI / 200));
+    }
+
+    /**
+     * Modulate an angle in gradian. This ensures that the angle is between 0
+     * and 400 gradian.
+     * 
+     * @param angle
+     *            Angle in gradian unit.
+     * @return The angle with a value between 0 and 400 gradians.
+     */
+    public static double modulo400(double angle) {
+        double m = angle;
+        if (m < 0) {
+            while (m < 0) {
+                m += 400;
+            }
+        } else if (m >= 400) {
+            while (m >= 400) {
+                m -= 400;
+            }
+        }
+        return m;
     }
 }
