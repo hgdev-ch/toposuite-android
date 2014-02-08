@@ -7,6 +7,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 
 import com.google.common.base.Preconditions;
 
@@ -106,7 +107,7 @@ public class Point implements DAOUpdater {
         if (this.number == 0) {
             return "";
         }
-        return String.valueOf(this.number);
+        return DisplayUtils.toString(this.number);
     }
 
     @Override
