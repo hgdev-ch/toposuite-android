@@ -59,8 +59,10 @@
     <string name="optional_prths">(optional)</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">First point (origin)</string>
+    <string name="point_already_exists">This point already exists!</string>
     <string name="point_class">Class</string>
     <string name="point_computed">Computed</string>
+    <string name="point_not_found">Point not found!</string>
     <string name="point_number">Point No</string>
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Provided</string>

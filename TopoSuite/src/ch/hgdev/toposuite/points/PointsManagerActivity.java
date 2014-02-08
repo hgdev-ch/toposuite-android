@@ -77,9 +77,18 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogAdd(AddPointDialogFragment dialog) {
-        this.addPoint(dialog.getNumber(), dialog.getEast(),
-                dialog.getNorth(), dialog.getAltitude());
-        this.drawList();
+        Point point = SharedResources.getSetOfPoints().find(dialog.getNumber());
+        if (point == null) {
+            this.addPoint(dialog.getNumber(), dialog.getEast(),
+                    dialog.getNorth(), dialog.getAltitude());
+            this.drawList();
+        } else {
+            Toast errorToast = Toast
+                    .makeText(this, this.getString(R.string.point_already_exists),
+                            Toast.LENGTH_LONG);
+            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            errorToast.show();
+        }
     }
 
     @Override
@@ -109,7 +118,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             this.showEditPointDialog(position);
 
         } else {
-            Toast errorToast = Toast.makeText(this, "Point not found!", Toast.LENGTH_LONG);
+            Toast errorToast = Toast.makeText(this, this.getString(R.string.point_not_found),
+                    Toast.LENGTH_LONG);
             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             errorToast.show();
         }
