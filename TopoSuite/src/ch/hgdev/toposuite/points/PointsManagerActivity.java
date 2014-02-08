@@ -118,7 +118,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             this.showEditPointDialog(position);
 
         } else {
-            Toast errorToast = Toast.makeText(this, "Point not found!", Toast.LENGTH_LONG);
+            Toast errorToast = Toast.makeText(this, this.getString(R.string.point_not_found),
+                    Toast.LENGTH_LONG);
             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             errorToast.show();
         }

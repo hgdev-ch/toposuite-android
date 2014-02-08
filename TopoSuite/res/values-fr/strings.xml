@@ -62,6 +62,7 @@
     <string name="point_already_exists">Ce point existe déjà!</string>
     <string name="point_class">Classe</string>
     <string name="point_computed">Calculé</string>
+    <string name="point_not_found">Le point n\'a pas été trouvé!</string>
     <string name="point_number">No du point</string>
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Saisi</string>
