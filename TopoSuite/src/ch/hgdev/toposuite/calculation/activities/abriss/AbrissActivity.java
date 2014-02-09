@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation.activities.abriss;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -160,6 +161,9 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
             this.abriss.compute();
 
+            Intent resultsActivityIntent = new Intent(this, AbrissResultsActivity.class);
+            this.startActivity(resultsActivityIntent);
+
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -189,6 +193,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 100.0,
                 dialog.getHorizontalDistance(),
                 dialog.getAltitude()));
+        this.adapter.notifyDataSetChanged();
     }
 
     @Override

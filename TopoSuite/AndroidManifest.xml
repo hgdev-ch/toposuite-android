@@ -43,6 +43,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity"
             android:label="@string/title_activity_abriss" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.abriss.AbrissResultsActivity"
+            android:label="@string/title_activity_abriss_results" >
+        </activity>
     </application>
 
 </manifest>

@@ -70,4 +70,7 @@
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
+    <string name="title_activity_abriss_results">AbrissResultsActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
