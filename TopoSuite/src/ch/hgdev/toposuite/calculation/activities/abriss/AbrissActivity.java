@@ -18,22 +18,25 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Abriss;
+import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class AbrissActivity extends TopoSuiteActivity {
-    private static final String STATION_SELECTED_POSITION = "station_selected_position";
+    private static final String   STATION_SELECTED_POSITION = "station_selected_position";
 
-    private TextView            stationPoint;
+    private TextView              stationPoint;
 
-    private Spinner             stationSpinner;
+    private Spinner               stationSpinner;
 
-    private ListView            orientationsListView;
+    private ListView              orientationsListView;
 
-    private int                 stationSelectedPosition;
+    private int                   stationSelectedPosition;
 
-    private Abriss              abriss;
+    private Abriss                abriss;
+
+    private ArrayAdapter<Measure> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,18 @@ public class AbrissActivity extends TopoSuiteActivity {
                 // actually nothing
             }
         });
+
+        this.adapter = new ArrayListOfOrientationsAdapter(
+                this, R.layout.orientations_list_item, new ArrayList<Measure>());
+        this.drawList();
+
+        this.adapter.add(
+                new Measure(SharedResources.getSetOfPoints().find(100), 545.378));
+        this.adapter.add(
+                new Measure(SharedResources.getSetOfPoints().find(101), 478.327));
+        this.adapter.add(
+                new Measure(SharedResources.getSetOfPoints().find(102), 327.367));
+        this.adapter.notifyDataSetChanged();
 
         // check if we create a new abriss calculation or if we modify an
         // existing one.
@@ -129,11 +144,29 @@ public class AbrissActivity extends TopoSuiteActivity {
             this.showAddOrientationDialog();
             return true;
         case R.id.run_calculation_button:
+            Point station = (Point) this.stationSpinner.getSelectedItem();
+
+            if (station.getNumber() == 0) {
+                Toast.makeText(this, R.string.error_no_station_selected, Toast.LENGTH_LONG)
+                        .show();
+                return true;
+            }
+
             if (this.orientationsListView.getChildCount() == 0) {
                 Toast.makeText(this, R.string.error_at_least_one_orientation, Toast.LENGTH_LONG)
                         .show();
                 return true;
             }
+
+            this.abriss = new Abriss(station);
+
+            for (int i = 0; i < this.adapter.getCount(); i++) {
+                this.abriss.getMeasures().clear();
+                this.abriss.getMeasures().add(this.adapter.getItem(i));
+            }
+
+            this.abriss.compute();
+
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -148,5 +181,12 @@ public class AbrissActivity extends TopoSuiteActivity {
         // AddOrientationDialogFragment();
         // dialog.show(this.getFragmentManager(),
         // "AddOrientationDialogFragment");
+    }
+
+    /**
+     * Draw the main table containing all the orientations.
+     */
+    private void drawList() {
+        this.orientationsListView.setAdapter(this.adapter);
     }
 }
