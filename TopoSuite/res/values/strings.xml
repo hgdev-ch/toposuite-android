@@ -15,6 +15,7 @@
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
+    <string name="calculate_3dots">Calculate...</string>
     <string name="cancel">Cancel</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
@@ -33,6 +34,7 @@
     <string name="east">East</string>
     <string name="east_3dots">East&#8230;</string>
     <string name="edit">Edit</string>
+    <string name="error_at_least_one_orientation">You must provide at least one orientation!</string>
     <string name="error_fill_data">Every mandatory field must be field!</string>
     <string name="error_point_number">A point\'s number must greater than or equal to 1.</string>
     <string name="error_same_points">The points must be different!</string>
