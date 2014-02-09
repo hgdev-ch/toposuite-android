@@ -31,9 +31,14 @@ task :release do
 	system('cd "$PWD/TopoSuite/bin" && ' + ZIPALIGN + '-v 4 ' + apk_unsigned + ' ' + apk)
 end
 
-desc "Build and install the application on the emulator"
+desc "Build and install the application"
 task :install do
 	system('cd "$PWD/TopoSuite" && ant clean debug install')
+end
+
+desc "Uninstall the application and application test (if installed)"
+task :uninstall do
+	system('cd "$PWD/TopoSuiteTest" && ant uninstall')
 end
 
 desc "Launches the application on the Android emulated device"
@@ -45,6 +50,7 @@ end
 desc "Clean TopoSuite and TopoSuiteTest"
 task :clean do
 	system('cd "$PWD/TopoSuite" && ant clean')
+	system('cd "$PWD/TopoSuite" && rm -rvf ./javadoc ./lint_files ./lint.html')
 	system('cd "$PWD/TopoSuiteTest" && ant clean')
 end
 
