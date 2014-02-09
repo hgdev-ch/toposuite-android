@@ -71,14 +71,6 @@ public class AbrissActivity extends TopoSuiteActivity {
                 this, R.layout.orientations_list_item, new ArrayList<Measure>());
         this.drawList();
 
-        this.adapter.add(
-                new Measure(SharedResources.getSetOfPoints().find(100), 545.378));
-        this.adapter.add(
-                new Measure(SharedResources.getSetOfPoints().find(101), 478.327));
-        this.adapter.add(
-                new Measure(SharedResources.getSetOfPoints().find(102), 327.367));
-        this.adapter.notifyDataSetChanged();
-
         // check if we create a new abriss calculation or if we modify an
         // existing one.
         Bundle bundle = this.getIntent().getExtras();
