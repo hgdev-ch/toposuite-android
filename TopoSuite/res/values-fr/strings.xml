@@ -66,6 +66,7 @@
     <string name="search_3dots">Rechercher&#8230;</string>
     <string name="slope_label">Pente [%]</string>
     <string name="station_label">Station</string>
+    <string name="title_activity_abriss">Orient. à la station</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">Historique</string>
     <string name="title_activity_points_manager">Gestion des points</string>

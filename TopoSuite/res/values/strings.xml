@@ -56,13 +56,11 @@
     <string name="search_3dots">Search&#8230;</string>
     <string name="slope_label">Slope [%]</string>
     <string name="station_label">Station</string>
+    <string name="title_activity_abriss">Abriss</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">History</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
-    <string name="title_activity_abriss">AbrissActivity</string>
-    <string name="hello_world">Hello world!</string>
-
 </resources>
