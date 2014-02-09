@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.test.calculation;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.Gisement;
+import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
 
 public class TestGisement extends TestCase {
@@ -13,6 +14,7 @@ public class TestGisement extends TestCase {
 
         // Test 1 - just a useless comment to make this test more readable
         Gisement g = new Gisement(p1, p2);
+        g.removeDAO(CalculationsDataSource.getInstance());
 
         Assert.assertEquals("33.98913148", String.format("%.8f", g.getGisement()));
         Assert.assertEquals("66.50101864", String.format("%.8f", g.getHorizDist()));

@@ -7,6 +7,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
 
 public class TestAbriss extends TestCase {
@@ -22,6 +23,7 @@ public class TestAbriss extends TestCase {
         Point p4 = new Point(4, 372.472, 257.326, 0.0, true);
 
         Abriss a = new Abriss(p1);
+        a.removeDAO(CalculationsDataSource.getInstance());
 
         a.getMeasures().add(new Measure(p2, 257.748));
         a.getMeasures().add(new Measure(p3, 254.558));
