@@ -230,8 +230,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.horizontalDirectionEditText.length() == 0) || (this.orientation == null)
-                || (this.orientation.getNumber() < 1)) {
+        if ((this.horizontalDirectionEditText.length() == 0) || (this.orientation.getNumber() < 1)) {
             return false;
         }
         return true;
