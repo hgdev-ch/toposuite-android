@@ -36,37 +36,37 @@ public class MainActivity extends TopoSuiteActivity {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         WebView view = new WebView(this);
         StringBuilder html = new StringBuilder()
-                .append("<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />")
-                .append("<img src=\"file:///android_asset/toposuite_logo.png\" style=\"float: left;\" alt=\"")
+                .append("<meta http-equiv='content-type' content='text/html; charset=utf-8' />")
+                .append("<div><img src='file:///android_asset/toposuite_logo.png' style='float: left;' alt='")
                 .append(appName)
-                .append("\"/>")
+                .append("'/>")
                 .append("<h1>")
                 .append(String.format(this.getString(R.string.about_title), appName))
                 .append("</h1><p>")
                 .append(appName)
                 .append(" ")
                 .append(String.format(this.getString(R.string.app_version), this.getVersionNumber()))
-                .append("</p><br/><p style=\"clear: both;\">")
+                .append("</p></div><br/><p style='clear: both;'>")
                 .append(this.getString(R.string.developed_by))
                 .append(":<br/>")
-                .append("<img src=\"file:///android_asset/hgdev_logo.png\" alt=\"")
+                .append("<img src='file:///android_asset/hgdev_logo.png' alt='")
                 .append(this.getString(R.string.app_developer))
-                .append("\"/><br/>")
+                .append("'/><br/>")
                 .append(String.format(
                         this.getString(R.string.app_developer_full_info),
                         this.getString(R.string.app_developer),
-                        "<a href=\"" + this.getString(R.string.app_developer_webpage_url) + "\">"
+                        "<a href='" + this.getString(R.string.app_developer_webpage_url) + "'>"
                                 + this.getString(R.string.app_developer_webpage_url_short) + "</a>"))
                 .append("</p>")
                 .append(this.getString(R.string.with_support_from))
                 .append(":<br/>")
-                .append("<img src=\"file:///android_asset/cf_geo.png\" alt=\"")
+                .append("<img src='file:///android_asset/cf_geo.png' alt='")
                 .append(this.getString(R.string.cfgeo))
-                .append("\"/><br/>")
+                .append("'/><br/>")
                 .append(this.getString(R.string.cfgeo))
-                .append(" - " + "<a href=\"" + this.getString(R.string.cfgeo_webpage_url) + "\">"
+                .append(" - " + "<a href='" + this.getString(R.string.cfgeo_webpage_url) + "'>"
                         + this.getString(R.string.cfgeo_webpage_url_short) + "</a>")
-                .append("</p></p>")
+                .append("</p><p>")
                 .append(String.format(this.getString(R.string.app_copyright), year,
                         this.getString(R.string.crag)))
                 .append("</p>");
