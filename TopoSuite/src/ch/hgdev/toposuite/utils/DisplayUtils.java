@@ -64,7 +64,7 @@ public class DisplayUtils {
      * @return a formatted date
      */
     public static String formatDate(Date d) {
-        SimpleDateFormat df = new SimpleDateFormat(App.dateFormat);
+        SimpleDateFormat df = new SimpleDateFormat(App.dateFormat, App.locale);
         return df.format(d);
     }
 

@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite;
 
+import java.util.Locale;
+
 import android.app.Application;
 import android.database.sqlite.SQLiteOpenHelper;
 import ch.hgdev.toposuite.calculation.Calculation;
@@ -39,6 +41,11 @@ public class App extends Application {
      * Date format.
      */
     public static final String dateFormat       = "MM-dd-yyyy HH:mm";
+
+    /**
+     * Default locale (language).
+     */
+    public static final Locale locale           = Locale.getDefault();
 
     /**
      * Database helper.

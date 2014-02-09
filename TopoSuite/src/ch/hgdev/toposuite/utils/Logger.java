@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.utils;
 
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.points.Point;
 
@@ -26,7 +27,8 @@ public class Logger {
      * @return formatted point
      */
     public static String formatPoint(Point point) {
-        return String.format("Point: {No: %d,  E: %f, N: %f, A: %f, BP: %b}",
+        return String.format(App.locale,
+                "Point: {No: %d,  E: %f, N: %f, A: %f, BP: %b}",
                 point.getNumber(), point.getEast(), point.getNorth(),
                 point.getAltitude(), point.isBasePoint());
     }
@@ -39,7 +41,7 @@ public class Logger {
      * @return formatted calculation
      */
     public static String formatCalculation(Calculation calculation) {
-        return String.format(
+        return String.format(App.locale,
                 "Calculation: {ID: %d, Type: %s,  Description: %s, LastModification: %s}",
                 calculation.getId(), calculation.getType(), calculation.getDescription(),
                 calculation.getLastModification());

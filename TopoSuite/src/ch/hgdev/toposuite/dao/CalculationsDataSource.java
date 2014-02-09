@@ -69,7 +69,7 @@ public class CalculationsDataSource implements DAO {
                 String serializedInputData = cursor.getString(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA));
 
-                SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat);
+                SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat, App.locale);
                 Date d;
                 try {
                     d = sdf.parse(lastModification);
