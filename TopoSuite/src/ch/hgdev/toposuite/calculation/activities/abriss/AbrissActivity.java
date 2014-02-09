@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -54,7 +56,6 @@ public class AbrissActivity extends TopoSuiteActivity {
                 } else {
                     AbrissActivity.this.stationPoint.setText("");
                 }
-                // AbrissActivity.this.itemSelected();
             }
 
             @Override
@@ -117,5 +118,35 @@ public class AbrissActivity extends TopoSuiteActivity {
             this.stationSelectedPosition = savedInstanceState.getInt(
                     AbrissActivity.STATION_SELECTED_POSITION);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+        case R.id.add_point_button:
+            this.showAddOrientationDialog();
+            return true;
+        case R.id.run_calculation_button:
+            if (this.orientationsListView.getChildCount() == 0) {
+                Toast.makeText(this, R.string.error_at_least_one_orientation, Toast.LENGTH_LONG)
+                        .show();
+                return true;
+            }
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Display a dialog to allow the user to insert a new orientation.
+     */
+    private void showAddOrientationDialog() {
+        // AddOrientationDialogFragment dialog = new
+        // AddOrientationDialogFragment();
+        // dialog.show(this.getFragmentManager(),
+        // "AddOrientationDialogFragment");
     }
 }
