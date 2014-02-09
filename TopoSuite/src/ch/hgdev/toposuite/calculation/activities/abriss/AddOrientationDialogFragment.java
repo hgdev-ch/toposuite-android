@@ -56,9 +56,9 @@ public class AddOrientationDialogFragment extends DialogFragment {
     }
 
     AddOrientationDialogListener listener;
-    private Spinner              stationSpinner;
-    private TextView             stationView;
-    private Point                station;
+    private Spinner              orientationSpinner;
+    private TextView             orientationView;
+    private Point                orientation;
     private double               horizontalDirection;
     private double               horizontalDistance;
     private double               altitude;
@@ -146,20 +146,21 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
-        this.stationView = new TextView(this.getActivity());
-        this.stationView.setText("");
+        this.orientationView = new TextView(this.getActivity());
+        this.orientationView.setText("");
 
-        this.stationSpinner = new Spinner(this.getActivity());
-        this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+        this.orientationSpinner = new Spinner(this.getActivity());
+        this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point point = (Point) AddOrientationDialogFragment.this.stationSpinner
+                Point point = (Point) AddOrientationDialogFragment.this.orientationSpinner
                         .getItemAtPosition(pos);
                 if (point.getNumber() > 0) {
-                    AddOrientationDialogFragment.this.stationView.setText(DisplayUtils.formatPoint(
-                            AddOrientationDialogFragment.this.getActivity(), point));
+                    AddOrientationDialogFragment.this.orientationView.setText(DisplayUtils
+                            .formatPoint(
+                                    AddOrientationDialogFragment.this.getActivity(), point));
                 } else {
-                    AddOrientationDialogFragment.this.stationView.setText("");
+                    AddOrientationDialogFragment.this.orientationView.setText("");
                 }
                 AddOrientationDialogFragment.this.itemSelected();
             }
@@ -195,16 +196,17 @@ public class AddOrientationDialogFragment extends DialogFragment {
      * is changed.
      */
     private void itemSelected() {
-        this.station = (Point) this.stationSpinner.getSelectedItem();
-        this.stationView.setText(DisplayUtils.formatPoint(this.getActivity(), this.station));
+        this.orientation = (Point) this.orientationSpinner.getSelectedItem();
+        this.orientationView
+                .setText(DisplayUtils.formatPoint(this.getActivity(), this.orientation));
     }
 
     /**
      * Create a view to get information from the user.
      */
     private void genAddOrientationView() {
-        this.layout.addView(this.stationSpinner);
-        this.layout.addView(this.stationView);
+        this.layout.addView(this.orientationSpinner);
+        this.layout.addView(this.orientationView);
         this.layout.addView(this.horizontalDirectionEditText);
         this.layout.addView(this.horizontalDistanceEditText);
         this.layout.addView(this.altitudeEditText);
@@ -216,14 +218,14 @@ public class AddOrientationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.horizontalDirectionEditText.length() == 0) || (this.station == null)) {
+        if ((this.horizontalDirectionEditText.length() == 0) || (this.orientation == null)) {
             return false;
         }
         return true;
     }
 
-    public Point getStation() {
-        return this.station;
+    public Point getOrientation() {
+        return this.orientation;
     }
 
     public double getHorizontalDirection() {
