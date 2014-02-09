@@ -13,6 +13,7 @@ import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ch.hgdev.toposuite.calculation.activities.Abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -58,22 +59,30 @@ public class TopoSuiteActivity extends FragmentActivity {
 
         // set the content of the left sliding menu
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
-        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item,
+        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<ActivityItem>(this,
+                R.layout.drawer_list_item,
                 new ActivityItem[] {
                         new ActivityItem(this.getString(R.string.home), MainActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_points_manager),
                                 PointsManagerActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_history),
-                                HistoryActivity.class)}));
+                                HistoryActivity.class) }));
 
         // set the content of the right sliding menu
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
-        this.drawerListRightMenu.setAdapter(new ArrayAdapter<ActivityItem>(this, R.layout.drawer_list_item,
-                new ActivityItem[] { new ActivityItem(this.getString(R.string.title_activity_gisement),
-                        GisementActivity.class) }));
+        this.drawerListRightMenu.setAdapter(new ArrayAdapter<ActivityItem>(this,
+                R.layout.drawer_list_item,
+                new ActivityItem[] {
+                        new ActivityItem(this.getString(R.string.title_activity_gisement),
+                                GisementActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_abriss),
+                                AbrissActivity.class)
+                }));
 
-        this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListLeftMenu));
-        this.drawerListRightMenu.setOnItemClickListener(new DrawerItemClickListener(this.drawerListRightMenu));
+        this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(
+                this.drawerListLeftMenu));
+        this.drawerListRightMenu.setOnItemClickListener(new DrawerItemClickListener(
+                this.drawerListRightMenu));
 
         this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
 
@@ -82,7 +91,8 @@ public class TopoSuiteActivity extends FragmentActivity {
 
         // the drawerToggle handles the actions when a sliding menu is opened or
         // closed
-        this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, R.drawable.ic_launcher,
+        this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout,
+                R.drawable.ic_launcher,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View view) {
