@@ -1,5 +1,8 @@
 package ch.hgdev.toposuite.calculation.activities.abriss;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,6 +14,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
@@ -170,6 +175,12 @@ public class AddOrientationDialogFragment extends DialogFragment {
                 // do nothing
             }
         });
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.addAll(SharedResources.getSetOfPoints());
+        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+                this.getActivity(), R.layout.spinner_list_item, points);
+        this.orientationSpinner.setAdapter(a);
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
         this.horizontalDirectionEditText.setHint("Hz");
