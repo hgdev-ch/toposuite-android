@@ -45,6 +45,7 @@ end
 desc "Clean TopoSuite and TopoSuiteTest"
 task :clean do
 	system('cd "$PWD/TopoSuite" && ant clean')
+	system('cd "$PWD/TopoSuite" && rm -rvf ./javadoc ./lint_files ./lint.html')
 	system('cd "$PWD/TopoSuiteTest" && ant clean')
 end
 
