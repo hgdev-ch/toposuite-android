@@ -1,7 +1,11 @@
 package ch.hgdev.toposuite.test.utils;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestMathUtils extends TestCase {
@@ -58,5 +62,16 @@ public class TestMathUtils extends TestCase {
     public void testGradToRad() {
         Assert.assertEquals("3.438", String.format("%.3f", MathUtils.gradToRad(218.89)));
         Assert.assertEquals("1.243", String.format("%.3f", MathUtils.gradToRad(79.132)));
+    }
+
+    public void testEuclideanDistance() {
+        DecimalFormat df = new DecimalFormat("#.####");
+        df.setRoundingMode(RoundingMode.HALF_UP);
+
+        Point p1 = new Point(1, 643.238, 437.271, 0.0, true);
+        Point p2 = new Point(2, 576.376, 285.267, 0.0, true);
+
+        Assert.assertEquals("166.0595",
+                df.format(MathUtils.eclideanDistance(p1, p2)));
     }
 }
