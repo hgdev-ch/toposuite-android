@@ -23,7 +23,8 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class AbrissActivity extends TopoSuiteActivity {
+public class AbrissActivity extends TopoSuiteActivity implements
+        AddOrientationDialogFragment.AddOrientationDialogListener {
     private static final String   STATION_SELECTED_POSITION = "station_selected_position";
 
     private TextView              stationPoint;
@@ -132,7 +133,7 @@ public class AbrissActivity extends TopoSuiteActivity {
         int id = item.getItemId();
 
         switch (id) {
-        case R.id.add_point_button:
+        case R.id.add_orientation_button:
             this.showAddOrientationDialog();
             return true;
         case R.id.run_calculation_button:
@@ -169,10 +170,8 @@ public class AbrissActivity extends TopoSuiteActivity {
      * Display a dialog to allow the user to insert a new orientation.
      */
     private void showAddOrientationDialog() {
-        // AddOrientationDialogFragment dialog = new
-        // AddOrientationDialogFragment();
-        // dialog.show(this.getFragmentManager(),
-        // "AddOrientationDialogFragment");
+        AddOrientationDialogFragment dialog = new AddOrientationDialogFragment();
+        dialog.show(this.getFragmentManager(), "AddOrientationDialogFragment");
     }
 
     /**
@@ -180,5 +179,20 @@ public class AbrissActivity extends TopoSuiteActivity {
      */
     private void drawList() {
         this.orientationsListView.setAdapter(this.adapter);
+    }
+
+    @Override
+    public void onDialogAdd(AddOrientationDialogFragment dialog) {
+        this.adapter.add(new Measure(
+                dialog.getOrientation(),
+                dialog.getHorizontalDirection(),
+                100.0,
+                dialog.getHorizontalDistance(),
+                dialog.getAltitude()));
+    }
+
+    @Override
+    public void onDialogCancel(AddOrientationDialogFragment dialog) {
+        // DO NOTHING
     }
 }
