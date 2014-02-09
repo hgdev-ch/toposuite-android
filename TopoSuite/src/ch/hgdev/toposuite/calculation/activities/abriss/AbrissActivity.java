@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.calculation.activities.Abriss;
+package ch.hgdev.toposuite.calculation.activities.abriss;
 
 import java.util.ArrayList;
 import java.util.List;

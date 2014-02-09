@@ -36,7 +36,7 @@
             android:label="@string/title_activity_history" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.calculation.activities.Abriss.AbrissActivity"
+            android:name="ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity"
             android:label="@string/title_activity_abriss" >
         </activity>
     </application>
