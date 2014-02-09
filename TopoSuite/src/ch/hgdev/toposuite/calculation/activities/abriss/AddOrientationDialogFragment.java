@@ -96,7 +96,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onShow(DialogInterface dialog) {
+            public void onShow(final DialogInterface dialog) {
                 Button addButton = ((AlertDialog) dialog)
                         .getButton(DialogInterface.BUTTON_POSITIVE);
                 addButton.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +117,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
                             AddOrientationDialogFragment.this.horizontalDirection = Double
                                     .parseDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText
                                             .getText().toString());
+                            dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
                                     AddOrientationDialogFragment.this.getActivity(),
