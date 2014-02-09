@@ -57,16 +57,16 @@ public class MainActivity extends TopoSuiteActivity {
                         this.getString(R.string.app_developer),
                         "<a href='" + this.getString(R.string.app_developer_webpage_url) + "'>"
                                 + this.getString(R.string.app_developer_webpage_url_short) + "</a>"))
-                .append("</p>")
+                .append("</p><div>")
                 .append(this.getString(R.string.with_support_from))
-                .append(":<br/>")
+                .append(":<br/><table><tr><td>")
                 .append("<img src='file:///android_asset/cf_geo.png' alt='")
                 .append(this.getString(R.string.cfgeo))
-                .append("'/><br/>")
+                .append("'/></td><td>")
                 .append(this.getString(R.string.cfgeo))
                 .append(" - " + "<a href='" + this.getString(R.string.cfgeo_webpage_url) + "'>"
                         + this.getString(R.string.cfgeo_webpage_url_short) + "</a>")
-                .append("</p><p>")
+                .append("</td></tr></table></div><p>")
                 .append(String.format(this.getString(R.string.app_copyright), year,
                         this.getString(R.string.crag)))
                 .append("</p>");
