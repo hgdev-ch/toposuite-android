@@ -69,8 +69,6 @@ public class AbrissActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.adapter = new ArrayListOfOrientationsAdapter(
-                this, R.layout.orientations_list_item, new ArrayList<Measure>());
         this.drawList();
 
         // check if we create a new abriss calculation or if we modify an
@@ -182,6 +180,8 @@ public class AbrissActivity extends TopoSuiteActivity implements
      * Draw the main table containing all the orientations.
      */
     private void drawList() {
+        this.adapter = new ArrayListOfOrientationsAdapter(
+                this, R.layout.orientations_list_item, new ArrayList<Measure>());
         this.orientationsListView.setAdapter(this.adapter);
     }
 
