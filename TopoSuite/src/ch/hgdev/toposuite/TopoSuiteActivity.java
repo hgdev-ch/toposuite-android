@@ -25,7 +25,7 @@ import ch.hgdev.toposuite.points.PointsManagerActivity;
  * 
  * @author HGdev
  */
-public class TopoSuiteActivity extends FragmentActivity {
+public abstract class TopoSuiteActivity extends FragmentActivity {
     /**
      * The drawer layout that contains the left/right sliding menus and the
      * activity layout.
