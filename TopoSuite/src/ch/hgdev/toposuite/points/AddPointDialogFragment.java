@@ -68,6 +68,10 @@ public class AddPointDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        // overridden below because the dialog dismiss itself
+                        // without a call to dialog.dismiss()...
+                        // thus, it is impossible to handle error on user input
+                        // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
