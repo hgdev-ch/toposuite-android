@@ -37,7 +37,7 @@ public class MainActivity extends TopoSuiteActivity {
         WebView view = new WebView(this);
         StringBuilder html = new StringBuilder()
                 .append("<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />")
-                .append("<img src=\"file:///android_asset/toposuite_logo.png\" alt=\"")
+                .append("<img src=\"file:///android_asset/toposuite_logo.png\" style=\"float: left;\" alt=\"")
                 .append(appName)
                 .append("\"/>")
                 .append("<h1>")
@@ -46,7 +46,7 @@ public class MainActivity extends TopoSuiteActivity {
                 .append(appName)
                 .append(" ")
                 .append(String.format(this.getString(R.string.app_version), this.getVersionNumber()))
-                .append("</p><p>")
+                .append("</p><br/><p style=\"clear: both;\">")
                 .append(this.getString(R.string.developed_by))
                 .append(":<br/>")
                 .append("<img src=\"file:///android_asset/hgdev_logo.png\" alt=\"")
