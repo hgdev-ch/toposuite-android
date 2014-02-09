@@ -25,10 +25,6 @@
     <string name="app_version">Version: 
         <xliff:g id="version">%s</xliff:g>
     </string>
-    <string name="base_point">Base point</string>
-    <string name="calculation_description">Description</string>
-    <string name="calculation_last_modification">Last Modification</string>
-    <string name="calculation_type">Type</string>
     <string name="cancel">Cancel</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
