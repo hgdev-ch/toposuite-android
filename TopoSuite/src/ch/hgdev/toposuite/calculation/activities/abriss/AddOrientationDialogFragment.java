@@ -117,6 +117,8 @@ public class AddOrientationDialogFragment extends DialogFragment {
                             AddOrientationDialogFragment.this.horizontalDirection = Double
                                     .parseDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText
                                             .getText().toString());
+                            AddOrientationDialogFragment.this.listener
+                                    .onDialogAdd(AddOrientationDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
