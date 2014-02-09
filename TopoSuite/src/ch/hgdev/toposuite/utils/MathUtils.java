@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.utils;
 
+import ch.hgdev.toposuite.points.Point;
+
 /**
  * MathUtils provides static helpers for mathematical operation/conversion.
  * 
@@ -108,5 +110,21 @@ public class MathUtils {
             }
         }
         return m;
+    }
+
+    /**
+     * Euclidean distance between 2 points in 2D.
+     * 
+     * @param p1
+     *            a Point
+     * @param p2
+     *            a Point
+     * @return the euclidean distance between p1 and p2
+     */
+    public static double eclideanDistance(Point p1, Point p2) {
+        double deltaY = p2.getEast() - p1.getEast();
+        double deltaX = p2.getNorth() - p1.getNorth();
+
+        return Math.sqrt(Math.pow(deltaY, 2) + Math.pow(deltaX, 2));
     }
 }
