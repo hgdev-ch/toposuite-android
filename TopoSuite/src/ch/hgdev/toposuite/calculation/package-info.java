@@ -37,7 +37,7 @@
  *              </li>
  *          </ul>
  *      </li>
- *      <li>Add a new field for your calculation in {@link CalculationType}.</li>
+ *      <li>Add a new field for your calculation in {@link ch.hgdev.toposuite.calculation.CalculationType}.</li>
  *      <li>
  *          You also have to edit the {@link ch.hgdev.toposuite.calculation.CalculationFactory}.
  *          In the switch_case statement of
