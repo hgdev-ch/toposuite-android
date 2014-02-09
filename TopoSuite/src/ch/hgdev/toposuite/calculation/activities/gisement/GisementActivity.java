@@ -67,7 +67,8 @@ public class GisementActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) GisementActivity.this.originSpinner.getItemAtPosition(pos);
                 if (pt.getNumber() > 0) {
-                    GisementActivity.this.originPoint.setText(GisementActivity.this.formatPoint(pt));
+                    GisementActivity.this.originPoint.setText(DisplayUtils.formatPoint(
+                            GisementActivity.this, pt));
                 } else {
                     GisementActivity.this.originPoint.setText("");
                 }
@@ -87,8 +88,8 @@ public class GisementActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) GisementActivity.this.orientationSpinner.getItemAtPosition(pos);
                 if (pt.getNumber() > 0) {
-                    GisementActivity.this.orientationPoint.setText(GisementActivity.this
-                            .formatPoint(pt));
+                    GisementActivity.this.orientationPoint.setText(DisplayUtils.formatPoint(
+                            GisementActivity.this, pt));
                 } else {
                     GisementActivity.this.orientationPoint.setText("");
                 }
@@ -199,19 +200,5 @@ public class GisementActivity extends TopoSuiteActivity {
         this.distValue.setText(this.getString(R.string.no_value));
         this.altitudeValue.setText(this.getString(R.string.no_value));
         this.slopeValue.setText(this.getString(R.string.no_value));
-    }
-
-    /**
-     * Format a point in order to display it in a TextView.
-     * 
-     * @param pt
-     *            a Point
-     * @return formatted Point
-     */
-    private String formatPoint(Point pt) {
-        return String.format("%s: %s, %s: %s, %s: %s", this.getString(R.string.east),
-                DisplayUtils.toString(pt.getEast()), this.getString(R.string.north),
-                DisplayUtils.toString(pt.getNorth()), this.getString(R.string.altitude),
-                DisplayUtils.toString(pt.getAltitude()));
     }
 }
