@@ -39,6 +39,10 @@
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Home</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
+    <string name="measure_header_pt_nbr">Pt. Num.</string>
+    <string name="measure_header_hz">Hz</string>
+    <string name="measure_header_hdist">Horiz. dist.</string>
+    <string name="measure_header_alt">Alt.</string>
     <string name="no">No</string>
     <string name="no_value">-</string>
     <string name="north">North</string>

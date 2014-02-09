@@ -49,6 +49,10 @@
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Accueil</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
+    <string name="measure_header_pt_nbr">N&#176; pt</string>
+    <string name="measure_header_hz">Hz</string>
+    <string name="measure_header_hdist">Dist. H</string>
+    <string name="measure_header_alt">Haut.</string>
     <string name="no">Non</string>
     <string name="no_value">-</string>
     <string name="north">Nord</string>
