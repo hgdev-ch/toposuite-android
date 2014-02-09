@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation.activities.Abriss;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.TopoSuiteActivity;
 
-public class AbrissActivity extends Activity {
+public class AbrissActivity extends TopoSuiteActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
