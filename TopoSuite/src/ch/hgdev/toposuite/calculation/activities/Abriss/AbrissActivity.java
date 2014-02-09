@@ -1,25 +1,22 @@
 package ch.hgdev.toposuite.calculation.activities.Abriss;
 
-import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.R.layout;
-import ch.hgdev.toposuite.R.menu;
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+import ch.hgdev.toposuite.R;
 
 public class AbrissActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abriss);
+        this.setContentView(R.layout.activity_abriss);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.abriss, menu);
+        this.getMenuInflater().inflate(R.menu.abriss, menu);
         return true;
     }
-
 }
