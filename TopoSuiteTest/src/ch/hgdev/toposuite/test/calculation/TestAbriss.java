@@ -35,6 +35,10 @@ public class TestAbriss extends TestCase {
                 a.getResults().get(0).getUnknownOrientation()));
         Assert.assertEquals("370.2162", df4.format(
                 a.getResults().get(0).getOrientedDirection()));
+        Assert.assertEquals("-365.7077", df4.format(
+                a.getResults().get(0).getErrAngle()));
+        Assert.assertEquals("-1886.876", df3.format(
+                a.getResults().get(0).getErrTrans()));
 
         Assert.assertEquals("355.776", df3.format(
                 a.getResults().get(1).getDistance()));
@@ -42,6 +46,10 @@ public class TestAbriss extends TestCase {
                 a.getResults().get(1).getUnknownOrientation()));
         Assert.assertEquals("367.0262", df4.format(
                 a.getResults().get(1).getOrientedDirection()));
+        Assert.assertEquals("10.3262", df4.format(
+                a.getResults().get(1).getErrAngle()));
+        Assert.assertEquals("57.708", df3.format(
+                a.getResults().get(1).getErrTrans()));
 
         Assert.assertEquals("234.699", df3.format(
                 a.getResults().get(2).getDistance()));
@@ -49,8 +57,16 @@ public class TestAbriss extends TestCase {
                 a.getResults().get(2).getUnknownOrientation()));
         Assert.assertEquals("360.1232", df4.format(
                 a.getResults().get(2).getOrientedDirection()));
+        Assert.assertEquals("-44.6184", df4.format(
+                a.getResults().get(2).getErrAngle()));
+        Assert.assertEquals("-164.492", df3.format(
+                a.getResults().get(2).getErrTrans()));
 
         Assert.assertEquals("112.4682", df4.format(
                 a.getMean()));
+        Assert.assertEquals("260.6142", df4.format(
+                a.getMSE()));
+        Assert.assertEquals("150.4657", df4.format(
+                a.getMeanErrCompDir()));
     }
 }
