@@ -6,6 +6,7 @@ import java.util.Date;
 import android.content.Context;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.points.Point;
 
 /**
  * Utility functions to format things to display.
@@ -78,5 +79,21 @@ public class DisplayUtils {
     public static int dpToPx(Context context, int dp) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) ((dp * scale) + 0.5f);
+    }
+
+    /**
+     * Format a point in order to display it in a TextView.
+     * 
+     * @param context
+     *            the context
+     * @param pt
+     *            a Point
+     * @return formatted Point
+     */
+    public static String formatPoint(Context context, Point pt) {
+        return String.format("%s: %s, %s: %s, %s: %s", context.getString(R.string.east),
+                DisplayUtils.toString(pt.getEast()), context.getString(R.string.north),
+                DisplayUtils.toString(pt.getNorth()), context.getString(R.string.altitude),
+                DisplayUtils.toString(pt.getAltitude()));
     }
 }
