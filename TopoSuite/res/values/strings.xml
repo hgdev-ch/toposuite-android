@@ -24,6 +24,7 @@
         <xliff:g id="version">%s</xliff:g>
     </string>
     <string name="calculate_3dots">Calculate...</string>
+    <string name="calculated_distance">Calc. dist.</string>
     <string name="cancel">Cancel</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
@@ -62,6 +63,7 @@
     <string name="north_3dots">North&#8230;</string>
     <string name="optional_prths">(optional)</string>
     <string name="orientation_add">Add orientation</string>
+    <string name="oriented_direction">Orient. Dir.</string>
     <string name="orientation_edit">Edit orientation</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">First point (origin)</string>
@@ -77,11 +79,13 @@
     <string name="search_3dots">Search&#8230;</string>
     <string name="slope_label">Slope [%]</string>
     <string name="station_label">Station</string>
+    <string name="target_point">Target Point</string>
     <string name="title_activity_abriss">Abriss</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">History</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
+    <string name="unknown_orientation">Unkn. Orient.</string>
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
     <string name="title_activity_abriss_results">AbrissResultsActivity</string>
