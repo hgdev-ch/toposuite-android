@@ -91,22 +91,22 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.genAddOrientationView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(this.getActivity().getString(R.string.orientation_edit))
-                .setView(this.layout)
-                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditOrientationDialogFragment.this.listener
-                                .onDialogCancel(EditOrientationDialogFragment.this);
-                    }
-                });
+        .setView(this.layout)
+        .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // overridden below because the dialog dismiss itself
+                // without a call to dialog.dismiss()...
+                // thus, it is impossible to handle error on user input
+                // without closing the dialog otherwise
+            }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditOrientationDialogFragment.this.listener
+                .onDialogCancel(EditOrientationDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -132,14 +132,14 @@ public class EditOrientationDialogFragment extends DialogFragment {
                                     .parseDouble(EditOrientationDialogFragment.this.horizontalDirectionEditText
                                             .getText().toString());
                             EditOrientationDialogFragment.this.listener
-                                    .onDialogEdit(EditOrientationDialogFragment.this);
+                            .onDialogEdit(EditOrientationDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
                                     EditOrientationDialogFragment.this.getActivity(),
                                     EditOrientationDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data),
-                                    Toast.LENGTH_SHORT);
+                                            Toast.LENGTH_SHORT);
                             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                             errorToast.show();
                         }
@@ -206,9 +206,8 @@ public class EditOrientationDialogFragment extends DialogFragment {
             }
         });
 
-        this.orientation = (Point) EditOrientationDialogFragment.this.orientationSpinner
-                .getItemAtPosition(this.bundle
-                        .getInt(EditOrientationDialogFragment.ORIENTATION_NUMBER));
+        this.orientation = (Point) this.orientationSpinner.getSelectedItem();
+
         this.itemSelected();
         this.horizontalDirection = this.bundle
                 .getDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION);
@@ -238,8 +237,10 @@ public class EditOrientationDialogFragment extends DialogFragment {
      */
     private void itemSelected() {
         this.orientation = (Point) this.orientationSpinner.getSelectedItem();
-        this.orientationView.setText(
-                DisplayUtils.formatPoint(this.getActivity(), this.orientation));
+        if (this.orientation != null) {
+            this.orientationView.setText(
+                    DisplayUtils.formatPoint(this.getActivity(), this.orientation));
+        }
     }
 
     /**

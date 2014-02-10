@@ -29,8 +29,8 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class AbrissActivity extends TopoSuiteActivity implements
-        AddOrientationDialogFragment.AddOrientationDialogListener,
-        EditOrientationDialogFragment.EditOrientationDialogListener {
+AddOrientationDialogFragment.AddOrientationDialogListener,
+EditOrientationDialogFragment.EditOrientationDialogListener {
 
     public static final String    STATION_NUMBER_LABEL      = "station_number";
     public static final String    ORIENTATIONS_LABEL        = "orientations";
@@ -151,13 +151,13 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
             if (station.getNumber() == 0) {
                 Toast.makeText(this, R.string.error_no_station_selected, Toast.LENGTH_LONG)
-                        .show();
+                .show();
                 return true;
             }
 
             if (this.orientationsListView.getChildCount() == 0) {
                 Toast.makeText(this, R.string.error_at_least_one_orientation, Toast.LENGTH_LONG)
-                        .show();
+                .show();
                 return true;
             }
 
@@ -219,9 +219,8 @@ public class AbrissActivity extends TopoSuiteActivity implements
     private void editOrientationDialog(int position) {
         EditOrientationDialogFragment dialog = new EditOrientationDialogFragment();
         Bundle args = new Bundle();
-        Point orientation = (Point) this.stationSpinner.getSelectedItem();
         Measure measure = this.adapter.getItem(position);
-        args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, orientation.getNumber());
+        args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, measure.getOrientation().getNumber());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION, measure.getHorizDir());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE, measure.getDistance());
         args.putDouble(EditOrientationDialogFragment.ALTITUDE, measure.getS());
