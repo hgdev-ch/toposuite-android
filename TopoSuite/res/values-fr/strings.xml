@@ -25,7 +25,7 @@
     <string name="app_version">Version: 
         <xliff:g id="version">%s</xliff:g>
     </string>
-    <string name="calculate_3dots">Calculer...</string>
+    <string name="calculate_3dots">Calculer&#8230;</string>
     <string name="calculated_distance">Dist. Calc.</string>
     <string name="cancel">Annuler</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
@@ -101,6 +101,7 @@
     <string name="station_label">Station</string>
     <string name="target_point">Point visé</string>
     <string name="title_activity_abriss">Orient. à la station</string>
+    <string name="title_activity_abriss_results">Abriss - Résultats</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">Historique</string>
     <string name="title_activity_points_manager">Gestion des points</string>
