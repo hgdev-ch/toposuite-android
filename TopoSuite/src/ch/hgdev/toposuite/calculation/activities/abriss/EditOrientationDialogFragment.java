@@ -64,6 +64,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
     public static final String    HORIZONTAL_DIRECTION = "Horizontal direction";
     public static final String    HORIZONTAL_DISTANCE  = "Horizontal distance";
     public static final String    ALTITUDE             = "Altitude";
+    public static final String    ORIENTATION_POSITION = "Orientation position";
     private Bundle                bundle;
     EditOrientationDialogListener listener;
     private Spinner               orientationSpinner;
@@ -76,6 +77,13 @@ public class EditOrientationDialogFragment extends DialogFragment {
     private EditText              horizontalDirectionEditText;
     private EditText              horizontalDistanceEditText;
     private EditText              altitudeEditText;
+
+    /**
+     * The position of the current orientation in the ArrayList adapter. This is
+     * used for retrieving the orientation in the adapter after its
+     * modification.
+     */
+    private int                   orientationPosition;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -159,12 +167,24 @@ public class EditOrientationDialogFragment extends DialogFragment {
     private void initAttributes() {
         this.bundle = this.getArguments();
 
+        this.orientationPosition = this.bundle
+                .getInt(EditOrientationDialogFragment.ORIENTATION_POSITION);
+
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.orientationView = new TextView(this.getActivity());
 
         this.orientationSpinner = new Spinner(this.getActivity());
+        List<Point> points = new ArrayList<Point>();
+        points.addAll(SharedResources.getSetOfPoints());
+        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+                this.getActivity(), R.layout.spinner_list_item, points);
+
+        this.orientationSpinner.setAdapter(a);
+        this.orientationSpinner.setSelection(a.getPosition(SharedResources.getSetOfPoints().find(
+                this.bundle.getInt(EditOrientationDialogFragment.ORIENTATION_NUMBER))));
+
         this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -185,11 +205,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
                 // do nothing
             }
         });
-        List<Point> points = new ArrayList<Point>();
-        points.addAll(SharedResources.getSetOfPoints());
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this.getActivity(), R.layout.spinner_list_item, points);
-        this.orientationSpinner.setAdapter(a);
+
         this.orientation = (Point) EditOrientationDialogFragment.this.orientationSpinner
                 .getItemAtPosition(this.bundle
                         .getInt(EditOrientationDialogFragment.ORIENTATION_NUMBER));
@@ -222,8 +238,8 @@ public class EditOrientationDialogFragment extends DialogFragment {
      */
     private void itemSelected() {
         this.orientation = (Point) this.orientationSpinner.getSelectedItem();
-        this.orientationView
-                .setText(DisplayUtils.formatPoint(this.getActivity(), this.orientation));
+        this.orientationView.setText(
+                DisplayUtils.formatPoint(this.getActivity(), this.orientation));
     }
 
     /**
@@ -263,5 +279,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
 
     public double getAltitude() {
         return this.altitude;
+    }
+
+    public int getOrientationPosition() {
+        return this.orientationPosition;
     }
 }
