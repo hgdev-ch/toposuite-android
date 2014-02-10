@@ -190,20 +190,20 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.horizontalDirectionEditText.setHint(this.getActivity().getString(
                 R.string.horiz_direction));
         this.horizontalDirectionEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
         this.horizontalDistanceEditText.setHint(this.getActivity().getString(
                 R.string.horiz_distance) + " "
                 + this.getActivity().getString(R.string.optional_prths));
         this.horizontalDistanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.altitudeEditText = new EditText(this.getActivity());
         this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude)
                 + " " + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.horizontalDirection = 0.0;
         this.horizontalDistance = 0.0;

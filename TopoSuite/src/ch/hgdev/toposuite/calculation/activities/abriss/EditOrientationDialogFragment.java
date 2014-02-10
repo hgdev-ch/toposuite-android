@@ -203,17 +203,17 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.horizontalDirectionEditText = new EditText(this.getActivity());
         this.horizontalDirectionEditText.setText(DisplayUtils.toString(this.horizontalDirection));
         this.horizontalDirectionEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
         this.horizontalDistanceEditText.setText(DisplayUtils.toString(this.horizontalDistance));
         this.horizontalDistanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.altitudeEditText = new EditText(this.getActivity());
         this.altitudeEditText.setText(DisplayUtils.toString(this.altitude));
         this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
     }
 
     /**
