@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
-import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -67,8 +66,6 @@ public class Abriss extends Calculation {
 
         for (Measure m : this.orientations) {
             Gisement g = new Gisement(this.station, m.getOrientation(), false);
-            // disable the mapping with the DAO.
-            g.removeDAO(CalculationsDataSource.getInstance());
 
             double z0 = MathUtils.modulo400(g.getGisement() - m.getHorizDir());
             double calcDist = MathUtils.eclideanDistance(this.station, m.getOrientation());
