@@ -82,6 +82,10 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             this.addPoint(dialog.getNumber(), dialog.getEast(),
                     dialog.getNorth(), dialog.getAltitude());
             this.drawList();
+            Toast successToast = Toast.makeText(this, this.getString(R.string.point_add_success),
+                    Toast.LENGTH_SHORT);
+            successToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            successToast.show();
         } else {
             Toast errorToast = Toast
                     .makeText(this, this.getString(R.string.point_already_exists),
@@ -89,6 +93,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             errorToast.show();
         }
+        this.showAddPointDialog();
     }
 
     @Override
