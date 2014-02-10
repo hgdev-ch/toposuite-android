@@ -26,6 +26,9 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class AbrissActivity extends TopoSuiteActivity implements
         AddOrientationDialogFragment.AddOrientationDialogListener {
+    public static final String    STATION_NUMBER_LABEL      = "station_number";
+    public static final String    ORIENTATIONS_LABEL        = "orientations";
+
     private static final String   STATION_SELECTED_POSITION = "station_selected_position";
 
     private TextView              stationPoint;
@@ -150,16 +153,18 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 return true;
             }
 
-            this.abriss = new Abriss(station);
+            Bundle bundle = new Bundle();
+            bundle.putInt(AbrissActivity.STATION_NUMBER_LABEL, station.getNumber());
 
+            ArrayList<Measure> orientationsList = new ArrayList<Measure>();
             for (int i = 0; i < this.adapter.getCount(); i++) {
-                this.abriss.getMeasures().clear();
-                this.abriss.getMeasures().add(this.adapter.getItem(i));
+                orientationsList.add(this.adapter.getItem(i));
             }
 
-            this.abriss.compute();
+            bundle.putParcelableArrayList(AbrissActivity.ORIENTATIONS_LABEL, orientationsList);
 
             Intent resultsActivityIntent = new Intent(this, AbrissResultsActivity.class);
+            resultsActivityIntent.putExtras(bundle);
             this.startActivity(resultsActivityIntent);
 
             return true;
