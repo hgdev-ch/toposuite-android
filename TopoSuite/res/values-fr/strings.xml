@@ -55,6 +55,7 @@
     <string name="horiz_direction">Direction horizontale (hz)</string>
     <string name="horiz_distance">Distance horizontale</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
+    <string name="mean_error_label">Erreur Moy.</string>
     <string name="measure_header_pt_nbr">N&#176; pt</string>
     <string name="measure_header_hz">Hz</string>
     <string name="measure_header_hdist">Dist. H</string>

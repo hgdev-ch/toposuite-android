@@ -53,6 +53,7 @@
     <string name="horiz_direction">Horizontal direction (hz)</string>
     <string name="horiz_distance">Horizontal distance</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
+    <string name="mean_error_label">Mean Error</string>
     <string name="measure_header_pt_nbr">Pt. Num.</string>
     <string name="measure_header_hz">Hz</string>
     <string name="measure_header_hdist">Horiz. dist.</string>
