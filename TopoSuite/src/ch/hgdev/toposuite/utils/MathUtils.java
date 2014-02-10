@@ -121,7 +121,7 @@ public class MathUtils {
      *            a Point
      * @return the euclidean distance between p1 and p2
      */
-    public static double eclideanDistance(Point p1, Point p2) {
+    public static double euclideanDistance(Point p1, Point p2) {
         double deltaY = p2.getEast() - p1.getEast();
         double deltaX = p2.getNorth() - p1.getNorth();
 
