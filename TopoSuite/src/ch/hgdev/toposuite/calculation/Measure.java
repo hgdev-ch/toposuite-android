@@ -22,9 +22,21 @@ public class Measure {
     private static final String JSON_UNSERIALIZE_ERROR = "Unable to unserialize Measure!";
 
     private Point               orientation;
+    /**
+     * Hz
+     */
     private double              horizDir;
+    /**
+     * Vz
+     */
     private double              zenAngle;
+    /**
+     * Dist. Incl.
+     */
     private double              distance;
+    /**
+     * Height of the prism.
+     */
     private double              s;
     private double              latDepl;
     private double              lonDepl;
