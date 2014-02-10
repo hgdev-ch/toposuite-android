@@ -57,6 +57,9 @@ public class MainActivity extends TopoSuiteActivity {
                         this.getString(R.string.app_developer),
                         "<a href='" + this.getString(R.string.app_developer_webpage_url) + "'>"
                                 + this.getString(R.string.app_developer_webpage_url_short) + "</a>"))
+                .append("<p>")
+                .append(String.format(this.getString(R.string.app_copyright), year,
+                        this.getString(R.string.crag)))
                 .append("</p><div>")
                 .append(this.getString(R.string.with_support_from))
                 .append(":<br/><table><tr><td>")
@@ -66,9 +69,11 @@ public class MainActivity extends TopoSuiteActivity {
                 .append(this.getString(R.string.cfgeo))
                 .append(" - " + "<a href='" + this.getString(R.string.cfgeo_webpage_url) + "'>"
                         + this.getString(R.string.cfgeo_webpage_url_short) + "</a>")
-                .append("</td></tr></table></div><p>")
-                .append(String.format(this.getString(R.string.app_copyright), year,
-                        this.getString(R.string.crag)))
+                .append("</td></tr></table></div>")
+                .append("<p>")
+                .append(this.getString(R.string.disclaimer) + ":<br/>")
+                .append(this.getString(R.string.disclaimer_notice) + "<br/>")
+                .append(this.getString(R.string.disclaimer_text))
                 .append("</p>");
         view.loadDataWithBaseURL("file:///android_res/drawable/", html.toString(), "text/html",
                 "utf-8", null);

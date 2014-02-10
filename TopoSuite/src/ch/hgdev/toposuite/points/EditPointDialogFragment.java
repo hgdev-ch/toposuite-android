@@ -166,19 +166,19 @@ public class EditPointDialogFragment extends DialogFragment {
         this.eastEditText.setText(DisplayUtils.toString(this.east));
         this.eastEditText.setInputType(
                 InputType.TYPE_CLASS_NUMBER
-                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.northEditText = new EditText(this.getActivity());
         this.northEditText.setText(DisplayUtils.toString(this.north));
         this.northEditText.setInputType(
                 InputType.TYPE_CLASS_NUMBER
-                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.altitudeEditText = new EditText(this.getActivity());
         this.altitudeEditText.setText(DisplayUtils.toString(this.altitude));
         this.altitudeEditText.setInputType(
                 InputType.TYPE_CLASS_NUMBER
-                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
     }
 
     /**

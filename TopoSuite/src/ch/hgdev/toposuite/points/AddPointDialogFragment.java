@@ -151,19 +151,19 @@ public class AddPointDialogFragment extends DialogFragment {
         this.eastEditText = new EditText(this.getActivity());
         this.eastEditText.setHint(this.getActivity().getString(R.string.east_3dots));
         this.eastEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.northEditText = new EditText(this.getActivity());
         this.northEditText.setHint(this.getActivity().getString(R.string.north_3dots));
 
         this.northEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.altitudeEditText = new EditText(this.getActivity());
         this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude_3dots)
                 + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
         this.number = 0;
         this.east = 0.0;
