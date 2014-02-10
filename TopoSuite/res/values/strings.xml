@@ -49,6 +49,8 @@
     <string name="error_same_points">The points must be different!</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Home</string>
+    <string name="horiz_direction">Horizontal direction (hz)</string>
+    <string name="horiz_distance">Horizontal distance</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="measure_header_pt_nbr">Pt. Num.</string>
     <string name="measure_header_hz">Hz</string>
@@ -59,6 +61,7 @@
     <string name="north">North</string>
     <string name="north_3dots">North&#8230;</string>
     <string name="optional_prths">(optional)</string>
+    <string name="orientation_add">Add orientation</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">First point (origin)</string>
     <string name="point_already_exists">This point already exists!</string>

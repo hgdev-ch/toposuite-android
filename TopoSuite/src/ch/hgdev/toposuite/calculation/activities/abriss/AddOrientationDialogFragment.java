@@ -77,7 +77,8 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.initAttributes();
         this.genAddOrientationView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle("Add Orientation").setView(this.layout)
+        builder.setTitle(this.getActivity().getString(R.string.orientation_add))
+                .setView(this.layout)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -186,17 +187,21 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.orientationSpinner.setAdapter(a);
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
-        this.horizontalDirectionEditText.setHint("Hz");
+        this.horizontalDirectionEditText.setHint(this.getActivity().getString(
+                R.string.horiz_direction));
         this.horizontalDirectionEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
-        this.horizontalDistanceEditText.setHint("Horizontal distance (optional)");
+        this.horizontalDistanceEditText.setHint(this.getActivity().getString(
+                R.string.horiz_distance) + " "
+                + this.getActivity().getString(R.string.optional_prths));
         this.horizontalDistanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.altitudeEditText = new EditText(this.getActivity());
-        this.altitudeEditText.setHint("altitude (optional)");
+        this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude)
+                + " " + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
