@@ -72,6 +72,6 @@ public class TestMathUtils extends TestCase {
         Point p2 = new Point(2, 576.376, 285.267, 0.0, true);
 
         Assert.assertEquals("166.0595",
-                df.format(MathUtils.eclideanDistance(p1, p2)));
+                df.format(MathUtils.euclideanDistance(p1, p2)));
     }
 }
