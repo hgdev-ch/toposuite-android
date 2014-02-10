@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.utils;
 
+import org.json.JSONException;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.points.Point;
@@ -41,9 +43,19 @@ public class Logger {
      * @return formatted calculation
      */
     public static String formatCalculation(Calculation calculation) {
-        return String.format(App.locale,
-                "Calculation: {ID: %d, Type: %s,  Description: %s, LastModification: %s}",
-                calculation.getId(), calculation.getType(), calculation.getDescription(),
-                calculation.getLastModification());
+        String json = "";
+        try {
+            json = calculation.exportToJSON();
+
+        } catch (JSONException e) {
+            json = "ERROR";
+        }
+
+        return String
+                .format(App.locale,
+                        "Calculation: {ID: %d, Type: %s,  Description: %s, LastModification: %s, Input: '%s'}",
+                        calculation.getId(), calculation.getType(),
+                        calculation.getDescription(),
+                        calculation.getLastModification(), json);
     }
 }

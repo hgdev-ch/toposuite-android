@@ -2,6 +2,10 @@ package ch.hgdev.toposuite.calculation.activities.abriss;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
@@ -38,10 +42,21 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         Bundle bundle = this.getIntent().getExtras();
         Point station = SharedResources.getSetOfPoints().find(
                 bundle.getInt(AbrissActivity.STATION_NUMBER_LABEL));
-        ArrayList<Measure> orientationsList = bundle.getParcelableArrayList(
-                AbrissActivity.ORIENTATIONS_LABEL);
 
-        this.abriss = new Abriss(station);
+        ArrayList<Measure> orientationsList = new ArrayList<Measure>();
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(bundle.getString(AbrissActivity.ORIENTATIONS_LABEL));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject json = (JSONObject) jsonArray.get(i);
+                Measure m = Measure.getMeasureFromJSON(json.toString());
+                orientationsList.add(m);
+            }
+        } catch (JSONException e) {
+            // TODO
+        }
+
+        this.abriss = new Abriss(station, true);
         this.abriss.getMeasures().addAll(orientationsList);
         this.abriss.compute();
 
@@ -55,8 +70,8 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
     }
 
     public void displayResults() {
-        StringBuilder builder = new StringBuilder(
-                this.abriss.getStation().getNumber());
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.abriss.getStation().getNumber());
         builder.append(" (");
         builder.append(DisplayUtils.formatPoint(this, this.abriss.getStation()));
         builder.append(")");

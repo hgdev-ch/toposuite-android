@@ -65,15 +65,21 @@ public class Gisement extends Calculation {
      * @param _orientation
      *            the orientation
      */
-    public Gisement(String _description, Point _origin, Point _orientation) {
-        super(CalculationType.GISEMENT, Gisement.CALCULATION_NAME);
+    public Gisement(String _description, Point _origin, Point _orientation, boolean hasDAO) {
+        super(CalculationType.GISEMENT, Gisement.CALCULATION_NAME, hasDAO);
 
         this.origin = _origin;
         this.orientation = _orientation;
 
         this.compute();
 
-        SharedResources.getCalculationsHistory().add(0, this);
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
+    }
+
+    public Gisement(Point _origin, Point _orientation, boolean hasDAO) {
+        this("", _origin, _orientation, hasDAO);
     }
 
     /**
@@ -85,7 +91,7 @@ public class Gisement extends Calculation {
      *            the orientation
      */
     public Gisement(Point _origin, Point _orientation) {
-        this("", _origin, _orientation);
+        this("", _origin, _orientation, true);
     }
 
     /**
@@ -95,7 +101,7 @@ public class Gisement extends Calculation {
      * @param lastModification
      */
     public Gisement(long id, Date lastModification) {
-        super(id, CalculationType.GISEMENT, Gisement.CALCULATION_NAME, lastModification);
+        super(id, CalculationType.GISEMENT, Gisement.CALCULATION_NAME, lastModification, true);
     }
 
     /**

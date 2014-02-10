@@ -3,6 +3,8 @@ package ch.hgdev.toposuite.calculation.activities.abriss;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -29,15 +31,16 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class AbrissActivity extends TopoSuiteActivity implements
-AddOrientationDialogFragment.AddOrientationDialogListener,
-EditOrientationDialogFragment.EditOrientationDialogListener {
+        AddOrientationDialogFragment.AddOrientationDialogListener,
+        EditOrientationDialogFragment.EditOrientationDialogListener {
 
+    public static final String    ABRISS_ID_LABEL           = "abriss_id";
     public static final String    STATION_NUMBER_LABEL      = "station_number";
     public static final String    ORIENTATIONS_LABEL        = "orientations";
 
     private static final String   STATION_SELECTED_POSITION = "station_selected_position";
 
-    private TextView              stationPoint;
+    private TextView              stationPointTextView;
 
     private Spinner               stationSpinner;
 
@@ -56,7 +59,7 @@ EditOrientationDialogFragment.EditOrientationDialogListener {
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.orientationsListView = (ListView) this.findViewById(R.id.orientations_list);
-        this.stationPoint = (TextView) this.findViewById(R.id.station_point);
+        this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
 
         this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -65,10 +68,10 @@ EditOrientationDialogFragment.EditOrientationDialogListener {
 
                 Point pt = (Point) AbrissActivity.this.stationSpinner.getItemAtPosition(pos);
                 if (pt.getNumber() > 0) {
-                    AbrissActivity.this.stationPoint.setText(DisplayUtils.formatPoint(
+                    AbrissActivity.this.stationPointTextView.setText(DisplayUtils.formatPoint(
                             AbrissActivity.this, pt));
                 } else {
-                    AbrissActivity.this.stationPoint.setText("");
+                    AbrissActivity.this.stationPointTextView.setText("");
                 }
             }
 
@@ -78,7 +81,7 @@ EditOrientationDialogFragment.EditOrientationDialogListener {
             }
         });
 
-        this.drawList();
+        ArrayList<Measure> list = new ArrayList<Measure>();
 
         // check if we create a new abriss calculation or if we modify an
         // existing one.
@@ -86,7 +89,12 @@ EditOrientationDialogFragment.EditOrientationDialogListener {
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
+            list = this.abriss.getMeasures();
         }
+
+        this.adapter = new ArrayListOfOrientationsAdapter(
+                this, R.layout.orientations_list_item, list);
+        this.drawList();
 
         this.registerForContextMenu(this.orientationsListView);
     }
@@ -151,25 +159,27 @@ EditOrientationDialogFragment.EditOrientationDialogListener {
 
             if (station.getNumber() == 0) {
                 Toast.makeText(this, R.string.error_no_station_selected, Toast.LENGTH_LONG)
-                .show();
+                        .show();
                 return true;
             }
 
             if (this.orientationsListView.getChildCount() == 0) {
                 Toast.makeText(this, R.string.error_at_least_one_orientation, Toast.LENGTH_LONG)
-                .show();
+                        .show();
                 return true;
             }
 
             Bundle bundle = new Bundle();
+            // bundle.putInt(AbrissActivity.ABRISS_ID_LABEL, (int)
+            // this.abriss.getId());
             bundle.putInt(AbrissActivity.STATION_NUMBER_LABEL, station.getNumber());
 
-            ArrayList<Measure> orientationsList = new ArrayList<Measure>();
+            JSONArray json = new JSONArray();
             for (int i = 0; i < this.adapter.getCount(); i++) {
-                orientationsList.add(this.adapter.getItem(i));
+                json.put(this.adapter.getItem(i).toJSONObject());
             }
 
-            bundle.putParcelableArrayList(AbrissActivity.ORIENTATIONS_LABEL, orientationsList);
+            bundle.putString(AbrissActivity.ORIENTATIONS_LABEL, json.toString());
 
             Intent resultsActivityIntent = new Intent(this, AbrissResultsActivity.class);
             resultsActivityIntent.putExtras(bundle);
@@ -220,7 +230,8 @@ EditOrientationDialogFragment.EditOrientationDialogListener {
         EditOrientationDialogFragment dialog = new EditOrientationDialogFragment();
         Bundle args = new Bundle();
         Measure measure = this.adapter.getItem(position);
-        args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, measure.getOrientation().getNumber());
+        args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, measure.getOrientation()
+                .getNumber());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION, measure.getHorizDir());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE, measure.getDistance());
         args.putDouble(EditOrientationDialogFragment.ALTITUDE, measure.getS());
@@ -234,8 +245,6 @@ EditOrientationDialogFragment.EditOrientationDialogListener {
      * Draw the main table containing all the orientations.
      */
     private void drawList() {
-        this.adapter = new ArrayListOfOrientationsAdapter(
-                this, R.layout.orientations_list_item, new ArrayList<Measure>());
         this.orientationsListView.setAdapter(this.adapter);
     }
 

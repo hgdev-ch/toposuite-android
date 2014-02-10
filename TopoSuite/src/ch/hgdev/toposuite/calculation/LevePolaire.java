@@ -22,7 +22,7 @@ public class LevePolaire extends Calculation {
     private double              direction;
 
     public LevePolaire(long id, Date lastModification) {
-        super(id, CalculationType.LEVEPOLAIRE, LevePolaire.CALCULATION_NAME, lastModification);
+        super(id, CalculationType.LEVEPOLAIRE, LevePolaire.CALCULATION_NAME, lastModification, true);
     }
 
     @Override

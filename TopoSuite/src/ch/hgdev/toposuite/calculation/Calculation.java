@@ -57,7 +57,8 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
      * @param _lastModification
      *            the last modification date
      */
-    public Calculation(long _id, CalculationType _type, String _description, Date _lastModification) {
+    public Calculation(long _id, CalculationType _type, String _description,
+            Date _lastModification, boolean hasDAO) {
         this.id = _id;
         this.type = _type;
         this.description = _description;
@@ -68,7 +69,10 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
         }
 
         this.daoList = new ArrayList<DAO>();
-        this.registerDAO(CalculationsDataSource.getInstance());
+
+        if (hasDAO) {
+            this.registerDAO(CalculationsDataSource.getInstance());
+        }
     }
 
     /**
@@ -76,8 +80,8 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
      * @param _type
      * @param _description
      */
-    public Calculation(CalculationType _type, String _description) {
-        this(0, _type, _description, null);
+    public Calculation(CalculationType _type, String _description, boolean hasDAO) {
+        this(0, _type, _description, null, hasDAO);
 
         // since no ID is provided, this a new calculation and then, we have to
         // add it

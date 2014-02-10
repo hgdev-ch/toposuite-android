@@ -44,12 +44,14 @@ public class CalculationFactory {
         case GISEMENT:
             calculation = new Gisement(id, lastModification);
             break;
+        case ABRISS:
+            calculation = new Abriss(id, lastModification);
         case LEVEPOLAIRE:
             // TODO uncomment once the calculation has been implemented
             // calculation = new LevePolaire(id, lastModification);
             break;
         default:
-            Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR, CALCULATION_NOT_FOUND);
+            Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR, CalculationFactory.CALCULATION_NOT_FOUND);
         }
 
         if ((calculation != null) && !Strings.isNullOrEmpty(jsonInputArgs)) {

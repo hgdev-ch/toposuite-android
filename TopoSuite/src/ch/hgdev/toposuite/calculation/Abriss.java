@@ -1,18 +1,26 @@
 package ch.hgdev.toposuite.calculation;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Abriss extends Calculation {
-    private static final String CALCULATION_NAME = "Orient. st.";
+    public static final String  STATION_NUMBER    = "station_number";
+    public static final String  ORIENTATIONS_LIST = "orientations_list";
+
+    private static final String CALCULATION_NAME  = "Orient. st.";
 
     private Point               station;
-    private ArrayList<Measure>  measures;
+    private ArrayList<Measure>  orientations;
 
     private ArrayList<Result>   results;
     private double              mean;
@@ -24,30 +32,41 @@ public class Abriss extends Calculation {
 
     private double              meanErrCompDir;
 
-    public Abriss() {
-        super(CalculationType.ABRISS, Abriss.CALCULATION_NAME);
+    public Abriss(boolean hasDAO) {
+        super(CalculationType.ABRISS, Abriss.CALCULATION_NAME, hasDAO);
 
-        this.measures = new ArrayList<Measure>();
+        this.orientations = new ArrayList<Measure>();
         this.results = new ArrayList<Abriss.Result>();
         this.mean = 0.0;
         this.mse = 0.0;
+
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
     }
 
-    public Abriss(Point station) {
-        this();
+    public Abriss(Point station, boolean hasDAO) {
+        this(hasDAO);
         this.station = station;
+    }
+
+    public Abriss(long id, Date lastModification) {
+        super(id, CalculationType.ABRISS, Abriss.CALCULATION_NAME, lastModification, true);
+
+        this.orientations = new ArrayList<Measure>();
+        this.results = new ArrayList<Abriss.Result>();
     }
 
     /**
      * Perform the the computation.
      */
     public void compute() {
-        if (this.measures.size() == 0) {
+        if (this.orientations.size() == 0) {
             return;
         }
 
-        for (Measure m : this.measures) {
-            Gisement g = new Gisement(this.station, m.getOrientation());
+        for (Measure m : this.orientations) {
+            Gisement g = new Gisement(this.station, m.getOrientation(), false);
             // disable the mapping with the DAO.
             g.removeDAO(CalculationsDataSource.getInstance());
 
@@ -61,10 +80,10 @@ public class Abriss extends Calculation {
             this.mean += z0;
         }
 
-        this.mean = MathUtils.modulo400(this.mean / this.measures.size());
+        this.mean = MathUtils.modulo400(this.mean / this.orientations.size());
 
         int index = 0;
-        for (Measure m : this.measures) {
+        for (Measure m : this.orientations) {
             double orientDir = MathUtils.modulo400(this.mean + m.getHorizDir());
             this.results.get(index).setOrientedDirection(orientDir);
 
@@ -84,24 +103,55 @@ public class Abriss extends Calculation {
 
         this.mse = Math.sqrt(this.mse / (index - 1));
         this.meanErrCompDir = this.mse / Math.sqrt(index);
+
+        // update the calculation last modification date
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Auto-generated method stub
-        return null;
+        JSONObject json = new JSONObject();
+        if (this.station != null) {
+            json.put(Abriss.STATION_NUMBER, this.station.getNumber());
+        }
+
+        if (this.orientations.size() > 0) {
+            JSONArray orientationsArray = new JSONArray();
+            for (Measure m : this.orientations) {
+                orientationsArray.put(m.toJSONObject());
+            }
+
+            json.put(Abriss.ORIENTATIONS_LIST, orientationsArray);
+        }
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Auto-generated method stub
+        JSONObject json = new JSONObject(jsonInputArgs);
+        this.station = SharedResources.getSetOfPoints().find(
+                json.getInt(Abriss.STATION_NUMBER));
 
+        JSONArray orientationsArray = json.getJSONArray(Abriss.ORIENTATIONS_LIST);
+
+        for (int i = 0; i < orientationsArray.length(); i++) {
+            JSONObject jo = (JSONObject) orientationsArray.get(i);
+            Measure m = new Measure(
+                    SharedResources.getSetOfPoints().find(
+                            jo.getInt(Measure.ORIENTATION_NUMBER)),
+                    jo.getDouble(Measure.HORIZ_DIR),
+                    jo.getDouble(Measure.ZEN_ANGLE),
+                    jo.getDouble(Measure.DISTANCE),
+                    jo.getDouble(Measure.S));
+            this.orientations.add(m);
+        }
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Auto-generated method stub
-        return null;
+        return AbrissActivity.class;
     }
 
     public Point getStation() {
@@ -113,7 +163,7 @@ public class Abriss extends Calculation {
     }
 
     public ArrayList<Measure> getMeasures() {
-        return this.measures;
+        return this.orientations;
     }
 
     public ArrayList<Result> getResults() {
