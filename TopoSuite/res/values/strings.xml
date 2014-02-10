@@ -89,6 +89,7 @@
     <string name="orientation_edit">Edit orientation</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">First point (origin)</string>
+    <string name="point_add_success">Point successfully added!</string>
     <string name="point_already_exists">This point already exists!</string>
     <string name="point_class">Class</string>
     <string name="point_computed">Computed</string>
