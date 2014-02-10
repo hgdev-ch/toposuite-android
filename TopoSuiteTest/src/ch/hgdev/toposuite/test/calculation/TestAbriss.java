@@ -90,6 +90,19 @@ public class TestAbriss extends TestCase {
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
         a.compute();
 
+        // test intermediate values with point 45
+        Assert.assertEquals("233.2405",
+                this.df4.format(a.getResults().get(0).getUnknownOrientation()));
+        Assert.assertEquals("233.2435",
+                this.df4.format(a.getResults().get(0).getOrientedDirection()));
+
+        // test intermediate values with point 47
+        Assert.assertEquals("233.2466",
+                this.df4.format(a.getResults().get(1).getUnknownOrientation()));
+        Assert.assertEquals("114.5956",
+                this.df4.format(a.getResults().get(1).getOrientedDirection()));
+
+        // test final results
         Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
         Assert.assertEquals("0.0043", this.df4.format(a.getMSE()));
         Assert.assertEquals("0.003", this.df3.format(a.getMeanErrCompDir()));
