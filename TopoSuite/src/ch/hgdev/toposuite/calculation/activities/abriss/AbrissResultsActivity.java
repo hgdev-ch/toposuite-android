@@ -60,11 +60,12 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         if (position != -1) {
             this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
             this.abriss.setStation(station);
-            this.abriss.getMeasures().clear();
         } else {
             this.abriss = new Abriss(station, true);
         }
 
+        this.abriss.getMeasures().clear();
+        this.abriss.getResults().clear();
         this.abriss.getMeasures().addAll(orientationsList);
         this.abriss.compute();
 
