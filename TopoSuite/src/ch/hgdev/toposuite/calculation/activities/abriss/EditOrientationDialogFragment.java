@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
@@ -218,18 +218,15 @@ public class EditOrientationDialogFragment extends DialogFragment {
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
         this.horizontalDirectionEditText.setText(DisplayUtils.toString(this.horizontalDirection));
-        this.horizontalDirectionEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        this.horizontalDirectionEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
         this.horizontalDistanceEditText.setText(DisplayUtils.toString(this.horizontalDistance));
-        this.horizontalDistanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        this.horizontalDistanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.altitudeEditText = new EditText(this.getActivity());
         this.altitudeEditText.setText(DisplayUtils.toString(this.altitude));
-        this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        this.altitudeEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
     }
 
     /**

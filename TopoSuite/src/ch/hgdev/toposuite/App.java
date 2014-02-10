@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.InputType;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.DBHelper;
@@ -22,7 +23,7 @@ public class App extends Application {
     /**
      * Database file name.
      */
-    public static final String DATABASE         = "topo_suite.db";
+    public static final String DATABASE                         = "topo_suite.db";
 
     /**
      * Database version. This number must be increased whenever the database
@@ -30,22 +31,30 @@ public class App extends Application {
      * {@link SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)}
      * method.
      */
-    public static final int    DATABASE_VERSION = 5;
+    public static final int    DATABASE_VERSION                 = 5;
+
+    /**
+     * Determine an input type of type coordinate, that is a decimal signed
+     * number.
+     */
+    public static final int    INPUTTYPE_TYPE_NUMBER_COORDINATE = InputType.TYPE_CLASS_NUMBER
+                                                                        | InputType.TYPE_NUMBER_FLAG_DECIMAL
+                                                                        | InputType.TYPE_NUMBER_FLAG_SIGNED;
 
     /**
      * Number of decimal to display with dealing with numbers.
      */
-    public static String       numberOfDecimals = "%.4f";
+    public static String       numberOfDecimals                 = "%.4f";
 
     /**
      * Date format.
      */
-    public static final String dateFormat       = "MM-dd-yyyy HH:mm";
+    public static final String dateFormat                       = "MM-dd-yyyy HH:mm";
 
     /**
      * Default locale (language).
      */
-    public static final Locale locale           = Locale.getDefault();
+    public static final Locale locale                           = Locale.getDefault();
 
     /**
      * Database helper.
