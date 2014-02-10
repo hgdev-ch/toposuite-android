@@ -182,6 +182,23 @@ public class AbrissActivity extends TopoSuiteActivity implements
     }
 
     /**
+     * Display a dialog to allow the user to edit an orientation.
+     */
+    private void editOrientationDialog() {
+        EditOrientationDialogFragment dialog = new EditOrientationDialogFragment();
+        Bundle args = new Bundle();
+        Point orientation = (Point) this.stationSpinner.getSelectedItem();
+        Measure measure = this.adapter.getItem(orientation.getNumber());
+        args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, orientation.getNumber());
+        args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION, measure.getHorizDir());
+        args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE, measure.getDistance());
+        args.putDouble(EditOrientationDialogFragment.ALTITUDE, measure.getS());
+
+        dialog.setArguments(args);
+        dialog.show(this.getFragmentManager(), "EditOrientationDialogFragment");
+    }
+
+    /**
      * Draw the main table containing all the orientations.
      */
     private void drawList() {
