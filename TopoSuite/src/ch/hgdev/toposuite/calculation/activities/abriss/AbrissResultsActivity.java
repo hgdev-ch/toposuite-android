@@ -42,6 +42,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         Bundle bundle = this.getIntent().getExtras();
         Point station = SharedResources.getSetOfPoints().find(
                 bundle.getInt(AbrissActivity.STATION_NUMBER_LABEL));
+        int position = bundle.getInt(AbrissActivity.CALCULATION_POSITION_LABEL);
 
         ArrayList<Measure> orientationsList = new ArrayList<Measure>();
         JSONArray jsonArray;
@@ -56,7 +57,14 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
             // TODO
         }
 
-        this.abriss = new Abriss(station, true);
+        if (position != -1) {
+            this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
+            this.abriss.setStation(station);
+            this.abriss.getMeasures().clear();
+        } else {
+            this.abriss = new Abriss(station, true);
+        }
+
         this.abriss.getMeasures().addAll(orientationsList);
         this.abriss.compute();
 

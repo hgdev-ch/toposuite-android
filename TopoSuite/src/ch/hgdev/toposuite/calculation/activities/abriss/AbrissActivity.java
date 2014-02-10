@@ -34,11 +34,11 @@ public class AbrissActivity extends TopoSuiteActivity implements
         AddOrientationDialogFragment.AddOrientationDialogListener,
         EditOrientationDialogFragment.EditOrientationDialogListener {
 
-    public static final String    ABRISS_ID_LABEL           = "abriss_id";
-    public static final String    STATION_NUMBER_LABEL      = "station_number";
-    public static final String    ORIENTATIONS_LABEL        = "orientations";
+    public static final String    CALCULATION_POSITION_LABEL = "calculation_position";
+    public static final String    STATION_NUMBER_LABEL       = "station_number";
+    public static final String    ORIENTATIONS_LABEL         = "orientations";
 
-    private static final String   STATION_SELECTED_POSITION = "station_selected_position";
+    private static final String   STATION_SELECTED_POSITION  = "station_selected_position";
 
     private TextView              stationPointTextView;
 
@@ -52,10 +52,18 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     private ArrayAdapter<Measure> adapter;
 
+    /**
+     * Position of the calculation in the calculations list. Only unsed when
+     * open from the history.
+     */
+    private int                   position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_abriss);
+
+        this.position = -1;
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.orientationsListView = (ListView) this.findViewById(R.id.orientations_list);
@@ -87,8 +95,8 @@ public class AbrissActivity extends TopoSuiteActivity implements
         // existing one.
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
+            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(this.position);
             list = this.abriss.getMeasures();
         }
 
@@ -170,8 +178,9 @@ public class AbrissActivity extends TopoSuiteActivity implements
             }
 
             Bundle bundle = new Bundle();
-            // bundle.putInt(AbrissActivity.ABRISS_ID_LABEL, (int)
-            // this.abriss.getId());
+            bundle.putInt(AbrissActivity.CALCULATION_POSITION_LABEL,
+                    this.position);
+
             bundle.putInt(AbrissActivity.STATION_NUMBER_LABEL, station.getNumber());
 
             JSONArray json = new JSONArray();
