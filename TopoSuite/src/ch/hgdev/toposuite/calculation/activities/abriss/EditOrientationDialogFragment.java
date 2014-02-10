@@ -60,7 +60,10 @@ public class EditOrientationDialogFragment extends DialogFragment {
         void onDialogEdit(EditOrientationDialogFragment dialog);
     }
 
-    public static final String    ORIENTATION_NUMBER = "Orientation number";
+    public static final String    ORIENTATION_NUMBER   = "Orientation number";
+    public static final String    HORIZONTAL_DIRECTION = "Horizontal direction";
+    public static final String    HORIZONTAL_DISTANCE  = "Horizontal distance";
+    public static final String    ALTITUDE             = "Altitude";
     private Bundle                bundle;
     EditOrientationDialogListener listener;
     private Spinner               orientationSpinner;
@@ -100,9 +103,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
+                Button editButton = ((AlertDialog) dialog)
                         .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
+                editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (EditOrientationDialogFragment.this.checkDialogInputs()) {
@@ -160,7 +163,6 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.orientationView = new TextView(this.getActivity());
-        this.orientationView.setText("");
 
         this.orientationSpinner = new Spinner(this.getActivity());
         this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -192,29 +194,26 @@ public class EditOrientationDialogFragment extends DialogFragment {
                 .getItemAtPosition(this.bundle
                         .getInt(EditOrientationDialogFragment.ORIENTATION_NUMBER));
         this.itemSelected();
+        this.horizontalDirection = this.bundle
+                .getDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION);
+        this.horizontalDistance = this.bundle
+                .getDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE);
+        this.altitude = this.bundle.getDouble(EditOrientationDialogFragment.ALTITUDE);
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
-        this.horizontalDirectionEditText.setHint(this.getActivity().getString(
-                R.string.horiz_direction));
+        this.horizontalDirectionEditText.setText(DisplayUtils.toString(this.horizontalDirection));
         this.horizontalDirectionEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
-        this.horizontalDistanceEditText.setHint(this.getActivity().getString(
-                R.string.horiz_distance) + " "
-                + this.getActivity().getString(R.string.optional_prths));
+        this.horizontalDistanceEditText.setText(DisplayUtils.toString(this.horizontalDistance));
         this.horizontalDistanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         this.altitudeEditText = new EditText(this.getActivity());
-        this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude)
-                + " " + this.getActivity().getString(R.string.optional_prths));
+        this.altitudeEditText.setText(DisplayUtils.toString(this.altitude));
         this.altitudeEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-
-        this.horizontalDirection = 0.0;
-        this.horizontalDistance = 0.0;
-        this.altitude = 0.0;
     }
 
     /**
