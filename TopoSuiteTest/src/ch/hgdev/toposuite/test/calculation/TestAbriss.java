@@ -90,11 +90,8 @@ public class TestAbriss extends TestCase {
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
         a.compute();
 
-        Assert.assertEquals("233.2435", this.df4.format(
-                a.getResults().get(0).getUnknownOrientation()));
-        Assert.assertEquals("0.043", this.df3.format(
-                a.getResults().get(0).getErrAngle()));
-        Assert.assertEquals("0.030", this.df3.format(
-                a.getResults().get(0).getErrLong()));
+        Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
+        Assert.assertEquals("0.0043", this.df4.format(a.getMSE()));
+        Assert.assertEquals("0.003", this.df3.format(a.getMeanErrCompDir()));
     }
 }
