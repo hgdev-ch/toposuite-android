@@ -70,6 +70,8 @@
     <string name="point_number">No du point</string>
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Saisi</string>
+    <string name="point_search">Rechercher un point</string>
+    <string name="search">Rechercher</string>
     <string name="search_3dots">Rechercher&#8230;</string>
     <string name="slope_label">Pente [%]</string>
     <string name="station_label">Station</string>

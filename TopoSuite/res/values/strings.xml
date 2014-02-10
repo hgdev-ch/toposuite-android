@@ -8,13 +8,21 @@
     <string name="altitude">Altitude</string>
     <string name="altitude_3dots">Altitude&#8230;</string>
     <string name="altitude_label">Altitude [m]</string>
-    <string name="app_copyright">Copyright <xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
+    <string name="app_copyright">Copyright
+        <xliff:g>%s</xliff:g> - 
+        <xliff:g id="crag">%s</xliff:g>
+    </string>
     <string name="app_developer">HGdev</string>
-    <string name="app_developer_full_info"><xliff:g id="app_developer">%s</xliff:g> -<xliff:g id="app_developer_webpage_url">%s</xliff:g></string>
+    <string name="app_developer_full_info">
+        <xliff:g id="app_developer">%s</xliff:g> - 
+        <xliff:g id="app_developer_webpage_url">%s</xliff:g>
+    </string>
     <string name="app_developer_webpage_url">http://www.hgdev.ch/</string>
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
-    <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
+    <string name="app_version">Version: 
+        <xliff:g id="version">%s</xliff:g>
+    </string>
     <string name="calculate_3dots">Calculate...</string>
     <string name="cancel">Cancel</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
@@ -60,6 +68,8 @@
     <string name="point_number">Point No</string>
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Provided</string>
+    <string name="point_search">Search for a point</string>
+    <string name="search">Search</string>
     <string name="search_3dots">Search&#8230;</string>
     <string name="slope_label">Slope [%]</string>
     <string name="station_label">Station</string>
@@ -72,5 +82,4 @@
     <string name="yes">Yes</string>
     <string name="title_activity_abriss_results">AbrissResultsActivity</string>
     <string name="hello_world">Hello world!</string>
-
 </resources>

@@ -51,35 +51,37 @@ public class SearchPointDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle("Search for a point")
+        builder.setTitle(this.getActivity().getString(R.string.point_search))
                 .setView(this.pointNumberEditText)
-                .setPositiveButton("Search", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (SearchPointDialogFragment.this.checkDialogInputs()) {
-                            SearchPointDialogFragment.this.pointNumber = Integer
-                                    .parseInt(SearchPointDialogFragment.this.pointNumberEditText
-                                            .getText().toString());
-                            SearchPointDialogFragment.this.listener
-                                    .onDialogSearch(SearchPointDialogFragment.this);
-                        } else {
-                            Toast errorToast = Toast.makeText(
-                                    SearchPointDialogFragment.this.getActivity(),
-                                    SearchPointDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data),
-                                    Toast.LENGTH_LONG);
-                            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            errorToast.show();
-                        }
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SearchPointDialogFragment.this.listener
-                                .onDialogCancel(SearchPointDialogFragment.this);
-                    }
-                });
+                .setPositiveButton(this.getActivity().getString(R.string.search),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (SearchPointDialogFragment.this.checkDialogInputs()) {
+                                    SearchPointDialogFragment.this.pointNumber = Integer
+                                            .parseInt(SearchPointDialogFragment.this.pointNumberEditText
+                                                    .getText().toString());
+                                    SearchPointDialogFragment.this.listener
+                                            .onDialogSearch(SearchPointDialogFragment.this);
+                                } else {
+                                    Toast errorToast = Toast.makeText(
+                                            SearchPointDialogFragment.this.getActivity(),
+                                            SearchPointDialogFragment.this.getActivity().getString(
+                                                    R.string.error_fill_data),
+                                            Toast.LENGTH_LONG);
+                                    errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                    errorToast.show();
+                                }
+                            }
+                        })
+                .setNegativeButton(this.getActivity().getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SearchPointDialogFragment.this.listener
+                                        .onDialogCancel(SearchPointDialogFragment.this);
+                            }
+                        });
         return builder.create();
     }
 
@@ -111,7 +113,7 @@ public class SearchPointDialogFragment extends DialogFragment {
      */
     private void initAttributes() {
         this.pointNumberEditText = new EditText(this.getActivity());
-        this.pointNumberEditText.setHint("Point number...");
+        this.pointNumberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
         this.pointNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_VARIATION_NORMAL);
         this.pointNumber = 0;
