@@ -35,6 +35,7 @@
     <string name="delete">Delete</string>
     <string name="delete_3dots">Delete&#8230;</string>
     <string name="delete_all">Delete all</string>
+    <string name="delete_all_history">Clear history</string>
     <string name="delete_all_points">Delete all points?</string>
     <string name="developed_by">Developed by</string>
     <string name="dialog_add_point">Add a point</string>
@@ -72,6 +73,7 @@
     <string name="horiz_direction">Horizontal direction (hz)</string>
     <string name="horiz_distance">Horizontal distance</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
+    <string name="loose_history">All entries in the history will be lost</string>
     <string name="mean_error_label">Mean Error</string>
     <string name="measure_header_pt_nbr">Pt. Num.</string>
     <string name="measure_header_hz">Hz</string>

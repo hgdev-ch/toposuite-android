@@ -1,9 +1,12 @@
 package ch.hgdev.toposuite.history;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,6 +62,25 @@ public class HistoryActivity extends TopoSuiteActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.history, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+        case R.id.delete_history_button:
+            this.clearHistory();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
@@ -89,5 +111,29 @@ public class HistoryActivity extends TopoSuiteActivity {
         this.adapter = new ArrayAdapter<Calculation>(
                 this, R.layout.history_list_item, SharedResources.getCalculationsHistory());
         this.list.setAdapter(this.adapter);
+    }
+
+    private void clearHistory() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.delete_all_history)
+                .setMessage(R.string.loose_history)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.delete_all,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedResources.getCalculationsHistory().clear();
+                                HistoryActivity.this.adapter.clear();
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+        builder.create().show();
     }
 }

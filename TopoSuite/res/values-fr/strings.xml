@@ -35,6 +35,7 @@
     <string name="delete">Supprimer</string>
     <string name="delete_3dots">Supprimer&#8230;</string>
     <string name="delete_all">Tout supprimer</string>
+    <string name="delete_all_history">Effacer l\'historique</string>
     <string name="delete_all_points">Effacer tous les points?</string>
     <string name="developed_by">Developpé par</string>
     <string name="dialog_add_point">Ajouter un point</string>
@@ -72,6 +73,7 @@
     <string name="horiz_direction">Direction horizontale (hz)</string>
     <string name="horiz_distance">Distance horizontale</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
+    <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
     <string name="mean_error_label">Erreur Moy.</string>
     <string name="measure_header_pt_nbr">N&#176; pt</string>
     <string name="measure_header_hz">Hz</string>
