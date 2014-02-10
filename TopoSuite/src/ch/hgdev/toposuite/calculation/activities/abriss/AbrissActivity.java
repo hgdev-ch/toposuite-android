@@ -5,10 +5,14 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,7 +29,9 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class AbrissActivity extends TopoSuiteActivity implements
-        AddOrientationDialogFragment.AddOrientationDialogListener {
+        AddOrientationDialogFragment.AddOrientationDialogListener,
+        EditOrientationDialogFragment.EditOrientationDialogListener {
+
     public static final String    STATION_NUMBER_LABEL      = "station_number";
     public static final String    ORIENTATIONS_LABEL        = "orientations";
 
@@ -81,6 +87,8 @@ public class AbrissActivity extends TopoSuiteActivity implements
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
         }
+
+        this.registerForContextMenu(this.orientationsListView);
     }
 
     @Override
@@ -173,6 +181,30 @@ public class AbrissActivity extends TopoSuiteActivity implements
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.orientations_list_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.edit_orientation:
+            this.editOrientationDialog(info.position);
+            return true;
+        case R.id.delete_calculation:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
+    }
+
     /**
      * Display a dialog to allow the user to insert a new orientation.
      */
@@ -184,15 +216,16 @@ public class AbrissActivity extends TopoSuiteActivity implements
     /**
      * Display a dialog to allow the user to edit an orientation.
      */
-    private void editOrientationDialog() {
+    private void editOrientationDialog(int position) {
         EditOrientationDialogFragment dialog = new EditOrientationDialogFragment();
         Bundle args = new Bundle();
         Point orientation = (Point) this.stationSpinner.getSelectedItem();
-        Measure measure = this.adapter.getItem(orientation.getNumber());
+        Measure measure = this.adapter.getItem(position);
         args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, orientation.getNumber());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION, measure.getHorizDir());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE, measure.getDistance());
         args.putDouble(EditOrientationDialogFragment.ALTITUDE, measure.getS());
+        args.putInt(EditOrientationDialogFragment.ORIENTATION_POSITION, position);
 
         dialog.setArguments(args);
         dialog.show(this.getFragmentManager(), "EditOrientationDialogFragment");
@@ -220,6 +253,21 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(AddOrientationDialogFragment dialog) {
+        // DO NOTHING
+    }
+
+    @Override
+    public void onDialogEdit(EditOrientationDialogFragment dialog) {
+        Measure orientation = this.adapter.getItem(dialog.getOrientationPosition());
+        orientation.setOrientation(dialog.getOrientation());
+        orientation.setHorizDir(dialog.getHorizontalDirection());
+        orientation.setDistance(dialog.getHorizontalDistance());
+        orientation.setS(dialog.getAltitude());
+        this.adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDialogCancel(EditOrientationDialogFragment dialog) {
         // DO NOTHING
     }
 }
