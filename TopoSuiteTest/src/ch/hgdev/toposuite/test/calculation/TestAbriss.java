@@ -106,5 +106,34 @@ public class TestAbriss extends TestCase {
         Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
         Assert.assertEquals("0.0043", this.df4.format(a.getMSE()));
         Assert.assertEquals("0.003", this.df3.format(a.getMeanErrCompDir()));
+
+    }
+
+    public void testRealCaseNegative() {
+        Point p34 = new Point(34, -43493.333, -27486.090, 620.34, true);
+        Point p45 = new Point(45, -43504.840, -27506.088, 623.37, true);
+        Point p47 = new Point(47, -43387.790, -27510.726, 0.0, true);
+        Abriss a = new Abriss(p34, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p45, 0.0, 91.6892, 23.277, 1.63));
+        a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
+        a.compute();
+
+        // test intermediate values with point 45
+        Assert.assertEquals("233.2405",
+                this.df4.format(a.getResults().get(0).getUnknownOrientation()));
+        Assert.assertEquals("233.2435",
+                this.df4.format(a.getResults().get(0).getOrientedDirection()));
+
+        // test intermediate values with point 47
+        Assert.assertEquals("233.2466",
+                this.df4.format(a.getResults().get(1).getUnknownOrientation()));
+        Assert.assertEquals("114.5956",
+                this.df4.format(a.getResults().get(1).getOrientedDirection()));
+
+        // test final results
+        Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
+        Assert.assertEquals("0.0043", this.df4.format(a.getMSE()));
+        Assert.assertEquals("0.003", this.df3.format(a.getMeanErrCompDir()));
     }
 }
