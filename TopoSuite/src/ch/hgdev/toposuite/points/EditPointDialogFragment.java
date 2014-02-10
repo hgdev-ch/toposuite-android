@@ -52,7 +52,7 @@ public class EditPointDialogFragment extends DialogFragment {
         void onDialogEdit(EditPointDialogFragment dialog);
     }
 
-    public final static String POINT_POSITION = "Point position";
+    public static final String POINT_POSITION = "Point position";
     private Bundle             bundle;
     EditPointDialogListener    listener;
     private int                number;

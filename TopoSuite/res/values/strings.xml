@@ -62,6 +62,7 @@
     <string name="north_3dots">North&#8230;</string>
     <string name="optional_prths">(optional)</string>
     <string name="orientation_add">Add orientation</string>
+    <string name="orientation_edit">Edit orientation</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">First point (origin)</string>
     <string name="point_already_exists">This point already exists!</string>
