@@ -102,6 +102,10 @@
     <string name="title_activity_leve_ortho">Levé Orthogonal</string>
     <string name="title_activity_points_manager">Gestion des points</string>
     <string name="toggle_right_menu_button">Calculs</string>
+    <string name="unit_centimeter">[cm]</string>
+    <string name="unit_gradian">[g]</string>
+    <string name="unit_gradian_cc">[cc]</string>
+    <string name="unit_meter">[m]</string>
     <string name="unknown_orientation">Inc. Orient.</string>
     <string name="with_support_from">Avec le support de</string>
     <string name="yes">Oui</string>
