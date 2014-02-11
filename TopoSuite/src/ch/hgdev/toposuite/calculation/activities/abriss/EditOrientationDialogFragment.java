@@ -63,7 +63,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
     public static final String    ORIENTATION_NUMBER   = "Orientation number";
     public static final String    HORIZONTAL_DIRECTION = "Horizontal direction";
     public static final String    HORIZONTAL_DISTANCE  = "Horizontal distance";
-    public static final String    ALTITUDE             = "Altitude";
+    public static final String    ZENITHAL_ANGLE       = "Zenithal angle";
     public static final String    ORIENTATION_POSITION = "Orientation position";
     private Bundle                bundle;
     EditOrientationDialogListener listener;
@@ -72,11 +72,11 @@ public class EditOrientationDialogFragment extends DialogFragment {
     private Point                 orientation;
     private double                horizontalDirection;
     private double                horizontalDistance;
-    private double                altitude;
+    private double                zenithalAngle;
     private LinearLayout          layout;
     private EditText              horizontalDirectionEditText;
     private EditText              horizontalDistanceEditText;
-    private EditText              altitudeEditText;
+    private EditText              zenithalAngleEditText;
 
     /**
      * The position of the current orientation in the ArrayList adapter. This is
@@ -91,22 +91,22 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.genAddOrientationView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(this.getActivity().getString(R.string.orientation_edit))
-        .setView(this.layout)
-        .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // overridden below because the dialog dismiss itself
-                // without a call to dialog.dismiss()...
-                // thus, it is impossible to handle error on user input
-                // without closing the dialog otherwise
-            }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                EditOrientationDialogFragment.this.listener
-                .onDialogCancel(EditOrientationDialogFragment.this);
-            }
-        });
+                .setView(this.layout)
+                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // overridden below because the dialog dismiss itself
+                        // without a call to dialog.dismiss()...
+                        // thus, it is impossible to handle error on user input
+                        // without closing the dialog otherwise
+                    }
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditOrientationDialogFragment.this.listener
+                                .onDialogCancel(EditOrientationDialogFragment.this);
+                    }
+                });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -123,23 +123,23 @@ public class EditOrientationDialogFragment extends DialogFragment {
                                         .parseDouble(EditOrientationDialogFragment.this.horizontalDirectionEditText
                                                 .getText().toString());
                             }
-                            if (EditOrientationDialogFragment.this.altitudeEditText.length() > 0) {
-                                EditOrientationDialogFragment.this.altitude = Double
-                                        .parseDouble(EditOrientationDialogFragment.this.altitudeEditText
+                            if (EditOrientationDialogFragment.this.zenithalAngleEditText.length() > 0) {
+                                EditOrientationDialogFragment.this.zenithalAngle = Double
+                                        .parseDouble(EditOrientationDialogFragment.this.zenithalAngleEditText
                                                 .getText().toString());
                             }
                             EditOrientationDialogFragment.this.horizontalDirection = Double
                                     .parseDouble(EditOrientationDialogFragment.this.horizontalDirectionEditText
                                             .getText().toString());
                             EditOrientationDialogFragment.this.listener
-                            .onDialogEdit(EditOrientationDialogFragment.this);
+                                    .onDialogEdit(EditOrientationDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
                                     EditOrientationDialogFragment.this.getActivity(),
                                     EditOrientationDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data),
-                                            Toast.LENGTH_SHORT);
+                                    Toast.LENGTH_SHORT);
                             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                             errorToast.show();
                         }
@@ -213,7 +213,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
                 .getDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION);
         this.horizontalDistance = this.bundle
                 .getDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE);
-        this.altitude = this.bundle.getDouble(EditOrientationDialogFragment.ALTITUDE);
+        this.zenithalAngle = this.bundle.getDouble(EditOrientationDialogFragment.ZENITHAL_ANGLE);
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
         this.horizontalDirectionEditText.setText(DisplayUtils.toString(this.horizontalDirection));
@@ -223,9 +223,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.horizontalDistanceEditText.setText(DisplayUtils.toString(this.horizontalDistance));
         this.horizontalDistanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.altitudeEditText = new EditText(this.getActivity());
-        this.altitudeEditText.setText(DisplayUtils.toString(this.altitude));
-        this.altitudeEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.zenithalAngleEditText = new EditText(this.getActivity());
+        this.zenithalAngleEditText.setText(DisplayUtils.toString(this.zenithalAngle));
+        this.zenithalAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
     }
 
     /**
@@ -248,7 +248,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.layout.addView(this.orientationView);
         this.layout.addView(this.horizontalDirectionEditText);
         this.layout.addView(this.horizontalDistanceEditText);
-        this.layout.addView(this.altitudeEditText);
+        this.layout.addView(this.zenithalAngleEditText);
     }
 
     /**
@@ -275,8 +275,8 @@ public class EditOrientationDialogFragment extends DialogFragment {
         return this.horizontalDistance;
     }
 
-    public double getAltitude() {
-        return this.altitude;
+    public double getZenithalAngle() {
+        return this.zenithalAngle;
     }
 
     public int getOrientationPosition() {

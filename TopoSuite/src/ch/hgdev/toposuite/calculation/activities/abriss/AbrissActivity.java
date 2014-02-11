@@ -39,22 +39,16 @@ public class AbrissActivity extends TopoSuiteActivity implements
     public static final String    ORIENTATIONS_LABEL         = "orientations";
 
     private static final String   STATION_SELECTED_POSITION  = "station_selected_position";
-
     private TextView              stationPointTextView;
-
     private Spinner               stationSpinner;
-
     private ListView              orientationsListView;
-
     private int                   stationSelectedPosition;
-
     private Abriss                abriss;
-
     private ArrayAdapter<Measure> adapter;
 
     /**
-     * Position of the calculation in the calculations list. Only unsed when
-     * open from the history.
+     * Position of the calculation in the calculations list. Only used when open
+     * from the history.
      */
     private int                   position;
 
@@ -243,7 +237,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 .getNumber());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION, measure.getHorizDir());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE, measure.getDistance());
-        args.putDouble(EditOrientationDialogFragment.ALTITUDE, measure.getS());
+        args.putDouble(EditOrientationDialogFragment.ZENITHAL_ANGLE, measure.getS());
         args.putInt(EditOrientationDialogFragment.ORIENTATION_POSITION, position);
 
         dialog.setArguments(args);
@@ -264,7 +258,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 dialog.getHorizontalDirection(),
                 100.0,
                 dialog.getHorizontalDistance(),
-                dialog.getAltitude()));
+                dialog.getZenithalAngle()));
         this.adapter.notifyDataSetChanged();
     }
 
@@ -279,7 +273,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         orientation.setOrientation(dialog.getOrientation());
         orientation.setHorizDir(dialog.getHorizontalDirection());
         orientation.setDistance(dialog.getHorizontalDistance());
-        orientation.setS(dialog.getAltitude());
+        orientation.setS(dialog.getZenithalAngle());
         this.adapter.notifyDataSetChanged();
     }
 

@@ -1,31 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
     <string name="abscissa">Abscisse</string>
-    <string name="about_title">À propos 
-        <xliff:g id="app_name">%s</xliff:g>
-    </string>
+    <string name="about_title">À propos <xliff:g id="app_name">%s</xliff:g></string>
     <string name="action_settings">Paramètres</string>
     <string name="add">Ajouter</string>
     <string name="add_3dots">Ajouter&#8230;</string>
     <string name="altitude">Altitude</string>
     <string name="altitude_3dots">Altitude&#8230;</string>
     <string name="altitude_label">Dénivelé [m]</string>
-    <string name="app_copyright">Copyright 
-        <xliff:g>%s</xliff:g> - 
-        <xliff:g id="crag">%s</xliff:g>
-    </string>
+    <string name="app_copyright">Copyright <xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
     <string name="app_developer">HGdev</string>
-    <string name="app_developer_full_info">
-        <xliff:g id="app_developer">%s</xliff:g> -
-        <xliff:g id="app_developer_webpage_url">%s</xliff:g>
-    </string>
+    <string name="app_developer_full_info"><xliff:g id="app_developer">%s</xliff:g> - <xliff:g id="app_developer_webpage_url">%s</xliff:g></string>
     <string name="app_developer_webpage_url">http://www.hgdev.ch/</string>
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
-    <string name="app_version">Version: 
-        <xliff:g id="version">%s</xliff:g>
-    </string>
+    <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
     <string name="calculate_3dots">Calculer&#8230;</string>
     <string name="calculated_distance">Dist. Calc.</string>
     <string name="calculated_distance_hint">Dist. Calc.</string>
@@ -43,12 +32,9 @@
     <string name="dialog_add_point">Ajouter un point</string>
     <string name="dialog_edit_point">Editer un point</string>
     <string name="disclaimer">Avis de non responsabilité</string>
-    <string name="disclaimer_notice">
-        Ce programme de calcul est avant tout destiné aux apprentis géomaticiens/nes dans un but pédagogique.
-        La CRAG décline toute responsabilité en cas d\'utilisation autre.
-    </string>
-    <string name="disclaimer_text">
-        CE LOGICIEL EST FOURNI "TEL QUEL" PAR LES DÉTENTEURS DU COPYRIGHT ET LES COLLABORATEURS
+    <string name="disclaimer_notice">Ce programme de calcul est avant tout destiné aux apprentis géomaticiens/nes dans un but pédagogique.
+        La CRAG décline toute responsabilité en cas d\'utilisation autre.</string>
+    <string name="disclaimer_text">CE LOGICIEL EST FOURNI "TEL QUEL" PAR LES DÉTENTEURS DU COPYRIGHT ET LES COLLABORATEURS
         ET TOUTE GARANTIE EXPLICITE OU IMPLICITE, Y COMPRIS, MAIS SANS S\'Y LIMITER, LES
         GARANTIES DE QUALITÉ MARCHANDE ET D\'ADAPTATION À UN USAGE PARTICULIER SONT EXCLUES.
         EN AUCUN CAS LE TITULAIRE DU DROIT D\'AUTEUR OU SES COLLABORATEURS NE SERONT TENUS
@@ -57,8 +43,7 @@
         SUBSTITUTION; PERTE DE DONNÉES OU DE PROFITS; OU CESSATION D\'ACTIVITÉS) QUELQU\'EN SOIT
         LA CAUSE ET EN THÉORIE DE LA RESPONSABILITÉ, QU\'ELLE SOIT PAR CONTRAT, STRICTE OU PAR DÉLIT
         (Y COMPRIS LA NÉGLIGENCE OU AUTRE) PROVENANT DE TOUTE FORME DE L\'UTILISATION DE CE LOGICIEL,
-        MÊME SI AVERTI DE LA POSSIBILITÉ DE TELS DOMMAGES.
-    </string>
+        MÊME SI AVERTI DE LA POSSIBILITÉ DE TELS DOMMAGES.</string>
     <string name="distance_label">Distance (horiz.) [m]</string>
     <string name="drawer_close">Ferme le menu de navigation</string>
     <string name="drawer_open">Ouvre le menu de navigation</string>
@@ -120,4 +105,5 @@
     <string name="unknown_orientation">Inc. Orient.</string>
     <string name="with_support_from">Avec le support de</string>
     <string name="yes">Oui</string>
+    <string name="zenithal_angle">Angle zénithal</string>
 </resources>

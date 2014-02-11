@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
     <string name="abscissa">Abscissa</string>
     <string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string>
     <string name="action_settings">Settings</string>
@@ -33,9 +32,9 @@
     <string name="dialog_add_point">Add a point</string>
     <string name="dialog_edit_point">Edit a point</string>
     <string name="disclaimer">Disclaimer</string>
-    <string name="disclaimer_notice">        This calculation software is primarily intended for geomatic apprentices for educational purpose.
+    <string name="disclaimer_notice">This calculation software is primarily intended for geomatic apprentices for educational purpose.
         The CRAG disclaims any liability for any other use.</string>
-    <string name="disclaimer_text">		THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+    <string name="disclaimer_text">THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 		ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 		WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 		DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
@@ -106,5 +105,5 @@
     <string name="unknown_orientation">Unkn. Orient.</string>
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
-
+    <string name="zenithal_angle">Zenithal angle</string>
 </resources>

@@ -66,11 +66,11 @@ public class AddOrientationDialogFragment extends DialogFragment {
     private Point                orientation;
     private double               horizontalDirection;
     private double               horizontalDistance;
-    private double               altitude;
+    private double               zenithalAngle;
     private LinearLayout         layout;
     private EditText             horizontalDirectionEditText;
     private EditText             horizontalDistanceEditText;
-    private EditText             altitudeEditText;
+    private EditText             zenithalAngleEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -110,9 +110,9 @@ public class AddOrientationDialogFragment extends DialogFragment {
                                         .parseDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText
                                                 .getText().toString());
                             }
-                            if (AddOrientationDialogFragment.this.altitudeEditText.length() > 0) {
-                                AddOrientationDialogFragment.this.altitude = Double
-                                        .parseDouble(AddOrientationDialogFragment.this.altitudeEditText
+                            if (AddOrientationDialogFragment.this.zenithalAngleEditText.length() > 0) {
+                                AddOrientationDialogFragment.this.zenithalAngle = Double
+                                        .parseDouble(AddOrientationDialogFragment.this.zenithalAngleEditText
                                                 .getText().toString());
                             }
                             AddOrientationDialogFragment.this.horizontalDirection = Double
@@ -197,14 +197,14 @@ public class AddOrientationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.horizontalDistanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.altitudeEditText = new EditText(this.getActivity());
-        this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude)
+        this.zenithalAngleEditText = new EditText(this.getActivity());
+        this.zenithalAngleEditText.setHint(this.getActivity().getString(R.string.zenithal_angle)
                 + " " + this.getActivity().getString(R.string.optional_prths));
-        this.altitudeEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.zenithalAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.horizontalDirection = 0.0;
         this.horizontalDistance = 0.0;
-        this.altitude = 0.0;
+        this.zenithalAngle = 0.0;
     }
 
     /**
@@ -225,7 +225,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.layout.addView(this.orientationView);
         this.layout.addView(this.horizontalDirectionEditText);
         this.layout.addView(this.horizontalDistanceEditText);
-        this.layout.addView(this.altitudeEditText);
+        this.layout.addView(this.zenithalAngleEditText);
     }
 
     /**
@@ -252,7 +252,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
         return this.horizontalDistance;
     }
 
-    public double getAltitude() {
-        return this.altitude;
+    public double getZenithalAngle() {
+        return this.zenithalAngle;
     }
 }
