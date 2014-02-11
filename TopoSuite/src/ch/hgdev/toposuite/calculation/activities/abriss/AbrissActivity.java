@@ -237,7 +237,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 .getNumber());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION, measure.getHorizDir());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE, measure.getDistance());
-        args.putDouble(EditOrientationDialogFragment.ZENITHAL_ANGLE, measure.getS());
+        args.putDouble(EditOrientationDialogFragment.ZENITHAL_ANGLE, measure.getZenAngle());
         args.putInt(EditOrientationDialogFragment.ORIENTATION_POSITION, position);
 
         dialog.setArguments(args);
@@ -273,7 +273,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         orientation.setOrientation(dialog.getOrientation());
         orientation.setHorizDir(dialog.getHorizontalDirection());
         orientation.setDistance(dialog.getHorizontalDistance());
-        orientation.setS(dialog.getZenithalAngle());
+        orientation.setZenAngle(dialog.getZenithalAngle());
         this.adapter.notifyDataSetChanged();
     }
 
