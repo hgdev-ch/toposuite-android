@@ -54,6 +54,7 @@
     <string name="error_no_station_selected">No station selected!</string>
     <string name="error_point_number">A point\'s number must greater than or equal to 1.</string>
     <string name="error_same_points">The points must be different!</string>
+    <string name="extremity_label">Extremity</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Home</string>
     <string name="horiz_direction">Horizontal direction (hz)</string>
