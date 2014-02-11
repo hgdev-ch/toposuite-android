@@ -58,8 +58,8 @@
     <string name="extremity_label">Extremité</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Accueil</string>
-    <string name="horiz_direction">Direction horizontale (hz)</string>
-    <string name="horiz_distance">Distance horizontale</string>
+    <string name="horiz_direction_3dots">Direction horizontale&#8230;</string>
+    <string name="horiz_distance_3dots">Distance horizontale&#8230;</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
     <string name="mean_error_label">Erreur Moy.</string>
@@ -109,5 +109,5 @@
     <string name="unknown_orientation">Inc. Orient.</string>
     <string name="with_support_from">Avec le support de</string>
     <string name="yes">Oui</string>
-    <string name="zenithal_angle">Angle zénithal</string>
+    <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>
 </resources>
