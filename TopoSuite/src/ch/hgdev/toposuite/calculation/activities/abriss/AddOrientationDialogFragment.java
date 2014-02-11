@@ -187,19 +187,23 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.orientationSpinner.setAdapter(a);
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
-        this.horizontalDirectionEditText.setHint(this.getActivity().getString(
-                R.string.horiz_direction));
+        this.horizontalDirectionEditText.setHint(
+                this.getActivity().getString(R.string.horiz_direction_3dots)
+                        + this.getActivity().getString(R.string.unit_gradian));
         this.horizontalDirectionEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
         this.horizontalDistanceEditText.setHint(this.getActivity().getString(
-                R.string.horiz_distance) + " "
+                R.string.horiz_distance_3dots)
+                + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
         this.horizontalDistanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.zenithalAngleEditText = new EditText(this.getActivity());
-        this.zenithalAngleEditText.setHint(this.getActivity().getString(R.string.zenithal_angle)
-                + " " + this.getActivity().getString(R.string.optional_prths));
+        this.zenithalAngleEditText.setHint(this.getActivity().getString(
+                R.string.zenithal_angle_3dots)
+                + this.getActivity().getString(R.string.unit_gradian)
+                + this.getActivity().getString(R.string.optional_prths));
         this.zenithalAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.horizontalDirection = 0.0;

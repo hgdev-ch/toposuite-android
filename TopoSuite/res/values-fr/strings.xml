@@ -49,6 +49,7 @@
     <string name="drawer_open">Ouvre le menu de navigation</string>
     <string name="east">Est</string>
     <string name="east_3dots">Est&#8230;</string>
+    <string name="east_label">Est [m]</string>
     <string name="edit">Modifier</string>
     <string name="error_at_least_one_orientation">You devez saisir au moins une orientation!</string>
     <string name="error_fill_data">Tous les champs obligatoires doivent être remplis!</string>
@@ -58,8 +59,8 @@
     <string name="extremity_label">Extremité</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Accueil</string>
-    <string name="horiz_direction">Direction horizontale (hz)</string>
-    <string name="horiz_distance">Distance horizontale</string>
+    <string name="horiz_direction_3dots">Direction horizontale&#8230;</string>
+    <string name="horiz_distance_3dots">Distance horizontale&#8230;</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
     <string name="mean_error_label">Erreur Moy.</string>
@@ -72,6 +73,7 @@
     <string name="no_value">-</string>
     <string name="north">Nord</string>
     <string name="north_3dots">Nord&#8230;</string>
+    <string name="north_label">Nord [m]</string>
     <string name="optional_prths">(optionnel)</string>
     <string name="ordinate">Ordonné</string>
     <string name="orientation_add">Ajouter une orientation</string>
@@ -102,8 +104,12 @@
     <string name="title_activity_leve_ortho">Levé Orthogonal</string>
     <string name="title_activity_points_manager">Gestion des points</string>
     <string name="toggle_right_menu_button">Calculs</string>
+    <string name="unit_centimeter">[cm]</string>
+    <string name="unit_gradian">[g]</string>
+    <string name="unit_gradian_cc">[cc]</string>
+    <string name="unit_meter">[m]</string>
     <string name="unknown_orientation">Inc. Orient.</string>
     <string name="with_support_from">Avec le support de</string>
     <string name="yes">Oui</string>
-    <string name="zenithal_angle">Angle zénithal</string>
+    <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>
 </resources>

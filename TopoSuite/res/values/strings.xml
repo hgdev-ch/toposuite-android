@@ -49,6 +49,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
     <string name="east_3dots">East&#8230;</string>
+    <string name="east_label">East [m]</string>
     <string name="edit">Edit</string>
     <string name="error_at_least_one_orientation">You must provide at least one orientation!</string>
     <string name="error_fill_data">Every mandatory field must be field!</string>
@@ -58,8 +59,8 @@
     <string name="extremity_label">Extremity</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="home">Home</string>
-    <string name="horiz_direction">Horizontal direction (hz)</string>
-    <string name="horiz_distance">Horizontal distance</string>
+    <string name="horiz_direction_3dots">Horizontal direction&#8230;</string>
+    <string name="horiz_distance_3dots">Horizontal distance&#8230;</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="loose_history">All entries in the history will be lost</string>
     <string name="mean_error_label">Mean Error</string>
@@ -72,6 +73,7 @@
     <string name="no_value">-</string>
     <string name="north">North</string>
     <string name="north_3dots">North&#8230;</string>
+    <string name="north_label">North [m]</string>
     <string name="optional_prths">(optional)</string>
     <string name="ordinate">Ordinate</string>
     <string name="orientation_add">Add orientation</string>
@@ -102,8 +104,12 @@
     <string name="title_activity_leve_ortho">Levé Orthogonal</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
+    <string name="unit_centimeter">[cm]</string>
+    <string name="unit_gradian">[g]</string>
+    <string name="unit_gradian_cc">[cc]</string>
+    <string name="unit_meter">[m]</string>
     <string name="unknown_orientation">Unkn. Orient.</string>
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
-    <string name="zenithal_angle">Zenithal angle</string>
+    <string name="zenithal_angle_3dots">Zenithal angle&#8230;</string>
 </resources>
