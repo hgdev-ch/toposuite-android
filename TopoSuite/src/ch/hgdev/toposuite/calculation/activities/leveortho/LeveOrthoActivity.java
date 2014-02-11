@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation.activities.leveortho;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -241,25 +242,16 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddPointDial
             return true;
         case R.id.run_calculation_button:
 
-            // Bundle bundle = new Bundle();
-            // bundle.putInt(AbrissActivity.CALCULATION_POSITION_LABEL,
-            // this.position);
-            //
-            // bundle.putInt(AbrissActivity.STATION_NUMBER_LABEL,
-            // station.getNumber());
-            //
-            // JSONArray json = new JSONArray();
-            // for (int i = 0; i < this.adapter.getCount(); i++) {
-            // json.put(this.adapter.getItem(i).toJSONObject());
-            // }
-            //
-            // bundle.putString(AbrissActivity.ORIENTATIONS_LABEL,
-            // json.toString());
-            //
-            // Intent resultsActivityIntent = new Intent(this,
-            // AbrissResultsActivity.class);
-            // resultsActivityIntent.putExtras(bundle);
-            // this.startActivity(resultsActivityIntent);
+            int position = SharedResources.getCalculationsHistory()
+                    .indexOf(this.leveOrtho);
+
+            Bundle bundle = new Bundle();
+            bundle.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, position);
+
+            Intent resultsActivityIntent = new Intent(this,
+                    LeveOrthoResultsActivity.class);
+            resultsActivityIntent.putExtras(bundle);
+            this.startActivity(resultsActivityIntent);
 
             return true;
         default:

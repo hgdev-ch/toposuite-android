@@ -10,9 +10,8 @@
         android:layout_marginTop="15dp">
         
         <TextView
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.37"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/base_label" />
@@ -21,7 +20,7 @@
             android:id="@+id/base"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1.02"
+            android:layout_weight="0.41"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
 
