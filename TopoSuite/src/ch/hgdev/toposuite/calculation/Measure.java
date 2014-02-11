@@ -15,34 +15,54 @@ public class Measure {
     public static final String  ZEN_ANGLE              = "zen_angle";
     public static final String  DISTANCE               = "distance";
     public static final String  S                      = "s";
+    public static final String  I                      = "i";
     public static final String  LAT_DEPL               = "lat_depl";
     public static final String  LON_DEPL               = "lon_depl";
+    public static final String  UNKNOWN_ORIENTATION    = "unknown_orientation";
 
     private static final String JSON_SERIALIZE_ERROR   = "Unable to serialize Measure!";
     private static final String JSON_UNSERIALIZE_ERROR = "Unable to unserialize Measure!";
 
+    /**
+     * Orientation point.
+     */
     private Point               orientation;
     /**
-     * Hz
+     * Horizontal distance (Hz).
      */
     private double              horizDir;
     /**
-     * Vz
+     * Zenithal angle (Vz).
      */
     private double              zenAngle;
     /**
-     * Dist. Incl.
+     * Dist. Incl. (Ds).
      */
     private double              distance;
     /**
-     * Height of the prism.
+     * Height of the prism (S).
      */
     private double              s;
+    /**
+     * Height of the instrument (I).
+     */
+    private double              i;
+    /**
+     * Lateral displacement (Dlat or sometimes Dm1).
+     */
     private double              latDepl;
+    /**
+     * Longitudinal displacement (Dlong or sometimes Dm1).
+     */
     private double              lonDepl;
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle,
-            double _distance, double _s, double _latDepl, double _lonDepl) {
+    /**
+     * Unknown orientation (Z0, result of abriss calculation).
+     */
+    private double              unknownOrientation;
+
+    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation) {
         this.orientation = _orientation;
         this.horizDir = _horizDir;
         this.zenAngle = _zenAngle;
@@ -50,15 +70,44 @@ public class Measure {
         this.s = _s;
         this.latDepl = _latDepl;
         this.lonDepl = _lonDepl;
+        this.i = _i;
+        this.unknownOrientation = _unknownOrientation;
     }
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle,
-            double _distance, double _s) {
-        this(_orientation, _horizDir, _zenAngle, _distance, _s, 0.0, 0.0);
+    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+            double _s, double _latDepl, double _lonDepl, double _i) {
+        this(_orientation, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i, 0.0);
+    }
+
+    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+            double _s, double _latDepl, double _lonDepl) {
+        this(_orientation, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, 0.0);
+    }
+
+    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+            double _s, double _latDepl) {
+        this(_orientation, _horizDir, _zenAngle, _distance, _s, _latDepl, 0.0);
+    }
+
+    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+            double _s) {
+        this(_orientation, _horizDir, _zenAngle, _distance, _s, 0.0);
+    }
+
+    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance) {
+        this(_orientation, _horizDir, _zenAngle, _distance, 0.0);
+    }
+
+    public Measure(Point _orientation, double _horizDir, double _zenAngle) {
+        this(_orientation, _horizDir, _zenAngle, 0.0);
     }
 
     public Measure(Point _orientation, double _horizDir) {
-        this(_orientation, _horizDir, 100.0, 0.0, 0.0);
+        this(_orientation, _horizDir, 100.0);
+    }
+
+    public Measure(Point _orientation) {
+        this(_orientation, 0.0);
     }
 
     public Point getOrientation() {
@@ -117,6 +166,22 @@ public class Measure {
         this.lonDepl = lonDepl;
     }
 
+    public double getI() {
+        return this.i;
+    }
+
+    public void setI(double _i) {
+        this.i = _i;
+    }
+
+    public double getUnknownOrientation() {
+        return this.unknownOrientation;
+    }
+
+    public void setUnknownOrientation(double _unknownOrientation) {
+        this.unknownOrientation = _unknownOrientation;
+    }
+
     public JSONObject toJSONObject() {
         JSONObject json = new JSONObject();
 
@@ -128,6 +193,8 @@ public class Measure {
             json.put(Measure.S, this.s);
             json.put(Measure.LAT_DEPL, this.latDepl);
             json.put(Measure.LON_DEPL, this.lonDepl);
+            json.put(Measure.I, this.i);
+            json.put(Measure.UNKNOWN_ORIENTATION, this.unknownOrientation);
 
         } catch (JSONException e) {
             Log.e(Logger.TOPOSUITE_PARSE_ERROR, Measure.JSON_SERIALIZE_ERROR);
@@ -145,6 +212,8 @@ public class Measure {
         bundle.putDouble(Measure.S, this.s);
         bundle.putDouble(Measure.LAT_DEPL, this.latDepl);
         bundle.putDouble(Measure.LON_DEPL, this.lonDepl);
+        bundle.putDouble(Measure.I, this.i);
+        bundle.putDouble(Measure.UNKNOWN_ORIENTATION, this.unknownOrientation);
         return bundle;
     }
 
@@ -160,7 +229,9 @@ public class Measure {
                     json.getDouble(Measure.DISTANCE),
                     json.getDouble(Measure.S),
                     json.getDouble(Measure.LAT_DEPL),
-                    json.getDouble(Measure.LON_DEPL));
+                    json.getDouble(Measure.LON_DEPL),
+                    json.getDouble(Measure.I),
+                    json.getDouble(Measure.UNKNOWN_ORIENTATION));
         } catch (JSONException e) {
             Log.e(Logger.TOPOSUITE_PARSE_ERROR, Measure.JSON_UNSERIALIZE_ERROR);
         }
