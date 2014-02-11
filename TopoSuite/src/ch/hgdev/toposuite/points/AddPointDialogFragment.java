@@ -150,16 +150,19 @@ public class AddPointDialogFragment extends DialogFragment {
                 | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.eastEditText = new EditText(this.getActivity());
-        this.eastEditText.setHint(this.getActivity().getString(R.string.east_3dots));
+        this.eastEditText.setHint(this.getActivity().getString(R.string.east_3dots)
+                + this.getActivity().getString(R.string.unit_meter));
         this.eastEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.northEditText = new EditText(this.getActivity());
-        this.northEditText.setHint(this.getActivity().getString(R.string.north_3dots));
+        this.northEditText.setHint(this.getActivity().getString(R.string.north_3dots)
+                + this.getActivity().getString(R.string.unit_meter));
 
         this.northEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.altitudeEditText = new EditText(this.getActivity());
         this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude_3dots)
+                + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
