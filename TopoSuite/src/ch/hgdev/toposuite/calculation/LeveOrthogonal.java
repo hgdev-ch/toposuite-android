@@ -1,14 +1,23 @@
 package ch.hgdev.toposuite.calculation;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LeveOrthogonal extends Calculation {
+    public static final String                ORTHOGONAL_BASE  = "orthogonal_base";
+    public static final String                MEASURES         = "measures";
+
     private static final String               CALCULATION_NAME = "Levé Orthogonal";
 
     private OrthogonalBase                    orthogonalBase;
@@ -27,6 +36,15 @@ public class LeveOrthogonal extends Calculation {
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
         }
+    }
+
+    public LeveOrthogonal(Point origin, Point extremity, boolean hasDAO) {
+        this(origin, extremity, 0.0, hasDAO);
+    }
+
+    public LeveOrthogonal(long id, Date lastModification) {
+        super(id, CalculationType.LEVEORTHO, LeveOrthogonal.CALCULATION_NAME, lastModification,
+                true);
     }
 
     public void computer() {
@@ -74,31 +92,92 @@ public class LeveOrthogonal extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Auto-generated method stub
-        return null;
+        JSONObject json = new JSONObject();
+
+        if (this.orthogonalBase != null) {
+            json.put(LeveOrthogonal.ORTHOGONAL_BASE, this.orthogonalBase.toJSONObject());
+        }
+
+        if (this.measures.size() > 0) {
+            JSONArray measuresArray = new JSONArray();
+            for (LeveOrthogonal.Measure m : this.measures) {
+                measuresArray.put(m.toJSONObject());
+            }
+
+            json.put(LeveOrthogonal.MEASURES, measuresArray);
+        }
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Auto-generated method stub
+        JSONObject json = new JSONObject(jsonInputArgs);
 
+        OrthogonalBase ob = OrthogonalBase.getOrthogonalBaseFromJSON(
+                ((JSONObject) json.get(LeveOrthogonal.ORTHOGONAL_BASE)).toString());
+        this.orthogonalBase = ob;
+
+        JSONArray measuresArray = json.getJSONArray(LeveOrthogonal.MEASURES);
+
+        for (int i = 0; i < measuresArray.length(); i++) {
+            JSONObject jo = (JSONObject) measuresArray.get(i);
+            LeveOrthogonal.Measure m = LeveOrthogonal.Measure.getMeasureFromJSON(
+                    jo.toString());
+            this.measures.add(m);
+        }
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Auto-generated method stub
-        return null;
+        return LeveOrthoActivity.class;
     }
 
     public static class Measure {
-        private int    number;
-        private double abscissa;
-        private double ordinate;
+        public static final String NUMBER   = "number";
+        public static final String ABSCISSA = "abscissa";
+        public static final String ORDINATE = "ordinate";
+
+        private int                number;
+        private double             abscissa;
+        private double             ordinate;
 
         public Measure(int _number, double _abscissa, double _ordinate) {
             this.number = _number;
             this.abscissa = _abscissa;
             this.ordinate = _ordinate;
+        }
+
+        public JSONObject toJSONObject() {
+            JSONObject jo = new JSONObject();
+
+            try {
+                jo.put(Measure.NUMBER, this.number);
+                jo.put(Measure.ABSCISSA, this.abscissa);
+                jo.put(Measure.ORDINATE, this.ordinate);
+            } catch (JSONException e) {
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            }
+
+            return jo;
+        }
+
+        public static Measure getMeasureFromJSON(String json) {
+            Measure m = null;
+
+            try {
+                JSONObject jo = new JSONObject(json);
+
+                int number = jo.getInt(Measure.NUMBER);
+                double abscissa = jo.getDouble(Measure.ABSCISSA);
+                double ordinate = jo.getDouble(Measure.ORDINATE);
+
+                m = new Measure(number, abscissa, ordinate);
+            } catch (JSONException e) {
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            }
+
+            return m;
         }
 
         public int getNumber() {

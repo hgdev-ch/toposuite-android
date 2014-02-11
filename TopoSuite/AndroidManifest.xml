@@ -48,7 +48,7 @@
             android:label="@string/title_activity_abriss_results" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.LeveOrthoActivity"
+            android:name="ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity"
             android:label="@string/title_activity_leve_ortho" >
         </activity>
     </application>
