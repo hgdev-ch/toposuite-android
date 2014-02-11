@@ -16,6 +16,7 @@
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
+    <string name="base_label">Levé Orthogonal depuis la base</string>
     <string name="calculate_3dots">Calculer&#8230;</string>
     <string name="calculated_distance">Dist. Calc.</string>
     <string name="calculated_distance_label">Dist. Calc. [m]</string>
@@ -114,6 +115,8 @@
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation">Inc. Orient.</string>
     <string name="unknown_orientation_label">Inc. Orient. [g]</string>
+    <string name="ve_label">vE</string>
+    <string name="vn_label">vN</string>
     <string name="with_support_from">Avec le support de</string>
     <string name="yes">Oui</string>
     <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>
