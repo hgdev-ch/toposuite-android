@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -15,53 +14,57 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.LeveOrthogonal;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class AddMeasureDialogFragment extends DialogFragment {
+public class EditMeasureDialogFragment extends DialogFragment {
     /**
-     * The activity that creates an instance of AddPointDialogFragment must
+     * The activity that creates an instance of EditMeasureDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
      * 
      * @author HGdev
      * 
      */
-    public interface AddMeasureDialogListener {
+    public interface EditMeasureDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
          * 
          * @param dialog
          *            Dialog with NO useful information to fetch from.
          */
-        void onDialogCancel(AddMeasureDialogFragment dialog);
+        void onDialogCancel(EditMeasureDialogFragment dialog);
 
         /**
-         * Define what to do when the "Add" button is clicked.
+         * Define what to do when the "Edit" button is clicked.
          * 
          * @param dialog
          *            Dialog to fetch information from.
          */
-        void onDialogAdd(AddMeasureDialogFragment dialog);
+        void onDialogEdit(EditMeasureDialogFragment dialog);
     }
 
-    AddMeasureDialogListener listener;
+    private Bundle                    bundle;
+    private EditMeasureDialogListener listener;
 
-    private int            number;
-    private double         abscissa;
-    private double         ordinate;
+    private int                       number;
+    private double                    abscissa;
+    private double                    ordinate;
+    private int                       measurePosition;
 
-    private LinearLayout   layout;
-
-    private EditText       numberEditText;
-    private EditText       abscissaEditText;
-    private EditText       ordinateEditText;
+    private LinearLayout              layout;
+    private EditText                  numberEditText;
+    private EditText                  abscissaEditText;
+    private EditText                  ordinateEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
-        this.genAddMeasureView();
+        this.genEditMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(R.string.dialog_add_point).setView(this.layout)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.dialog_edit_point).setView(this.layout)
+                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // overridden below because the dialog dismiss itself
@@ -72,8 +75,8 @@ public class AddMeasureDialogFragment extends DialogFragment {
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AddMeasureDialogFragment.this.listener
-                                .onDialogCancel(AddMeasureDialogFragment.this);
+                        EditMeasureDialogFragment.this.listener
+                                .onDialogCancel(EditMeasureDialogFragment.this);
                     }
                 });
         Dialog dialog = builder.create();
@@ -85,24 +88,24 @@ public class AddMeasureDialogFragment extends DialogFragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (AddMeasureDialogFragment.this.checkDialogInputs()) {
-                            AddMeasureDialogFragment.this.number = Integer
-                                    .parseInt(AddMeasureDialogFragment.this.numberEditText.getText()
-                                            .toString());
-                            AddMeasureDialogFragment.this.abscissa = Double
-                                    .parseDouble(AddMeasureDialogFragment.this.abscissaEditText
+                        if (EditMeasureDialogFragment.this.checkDialogInputs()) {
+                            EditMeasureDialogFragment.this.number = Integer
+                                    .parseInt(EditMeasureDialogFragment.this.numberEditText
                                             .getText()
                                             .toString());
-                            AddMeasureDialogFragment.this.ordinate = Double
-                                    .parseDouble(AddMeasureDialogFragment.this.ordinateEditText
+                            EditMeasureDialogFragment.this.abscissa = Double
+                                    .parseDouble(EditMeasureDialogFragment.this.abscissaEditText
                                             .getText().toString());
-                            AddMeasureDialogFragment.this.listener
-                                    .onDialogAdd(AddMeasureDialogFragment.this);
+                            EditMeasureDialogFragment.this.ordinate = Double
+                                    .parseDouble(EditMeasureDialogFragment.this.ordinateEditText
+                                            .getText().toString());
+                            EditMeasureDialogFragment.this.listener
+                                    .onDialogEdit(EditMeasureDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
-                                    AddMeasureDialogFragment.this.getActivity(),
-                                    AddMeasureDialogFragment.this.getActivity().getString(
+                                    EditMeasureDialogFragment.this.getActivity(),
+                                    EditMeasureDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data),
                                     Toast.LENGTH_SHORT);
                             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -120,10 +123,10 @@ public class AddMeasureDialogFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            this.listener = (AddMeasureDialogListener) activity;
+            this.listener = (EditMeasureDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement AddPointDialogListener");
+                    + " must implement EditMeasureDialogListener");
         }
     }
 
@@ -131,36 +134,38 @@ public class AddMeasureDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
+        this.bundle = this.getArguments();
+
+        int leveOrthoPos = this.bundle.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
+        this.measurePosition = this.bundle.getInt(LeveOrthoActivity.MEASURE_POSITION);
+        LeveOrthogonal lo = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(
+                leveOrthoPos);
+        LeveOrthogonal.Measure m = lo.getMeasures().get(this.measurePosition);
+        this.number = m.getNumber();
+        this.abscissa = m.getAbscissa();
+        this.ordinate = m.getAbscissa();
+
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
-        this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
-        this.numberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        this.numberEditText.setText(DisplayUtils.toString(this.number));
 
         this.abscissaEditText = new EditText(this.getActivity());
-        this.abscissaEditText.setHint(this.getActivity().getString(R.string.abscissa_3dots)
-                + this.getActivity().getString(R.string.unit_meter));
+        this.abscissaEditText.setText(DisplayUtils.toString(this.abscissa));
         this.abscissaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.ordinateEditText = new EditText(this.getActivity());
-        this.ordinateEditText.setHint(this.getActivity().getString(R.string.ordinate_3dots)
-                + this.getActivity().getString(R.string.unit_meter));
-
+        this.ordinateEditText.setText(DisplayUtils.toString(this.ordinate));
         this.ordinateEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-
-        this.number = 0;
-        this.abscissa = 0.0;
-        this.ordinate = 0.0;
     }
 
     /**
-     * Create a view to get number, abscissa, ordinate and altitude of a point
-     * from the user.
+     * Create a view to get updated abscissa, ordinate and altitude value of a
+     * point from the user.
      * 
      */
-    private void genAddMeasureView() {
+    private void genEditMeasureView() {
         this.layout.addView(this.numberEditText);
         this.layout.addView(this.abscissaEditText);
         this.layout.addView(this.ordinateEditText);
@@ -174,10 +179,10 @@ public class AddMeasureDialogFragment extends DialogFragment {
      *         otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.numberEditText.length() == 0) || (this.abscissaEditText.length() == 0)
-                || (this.ordinateEditText.length() == 0)) {
+        if ((this.abscissaEditText.length() == 0) || (this.ordinateEditText.length() == 0)) {
             return false;
         }
+
         return true;
     }
 
@@ -191,5 +196,9 @@ public class AddMeasureDialogFragment extends DialogFragment {
 
     public double getOrdinate() {
         return this.ordinate;
+    }
+
+    public int getMeasurePosition() {
+        return this.measurePosition;
     }
 }
