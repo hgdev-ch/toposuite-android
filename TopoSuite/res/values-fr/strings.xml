@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="abscissa">Abscisse</string>
     <string name="about_title">À propos 
         <xliff:g id="app_name">%s</xliff:g>
     </string>
@@ -87,6 +88,7 @@
     <string name="north">Nord</string>
     <string name="north_3dots">Nord&#8230;</string>
     <string name="optional_prths">(optionnel)</string>
+    <string name="ordinate">Ordonné</string>
     <string name="orientation_add">Ajouter une orientation</string>
     <string name="orientation_edit">Éditer une orientation</string>
     <string name="orientation_label">Second point (orient.)</string>
