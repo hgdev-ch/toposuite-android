@@ -17,6 +17,7 @@
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
     <string name="calculate_3dots">Calculate&#8230;</string>
     <string name="calculated_distance">Calc. dist.</string>
+    <string name="calculated_distance_hint">Calc. dist.</string>
     <string name="cancel">Cancel</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
@@ -66,6 +67,7 @@
     <string name="measure_header_hz">Hz</string>
     <string name="measure_header_hdist">Horiz. dist.</string>
     <string name="measure_header_alt">Alt.</string>
+    <string name="measured_distance_label">Meas. dist.</string>
     <string name="no">No</string>
     <string name="no_value">-</string>
     <string name="north">North</string>
@@ -85,6 +87,7 @@
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Provided</string>
     <string name="point_search">Search for a point</string>
+    <string name="scale_factor_label">Scale</string>
     <string name="search">Search</string>
     <string name="search_3dots">Search&#8230;</string>
     <string name="slope_label">Slope [%]</string>

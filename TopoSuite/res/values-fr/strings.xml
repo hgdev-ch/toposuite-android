@@ -27,6 +27,7 @@
     </string>
     <string name="calculate_3dots">Calculer&#8230;</string>
     <string name="calculated_distance">Dist. Calc.</string>
+    <string name="calculated_distance_hint">Dist. Calc.</string>
     <string name="cancel">Annuler</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
@@ -80,6 +81,7 @@
     <string name="measure_header_hz">Hz</string>
     <string name="measure_header_hdist">Dist. H</string>
     <string name="measure_header_alt">Haut.</string>
+    <string name="measured_distance_label">Dist. Calc.</string>
     <string name="no">Non</string>
     <string name="no_value">-</string>
     <string name="north">Nord</string>
@@ -99,6 +101,7 @@
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Saisi</string>
     <string name="point_search">Rechercher un point</string>
+    <string name="scale_factor_label">Echelle</string>
     <string name="search">Rechercher</string>
     <string name="search_3dots">Rechercher&#8230;</string>
     <string name="slope_label">Pente [%]</string>
