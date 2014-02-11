@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
     <string name="abscissa">Abscissa</string>
     <string name="abscissa_3dots">Abscissa...</string>
     <string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string>
@@ -116,4 +117,7 @@
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
     <string name="zenithal_angle_3dots">Zenithal angle&#8230;</string>
+    <string name="title_activity_leve_ortho_results">LeveOrthoResultsActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
