@@ -106,6 +106,7 @@
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">History</string>
     <string name="title_activity_leve_ortho">Levé Orthogonal</string>
+    <string name="title_activity_leve_ortho_results">Levé Orthogonal</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="unit_centimeter">[cm]</string>
@@ -117,7 +118,5 @@
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
     <string name="zenithal_angle_3dots">Zenithal angle&#8230;</string>
-    <string name="title_activity_leve_ortho_results">LeveOrthoResultsActivity</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>
