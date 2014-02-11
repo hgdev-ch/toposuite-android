@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.calculation;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.JSONException;
@@ -17,57 +18,67 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * 
  */
 public class LevePolaire extends Calculation {
-    private static final String CALCULATION_NAME = "LevePolaire";
+    private static final String      CALCULATION_NAME = "LevePolaire";
+    /**
+     * East attribute of the new point, which is computed by this class.
+     */
+    private double                   newPointEast;
+    /**
+     * North attribute of the new point, which is computed by this class.
+     */
+    private double                   newPointNorth;
 
     /**
-     * Horizontal angle read on the orientation point (alpha).
+     * Altitude attribute of the new point, which is computed by this class.
      */
-    private double              horizAngleOrientation;
-    /**
-     * Horizontal distance between station and thrown point (AP).
-     */
-    private double              horizDist;
-    /**
-     * East attribute of the thrown point, which is computed by this class.
-     */
-    private double              thrownPointEast;
-    /**
-     * North attribute of the thrown point, which is computed by this class.
-     */
-    private double              thrownPointNorth;
-    /**
-     * Horizontal angle read on the thrown point (Hz).
-     */
-    private double              horizAngleThrownPoint;
-    private Point               station;
-    private Point               orientation;
+    private double                   newPointAltitude;
+
+    private Point                    station;
+    private final ArrayList<Measure> determinations;
+    private final ArrayList<Result>  results;
 
     public LevePolaire(long id, Date lastModification) {
         super(id, CalculationType.LEVEPOLAIRE, LevePolaire.CALCULATION_NAME, lastModification, true);
+
+        this.determinations = new ArrayList<Measure>();
+        this.results = new ArrayList<Result>();
     }
 
-    public LevePolaire(Point _station, Point _orientation, double _horizAngleOrientation,
-            double _horizAngleThrownPoint, double _horizDist, boolean hasDAO) {
+    public LevePolaire(Point _station, boolean hasDAO) {
         super(CalculationType.LEVEPOLAIRE, LevePolaire.CALCULATION_NAME, hasDAO);
+
+        this.determinations = new ArrayList<Measure>();
+        this.results = new ArrayList<Result>();
         this.station = _station;
-        this.orientation = _orientation;
-        this.horizAngleOrientation = MathUtils.gradToRad(MathUtils
-                .modulo400(_horizAngleOrientation));
-        this.horizAngleThrownPoint = MathUtils.gradToRad(MathUtils
-                .modulo400(_horizAngleThrownPoint));
-        this.horizDist = _horizDist;
     }
 
     public void compute() {
-        Gisement g = new Gisement(this.station, this.orientation);
-        double z0StationOrientation = g.getGisement();
-        double z0Orientation = z0StationOrientation - this.horizAngleOrientation;
-        double z0StationThrownPoint = z0Orientation + this.horizAngleThrownPoint;
+        if (this.determinations.size() == 0) {
+            return;
+        }
 
-        this.thrownPointEast = this.station.getEast()
-                + (this.horizDist * Math.sin(z0StationThrownPoint));
-        this.thrownPointNorth = this.station.getNorth()
-                + (this.horizDist * Math.cos(z0StationThrownPoint));
+        for (Measure m : this.determinations) {
+            double zenAngle = MathUtils.gradToRad(MathUtils.modulo400(m.getZenAngle()));
+            double z0 = MathUtils.gradToRad(MathUtils.modulo400(m.getUnknownOrientation()));
+            double hz = MathUtils.gradToRad(MathUtils.modulo400(m.getHorizDir()));
+
+            double horizDist = Math.sin(zenAngle) * m.getDistance();
+            horizDist += m.getLonDepl();
+            hz = hz + Math.atan(m.getLatDepl() / horizDist);
+            horizDist = Math.sqrt(Math.pow(horizDist, 2) + Math.pow(m.getLatDepl(), 2));
+
+            double east = this.station.getEast() + (Math.sin(z0 + hz) * horizDist);
+            double north = this.station.getNorth() + (Math.cos(z0 + hz) * horizDist);
+            double altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle))
+                    + m.getI()) - m.getS();
+
+            Result r = new Result(m.getOrientation(), east, north, altitude);
+            this.results.add(r);
+        }
+
+        // update the calculation last modification date
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     @Override
@@ -87,12 +98,54 @@ public class LevePolaire extends Calculation {
         return LevePolaireActivity.class;
     }
 
-    public double getThrownPointEast() {
-        return this.thrownPointEast;
+    public double getNewPointEast() {
+        return this.newPointEast;
     }
 
-    public double getThrownPointNorth() {
-        return this.thrownPointNorth;
+    public double getNewPointNorth() {
+        return this.newPointNorth;
+    }
+
+    public double getNewPointAltitude() {
+        return this.newPointAltitude;
+    }
+
+    public ArrayList<Measure> getDeterminations() {
+        return this.determinations;
+    }
+
+    public ArrayList<Result> getResults() {
+        return this.results;
+    }
+
+    public class Result {
+        private final Point  determination;
+        private final double east;
+        private final double north;
+        private final double altitude;
+
+        public Result(Point _determination, double _east, double _north, double _altitude) {
+            this.determination = _determination;
+            this.east = _east;
+            this.north = _north;
+            this.altitude = _altitude;
+        }
+
+        public Point getDetermination() {
+            return this.determination;
+        }
+
+        public double getEast() {
+            return this.east;
+        }
+
+        public double getNorth() {
+            return this.north;
+        }
+
+        public double getAltitude() {
+            return this.altitude;
+        }
     }
 
 }
