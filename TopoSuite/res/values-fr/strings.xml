@@ -70,14 +70,14 @@
     <string name="measure_header_hz">Hz [g]</string>
     <string name="measure_header_hdist">Dist. H. [m]</string>
     <string name="measure_header_zenithal">Vz [g]</string>
-    <string name="measured_distance_hint">Dist. Calc.</string>
+    <string name="measured_distance_hint">Dist. Mes.</string>
     <string name="no">Non</string>
     <string name="no_value">-</string>
     <string name="north">Nord</string>
     <string name="north_3dots">Nord&#8230;</string>
     <string name="north_label">Nord [m]</string>
     <string name="optional_prths">(optionnel)</string>
-    <string name="ordinate">Ordonné</string>
+    <string name="ordinate">Ordonnés</string>
     <string name="ordinate_3dots">Ordonnée&#8230;</string>
     <string name="orientation_add">Ajouter une orientation</string>
     <string name="orientation_edit">Éditer une orientation</string>
