@@ -94,6 +94,7 @@
     <string name="orientation_label">Second point (orient.)</string>
     <string name="oriented_direction">Dir. Orient.</string>
     <string name="origin_label">Premier point (origine)</string>
+    <string name="origin_only_label">Origine</string>
     <string name="point_add_success">Point ajouté avec succès!</string>
     <string name="point_already_exists">Ce point existe déjà!</string>
     <string name="point_class">Classe</string>
