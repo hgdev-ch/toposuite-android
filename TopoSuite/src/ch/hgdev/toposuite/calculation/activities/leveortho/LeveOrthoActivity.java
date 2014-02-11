@@ -22,34 +22,38 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
+import ch.hgdev.toposuite.calculation.OrthogonalBase;
+import ch.hgdev.toposuite.calculation.activities.leveortho.AddMeasureDialogFragment.AddPointDialogListener;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class LeveOrthoActivity extends TopoSuiteActivity {
-    public static final String ORIGIN_SELECTED_POSITION    = "origine_selected_position";
-    public static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
-    public static final String MEASURED_DISTANCE           = "measured_distance";
-    public static final String LEVE_ORTHO_POSITION         = "leve_ortho_position";
+public class LeveOrthoActivity extends TopoSuiteActivity implements AddPointDialogListener {
+    public static final String         ORIGIN_SELECTED_POSITION    = "origine_selected_position";
+    public static final String         EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
+    public static final String         MEASURED_DISTANCE           = "measured_distance";
+    public static final String         LEVE_ORTHO_POSITION         = "leve_ortho_position";
 
-    private Spinner            originSpinner;
-    private Spinner            extremitySpinner;
+    private Spinner                    originSpinner;
+    private Spinner                    extremitySpinner;
 
-    private TextView           originPointTextView;
-    private TextView           extremityPointTextView;
-    private TextView           calcDistTextView;
-    private TextView           scaleTextView;
+    private TextView                   originPointTextView;
+    private TextView                   extremityPointTextView;
+    private TextView                   calcDistTextView;
+    private TextView                   scaleTextView;
 
-    private EditText           measuredDistEditText;
+    private EditText                   measuredDistEditText;
 
-    private ListView           pointsListView;
+    private ListView                   measuresListView;
 
-    private int                originSelectedPosition;
-    private int                extremitySelectedPosition;
+    private int                        originSelectedPosition;
+    private int                        extremitySelectedPosition;
 
-    private double             measuredDist;
+    private double                     measuredDist;
 
-    private LeveOrthogonal     leveOrtho;
+    private LeveOrthogonal             leveOrtho;
+
+    private ArrayListOfMeasuresAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity {
         this.measuredDistEditText = (EditText) this.findViewById(R.id.measured_distance);
         this.measuredDistEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.pointsListView = (ListView) this.findViewById(R.id.points_list);
+        this.measuresListView = (ListView) this.findViewById(R.id.points_list);
 
         this.originSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -143,6 +147,8 @@ public class LeveOrthoActivity extends TopoSuiteActivity {
                     position);
             this.measuredDist = this.leveOrtho.getOrthogonalBase().getMeasuredDistance();
         }
+
+        this.drawList();
     }
 
     @Override
@@ -210,9 +216,10 @@ public class LeveOrthoActivity extends TopoSuiteActivity {
 
         if (savedInstanceState != null) {
             int index = savedInstanceState.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
-            if (index != 0) {
+            if (index != -1) {
                 this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory()
                         .get(index);
+                this.drawList();
             } else {
                 this.originSelectedPosition = savedInstanceState
                         .getInt(LeveOrthoActivity.ORIGIN_SELECTED_POSITION);
@@ -229,8 +236,8 @@ public class LeveOrthoActivity extends TopoSuiteActivity {
         int id = item.getItemId();
 
         switch (id) {
-        case R.id.add_orientation_button:
-            // this.showAddPointDialog();
+        case R.id.add_point_button:
+            this.showAddPointDialog();
             return true;
         case R.id.run_calculation_button:
 
@@ -260,6 +267,17 @@ public class LeveOrthoActivity extends TopoSuiteActivity {
         }
     }
 
+    private void drawList() {
+        if (this.leveOrtho != null) {
+            this.adapter = new ArrayListOfMeasuresAdapter(this,
+                    R.layout.leve_ortho_measures_list_item, this.leveOrtho.getMeasures());
+        } else {
+            this.adapter = new ArrayListOfMeasuresAdapter(this,
+                    R.layout.leve_ortho_measures_list_item, new ArrayList<LeveOrthogonal.Measure>());
+        }
+        this.measuresListView.setAdapter(this.adapter);
+    }
+
     private void itemSelected() {
         Point p1 = (Point) this.originSpinner.getSelectedItem();
         Point p2 = (Point) this.extremitySpinner.getSelectedItem();
@@ -273,8 +291,12 @@ public class LeveOrthoActivity extends TopoSuiteActivity {
             if (this.leveOrtho == null) {
                 this.leveOrtho = new LeveOrthogonal(p1, p2, true);
             } else {
-                this.leveOrtho.getOrthogonalBase().setOrigin(p1);
-                this.leveOrtho.getOrthogonalBase().setExtemity(p2);
+                if (this.leveOrtho.getOrthogonalBase() != null) {
+                    this.leveOrtho.getOrthogonalBase().setOrigin(p1);
+                    this.leveOrtho.getOrthogonalBase().setExtemity(p2);
+                } else {
+                    this.leveOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2));
+                }
             }
 
             this.calcDistTextView.setText(DisplayUtils.toString(
@@ -310,5 +332,34 @@ public class LeveOrthoActivity extends TopoSuiteActivity {
                 this.scaleTextView.setText(DisplayUtils.toString(scaleFactor));
             }
         }
+    }
+
+    private void showAddPointDialog() {
+        AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
+        dialog.show(this.getFragmentManager(), "AddPointDialogFragment");
+    }
+
+    @Override
+    public void onDialogAdd(AddMeasureDialogFragment dialog) {
+        int number = dialog.getNumber();
+        double abscissa = dialog.getAbscissa();
+        double ordinate = dialog.getOrdinate();
+
+        LeveOrthogonal.Measure m = new LeveOrthogonal.Measure(number, abscissa, ordinate);
+
+        if (this.leveOrtho == null) {
+            this.leveOrtho = new LeveOrthogonal(true);
+        }
+
+        this.leveOrtho.getMeasures().add(m);
+        this.adapter.add(m);
+        this.adapter.notifyDataSetChanged();
+
+        this.showAddPointDialog();
+    }
+
+    @Override
+    public void onDialogCancel(AddMeasureDialogFragment dialog) {
+        // NOTHING
     }
 }

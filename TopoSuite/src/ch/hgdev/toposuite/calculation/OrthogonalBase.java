@@ -32,7 +32,15 @@ public class OrthogonalBase {
         this(_origin, _extremity, 0.0);
     }
 
+    public OrthogonalBase() {
+        // empty constructor
+    }
+
     private void updateCalcDistAndScaleFactor() {
+        if ((this.origin == null) || (this.extremity == null)) {
+            return;
+        }
+
         this.calculatedDistance = MathUtils.euclideanDistance(
                 this.origin, this.extremity);
 

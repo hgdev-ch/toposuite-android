@@ -42,6 +42,18 @@ public class LeveOrthogonal extends Calculation {
         this(origin, extremity, 0.0, hasDAO);
     }
 
+    public LeveOrthogonal(boolean hasDAO) {
+        super(CalculationType.LEVEORTHO, LeveOrthogonal.CALCULATION_NAME, hasDAO);
+
+        this.orthogonalBase = new OrthogonalBase();
+        this.measures = new ArrayList<LeveOrthogonal.Measure>();
+        this.results = new ArrayList<LeveOrthogonal.Measure>();
+
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
+    }
+
     public LeveOrthogonal(long id, Date lastModification) {
         super(id, CalculationType.LEVEORTHO, LeveOrthogonal.CALCULATION_NAME, lastModification,
                 true);
