@@ -25,7 +25,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/east"
+            android:text="@string/east_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/north"
+            android:text="@string/north_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/altitude"
+            android:text="@string/altitude_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView

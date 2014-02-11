@@ -49,6 +49,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
     <string name="east_3dots">East&#8230;</string>
+    <string name="east_label">East [m]</string>
     <string name="edit">Edit</string>
     <string name="error_at_least_one_orientation">You must provide at least one orientation!</string>
     <string name="error_fill_data">Every mandatory field must be field!</string>
@@ -72,6 +73,7 @@
     <string name="no_value">-</string>
     <string name="north">North</string>
     <string name="north_3dots">North&#8230;</string>
+    <string name="north_label">North [m]</string>
     <string name="optional_prths">(optional)</string>
     <string name="ordinate">Ordinate</string>
     <string name="orientation_add">Add orientation</string>
