@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
+import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
@@ -76,7 +77,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                         new ActivityItem(this.getString(R.string.title_activity_gisement),
                                 GisementActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_abriss),
-                                AbrissActivity.class)
+                                AbrissActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
+                                LeveOrthoActivity.class)
                 }));
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(
