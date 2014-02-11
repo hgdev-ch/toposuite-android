@@ -49,7 +49,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/calculated_distance"
+            android:text="@string/calculated_distance_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/unknown_orientation"
+            android:text="@string/unknown_orientation_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
@@ -67,7 +67,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/oriented_direction"
+            android:text="@string/oriented_direction_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
     </LinearLayout>
 
@@ -90,7 +90,7 @@
 	        android:layout_weight="0.86"
 	        android:gravity="left|center_vertical"
 	        android:paddingLeft="@dimen/activity_horizontal_margin"
-	        android:text="@string/unknown_orientation" />
+	        android:text="@string/unknown_orientation_label" />
         
         <TextView
 	        android:id="@+id/unknown_orientation"

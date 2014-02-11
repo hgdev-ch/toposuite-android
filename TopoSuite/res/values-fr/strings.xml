@@ -17,7 +17,7 @@
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
     <string name="calculate_3dots">Calculer&#8230;</string>
     <string name="calculated_distance">Dist. Calc.</string>
-    <string name="calculated_distance_label">Dist. Calc.</string>
+    <string name="calculated_distance_label">Dist. Calc. [m]</string>
     <string name="cancel">Annuler</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
@@ -63,11 +63,11 @@
     <string name="horiz_distance_3dots">Distance horizontale&#8230;</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
-    <string name="mean_error_label">Erreur Moy.</string>
+    <string name="mean_error_label">Erreur Moy. [cc]</string>
     <string name="measure_header_pt_nbr">N&#176; pt</string>
-    <string name="measure_header_hz">Hz</string>
-    <string name="measure_header_hdist">Dist. H</string>
-    <string name="measure_header_alt">Haut.</string>
+    <string name="measure_header_hz">Hz [g]</string>
+    <string name="measure_header_hdist">Dist. H. [m]</string>
+    <string name="measure_header_zenithal">Vz [g]</string>
     <string name="measured_distance_hint">Dist. Calc.</string>
     <string name="no">Non</string>
     <string name="no_value">-</string>
@@ -80,6 +80,7 @@
     <string name="orientation_edit">Éditer une orientation</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="oriented_direction">Dir. Orient.</string>
+    <string name="oriented_direction_label">Dir. Orient. [g]</string>
     <string name="origin_label">Premier point (origine)</string>
     <string name="origin_only_label">Origine</string>
     <string name="point_add_success">Point ajouté avec succès!</string>
@@ -109,6 +110,7 @@
     <string name="unit_gradian_cc">[cc]</string>
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation">Inc. Orient.</string>
+    <string name="unknown_orientation_label">Inc. Orient. [g]</string>
     <string name="with_support_from">Avec le support de</string>
     <string name="yes">Oui</string>
     <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>

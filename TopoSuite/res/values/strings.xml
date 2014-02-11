@@ -17,7 +17,7 @@
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
     <string name="calculate_3dots">Calculate&#8230;</string>
     <string name="calculated_distance">Calc. dist.</string>
-    <string name="calculated_distance_label">Calc. dist.</string>
+    <string name="calculated_distance_label">Calc. dist. [m]</string>
     <string name="cancel">Cancel</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
@@ -63,11 +63,11 @@
     <string name="horiz_distance_3dots">Horizontal distance&#8230;</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="loose_history">All entries in the history will be lost</string>
-    <string name="mean_error_label">Mean Error</string>
+    <string name="mean_error_label">Mean Error [cc]</string>
     <string name="measure_header_pt_nbr">Pt. Num.</string>
-    <string name="measure_header_hz">Hz</string>
-    <string name="measure_header_hdist">Horiz. dist.</string>
-    <string name="measure_header_alt">Alt.</string>
+    <string name="measure_header_hz">Hz [g]</string>
+    <string name="measure_header_hdist">Horiz. dist. [m]</string>
+    <string name="measure_header_zenithal">Vz [g]</string>
     <string name="measured_distance_hint">Meas. dist.</string>
     <string name="no">No</string>
     <string name="no_value">-</string>
@@ -78,6 +78,7 @@
     <string name="ordinate">Ordinate</string>
     <string name="orientation_add">Add orientation</string>
     <string name="oriented_direction">Orient. Dir.</string>
+    <string name="oriented_direction_label">Orient. Dir. [g]</string>
     <string name="orientation_edit">Edit orientation</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="origin_label">First point (origin)</string>
@@ -109,6 +110,7 @@
     <string name="unit_gradian_cc">[cc]</string>
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation">Unkn. Orient.</string>
+    <string name="unknown_orientation_label">Unkn. Orient. [g]</string>
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
     <string name="zenithal_angle_3dots">Zenithal angle&#8230;</string>
