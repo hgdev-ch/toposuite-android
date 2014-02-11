@@ -132,7 +132,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.history, menu);
+        this.getMenuInflater().inflate(R.menu.abriss, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
