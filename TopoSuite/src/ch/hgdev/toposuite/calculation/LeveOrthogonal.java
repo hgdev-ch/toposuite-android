@@ -59,7 +59,7 @@ public class LeveOrthogonal extends Calculation {
                 true);
     }
 
-    public void computer() {
+    public void compute() {
         if (this.measures.size() < 1) {
             return;
         }
