@@ -22,7 +22,7 @@ public class TestLeveOrthogonal extends TestCase {
         lo.getMeasures().add(new LeveOrthogonal.Measure(1, -3.5, -7.3));
         lo.getMeasures().add(new LeveOrthogonal.Measure(4, 13.82, 10.97));
 
-        lo.computer();
+        lo.compute();
 
         Assert.assertEquals("556492.476", df.format(lo.getResults().get(0).getAbscissa()));
         Assert.assertEquals("172501.524", df.format(lo.getResults().get(0).getOrdinate()));
