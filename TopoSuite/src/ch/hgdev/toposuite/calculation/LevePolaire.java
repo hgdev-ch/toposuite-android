@@ -51,8 +51,10 @@ public class LevePolaire extends Calculation {
         super(CalculationType.LEVEPOLAIRE, LevePolaire.CALCULATION_NAME, hasDAO);
         this.station = _station;
         this.orientation = _orientation;
-        this.horizAngleOrientation = MathUtils.modulo400(_horizAngleOrientation);
-        this.horizAngleThrownPoint = MathUtils.modulo400(_horizAngleThrownPoint);
+        this.horizAngleOrientation = MathUtils.gradToRad(MathUtils
+                .modulo400(_horizAngleOrientation));
+        this.horizAngleThrownPoint = MathUtils.gradToRad(MathUtils
+                .modulo400(_horizAngleThrownPoint));
         this.horizDist = _horizDist;
     }
 
