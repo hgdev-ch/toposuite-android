@@ -84,6 +84,9 @@ public class LeveOrthogonal extends Calculation {
 
             this.results.add(newM);
         }
+
+        super.updateLastModification();
+        super.notifyUpdate(this);
     }
 
     public OrthogonalBase getOrthogonalBase() {

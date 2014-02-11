@@ -7,10 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -24,16 +28,19 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.calculation.OrthogonalBase;
-import ch.hgdev.toposuite.calculation.activities.leveortho.AddMeasureDialogFragment.AddPointDialogListener;
+import ch.hgdev.toposuite.calculation.activities.leveortho.AddMeasureDialogFragment.AddMeasureDialogListener;
+import ch.hgdev.toposuite.calculation.activities.leveortho.EditMeasureDialogFragment.EditMeasureDialogListener;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class LeveOrthoActivity extends TopoSuiteActivity implements AddPointDialogListener {
+public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDialogListener,
+        EditMeasureDialogListener {
     public static final String         ORIGIN_SELECTED_POSITION    = "origine_selected_position";
     public static final String         EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
     public static final String         MEASURED_DISTANCE           = "measured_distance";
     public static final String         LEVE_ORTHO_POSITION         = "leve_ortho_position";
+    public static final String         MEASURE_POSITION            = "measure_position";
 
     private Spinner                    originSpinner;
     private Spinner                    extremitySpinner;
@@ -150,6 +157,8 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddPointDial
         }
 
         this.drawList();
+
+        this.registerForContextMenu(this.measuresListView);
     }
 
     @Override
@@ -238,7 +247,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddPointDial
 
         switch (id) {
         case R.id.add_point_button:
-            this.showAddPointDialog();
+            this.showAddMeasureDialog();
             return true;
         case R.id.run_calculation_button:
 
@@ -256,6 +265,30 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddPointDial
             return true;
         default:
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.leve_ortho_measures_list_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.edit_measure:
+            this.showEditMeasureDialog(info.position);
+            return true;
+        case R.id.delete_measure:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
         }
     }
 
@@ -326,9 +359,22 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddPointDial
         }
     }
 
-    private void showAddPointDialog() {
+    private void showAddMeasureDialog() {
         AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
         dialog.show(this.getFragmentManager(), "AddPointDialogFragment");
+    }
+
+    private void showEditMeasureDialog(int pos) {
+        EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
+
+        int leveOrthoPos = SharedResources.getCalculationsHistory().indexOf(this.leveOrtho);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, leveOrthoPos);
+        bundle.putInt(LeveOrthoActivity.MEASURE_POSITION, pos);
+
+        dialog.setArguments(bundle);
+        dialog.show(this.getFragmentManager(), "EditMeasureDialogFragment");
     }
 
     @Override
@@ -347,11 +393,28 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddPointDial
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
 
-        this.showAddPointDialog();
+        this.showAddMeasureDialog();
     }
 
     @Override
     public void onDialogCancel(AddMeasureDialogFragment dialog) {
         // NOTHING
+    }
+
+    @Override
+    public void onDialogEdit(EditMeasureDialogFragment dialog) {
+        LeveOrthogonal.Measure m = this.leveOrtho.getMeasures().get(
+                dialog.getMeasurePosition());
+
+        m.setNumber(dialog.getNumber());
+        m.setAbscissa(dialog.getAbscissa());
+        m.setOrdinate(dialog.getOrdinate());
+        this.adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDialogCancel(EditMeasureDialogFragment dialog) {
+        // NOTHING
+
     }
 }
