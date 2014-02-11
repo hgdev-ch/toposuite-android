@@ -1,17 +1,36 @@
 package ch.hgdev.toposuite.calculation.activities.leveortho;
 
-import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.R.layout;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.ListView;
+import android.widget.TextView;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 
 public class LeveOrthoResultsActivity extends TopoSuiteActivity {
+
+    private TextView       baseTextView;
+    private ListView       resultsListView;
+
+    private LeveOrthogonal leveOrtho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_leve_ortho_results);
+
+        this.baseTextView = (TextView) this.findViewById(R.id.base);
+        this.resultsListView = (ListView) this.findViewById(R.id.results_list);
+
+        Bundle bundle = this.getIntent().getExtras();
+        if ((bundle != null)) {
+            int position = bundle.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
+            this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(
+                    position);
+            this.drawList();
+        }
     }
 
     @Override
@@ -20,4 +39,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    private void drawList() {
+
+    }
 }

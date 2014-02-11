@@ -154,10 +154,28 @@ public class LeveOrthogonal extends Calculation {
         private double             abscissa;
         private double             ordinate;
 
-        public Measure(int _number, double _abscissa, double _ordinate) {
+        /**
+         * If the points already exists, vE is the difference between the old
+         * east value and the new one.
+         */
+        private double             vE;
+
+        /**
+         * If the points already exists, vN is the difference between the old
+         * north value and the new one.
+         */
+        private double             vN;
+
+        public Measure(int _number, double _abscissa, double _ordinate, double _vE, double _vN) {
             this.number = _number;
             this.abscissa = _abscissa;
             this.ordinate = _ordinate;
+            this.vE = _vE;
+            this.vN = _vN;
+        }
+
+        public Measure(int _number, double _abscissa, double _ordinate) {
+            this(_number, _abscissa, _ordinate, 0.0, 0.0);
         }
 
         public JSONObject toJSONObject() {
@@ -214,6 +232,22 @@ public class LeveOrthogonal extends Calculation {
 
         public void setOrdinate(double ordinate) {
             this.ordinate = ordinate;
+        }
+
+        public double getvE() {
+            return this.vE;
+        }
+
+        public void setvE(double vE) {
+            this.vE = vE;
+        }
+
+        public double getvN() {
+            return this.vN;
+        }
+
+        public void setvN(double vN) {
+            this.vN = vN;
         }
     }
 }
