@@ -28,7 +28,7 @@ public class Measure {
      */
     private Point               orientation;
     /**
-     * Horizontal distance (Hz).
+     * Horizontal direction (Hz).
      */
     private double              horizDir;
     /**
