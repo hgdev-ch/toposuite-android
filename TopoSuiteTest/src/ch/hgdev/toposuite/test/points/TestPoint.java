@@ -11,16 +11,6 @@ import ch.hgdev.toposuite.points.Point;
  */
 public class TestPoint extends AndroidTestCase {
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Test method for
-     * {@link ch.hgdev.toposuite.points.Point#Point(int, double, double, double, boolean)}
-     * .
-     */
     public void testPoint() {
         try {
             new Point(-1, 123.0, 1233431.1232, 1233124, true);
