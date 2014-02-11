@@ -57,6 +57,9 @@ public class LeveOrthogonal extends Calculation {
     public LeveOrthogonal(long id, Date lastModification) {
         super(id, CalculationType.LEVEORTHO, LeveOrthogonal.CALCULATION_NAME, lastModification,
                 true);
+        this.orthogonalBase = new OrthogonalBase();
+        this.measures = new ArrayList<LeveOrthogonal.Measure>();
+        this.results = new ArrayList<LeveOrthogonal.Measure>();
     }
 
     public void compute() {
@@ -81,6 +84,12 @@ public class LeveOrthogonal extends Calculation {
 
             LeveOrthogonal.Measure newM = new LeveOrthogonal.Measure(
                     m.getNumber(), east, north);
+
+            Point p = SharedResources.getSetOfPoints().find(m.getNumber());
+            if (p != null) {
+                newM.setvE(p.getEast() - east);
+                newM.setvN(p.getNorth() - north);
+            }
 
             this.results.add(newM);
         }
