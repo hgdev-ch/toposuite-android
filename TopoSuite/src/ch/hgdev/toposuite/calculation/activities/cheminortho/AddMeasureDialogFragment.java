@@ -58,7 +58,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
         this.initAttributes();
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(R.string.dialog_add_point).setView(this.layout)
+        builder.setTitle(R.string.measure_add).setView(this.layout)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {

@@ -45,22 +45,22 @@ public class AddMeasureDialogFragment extends DialogFragment {
 
     AddMeasureDialogListener listener;
 
-    private int            number;
-    private double         abscissa;
-    private double         ordinate;
+    private int              number;
+    private double           abscissa;
+    private double           ordinate;
 
-    private LinearLayout   layout;
+    private LinearLayout     layout;
 
-    private EditText       numberEditText;
-    private EditText       abscissaEditText;
-    private EditText       ordinateEditText;
+    private EditText         numberEditText;
+    private EditText         abscissaEditText;
+    private EditText         ordinateEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(R.string.dialog_add_point).setView(this.layout)
+        builder.setTitle(R.string.measure_add).setView(this.layout)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -87,7 +87,8 @@ public class AddMeasureDialogFragment extends DialogFragment {
                     public void onClick(View view) {
                         if (AddMeasureDialogFragment.this.checkDialogInputs()) {
                             AddMeasureDialogFragment.this.number = Integer
-                                    .parseInt(AddMeasureDialogFragment.this.numberEditText.getText()
+                                    .parseInt(AddMeasureDialogFragment.this.numberEditText
+                                            .getText()
                                             .toString());
                             AddMeasureDialogFragment.this.abscissa = Double
                                     .parseDouble(AddMeasureDialogFragment.this.abscissaEditText

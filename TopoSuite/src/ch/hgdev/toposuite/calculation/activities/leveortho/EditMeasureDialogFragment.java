@@ -63,7 +63,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
         this.initAttributes();
         this.genEditMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(R.string.dialog_edit_point).setView(this.layout)
+        builder.setTitle(R.string.measure_edit).setView(this.layout)
                 .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
