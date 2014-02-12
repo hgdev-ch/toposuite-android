@@ -17,7 +17,7 @@
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
-    <string name="base_label">Levé Orthogonal from the base</string>
+    <string name="base_label">Levé orthogonal from the base</string>
     <string name="calculate_3dots">Calculate&#8230;</string>
     <string name="calculated_distance">Calc. dist.</string>
     <string name="calculated_distance_label">Calc. dist. [m]</string>
@@ -106,8 +106,8 @@
     <string name="title_activity_abriss_results">Abriss - Results</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">History</string>
-    <string name="title_activity_leve_ortho">Levé Orthogonal</string>
-    <string name="title_activity_leve_ortho_results">Levé Orthogonal</string>
+    <string name="title_activity_leve_ortho">Levé orthogonal</string>
+    <string name="title_activity_leve_ortho_results">Levé orthogonal</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="unit_centimeter">[cm]</string>
