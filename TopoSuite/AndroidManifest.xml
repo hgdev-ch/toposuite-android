@@ -64,7 +64,7 @@
             android:label="@string/title_activity_cheminement_ortho_results" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.LevePolaireResultsActivity"
+            android:name="ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireResultsActivity"
             android:label="@string/title_activity_leve_polaire_results" >
         </activity>
     </application>

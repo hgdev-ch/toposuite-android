@@ -20,11 +20,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.hgdev.toposuite.App;
-import ch.hgdev.toposuite.LevePolaireResultsActivity;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.calculation.LevePolaire;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -37,18 +35,17 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  */
 public class LevePolaireActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener {
-    public static final String    CALCULATION_POSITION_LABEL = "calculation_position";
-    public static final String    STATION_NUMBER_LABEL       = "station_number";
-    public static final String    DETERMINATIONS_LABEL       = "determinations";
 
-    private static final String   STATION_SELECTED_POSITION  = "station_selected_position";
+    public static final String    STATION_NUMBER_LABEL      = "station_number";
+    public static final String    DETERMINATIONS_LABEL      = "determinations";
+
+    private static final String   STATION_SELECTED_POSITION = "station_selected_position";
     private Spinner               stationSpinner;
     private EditText              iEditText;
     private TextView              stationPointTextView;
     private EditText              unknownOrientEditText;
     private ListView              determinationsListView;
     private int                   stationSelectedPosition;
-    private LevePolaire           levePolaire;
     private ArrayAdapter<Measure> adapter;
 
     private Point                 station;
@@ -105,16 +102,6 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(a);
-
-        if (this.levePolaire != null) {
-            this.stationSpinner.setSelection(
-                    a.getPosition(this.levePolaire.getStation()));
-        } else {
-            if (this.stationSelectedPosition > 0) {
-                this.stationSpinner.setSelection(
-                        this.stationSelectedPosition);
-            }
-        }
     }
 
     @Override
@@ -203,10 +190,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
      * Perform actions required when the calculation button is clicked.
      */
     private void showLevePolaireResultActivity() {
-        int position = SharedResources.getCalculationsHistory().indexOf(this.levePolaire);
-
         Bundle bundle = new Bundle();
-        bundle.putInt(LevePolaireActivity.CALCULATION_POSITION_LABEL, position);
         bundle.putInt(LevePolaireActivity.STATION_NUMBER_LABEL, this.station.getNumber());
 
         JSONArray json = new JSONArray();
@@ -250,10 +234,6 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                 i,
                 unknownOrient);
 
-        if (this.levePolaire == null) {
-            this.levePolaire = new LevePolaire(this.station, true);
-        }
-        this.levePolaire.getDeterminations().add(m);
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
     }
