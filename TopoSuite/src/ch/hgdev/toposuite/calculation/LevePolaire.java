@@ -69,7 +69,7 @@ public class LevePolaire extends Calculation {
             double horizDist = Math.sin(zenAngle) * m.getDistance();
             horizDist += m.getLonDepl();
             hz = hz + Math.atan(m.getLatDepl() / horizDist);
-            horizDist = Math.sqrt(Math.pow(horizDist, 2) + Math.pow(m.getLatDepl(), 2));
+            horizDist = MathUtils.pythagoras(horizDist, m.getLatDepl());
 
             double east = this.station.getEast() + (Math.sin(z0 + hz) * horizDist);
             double north = this.station.getNorth() + (Math.cos(z0 + hz) * horizDist);
