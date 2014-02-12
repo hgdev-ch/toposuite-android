@@ -25,6 +25,7 @@
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
     <string name="cfgeo_webpage_url_short">www.cf-geo.ch</string>
+    <string name="chemin_ortho_base_label">Cheminement orthogonal depuis la base</string>
     <string name="crag">CRAG (Commission paritaire romande d\'apprentissage de géomaticien&#47;ne)</string>
     <string name="delete">Supprimer</string>
     <string name="delete_3dots">Supprimer&#8230;</string>
