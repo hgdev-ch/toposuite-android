@@ -209,6 +209,15 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             this.showAddMeasureDialog();
             return true;
         case R.id.run_calculation_button:
+            Point p1 = (Point) this.originSpinner.getSelectedItem();
+            Point p2 = (Point) this.extremitySpinner.getSelectedItem();
+
+            if ((p1.getNumber() == 0) || (p2.getNumber() == 0) ||
+                    (this.adapter.getCount() < 2)) {
+                Toast.makeText(this, R.string.error_fill_data,
+                        Toast.LENGTH_LONG).show();
+                return true;
+            }
 
             int position = SharedResources.getCalculationsHistory()
                     .indexOf(this.cheminOrtho);
@@ -217,7 +226,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             bundle.putInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION, position);
 
             Intent resultsActivityIntent = new Intent(this,
-                    CheminementOrthoActivity.class);
+                    CheminementOrthoResultsActivity.class);
             resultsActivityIntent.putExtras(bundle);
             this.startActivity(resultsActivityIntent);
 
@@ -344,7 +353,6 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         m.setNumber(dialog.getNumber());
         m.setDistance(dialog.getDistance());
         this.adapter.notifyDataSetChanged();
-        // this.drawList();
     }
 
     @Override
