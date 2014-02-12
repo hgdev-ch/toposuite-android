@@ -125,7 +125,7 @@ public class MathUtils {
         double deltaY = p2.getEast() - p1.getEast();
         double deltaX = p2.getNorth() - p1.getNorth();
 
-        return pythagoras(deltaY, deltaX);
+        return MathUtils.pythagoras(deltaY, deltaX);
     }
 
     /**
@@ -153,8 +153,8 @@ public class MathUtils {
      * @return new east coordinate
      */
     public static double pointLanceEast(double east, double gisement, double distance) {
-        return east + distance + Math.sin(
-                MathUtils.gradToRad(MathUtils.modulo400(gisement)));
+        return east + (distance * Math.sin(
+                MathUtils.gradToRad(MathUtils.modulo400(gisement))));
     }
 
     /**
@@ -169,7 +169,7 @@ public class MathUtils {
      * @return new north coordinate
      */
     public static double pointLanceNorth(double north, double gisement, double distance) {
-        return north + distance + Math.cos(
-                MathUtils.gradToRad(MathUtils.modulo400(gisement)));
+        return north + (distance * Math.cos(
+                MathUtils.gradToRad(MathUtils.modulo400(gisement))));
     }
 }
