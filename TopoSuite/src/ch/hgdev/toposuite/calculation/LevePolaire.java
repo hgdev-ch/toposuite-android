@@ -122,6 +122,10 @@ public class LevePolaire extends Calculation {
         return this.results;
     }
 
+    public Point getStation() {
+        return this.station;
+    }
+
     /**
      * Class to store the results of the leve polaire calculation on each
      * determination.
