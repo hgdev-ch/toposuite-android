@@ -64,6 +64,8 @@
     <string name="horiz_direction_3dots">Direction horizontale&#8230;</string>
     <string name="horiz_distance_3dots">Distance horizontale&#8230;</string>
     <string name="i_label">I [m]</string>
+    <string name="lateral_displacement_3dots">Déplacement latéral&#8230;</string>
+    <string name="longitudinal_displacement_3dots">Déplacement longitudinal&#8230;</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
     <string name="mean_error_label">Erreur Moy. [cc]</string>
