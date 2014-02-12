@@ -162,5 +162,4 @@ public class LevePolaire extends Calculation {
             return this.altitude;
         }
     }
-
 }

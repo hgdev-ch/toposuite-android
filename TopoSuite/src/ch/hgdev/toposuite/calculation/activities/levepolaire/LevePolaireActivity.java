@@ -102,6 +102,10 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(a);
+
+        if (this.stationSelectedPosition > 0) {
+            this.stationSpinner.setSelection(this.stationSelectedPosition);
+        }
     }
 
     @Override
@@ -210,17 +214,14 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         double i = 0.0;
         double unknownOrient;
 
-        this.stationSpinner.setEnabled(false);
         if (this.iEditText.length() > 0) {
             i = Double.parseDouble(this.iEditText.getText().toString());
-            this.iEditText.setEnabled(false);
         }
         if (this.unknownOrientEditText.length() == 0) {
             // Pop-up error
             return;
         } else {
             unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
-            this.unknownOrientEditText.setEnabled(false);
         }
 
         Measure m = new Measure(
