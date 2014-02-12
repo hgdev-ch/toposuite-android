@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
     <string name="abscissa">Abscissa</string>
     <string name="abscissa_3dots">Abscissa&#8230;</string>
     <string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string>
@@ -64,13 +63,17 @@
     <string name="home">Home</string>
     <string name="horiz_direction_3dots">Horizontal direction&#8230;</string>
     <string name="horiz_distance_3dots">Horizontal distance&#8230;</string>
+    <string name="i_label">I [m]</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="loose_history">All entries in the history will be lost</string>
     <string name="mean_error_label">Mean Error [cc]</string>
     <string name="measure_header_pt_nbr">Pt. Num.</string>
     <string name="measure_header_hz">Hz [g]</string>
     <string name="measure_header_hdist">Horiz. dist. [m]</string>
+    <string name="measure_header_s">S [m]</string>
     <string name="measure_header_zenithal">Vz [g]</string>
+    <string name="measure_header_lat_depl">Lat. Depl. [m]</string>
+    <string name="measure_header_lon_depl">Lon. Depl. [m]</string>
     <string name="measured_distance_hint">Meas. dist.</string>
     <string name="no">No</string>
     <string name="no_value">-</string>
@@ -122,5 +125,4 @@
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
     <string name="zenithal_angle_3dots">Zenithal angle&#8230;</string>
-
 </resources>

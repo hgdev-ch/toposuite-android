@@ -1,15 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="8dp"
-	    android:paddingTop="8dp" >
-        
+        android:paddingTop="8dp" >
+
         <TextView
             android:id="@+id/station_label"
             android:layout_width="0dip"
@@ -19,34 +19,71 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/station_label"
             android:textStyle="bold" />
-        
+
         <Spinner
-	            android:id="@+id/station_spinner"
-	            android:layout_width="145dp"
-	            android:layout_height="match_parent" />
+            android:id="@+id/station_spinner"
+            android:layout_width="145dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/unknown_orientation_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/unknown_orientation_label"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/unknown_orientation"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="left|center_vertical"
+            android:inputType=""
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/i_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/i_label"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/i"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="left|center_vertical"
+            android:inputType=""
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:textSize="12sp" />
     </LinearLayout>
-    
+
     <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        
-	        <TextView
-	            android:id="@+id/station_point"
-	            android:layout_width="0dip"
-	            android:layout_height="30dp"
-	            android:layout_gravity="center"
-	            android:layout_weight="0.86"
-	            android:gravity="center"
-	            android:text="" />
-	
-	    </LinearLayout>
-    
-   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp">
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/station_point"
+            android:layout_width="0dip"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.86"
+            android:gravity="center"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="match_parent"
@@ -83,6 +120,33 @@
             android:gravity="center_horizontal"
             android:text="@string/measure_header_zenithal"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/measure_header_s"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/measure_header_lat_depl"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/measure_header_lon_depl"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
     </LinearLayout>
 
     <ListView
@@ -91,4 +155,5 @@
         android:layout_height="wrap_content"
         android:layout_margin="1dp" >
     </ListView>
+
 </LinearLayout>
