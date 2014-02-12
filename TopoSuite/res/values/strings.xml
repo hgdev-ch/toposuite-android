@@ -108,6 +108,7 @@
     <string name="title_activity_history">History</string>
     <string name="title_activity_leve_ortho">Levé orthogonal</string>
     <string name="title_activity_leve_ortho_results">Levé orthogonal</string>
+    <string name="title_activity_leve_polaire">Levé polaire</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="unit_centimeter">[cm]</string>
