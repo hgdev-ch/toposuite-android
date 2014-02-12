@@ -26,6 +26,7 @@ public class CheminementOrthogonal extends Calculation {
     private double                                   fE;
     private double                                   fN;
     private double                                   fs;
+    private double                                   scale;
 
     public CheminementOrthogonal(Point origin, Point extremity, boolean hasDAO) {
         super(CalculationType.CHEMINORTHO, CheminementOrthogonal.CALCULATION_NAME, hasDAO);
@@ -139,10 +140,10 @@ public class CheminementOrthogonal extends Calculation {
         this.fN = deltaCalcNorth - deltaMeasNorth;
         this.fs = MathUtils.pythagoras(this.fE, this.fN);
 
-        double scale = this.orthogonalBase.getScaleFactor();
-        if (MathUtils.isZero(scale)) {
+        this.scale = this.orthogonalBase.getScaleFactor();
+        if (MathUtils.isZero(this.scale)) {
             // automatic scale factor determination
-            scale = MathUtils.euclideanDistance(this.orthogonalBase.getOrigin(),
+            this.scale = MathUtils.euclideanDistance(this.orthogonalBase.getOrigin(),
                     this.orthogonalBase.getExtemity()) / dist;
         }
 
@@ -154,7 +155,7 @@ public class CheminementOrthogonal extends Calculation {
             g = new Gisement(p1, p2, false);
             g.compute();
             gis = g.getGisement() + rot;
-            dist = MathUtils.euclideanDistance(p1, p2) * scale;
+            dist = MathUtils.euclideanDistance(p1, p2) * this.scale;
 
             CheminementOrthogonal.Result newR = new CheminementOrthogonal.Result(
                     r.getNumber(),
@@ -238,32 +239,40 @@ public class CheminementOrthogonal extends Calculation {
         return this.results;
     }
 
-    public void setResults(ArrayList<CheminementOrthogonal.Result> results) {
-        this.results = results;
+    public void setResults(ArrayList<CheminementOrthogonal.Result> _results) {
+        this.results = _results;
     }
 
     public double getfE() {
         return this.fE;
     }
 
-    public void setfE(double fE) {
-        this.fE = fE;
+    public void setfE(double _fE) {
+        this.fE = _fE;
     }
 
     public double getfN() {
         return this.fN;
     }
 
-    public void setfN(double fN) {
-        this.fN = fN;
+    public void setfN(double _fN) {
+        this.fN = _fN;
     }
 
     public double getFs() {
         return this.fs;
     }
 
-    public void setFs(double fs) {
-        this.fs = fs;
+    public void setFs(double _fs) {
+        this.fs = _fs;
+    }
+
+    public double getScale() {
+        return this.scale;
+    }
+
+    public void setScale(double _scale) {
+        this.scale = _scale;
     }
 
     /**

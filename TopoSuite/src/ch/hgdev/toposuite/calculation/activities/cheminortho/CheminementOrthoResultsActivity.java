@@ -8,9 +8,15 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
     private TextView                  baseTextView;
+    private TextView                  scaleTextView;
+    private TextView                  fsTextView;
+    private TextView                  fLatTextView;
+    private TextView                  fLonTextView;
+
     private ListView                  resultsListView;
 
     private ArrayListOfResultsAdapter adapter;
@@ -23,6 +29,11 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
         this.setContentView(R.layout.activity_cheminement_ortho_results);
 
         this.baseTextView = (TextView) this.findViewById(R.id.base);
+        this.scaleTextView = (TextView) this.findViewById(R.id.scale_factor);
+        this.fsTextView = (TextView) this.findViewById(R.id.fs);
+        this.fLatTextView = (TextView) this.findViewById(R.id.flat);
+        this.fLonTextView = (TextView) this.findViewById(R.id.flon);
+
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
@@ -40,6 +51,15 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
             builder.append(this.cheminOrtho.getOrthogonalBase().getExtemity());
 
             this.baseTextView.setText(builder.toString());
+            this.scaleTextView.setText(DisplayUtils.toString(
+                    this.cheminOrtho.getScale()));
+            this.fsTextView.setText(DisplayUtils.toString(
+                    this.cheminOrtho.getFs()));
+            this.fLonTextView.setText(DisplayUtils.toString(
+                    this.cheminOrtho.getfE()));
+            this.fLatTextView.setText(DisplayUtils.toString(
+                    this.cheminOrtho.getfN()));
+
             this.drawList();
         }
     }
