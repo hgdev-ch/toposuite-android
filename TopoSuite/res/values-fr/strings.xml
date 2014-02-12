@@ -67,6 +67,7 @@
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
     <string name="mean_error_label">Erreur Moy. [cc]</string>
+    <string name="measure_add">Ajouter une mesure</string>
     <string name="measure_header_pt_nbr">N&#176; pt</string>
     <string name="measure_header_hz">Hz [g]</string>
     <string name="measure_header_hdist">Dist. H. [m]</string>

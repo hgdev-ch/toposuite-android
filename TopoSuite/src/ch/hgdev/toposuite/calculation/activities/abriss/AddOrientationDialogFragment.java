@@ -77,7 +77,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.initAttributes();
         this.genAddOrientationView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(this.getActivity().getString(R.string.orientation_add))
+        builder.setTitle(this.getActivity().getString(R.string.measure_add))
                 .setView(this.layout)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
