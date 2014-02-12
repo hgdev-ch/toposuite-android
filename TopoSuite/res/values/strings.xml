@@ -32,6 +32,7 @@
     <string name="delete_all">Delete all</string>
     <string name="delete_all_history">Clear history</string>
     <string name="delete_all_points">Delete all points?</string>
+    <string name="determination_sight_3dots">Determination sight No&#8230;</string>
     <string name="determination_sight_label">Determination sight No</string>
     <string name="developed_by">Developed by</string>
     <string name="dialog_add_point">Add a point</string>
