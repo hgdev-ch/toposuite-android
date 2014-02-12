@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -31,13 +35,15 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener {
     private static final String   STATION_SELECTED_POSITION = "station_selected_position";
     private Spinner               stationSpinner;
-    private TextView              iTextView;
+    private EditText              iEditText;
     private TextView              stationPointTextView;
-    private TextView              unknownOrientTextView;
+    private EditText              unknownOrientEditText;
     private ListView              determinationsListView;
     private int                   stationSelectedPosition;
     private LevePolaire           levePolaire;
     private ArrayAdapter<Measure> adapter;
+
+    private Point                 station;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,21 +52,23 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
-        this.unknownOrientTextView = (TextView) this.findViewById(R.id.unknown_orientation);
-        this.iTextView = (TextView) this.findViewById(R.id.i);
+        this.unknownOrientEditText = (EditText) this.findViewById(R.id.unknown_orientation);
+        this.iEditText = (EditText) this.findViewById(R.id.i);
         this.determinationsListView = (ListView) this.findViewById(R.id.determinations_list);
+
+        this.iEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.unknownOrientEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LevePolaireActivity.this.stationSelectedPosition = pos;
 
-                Point pt = (Point) LevePolaireActivity.this.stationSpinner
+                LevePolaireActivity.this.station = (Point) LevePolaireActivity.this.stationSpinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (LevePolaireActivity.this.station.getNumber() > 0) {
                     LevePolaireActivity.this.stationPointTextView.setText(DisplayUtils
-                            .formatPoint(
-                                    LevePolaireActivity.this, pt));
+                            .formatPoint(LevePolaireActivity.this, LevePolaireActivity.this.station));
                 } else {
                     LevePolaireActivity.this.stationPointTextView.setText("");
                 }
@@ -131,7 +139,14 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
 
         switch (id) {
         case R.id.add_determination_button:
-            this.showAddDeterminationDialog();
+            if (this.checkInputs()) {
+                this.showAddDeterminationDialog();
+            } else {
+                Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
+            }
             return true;
         case R.id.run_calculation_button:
             return true;
@@ -155,10 +170,54 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         this.determinationsListView.setAdapter(this.adapter);
     }
 
+    /**
+     * Check that the I field, the unknown orientation field have been filled
+     * and that the station has been chosen.
+     * 
+     * @return True if inputs are OK, false otherwise.
+     */
+    private boolean checkInputs() {
+        if ((this.iEditText.length() == 0) || (this.unknownOrientEditText.length() == 0)
+                || (this.station.getNumber() < 1)) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void onDialogAdd(AddDeterminationDialogFragment dialog) {
-        // TODO complete
-        // this.adapter.add(new Measure());
+        double i = 0.0;
+        double unknownOrient;
+
+        this.stationSpinner.setEnabled(false);
+        if (this.iEditText.length() > 0) {
+            i = Double.parseDouble(this.iEditText.getText().toString());
+            this.iEditText.setEnabled(false);
+        }
+        if (this.unknownOrientEditText.length() == 0) {
+            // Pop-up error
+            return;
+        } else {
+            unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+            this.unknownOrientEditText.setEnabled(false);
+        }
+
+        Measure m = new Measure(
+                dialog.getDetermination(),
+                dialog.getHorizDir(),
+                dialog.getZenAngle(),
+                dialog.getHorizDist(),
+                dialog.getS(),
+                dialog.getLatDepl(),
+                dialog.getLonDepl(),
+                i,
+                unknownOrient);
+
+        if (this.levePolaire == null) {
+            this.levePolaire = new LevePolaire(this.station, true);
+        }
+        this.levePolaire.getDeterminations().add(m);
+        this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
     }
 
