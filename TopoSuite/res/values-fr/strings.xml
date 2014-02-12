@@ -47,6 +47,7 @@
         (Y COMPRIS LA NÉGLIGENCE OU AUTRE) PROVENANT DE TOUTE FORME DE L\'UTILISATION DE CE LOGICIEL,
         MÊME SI AVERTI DE LA POSSIBILITÉ DE TELS DOMMAGES.</string>
     <string name="distance_label">Distance (horiz.) [m]</string>
+    <string name="distance_3dots">Distance &#8230;</string>
     <string name="drawer_close">Ferme le menu de navigation</string>
     <string name="drawer_open">Ouvre le menu de navigation</string>
     <string name="east">Est</string>
