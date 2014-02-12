@@ -32,7 +32,7 @@ public class ArrayListOfDeterminationsAdapter extends ArrayAdapter<Measure> {
 
         Measure determination = this.determinations.get(position);
         if (determination != null) {
-            TextView numberTextView = (TextView) view.findViewById(R.id.point_number_item);
+            TextView numberTextView = (TextView) view.findViewById(R.id.measure_number_item);
             TextView horizOrientTextView = (TextView) view.findViewById(R.id.horiz_orient_item);
             TextView horizDistTextView = (TextView) view.findViewById(R.id.horiz_dist_item);
             TextView altitudeTextView = (TextView) view.findViewById(R.id.altitude_item);
@@ -41,8 +41,7 @@ public class ArrayListOfDeterminationsAdapter extends ArrayAdapter<Measure> {
             TextView lonDeplTextView = (TextView) view.findViewById(R.id.lon_depl_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(determination.getOrientation()
-                        .getNumber()));
+                numberTextView.setText(DisplayUtils.toString(determination.getMeasureNumber()));
             }
             if (horizOrientTextView != null) {
                 horizOrientTextView.setText(DisplayUtils.toString(determination.getHorizDir()));

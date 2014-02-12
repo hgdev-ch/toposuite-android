@@ -225,7 +225,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         }
 
         Measure m = new Measure(
-                dialog.getDetermination(),
+                new Point(0, 0.0, 0.0, 0.0, false),
                 dialog.getHorizDir(),
                 dialog.getZenAngle(),
                 dialog.getHorizDist(),
@@ -233,7 +233,8 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                 dialog.getLatDepl(),
                 dialog.getLonDepl(),
                 i,
-                unknownOrient);
+                unknownOrient,
+                dialog.getDeterminationNo());
 
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();

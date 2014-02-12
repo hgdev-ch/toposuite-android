@@ -1,30 +1,20 @@
 package ch.hgdev.toposuite.calculation.activities.levepolaire;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
-import ch.hgdev.toposuite.points.Point;
-import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class AddDeterminationDialogFragment extends DialogFragment {
     /**
@@ -54,7 +44,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     }
 
     AddDeterminationDialogListener listener;
-    private Point                  determination;
+    private int                    determinationNo;
     private double                 horizDir;
     private double                 horizDist;
     private double                 zenAngle;
@@ -63,8 +53,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     private double                 lonDepl;
 
     private LinearLayout           layout;
-    private Spinner                determinationSpinner;
-    private TextView               determinationView;
+    private EditText               determinationNoEditText;
     private EditText               horizDirEditText;
     private EditText               horizDistEditText;
     private EditText               zenAngleEditText;
@@ -127,6 +116,10 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                                         .parseDouble(AddDeterminationDialogFragment.this.lonDeplEditText
                                                 .getText().toString());
                             }
+
+                            AddDeterminationDialogFragment.this.determinationNo = Integer.parseInt(
+                                    AddDeterminationDialogFragment.this.determinationNoEditText
+                                            .getText().toString());
                             AddDeterminationDialogFragment.this.horizDir = Double
                                     .parseDouble(AddDeterminationDialogFragment.this.horizDirEditText
                                             .getText().toString());
@@ -169,36 +162,12 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     private void initAttributes() {
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
-        this.determinationView = new TextView(this.getActivity());
-        this.determinationView.setText("");
 
-        this.determinationSpinner = new Spinner(this.getActivity());
-        this.determinationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point point = (Point) AddDeterminationDialogFragment.this.determinationSpinner
-                        .getItemAtPosition(pos);
-                if (point.getNumber() > 0) {
-                    AddDeterminationDialogFragment.this.determinationView.setText(DisplayUtils
-                            .formatPoint(
-                                    AddDeterminationDialogFragment.this.getActivity(), point));
-                } else {
-                    AddDeterminationDialogFragment.this.determinationView.setText("");
-                }
-                AddDeterminationDialogFragment.this.itemSelected();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing
-            }
-        });
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
-        points.addAll(SharedResources.getSetOfPoints());
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this.getActivity(), R.layout.spinner_list_item, points);
-        this.determinationSpinner.setAdapter(a);
+        this.determinationNoEditText = new EditText(this.getActivity());
+        this.determinationNoEditText.setHint(
+                this.getActivity().getString(R.string.determination_sight_3dots));
+        this.determinationNoEditText.setInputType(InputType.TYPE_CLASS_NUMBER
+                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.horizDirEditText = new EditText(this.getActivity());
         this.horizDirEditText.setHint(
@@ -240,6 +209,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.lonDeplEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
+        this.determinationNo = 0;
         this.horizDir = 0.0;
         this.horizDist = 0.0;
         this.zenAngle = 100.0;
@@ -249,21 +219,10 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     }
 
     /**
-     * itemSelected is triggered when the selected item of one of the spinners
-     * is changed.
-     */
-    private void itemSelected() {
-        this.determination = (Point) this.determinationSpinner.getSelectedItem();
-        this.determinationView
-                .setText(DisplayUtils.formatPoint(this.getActivity(), this.determination));
-    }
-
-    /**
      * Create a view to get information from the user.
      */
     private void genAddDeterminationView() {
-        this.layout.addView(this.determinationSpinner);
-        this.layout.addView(this.determinationView);
+        this.layout.addView(this.determinationNoEditText);
         this.layout.addView(this.horizDirEditText);
         this.layout.addView(this.horizDistEditText);
         this.layout.addView(this.zenAngleEditText);
@@ -278,15 +237,15 @@ public class AddDeterminationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.determination.getNumber() < 1) || (this.horizDirEditText.length() == 0)
+        if ((this.determinationNoEditText.length() == 1) || (this.horizDirEditText.length() == 0)
                 || (this.horizDistEditText.length() == 0)) {
             return false;
         }
         return true;
     }
 
-    public Point getDetermination() {
-        return this.determination;
+    public int getDeterminationNo() {
+        return this.determinationNo;
     }
 
     public double getHorizDir() {

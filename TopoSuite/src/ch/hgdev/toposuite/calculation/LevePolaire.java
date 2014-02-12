@@ -76,7 +76,7 @@ public class LevePolaire extends Calculation {
             double altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle))
                     + m.getI()) - m.getS();
 
-            Result r = new Result(m.getOrientation(), east, north, altitude);
+            Result r = new Result(m.getMeasureNumber(), east, north, altitude);
             this.results.add(r);
         }
 
@@ -134,20 +134,20 @@ public class LevePolaire extends Calculation {
      * 
      */
     public class Result {
-        private final Point  determination;
+        private final int    determinationNumber;
         private final double east;
         private final double north;
         private final double altitude;
 
-        public Result(Point _determination, double _east, double _north, double _altitude) {
-            this.determination = _determination;
+        public Result(int _determinationNumber, double _east, double _north, double _altitude) {
+            this.determinationNumber = _determinationNumber;
             this.east = _east;
             this.north = _north;
             this.altitude = _altitude;
         }
 
-        public Point getDetermination() {
-            return this.determination;
+        public int getDeterminationNumber() {
+            return this.determinationNumber;
         }
 
         public double getEast() {

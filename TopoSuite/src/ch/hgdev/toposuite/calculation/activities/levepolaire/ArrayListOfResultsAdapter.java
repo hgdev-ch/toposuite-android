@@ -32,14 +32,14 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<LevePolaire.Result> 
         LevePolaire.Result result = this.results.get(position);
 
         if (result != null) {
-            TextView numberTextView = (TextView) view.findViewById(R.id.number_item);
+            TextView numberTextView = (TextView) view.findViewById(R.id.determination_number_item);
             TextView eastTextView = (TextView) view.findViewById(R.id.east_item);
             TextView northTextView = (TextView) view.findViewById(R.id.north_item);
             TextView altitudeTextView = (TextView) view.findViewById(R.id.altitude_item);
 
             if (numberTextView != null) {
                 numberTextView
-                        .setText(DisplayUtils.toString(result.getDetermination().getNumber()));
+                        .setText(DisplayUtils.toString(result.getDeterminationNumber()));
             }
             if (eastTextView != null) {
                 eastTextView.setText(DisplayUtils.toString(result.getEast()));

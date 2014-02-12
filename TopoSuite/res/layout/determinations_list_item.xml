@@ -5,7 +5,7 @@
     android:orientation="horizontal" >
 
     <TextView
-        android:id="@+id/point_number_item"
+        android:id="@+id/measure_number_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
