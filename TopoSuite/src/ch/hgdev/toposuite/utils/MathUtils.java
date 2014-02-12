@@ -125,7 +125,7 @@ public class MathUtils {
         double deltaY = p2.getEast() - p1.getEast();
         double deltaX = p2.getNorth() - p1.getNorth();
 
-        return Math.sqrt(Math.pow(deltaY, 2) + Math.pow(deltaX, 2));
+        return pythagoras(deltaY, deltaX);
     }
 
     /**
