@@ -127,4 +127,36 @@ public class MathUtils {
 
         return Math.sqrt(Math.pow(deltaY, 2) + Math.pow(deltaX, 2));
     }
+
+    /**
+     * Compute a "point lancé" for a east coordinate.
+     * 
+     * @param point
+     *            a point
+     * @param gisement
+     *            a gisement
+     * @param distance
+     *            a distance
+     * @return new east coordinate
+     */
+    public static double pointLanceEast(Point point, double gisement, double distance) {
+        return point.getEast() + distance + Math.sin(
+                MathUtils.gradToRad(MathUtils.modulo400(gisement)));
+    }
+
+    /**
+     * Compute a "point lancé" for a north coordinate.
+     * 
+     * @param point
+     *            a point
+     * @param gisement
+     *            a gisement
+     * @param distance
+     *            a distance
+     * @return new north coordinate
+     */
+    public static double pointLanceNorth(Point point, double gisement, double distance) {
+        return point.getNorth() + distance + Math.cos(
+                MathUtils.gradToRad(MathUtils.modulo400(gisement)));
+    }
 }
