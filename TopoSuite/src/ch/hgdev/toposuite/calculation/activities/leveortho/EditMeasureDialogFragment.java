@@ -150,6 +150,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
 
         this.numberEditText = new EditText(this.getActivity());
         this.numberEditText.setText(DisplayUtils.toString(this.number));
+        this.numberEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.abscissaEditText = new EditText(this.getActivity());
         this.abscissaEditText.setText(DisplayUtils.toString(this.abscissa));
