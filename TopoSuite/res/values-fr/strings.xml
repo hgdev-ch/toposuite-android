@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    
     <string name="abscissa">Abscisse</string>
     <string name="abscissa_3dots">Abscisse&#8230;</string>
     <string name="about_title">À propos <xliff:g id="app_name">%s</xliff:g></string>
@@ -118,6 +119,7 @@
     <string name="title_activity_leve_ortho">Levé orthogonal</string>
     <string name="title_activity_leve_ortho_results">Levé orthogonal</string>
     <string name="title_activity_leve_polaire">Levé polaire</string>
+    <string name="title_activity_leve_polaire_results">Levé polaire</string>
     <string name="title_activity_points_manager">Gestion des points</string>
     <string name="toggle_right_menu_button">Calculs</string>
     <string name="unit_centimeter">[cm]</string>
@@ -131,4 +133,6 @@
     <string name="with_support_from">Avec le soutien de</string>
     <string name="yes">Oui</string>
     <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>
+    
 </resources>
+
