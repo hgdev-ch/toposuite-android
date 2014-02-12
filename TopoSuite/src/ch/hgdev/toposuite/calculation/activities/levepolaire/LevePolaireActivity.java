@@ -3,6 +3,9 @@ package ch.hgdev.toposuite.calculation.activities.levepolaire;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -17,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.LevePolaireResultsActivity;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -33,7 +37,11 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  */
 public class LevePolaireActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener {
-    private static final String   STATION_SELECTED_POSITION = "station_selected_position";
+    public static final String    CALCULATION_POSITION_LABEL = "calculation_position";
+    public static final String    STATION_NUMBER_LABEL       = "station_number";
+    public static final String    DETERMINATIONS_LABEL       = "determinations";
+
+    private static final String   STATION_SELECTED_POSITION  = "station_selected_position";
     private Spinner               stationSpinner;
     private EditText              iEditText;
     private TextView              stationPointTextView;
@@ -136,7 +144,6 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
         case R.id.add_determination_button:
             if (this.checkInputs()) {
@@ -149,6 +156,14 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
             }
             return true;
         case R.id.run_calculation_button:
+            if (this.checkInputs()) {
+                this.showLevePolaireResultActivity();
+            } else {
+                Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
+            }
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -182,6 +197,28 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
             return false;
         }
         return true;
+    }
+
+    /**
+     * Perform actions required when the calculation button is clicked.
+     */
+    private void showLevePolaireResultActivity() {
+        int position = SharedResources.getCalculationsHistory().indexOf(this.levePolaire);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(LevePolaireActivity.CALCULATION_POSITION_LABEL, position);
+        bundle.putInt(LevePolaireActivity.STATION_NUMBER_LABEL, this.station.getNumber());
+
+        JSONArray json = new JSONArray();
+        for (int i = 0; i < this.adapter.getCount(); i++) {
+            json.put(this.adapter.getItem(i).toJSONObject());
+        }
+
+        bundle.putString(LevePolaireActivity.DETERMINATIONS_LABEL, json.toString());
+
+        Intent resultsActivityIntent = new Intent(this, LevePolaireResultsActivity.class);
+        resultsActivityIntent.putExtras(bundle);
+        this.startActivity(resultsActivityIntent);
     }
 
     @Override
