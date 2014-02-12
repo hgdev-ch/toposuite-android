@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -26,7 +27,8 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * @author HGdev
  * 
  */
-public class LevePolaireActivity extends TopoSuiteActivity {
+public class LevePolaireActivity extends TopoSuiteActivity implements
+        AddDeterminationDialogFragment.AddDeterminationDialogListener {
     private static final String   STATION_SELECTED_POSITION = "station_selected_position";
     private Spinner               stationSpinner;
     private TextView              iTextView;
@@ -123,10 +125,45 @@ public class LevePolaireActivity extends TopoSuiteActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+        case R.id.add_determination_button:
+            this.showAddDeterminationDialog();
+            return true;
+        case R.id.run_calculation_button:
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Display a dialog to allow the user to insert a new determination.
+     */
+    private void showAddDeterminationDialog() {
+        AddDeterminationDialogFragment dialog = new AddDeterminationDialogFragment();
+        dialog.show(this.getFragmentManager(), "AddDeterminationDialogFragment");
+    }
+
     /**
      * Draw the main table containing all the determinations.
      */
     private void drawList() {
         this.determinationsListView.setAdapter(this.adapter);
+    }
+
+    @Override
+    public void onDialogAdd(AddDeterminationDialogFragment dialog) {
+        // TODO complete
+        // this.adapter.add(new Measure());
+        this.adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDialogCancel(AddDeterminationDialogFragment dialog) {
+        // do nothing actually
     }
 }
