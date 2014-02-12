@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -26,7 +27,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * 
  */
 public class LevePolaireActivity extends TopoSuiteActivity {
-
+    private static final String   STATION_SELECTED_POSITION = "station_selected_position";
     private Spinner               stationSpinner;
     private TextView              iTextView;
     private TextView              stationPointTextView;
@@ -95,6 +96,30 @@ public class LevePolaireActivity extends TopoSuiteActivity {
                 this.stationSpinner.setSelection(
                         this.stationSelectedPosition);
             }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.levepolaire, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(LevePolaireActivity.STATION_SELECTED_POSITION,
+                this.stationSelectedPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            this.stationSelectedPosition = savedInstanceState.getInt(
+                    LevePolaireActivity.STATION_SELECTED_POSITION);
         }
     }
 
