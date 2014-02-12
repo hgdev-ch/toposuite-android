@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
     <string name="abscissa">Abscissa</string>
     <string name="abscissa_3dots">Abscissa&#8230;</string>
     <string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string>
@@ -110,6 +111,7 @@
     <string name="target_point">Target Point</string>
     <string name="title_activity_abriss">Abriss</string>
     <string name="title_activity_abriss_results">Abriss - Results</string>
+    <string name="title_activity_cheminement_ortho">Cheminement orthogonal</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">History</string>
     <string name="title_activity_leve_ortho">Levé orthogonal</string>

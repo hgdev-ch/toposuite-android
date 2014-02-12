@@ -55,6 +55,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoResultsActivity"
             android:label="@string/title_activity_leve_ortho_results" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity"
+            android:label="@string/title_activity_cheminement_ortho" >
+        </activity>
     </application>
 
 </manifest>
