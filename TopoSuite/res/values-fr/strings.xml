@@ -63,13 +63,17 @@
     <string name="home">Accueil</string>
     <string name="horiz_direction_3dots">Direction horizontale&#8230;</string>
     <string name="horiz_distance_3dots">Distance horizontale&#8230;</string>
+    <string name="i_label">I [m]</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
     <string name="mean_error_label">Erreur Moy. [cc]</string>
     <string name="measure_header_pt_nbr">N&#176; pt</string>
     <string name="measure_header_hz">Hz [g]</string>
     <string name="measure_header_hdist">Dist. H. [m]</string>
+    <string name="measure_header_s">S [m]</string>
     <string name="measure_header_zenithal">Vz [g]</string>
+    <string name="measure_header_lat_depl">Depl. Lat. [m]</string>
+    <string name="measure_header_lon_depl">Depl. Lon. [m]</string>
     <string name="measured_distance_hint">Dist. Mes.</string>
     <string name="no">Non</string>
     <string name="no_value">-</string>
