@@ -9,5 +9,6 @@ public enum CalculationType {
     GISEMENT,
     ABRISS,
     LEVEPOLAIRE,
-    LEVEORTHO
+    LEVEORTHO,
+    CHEMINORTHO
 }
