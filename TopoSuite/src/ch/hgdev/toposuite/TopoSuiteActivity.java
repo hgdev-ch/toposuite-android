@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
+import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
@@ -82,7 +83,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                         new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
                                 LeveOrthoActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_leve_polaire),
-                                LevePolaireActivity.class)
+                                LevePolaireActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_cheminement_ortho),
+                                CheminementOrthoActivity.class)
                 }));
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -41,6 +42,18 @@ public class CheminementOrthogonal extends Calculation {
     public CheminementOrthogonal(long id, Date lastModification) {
         super(id, CalculationType.CHEMINORTHO, CheminementOrthogonal.CALCULATION_NAME,
                 lastModification, true);
+    }
+
+    public CheminementOrthogonal(boolean hasDAO) {
+        super(CalculationType.LEVEORTHO, CheminementOrthogonal.CALCULATION_NAME, hasDAO);
+
+        this.orthogonalBase = new OrthogonalBase();
+        this.measures = new ArrayList<CheminementOrthogonal.Measure>();
+        this.results = new ArrayList<CheminementOrthogonal.Result>();
+
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
     }
 
     public void compute() {
@@ -199,8 +212,7 @@ public class CheminementOrthogonal extends Calculation {
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Auto-generated method stub
-        return null;
+        return CheminementOrthoActivity.class;
     }
 
     public OrthogonalBase getOrthogonalBase() {
