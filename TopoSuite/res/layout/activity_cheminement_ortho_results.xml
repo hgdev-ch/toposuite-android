@@ -25,6 +25,73 @@
             android:paddingLeft="@dimen/activity_horizontal_margin" />
 
    </LinearLayout>
+   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/scale_factor_label" />
+        
+        <TextView
+            android:id="@+id/scale_factor"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.41"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/fs_label" />
+        
+        <TextView
+            android:id="@+id/fs"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.41"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/flon_label" />
+        
+        <TextView
+            android:id="@+id/flon"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.41"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/flat_label" />
+        
+        <TextView
+            android:id="@+id/flat"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.41"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin" />
+   </LinearLayout>
     
    <LinearLayout
         android:layout_width="match_parent"
