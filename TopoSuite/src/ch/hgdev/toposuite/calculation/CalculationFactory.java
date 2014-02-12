@@ -53,6 +53,8 @@ public class CalculationFactory {
         case LEVEORTHO:
             calculation = new LeveOrthogonal(id, lastModification);
             break;
+        case CHEMINORTHO:
+            calculation = new CheminementOrthogonal(id, lastModification);
         default:
             Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR,
                     CalculationFactory.CALCULATION_NOT_FOUND);

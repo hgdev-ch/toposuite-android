@@ -3,14 +3,20 @@ package ch.hgdev.toposuite.calculation;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CheminementOrthogonal extends Calculation {
     private static final String                      CALCULATION_NAME = "Cheminement orthogonal";
+    public static final String                       ORTHOGONAL_BASE  = "orthogonal_base";
+    public static final String                       MEASURES         = "measures";
 
     private OrthogonalBase                           orthogonalBase;
     private ArrayList<CheminementOrthogonal.Measure> measures;
@@ -154,14 +160,41 @@ public class CheminementOrthogonal extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Auto-generated method stub
-        return null;
+        JSONObject json = new JSONObject();
+
+        if (this.orthogonalBase != null) {
+            json.put(CheminementOrthogonal.ORTHOGONAL_BASE,
+                    this.orthogonalBase.toJSONObject());
+        }
+
+        if (this.measures.size() > 0) {
+            JSONArray measuresArray = new JSONArray();
+            for (CheminementOrthogonal.Measure m : this.measures) {
+                measuresArray.put(m.toJSONObject());
+            }
+
+            json.put(CheminementOrthogonal.MEASURES, measuresArray);
+        }
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Auto-generated method stub
+        JSONObject json = new JSONObject(jsonInputArgs);
 
+        OrthogonalBase ob = OrthogonalBase.getOrthogonalBaseFromJSON(
+                ((JSONObject) json.get(CheminementOrthogonal.ORTHOGONAL_BASE)).toString());
+        this.orthogonalBase = ob;
+
+        JSONArray measuresArray = json.getJSONArray(CheminementOrthogonal.MEASURES);
+
+        for (int i = 0; i < measuresArray.length(); i++) {
+            JSONObject jo = (JSONObject) measuresArray.get(i);
+            CheminementOrthogonal.Measure m = CheminementOrthogonal.Measure.getMeasureFromJSON(
+                    jo.toString());
+            this.measures.add(m);
+        }
     }
 
     @Override
@@ -289,12 +322,45 @@ public class CheminementOrthogonal extends Calculation {
      * @author HGdev
      */
     public static class Measure {
-        private int    number;
-        private double distance;
+        public static final String NUMBER   = "number";
+        public static final String DISTANCE = "distance";
+
+        private int                number;
+        private double             distance;
 
         public Measure(int _number, double _distance) {
             this.number = _number;
             this.distance = _distance;
+        }
+
+        public JSONObject toJSONObject() {
+            JSONObject jo = new JSONObject();
+
+            try {
+                jo.put(Measure.NUMBER, this.number);
+                jo.put(Measure.DISTANCE, this.distance);
+            } catch (JSONException e) {
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            }
+
+            return jo;
+        }
+
+        public static Measure getMeasureFromJSON(String json) {
+            Measure m = null;
+
+            try {
+                JSONObject jo = new JSONObject(json);
+
+                int number = jo.getInt(Measure.NUMBER);
+                double distance = jo.getDouble(Measure.DISTANCE);
+
+                m = new Measure(number, distance);
+            } catch (JSONException e) {
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            }
+
+            return m;
         }
 
         public int getNumber() {
