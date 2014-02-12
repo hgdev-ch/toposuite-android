@@ -61,6 +61,24 @@ public class Point implements DAOUpdater {
         this.registerDAO(PointsDataSource.getInstance());
     }
 
+    /**
+     * See {@link Point#Point(int, double, double, double, boolean)}.
+     */
+    public Point(int number, double east, double north, double altitude, boolean basePoint,
+            boolean hasDAO) {
+        this.number = number;
+        this.east = east;
+        this.north = north;
+        this.altitude = altitude;
+        this.basePoint = basePoint;
+
+        this.daoList = new ArrayList<DAO>();
+
+        if (hasDAO) {
+            this.registerDAO(PointsDataSource.getInstance());
+        }
+    }
+
     public int getNumber() {
         return this.number;
     }
