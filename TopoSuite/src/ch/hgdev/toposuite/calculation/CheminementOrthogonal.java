@@ -42,6 +42,9 @@ public class CheminementOrthogonal extends Calculation {
     public CheminementOrthogonal(long id, Date lastModification) {
         super(id, CalculationType.CHEMINORTHO, CheminementOrthogonal.CALCULATION_NAME,
                 lastModification, true);
+        this.orthogonalBase = new OrthogonalBase();
+        this.measures = new ArrayList<CheminementOrthogonal.Measure>();
+        this.results = new ArrayList<CheminementOrthogonal.Result>();
     }
 
     public CheminementOrthogonal(boolean hasDAO) {
