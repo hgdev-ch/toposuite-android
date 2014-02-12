@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.calculation.activities.levepolaire;
 
+import android.os.Bundle;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 
 /**
@@ -10,7 +12,9 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
  */
 public class LevePolaireActivity extends TopoSuiteActivity {
 
-    public LevePolaireActivity() {
-        // TODO implement
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.activity_levepolaire);
     }
 }
