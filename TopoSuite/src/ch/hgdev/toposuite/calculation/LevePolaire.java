@@ -52,6 +52,10 @@ public class LevePolaire extends Calculation {
         this.station = _station;
     }
 
+    /**
+     * Compute a new point for each determination and put it in the array of
+     * results.
+     */
     public void compute() {
         if (this.determinations.size() == 0) {
             return;
@@ -118,6 +122,13 @@ public class LevePolaire extends Calculation {
         return this.results;
     }
 
+    /**
+     * Class to store the results of the leve polaire calculation on each
+     * determination.
+     * 
+     * @author HGdev
+     * 
+     */
     public class Result {
         private final Point  determination;
         private final double east;
