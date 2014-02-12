@@ -19,6 +19,7 @@ public class Measure {
     public static final String  LAT_DEPL               = "lat_depl";
     public static final String  LON_DEPL               = "lon_depl";
     public static final String  UNKNOWN_ORIENTATION    = "unknown_orientation";
+    public static final String  MEASURE_NUMBER         = "measure_number";
 
     private static final String JSON_SERIALIZE_ERROR   = "Unable to serialize Measure!";
     private static final String JSON_UNSERIALIZE_ERROR = "Unable to unserialize Measure!";
@@ -61,8 +62,14 @@ public class Measure {
      */
     private double              unknownOrientation;
 
+    /**
+     * Determine a number for the measure.
+     */
+    private int                 measureNumber;
+
     public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
-            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation) {
+            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
+            int _measureNumber) {
         this.orientation = _orientation;
         this.horizDir = _horizDir;
         this.zenAngle = _zenAngle;
@@ -72,6 +79,13 @@ public class Measure {
         this.lonDepl = _lonDepl;
         this.i = _i;
         this.unknownOrientation = _unknownOrientation;
+        this.measureNumber = _measureNumber;
+    }
+
+    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation) {
+        this(_orientation, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
+                _unknownOrientation, 0);
     }
 
     public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
@@ -182,6 +196,14 @@ public class Measure {
         this.unknownOrientation = _unknownOrientation;
     }
 
+    public int getMeasureNumber() {
+        return this.measureNumber;
+    }
+
+    public void setMeasureNumber(int measureNumber) {
+        this.measureNumber = measureNumber;
+    }
+
     public JSONObject toJSONObject() {
         JSONObject json = new JSONObject();
 
@@ -195,6 +217,7 @@ public class Measure {
             json.put(Measure.LON_DEPL, this.lonDepl);
             json.put(Measure.I, this.i);
             json.put(Measure.UNKNOWN_ORIENTATION, this.unknownOrientation);
+            json.put(Measure.MEASURE_NUMBER, this.measureNumber);
 
         } catch (JSONException e) {
             Log.e(Logger.TOPOSUITE_PARSE_ERROR, Measure.JSON_SERIALIZE_ERROR);
@@ -214,6 +237,7 @@ public class Measure {
         bundle.putDouble(Measure.LON_DEPL, this.lonDepl);
         bundle.putDouble(Measure.I, this.i);
         bundle.putDouble(Measure.UNKNOWN_ORIENTATION, this.unknownOrientation);
+        bundle.putInt(Measure.MEASURE_NUMBER, this.measureNumber);
         return bundle;
     }
 
@@ -231,7 +255,8 @@ public class Measure {
                     json.getDouble(Measure.LAT_DEPL),
                     json.getDouble(Measure.LON_DEPL),
                     json.getDouble(Measure.I),
-                    json.getDouble(Measure.UNKNOWN_ORIENTATION));
+                    json.getDouble(Measure.UNKNOWN_ORIENTATION),
+                    json.getInt(Measure.MEASURE_NUMBER));
         } catch (JSONException e) {
             Log.e(Logger.TOPOSUITE_PARSE_ERROR, Measure.JSON_UNSERIALIZE_ERROR);
         }
