@@ -11,13 +11,14 @@
 	    android:paddingTop="8dp" >
         
         <TextView
-	            android:id="@+id/station_label"
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.86"
-	            android:gravity="left|center_vertical"
-	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:text="@string/station_label" />
+            android:id="@+id/station_label"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/station_label"
+            android:textStyle="bold" />
         
         <Spinner
 	            android:id="@+id/station_spinner"

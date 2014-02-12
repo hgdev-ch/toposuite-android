@@ -16,7 +16,8 @@
             android:layout_weight="0.37"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/station_label" />
+            android:text="@string/station_label"
+            android:textStyle="bold" />
         
         <TextView
             android:id="@+id/station_number"

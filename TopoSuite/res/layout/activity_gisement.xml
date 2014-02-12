@@ -20,7 +20,8 @@
 	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:text="@string/origin_label" />
+	            android:text="@string/origin_label"
+	            android:textStyle="bold" />
 	
 	        <Spinner
 	            android:id="@+id/origin_spinner"
@@ -58,7 +59,8 @@
 	            android:layout_weight="0.94"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:text="@string/orientation_label" />
+	            android:text="@string/orientation_label"
+	            android:textStyle="bold" />
 	
 	        <Spinner
 	            android:id="@+id/orientation_spinner"
@@ -95,7 +97,8 @@
 	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:text="@string/gisement_label" />
+	            android:text="@string/gisement_label"
+	            android:textStyle="bold" />
 	        
 	        <TextView
 	            android:id="@+id/gisement_value"
@@ -120,7 +123,8 @@
 	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:text="@string/distance_label" />
+	            android:text="@string/distance_label"
+	            android:textStyle="bold" />
 	        
 	        <TextView
 	            android:id="@+id/distance_value"
@@ -145,7 +149,8 @@
 	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:text="@string/altitude_label" />
+	            android:text="@string/altitude_label"
+	            android:textStyle="bold" />
 	        
 	        <TextView
 	            android:id="@+id/altitude_value"
@@ -170,7 +175,8 @@
 	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:text="@string/slope_label" />
+	            android:text="@string/slope_label"
+	            android:textStyle="bold" />
 	        
 	        <TextView
 	            android:id="@+id/slope_value"
