@@ -68,6 +68,7 @@
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
     <string name="mean_error_label">Erreur Moy. [cc]</string>
     <string name="measure_add">Ajouter une mesure</string>
+    <string name="measure_edit">Éditer une mesure</string>
     <string name="measure_header_pt_nbr">N&#176; pt</string>
     <string name="measure_header_hz">Hz [g]</string>
     <string name="measure_header_hdist">Dist. H. [m]</string>
@@ -84,8 +85,6 @@
     <string name="optional_prths">(optionnel)</string>
     <string name="ordinate">Ordonnées</string>
     <string name="ordinate_3dots">Ordonnée&#8230;</string>
-    <string name="orientation_add">Ajouter une orientation</string>
-    <string name="orientation_edit">Éditer une orientation</string>
     <string name="orientation_label">Second point (orient.)</string>
     <string name="oriented_direction">Dir. Orient.</string>
     <string name="oriented_direction_label">Dir. Orient. [g]</string>

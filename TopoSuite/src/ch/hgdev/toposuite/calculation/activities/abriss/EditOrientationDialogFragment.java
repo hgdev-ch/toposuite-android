@@ -90,7 +90,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.initAttributes();
         this.genAddOrientationView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(this.getActivity().getString(R.string.orientation_edit))
+        builder.setTitle(this.getActivity().getString(R.string.measure_edit))
                 .setView(this.layout)
                 .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
