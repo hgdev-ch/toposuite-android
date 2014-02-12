@@ -112,6 +112,7 @@
     <string name="title_activity_abriss">Orient. à la station</string>
     <string name="title_activity_abriss_results">Abriss - Résultats</string>
     <string name="title_activity_cheminement_ortho">Cheminement orthogonal</string>
+    <string name="title_activity_cheminement_ortho_results">Cheminement orthogonal - Resultats</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">Historique</string>
     <string name="title_activity_leve_ortho">Levé orthogonal</string>
