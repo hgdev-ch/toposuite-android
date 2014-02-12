@@ -67,6 +67,7 @@
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="loose_history">All entries in the history will be lost</string>
     <string name="mean_error_label">Mean Error [cc]</string>
+    <string name="measure_add">Add a measure</string>
     <string name="measure_header_pt_nbr">Pt. Num.</string>
     <string name="measure_header_hz">Hz [g]</string>
     <string name="measure_header_hdist">Horiz. dist. [m]</string>
