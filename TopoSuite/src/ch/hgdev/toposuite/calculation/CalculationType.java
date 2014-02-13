@@ -10,5 +10,6 @@ public enum CalculationType {
     ABRISS,
     LEVEPOLAIRE,
     LEVEORTHO,
-    CHEMINORTHO
+    CHEMINORTHO,
+    PROJPT
 }
