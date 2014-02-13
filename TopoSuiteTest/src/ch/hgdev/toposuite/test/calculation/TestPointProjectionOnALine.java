@@ -37,7 +37,7 @@ public class TestPointProjectionOnALine extends TestCase {
         Assert.assertEquals("88.862", df.format(pp.getProjPt().getNorth()));
         Assert.assertEquals("55.97", df.format(pp.getDistPtToLine()));
         Assert.assertEquals("74.159", df.format(pp.getDistPtToP1()));
-        //Assert.assertEquals("25.841", df.format(pp.getDistPtToP2()));
+        Assert.assertEquals("54.159", df.format(pp.getDistPtToP2()));
 
         dist = 0.0;
         pp = new PointProjectionOnALine(42, p1, p2, ptToProj, dist, false);
