@@ -76,16 +76,18 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         this.drawerListRightMenu.setAdapter(new ArrayAdapter<ActivityItem>(this,
                 R.layout.drawer_list_item,
                 new ActivityItem[] {
-                        new ActivityItem(this.getString(R.string.title_activity_gisement),
-                                GisementActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_abriss),
                                 AbrissActivity.class),
-                        new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
-                                LeveOrthoActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_leve_polaire),
                                 LevePolaireActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
+                                LeveOrthoActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_cheminement_ortho),
-                                CheminementOrthoActivity.class)
+                                CheminementOrthoActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_gisement),
+                                GisementActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_point_projection),
+                                PointProjectionActivity.class)
                 }));
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(
