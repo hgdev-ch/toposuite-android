@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -135,6 +136,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                     LevePolaireActivity.this.unknownOrientTextView
                             .setText(DisplayUtils
                                     .toString(LevePolaireActivity.this.unknownOrientation.getZ0()));
+                    LevePolaireActivity.this.unknownOrientEditText.setText("");
                 } else {
                     LevePolaireActivity.this.unknownOrientTextView
                             .setText("");
@@ -144,6 +146,13 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // actually nothing
+            }
+        });
+        this.unknownOrientEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                LevePolaireActivity.this.unknownOrientSpinner.setSelection(0);
+                return true;
             }
         });
 
@@ -191,8 +200,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
             a.compute();
             for (Result m : a.getResults()) {
                 unknownOrientationList.add(new UnknownOrientationItem(a.getStation(), m
-                        .getOrientation()
-                        .getNumber(), m.getUnknownOrientation()));
+                        .getOrientation().getNumber(), m.getUnknownOrientation()));
             }
         }
         ArrayAdapter<UnknownOrientationItem> aauoi = new ArrayAdapter<LevePolaireActivity.UnknownOrientationItem>(
@@ -356,8 +364,11 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
      * @return True if inputs are OK, false otherwise.
      */
     private boolean checkInputs() {
-        if ((this.iEditText.length() == 0) || (this.unknownOrientEditText.length() == 0)
-                || (this.station == null) || (this.station.getNumber() < 1)) {
+        if ((this.iEditText.length() == 0) || (this.station == null)
+                || (this.station.getNumber() < 1)) {
+            return false;
+        }
+        if ((this.unknownOrientEditText.length() == 0) && (this.unknownOrientSelectedPosition < 1)) {
             return false;
         }
         return true;
