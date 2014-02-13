@@ -51,13 +51,45 @@
 
         <EditText
             android:id="@+id/unknown_orientation"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
             android:gravity="right|center_vertical"
             android:inputType=""
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/or"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/unknown_orientation_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="right|center_vertical" />
+
+        <TextView
+            android:id="@+id/unknown_orientation_spinner_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.86"
+            android:gravity="center"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp" >
 
         <TextView
             android:layout_width="wrap_content"
