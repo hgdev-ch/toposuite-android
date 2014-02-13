@@ -42,10 +42,19 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * 
  */
 public class LevePolaireActivity extends TopoSuiteActivity implements
-        AddDeterminationDialogFragment.AddDeterminationDialogListener {
+        AddDeterminationDialogFragment.AddDeterminationDialogListener,
+        EditDeterminationDialogFragment.EditDeterminationDialogListener {
 
     public static final String    STATION_NUMBER_LABEL      = "station_number";
     public static final String    DETERMINATIONS_LABEL      = "determinations";
+
+    public static final String    DETERMINATION_NUMBER      = "determination_number";
+    public static final String    HORIZ_DIR                 = "horizontal_direction";
+    public static final String    DISTANCE                  = "distance";
+    public static final String    ZEN_ANGLE                 = "zenithal_angle";
+    public static final String    S                         = "s";
+    public static final String    LAT_DEPL                  = "lateral_displacement";
+    public static final String    LON_DEPL                  = "longitudinal displacement";
 
     private static final String   STATION_SELECTED_POSITION = "station_selected_position";
     private Spinner               stationSpinner;
@@ -233,8 +242,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
 
         switch (item.getItemId()) {
         case R.id.edit_measure:
-            // TODO
-            // this.showEditMeasureDialog(info.position);
+            this.showEditDeterminationDialog(info.position);
             return true;
         case R.id.delete_measure:
             this.adapter.remove(this.adapter.getItem(info.position));
@@ -251,6 +259,29 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
     private void showAddDeterminationDialog() {
         AddDeterminationDialogFragment dialog = new AddDeterminationDialogFragment();
         dialog.show(this.getFragmentManager(), "AddDeterminationDialogFragment");
+    }
+
+    /**
+     * 
+     * @param position
+     *            Position of the determination measure to edit.
+     */
+    private void showEditDeterminationDialog(int position) {
+        EditDeterminationDialogFragment dialog = new EditDeterminationDialogFragment();
+
+        this.position = position;
+        Measure d = this.adapter.getItem(position);
+        Bundle args = new Bundle();
+        args.putInt(DETERMINATION_NUMBER, d.getMeasureNumber());
+        args.putDouble(HORIZ_DIR, d.getHorizDir());
+        args.putDouble(DISTANCE, d.getDistance());
+        args.putDouble(ZEN_ANGLE, d.getZenAngle());
+        args.putDouble(S, d.getS());
+        args.putDouble(LAT_DEPL, d.getLatDepl());
+        args.putDouble(LON_DEPL, d.getLonDepl());
+
+        dialog.setArguments(args);
+        dialog.show(this.getFragmentManager(), "EditDeterminationDialogFragment");
     }
 
     /**
@@ -326,6 +357,43 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(AddDeterminationDialogFragment dialog) {
+        // do nothing actually
+    }
+
+    @Override
+    public void onDialogEdit(EditDeterminationDialogFragment dialog) {
+        double i = 0.0;
+        double unknownOrient;
+
+        if (this.iEditText.length() > 0) {
+            i = Double.parseDouble(this.iEditText.getText().toString());
+        }
+        if (this.unknownOrientEditText.length() == 0) {
+            // Pop-up error
+            return;
+        } else {
+            unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+        }
+        this.adapter.remove(this.adapter.getItem(this.position));
+        Measure m = new Measure(
+                null,
+                dialog.getHorizDir(),
+                dialog.getZenAngle(),
+                dialog.getDistance(),
+                dialog.getS(),
+                dialog.getLatDepl(),
+                dialog.getLonDepl(),
+                i,
+                unknownOrient,
+                dialog.getDeterminationNo());
+
+        this.position = -1;
+        this.adapter.add(m);
+        this.adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDialogCancel(EditDeterminationDialogFragment dialog) {
         // do nothing actually
     }
 }
