@@ -107,15 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:gravity="center_horizontal"
-            android:text="@string/abscissa"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
-        <TextView
-            android:layout_width="176dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:gravity="center_horizontal"
-            android:text="@string/ordinate"
+            android:text="@string/distance_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
     </LinearLayout>
 
