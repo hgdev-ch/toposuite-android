@@ -237,7 +237,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.determinationNoEditText.length() == 1) || (this.horizDirEditText.length() == 0)
+        if ((this.determinationNoEditText.length() == 0) || (this.horizDirEditText.length() == 0)
                 || (this.horizDistEditText.length() == 0)) {
             return false;
         }

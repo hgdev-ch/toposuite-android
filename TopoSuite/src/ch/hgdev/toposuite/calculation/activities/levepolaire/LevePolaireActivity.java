@@ -23,7 +23,9 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.LevePolaire;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
@@ -49,11 +51,20 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
     private ArrayAdapter<Measure> adapter;
 
     private Point                 station;
+    private LevePolaire           levePolaire;
+
+    /**
+     * Position of the calculation in the calculations list. Only used when open
+     * from the history.
+     */
+    private int                   position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_levepolaire);
+
+        this.position = -1;
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
@@ -86,6 +97,16 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         });
         ArrayList<Measure> list = new ArrayList<Measure>();
 
+        // check if we create a new leve polaire calculation or if we modify an
+        // existing one.
+        Bundle bundle = this.getIntent().getExtras();
+        if ((bundle != null)) {
+            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.levePolaire = (LevePolaire) SharedResources.getCalculationsHistory().get(
+                    this.position);
+            list = this.levePolaire.getDeterminations();
+        }
+
         this.adapter = new ArrayListOfDeterminationsAdapter(this,
                 R.layout.determinations_list_item, list);
         this.drawList();
@@ -103,8 +124,18 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                 this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(a);
 
-        if (this.stationSelectedPosition > 0) {
-            this.stationSpinner.setSelection(this.stationSelectedPosition);
+        if (this.levePolaire != null) {
+            this.stationSpinner.setSelection(
+                    a.getPosition(this.levePolaire.getStation()));
+            Measure m = this.levePolaire.getDeterminations().get(0);
+
+            this.iEditText.setText(DisplayUtils.toString(m.getI()));
+            this.unknownOrientEditText.setText(DisplayUtils.toString(m.getUnknownOrientation()));
+        } else {
+            if (this.stationSelectedPosition > 0) {
+                this.stationSpinner.setSelection(
+                        this.stationSelectedPosition);
+            }
         }
     }
 
@@ -184,7 +215,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
      */
     private boolean checkInputs() {
         if ((this.iEditText.length() == 0) || (this.unknownOrientEditText.length() == 0)
-                || (this.station.getNumber() < 1)) {
+                || (this.station == null) || (this.station.getNumber() < 1)) {
             return false;
         }
         return true;
@@ -225,7 +256,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         }
 
         Measure m = new Measure(
-                new Point(0, 0.0, 0.0, 0.0, false),
+                null,
                 dialog.getHorizDir(),
                 dialog.getZenAngle(),
                 dialog.getHorizDist(),

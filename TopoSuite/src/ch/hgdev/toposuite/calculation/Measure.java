@@ -208,7 +208,9 @@ public class Measure {
         JSONObject json = new JSONObject();
 
         try {
-            json.put(Measure.ORIENTATION_NUMBER, this.orientation.getNumber());
+            if (this.orientation != null) {
+                json.put(Measure.ORIENTATION_NUMBER, this.orientation.getNumber());
+            }
             json.put(Measure.HORIZ_DIR, this.horizDir);
             json.put(Measure.ZEN_ANGLE, this.zenAngle);
             json.put(Measure.DISTANCE, this.distance);
@@ -228,7 +230,9 @@ public class Measure {
 
     public Bundle toBundle() {
         Bundle bundle = new Bundle();
-        bundle.putInt(Measure.ORIENTATION_NUMBER, this.orientation.getNumber());
+        if (this.orientation != null) {
+            bundle.putInt(Measure.ORIENTATION_NUMBER, this.orientation.getNumber());
+        }
         bundle.putDouble(Measure.HORIZ_DIR, this.horizDir);
         bundle.putDouble(Measure.ZEN_ANGLE, this.zenAngle);
         bundle.putDouble(Measure.DISTANCE, this.distance);
@@ -246,8 +250,11 @@ public class Measure {
         JSONObject json;
         try {
             json = new JSONObject(jsonString);
+            Point orient = json.has(Measure.ORIENTATION_NUMBER) ?
+                    SharedResources.getSetOfPoints().find(json.getInt(Measure.ORIENTATION_NUMBER))
+                    : null;
             m = new Measure(
-                    SharedResources.getSetOfPoints().find(json.getInt(Measure.ORIENTATION_NUMBER)),
+                    orient,
                     json.getDouble(Measure.HORIZ_DIR),
                     json.getDouble(Measure.ZEN_ANGLE),
                     json.getDouble(Measure.DISTANCE),

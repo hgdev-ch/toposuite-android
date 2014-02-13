@@ -3,8 +3,11 @@ package ch.hgdev.toposuite.calculation;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -18,7 +21,9 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * 
  */
 public class LevePolaire extends Calculation {
-    private static final String      CALCULATION_NAME = "LevePolaire";
+    public static final String       STATION_NUMBER      = "station_number";
+    public static final String       DETERMINATIONS_LIST = "determinations_list";
+    private static final String      CALCULATION_NAME    = "Leve Polaire";
     /**
      * East attribute of the new point, which is computed by this class.
      */
@@ -50,6 +55,10 @@ public class LevePolaire extends Calculation {
         this.determinations = new ArrayList<Measure>();
         this.results = new ArrayList<Result>();
         this.station = _station;
+
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
     }
 
     /**
@@ -87,13 +96,46 @@ public class LevePolaire extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO implement
-        return null;
+        JSONObject json = new JSONObject();
+        if (this.station != null) {
+            json.put(LevePolaire.STATION_NUMBER, this.station.getNumber());
+        }
+
+        if (this.determinations.size() > 0) {
+            JSONArray determinationsArray = new JSONArray();
+            for (Measure m : this.determinations) {
+                determinationsArray.put(m.toJSONObject());
+            }
+
+            json.put(LevePolaire.DETERMINATIONS_LIST, determinationsArray);
+        }
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO implement
+        JSONObject json = new JSONObject(jsonInputArgs);
+        this.station = SharedResources.getSetOfPoints().find(
+                json.getInt(LevePolaire.STATION_NUMBER));
+
+        JSONArray determinationsArray = json.getJSONArray(LevePolaire.DETERMINATIONS_LIST);
+
+        for (int i = 0; i < determinationsArray.length(); i++) {
+            JSONObject jo = (JSONObject) determinationsArray.get(i);
+            Measure m = new Measure(
+                    null,
+                    jo.getDouble(Measure.HORIZ_DIR),
+                    jo.getDouble(Measure.ZEN_ANGLE),
+                    jo.getDouble(Measure.DISTANCE),
+                    jo.getDouble(Measure.S),
+                    jo.getDouble(Measure.LAT_DEPL),
+                    jo.getDouble(Measure.LON_DEPL),
+                    jo.getDouble(Measure.I),
+                    jo.getDouble(Measure.UNKNOWN_ORIENTATION),
+                    jo.getInt(Measure.MEASURE_NUMBER));
+            this.determinations.add(m);
+        }
 
     }
 

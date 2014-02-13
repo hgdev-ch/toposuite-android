@@ -47,8 +47,7 @@ public class CalculationFactory {
         case ABRISS:
             calculation = new Abriss(id, lastModification);
         case LEVEPOLAIRE:
-            // TODO uncomment once the calculation has been implemented
-            // calculation = new LevePolaire(id, lastModification);
+            calculation = new LevePolaire(id, lastModification);
             break;
         case LEVEORTHO:
             calculation = new LeveOrthogonal(id, lastModification);
