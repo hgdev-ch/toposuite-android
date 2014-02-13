@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -157,6 +159,13 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
 
         outState.putInt(LevePolaireActivity.STATION_SELECTED_POSITION,
                 this.stationSelectedPosition);
+
+        JSONArray json = new JSONArray();
+        for (int i = 0; i < this.adapter.getCount(); i++) {
+            json.put(this.adapter.getItem(i).toJSONObject());
+        }
+
+        outState.putString(LevePolaireActivity.DETERMINATIONS_LABEL, json.toString());
     }
 
     @Override
@@ -166,6 +175,19 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         if (savedInstanceState != null) {
             this.stationSelectedPosition = savedInstanceState.getInt(
                     LevePolaireActivity.STATION_SELECTED_POSITION);
+            JSONArray jsonArray;
+            try {
+                jsonArray = new JSONArray(
+                        savedInstanceState.getString(LevePolaireActivity.DETERMINATIONS_LABEL));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject json = (JSONObject) jsonArray.get(i);
+                    Measure m = Measure.getMeasureFromJSON(json.toString());
+                    this.adapter.add(m);
+                }
+            } catch (JSONException e) {
+                // TODO
+            }
+            this.drawList();
         }
     }
 
