@@ -136,6 +136,7 @@
     <string name="title_activity_leve_polaire">Levé polaire</string>
     <string name="title_activity_leve_polaire_results">Levé polaire</string>
     <string name="title_activity_point_projection">Projection d\'un point</string>
+    <string name="title_activity_point_projection_result">Résultat de la projection</string>
     <string name="title_activity_points_manager">Gestion des points</string>
     <string name="toggle_right_menu_button">Calculs</string>
     <string name="unit_centimeter">[cm]</string>
