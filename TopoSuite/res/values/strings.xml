@@ -50,7 +50,7 @@
 		ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 		(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 		SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
-    <string name="distance_label">Horiz. Distance [m]</string>
+    <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
@@ -79,6 +79,7 @@
     <string name="mean_error_label">Mean Error [cc]</string>
     <string name="measure_add">Add a measure</string>
     <string name="measure_edit">Edit a mesure</string>
+    <string name="measure_header_distance">Distance [m]</string>
     <string name="measure_header_pt_nbr">Pt. Num.</string>
     <string name="measure_header_hz">Hz [g]</string>
     <string name="measure_header_hdist">Horiz. dist. [m]</string>

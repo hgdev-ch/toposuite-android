@@ -46,7 +46,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     AddDeterminationDialogListener listener;
     private int                    determinationNo;
     private double                 horizDir;
-    private double                 horizDist;
+    private double                 distance;
     private double                 zenAngle;
     private double                 s;
     private double                 latDepl;
@@ -55,7 +55,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     private LinearLayout           layout;
     private EditText               determinationNoEditText;
     private EditText               horizDirEditText;
-    private EditText               horizDistEditText;
+    private EditText               distanceEditText;
     private EditText               zenAngleEditText;
     private EditText               sEditText;
     private EditText               latDeplEditText;
@@ -123,8 +123,8 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                             AddDeterminationDialogFragment.this.horizDir = Double
                                     .parseDouble(AddDeterminationDialogFragment.this.horizDirEditText
                                             .getText().toString());
-                            AddDeterminationDialogFragment.this.horizDist = Double
-                                    .parseDouble(AddDeterminationDialogFragment.this.horizDistEditText
+                            AddDeterminationDialogFragment.this.distance = Double
+                                    .parseDouble(AddDeterminationDialogFragment.this.distanceEditText
                                             .getText().toString());
                             AddDeterminationDialogFragment.this.listener
                                     .onDialogAdd(AddDeterminationDialogFragment.this);
@@ -175,11 +175,11 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                         + this.getActivity().getString(R.string.unit_gradian));
         this.horizDirEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.horizDistEditText = new EditText(this.getActivity());
-        this.horizDistEditText.setHint(this.getActivity().getString(
-                R.string.horiz_distance_3dots)
+        this.distanceEditText = new EditText(this.getActivity());
+        this.distanceEditText.setHint(this.getActivity().getString(
+                R.string.distance_3dots)
                 + this.getActivity().getString(R.string.unit_meter));
-        this.horizDistEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.distanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.zenAngleEditText = new EditText(this.getActivity());
         this.zenAngleEditText.setHint(this.getActivity().getString(
@@ -211,7 +211,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
 
         this.determinationNo = 0;
         this.horizDir = 0.0;
-        this.horizDist = 0.0;
+        this.distance = 0.0;
         this.zenAngle = 100.0;
         this.s = 0.0;
         this.latDepl = 0.0;
@@ -224,7 +224,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     private void genAddDeterminationView() {
         this.layout.addView(this.determinationNoEditText);
         this.layout.addView(this.horizDirEditText);
-        this.layout.addView(this.horizDistEditText);
+        this.layout.addView(this.distanceEditText);
         this.layout.addView(this.zenAngleEditText);
         this.layout.addView(this.sEditText);
         this.layout.addView(this.latDeplEditText);
@@ -238,7 +238,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
      */
     private boolean checkDialogInputs() {
         if ((this.determinationNoEditText.length() == 0) || (this.horizDirEditText.length() == 0)
-                || (this.horizDistEditText.length() == 0)) {
+                || (this.distanceEditText.length() == 0)) {
             return false;
         }
         return true;
@@ -252,8 +252,8 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         return this.horizDir;
     }
 
-    public double getHorizDist() {
-        return this.horizDist;
+    public double getDistance() {
+        return this.distance;
     }
 
     public double getZenAngle() {

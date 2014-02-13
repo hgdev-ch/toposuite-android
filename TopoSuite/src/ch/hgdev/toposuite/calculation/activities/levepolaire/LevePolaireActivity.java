@@ -312,7 +312,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                 null,
                 dialog.getHorizDir(),
                 dialog.getZenAngle(),
-                dialog.getHorizDist(),
+                dialog.getDistance(),
                 dialog.getS(),
                 dialog.getLatDepl(),
                 dialog.getLonDepl(),
