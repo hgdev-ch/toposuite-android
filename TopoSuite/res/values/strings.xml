@@ -50,6 +50,7 @@
 		ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 		(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 		SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
+    <string name="displacement_label">Displacement</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
     <string name="drawer_close">Close navigation drawer</string>

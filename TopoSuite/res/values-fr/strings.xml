@@ -50,6 +50,7 @@
         LA CAUSE ET EN THÉORIE DE LA RESPONSABILITÉ, QU\'ELLE SOIT PAR CONTRAT, STRICTE OU PAR DÉLIT
         (Y COMPRIS LA NÉGLIGENCE OU AUTRE) PROVENANT DE TOUTE FORME DE L\'UTILISATION DE CE LOGICIEL,
         MÊME SI AVERTI DE LA POSSIBILITÉ DE TELS DOMMAGES.</string>
+	<string name="displacement_label">Déplacement</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
     <string name="drawer_close">Ferme le menu de navigation</string>
