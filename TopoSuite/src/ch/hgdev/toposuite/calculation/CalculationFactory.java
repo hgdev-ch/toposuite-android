@@ -46,6 +46,7 @@ public class CalculationFactory {
             break;
         case ABRISS:
             calculation = new Abriss(id, lastModification);
+            break;
         case LEVEPOLAIRE:
             calculation = new LevePolaire(id, lastModification);
             break;
@@ -54,6 +55,7 @@ public class CalculationFactory {
             break;
         case CHEMINORTHO:
             calculation = new CheminementOrthogonal(id, lastModification);
+            break;
         default:
             Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR,
                     CalculationFactory.CALCULATION_NOT_FOUND);
