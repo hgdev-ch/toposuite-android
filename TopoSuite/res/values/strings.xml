@@ -105,6 +105,8 @@
     <string name="orientation_label">Orientation</string>
     <string name="origin_label">Origin</string>
     <string name="origin_only_label">Origin</string>
+    <string name="point_1">Point 1</string>
+    <string name="point_2">Point 2</string>
     <string name="point_add_success">Point successfully added!</string>
     <string name="point_already_exists">This point already exists!</string>
     <string name="point_class">Class</string>

@@ -105,6 +105,8 @@
     <string name="oriented_direction_label">Dir. Orient. [g]</string>
     <string name="origin_label">Origine</string>
     <string name="origin_only_label">Origine</string>
+    <string name="point_1">Point 1</string>
+    <string name="point_2">Point 2</string>
     <string name="point_add_success">Point ajouté avec succès!</string>
     <string name="point_already_exists">Ce point existe déjà!</string>
     <string name="point_class">Classe</string>
