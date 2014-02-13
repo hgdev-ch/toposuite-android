@@ -88,6 +88,8 @@
     <string name="measure_header_lat_depl">Depl. Lat. [m]</string>
     <string name="measure_header_lon_depl">Depl. Lon. [m]</string>
     <string name="measured_distance_hint">Dist. Mes.</string>
+    <string name="mode_line_label">Droite</string>
+    <string name="mode_gisement_label">Gisement</string>
     <string name="no">Non</string>
     <string name="no_value">-</string>
     <string name="north">Nord</string>
