@@ -94,12 +94,13 @@
     <string name="north_3dots">Nord&#8230;</string>
     <string name="north_label">Nord [m]</string>
     <string name="optional_prths">(optionnel)</string>
+    <string name="or">Ou</string>
     <string name="ordinate">Ordonnées</string>
     <string name="ordinate_3dots">Ordonnée&#8230;</string>
-    <string name="orientation_label">Second point (orient.)</string>
+    <string name="orientation_label">Orientation</string>
     <string name="oriented_direction">Dir. Orient.</string>
     <string name="oriented_direction_label">Dir. Orient. [g]</string>
-    <string name="origin_label">Premier point (origine)</string>
+    <string name="origin_label">Origine</string>
     <string name="origin_only_label">Origine</string>
     <string name="point_add_success">Point ajouté avec succès!</string>
     <string name="point_already_exists">Ce point existe déjà!</string>
