@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +30,10 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.Abriss;
+import ch.hgdev.toposuite.calculation.Abriss.Result;
+import ch.hgdev.toposuite.calculation.Calculation;
+import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.LevePolaire;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -45,34 +50,39 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener,
         EditDeterminationDialogFragment.EditDeterminationDialogListener {
 
-    public static final String    STATION_NUMBER_LABEL      = "station_number";
-    public static final String    DETERMINATIONS_LABEL      = "determinations";
+    public static final String                         STATION_NUMBER_LABEL                  = "station_number";
+    public static final String                         DETERMINATIONS_LABEL                  = "determinations";
 
-    public static final String    DETERMINATION_NUMBER      = "determination_number";
-    public static final String    HORIZ_DIR                 = "horizontal_direction";
-    public static final String    DISTANCE                  = "distance";
-    public static final String    ZEN_ANGLE                 = "zenithal_angle";
-    public static final String    S                         = "s";
-    public static final String    LAT_DEPL                  = "lateral_displacement";
-    public static final String    LON_DEPL                  = "longitudinal displacement";
+    public static final String                         DETERMINATION_NUMBER                  = "determination_number";
+    public static final String                         HORIZ_DIR                             = "horizontal_direction";
+    public static final String                         DISTANCE                              = "distance";
+    public static final String                         ZEN_ANGLE                             = "zenithal_angle";
+    public static final String                         S                                     = "s";
+    public static final String                         LAT_DEPL                              = "lateral_displacement";
+    public static final String                         LON_DEPL                              = "longitudinal displacement";
 
-    private static final String   STATION_SELECTED_POSITION = "station_selected_position";
-    private Spinner               stationSpinner;
-    private EditText              iEditText;
-    private TextView              stationPointTextView;
-    private EditText              unknownOrientEditText;
-    private ListView              determinationsListView;
-    private int                   stationSelectedPosition;
-    private ArrayAdapter<Measure> adapter;
+    private static final String                        STATION_SELECTED_POSITION             = "station_selected_position";
+    private Spinner                                    stationSpinner;
+    private int                                        stationSelectedPosition;
+    private TextView                                   stationPointTextView;
+    private EditText                                   iEditText;
+    private static final String                        UNKNOWN_ORIENTATION_SELECTED_POSITION = "unknown_orientation_selected_position";
+    private Spinner                                    unknownOrientSpinner;
+    private int                                        unknownOrientSelectedPosition;
+    private TextView                                   unknownOrientTextView;
+    private EditText                                   unknownOrientEditText;
+    private ListView                                   determinationsListView;
+    private ArrayAdapter<Measure>                      adapter;
 
-    private Point                 station;
-    private LevePolaire           levePolaire;
+    private Point                                      station;
+    private LevePolaire                                levePolaire;
+    private LevePolaireActivity.UnknownOrientationItem unknownOrientation;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
      * from the history.
      */
-    private int                   position;
+    private int                                        position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +94,9 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
         this.unknownOrientEditText = (EditText) this.findViewById(R.id.unknown_orientation);
+        this.unknownOrientSpinner = (Spinner) this.findViewById(R.id.unknown_orientation_spinner);
+        this.unknownOrientTextView = (TextView) this
+                .findViewById(R.id.unknown_orientation_spinner_view);
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.determinationsListView = (ListView) this.findViewById(R.id.determinations_list);
 
@@ -110,6 +123,39 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                 // actually nothing
             }
         });
+
+        this.unknownOrientSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                LevePolaireActivity.this.unknownOrientSelectedPosition = pos;
+
+                LevePolaireActivity.this.unknownOrientation =
+                        (LevePolaireActivity.UnknownOrientationItem) LevePolaireActivity.this.unknownOrientSpinner
+                                .getItemAtPosition(pos);
+                if (LevePolaireActivity.this.unknownOrientation.getStation().getNumber() > 0) {
+                    LevePolaireActivity.this.unknownOrientTextView
+                            .setText(DisplayUtils
+                                    .toString(LevePolaireActivity.this.unknownOrientation.getZ0()));
+                    LevePolaireActivity.this.unknownOrientEditText.setText("");
+                } else {
+                    LevePolaireActivity.this.unknownOrientTextView
+                            .setText("");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // actually nothing
+            }
+        });
+        this.unknownOrientEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                LevePolaireActivity.this.unknownOrientSpinner.setSelection(0);
+                return true;
+            }
+        });
+
         ArrayList<Measure> list = new ArrayList<Measure>();
 
         // check if we create a new leve polaire calculation or if we modify an
@@ -134,16 +180,36 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point(0, 0.0, 0.0, 0.0, false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+        ArrayAdapter<Point> ap = new ArrayAdapter<Point>(
                 this, R.layout.spinner_list_item, points);
-        this.stationSpinner.setAdapter(a);
+        this.stationSpinner.setAdapter(ap);
+
+        List<LevePolaireActivity.UnknownOrientationItem> unknownOrientationList =
+                new ArrayList<LevePolaireActivity.UnknownOrientationItem>();
+        unknownOrientationList
+                .add(new UnknownOrientationItem(new Point(0, 0.0, 0.0, 0.0, false),
+                        0, Double.MIN_VALUE));
+        for (Calculation c : SharedResources.getCalculationsHistory()) {
+            if (c.getType() != CalculationType.ABRISS) {
+                continue;
+            }
+            Abriss a = (Abriss) c;
+            a.compute();
+            for (Result m : a.getResults()) {
+                unknownOrientationList.add(new UnknownOrientationItem(a.getStation(), m
+                        .getOrientation().getNumber(), m.getUnknownOrientation()));
+            }
+        }
+        ArrayAdapter<UnknownOrientationItem> aauoi = new ArrayAdapter<LevePolaireActivity.UnknownOrientationItem>(
+                this, R.layout.spinner_list_item, unknownOrientationList);
+        this.unknownOrientSpinner.setAdapter(aauoi);
 
         if (this.levePolaire != null) {
             this.stationSpinner.setSelection(
-                    a.getPosition(this.levePolaire.getStation()));
+                    ap.getPosition(this.levePolaire.getStation()));
             Measure m = this.levePolaire.getDeterminations().get(0);
 
             this.iEditText.setText(DisplayUtils.toString(m.getI()));
@@ -298,8 +364,11 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
      * @return True if inputs are OK, false otherwise.
      */
     private boolean checkInputs() {
-        if ((this.iEditText.length() == 0) || (this.unknownOrientEditText.length() == 0)
-                || (this.station == null) || (this.station.getNumber() < 1)) {
+        if ((this.iEditText.length() == 0) || (this.station == null)
+                || (this.station.getNumber() < 1)) {
+            return false;
+        }
+        if ((this.unknownOrientEditText.length() == 0) && (this.unknownOrientSelectedPosition < 1)) {
             return false;
         }
         return true;
@@ -395,5 +464,38 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
     @Override
     public void onDialogCancel(EditDeterminationDialogFragment dialog) {
         // do nothing actually
+    }
+
+    private class UnknownOrientationItem {
+        private final Point  station;
+        private final int    orientationNumber;
+        private final double z0;
+
+        private UnknownOrientationItem(Point _station, int _orientationNumber, double _z0) {
+            this.station = _station;
+            this.orientationNumber = _orientationNumber;
+            this.z0 = _z0;
+        }
+
+        public Point getStation() {
+            return this.station;
+        }
+
+        private double getZ0() {
+            return this.z0;
+        }
+
+        @Override
+        public String toString() {
+            if (this.station.getNumber() < 1) {
+                return "";
+            } else {
+                String item = LevePolaireActivity.this.getString(R.string.station_label);
+                item += ": " + DisplayUtils.toString(this.station.getNumber()) + "; ";
+                item += LevePolaireActivity.this.getString(R.string.orientation_label);
+                item += ": " + DisplayUtils.toString(this.orientationNumber) + "; ";
+                return item;
+            }
+        }
     }
 }
