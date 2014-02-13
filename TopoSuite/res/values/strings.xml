@@ -71,7 +71,7 @@
     <string name="home">Home</string>
     <string name="horiz_direction_3dots">Horizontal direction&#8230;</string>
     <string name="horiz_distance_3dots">Horizontal distance&#8230;</string>
-    <string name="i_label">I [m]</string>
+    <string name="i_label">Instrument height (I) [m]</string>
     <string name="lateral_displacement_3dots">Lateral displacement&#8230;</string>
     <string name="longitudinal_displacement_3dots">Longitudinal displacement&#8230;</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
