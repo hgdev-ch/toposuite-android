@@ -110,7 +110,7 @@ public class CheminementOrthogonal extends Calculation {
 
         // rotation of the temporary calculation
 
-        // gisement of the temportary base
+        // gisement of the temporary base
         Gisement g = new Gisement(this.orthogonalBase.getOrigin(),
                 new Point(42, eastExt, northExt, 0.0, false, false), false);
         g.compute();
