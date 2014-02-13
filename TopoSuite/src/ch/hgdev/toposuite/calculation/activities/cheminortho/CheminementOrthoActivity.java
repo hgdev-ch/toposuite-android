@@ -177,6 +177,8 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         if (this.cheminOrtho != null) {
             int index = SharedResources.getCalculationsHistory().indexOf(this.cheminOrtho);
             outState.putInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION, index);
+        } else {
+            outState.putInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION, -1);
         }
     }
 

@@ -89,23 +89,25 @@
    </LinearLayout>
         
    <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="15dp">
         
         <TextView
-            android:layout_width="163dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/point_number"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView
-            android:layout_width="172dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/distance_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
