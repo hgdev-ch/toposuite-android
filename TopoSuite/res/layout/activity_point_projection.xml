@@ -34,13 +34,15 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:checked="true"
-		            android:text="@string/mode_line_label" />
+		            android:text="@string/mode_line_label"
+		            android:onClick="onRadioButtonClicked" />
 
 		        <RadioButton
 		            android:id="@+id/mode_gisement"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-		            android:text="@string/mode_gisement_label" />
+		            android:text="@string/mode_gisement_label"
+		            android:onClick="onRadioButtonClicked" />
 		    </RadioGroup>
 		</LinearLayout>
 		
@@ -85,6 +87,7 @@
 		</LinearLayout>
 	        
 		<LinearLayout
+		    android:id="@+id/point2_spinner_layout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
@@ -109,6 +112,7 @@
 		</LinearLayout>
 		
 		<LinearLayout
+		    android:id="@+id/point2_layout"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:orientation="horizontal" >
@@ -125,6 +129,7 @@
 		</LinearLayout>
 		
 		<LinearLayout
+		    android:id="@+id/gisement_layout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"

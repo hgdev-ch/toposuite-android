@@ -56,6 +56,9 @@ public class CalculationFactory {
         case CHEMINORTHO:
             calculation = new CheminementOrthogonal(id, lastModification);
             break;
+        case PROJPT:
+            calculation = new PointProjectionOnALine(id, lastModification);
+            break;
         default:
             Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR,
                     CalculationFactory.CALCULATION_NOT_FOUND);

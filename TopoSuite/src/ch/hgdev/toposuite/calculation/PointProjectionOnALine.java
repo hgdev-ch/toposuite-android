@@ -3,7 +3,10 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.pointproj.PointProjectionActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -13,9 +16,16 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class PointProjectionOnALine extends Calculation {
-    public static final String  CALCULATION_NAME = "Proj. pt. sur droite";
+    public static final String  CALCULATION_NAME  = "Proj. pt. sur droite";
+    public static final String  NUMBER            = "number";
+    public static final String  P1_NUMBER         = "p1_number";
+    public static final String  P2_NUMBER         = "p2_number";
+    public static final String  PT_TO_PROJ_NUMBER = "pt_to_proj_number";
+    public static final String  DISPLACEMENT      = "displacement";
+    public static final String  GISEMENT          = "gisement";
+    public static final String  MODE              = "mode";
 
-    private static final double DISTANCE         = 20.0;
+    private static final double DISTANCE          = 20.0;
 
     private int                 number;
     private Point               p1;
@@ -43,7 +53,7 @@ public class PointProjectionOnALine extends Calculation {
         this.mode = _mode;
 
         if (hasDAO) {
-            // TODO add into history!
+            SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
@@ -152,7 +162,7 @@ public class PointProjectionOnALine extends Calculation {
                 Math.sin(MathUtils.gradToRad(gammaAngle))) /
                 Math.sin(MathUtils.gradToRad(pAngle));
 
-        double gis = new Gisement(this.p1, this.p2).getGisement();
+        double gis = new Gisement(this.p1, this.p2, false).getGisement();
 
         // projected point aka the one we want :)
         this.projPt = new Point(
@@ -176,20 +186,44 @@ public class PointProjectionOnALine extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Auto-generated method stub
-        return null;
+        JSONObject jo = new JSONObject();
+        jo.put(PointProjectionOnALine.NUMBER, this.number);
+        jo.put(PointProjectionOnALine.P1_NUMBER, this.p1.getNumber());
+        jo.put(PointProjectionOnALine.P2_NUMBER, this.p2.getNumber());
+        jo.put(PointProjectionOnALine.DISPLACEMENT, this.displacement);
+        jo.put(PointProjectionOnALine.GISEMENT, this.gisement);
+        jo.put(PointProjectionOnALine.MODE, this.mode.toString());
+        jo.put(PointProjectionOnALine.PT_TO_PROJ_NUMBER, this.ptToProj);
+
+        return jo.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Auto-generated method stub
+        JSONObject jo = new JSONObject(jsonInputArgs);
 
+        this.number = jo.getInt(PointProjectionOnALine.NUMBER);
+        this.p1 = SharedResources.getSetOfPoints().find(
+                jo.getInt(PointProjectionOnALine.P1_NUMBER));
+        this.displacement = jo.getDouble(PointProjectionOnALine.DISPLACEMENT);
+        this.gisement = jo.getDouble(PointProjectionOnALine.GISEMENT);
+        this.ptToProj = SharedResources.getSetOfPoints().find(
+                jo.getInt(PointProjectionOnALine.PT_TO_PROJ_NUMBER));
+
+        this.mode = Mode.valueOf(jo.getString(PointProjectionOnALine.MODE));
+
+        if (this.mode == Mode.GISEMENT) {
+            this.p2 = PointProjectionOnALine.pointFromGisement(
+                    this.p1, this.gisement);
+        } else {
+            this.p2 = SharedResources.getSetOfPoints().find(
+                    jo.getInt(PointProjectionOnALine.P2_NUMBER));
+        }
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Auto-generated method stub
-        return null;
+        return PointProjectionActivity.class;
     }
 
     /**

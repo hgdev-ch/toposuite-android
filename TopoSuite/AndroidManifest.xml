@@ -68,8 +68,12 @@
             android:label="@string/title_activity_leve_polaire_results" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.PointProjectionActivity"
+            android:name="ch.hgdev.toposuite.calculation.pointproj.PointProjectionActivity"
             android:label="@string/title_activity_point_projection" >
+        </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.PointProjectionResultActivity"
+            android:label="@string/title_activity_point_projection_result" >
         </activity>
     </application>
 

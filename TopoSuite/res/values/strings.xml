@@ -53,6 +53,9 @@
     <string name="displacement_label">Displacement</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
+    <string name="distance_projpoint_line_label">Projected point to line distance:</string>
+    <string name="distance_projpoint_point_1_label">Projected point to point 1 distance:</string>
+    <string name="distance_projpoint_point_2_label">Projected point to point 2 distance:</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="east">East</string>
@@ -73,6 +76,7 @@
     <string name="horiz_direction_3dots">Horizontal direction&#8230;</string>
     <string name="horiz_distance_3dots">Horizontal distance&#8230;</string>
     <string name="i_label">Instrument height (I) [m]</string>
+    <string name="intersection_point_label">Intersection point:</string>
     <string name="lateral_displacement_3dots">Lateral displacement&#8230;</string>
     <string name="longitudinal_displacement_3dots">Longitudinal displacement&#8230;</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
