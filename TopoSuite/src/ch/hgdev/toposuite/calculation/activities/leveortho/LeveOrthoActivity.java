@@ -217,6 +217,9 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
             int index = SharedResources.getCalculationsHistory().indexOf(this.leveOrtho);
             outState.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION,
                     index);
+        } else {
+            outState.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION,
+                    -1);
         }
     }
 
