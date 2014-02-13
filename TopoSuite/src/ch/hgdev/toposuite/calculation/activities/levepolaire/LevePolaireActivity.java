@@ -476,11 +476,15 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
 
         @Override
         public String toString() {
-            String item = LevePolaireActivity.this.getString(R.string.station_label);
-            item += ": " + DisplayUtils.toString(this.station.getNumber()) + "; ";
-            item += LevePolaireActivity.this.getString(R.string.orientation_label);
-            item += ": " + DisplayUtils.toString(this.orientationNumber) + "; ";
-            return item;
+            if (this.station.getNumber() < 1) {
+                return "";
+            } else {
+                String item = LevePolaireActivity.this.getString(R.string.station_label);
+                item += ": " + DisplayUtils.toString(this.station.getNumber()) + "; ";
+                item += LevePolaireActivity.this.getString(R.string.orientation_label);
+                item += ": " + DisplayUtils.toString(this.orientationNumber) + "; ";
+                return item;
+            }
         }
     }
 }
