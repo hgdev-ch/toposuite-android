@@ -120,7 +120,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
                             if (EditOrientationDialogFragment.this.horizontalDistanceEditText
                                     .length() > 0) {
                                 EditOrientationDialogFragment.this.horizontalDistance = Double
-                                        .parseDouble(EditOrientationDialogFragment.this.horizontalDirectionEditText
+                                        .parseDouble(EditOrientationDialogFragment.this.horizontalDistanceEditText
                                                 .getText().toString());
                             }
                             if (EditOrientationDialogFragment.this.zenithalAngleEditText.length() > 0) {
