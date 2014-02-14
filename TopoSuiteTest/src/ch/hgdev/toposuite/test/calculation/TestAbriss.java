@@ -12,12 +12,15 @@ import ch.hgdev.toposuite.points.Point;
 
 public class TestAbriss extends TestCase {
 
+    private DecimalFormat df1;
     private DecimalFormat df3;
     private DecimalFormat df4;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        this.df1 = new DecimalFormat("#.#");
+        this.df1.setRoundingMode(RoundingMode.HALF_UP);
         this.df3 = new DecimalFormat("#.###");
         this.df3.setRoundingMode(RoundingMode.HALF_UP);
         this.df4 = new DecimalFormat("#.####");
@@ -46,9 +49,9 @@ public class TestAbriss extends TestCase {
         Assert.assertEquals("370.2162", this.df4.format(
                 a.getResults().get(0).getOrientedDirection()));
         Assert.assertEquals("-365.7077", this.df4.format(
-                a.getResults().get(0).getErrAngle()));
+                a.getResults().get(0).getErrAngle() / 10000));
         Assert.assertEquals("-1886.876", this.df3.format(
-                a.getResults().get(0).getErrTrans()));
+                a.getResults().get(0).getErrTrans() / 100));
 
         Assert.assertEquals("355.776", this.df3.format(
                 a.getResults().get(1).getDistance()));
@@ -57,9 +60,9 @@ public class TestAbriss extends TestCase {
         Assert.assertEquals("367.0262", this.df4.format(
                 a.getResults().get(1).getOrientedDirection()));
         Assert.assertEquals("10.3262", this.df4.format(
-                a.getResults().get(1).getErrAngle()));
+                a.getResults().get(1).getErrAngle() / 10000));
         Assert.assertEquals("57.708", this.df3.format(
-                a.getResults().get(1).getErrTrans()));
+                a.getResults().get(1).getErrTrans() / 100));
 
         Assert.assertEquals("234.699", this.df3.format(
                 a.getResults().get(2).getDistance()));
@@ -68,16 +71,16 @@ public class TestAbriss extends TestCase {
         Assert.assertEquals("360.1232", this.df4.format(
                 a.getResults().get(2).getOrientedDirection()));
         Assert.assertEquals("-44.6184", this.df4.format(
-                a.getResults().get(2).getErrAngle()));
+                a.getResults().get(2).getErrAngle() / 10000));
         Assert.assertEquals("-164.492", this.df3.format(
-                a.getResults().get(2).getErrTrans()));
+                a.getResults().get(2).getErrTrans() / 100));
 
         Assert.assertEquals("112.4682", this.df4.format(
                 a.getMean()));
         Assert.assertEquals("260.6142", this.df4.format(
-                a.getMSE()));
+                a.getMSE() / 10000));
         Assert.assertEquals("150.4657", this.df4.format(
-                a.getMeanErrCompDir()));
+                a.getMeanErrComp() / 10000));
     }
 
     public void testRealCase() {
@@ -95,17 +98,21 @@ public class TestAbriss extends TestCase {
                 this.df4.format(a.getResults().get(0).getUnknownOrientation()));
         Assert.assertEquals("233.2435",
                 this.df4.format(a.getResults().get(0).getOrientedDirection()));
+        Assert.assertEquals("-0.1", this.df1.format(
+                a.getResults().get(0).getErrTrans()));
 
         // test intermediate values with point 47
         Assert.assertEquals("233.2466",
                 this.df4.format(a.getResults().get(1).getUnknownOrientation()));
         Assert.assertEquals("114.5956",
                 this.df4.format(a.getResults().get(1).getOrientedDirection()));
+        Assert.assertEquals("0.5", this.df1.format(
+                a.getResults().get(1).getErrTrans()));
 
         // test final results
         Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
-        Assert.assertEquals("0.0043", this.df4.format(a.getMSE()));
-        Assert.assertEquals("0.003", this.df3.format(a.getMeanErrCompDir()));
+        Assert.assertEquals(43, (int) a.getMSE());
+        Assert.assertEquals(30, (int) a.getMeanErrComp());
 
     }
 
@@ -124,16 +131,24 @@ public class TestAbriss extends TestCase {
                 this.df4.format(a.getResults().get(0).getUnknownOrientation()));
         Assert.assertEquals("233.2435",
                 this.df4.format(a.getResults().get(0).getOrientedDirection()));
+        Assert.assertEquals("-30.4", this.df1.format(
+                a.getResults().get(0).getErrAngle()));
+        Assert.assertEquals("-0.1", this.df1.format(
+                a.getResults().get(0).getErrTrans()));
 
         // test intermediate values with point 47
         Assert.assertEquals("233.2466",
                 this.df4.format(a.getResults().get(1).getUnknownOrientation()));
         Assert.assertEquals("114.5956",
                 this.df4.format(a.getResults().get(1).getOrientedDirection()));
+        Assert.assertEquals("30.4", this.df1.format(
+                a.getResults().get(1).getErrAngle()));
+        Assert.assertEquals("0.5", this.df1.format(
+                a.getResults().get(1).getErrTrans()));
 
         // test final results
         Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
-        Assert.assertEquals("0.0043", this.df4.format(a.getMSE()));
-        Assert.assertEquals("0.003", this.df3.format(a.getMeanErrCompDir()));
+        Assert.assertEquals(43, (int) a.getMSE());
+        Assert.assertEquals(30, (int) a.getMeanErrComp());
     }
 }
