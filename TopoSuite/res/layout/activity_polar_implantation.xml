@@ -164,7 +164,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/apm_list_of_points"
+        android:id="@+id/list_of_points"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="1dp" >

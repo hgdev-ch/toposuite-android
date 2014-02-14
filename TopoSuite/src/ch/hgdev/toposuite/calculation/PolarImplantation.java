@@ -2,7 +2,6 @@ package ch.hgdev.toposuite.calculation;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.json.JSONException;
 
@@ -19,11 +18,11 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * 
  */
 public class PolarImplantation extends Calculation {
-    private static final String                  CALCULATION_NAME = "Polar Implantation";
+    private static final String                       CALCULATION_NAME = "Polar Implantation";
 
-    private Point                                station;
-    private final List<Measure>                  measures;
-    private final List<PolarImplantation.Result> results;
+    private Point                                     station;
+    private final ArrayList<Measure>                  measures;
+    private final ArrayList<PolarImplantation.Result> results;
 
     public PolarImplantation(long id, Date lastModification) {
         super(id, CalculationType.POLARIMPLANT, PolarImplantation.CALCULATION_NAME,
@@ -105,11 +104,11 @@ public class PolarImplantation extends Calculation {
         return null;
     }
 
-    public List<Measure> getMeasures() {
+    public ArrayList<Measure> getMeasures() {
         return this.measures;
     }
 
-    public List<PolarImplantation.Result> getResults() {
+    public ArrayList<PolarImplantation.Result> getResults() {
         return this.results;
     }
 
