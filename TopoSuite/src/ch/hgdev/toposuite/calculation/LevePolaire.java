@@ -70,6 +70,9 @@ public class LevePolaire extends Calculation {
             return;
         }
 
+        // clear any previously computed results
+        this.results.clear();
+
         for (Measure m : this.determinations) {
             double zenAngle = MathUtils.gradToRad(MathUtils.modulo400(m.getZenAngle()));
             double z0 = MathUtils.gradToRad(MathUtils.modulo400(m.getUnknownOrientation()));
