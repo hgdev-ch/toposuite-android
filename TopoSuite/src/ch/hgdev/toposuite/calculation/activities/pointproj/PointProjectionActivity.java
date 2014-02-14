@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.calculation.pointproj;
+package ch.hgdev.toposuite.calculation.activities.pointproj;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.hgdev.toposuite.App;
-import ch.hgdev.toposuite.PointProjectionResultActivity;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
