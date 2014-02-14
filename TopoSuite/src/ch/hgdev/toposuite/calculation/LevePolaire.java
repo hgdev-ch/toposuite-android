@@ -85,8 +85,14 @@ public class LevePolaire extends Calculation {
 
             double east = this.station.getEast() + (Math.sin(z0 + hz) * horizDist);
             double north = this.station.getNorth() + (Math.cos(z0 + hz) * horizDist);
-            double altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle))
-                    + m.getI()) - m.getS();
+
+            double altitude;
+            if ((m.getI() != 0.0) && (m.getS() != 0.0)) {
+                altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle))
+                        + m.getI()) - m.getS();
+            } else {
+                altitude = 0.0;
+            }
 
             Result r = new Result(m.getMeasureNumber(), east, north, altitude);
             this.results.add(r);
