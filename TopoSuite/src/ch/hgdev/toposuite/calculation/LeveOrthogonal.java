@@ -67,6 +67,8 @@ public class LeveOrthogonal extends Calculation {
             return;
         }
 
+        this.results.clear();
+
         Gisement g = new Gisement(this.orthogonalBase.getOrigin(),
                 this.orthogonalBase.getExtemity(), false);
         g.compute();
