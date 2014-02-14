@@ -233,7 +233,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         EditOrientationDialogFragment dialog = new EditOrientationDialogFragment();
         Bundle args = new Bundle();
         Measure measure = this.adapter.getItem(position);
-        args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, measure.getOrientation()
+        args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, measure.getPoint()
                 .getNumber());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION, measure.getHorizDir());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE, measure.getDistance());
@@ -269,7 +269,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
     @Override
     public void onDialogEdit(EditOrientationDialogFragment dialog) {
         Measure orientation = this.adapter.getItem(dialog.getOrientationPosition());
-        orientation.setOrientation(dialog.getOrientation());
+        orientation.setPoint(dialog.getOrientation());
         orientation.setHorizDir(dialog.getHorizontalDirection());
         orientation.setDistance(dialog.getHorizontalDistance());
         orientation.setZenAngle(dialog.getZenithalAngle());

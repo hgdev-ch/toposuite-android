@@ -67,12 +67,12 @@ public class Abriss extends Calculation {
         this.results.clear();
 
         for (Measure m : this.orientations) {
-            Gisement g = new Gisement(this.station, m.getOrientation(), false);
+            Gisement g = new Gisement(this.station, m.getPoint(), false);
 
             double z0 = MathUtils.modulo400(g.getGisement() - m.getHorizDir());
-            double calcDist = MathUtils.euclideanDistance(this.station, m.getOrientation());
+            double calcDist = MathUtils.euclideanDistance(this.station, m.getPoint());
 
-            Result r = new Result(m.getOrientation(), g.getHorizDist(),
+            Result r = new Result(m.getPoint(), g.getHorizDist(),
                     z0, 0.0, g.getGisement(), calcDist, 0.0, 0.0, 0.0);
 
             this.results.add(r);

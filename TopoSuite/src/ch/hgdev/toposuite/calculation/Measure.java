@@ -25,9 +25,9 @@ public class Measure {
     private static final String JSON_UNSERIALIZE_ERROR = "Unable to unserialize Measure!";
 
     /**
-     * Orientation point.
+     * Point (usually orientation point).
      */
-    private Point               orientation;
+    private Point               point;
     /**
      * Horizontal direction (Hz).
      */
@@ -67,10 +67,10 @@ public class Measure {
      */
     private int                 measureNumber;
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
             int _measureNumber) {
-        this.orientation = _orientation;
+        this.point = _point;
         this.horizDir = _horizDir;
         this.zenAngle = _zenAngle;
         this.distance = _distance;
@@ -82,54 +82,54 @@ public class Measure {
         this.measureNumber = _measureNumber;
     }
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation) {
-        this(_orientation, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
                 _unknownOrientation, 0);
     }
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i) {
-        this(_orientation, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i, 0.0);
     }
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl) {
-        this(_orientation, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, 0.0);
     }
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl) {
-        this(_orientation, _horizDir, _zenAngle, _distance, _s, _latDepl, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, 0.0);
     }
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance,
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s) {
-        this(_orientation, _horizDir, _zenAngle, _distance, _s, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, _s, 0.0);
     }
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle, double _distance) {
-        this(_orientation, _horizDir, _zenAngle, _distance, 0.0);
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance) {
+        this(_point, _horizDir, _zenAngle, _distance, 0.0);
     }
 
-    public Measure(Point _orientation, double _horizDir, double _zenAngle) {
-        this(_orientation, _horizDir, _zenAngle, 0.0);
+    public Measure(Point _point, double _horizDir, double _zenAngle) {
+        this(_point, _horizDir, _zenAngle, 0.0);
     }
 
-    public Measure(Point _orientation, double _horizDir) {
-        this(_orientation, _horizDir, 100.0);
+    public Measure(Point _point, double _horizDir) {
+        this(_point, _horizDir, 100.0);
     }
 
-    public Measure(Point _orientation) {
-        this(_orientation, 0.0);
+    public Measure(Point _point) {
+        this(_point, 0.0);
     }
 
-    public Point getOrientation() {
-        return this.orientation;
+    public Point getPoint() {
+        return this.point;
     }
 
-    public void setOrientation(Point orientation) {
-        this.orientation = orientation;
+    public void setPoint(Point orientation) {
+        this.point = orientation;
     }
 
     public double getHorizDir() {
@@ -208,8 +208,8 @@ public class Measure {
         JSONObject json = new JSONObject();
 
         try {
-            if (this.orientation != null) {
-                json.put(Measure.ORIENTATION_NUMBER, this.orientation.getNumber());
+            if (this.point != null) {
+                json.put(Measure.ORIENTATION_NUMBER, this.point.getNumber());
             }
             json.put(Measure.HORIZ_DIR, this.horizDir);
             json.put(Measure.ZEN_ANGLE, this.zenAngle);
@@ -230,8 +230,8 @@ public class Measure {
 
     public Bundle toBundle() {
         Bundle bundle = new Bundle();
-        if (this.orientation != null) {
-            bundle.putInt(Measure.ORIENTATION_NUMBER, this.orientation.getNumber());
+        if (this.point != null) {
+            bundle.putInt(Measure.ORIENTATION_NUMBER, this.point.getNumber());
         }
         bundle.putDouble(Measure.HORIZ_DIR, this.horizDir);
         bundle.putDouble(Measure.ZEN_ANGLE, this.zenAngle);

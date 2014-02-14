@@ -38,7 +38,7 @@ public class ArrayListOfOrientationsAdapter extends ArrayAdapter<Measure> {
             TextView altitudeTextView = (TextView) view.findViewById(R.id.altitude_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(orientation.getOrientation()
+                numberTextView.setText(DisplayUtils.toString(orientation.getPoint()
                         .getNumber()));
             }
             if (horizOrientTextView != null) {
