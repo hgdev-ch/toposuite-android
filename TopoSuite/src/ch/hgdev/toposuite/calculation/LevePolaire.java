@@ -24,19 +24,6 @@ public class LevePolaire extends Calculation {
     public static final String       STATION_NUMBER      = "station_number";
     public static final String       DETERMINATIONS_LIST = "determinations_list";
     private static final String      CALCULATION_NAME    = "Leve Polaire";
-    /**
-     * East attribute of the new point, which is computed by this class.
-     */
-    private double                   newPointEast;
-    /**
-     * North attribute of the new point, which is computed by this class.
-     */
-    private double                   newPointNorth;
-
-    /**
-     * Altitude attribute of the new point, which is computed by this class.
-     */
-    private double                   newPointAltitude;
 
     private Point                    station;
     private final ArrayList<Measure> determinations;
@@ -151,18 +138,6 @@ public class LevePolaire extends Calculation {
     @Override
     public Class<?> getActivityClass() {
         return LevePolaireActivity.class;
-    }
-
-    public double getNewPointEast() {
-        return this.newPointEast;
-    }
-
-    public double getNewPointNorth() {
-        return this.newPointNorth;
-    }
-
-    public double getNewPointAltitude() {
-        return this.newPointAltitude;
     }
 
     public ArrayList<Measure> getDeterminations() {
