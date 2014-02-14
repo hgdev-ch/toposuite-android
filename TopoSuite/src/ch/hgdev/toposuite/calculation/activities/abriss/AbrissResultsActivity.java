@@ -23,8 +23,9 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
     private ListView                    resultsListView;
 
     private TextView                    stationNumberTextView;
-    private TextView                    unknOrientTextView;
-    private TextView                    meanErrorTextView;
+    private TextView                    meanTextView;
+    private TextView                    meanErrorDirectionTextView;
+    private TextView                    meanErrorCompensatedTextView;
 
     private Abriss                      abriss;
     private ArrayAdapter<Abriss.Result> adapter;
@@ -36,8 +37,11 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
 
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
         this.stationNumberTextView = (TextView) this.findViewById(R.id.station_number);
-        this.unknOrientTextView = (TextView) this.findViewById(R.id.unknown_orientation);
-        this.meanErrorTextView = (TextView) this.findViewById(R.id.mean_error);
+        this.meanTextView = (TextView) this.findViewById(R.id.mean);
+        this.meanErrorDirectionTextView = (TextView) this.findViewById(
+                R.id.mean_error_direction);
+        this.meanErrorCompensatedTextView = (TextView) this.findViewById(
+                R.id.mean_error_compensated);
 
         Bundle bundle = this.getIntent().getExtras();
         Point station = SharedResources.getSetOfPoints().find(
@@ -91,7 +95,10 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
                 this.abriss.getResults());
         this.resultsListView.setAdapter(this.adapter);
 
-        this.unknOrientTextView.setText(DisplayUtils.toString(this.abriss.getMean()));
-        this.meanErrorTextView.setText(DisplayUtils.toString(this.abriss.getMSE()));
+        this.meanTextView.setText(DisplayUtils.toString(this.abriss.getMean()));
+        this.meanErrorDirectionTextView.setText("±" + DisplayUtils.toString(
+                this.abriss.getMSE()));
+        this.meanErrorCompensatedTextView.setText("±" + DisplayUtils.toString(
+                this.abriss.getMeanErrComp()));
     }
 }

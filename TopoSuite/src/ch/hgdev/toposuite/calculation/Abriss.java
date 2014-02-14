@@ -29,7 +29,7 @@ public class Abriss extends Calculation {
      */
     private double              mse;
 
-    private double              meanErrCompDir;
+    private double              meanErrComp;
 
     public Abriss(boolean hasDAO) {
         super(CalculationType.ABRISS, Abriss.CALCULATION_NAME, hasDAO);
@@ -86,13 +86,15 @@ public class Abriss extends Calculation {
             double orientDir = MathUtils.modulo400(this.mean + m.getHorizDir());
             this.results.get(index).setOrientedDirection(orientDir);
 
-            double errAngle = this.results.get(index).getGisement() - orientDir;
+            // [cc]
+            double errAngle = (this.results.get(index).getGisement() - orientDir) * 10000;
             this.results.get(index).setErrAngle(errAngle);
 
             double calcDist = this.results.get(index).getCalculatedDistance();
 
             // (calcDist * (errAngle * 10000 / 6366.2)) / 100
-            double errTrans = (calcDist * errAngle * 1.5707957651346172) / 100;
+            // [cm]
+            double errTrans = (calcDist * (errAngle / 6366.2)) / 100;
             this.results.get(index).setErrTrans(errTrans);
 
             this.mse += Math.pow(errAngle, 2);
@@ -101,7 +103,7 @@ public class Abriss extends Calculation {
         }
 
         this.mse = Math.sqrt(this.mse / (index - 1));
-        this.meanErrCompDir = this.mse / Math.sqrt(index);
+        this.meanErrComp = this.mse / Math.sqrt(index);
 
         // update the calculation last modification date
         this.updateLastModification();
@@ -182,8 +184,8 @@ public class Abriss extends Calculation {
         return this.mse;
     }
 
-    public double getMeanErrCompDir() {
-        return this.meanErrCompDir;
+    public double getMeanErrComp() {
+        return this.meanErrComp;
     }
 
     public class Result {
