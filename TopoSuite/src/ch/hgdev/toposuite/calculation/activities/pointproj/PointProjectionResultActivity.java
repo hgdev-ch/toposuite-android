@@ -1,10 +1,14 @@
-package ch.hgdev.toposuite;
+package ch.hgdev.toposuite.calculation.activities.pointproj;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.R.id;
+import ch.hgdev.toposuite.R.layout;
 import ch.hgdev.toposuite.calculation.PointProjectionOnALine;
-import ch.hgdev.toposuite.calculation.pointproj.PointProjectionActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class PointProjectionResultActivity extends TopoSuiteActivity {

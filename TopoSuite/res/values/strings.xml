@@ -151,6 +151,7 @@
     <string name="title_activity_point_projection">Point Projection</string>
     <string name="title_activity_point_projection_result">Point Projection Result</string>
     <string name="title_activity_points_manager">Points Manager</string>
+    <string name="title_activity_polar_implantation">Polar implantation</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="unit_centimeter">[cm]</string>
     <string name="unit_gradian">[g]</string>

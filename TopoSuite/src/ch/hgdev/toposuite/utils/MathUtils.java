@@ -110,6 +110,28 @@ public class MathUtils {
 
     /**
      * Modulate an angle in gradian. This ensures that the angle is between 0
+     * and 200 gradian.
+     * 
+     * @param angle
+     *            Angle in gradian unit.
+     * @return The angle with a value between 0 and 200 gradians.
+     */
+    public static double modulo200(double angle) {
+        double m = angle;
+        if (m < 0) {
+            while (m < 0) {
+                m += 200;
+            }
+        } else if (m >= 200) {
+            while (m >= 200) {
+                m -= 200;
+            }
+        }
+        return m;
+    }
+
+    /**
+     * Modulate an angle in gradian. This ensures that the angle is between 0
      * and 400 gradian.
      * 
      * @param angle
