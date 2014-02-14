@@ -80,7 +80,7 @@
             android:label="@string/title_activity_polar_implantation" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.OrthogonalImplantationActivity"
+            android:name="ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity"
             android:label="@string/title_activity_orthogonal_implantation" >
         </activity>
     </application>
