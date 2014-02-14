@@ -82,8 +82,8 @@
     <string name="longitudinal_displacement_3dots">Déplacement longitudinal&#8230;</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
-    <string name="mean_error_compensated_label">Compensée [cc]:</string>
-    <string name="mean_error_direction_label">Direction [cc]:</string>
+    <string name="mean_error_compensated_label">Compensée:</string>
+    <string name="mean_error_direction_label">Direction:</string>
     <string name="mean_error_label">Erreur Moy. [cc]</string>
     <string name="mean_label">Moyenne:</string>
     <string name="measure_add">Ajouter une mesure</string>
