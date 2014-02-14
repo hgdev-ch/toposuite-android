@@ -18,6 +18,7 @@ import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoAct
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
+import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
 import ch.hgdev.toposuite.calculation.activities.pointproj.PointProjectionActivity;
 import ch.hgdev.toposuite.calculation.activities.polarimplantation.PolarImplantationActivity;
 import ch.hgdev.toposuite.entry.MainActivity;
@@ -89,6 +90,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                                 LeveOrthoActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_cheminement_ortho),
                                 CheminementOrthoActivity.class),
+                        new ActivityItem(this.getString(
+                                R.string.title_activity_orthogonal_implantation),
+                                OrthogonalImplantationActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_gisement),
                                 GisementActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_point_projection),
