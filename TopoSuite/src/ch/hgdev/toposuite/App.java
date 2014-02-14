@@ -47,6 +47,12 @@ public class App extends Application {
     public static String       numberOfDecimals                 = "%.4f";
 
     /**
+     * A smaller number of decimals than {@link App}. It is used to format
+     * numbers that are not meant to be very precise.
+     */
+    public static String       smallNumberOfDecimals            = "%.1f";
+
+    /**
      * Date format.
      */
     public static final String dateFormat                       = "MM-dd-yyyy HH:mm";

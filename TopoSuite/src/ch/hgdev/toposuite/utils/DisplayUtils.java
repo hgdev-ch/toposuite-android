@@ -28,6 +28,22 @@ public class DisplayUtils {
     }
 
     /**
+     * Convert a value of type double to a String according to a given number of
+     * decimals.
+     * 
+     * TODO check rounding mode of String.format
+     * 
+     * @param value
+     *            The value to convert to a String.
+     * @param precision
+     *            The number of decimal. (eg. "%.1f")
+     * @return Value as a String.
+     */
+    public static String toString(double value, String precision) {
+        return String.format(precision, value);
+    }
+
+    /**
      * Convert a value of type double to a String according to the number of
      * decimals to display which are set in the application settings.
      * 

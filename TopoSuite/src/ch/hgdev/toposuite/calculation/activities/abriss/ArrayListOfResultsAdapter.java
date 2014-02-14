@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -36,6 +37,9 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             TextView calcDistTextView = (TextView) view.findViewById(R.id.calculated_distance);
             TextView unknOrientTextView = (TextView) view.findViewById(R.id.unknown_orientation);
             TextView orientDirTextView = (TextView) view.findViewById(R.id.oriented_direction);
+            TextView errAngTextView = (TextView) view.findViewById(R.id.err_ang_item);
+            TextView errTransTextView = (TextView) view.findViewById(R.id.err_trans_item);
+            TextView errLonTextView = (TextView) view.findViewById(R.id.err_lon_item);
 
             if (targetPointTextView != null) {
                 targetPointTextView.setText(DisplayUtils.toString(result.getOrientation()
@@ -52,6 +56,21 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
 
             if (orientDirTextView != null) {
                 orientDirTextView.setText(DisplayUtils.toString(result.getOrientedDirection()));
+            }
+
+            if (errAngTextView != null) {
+                errAngTextView.setText(DisplayUtils.toString(
+                        result.getErrAngle(), App.smallNumberOfDecimals));
+            }
+
+            if (errTransTextView != null) {
+                errTransTextView.setText(DisplayUtils.toString(
+                        result.getErrTrans(), App.smallNumberOfDecimals));
+            }
+
+            if (errLonTextView != null) {
+                errLonTextView.setText(DisplayUtils.toString(
+                        result.getErrLong(), App.smallNumberOfDecimals));
             }
         }
 

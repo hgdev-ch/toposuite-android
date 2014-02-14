@@ -35,20 +35,23 @@ public class ArrayListOfOrientationsAdapter extends ArrayAdapter<Measure> {
             TextView numberTextView = (TextView) view.findViewById(R.id.point_number_item);
             TextView horizOrientTextView = (TextView) view.findViewById(R.id.horiz_orient_item);
             TextView horizDistTextView = (TextView) view.findViewById(R.id.horiz_dist_item);
-            TextView altitudeTextView = (TextView) view.findViewById(R.id.altitude_item);
+            TextView zenAngleTextView = (TextView) view.findViewById(R.id.zen_angle_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(orientation.getPoint()
-                        .getNumber()));
+                numberTextView.setText(DisplayUtils.toString(
+                        orientation.getPoint().getNumber()));
             }
+
             if (horizOrientTextView != null) {
                 horizOrientTextView.setText(DisplayUtils.toString(orientation.getHorizDir()));
             }
+
             if (horizDistTextView != null) {
                 horizDistTextView.setText(DisplayUtils.toString(orientation.getDistance()));
             }
-            if (altitudeTextView != null) {
-                altitudeTextView.setText(DisplayUtils.toString(orientation.getZenAngle()));
+
+            if (zenAngleTextView != null) {
+                zenAngleTextView.setText(DisplayUtils.toString(orientation.getZenAngle()));
             }
         }
 

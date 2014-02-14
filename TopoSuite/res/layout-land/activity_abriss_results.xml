@@ -23,7 +23,7 @@
             android:id="@+id/station_number"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1.02"
+            android:layout_weight="1.36"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
 
@@ -40,7 +40,7 @@
             android:id="@+id/mean"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1.02"
+            android:layout_weight="0.72"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
    </LinearLayout>
@@ -133,6 +133,33 @@
             android:gravity="center_horizontal"
             android:text="@string/oriented_direction_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/err_angle_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/err_trans_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/err_lon_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
     </LinearLayout>
 
     <ListView
@@ -141,50 +168,4 @@
         android:layout_height="wrap_content"
         android:layout_margin="1dp" >
     </ListView>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp">
-        
-        <TextView
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.86"
-	        android:gravity="left|center_vertical"
-	        android:paddingLeft="@dimen/activity_horizontal_margin"
-	        android:text="@string/unknown_orientation_label" />
-        
-        <TextView
-	        android:id="@+id/unknown_orientation"
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.86"
-	        android:gravity="left|center_vertical"
-	        android:paddingLeft="@dimen/activity_horizontal_margin" />
-   </LinearLayout>
-   
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp">
-        
-        <TextView
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.86"
-	        android:gravity="left|center_vertical"
-	        android:paddingLeft="@dimen/activity_horizontal_margin"
-	        android:text="@string/mean_error_label" />
-        
-        <TextView
-	        android:id="@+id/mean_error"
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.86"
-	        android:gravity="left|center_vertical"
-	        android:paddingLeft="@dimen/activity_horizontal_margin" />
-   </LinearLayout>
 </LinearLayout>

@@ -47,4 +47,37 @@
         android:gravity="center"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textColor="#000" />
+    
+    <TextView
+        android:id="@+id/err_ang_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:background="?android:attr/activatedBackgroundIndicator"
+        android:gravity="center"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:textColor="#000" />
+    
+    <TextView
+        android:id="@+id/err_trans_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:background="?android:attr/activatedBackgroundIndicator"
+        android:gravity="center"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:textColor="#000" />
+    
+    <TextView
+        android:id="@+id/err_lon_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:background="?android:attr/activatedBackgroundIndicator"
+        android:gravity="center"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:textColor="#000" />
 </LinearLayout>

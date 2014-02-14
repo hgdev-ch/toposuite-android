@@ -38,7 +38,7 @@
         android:textColor="#000" />
 
     <TextView
-        android:id="@+id/altitude_item"
+        android:id="@+id/zen_angle_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"

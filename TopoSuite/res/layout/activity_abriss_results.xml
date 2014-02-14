@@ -158,6 +158,33 @@
             android:gravity="center_horizontal"
             android:text="@string/oriented_direction_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/err_angle_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/err_trans_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/err_lon_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
     </LinearLayout>
 
     <ListView
