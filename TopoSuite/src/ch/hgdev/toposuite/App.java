@@ -50,7 +50,7 @@ public class App extends Application {
      * A smaller number of decimals than {@link App}. It is used to format
      * numbers that are not meant to be very precise.
      */
-    public static String       smallNumberOfDecimals            = "%.1f";
+    public static String       smallNumberOfDecimals            = "%.2f";
 
     /**
      * Date format.

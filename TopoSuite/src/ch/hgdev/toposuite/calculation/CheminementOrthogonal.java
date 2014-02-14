@@ -164,8 +164,8 @@ public class CheminementOrthogonal extends Calculation {
 
             Point p = SharedResources.getSetOfPoints().find(r.getNumber());
             if (p != null) {
-                newR.setvE(p.getEast() - newR.getEast());
-                newR.setvN(p.getNorth() - newR.getNorth());
+                newR.setvE(MathUtils.mToCm(p.getEast() - newR.getEast()));
+                newR.setvN(MathUtils.mToCm(p.getNorth() - newR.getNorth()));
             }
 
             this.results.add(newR);

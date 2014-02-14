@@ -97,6 +97,17 @@ public class MathUtils {
     }
 
     /**
+     * Convert meters to centimeters.
+     * 
+     * @param m
+     *            The meters.
+     * @return The distance in centimeters.
+     */
+    public static double mToCm(double m) {
+        return m * 100;
+    }
+
+    /**
      * Modulate an angle in gradian. This ensures that the angle is between 0
      * and 400 gradian.
      * 

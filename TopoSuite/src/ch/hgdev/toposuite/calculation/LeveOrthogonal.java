@@ -89,8 +89,8 @@ public class LeveOrthogonal extends Calculation {
 
             Point p = SharedResources.getSetOfPoints().find(m.getNumber());
             if (p != null) {
-                newM.setvE(p.getEast() - east);
-                newM.setvN(p.getNorth() - north);
+                newM.setvE(MathUtils.mToCm(p.getEast() - east));
+                newM.setvN(MathUtils.mToCm(p.getNorth() - north));
             }
 
             this.results.add(newM);
