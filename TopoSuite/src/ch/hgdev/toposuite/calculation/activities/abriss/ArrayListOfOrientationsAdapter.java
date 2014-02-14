@@ -48,7 +48,7 @@ public class ArrayListOfOrientationsAdapter extends ArrayAdapter<Measure> {
                 horizDistTextView.setText(DisplayUtils.toString(orientation.getDistance()));
             }
             if (altitudeTextView != null) {
-                altitudeTextView.setText(DisplayUtils.toString(orientation.getS()));
+                altitudeTextView.setText(DisplayUtils.toString(orientation.getZenAngle()));
             }
         }
 

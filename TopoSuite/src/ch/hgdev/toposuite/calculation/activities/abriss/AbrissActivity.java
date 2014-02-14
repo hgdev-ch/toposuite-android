@@ -256,9 +256,8 @@ public class AbrissActivity extends TopoSuiteActivity implements
         this.adapter.add(new Measure(
                 dialog.getOrientation(),
                 dialog.getHorizontalDirection(),
-                100.0,
-                dialog.getHorizontalDistance(),
-                dialog.getZenithalAngle()));
+                dialog.getZenithalAngle(),
+                dialog.getHorizontalDistance()));
         this.adapter.notifyDataSetChanged();
     }
 
