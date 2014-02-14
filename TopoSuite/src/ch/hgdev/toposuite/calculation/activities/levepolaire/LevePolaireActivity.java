@@ -9,10 +9,11 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,23 +51,22 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener,
         EditDeterminationDialogFragment.EditDeterminationDialogListener {
 
-    public static final String                         STATION_NUMBER_LABEL                  = "station_number";
-    public static final String                         DETERMINATIONS_LABEL                  = "determinations";
+    public static final String                         STATION_NUMBER_LABEL      = "station_number";
+    public static final String                         DETERMINATIONS_LABEL      = "determinations";
 
-    public static final String                         DETERMINATION_NUMBER                  = "determination_number";
-    public static final String                         HORIZ_DIR                             = "horizontal_direction";
-    public static final String                         DISTANCE                              = "distance";
-    public static final String                         ZEN_ANGLE                             = "zenithal_angle";
-    public static final String                         S                                     = "s";
-    public static final String                         LAT_DEPL                              = "lateral_displacement";
-    public static final String                         LON_DEPL                              = "longitudinal displacement";
+    public static final String                         DETERMINATION_NUMBER      = "determination_number";
+    public static final String                         HORIZ_DIR                 = "horizontal_direction";
+    public static final String                         DISTANCE                  = "distance";
+    public static final String                         ZEN_ANGLE                 = "zenithal_angle";
+    public static final String                         S                         = "s";
+    public static final String                         LAT_DEPL                  = "lateral_displacement";
+    public static final String                         LON_DEPL                  = "longitudinal displacement";
 
-    private static final String                        STATION_SELECTED_POSITION             = "station_selected_position";
+    private static final String                        STATION_SELECTED_POSITION = "station_selected_position";
     private Spinner                                    stationSpinner;
     private int                                        stationSelectedPosition;
     private TextView                                   stationPointTextView;
     private EditText                                   iEditText;
-    private static final String                        UNKNOWN_ORIENTATION_SELECTED_POSITION = "unknown_orientation_selected_position";
     private Spinner                                    unknownOrientSpinner;
     private int                                        unknownOrientSelectedPosition;
     private TextView                                   unknownOrientTextView;
@@ -148,11 +148,22 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                 // actually nothing
             }
         });
-        this.unknownOrientEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        this.unknownOrientEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                LevePolaireActivity.this.unknownOrientSpinner.setSelection(0);
-                return true;
+            public void afterTextChanged(Editable s) {
+                if (LevePolaireActivity.this.unknownOrientEditText.length() > 0) {
+                    LevePolaireActivity.this.unknownOrientSpinner.setSelection(0);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // nothing
             }
         });
 
@@ -403,11 +414,18 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         if (this.iEditText.length() > 0) {
             i = Double.parseDouble(this.iEditText.getText().toString());
         }
-        if (this.unknownOrientEditText.length() == 0) {
-            // Pop-up error
-            return;
-        } else {
+        if (this.unknownOrientEditText.length() > 0) {
             unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+        } else if (this.unknownOrientSelectedPosition > 0) {
+            unknownOrient = ((LevePolaireActivity.UnknownOrientationItem) this.unknownOrientSpinner
+                    .getItemAtPosition(this.unknownOrientSelectedPosition)).getZ0();
+        } else {
+            Toast errorToast = Toast.makeText(this,
+                    this.getText(R.string.error_choose_unknown_orientation),
+                    Toast.LENGTH_SHORT);
+            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            errorToast.show();
+            return;
         }
 
         Measure m = new Measure(
