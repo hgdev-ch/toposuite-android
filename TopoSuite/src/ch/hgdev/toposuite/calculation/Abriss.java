@@ -92,9 +92,8 @@ public class Abriss extends Calculation {
 
             double calcDist = this.results.get(index).getCalculatedDistance();
 
-            // (calcDist * (errAngle * 10000 / 6366.2)) / 100
             // [cm]
-            double errTrans = (calcDist * (errAngle / 6366.2)) / 100;
+            double errTrans = (calcDist * (errAngle / 6366.2));
             this.results.get(index).setErrTrans(errTrans);
 
             this.mse += Math.pow(errAngle, 2);
