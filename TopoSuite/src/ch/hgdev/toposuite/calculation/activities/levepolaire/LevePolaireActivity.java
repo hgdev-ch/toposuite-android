@@ -203,6 +203,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                         .getOrientation().getNumber(), m.getUnknownOrientation()));
             }
         }
+
         ArrayAdapter<UnknownOrientationItem> aauoi = new ArrayAdapter<LevePolaireActivity.UnknownOrientationItem>(
                 this, R.layout.spinner_list_item, unknownOrientationList);
         this.unknownOrientSpinner.setAdapter(aauoi);
@@ -248,6 +249,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
+            this.adapter.clear();
             this.stationSelectedPosition = savedInstanceState.getInt(
                     LevePolaireActivity.STATION_SELECTED_POSITION);
             JSONArray jsonArray;
