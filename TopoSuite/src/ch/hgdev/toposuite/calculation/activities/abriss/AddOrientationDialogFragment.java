@@ -107,7 +107,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
                             if (AddOrientationDialogFragment.this.horizontalDistanceEditText
                                     .length() > 0) {
                                 AddOrientationDialogFragment.this.horizontalDistance = Double
-                                        .parseDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText
+                                        .parseDouble(AddOrientationDialogFragment.this.horizontalDistanceEditText
                                                 .getText().toString());
                             }
                             if (AddOrientationDialogFragment.this.zenithalAngleEditText.length() > 0) {
@@ -194,7 +194,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
         this.horizontalDistanceEditText.setHint(this.getActivity().getString(
-                R.string.horiz_distance_3dots)
+                R.string.distance_3dots)
                 + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
         this.horizontalDistanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
