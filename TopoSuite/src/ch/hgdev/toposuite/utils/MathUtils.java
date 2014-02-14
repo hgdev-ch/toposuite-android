@@ -8,10 +8,16 @@ import ch.hgdev.toposuite.points.Point;
  * @author HGdev
  */
 public class MathUtils {
+
+    /**
+     * The earth equatorial radius in meters.
+     */
+    public static final double EARTH_RADIUS = 6378100.0;
+
     /**
      * The machine precision used to perform logical operation on doubles.
      */
-    public final static double EPSILON = Double.MIN_VALUE;
+    public static final double EPSILON      = Double.MIN_VALUE;
 
     /**
      * Check if a double is zero.
