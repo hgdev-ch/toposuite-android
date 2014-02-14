@@ -19,6 +19,7 @@ import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
 import ch.hgdev.toposuite.calculation.activities.pointproj.PointProjectionActivity;
+import ch.hgdev.toposuite.calculation.activities.polarimplantation.PolarImplantationActivity;
 import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
@@ -81,6 +82,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                                 AbrissActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_leve_polaire),
                                 LevePolaireActivity.class),
+                        new ActivityItem(
+                                this.getString(R.string.title_activity_polar_implantation),
+                                PolarImplantationActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
                                 LeveOrthoActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_cheminement_ortho),
