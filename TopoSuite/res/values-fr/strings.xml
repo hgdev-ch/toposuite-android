@@ -62,6 +62,9 @@
     <string name="east_3dots">Est&#8230;</string>
     <string name="east_label">Est [m]</string>
     <string name="edit">Modifier</string>
+    <string name="err_angle_label">Err.ang. [cc]</string>
+    <string name="err_trans_label">Err. trans. [cm]</string>
+    <string name="err_lon_label">Err. lon. [cm]</string>
     <string name="error_at_least_one_orientation">You devez saisir au moins une orientation!</string>
     <string name="error_choose_unknown_orientation">Vous devez choisir une inconnue d\'orientation!</string>
     <string name="error_fill_data">Tous les champs obligatoires doivent être remplis!</string>
