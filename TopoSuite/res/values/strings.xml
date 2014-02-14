@@ -158,8 +158,8 @@
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation">Unkn. Orient.</string>
     <string name="unknown_orientation_label">Unkn. Orient. [g]</string>
-    <string name="ve_label">vE [m]</string>
-    <string name="vn_label">vN [m]</string>
+    <string name="ve_label">vE [cm]</string>
+    <string name="vn_label">vN [cm]</string>
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
     <string name="zenithal_angle_3dots">Zenithal angle&#8230;</string>
