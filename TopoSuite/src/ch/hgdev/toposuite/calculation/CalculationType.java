@@ -8,6 +8,7 @@ package ch.hgdev.toposuite.calculation;
 public enum CalculationType {
     GISEMENT,
     ABRISS,
+    POLARIMPLANT,
     LEVEPOLAIRE,
     LEVEORTHO,
     CHEMINORTHO,
