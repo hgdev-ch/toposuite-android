@@ -36,7 +36,7 @@ public class TestLevePolaire extends TestCase {
 
         Measure m2 = new Measure(null, 288.833, 96.1645, 12.621, 1.40, 0.0, 0.0, i, z0);
         Measure m3 = new Measure(null, 317.0352, 95.2922, 30.996, 1.63, 0.0, 0.0, i, z0);
-        Measure m5 = new Measure(null, 5.9274, 107.3266, 32.265, 0.0, 0.0, 1.1, i, z0);
+        Measure m5 = new Measure(null, 5.9274, 107.3266, 32.265, 0.0, 0.0, 1.1, 0.0, z0);
         Measure m6 = new Measure(null, 45.9760, 96.9650, 15.864, 0.0, 0.5, 1.5, i, z0);
 
         LevePolaire lp = new LevePolaire(station, false);
@@ -63,10 +63,11 @@ public class TestLevePolaire extends TestCase {
 
         Assert.assertEquals("556487.532", this.df3.format(r5.getEast()));
         Assert.assertEquals("172486.838", this.df3.format(r5.getNorth()));
+        Assert.assertEquals(0.0, r5.getAltitude());
 
         Assert.assertEquals("556490.077", this.df3.format(r6.getEast()));
         Assert.assertEquals("172508.822", this.df3.format(r6.getNorth()));
-        Assert.assertEquals("622.726", this.df3.format(r6.getAltitude()));
+        Assert.assertEquals(0.0, r6.getAltitude());
     }
 
     public void test2() {

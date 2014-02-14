@@ -377,8 +377,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
      * @return True if inputs are OK, false otherwise.
      */
     private boolean checkInputs() {
-        if ((this.iEditText.length() == 0) || (this.station == null)
-                || (this.station.getNumber() < 1)) {
+        if ((this.station == null) || (this.station.getNumber() < 1)) {
             return false;
         }
         if ((this.unknownOrientEditText.length() == 0) && (this.unknownOrientSelectedPosition < 1)) {
@@ -428,12 +427,13 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
             return;
         }
 
+        double s = (i != 0.0) ? dialog.getS() : 0.0;
         Measure m = new Measure(
                 null,
                 dialog.getHorizDir(),
                 dialog.getZenAngle(),
                 dialog.getDistance(),
-                dialog.getS(),
+                s,
                 dialog.getLatDepl(),
                 dialog.getLonDepl(),
                 i,
