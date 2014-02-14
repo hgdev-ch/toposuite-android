@@ -12,5 +12,6 @@ public enum CalculationType {
     LEVEPOLAIRE,
     LEVEORTHO,
     CHEMINORTHO,
-    PROJPT
+    PROJPT,
+    ORTHOIMPL
 }

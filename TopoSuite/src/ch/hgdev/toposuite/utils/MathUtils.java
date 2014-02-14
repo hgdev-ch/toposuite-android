@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.utils;
 
+import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
 
 /**
@@ -210,5 +211,22 @@ public class MathUtils {
     public static double pointLanceNorth(double north, double gisement, double distance) {
         return north + (distance * Math.cos(
                 MathUtils.gradToRad(MathUtils.modulo400(gisement))));
+    }
+
+    /**
+     * Calculate an angle defined by 3 points.
+     * 
+     * @param p1
+     *            First point
+     * @param p2
+     *            Second point
+     * @param p3
+     *            Third point
+     * @return an angle
+     */
+    public static double angle3Pts(Point p1, Point p2, Point p3) {
+        double gis1 = new Gisement(p2, p1, false).getGisement();
+        double gis2 = new Gisement(p2, p3, false).getGisement();
+        return MathUtils.modulo400(gis2 - gis1);
     }
 }

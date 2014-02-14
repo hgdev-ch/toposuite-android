@@ -49,7 +49,7 @@ public class CheminementOrthogonal extends Calculation {
     }
 
     public CheminementOrthogonal(boolean hasDAO) {
-        super(CalculationType.LEVEORTHO, CheminementOrthogonal.CALCULATION_NAME, hasDAO);
+        super(CalculationType.CHEMINORTHO, CheminementOrthogonal.CALCULATION_NAME, hasDAO);
 
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<CheminementOrthogonal.Measure>();
