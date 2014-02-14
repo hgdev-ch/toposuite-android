@@ -54,8 +54,8 @@
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
     <string name="distance_projpoint_line_label">Distance du point projeté à la droite:</string>
-    <string name="distance_projpoint_point_1_label">Distance du point projeté au point 1:</string>
-    <string name="distance_projpoint_point_2_label">Distance du point projeté au point 2:</string>
+    <string name="distance_projpoint_point_1_label">Distance du point projeté au point A:</string>
+    <string name="distance_projpoint_point_2_label">Distance du point projeté au point B:</string>
     <string name="drawer_close">Ferme le menu de navigation</string>
     <string name="drawer_open">Ouvre le menu de navigation</string>
     <string name="east">Est</string>
@@ -111,8 +111,8 @@
     <string name="origin_label">Origine</string>
     <string name="origin_only_label">Origine</string>
     <string name="point_to_project">Point à projeter</string>
-    <string name="point_1">Point 1</string>
-    <string name="point_2">Point 2</string>
+    <string name="point_1">Point A</string>
+    <string name="point_2">Point B</string>
     <string name="point_add_success">Point ajouté avec succès!</string>
     <string name="point_already_exists">Ce point existe déjà!</string>
     <string name="point_class">Classe</string>
