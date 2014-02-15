@@ -3,14 +3,20 @@ package ch.hgdev.toposuite.calculation;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class OrthogonalImplantation extends Calculation {
     public static final String                       CALCULATION_NAME = "Implant. Ortho.";
+    public static final String                       ORTHOGONAL_BASE  = "orthogonal_base";
+    public static final String                       MEASURES         = "measures";
+    public static final String                       POINT_NUMBER     = "point_number";
 
     private OrthogonalBase                           orthogonalBase;
     private ArrayList<Point>                         measures;
@@ -83,22 +89,51 @@ public class OrthogonalImplantation extends Calculation {
             this.results.add(new Result(p, abscissa, ordinate));
         }
 
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO
-        return "";
+        JSONObject json = new JSONObject();
+
+        if (this.orthogonalBase != null) {
+            json.put(OrthogonalImplantation.ORTHOGONAL_BASE,
+                    this.orthogonalBase.toJSONObject());
+        }
+
+        if (this.measures.size() > 0) {
+            JSONArray measuresArray = new JSONArray();
+            for (Point p : this.measures) {
+                measuresArray.put(p.getNumber());
+            }
+
+            json.put(OrthogonalImplantation.MEASURES, measuresArray);
+        }
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO
+        JSONObject json = new JSONObject(jsonInputArgs);
+
+        OrthogonalBase ob = OrthogonalBase.getOrthogonalBaseFromJSON(
+                ((JSONObject) json.get(OrthogonalImplantation.ORTHOGONAL_BASE)).toString());
+        this.orthogonalBase = ob;
+
+        JSONArray measuresArray = json.getJSONArray(OrthogonalImplantation.MEASURES);
+
+        for (int i = 0; i < measuresArray.length(); i++) {
+            Integer pos = (Integer) measuresArray.get(i);
+            Point p = SharedResources.getSetOfPoints().find((int) pos);
+            this.measures.add(p);
+        }
     }
 
     @Override
     public Class<?> getActivityClass() {
-        return null;
+        return OrthogonalImplantationActivity.class;
     }
 
     public OrthogonalBase getOrthogonalBase() {
