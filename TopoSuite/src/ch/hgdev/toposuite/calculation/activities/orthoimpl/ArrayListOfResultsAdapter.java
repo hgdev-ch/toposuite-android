@@ -10,12 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<OrthogonalImplantation.Result> {
-    private final ArrayList<LeveOrthogonal.Measure> results;
+    private final ArrayList<OrthogonalImplantation.Result> results;
 
     public ArrayListOfResultsAdapter(Context context, int textViewResourceId,
             ArrayList<OrthogonalImplantation.Result> results) {
@@ -29,19 +28,29 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<OrthogonalImplantati
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.leve_ortho_results_list_item, null);
+            view = inflater.inflate(R.layout.orth_impl_results_list_item, null);
         }
 
         OrthogonalImplantation.Result result = this.results.get(position);
         if (result != null) {
             TextView numberTextView = (TextView) view.findViewById(R.id.number_item);
+            TextView eastTextView = (TextView) view.findViewById(R.id.east_item);
+            TextView northTextView = (TextView) view.findViewById(R.id.north_item);
             TextView abscissaTextView = (TextView) view.findViewById(R.id.abscissa_item);
             TextView ordinateTextView = (TextView) view.findViewById(R.id.ordinate_item);
-            TextView vETextView = (TextView) view.findViewById(R.id.ve_item);
-            TextView vNTextView = (TextView) view.findViewById(R.id.vn_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(result.getNumber()));
+                numberTextView.setText(DisplayUtils.toString(result.getPoint().getNumber()));
+            }
+
+            if (eastTextView != null) {
+                eastTextView.setText(DisplayUtils.toString(result.getPoint().getEast(),
+                        App.smallNumberOfDecimals));
+            }
+
+            if (northTextView != null) {
+                northTextView.setText(DisplayUtils.toString(result.getPoint().getNorth(),
+                        App.smallNumberOfDecimals));
             }
 
             if (abscissaTextView != null) {
@@ -50,16 +59,6 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<OrthogonalImplantati
 
             if (ordinateTextView != null) {
                 ordinateTextView.setText(DisplayUtils.toString(result.getOrdinate()));
-            }
-
-            if (vETextView != null) {
-                vETextView.setText(DisplayUtils.toString(result.getvE(),
-                        App.smallNumberOfDecimals));
-            }
-
-            if (ordinateTextView != null) {
-                vNTextView.setText(DisplayUtils.toString(result.getvN(),
-                        App.smallNumberOfDecimals));
             }
         }
 

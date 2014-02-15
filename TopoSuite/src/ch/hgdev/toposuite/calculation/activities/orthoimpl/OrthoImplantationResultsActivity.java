@@ -8,8 +8,6 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
-import ch.hgdev.toposuite.calculation.activities.leveortho.ArrayListOfResultsAdapter;
-import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 
 public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
     private TextView                  baseTextView;
@@ -24,12 +22,12 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_ortho_implantation_results);
 
-        this.baseTextView = (TextView) this.findViewById(R.id.base);
+        this.baseTextView = (TextView) this.findViewById(R.id.orthogonal_implantation);
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            int position = bundle.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
+            int position = bundle.getInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
             this.orthImpl = (OrthogonalImplantation) SharedResources.getCalculationsHistory().
                     get(position);
             this.orthImpl.compute();

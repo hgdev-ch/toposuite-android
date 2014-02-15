@@ -57,7 +57,7 @@ public class OrthogonalImplantation extends Calculation {
         this.results.clear();
 
         double gisBase = new Gisement(this.orthogonalBase.getOrigin(),
-                this.orthogonalBase.getExtemity()).getGisement();
+                this.orthogonalBase.getExtemity(), false).getGisement();
 
         for (Point p : this.measures) {
             PointProjectionOnALine ppoal = new PointProjectionOnALine(
@@ -126,22 +126,22 @@ public class OrthogonalImplantation extends Calculation {
     }
 
     public static class Result {
-        private Point  pt;
+        private Point  point;
         private double abscissa;
         private double ordinate;
 
-        public Result(Point _pt, double _abscissa, double _ordinate) {
-            this.pt = _pt;
+        public Result(Point _point, double _abscissa, double _ordinate) {
+            this.point = _point;
             this.abscissa = _abscissa;
             this.ordinate = _ordinate;
         }
 
-        public Point getPt() {
-            return this.pt;
+        public Point getPoint() {
+            return this.point;
         }
 
-        public void setPt(Point _pt) {
-            this.pt = _pt;
+        public void setPoint(Point _point) {
+            this.point = _point;
         }
 
         public double getAbscissa() {
