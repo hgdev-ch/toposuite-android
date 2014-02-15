@@ -1,11 +1,87 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".OrthoImplantationResultsActivity" >
+    android:orientation="vertical">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/base_label" />
+        
+        <TextView
+            android:id="@+id/base"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.41"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin" />
 
-</RelativeLayout>
+   </LinearLayout>
+    
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/target_point"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/east_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/north_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/abscissa_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/ordinate_label"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/results_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp" >
+    </ListView>
+</LinearLayout>

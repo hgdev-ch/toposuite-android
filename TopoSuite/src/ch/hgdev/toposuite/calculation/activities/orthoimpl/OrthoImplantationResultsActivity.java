@@ -1,10 +1,9 @@
 package ch.hgdev.toposuite.calculation.activities.orthoimpl;
 
-import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.R.layout;
 import android.os.Bundle;
 import android.view.Menu;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.TopoSuiteActivity;
 
 public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
 
@@ -19,5 +18,4 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
         //this.getMenuInflater().inflate(R.menu.ortho_implantation_results, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 }

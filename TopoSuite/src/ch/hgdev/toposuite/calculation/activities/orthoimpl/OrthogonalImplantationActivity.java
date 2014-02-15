@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -20,8 +21,10 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
-public class OrthogonalImplantationActivity extends TopoSuiteActivity {
+public class OrthogonalImplantationActivity extends TopoSuiteActivity
+        implements AddMeasureDialogFragment.AddMeasureDialogListener {
     private Spinner                originSpinner;
     private Spinner                extremitySpinner;
 
@@ -38,6 +41,8 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity {
     private int                    extremitySelectedPosition;
 
     private OrthogonalImplantation orthoImpl;
+
+    private ArrayAdapter<Point>    adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +103,8 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity {
                 // actually nothing
             }
         });
+
+        this.drawList();
     }
 
     @Override
@@ -137,6 +144,43 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+        case R.id.add_point_button:
+            this.showAddMeasureDialog();
+            return true;
+        case R.id.run_calculation_button:
+
+            /*int position = SharedResources.getCalculationsHistory()
+                    .indexOf(this.leveOrtho);
+
+            Bundle bundle = new Bundle();
+            bundle.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, position);
+
+            Intent resultsActivityIntent = new Intent(this,
+                    LeveOrthoResultsActivity.class);
+            resultsActivityIntent.putExtras(bundle);
+            this.startActivity(resultsActivityIntent);*/
+
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void drawList() {
+        if (this.orthoImpl != null) {
+            this.adapter = new ArrayAdapter<Point>(this, R.layout.history_list_item,
+                    this.orthoImpl.getMeasures());
+        } else {
+            this.adapter = new ArrayAdapter<Point>(this, R.layout.history_list_item);
+        }
+        this.measuresListView.setAdapter(this.adapter);
+    }
+
     private void itemSelected() {
         Point p1 = (Point) this.originSpinner.getSelectedItem();
         Point p2 = (Point) this.extremitySpinner.getSelectedItem();
@@ -146,10 +190,30 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity {
         } else if (p1.getNumber() == p2.getNumber()) {
             this.resetResults();
             Toast.makeText(this, R.string.error_same_points, Toast.LENGTH_LONG).show();
+        } else {
+            this.calcDistTextView.setText(DisplayUtils.toString(
+                    MathUtils.euclideanDistance(p1, p2)));
         }
     }
 
     private void resetResults() {
         this.calcDistTextView.setText("");
+    }
+
+    private void showAddMeasureDialog() {
+        AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
+        dialog.show(this.getFragmentManager(), "AddMeasureDialogFragment");
+    }
+
+    @Override
+    public void onDialogAdd(AddMeasureDialogFragment dialog) {
+        this.adapter.add(dialog.getPoint());
+        this.adapter.notifyDataSetChanged();
+        this.showAddMeasureDialog();
+    }
+
+    @Override
+    public void onDialogCancel(AddMeasureDialogFragment dialog) {
+        // NOTHING
     }
 }
