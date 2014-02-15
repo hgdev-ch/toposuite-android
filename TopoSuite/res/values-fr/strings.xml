@@ -2,6 +2,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     
     <string name="abscissa">Abscisse</string>
+    <string name="abscissa_label">Abscisse [m]</string>
     <string name="abscissa_3dots">Abscisse&#8230;</string>
     <string name="about_title">À propos <xliff:g id="app_name">%s</xliff:g></string>
     <string name="action_settings">Paramètres</string>
@@ -113,6 +114,7 @@
     <string name="optional_prths">(optionnel)</string>
     <string name="or">Ou</string>
     <string name="ordinate">Ordonnées</string>
+    <string name="ordinate_label">Ordonnées [m]</string>
     <string name="ordinate_3dots">Ordonnée&#8230;</string>
     <string name="orientation_label">Orientation</string>
     <string name="oriented_direction">Dir. Orient.</string>
