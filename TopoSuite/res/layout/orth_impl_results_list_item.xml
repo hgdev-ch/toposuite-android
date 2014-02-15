@@ -34,7 +34,7 @@
         android:background="?android:attr/activatedBackgroundIndicator"
         android:gravity="center"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:textColor="#000" />s
+        android:textColor="#000" />
     
     <TextView
         android:id="@+id/abscissa_item"
