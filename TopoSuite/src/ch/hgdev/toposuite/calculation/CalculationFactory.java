@@ -41,11 +41,14 @@ public class CalculationFactory {
         Calculation calculation = null;
 
         switch (type) {
-        case GISEMENT:
-            calculation = new Gisement(id, lastModification);
-            break;
         case ABRISS:
             calculation = new Abriss(id, lastModification);
+            break;
+        case CHEMINORTHO:
+            calculation = new CheminementOrthogonal(id, lastModification);
+            break;
+        case GISEMENT:
+            calculation = new Gisement(id, lastModification);
             break;
         case LEVEPOLAIRE:
             calculation = new LevePolaire(id, lastModification);
@@ -53,14 +56,14 @@ public class CalculationFactory {
         case LEVEORTHO:
             calculation = new LeveOrthogonal(id, lastModification);
             break;
-        case CHEMINORTHO:
-            calculation = new CheminementOrthogonal(id, lastModification);
+        case ORTHOIMPL:
+            calculation = new OrthogonalImplantation(id, lastModification);
+            break;
+        case POLARIMPLANT:
+            calculation = new PolarImplantation(id, lastModification);
             break;
         case PROJPT:
             calculation = new PointProjectionOnALine(id, lastModification);
-            break;
-        case ORTHOIMPL:
-            calculation = new OrthogonalImplantation(id, lastModification);
             break;
         default:
             Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR,

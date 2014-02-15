@@ -3,9 +3,12 @@ package ch.hgdev.toposuite.calculation;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.polarimplantation.PolarImplantationActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -18,9 +21,13 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * 
  */
 public class PolarImplantation extends Calculation {
-    private static final String                       CALCULATION_NAME = "Polar Implantation";
+    public static final String                        STATION_NUMBER    = "station_number";
+    public static final String                        POINT_NUMBER      = "station_number";
+    public static final String                        POINT_WITH_S_LIST = "points_with_s_list";
+    private static final String                       CALCULATION_NAME  = "Polar Implantation";
 
     private Point                                     station;
+    private Point                                     point;
     private final ArrayList<Measure>                  measures;
     private final ArrayList<PolarImplantation.Result> results;
 
@@ -87,21 +94,55 @@ public class PolarImplantation extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO implement
-        return null;
+        JSONObject json = new JSONObject();
+        if (this.station != null) {
+            json.put(PolarImplantation.STATION_NUMBER, this.station.getNumber());
+        }
+        if (this.point != null) {
+            json.put(PolarImplantation.POINT_NUMBER, this.point.getNumber());
+        }
+
+        if (this.measures.size() > 0) {
+            JSONArray measuresArray = new JSONArray();
+            for (Measure m : this.measures) {
+                measuresArray.put(m.toJSONObject());
+            }
+
+            json.put(PolarImplantation.POINT_WITH_S_LIST, measuresArray);
+        }
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO implement
+        JSONObject json = new JSONObject(jsonInputArgs);
+        this.station = SharedResources.getSetOfPoints().find(
+                json.getInt(PolarImplantation.STATION_NUMBER));
+        this.point = SharedResources.getSetOfPoints().find(
+                json.getInt(PolarImplantation.POINT_NUMBER));
 
+        JSONArray measuresArray = json.getJSONArray(PolarImplantation.POINT_WITH_S_LIST);
+
+        for (int i = 0; i < measuresArray.length(); i++) {
+            JSONObject jo = (JSONObject) measuresArray.get(i);
+            Measure m = new Measure(
+                    this.point,
+                    0.0,
+                    0.0,
+                    0.0,
+                    jo.getDouble(Measure.S),
+                    0.0,
+                    0.0,
+                    jo.getDouble(Measure.I),
+                    jo.getDouble(Measure.UNKNOWN_ORIENTATION));
+            this.measures.add(m);
+        }
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO uncomment once the activity has been created
-        // return ImplantationPolaireActivity.class;
-        return null;
+        return PolarImplantationActivity.class;
     }
 
     public ArrayList<Measure> getMeasures() {

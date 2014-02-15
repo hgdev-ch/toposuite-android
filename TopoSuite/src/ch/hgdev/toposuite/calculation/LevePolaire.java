@@ -132,7 +132,6 @@ public class LevePolaire extends Calculation {
                     jo.getInt(Measure.MEASURE_NUMBER));
             this.determinations.add(m);
         }
-
     }
 
     @Override
