@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation.activities.orthoimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.OrthogonalBase;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -25,15 +26,16 @@ import ch.hgdev.toposuite.utils.MathUtils;
 
 public class OrthogonalImplantationActivity extends TopoSuiteActivity
         implements AddMeasureDialogFragment.AddMeasureDialogListener {
+    public static final String     ORIGIN_SELECTED_POSITION    = "origin_selected_position";
+    public static final String     EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
+    public static final String     ORTHO_IMPL_POSITION         = "ortho_impl_position";
+
     private Spinner                originSpinner;
     private Spinner                extremitySpinner;
 
     private TextView               originPointTextView;
     private TextView               extremityPointTextView;
     private TextView               calcDistTextView;
-    private TextView               scaleTextView;
-
-    private EditText               measuredDistEditText;
 
     private ListView               measuresListView;
 
@@ -145,6 +147,45 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION,
+                this.originSelectedPosition);
+        outState.putInt(OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION,
+                this.extremitySelectedPosition);
+
+        if (this.orthoImpl != null) {
+            int index = SharedResources.getCalculationsHistory().indexOf(this.orthoImpl);
+            outState.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION,
+                    index);
+        } else {
+            outState.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION,
+                    -1);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            int index = savedInstanceState.getInt(
+                    OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
+            if (index != -1) {
+                this.orthoImpl = (OrthogonalImplantation) SharedResources
+                        .getCalculationsHistory().get(index);
+                this.drawList();
+            } else {
+                this.originSelectedPosition = savedInstanceState
+                        .getInt(OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION);
+                this.extremitySelectedPosition = savedInstanceState
+                        .getInt(OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION);
+            }
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -154,16 +195,17 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             return true;
         case R.id.run_calculation_button:
 
-            /*int position = SharedResources.getCalculationsHistory()
-                    .indexOf(this.leveOrtho);
+            int position = SharedResources.getCalculationsHistory()
+                    .indexOf(this.orthoImpl);
 
             Bundle bundle = new Bundle();
-            bundle.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, position);
+            bundle.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION,
+                    position);
 
             Intent resultsActivityIntent = new Intent(this,
-                    LeveOrthoResultsActivity.class);
+                    OrthoImplantationResultsActivity.class);
             resultsActivityIntent.putExtras(bundle);
-            this.startActivity(resultsActivityIntent);*/
+            this.startActivity(resultsActivityIntent);
 
             return true;
         default:
@@ -191,6 +233,17 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             this.resetResults();
             Toast.makeText(this, R.string.error_same_points, Toast.LENGTH_LONG).show();
         } else {
+            if (this.orthoImpl == null) {
+                this.orthoImpl = new OrthogonalImplantation(p1, p2, true);
+            } else {
+                if (this.orthoImpl.getOrthogonalBase() != null) {
+                    this.orthoImpl.getOrthogonalBase().setOrigin(p1);
+                    this.orthoImpl.getOrthogonalBase().setExtemity(p2);
+                } else {
+                    this.orthoImpl.setOrthogonalBase(new OrthogonalBase(p1, p2));
+                }
+            }
+
             this.calcDistTextView.setText(DisplayUtils.toString(
                     MathUtils.euclideanDistance(p1, p2)));
         }
@@ -207,6 +260,12 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
 
     @Override
     public void onDialogAdd(AddMeasureDialogFragment dialog) {
+        if (this.orthoImpl == null) {
+            this.orthoImpl = new OrthogonalImplantation(true);
+        }
+
+        this.orthoImpl.getMeasures().add(dialog.getPoint());
+
         this.adapter.add(dialog.getPoint());
         this.adapter.notifyDataSetChanged();
         this.showAddMeasureDialog();

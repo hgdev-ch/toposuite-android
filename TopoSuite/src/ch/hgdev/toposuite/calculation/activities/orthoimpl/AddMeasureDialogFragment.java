@@ -145,7 +145,6 @@ public class AddMeasureDialogFragment extends DialogFragment {
                 } else {
                     AddMeasureDialogFragment.this.pointTextView.setText("");
                 }
-                AddMeasureDialogFragment.this.itemSelected();
             }
 
             @Override
@@ -160,16 +159,6 @@ public class AddMeasureDialogFragment extends DialogFragment {
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
-    }
-
-    /**
-     * itemSelected is triggered when the selected item of one of the spinners
-     * is changed.
-     */
-    private void itemSelected() {
-        this.point = (Point) this.pointSpinner.getSelectedItem();
-        this.pointTextView.setText(DisplayUtils.formatPoint(
-                this.getActivity(), this.point));
     }
 
     /**
