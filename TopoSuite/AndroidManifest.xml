@@ -83,6 +83,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity"
             android:label="@string/title_activity_orthogonal_implantation" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthoImplantationResultsActivity"
+            android:label="@string/title_activity_ortho_implantation_results" >
+        </activity>
     </application>
 
 </manifest>

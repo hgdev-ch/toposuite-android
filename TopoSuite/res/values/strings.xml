@@ -150,8 +150,9 @@
     <string name="title_activity_leve_polaire">Levé polaire</string>
     <string name="title_activity_leve_polaire_results">Levé polaire</string>
     <string name="title_activity_orthogonal_implantation">Orthogonal implantation</string>
-    <string name="title_activity_point_projection">Point Projection</string>
-    <string name="title_activity_point_projection_result">Point Projection Result</string>
+    <string name="title_activity_ortho_implantation_results">Orthogonal implantation results</string>
+    <string name="title_activity_point_projection">Point projection</string>
+    <string name="title_activity_point_projection_result">Point projection pesult</string>
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="title_activity_polar_implantation">Polar implantation</string>
     <string name="toggle_right_menu_button">Calculations</string>
