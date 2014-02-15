@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,9 +41,10 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class PolarImplantationActivity extends TopoSuiteActivity implements
         AddPointWithSDialogFragment.AddPointWithSDialogListener {
 
-    private static final String                              STATION_SELECTED_POSITION = "station_selected_position";
+    public static final String                               STATION_NUMBER_LABEL      = "station_number";
     public static final String                               POINTS_WITH_S_LABEL       = "points_with_s";
 
+    private static final String                              STATION_SELECTED_POSITION = "station_selected_position";
     private Spinner                                          stationSpinner;
     private int                                              stationSelectedPosition;
     private TextView                                         stationPointTextView;
@@ -189,7 +191,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                 .add(new UnknownOrientationItem(new Point(0, 0.0, 0.0, 0.0, false),
                         0, Double.MIN_VALUE));
         for (Calculation c : SharedResources.getCalculationsHistory()) {
-            if (c.getType() != CalculationType.ABRISS) {
+            if ((c != null) && (c.getType() != CalculationType.ABRISS)) {
                 continue;
             }
             Abriss a = (Abriss) c;
@@ -280,18 +282,31 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             }
             return true;
         case R.id.run_calculation_button:
-            // TODO
+            if (this.checkInputs()) {
+                this.showPolarImplantationResultActivity();
+            } else {
+                Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
+            }
             return true;
         default:
             return super.onOptionsItemSelected(item);
         }
     }
 
+    /**
+     * Show a dialog to add a new point, with optional S.
+     */
     private void showAddPointDialog() {
         AddPointWithSDialogFragment dialog = new AddPointWithSDialogFragment();
         dialog.show(this.getFragmentManager(), "AddPointWithSDialogFragment");
     }
 
+    /**
+     * Draw the list of points.
+     */
     private void drawList() {
         this.pointsListView.setAdapter(this.adapter);
     }
@@ -310,6 +325,25 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             return false;
         }
         return true;
+    }
+
+    /**
+     * Start the activity that shows the results of the calculation.
+     */
+    private void showPolarImplantationResultActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(PolarImplantationActivity.STATION_NUMBER_LABEL, this.station.getNumber());
+
+        JSONArray json = new JSONArray();
+        for (int i = 0; i < this.adapter.getCount(); i++) {
+            json.put(this.adapter.getItem(i).toJSONObject());
+        }
+
+        bundle.putString(PolarImplantationActivity.POINTS_WITH_S_LABEL, json.toString());
+
+        Intent resultsActivityIntent = new Intent(this, PolarImplantationResultsActivity.class);
+        resultsActivityIntent.putExtras(bundle);
+        this.startActivity(resultsActivityIntent);
     }
 
     @Override

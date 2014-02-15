@@ -76,7 +76,7 @@ public class PolarImplantation extends Calculation {
             distance /= Math.sin(MathUtils.gradToRad(zenAngle));
 
             Result r = new Result(d.getPoint().getNumber(), horizDir, horizDist, distance,
-                    zenAngle, g.getGisement());
+                    zenAngle, g.getGisement(), d.getS());
             this.results.add(r);
         }
 
@@ -130,15 +130,17 @@ public class PolarImplantation extends Calculation {
         private final double distance;
         private final double zenAngle;
         private final double gisement;
+        private final double s;
 
         public Result(int _pointNumber, double _horizDir, double _horizDist, double _distance,
-                double _zenAngle, double _gisement) {
+                double _zenAngle, double _gisement, double _s) {
             this.pointNumber = _pointNumber;
             this.horizDist = _horizDist;
             this.horizDir = _horizDir;
             this.distance = _distance;
             this.zenAngle = _zenAngle;
             this.gisement = _gisement;
+            this.s = _s;
         }
 
         public int getPointNumber() {
@@ -165,5 +167,8 @@ public class PolarImplantation extends Calculation {
             return this.gisement;
         }
 
+        public double getS() {
+            return this.s;
+        }
     }
 }

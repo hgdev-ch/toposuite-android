@@ -205,7 +205,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                 .add(new UnknownOrientationItem(new Point(0, 0.0, 0.0, 0.0, false),
                         0, Double.MIN_VALUE));
         for (Calculation c : SharedResources.getCalculationsHistory()) {
-            if (c.getType() != CalculationType.ABRISS) {
+            if ((c != null) && (c.getType() != CalculationType.ABRISS)) {
                 continue;
             }
             Abriss a = (Abriss) c;
