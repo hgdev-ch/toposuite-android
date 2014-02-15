@@ -67,7 +67,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // getMenuInflater().inflate(R.menu.cheminement_ortho_results, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void drawList() {
