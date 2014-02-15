@@ -96,6 +96,10 @@ public class Abriss extends Calculation {
             double errTrans = (calcDist * (errAngle / 6366.2));
             this.results.get(index).setErrTrans(errTrans);
 
+            // [cm] => measured distance - calculated distance
+            this.results.get(index).setErrLong(
+                    MathUtils.mToCm(m.getDistance() - calcDist));
+
             this.mse += Math.pow(errAngle, 2);
 
             index++;
@@ -258,6 +262,10 @@ public class Abriss extends Calculation {
 
         public double getErrLong() {
             return this.errLong;
+        }
+
+        public void setErrLong(double _errLong) {
+            this.errLong = _errLong;
         }
     }
 }
