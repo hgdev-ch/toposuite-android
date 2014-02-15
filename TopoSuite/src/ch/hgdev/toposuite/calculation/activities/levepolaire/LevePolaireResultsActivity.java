@@ -5,6 +5,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -47,6 +53,8 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
             // TODO
         }
 
+        this.registerForContextMenu(this.resultsListView);
+
         this.levePolaire.compute();
 
         this.displayResults();
@@ -56,5 +64,29 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
         this.adapter = new ArrayListOfResultsAdapter(this, R.layout.leve_polaire_results_list_item,
                 this.levePolaire.getResults());
         this.resultsListView.setAdapter(this.adapter);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.calculations_points_list_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.save_point:
+            // TODO implement
+            return true;
+        case R.id.delete_point:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
     }
 }
