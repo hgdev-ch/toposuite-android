@@ -3,10 +3,16 @@ package ch.hgdev.toposuite.calculation.activities.polarimplantation;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -15,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -25,32 +32,37 @@ import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarImplantation;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
-public class PolarImplantationActivity extends TopoSuiteActivity {
+public class PolarImplantationActivity extends TopoSuiteActivity implements
+        AddPointWithSDialogFragment.AddPointWithSDialogListener {
 
-    private static final String                                STATION_SELECTED_POSITION = "station_selected_position";
-    private Spinner                                            stationSpinner;
-    private int                                                stationSelectedPosition;
-    private TextView                                           stationPointTextView;
-    private EditText                                           iEditText;
-    private Spinner                                            unknownOrientSpinner;
-    private int                                                unknownOrientSelectedPosition;
-    private TextView                                           unknownOrientTextView;
-    private EditText                                           unknownOrientEditText;
-    private ListView                                           pointsListView;
-    private ArrayAdapter<PolarImplantationActivity.PointWithS> adapter;
+    private static final String                              STATION_SELECTED_POSITION = "station_selected_position";
+    public static final String                               POINTS_WITH_S_LABEL       = "points_with_s";
 
-    private Point                                              station;
-    private PolarImplantation                                  polarImplantation;
-    private PolarImplantationActivity.UnknownOrientationItem   unknownOrientation;
+    private Spinner                                          stationSpinner;
+    private int                                              stationSelectedPosition;
+    private TextView                                         stationPointTextView;
+    private EditText                                         iEditText;
+    private Spinner                                          unknownOrientSpinner;
+    private int                                              unknownOrientSelectedPosition;
+    private TextView                                         unknownOrientTextView;
+    private EditText                                         unknownOrientEditText;
+    private ListView                                         pointsListView;
+    private ArrayAdapter<Measure>                            adapter;
+
+    private Point                                            station;
+    private PolarImplantation                                polarImplantation;
+    private PolarImplantationActivity.UnknownOrientationItem unknownOrientation;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
      * from the history.
      */
-    private int                                                position;
+    private int                                              position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +149,23 @@ public class PolarImplantationActivity extends TopoSuiteActivity {
             }
         });
 
+        ArrayList<Measure> list = new ArrayList<Measure>();
+
+        // check if we create a new polar implantation calculation or if we
+        // modify an
+        // existing one.
+        Bundle bundle = this.getIntent().getExtras();
+        if ((bundle != null)) {
+            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.polarImplantation = (PolarImplantation) SharedResources.getCalculationsHistory()
+                    .get(
+                            this.position);
+            list = this.polarImplantation.getMeasures();
+        }
+
+        this.adapter = new ArrayListOfPointsWithSAdapter(this,
+                R.layout.points_with_s_list_item, list);
+
         this.drawList();
 
         this.registerForContextMenu(this.pointsListView);
@@ -192,13 +221,138 @@ public class PolarImplantationActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         this.getMenuInflater().inflate(R.menu.polar_implantation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(PolarImplantationActivity.STATION_SELECTED_POSITION,
+                this.stationSelectedPosition);
+
+        JSONArray json = new JSONArray();
+        for (int i = 0; i < this.adapter.getCount(); i++) {
+            json.put(this.adapter.getItem(i).toJSONObject());
+        }
+
+        outState.putString(PolarImplantationActivity.POINTS_WITH_S_LABEL, json.toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            this.adapter.clear();
+            this.stationSelectedPosition = savedInstanceState.getInt(
+                    PolarImplantationActivity.STATION_SELECTED_POSITION);
+            JSONArray jsonArray;
+            try {
+                jsonArray = new JSONArray(
+                        savedInstanceState
+                                .getString(PolarImplantationActivity.POINTS_WITH_S_LABEL));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject json = (JSONObject) jsonArray.get(i);
+                    Measure m = Measure.getMeasureFromJSON(json.toString());
+                    this.adapter.add(m);
+                }
+            } catch (JSONException e) {
+                // TODO
+            }
+            this.drawList();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.add_point_button:
+            if (this.checkInputs()) {
+                this.showAddPointDialog();
+            } else {
+                Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
+            }
+            return true;
+        case R.id.run_calculation_button:
+            // TODO
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showAddPointDialog() {
+        AddPointWithSDialogFragment dialog = new AddPointWithSDialogFragment();
+        dialog.show(this.getFragmentManager(), "AddPointWithSDialogFragment");
+    }
+
     private void drawList() {
-        // TODO implement
+        this.pointsListView.setAdapter(this.adapter);
+    }
+
+    /**
+     * Check that the I field, the unknown orientation field have been filled
+     * and that the station has been chosen.
+     * 
+     * @return True if inputs are OK, false otherwise.
+     */
+    private boolean checkInputs() {
+        if ((this.station == null) || (this.station.getNumber() < 1)) {
+            return false;
+        }
+        if ((this.unknownOrientEditText.length() == 0) && (this.unknownOrientSelectedPosition < 1)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onDialogAdd(AddPointWithSDialogFragment dialog) {
+        double i = 0.0;
+        double unknownOrient;
+
+        if (this.iEditText.length() > 0) {
+            i = Double.parseDouble(this.iEditText.getText().toString());
+        }
+        if (this.unknownOrientEditText.length() > 0) {
+            unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+        } else if (this.unknownOrientSelectedPosition > 0) {
+            unknownOrient = ((PolarImplantationActivity.UnknownOrientationItem) this.unknownOrientSpinner
+                    .getItemAtPosition(this.unknownOrientSelectedPosition)).getZ0();
+        } else {
+            Toast errorToast = Toast.makeText(this,
+                    this.getText(R.string.error_choose_unknown_orientation),
+                    Toast.LENGTH_SHORT);
+            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            errorToast.show();
+            return;
+        }
+
+        double s = !MathUtils.isZero(i) ? dialog.getS() : 0.0;
+        Measure m = new Measure(
+                dialog.getPoint(),
+                0.0,
+                0.0,
+                0.0,
+                s,
+                0.0,
+                0.0,
+                i,
+                unknownOrient);
+
+        this.adapter.add(m);
+        this.adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDialogCancel(AddPointWithSDialogFragment dialog) {
+        // do nothing actually
     }
 
     private class UnknownOrientationItem {
@@ -231,27 +385,6 @@ public class PolarImplantationActivity extends TopoSuiteActivity {
                 item += ": " + DisplayUtils.toString(this.orientationNumber) + "; ";
                 return item;
             }
-        }
-    }
-
-    /**
-     * We need to display a list of points and their associated prism height
-     * that the user might enter.
-     * 
-     * @author HGdev
-     * 
-     */
-    protected class PointWithS extends Point {
-        private final double s;
-
-        public PointWithS(int number, double east, double north, double altitude,
-                boolean basePoint, double _s) {
-            super(number, east, north, altitude, basePoint, false);
-            this.s = _s;
-        }
-
-        public double getS() {
-            return this.s;
         }
     }
 }
