@@ -253,6 +253,12 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
             this.showAddMeasureDialog();
             return true;
         case R.id.run_calculation_button:
+            if ((this.originSelectedPosition == 0) || (this.extremitySelectedPosition == 0)
+                    || (this.adapter.getCount() == 0)) {
+                Toast.makeText(this, R.string.error_fill_data, Toast.LENGTH_LONG)
+                        .show();
+                return true;
+            }
 
             int position = SharedResources.getCalculationsHistory()
                     .indexOf(this.leveOrtho);
