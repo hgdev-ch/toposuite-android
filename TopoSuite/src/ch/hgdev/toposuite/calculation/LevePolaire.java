@@ -74,7 +74,7 @@ public class LevePolaire extends Calculation {
             double north = this.station.getNorth() + (Math.cos(z0 + hz) * horizDist);
 
             double altitude;
-            if ((m.getI() != 0.0) && (m.getS() != 0.0)) {
+            if (!MathUtils.isZero(m.getI()) && !MathUtils.isZero(m.getS())) {
                 altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle))
                         + m.getI()) - m.getS();
             } else {

@@ -40,6 +40,7 @@ import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * Activity related to the "leve polaire".
@@ -427,7 +428,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
             return;
         }
 
-        double s = (i != 0.0) ? dialog.getS() : 0.0;
+        double s = !MathUtils.isZero(i) ? dialog.getS() : 0.0;
         Measure m = new Measure(
                 null,
                 dialog.getHorizDir(),
