@@ -11,11 +11,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -296,12 +300,45 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.polar_implant_points_list_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.edit_point_with_s:
+            this.showEditPointWithSDialog(info.position);
+            return true;
+        case R.id.delete_point_with_s:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
+    }
+
     /**
      * Show a dialog to add a new point, with optional S.
      */
     private void showAddPointDialog() {
         AddPointWithSDialogFragment dialog = new AddPointWithSDialogFragment();
         dialog.show(this.getFragmentManager(), "AddPointWithSDialogFragment");
+    }
+
+    /**
+     * 
+     * @param position
+     *            Position of the point with S to edit.
+     */
+    private void showEditPointWithSDialog(int position) {
+        // TODO implement
     }
 
     /**
