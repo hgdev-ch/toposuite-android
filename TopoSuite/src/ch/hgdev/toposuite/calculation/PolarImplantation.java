@@ -58,6 +58,7 @@ public class PolarImplantation extends Calculation {
             return;
         }
 
+        this.results.clear();
         for (Measure d : this.measures) {
             Gisement g = new Gisement(this.station, d.getPoint());
 

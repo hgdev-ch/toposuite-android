@@ -441,6 +441,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                 unknownOrient,
                 dialog.getDeterminationNo());
 
+        this.position = -1;
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
     }
@@ -458,11 +459,18 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         if (this.iEditText.length() > 0) {
             i = Double.parseDouble(this.iEditText.getText().toString());
         }
-        if (this.unknownOrientEditText.length() == 0) {
-            // Pop-up error
-            return;
-        } else {
+        if (this.unknownOrientEditText.length() > 0) {
             unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+        } else if (this.unknownOrientSelectedPosition > 0) {
+            unknownOrient = ((LevePolaireActivity.UnknownOrientationItem) this.unknownOrientSpinner
+                    .getItemAtPosition(this.unknownOrientSelectedPosition)).getZ0();
+        } else {
+            Toast errorToast = Toast.makeText(this,
+                    this.getText(R.string.error_choose_unknown_orientation),
+                    Toast.LENGTH_SHORT);
+            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            errorToast.show();
+            return;
         }
         this.adapter.remove(this.adapter.getItem(this.position));
         Measure m = new Measure(

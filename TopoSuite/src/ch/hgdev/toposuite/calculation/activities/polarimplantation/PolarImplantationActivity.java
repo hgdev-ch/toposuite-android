@@ -43,12 +43,15 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class PolarImplantationActivity extends TopoSuiteActivity implements
-        AddPointWithSDialogFragment.AddPointWithSDialogListener {
+        AddPointWithSDialogFragment.AddPointWithSDialogListener,
+        EditPointWithSDialogFragment.EditPointWithSDialogListener {
 
-    public static final String                               STATION_NUMBER_LABEL      = "station_number";
-    public static final String                               POINTS_WITH_S_LABEL       = "points_with_s";
+    public static final String                               STATION_NUMBER_LABEL       = "station_number";
+    public static final String                               POINTS_WITH_S_NUMBER_LABEL = "points_with_s_number";
+    public static final String                               POINTS_WITH_S_LABEL        = "points_with_s";
 
-    private static final String                              STATION_SELECTED_POSITION = "station_selected_position";
+    private static final String                              STATION_SELECTED_POSITION  = "station_selected_position";
+    public static final String                               S                          = "s";
     private Spinner                                          stationSpinner;
     private int                                              stationSelectedPosition;
     private TextView                                         stationPointTextView;
@@ -338,7 +341,16 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
      *            Position of the point with S to edit.
      */
     private void showEditPointWithSDialog(int position) {
-        // TODO implement
+        EditPointWithSDialogFragment dialog = new EditPointWithSDialogFragment();
+
+        this.position = position;
+        Measure m = this.adapter.getItem(position);
+        Bundle args = new Bundle();
+        args.putInt(PolarImplantationActivity.POINTS_WITH_S_NUMBER_LABEL, m.getPoint().getNumber());
+        args.putDouble(S, m.getS());
+
+        dialog.setArguments(args);
+        dialog.show(this.getFragmentManager(), "EditPointWithSDialogFragment");
     }
 
     /**
@@ -423,6 +435,51 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(AddPointWithSDialogFragment dialog) {
+        // do nothing actually
+    }
+
+    @Override
+    public void onDialogEdit(EditPointWithSDialogFragment dialog) {
+        double i = 0.0;
+        double unknownOrient;
+
+        if (this.iEditText.length() > 0) {
+            i = Double.parseDouble(this.iEditText.getText().toString());
+        }
+        if (this.unknownOrientEditText.length() > 0) {
+            unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+        } else if (this.unknownOrientSelectedPosition > 0) {
+            unknownOrient = ((PolarImplantationActivity.UnknownOrientationItem) this.unknownOrientSpinner
+                    .getItemAtPosition(this.unknownOrientSelectedPosition)).getZ0();
+        } else {
+            Toast errorToast = Toast.makeText(this,
+                    this.getText(R.string.error_choose_unknown_orientation),
+                    Toast.LENGTH_SHORT);
+            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            errorToast.show();
+            return;
+        }
+
+        this.adapter.remove(this.adapter.getItem(this.position));
+        double s = !MathUtils.isZero(i) ? dialog.getS() : 0.0;
+        Measure m = new Measure(
+                dialog.getPoint(),
+                0.0,
+                0.0,
+                0.0,
+                s,
+                0.0,
+                0.0,
+                i,
+                unknownOrient);
+
+        this.position = -1;
+        this.adapter.add(m);
+        this.adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDialogCancel(EditPointWithSDialogFragment dialog) {
         // do nothing actually
     }
 

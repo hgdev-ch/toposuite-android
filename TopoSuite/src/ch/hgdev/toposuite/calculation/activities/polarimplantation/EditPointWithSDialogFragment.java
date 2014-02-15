@@ -26,48 +26,48 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
-class AddPointWithSDialogFragment extends DialogFragment {
+public class EditPointWithSDialogFragment extends DialogFragment {
     /**
-     * The activity that creates an instance of AddPointWithSDialogFragment must
-     * implement this interface in order to receive event callbacks. Each method
-     * passes the DialogFragment in case the host needs to query it.
+     * The activity that creates an instance of EditPointWithSDialogFragment
+     * must implement this interface in order to receive event callbacks. Each
+     * method passes the DialogFragment in case the host needs to query it.
      * 
      * @author HGdev
      * 
      */
-    public interface AddPointWithSDialogListener {
+    public interface EditPointWithSDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
          * 
          * @param dialog
          *            Dialog with NO useful information to fetch from.
          */
-        void onDialogCancel(AddPointWithSDialogFragment dialog);
+        void onDialogCancel(EditPointWithSDialogFragment dialog);
 
         /**
-         * Define what to do when the "Add" button is clicked.
+         * Define what to do when the "Edit" button is clicked.
          * 
          * @param dialog
          *            Dialog to fetch information from.
          */
-        void onDialogAdd(AddPointWithSDialogFragment dialog);
+        void onDialogEdit(EditPointWithSDialogFragment dialog);
     }
 
-    AddPointWithSDialogListener listener;
-    private LinearLayout        layout;
-    private Point               point;
-    private Spinner             pointSpinner;
-    private TextView            pointTextView;
-    private double              s;
-    private EditText            sEditText;
+    EditPointWithSDialogListener listener;
+    private LinearLayout         layout;
+    private Point                point;
+    private Spinner              pointSpinner;
+    private TextView             pointTextView;
+    private double               s;
+    private EditText             sEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(R.string.dialog_add_point).setView(this.layout)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.dialog_edit_point).setView(this.layout)
+                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // overridden below because the dialog dismiss itself
@@ -78,8 +78,8 @@ class AddPointWithSDialogFragment extends DialogFragment {
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AddPointWithSDialogFragment.this.listener
-                                .onDialogCancel(AddPointWithSDialogFragment.this);
+                        EditPointWithSDialogFragment.this.listener
+                                .onDialogCancel(EditPointWithSDialogFragment.this);
                     }
                 });
         Dialog dialog = builder.create();
@@ -91,22 +91,22 @@ class AddPointWithSDialogFragment extends DialogFragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (AddPointWithSDialogFragment.this.checkDialogInputs()) {
-                            if (AddPointWithSDialogFragment.this.sEditText.length() > 0) {
-                                AddPointWithSDialogFragment.this.s =
-                                        Double.parseDouble(AddPointWithSDialogFragment.this
+                        if (EditPointWithSDialogFragment.this.checkDialogInputs()) {
+                            if (EditPointWithSDialogFragment.this.sEditText.length() > 0) {
+                                EditPointWithSDialogFragment.this.s =
+                                        Double.parseDouble(EditPointWithSDialogFragment.this
                                                 .sEditText.getText().toString());
                             }
-                            AddPointWithSDialogFragment.this.point =
-                                    (Point) AddPointWithSDialogFragment.this.pointSpinner
+                            EditPointWithSDialogFragment.this.point =
+                                    (Point) EditPointWithSDialogFragment.this.pointSpinner
                                             .getSelectedItem();
-                            AddPointWithSDialogFragment.this.listener
-                                    .onDialogAdd(AddPointWithSDialogFragment.this);
+                            EditPointWithSDialogFragment.this.listener
+                                    .onDialogEdit(EditPointWithSDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
-                                    AddPointWithSDialogFragment.this.getActivity(),
-                                    AddPointWithSDialogFragment.this.getActivity().getString(
+                                    EditPointWithSDialogFragment.this.getActivity(),
+                                    EditPointWithSDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data),
                                     Toast.LENGTH_SHORT);
                             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -124,10 +124,10 @@ class AddPointWithSDialogFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            this.listener = (AddPointWithSDialogListener) activity;
+            this.listener = (EditPointWithSDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement AddPointWithSDialogListener");
+                    + " must implement EditPointWithSDialogListener");
         }
     }
 
@@ -135,6 +135,10 @@ class AddPointWithSDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
+        Bundle bundle = this.getArguments();
+
+        this.s = bundle.getDouble(PolarImplantationActivity.S);
+
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -146,20 +150,21 @@ class AddPointWithSDialogFragment extends DialogFragment {
                 this.getActivity().getString(R.string.prism_height_3dots)
                         + this.getActivity().getString(R.string.unit_meter)
                         + this.getActivity().getString(R.string.optional_prths));
+        this.sEditText.setText(DisplayUtils.toString(this.s));
         this.sEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.pointSpinner = new Spinner(this.getActivity());
         this.pointSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                AddPointWithSDialogFragment.this.point = (Point) AddPointWithSDialogFragment.this.pointSpinner
+                EditPointWithSDialogFragment.this.point = (Point) EditPointWithSDialogFragment.this.pointSpinner
                         .getItemAtPosition(pos);
-                if (AddPointWithSDialogFragment.this.point.getNumber() > 0) {
-                    AddPointWithSDialogFragment.this.pointTextView.setText(DisplayUtils
-                            .formatPoint(AddPointWithSDialogFragment.this.getActivity(),
-                                    AddPointWithSDialogFragment.this.point));
+                if (EditPointWithSDialogFragment.this.point.getNumber() > 0) {
+                    EditPointWithSDialogFragment.this.pointTextView.setText(DisplayUtils
+                            .formatPoint(EditPointWithSDialogFragment.this.getActivity(),
+                                    EditPointWithSDialogFragment.this.point));
                 } else {
-                    AddPointWithSDialogFragment.this.pointTextView.setText("");
+                    EditPointWithSDialogFragment.this.pointTextView.setText("");
                 }
             }
 
@@ -176,7 +181,9 @@ class AddPointWithSDialogFragment extends DialogFragment {
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
 
-        this.s = 0.0;
+        int pointNumber = bundle.getInt(PolarImplantationActivity.POINTS_WITH_S_NUMBER_LABEL);
+        this.pointSpinner.setSelection(a.getPosition(
+                SharedResources.getSetOfPoints().find(pointNumber)));
     }
 
     /**
@@ -197,7 +204,7 @@ class AddPointWithSDialogFragment extends DialogFragment {
      * @return True if every EditTexts of the dialog have been filled, false
      *         otherwise.
      */
-    private boolean checkDialogInputs() {
+    protected boolean checkDialogInputs() {
         if (this.pointSpinner.getSelectedItemPosition() < 1) {
             return false;
         }
