@@ -121,6 +121,7 @@
     <string name="oriented_direction_label">Dir. Orient. [g]</string>
     <string name="origin_label">Origine</string>
     <string name="origin_only_label">Origine</string>
+    <string name="orthogonal_implantation_label">Implantation orthogonal depuis la base </string>
     <string name="point_to_project">Point à projeter</string>
     <string name="point_1">Point A</string>
     <string name="point_2">Point B</string>
