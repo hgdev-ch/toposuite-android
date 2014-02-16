@@ -91,6 +91,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.polarimplantation.PolarImplantationResultsActivity"
             android:label="@string/title_activity_polar_implantation_results" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.CircleActivity"
+            android:label="@string/title_activity_circle" >
+        </activity>
     </application>
 
 </manifest>
