@@ -121,7 +121,7 @@
     <string name="oriented_direction_label">Dir. Orient. [g]</string>
     <string name="origin_label">Origine</string>
     <string name="origin_only_label">Origine</string>
-    <string name="orthogonal_implantation_label">Implantation orthogonal depuis la base </string>
+    <string name="orthogonal_implantation_label">Implantation orthogonale depuis la base </string>
     <string name="point_to_project">Point à projeter</string>
     <string name="point_1">Point A</string>
     <string name="point_2">Point B</string>
@@ -153,8 +153,8 @@
     <string name="title_activity_leve_ortho_results">Levé orthogonal - résultats</string>
     <string name="title_activity_leve_polaire">Levé polaire</string>
     <string name="title_activity_leve_polaire_results">Levé polaire - résultats</string>
-    <string name="title_activity_orthogonal_implantation">Implantation orthogonal</string>
-    <string name="title_activity_ortho_implantation_results">Orthogonal implantation - résultats</string>
+    <string name="title_activity_orthogonal_implantation">Implantation orthogonale</string>
+    <string name="title_activity_ortho_implantation_results">Implantation orthogonale - résultats</string>
     <string name="title_activity_point_projection">Projection d\'un point</string>
     <string name="title_activity_point_projection_result">Projection d\'un point - résultat</string>
     <string name="title_activity_points_manager">Gestion des points</string>
@@ -174,4 +174,3 @@
     <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>
     
 </resources>
-
