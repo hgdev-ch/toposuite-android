@@ -81,6 +81,7 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
+            this.adapter.notifyDataSetChanged();
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -113,6 +114,7 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
                 errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 errorToast.show();
             }
+            this.adapter.notifyDataSetChanged();
             return true;
         case R.id.delete_point:
             this.adapter.remove(this.adapter.getItem(info.position));
