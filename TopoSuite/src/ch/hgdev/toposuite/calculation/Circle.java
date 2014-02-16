@@ -3,23 +3,34 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.CircleActivity;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Circle extends Calculation {
+    private static final String POINT_A      = "point_a";
+    private static final String POINT_B      = "point_b";
+    private static final String POINT_C      = "point_c";
+    private static final String POINT_NUMBER = "point_number";
 
-    private Point  pointA;
-    private Point  pointB;
-    private Point  pointC;
-    private int    pointNumber;
+    private Point               pointA;
+    private Point               pointB;
+    private Point               pointC;
+    private int                 pointNumber;
 
-    private Point  center;
-    private double radius;
+    private Point               center;
+    private double              radius;
 
     public Circle(Point _pointA, Point _pointB, Point _pointC, int _pointNumber,
             boolean hasDAO) {
-        super(CalculationType.CIRCLE, "Cercle par 3 points", hasDAO);
+        super(CalculationType.CIRCLE,
+                App.getContext().getString(R.string.title_activity_circle),
+                hasDAO);
 
         this.pointA = _pointA;
         this.pointB = _pointB;
@@ -27,12 +38,14 @@ public class Circle extends Calculation {
         this.pointNumber = _pointNumber;
 
         if (hasDAO) {
-            // TODO add this calculation to the history
+            SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
     public Circle(long id, Date lastModification) {
-        super(id, null, "Cercle par 3 points", lastModification, true);
+        super(id, CalculationType.CIRCLE,
+                App.getContext().getString(R.string.title_activity_circle),
+                lastModification, true);
     }
 
     public void compute() {
@@ -71,17 +84,30 @@ public class Circle extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        return null;
+        JSONObject jo = new JSONObject();
+        jo.put(Circle.POINT_A, this.pointA.getNumber());
+        jo.put(Circle.POINT_B, this.pointB.getNumber());
+        jo.put(Circle.POINT_C, this.pointC.getNumber());
+        jo.put(Circle.POINT_NUMBER, this.pointNumber);
+
+        return jo.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO
+        JSONObject jo = new JSONObject(jsonInputArgs);
+        this.pointA = SharedResources.getSetOfPoints().find(
+                jo.getInt(Circle.POINT_A));
+        this.pointB = SharedResources.getSetOfPoints().find(
+                jo.getInt(Circle.POINT_B));
+        this.pointC = SharedResources.getSetOfPoints().find(
+                jo.getInt(Circle.POINT_C));
+        this.pointNumber = jo.getInt(Circle.POINT_NUMBER);
     }
 
     @Override
     public Class<?> getActivityClass() {
-        return null;
+        return CircleActivity.class;
     }
 
     public Point getPointA() {

@@ -13,29 +13,34 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.hgdev.toposuite.calculation.Circle;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CircleActivity extends TopoSuiteActivity {
+    private static final String POINT_A      = "point_a";
+    private static final String POINT_B      = "point_b";
+    private static final String POINT_C      = "point_c";
+    private static final String POINT_NUMBER = "point_number";
 
-    private Spinner  pointASpinner;
-    private Spinner  pointBSpinner;
-    private Spinner  pointCSpinner;
+    private Spinner             pointASpinner;
+    private Spinner             pointBSpinner;
+    private Spinner             pointCSpinner;
 
-    private TextView pointATextView;
-    private TextView pointBTextView;
-    private TextView pointCTextView;
-    private TextView circleCenterTextView;
-    private TextView circleRadiusTextView;
+    private TextView            pointATextView;
+    private TextView            pointBTextView;
+    private TextView            pointCTextView;
+    private TextView            circleCenterTextView;
+    private TextView            circleRadiusTextView;
 
-    private EditText pointNumberEditText;
+    private EditText            pointNumberEditText;
 
-    private int      pointASelectedPosition;
-    private int      pointBSelectedPosition;
-    private int      pointCSelectedPosition;
+    private int                 pointASelectedPosition;
+    private int                 pointBSelectedPosition;
+    private int                 pointCSelectedPosition;
 
-    private Circle   circle;
+    private Circle              circle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +138,17 @@ public class CircleActivity extends TopoSuiteActivity {
                 // actually nothing
             }
         });
+
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null) {
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.circle = (Circle) SharedResources.getCalculationsHistory()
+                    .get(position);
+            if (this.circle.getPointNumber() != 0) {
+                this.pointNumberEditText.setText(String.valueOf(
+                        this.circle.getPointNumber()));
+            }
+        }
     }
 
     @Override
@@ -178,6 +194,43 @@ public class CircleActivity extends TopoSuiteActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         //this.getMenuInflater().inflate(R.menu.circle, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(CircleActivity.POINT_A, this.pointASelectedPosition);
+        outState.putInt(CircleActivity.POINT_B, this.pointBSelectedPosition);
+        outState.putInt(CircleActivity.POINT_C, this.pointCSelectedPosition);
+
+        int num = 0;
+        if (this.pointNumberEditText.length() > 0) {
+            num = Integer.valueOf(this.pointNumberEditText.getText().toString());
+        }
+
+        outState.putInt(CircleActivity.POINT_NUMBER, num);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            if (this.circle == null) {
+                this.pointASelectedPosition = savedInstanceState.getInt(
+                        CircleActivity.POINT_A);
+                this.pointBSelectedPosition = savedInstanceState.getInt(
+                        CircleActivity.POINT_B);
+                this.pointCSelectedPosition = savedInstanceState.getInt(
+                        CircleActivity.POINT_C);
+            }
+
+            int num = savedInstanceState.getInt(CircleActivity.POINT_NUMBER);
+            if (num != 0) {
+                this.pointNumberEditText.setText(String.valueOf(num));
+            }
+        }
     }
 
     private void itemSelected() {
