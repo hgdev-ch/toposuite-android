@@ -8,6 +8,7 @@ import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 import com.google.common.base.Preconditions;
 
@@ -77,6 +78,31 @@ public class Point implements DAOUpdater {
         if (hasDAO) {
             this.registerDAO(PointsDataSource.getInstance());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if ((o.getClass() != this.getClass())) {
+            return false;
+        }
+
+        Point point = (Point) o;
+        if (this.getNumber() == point.getNumber()) {
+            if (!MathUtils.equals(this.getEast(), point.getEast())) {
+                return false;
+            }
+            if (!MathUtils.equals(this.getNorth(), point.getNorth())) {
+                return false;
+            }
+            if (!MathUtils.equals(this.getAltitude(), point.getAltitude())) {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     public int getNumber() {
