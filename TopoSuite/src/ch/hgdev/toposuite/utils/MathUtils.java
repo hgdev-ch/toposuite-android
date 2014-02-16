@@ -54,6 +54,19 @@ public class MathUtils {
     }
 
     /**
+     * Check the two inputs for equality.
+     * 
+     * @param a
+     *            First double to compare.
+     * @param b
+     *            Second double to compare.
+     * @return True if they are the same, false otherwise.
+     */
+    public static boolean equals(double a, double b) {
+        return Double.doubleToLongBits(a) == Double.doubleToLongBits(b);
+    }
+
+    /**
      * Convert an angle in radian to its equivalent in gradian.
      * 
      * @param rad
