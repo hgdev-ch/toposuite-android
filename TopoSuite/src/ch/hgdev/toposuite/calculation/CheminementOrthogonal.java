@@ -8,6 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -15,9 +17,8 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CheminementOrthogonal extends Calculation {
-    private static final String                      CALCULATION_NAME = "Cheminement orthogonal";
-    public static final String                       ORTHOGONAL_BASE  = "orthogonal_base";
-    public static final String                       MEASURES         = "measures";
+    public static final String                       ORTHOGONAL_BASE = "orthogonal_base";
+    public static final String                       MEASURES        = "measures";
 
     private OrthogonalBase                           orthogonalBase;
     private ArrayList<CheminementOrthogonal.Measure> measures;
@@ -29,7 +30,9 @@ public class CheminementOrthogonal extends Calculation {
     private double                                   scale;
 
     public CheminementOrthogonal(Point origin, Point extremity, boolean hasDAO) {
-        super(CalculationType.CHEMINORTHO, CheminementOrthogonal.CALCULATION_NAME, hasDAO);
+        super(CalculationType.CHEMINORTHO,
+                App.getContext().getString(R.string.title_activity_cheminement_ortho),
+                hasDAO);
 
         this.orthogonalBase = new OrthogonalBase(origin, extremity);
         this.measures = new ArrayList<CheminementOrthogonal.Measure>();
@@ -41,15 +44,19 @@ public class CheminementOrthogonal extends Calculation {
     }
 
     public CheminementOrthogonal(long id, Date lastModification) {
-        super(id, CalculationType.CHEMINORTHO, CheminementOrthogonal.CALCULATION_NAME,
-                lastModification, true);
+        super(id, CalculationType.CHEMINORTHO,
+                App.getContext().getString(R.string.title_activity_cheminement_ortho),
+                lastModification,
+                true);
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<CheminementOrthogonal.Measure>();
         this.results = new ArrayList<CheminementOrthogonal.Result>();
     }
 
     public CheminementOrthogonal(boolean hasDAO) {
-        super(CalculationType.CHEMINORTHO, CheminementOrthogonal.CALCULATION_NAME, hasDAO);
+        super(CalculationType.CHEMINORTHO,
+                App.getContext().getString(R.string.title_activity_cheminement_ortho),
+                hasDAO);
 
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<CheminementOrthogonal.Measure>();

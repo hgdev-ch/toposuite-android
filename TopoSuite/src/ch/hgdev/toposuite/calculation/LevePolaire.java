@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -23,21 +25,25 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class LevePolaire extends Calculation {
     public static final String       STATION_NUMBER      = "station_number";
     public static final String       DETERMINATIONS_LIST = "determinations_list";
-    private static final String      CALCULATION_NAME    = "Leve Polaire";
 
     private Point                    station;
     private final ArrayList<Measure> determinations;
     private final ArrayList<Result>  results;
 
     public LevePolaire(long id, Date lastModification) {
-        super(id, CalculationType.LEVEPOLAIRE, LevePolaire.CALCULATION_NAME, lastModification, true);
+        super(id, CalculationType.LEVEPOLAIRE,
+                App.getContext().getString(R.string.title_activity_leve_polaire),
+                lastModification,
+                true);
 
         this.determinations = new ArrayList<Measure>();
         this.results = new ArrayList<Result>();
     }
 
     public LevePolaire(Point _station, boolean hasDAO) {
-        super(CalculationType.LEVEPOLAIRE, LevePolaire.CALCULATION_NAME, hasDAO);
+        super(CalculationType.LEVEPOLAIRE,
+                App.getContext().getString(R.string.title_activity_leve_polaire),
+                hasDAO);
 
         this.determinations = new ArrayList<Measure>();
         this.results = new ArrayList<Result>();

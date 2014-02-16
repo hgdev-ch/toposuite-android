@@ -3,6 +3,7 @@ package ch.hgdev.toposuite;
 import java.util.Locale;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.InputType;
 import ch.hgdev.toposuite.calculation.Calculation;
@@ -67,11 +68,17 @@ public class App extends Application {
      */
     public static DBHelper     dbHelper;
 
+    /**
+     * Application context.
+     */
+    private static Context     context;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        App.context = this.getApplicationContext();
 
-        App.dbHelper = new DBHelper(this.getApplicationContext());
+        App.dbHelper = new DBHelper(App.context);
 
         DAOMapperTreeSet<Point> points = SharedResources.getSetOfPoints();
         points.setNotifyOnChange(false);
@@ -83,5 +90,9 @@ public class App extends Application {
         calculations.setNotifyOnChange(false);
         calculations.addAll(CalculationsDataSource.getInstance().findAll());
         calculations.setNotifyOnChange(true);
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

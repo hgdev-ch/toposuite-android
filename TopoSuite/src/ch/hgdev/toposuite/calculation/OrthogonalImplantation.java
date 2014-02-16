@@ -7,23 +7,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class OrthogonalImplantation extends Calculation {
-    public static final String                       CALCULATION_NAME = "Implant. Ortho.";
-    public static final String                       ORTHOGONAL_BASE  = "orthogonal_base";
-    public static final String                       MEASURES         = "measures";
-    public static final String                       POINT_NUMBER     = "point_number";
+    public static final String                       ORTHOGONAL_BASE = "orthogonal_base";
+    public static final String                       MEASURES        = "measures";
+    public static final String                       POINT_NUMBER    = "point_number";
 
     private OrthogonalBase                           orthogonalBase;
     private ArrayList<Point>                         measures;
     private ArrayList<OrthogonalImplantation.Result> results;
 
     public OrthogonalImplantation(Point origin, Point extremity, boolean hasDAO) {
-        super(CalculationType.ORTHOIMPL, OrthogonalImplantation.CALCULATION_NAME, hasDAO);
+        super(CalculationType.ORTHOIMPL,
+                App.getContext().getString(R.string.title_activity_orthogonal_implantation),
+                hasDAO);
 
         this.orthogonalBase = new OrthogonalBase(origin, extremity);
         this.measures = new ArrayList<Point>();
@@ -35,7 +38,9 @@ public class OrthogonalImplantation extends Calculation {
     }
 
     public OrthogonalImplantation(boolean hasDAO) {
-        super(CalculationType.ORTHOIMPL, OrthogonalImplantation.CALCULATION_NAME, hasDAO);
+        super(CalculationType.ORTHOIMPL,
+                App.getContext().getString(R.string.title_activity_orthogonal_implantation),
+                hasDAO);
 
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<Point>();
@@ -47,8 +52,11 @@ public class OrthogonalImplantation extends Calculation {
     }
 
     public OrthogonalImplantation(long id, Date lastModification) {
-        super(id, CalculationType.ORTHOIMPL,
-                OrthogonalImplantation.CALCULATION_NAME, lastModification, true);
+        super(id,
+                CalculationType.ORTHOIMPL,
+                App.getContext().getString(R.string.title_activity_orthogonal_implantation),
+                lastModification,
+                true);
 
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<Point>();
