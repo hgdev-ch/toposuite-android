@@ -156,7 +156,9 @@ public class Point implements DAOUpdater {
 
     @Override
     public void registerDAO(DAO dao) {
-        this.daoList.add(dao);
+        if (!this.daoList.contains(dao)) {
+            this.daoList.add(dao);
+        }
     }
 
     @Override
