@@ -213,6 +213,10 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             int index = savedInstanceState.getInt(
                     OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
             if (index != -1) {
+                if (this.adapter != null) {
+                    this.adapter.clear();
+                }
+
                 this.orthoImpl = (OrthogonalImplantation) SharedResources
                         .getCalculationsHistory().get(index);
                 this.drawList();
