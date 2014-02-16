@@ -137,6 +137,7 @@
     <string name="prism_height">Prism height (S)</string>
     <string name="prism_height_3dots">Prism height&#8230;</string>
     <string name="save">Save</string>
+    <string name="save_3dots">Save&#8230;</string>
     <string name="scale_factor_label">Scale</string>
     <string name="search">Search</string>
     <string name="search_3dots">Search&#8230;</string>
