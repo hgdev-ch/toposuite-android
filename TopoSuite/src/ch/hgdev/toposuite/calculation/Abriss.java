@@ -7,32 +7,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Abriss extends Calculation {
-    public static final String  STATION_NUMBER    = "station_number";
-    public static final String  ORIENTATIONS_LIST = "orientations_list";
+    public static final String       STATION_NUMBER    = "station_number";
+    public static final String       ORIENTATIONS_LIST = "orientations_list";
 
-    private static final String CALCULATION_NAME  = "Orient. st.";
+    private Point                    station;
+    private final ArrayList<Measure> orientations;
 
-    private Point               station;
-    private ArrayList<Measure>  orientations;
-
-    private ArrayList<Result>   results;
-    private double              mean;
+    private final ArrayList<Result>  results;
+    private double                   mean;
 
     /**
      * MSE stands for Mean Squared Error.
      */
-    private double              mse;
+    private double                   mse;
 
-    private double              meanErrComp;
+    private double                   meanErrComp;
 
     public Abriss(boolean hasDAO) {
-        super(CalculationType.ABRISS, Abriss.CALCULATION_NAME, hasDAO);
+        super(CalculationType.ABRISS,
+                App.getContext().getString(R.string.title_activity_abriss),
+                hasDAO);
 
         this.orientations = new ArrayList<Measure>();
         this.results = new ArrayList<Abriss.Result>();
@@ -50,7 +52,11 @@ public class Abriss extends Calculation {
     }
 
     public Abriss(long id, Date lastModification) {
-        super(id, CalculationType.ABRISS, Abriss.CALCULATION_NAME, lastModification, true);
+        super(id,
+                CalculationType.ABRISS,
+                App.getContext().getString(R.string.title_activity_abriss),
+                lastModification,
+                true);
 
         this.orientations = new ArrayList<Measure>();
         this.results = new ArrayList<Abriss.Result>();
@@ -192,15 +198,15 @@ public class Abriss extends Calculation {
     }
 
     public class Result {
-        private Point  orientation;
-        private double distance;
-        private double unknownOrientation;
-        private double orientatedDirection;
-        private double gisement;
-        private double calculatedDistance;
-        private double errAngle;
-        private double errTrans;
-        private double errLong;
+        private final Point  orientation;
+        private final double distance;
+        private final double unknownOrientation;
+        private double       orientatedDirection;
+        private final double gisement;
+        private final double calculatedDistance;
+        private double       errAngle;
+        private double       errTrans;
+        private double       errLong;
 
         public Result(Point _orientation, double _distance, double _unknownOrientation,
                 double _orientationDirection, double _gisement, double _calculatedDistance,

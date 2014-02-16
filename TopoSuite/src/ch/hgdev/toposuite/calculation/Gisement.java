@@ -5,6 +5,8 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -18,40 +20,38 @@ import com.google.common.base.Strings;
  * @author HGdev
  */
 public class Gisement extends Calculation {
-    public static final String  ORIGIN_POINT_NUMBER      = "origin_point_number";
-    public static final String  ORIENTATION_POINT_NUMBER = "orientation_point_number";
-
-    private static final String CALCULATION_NAME         = "Gisement";
+    public static final String ORIGIN_POINT_NUMBER      = "origin_point_number";
+    public static final String ORIENTATION_POINT_NUMBER = "orientation_point_number";
 
     /**
      * The origin.
      */
-    private Point               origin;
+    private Point              origin;
 
     /**
      * The orientation.
      */
-    private Point               orientation;
+    private Point              orientation;
 
     /**
      * The "gisement", also called Z0.
      */
-    private double              gisement;
+    private double             gisement;
 
     /**
      * The horizontal distance.
      */
-    private double              horizDist;
+    private double             horizDist;
 
     /**
      * The altitude.
      */
-    private double              altitude;
+    private double             altitude;
 
     /**
      * The slope given in percent.
      */
-    private double              slope;
+    private double             slope;
 
     /**
      * Constructs a new Gisement object. It also calls the
@@ -66,7 +66,9 @@ public class Gisement extends Calculation {
      *            the orientation
      */
     public Gisement(String _description, Point _origin, Point _orientation, boolean hasDAO) {
-        super(CalculationType.GISEMENT, Gisement.CALCULATION_NAME, hasDAO);
+        super(CalculationType.GISEMENT,
+                App.getContext().getString(R.string.title_activity_gisement),
+                hasDAO);
 
         this.origin = _origin;
         this.orientation = _orientation;
@@ -101,7 +103,10 @@ public class Gisement extends Calculation {
      * @param lastModification
      */
     public Gisement(long id, Date lastModification) {
-        super(id, CalculationType.GISEMENT, Gisement.CALCULATION_NAME, lastModification, true);
+        super(id, CalculationType.GISEMENT,
+                App.getContext().getString(R.string.title_activity_gisement),
+                lastModification,
+                true);
     }
 
     /**

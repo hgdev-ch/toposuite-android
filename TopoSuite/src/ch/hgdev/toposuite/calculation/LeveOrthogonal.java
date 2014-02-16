@@ -8,6 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -15,19 +17,19 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LeveOrthogonal extends Calculation {
-    public static final String                ORTHOGONAL_BASE  = "orthogonal_base";
-    public static final String                MEASURES         = "measures";
+    public static final String                      ORTHOGONAL_BASE = "orthogonal_base";
+    public static final String                      MEASURES        = "measures";
 
-    private static final String               CALCULATION_NAME = "Levé Orthogonal";
+    private OrthogonalBase                          orthogonalBase;
 
-    private OrthogonalBase                    orthogonalBase;
+    private final ArrayList<LeveOrthogonal.Measure> measures;
 
-    private ArrayList<LeveOrthogonal.Measure> measures;
-
-    private ArrayList<LeveOrthogonal.Measure> results;
+    private final ArrayList<LeveOrthogonal.Measure> results;
 
     public LeveOrthogonal(Point origin, Point extremity, double measuredDistance, boolean hasDAO) {
-        super(CalculationType.LEVEORTHO, LeveOrthogonal.CALCULATION_NAME, hasDAO);
+        super(CalculationType.LEVEORTHO,
+                App.getContext().getString(R.string.title_activity_leve_ortho),
+                hasDAO);
 
         this.orthogonalBase = new OrthogonalBase(origin, extremity, measuredDistance);
         this.measures = new ArrayList<LeveOrthogonal.Measure>();
@@ -43,7 +45,9 @@ public class LeveOrthogonal extends Calculation {
     }
 
     public LeveOrthogonal(boolean hasDAO) {
-        super(CalculationType.LEVEORTHO, LeveOrthogonal.CALCULATION_NAME, hasDAO);
+        super(CalculationType.LEVEORTHO,
+                App.getContext().getString(R.string.title_activity_leve_ortho),
+                hasDAO);
 
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<LeveOrthogonal.Measure>();
@@ -55,7 +59,9 @@ public class LeveOrthogonal extends Calculation {
     }
 
     public LeveOrthogonal(long id, Date lastModification) {
-        super(id, CalculationType.LEVEORTHO, LeveOrthogonal.CALCULATION_NAME, lastModification,
+        super(id, CalculationType.LEVEORTHO,
+                App.getContext().getString(R.string.title_activity_leve_ortho),
+                lastModification,
                 true);
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<LeveOrthogonal.Measure>();

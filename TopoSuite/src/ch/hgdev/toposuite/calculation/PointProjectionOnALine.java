@@ -5,6 +5,8 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.pointproj.PointProjectionActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -16,7 +18,6 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class PointProjectionOnALine extends Calculation {
-    public static final String  CALCULATION_NAME  = "Proj. pt. sur droite";
     public static final String  NUMBER            = "number";
     public static final String  P1_NUMBER         = "p1_number";
     public static final String  P2_NUMBER         = "p2_number";
@@ -43,7 +44,9 @@ public class PointProjectionOnALine extends Calculation {
     public PointProjectionOnALine(int _number, Point _p1, Point _p2, Point _ptToProj,
             double _displacement,
             PointProjectionOnALine.Mode _mode, boolean hasDAO) {
-        super(CalculationType.PROJPT, PointProjectionOnALine.CALCULATION_NAME, hasDAO);
+        super(CalculationType.PROJPT,
+                App.getContext().getString(R.string.title_activity_point_projection),
+                hasDAO);
 
         this.number = _number;
         this.p1 = _p1;
@@ -86,8 +89,11 @@ public class PointProjectionOnALine extends Calculation {
     }
 
     public PointProjectionOnALine(long id, Date lastModification) {
-        super(id, CalculationType.PROJPT, PointProjectionOnALine.CALCULATION_NAME,
-                lastModification, true);
+        super(id,
+                CalculationType.PROJPT,
+                App.getContext().getString(R.string.title_activity_point_projection),
+                lastModification,
+                true);
     }
 
     public void compute() {
@@ -135,17 +141,21 @@ public class PointProjectionOnALine extends Calculation {
                 0.0, false, false);
 
         // calculation of the triangle angles according to the following schema:
-        //   D         B
-        //    \       /
-        //     \     /
-        //      \   /
-        //       \P/
-        //        X
-        //       / \
-        //      /   \
-        //     /     \
-        //    /       \
-        // A /_________\ C
+        // @formatter:off
+        //
+        //  D         B
+        //   \       /
+        //    \     /
+        //     \   /
+        //      \P/
+        //       X
+        //      / \
+        //     /   \
+        //    /     \
+        //   /       \
+        // A/_________\C
+        //
+        // @formatter:on
         //
         // Let <alpha be the angle AC-AB and
         // Let <gamma be the angle CD-CA and

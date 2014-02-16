@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.polarimplantation.PolarImplantationActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -24,7 +26,6 @@ public class PolarImplantation extends Calculation {
     public static final String                        STATION_NUMBER    = "station_number";
     public static final String                        POINT_NUMBER      = "station_number";
     public static final String                        POINT_WITH_S_LIST = "points_with_s_list";
-    private static final String                       CALCULATION_NAME  = "Polar Implantation";
 
     private Point                                     station;
     private Point                                     point;
@@ -32,14 +33,19 @@ public class PolarImplantation extends Calculation {
     private final ArrayList<PolarImplantation.Result> results;
 
     public PolarImplantation(long id, Date lastModification) {
-        super(id, CalculationType.POLARIMPLANT, PolarImplantation.CALCULATION_NAME,
-                lastModification, true);
+        super(id,
+                CalculationType.POLARIMPLANT,
+                App.getContext().getString(R.string.title_activity_polar_implantation),
+                lastModification,
+                true);
         this.measures = new ArrayList<Measure>();
         this.results = new ArrayList<PolarImplantation.Result>();
     }
 
     public PolarImplantation(Point _station, boolean hasDAO) {
-        super(CalculationType.POLARIMPLANT, PolarImplantation.CALCULATION_NAME, hasDAO);
+        super(CalculationType.POLARIMPLANT,
+                App.getContext().getString(R.string.title_activity_polar_implantation),
+                hasDAO);
 
         this.station = _station;
         this.measures = new ArrayList<Measure>();
