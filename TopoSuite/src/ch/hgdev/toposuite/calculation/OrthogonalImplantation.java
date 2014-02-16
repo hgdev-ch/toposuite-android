@@ -70,9 +70,6 @@ public class OrthogonalImplantation extends Calculation {
 
         this.results.clear();
 
-        double gisBase = new Gisement(this.orthogonalBase.getOrigin(),
-                this.orthogonalBase.getExtemity(), false).getGisement();
-
         for (Point p : this.measures) {
             PointProjectionOnALine ppoal = new PointProjectionOnALine(
                     4242,
