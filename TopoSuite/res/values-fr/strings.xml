@@ -87,9 +87,9 @@
     <string name="i_label">Hauteur de l\'instrument (I) [m]</string>
     <string name="intersection_point_label">Point d\'intersection:</string>
     <string name="lateral_displacement_3dots">Déplacement latéral&#8230;</string>
-    <string name="letter_alpha">&alpha;</string>
-    <string name="letter_beta">&beta;</string>
-    <string name="letter_gamma">&gamma;</string>
+    <string name="letter_alpha">&#945;</string>
+    <string name="letter_beta">&#946;</string>
+    <string name="letter_gamma">&#947;</string>
     <string name="longitudinal_displacement_3dots">Déplacement longitudinal&#8230;</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
