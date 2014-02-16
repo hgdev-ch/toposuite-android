@@ -20,7 +20,6 @@
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
     <string name="base_label">Orthogonal survey from the base</string>
     <string name="calculate_3dots">Calculate&#8230;</string>
-    <string name="calculated_distance">Calc. dist.</string>
     <string name="calculated_distance_label">Calc. dist. [m]</string>
     <string name="cancel">Cancel</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
@@ -83,7 +82,6 @@
     <string name="heavy_ballot">&#x2718;</string>
     <string name="home">Home</string>
     <string name="horiz_direction_3dots">Horizontal direction&#8230;</string>
-    <string name="horiz_distance_3dots">Horizontal distance&#8230;</string>
     <string name="i_label">Instrument height (I) [m]</string>
     <string name="intersection_point_label">Intersection point:</string>
     <string name="lateral_displacement_3dots">Lateral displacement&#8230;</string>
@@ -123,7 +121,6 @@
     <string name="ordinate">Ordinate</string>
     <string name="ordinate_label">Ordinate [m]</string>
     <string name="ordinate_3dots">Ordinate&#8230;</string>
-    <string name="oriented_direction">Orient. Dir.</string>
     <string name="oriented_direction_label">Orient. Dir. [g]</string>
     <string name="orientation_label">Orientation</string>
     <string name="origin_label">Origin</string>
@@ -142,7 +139,6 @@
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Provided</string>
     <string name="point_search">Search for a point</string>
-    <string name="points_add_success">All points that did not previously existed in the database of points were successfully added!</string>
     <string name="prism_height">Prism height (S)</string>
     <string name="prism_height_3dots">Prism height&#8230;</string>
     <string name="save">Save</string>
@@ -179,7 +175,6 @@
     <string name="unit_gradian">[g]</string>
     <string name="unit_gradian_cc">[cc]</string>
     <string name="unit_meter">[m]</string>
-    <string name="unknown_orientation">Unkn. Orient.</string>
     <string name="unknown_orientation_label">Unkn. Orient. [g]</string>
     <string name="ve_label">vE [cm]</string>
     <string name="vn_label">vN [cm]</string>

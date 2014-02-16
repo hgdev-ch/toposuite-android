@@ -20,7 +20,6 @@
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
     <string name="base_label">Levé orthogonal depuis la base</string>
     <string name="calculate_3dots">Calculer&#8230;</string>
-    <string name="calculated_distance">Dist. Calc.</string>
     <string name="calculated_distance_label">Dist. Calc. [m]</string>
     <string name="cancel">Annuler</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
@@ -83,7 +82,6 @@
     <string name="heavy_ballot">&#x2718;</string>
     <string name="home">Accueil</string>
     <string name="horiz_direction_3dots">Direction horizontale&#8230;</string>
-    <string name="horiz_distance_3dots">Distance horizontale&#8230;</string>
     <string name="i_label">Hauteur de l\'instrument (I) [m]</string>
     <string name="intersection_point_label">Point d\'intersection:</string>
     <string name="lateral_displacement_3dots">Déplacement latéral&#8230;</string>
@@ -124,7 +122,6 @@
     <string name="ordinate_label">Ordonnées [m]</string>
     <string name="ordinate_3dots">Ordonnée&#8230;</string>
     <string name="orientation_label">Orientation</string>
-    <string name="oriented_direction">Dir. Orient.</string>
     <string name="oriented_direction_label">Dir. Orient. [g]</string>
     <string name="origin_label">Origine</string>
     <string name="origin_only_label">Origine</string>
@@ -142,7 +139,6 @@
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Saisi</string>
     <string name="point_search">Rechercher un point</string>
-    <string name="points_add_success">Tous les points qui n\'existaient pas auparavant dans la base de données de points ont été ajoutés avec succès!</string>
     <string name="prism_height">Hauteur du prisme (S)</string>
     <string name="prism_height_3dots">Hauteur du prisme&#8230;</string>
     <string name="save">Sauvegarder</string>
@@ -179,7 +175,6 @@
     <string name="unit_gradian">[g]</string>
     <string name="unit_gradian_cc">[cc]</string>
     <string name="unit_meter">[m]</string>
-    <string name="unknown_orientation">Inc. Orient.</string>
     <string name="unknown_orientation_label">Inc. Orient. [g]</string>
     <string name="ve_label">vE [cm]</string>
     <string name="vn_label">vN [cm]</string>
