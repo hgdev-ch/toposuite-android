@@ -47,6 +47,9 @@ public class CalculationFactory {
         case CHEMINORTHO:
             calculation = new CheminementOrthogonal(id, lastModification);
             break;
+        case CIRCLE:
+            calculation = new Circle(id, lastModification);
+            break;
         case GISEMENT:
             calculation = new Gisement(id, lastModification);
             break;
