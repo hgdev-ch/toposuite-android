@@ -14,5 +14,6 @@ public enum CalculationType {
     CHEMINORTHO,
     PROJPT,
     ORTHOIMPL,
-    FREESTATION
+    FREESTATION,
+    CIRCLE
 }
