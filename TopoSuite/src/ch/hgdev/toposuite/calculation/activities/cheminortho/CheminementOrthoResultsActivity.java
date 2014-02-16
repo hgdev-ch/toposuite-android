@@ -1,13 +1,25 @@
 package ch.hgdev.toposuite.calculation.activities.cheminortho;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
+import ch.hgdev.toposuite.calculation.CheminementOrthogonal.Result;
+import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
@@ -60,19 +72,129 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
             this.fLatTextView.setText(DisplayUtils.toString(
                     this.cheminOrtho.getfN()));
 
+            this.registerForContextMenu(this.resultsListView);
             this.drawList();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // getMenuInflater().inflate(R.menu.cheminement_ortho_results, menu);
+        this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.save_points:
+            this.saveAllPoints();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.calculations_points_list_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.save_point:
+            if (this.savePoint(info.position)) {
+                Toast successToast = Toast.makeText(this,
+                        this.getText(R.string.point_add_success),
+                        Toast.LENGTH_SHORT);
+                successToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                successToast.show();
+            } else {
+                Toast errorToast = Toast.makeText(this,
+                        this.getText(R.string.point_already_exists),
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
+            }
+            this.adapter.notifyDataSetChanged();
+            return true;
+        case R.id.delete_point:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
     }
 
     private void drawList() {
         this.adapter = new ArrayListOfResultsAdapter(this, R.layout.leve_ortho_results_list_item,
                 this.cheminOrtho.getResults());
         this.resultsListView.setAdapter(this.adapter);
+    }
+
+    /**
+     * Save all points from the list to the database of points. If a point
+     * already exists in the database, it is simply skipped.
+     */
+    private void savePoints() {
+        for (int position = 0; position < this.adapter.getCount(); position++) {
+            this.savePoint(position);
+        }
+    }
+
+    /**
+     * Save a point to the database of points.
+     * 
+     * @param position
+     *            Position of the point in the list of points.
+     * @return True if it was a success, false otherwise.
+     */
+    private boolean savePoint(int position) {
+        Result r = this.adapter.getItem(position);
+        if (SharedResources.getSetOfPoints().find(r.getNumber()) == null) {
+            Point point = new Point(
+                    r.getNumber(),
+                    r.getEast(),
+                    r.getNorth(),
+                    0.0,
+                    false);
+            SharedResources.getSetOfPoints().add(point);
+            return true;
+        } else {
+            // this point already exists
+            return false;
+        }
+    }
+
+    /**
+     * Pop up a confirmation dialog and save all points on approval.
+     */
+    private void saveAllPoints() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.save_points)
+                .setMessage(R.string.save_all_points)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.save_all,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                CheminementOrthoResultsActivity.this.savePoints();
+                                CheminementOrthoResultsActivity.this.adapter.notifyDataSetChanged();
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+        builder.create().show();
     }
 }
