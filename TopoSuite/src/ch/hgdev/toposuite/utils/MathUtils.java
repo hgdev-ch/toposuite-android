@@ -229,4 +229,29 @@ public class MathUtils {
         double gis2 = new Gisement(p2, p3, false).getGisement();
         return MathUtils.modulo400(gis2 - gis1);
     }
+
+    /**
+     * TODO fill the description of this function.
+     * 
+     * @param distance
+     *            Distance in meter.
+     * @param zenAngle
+     *            Zenithal angle.
+     * @param i
+     *            Height of the instrument (I).
+     * @param s
+     *            Height of the prism (S).
+     * @param altitude
+     *            Altitude.
+     * @return
+     */
+    public static double nivellTrigo(double distance, double zenAngle, double i,
+            double s, double altitude) {
+        double radius = MathUtils.EARTH_RADIUS + altitude;
+        double e = Math.pow(distance, 2) / (2 * radius);
+        double r = (0.13 * Math.pow(distance, 2)) / (2 * radius);
+
+        return ((((distance / Math.tan(MathUtils.gradToRad(zenAngle)))
+                + i) - s) + e) - r;
+    }
 }
