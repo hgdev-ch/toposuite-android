@@ -104,7 +104,7 @@ public class TriangleSolver extends Calculation {
             count++;
         }
 
-        return count > 2;
+        return count < 4;
     }
 
     /**
