@@ -2,16 +2,19 @@ package ch.hgdev.toposuite.calculation.activities.pointproj;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.R.id;
-import ch.hgdev.toposuite.R.layout;
 import ch.hgdev.toposuite.calculation.PointProjectionOnALine;
+import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class PointProjectionResultActivity extends TopoSuiteActivity {
+
+    private PointProjectionOnALine ppoal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +23,9 @@ public class PointProjectionResultActivity extends TopoSuiteActivity {
 
         Bundle bundle = this.getIntent().getExtras();
         int position = bundle.getInt(PointProjectionActivity.POINT_PROJ_POSITION);
-        PointProjectionOnALine ppoal = (PointProjectionOnALine)
+        this.ppoal = (PointProjectionOnALine)
                 SharedResources.getCalculationsHistory().get(position);
-        ppoal.compute();
+        this.ppoal.compute();
 
         TextView pointNumberTextView = (TextView) this.findViewById(R.id.point_number);
         TextView eastTextView = (TextView) this.findViewById(R.id.east);
@@ -36,24 +39,44 @@ public class PointProjectionResultActivity extends TopoSuiteActivity {
                 R.id.distance_projpoint_point_2);
 
         pointNumberTextView.setText(DisplayUtils.toString(
-                ppoal.getNumber()));
+                this.ppoal.getNumber()));
         eastTextView.setText(DisplayUtils.toString(
-                ppoal.getProjPt().getEast()));
+                this.ppoal.getProjPt().getEast()));
         northTextView.setText(DisplayUtils.toString(
-                ppoal.getProjPt().getNorth()));
+                this.ppoal.getProjPt().getNorth()));
 
         projPointLineDistTextView.setText(DisplayUtils.toString(
-                ppoal.getDistPtToLine()));
+                this.ppoal.getDistPtToLine()));
         projPointP1DistTextView.setText(DisplayUtils.toString(
-                ppoal.getDistPtToP1()));
+                this.ppoal.getDistPtToP1()));
         projPointP2DistTextView.setText(DisplayUtils.toString(
-                ppoal.getDistPtToP2()));
+                this.ppoal.getDistPtToP2()));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //this.getMenuInflater().inflate(R.menu.point_projection_result, menu);
+        this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+        case R.id.save_points:
+            if (SharedResources.getSetOfPoints().find(
+                    this.ppoal.getProjPt().getNumber()) == null) {
+                SharedResources.getSetOfPoints().add(this.ppoal.getProjPt());
+                this.ppoal.getProjPt().registerDAO(PointsDataSource.getInstance());
+
+                Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
+                        .show();
+            }
+
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }

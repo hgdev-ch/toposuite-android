@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -12,7 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.calculation.Circle;
+import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -192,7 +195,7 @@ public class CircleActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //this.getMenuInflater().inflate(R.menu.circle, menu);
+        this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -230,6 +233,46 @@ public class CircleActivity extends TopoSuiteActivity {
             if (num != 0) {
                 this.pointNumberEditText.setText(String.valueOf(num));
             }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+        case R.id.save_points:
+            if ((this.pointASelectedPosition == 0)
+                    || (this.pointBSelectedPosition == 0)
+                    || (this.pointCSelectedPosition == 0)
+                    || (this.pointNumberEditText.length() == 0)
+                    || (this.circle == null)) {
+
+                Toast.makeText(this, R.string.error_fill_data, Toast.LENGTH_LONG).show();
+                return true;
+            }
+
+            int num = Integer.valueOf(
+                    this.pointNumberEditText.getText().toString());
+            if (num == 0) {
+                Toast.makeText(this, R.string.error_fill_data, Toast.LENGTH_LONG).show();
+                return true;
+            }
+
+            this.circle.setPointNumber(num);
+            this.circle.compute();
+
+            if (SharedResources.getSetOfPoints().find(this.circle.getPointNumber()) == null) {
+                SharedResources.getSetOfPoints().add(this.circle.getCenter());
+                this.circle.getCenter().registerDAO(PointsDataSource.getInstance());
+
+                Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
+                        .show();
+            }
+
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 
