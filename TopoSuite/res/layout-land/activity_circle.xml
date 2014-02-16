@@ -14,7 +14,7 @@
 	        <TextView
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.30"
+	            android:layout_weight="0.20"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:text="@string/point_1"
@@ -22,31 +22,18 @@
 	
 	        <Spinner
 	            android:id="@+id/point_1_spinner"
-	            android:layout_width="145dp"
+	            android:layout_width="120dp"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.10" />
-	        
-	        <Space
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.60"/>
+	            android:layout_weight="0.10"/>
 
-	    </LinearLayout>
-	    
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        
 	        <TextView
 	            android:id="@+id/point_1"
 	            android:layout_width="0dip"
 	            android:layout_height="30dp"
 	            android:layout_gravity="center"
-	            android:layout_weight="0.86"
+	            android:layout_weight="0.70"
 	            android:gravity="center"
 	            android:text="" />
-	
 	    </LinearLayout>
 	    
 	    <LinearLayout
@@ -57,7 +44,7 @@
 	        <TextView
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.30"
+	            android:layout_weight="0.20"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:text="@string/point_2"
@@ -65,30 +52,18 @@
 	
 	        <Spinner
 	            android:id="@+id/point_2_spinner"
-	            android:layout_width="145dp"
+	            android:layout_width="120dp"
 	            android:layout_height="match_parent"
 	            android:layout_weight="0.10" />
-	        
-	         <Space
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.60"/>
-
-	    </LinearLayout>
-	    
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
 	        
 	        <TextView
 	            android:id="@+id/point_2"
 	            android:layout_width="0dip"
 	            android:layout_height="31dp"
-	            android:layout_weight="0.86"
+	            android:layout_weight="0.70"
 	            android:gravity="center"
 	            android:text="" />
-	
+
 	    </LinearLayout>
 	    
 	    <LinearLayout
@@ -98,8 +73,8 @@
 	        
 			<TextView
 			    android:layout_width="0dip"
-			    android:layout_height="match_parent"
-			    android:layout_weight="0.30"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.20"
 			    android:gravity="left|center_vertical"
 			    android:paddingLeft="@dimen/activity_horizontal_margin"
 			    android:text="@string/point_3"
@@ -107,31 +82,18 @@
 	
 	        <Spinner
 	            android:id="@+id/point_3_spinner"
-	            android:layout_width="145dp"
+	            android:layout_width="120dp"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.10" />
+	            android:layout_weight="0.10"/>
 
-	         <Space
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.60"/>
-	         
-		</LinearLayout>
-	
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        
 	        <TextView
 	            android:id="@+id/point_3"
 	            android:layout_width="0dip"
 	            android:layout_height="31dp"
-	            android:layout_weight="0.86"
+	            android:layout_weight="0.70"
 	            android:gravity="center"
 	            android:text="" />
-	
-	    </LinearLayout>
+		</LinearLayout>
 	    
 	    <LinearLayout
 	        android:layout_width="match_parent"
@@ -143,6 +105,7 @@
 			<TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="match_parent"
+			    android:layout_weight="0.02"
 			    android:gravity="left|center_vertical"
 			    android:paddingLeft="@dimen/activity_horizontal_margin"
 			    android:text="@string/point_number"
@@ -152,21 +115,21 @@
 	            android:id="@+id/point_number"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.40"
+	            android:layout_weight="0.28"
 	            android:gravity="left|center_vertical"
 	            android:inputType="numberSigned"
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
 	        
-	         <Space
+	        <Space
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.60"/>
+	            android:layout_weight="0.70"/>
 		</LinearLayout>
 	    
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="30dp"
+	        android:layout_marginTop="20dp"
 	        android:orientation="vertical">
 	        
 		    <LinearLayout
@@ -175,8 +138,9 @@
 		        android:orientation="horizontal" >
 		        
 		        <TextView
-		            android:layout_width="wrap_content"
+		            android:layout_width="0dip"
 		            android:layout_height="match_parent"
+		            android:layout_weight="0.31"
 		            android:gravity="left|center_vertical"
 		            android:paddingLeft="@dimen/activity_horizontal_margin"
 		            android:text="@string/circle_result_center_label"
@@ -199,8 +163,9 @@
 		        android:orientation="horizontal" >
 		        
 		        <TextView
-		            android:layout_width="wrap_content"
+		            android:layout_width="0dip"
 		            android:layout_height="match_parent"
+		            android:layout_weight="0.31"
 		            android:gravity="left|center_vertical"
 		            android:paddingLeft="@dimen/activity_horizontal_margin"
 		            android:text="@string/circle_result_radius_label"

@@ -112,4 +112,19 @@ public class DisplayUtils {
                 DisplayUtils.toString(pt.getNorth()), context.getString(R.string.altitude),
                 DisplayUtils.toString(pt.getAltitude()));
     }
+
+    /**
+     * Format a 2D point in order to display it in a TextView.
+     * 
+     * @param context
+     *            the context
+     * @param pt
+     *            a 2D Point (altitude = 0.0)
+     * @return formatted Point
+     */
+    public static String format2DPoint(Context context, Point pt) {
+        return String.format("%s: %s, %s: %s", context.getString(R.string.east),
+                DisplayUtils.toString(pt.getEast()), context.getString(R.string.north),
+                DisplayUtils.toString(pt.getNorth()));
+    }
 }
