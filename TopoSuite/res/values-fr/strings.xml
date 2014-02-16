@@ -144,6 +144,9 @@
     <string name="prism_height_3dots">Hauteur du prisme&#8230;</string>
     <string name="save">Sauvegarder</string>
     <string name="save_3dots">Sauvegarder&#8230;</string>
+    <string name="save_all">Tout sauvegarder</string>
+    <string name="save_all_points">Tous les points seront sauvegardés</string>
+    <string name="save_points">Sauvegarder les points</string>
     <string name="scale_factor_label">Echelle</string>
     <string name="search">Rechercher</string>
     <string name="search_3dots">Rechercher&#8230;</string>
