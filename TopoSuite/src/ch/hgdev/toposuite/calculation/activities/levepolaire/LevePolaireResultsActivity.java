@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -75,13 +77,7 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
         int id = item.getItemId();
         switch (id) {
         case R.id.save_points:
-            this.savePoints();
-            Toast toast = Toast.makeText(this,
-                    this.getText(R.string.points_add_success),
-                    Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast.show();
-            this.adapter.notifyDataSetChanged();
+            this.saveAllPoints();
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -166,5 +162,31 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
             // this point already exists
             return false;
         }
+    }
+
+    /**
+     * Pop up a confirmation dialog and save all points on approval.
+     */
+    private void saveAllPoints() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.save_points)
+                .setMessage(R.string.save_all_points)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.save_all,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                LevePolaireResultsActivity.this.savePoints();
+                                LevePolaireResultsActivity.this.adapter.notifyDataSetChanged();
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+        builder.create().show();
     }
 }
