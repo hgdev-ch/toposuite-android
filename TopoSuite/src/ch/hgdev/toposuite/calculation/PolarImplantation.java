@@ -66,7 +66,7 @@ public class PolarImplantation extends Calculation {
 
         this.results.clear();
         for (Measure d : this.measures) {
-            Gisement g = new Gisement(this.station, d.getPoint());
+            Gisement g = new Gisement(this.station, d.getPoint(), false);
 
             double horizDir = MathUtils.modulo400(g.getGisement() - d.getUnknownOrientation());
             double horizDist = MathUtils.euclideanDistance(this.station, d.getPoint());
