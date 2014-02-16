@@ -18,7 +18,7 @@
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
-    <string name="base_label">Levé orthogonal from the base</string>
+    <string name="base_label">Orthogonal survey from the base</string>
     <string name="calculate_3dots">Calculate&#8230;</string>
     <string name="calculated_distance">Calc. dist.</string>
     <string name="calculated_distance_label">Calc. dist. [m]</string>
@@ -86,7 +86,7 @@
     <string name="longitudinal_displacement_3dots">Longitudinal displacement&#8230;</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="loose_history">All entries in the history will be lost</string>
-    <string name="mean_error_compensated_label">Compensée:</string>
+    <string name="mean_error_compensated_label">Compensated:</string>
     <string name="mean_error_compensated_label_short">Comp.:</string>
     <string name="mean_error_direction_label">Direction:</string>
     <string name="mean_error_direction_label_short">Dir.:</string>
@@ -142,7 +142,7 @@
     <string name="search_3dots">Search&#8230;</string>
     <string name="slope_label">Slope [%]</string>
     <string name="station_label">Station</string>
-    <string name="target_point">Target Point</string>
+    <string name="target_point">Target point</string>
     <string name="title_activity_abriss">Abriss</string>
     <string name="title_activity_abriss_results">Abriss - Results</string>
     <string name="title_activity_cheminement_ortho">Cheminement orthogonal</string>
