@@ -15,5 +15,6 @@ public enum CalculationType {
     PROJPT,
     ORTHOIMPL,
     FREESTATION,
-    CIRCLE
+    CIRCLE,
+    TRIANGLESOLVER
 }
