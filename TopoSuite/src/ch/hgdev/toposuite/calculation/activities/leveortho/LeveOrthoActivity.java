@@ -230,6 +230,9 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         if (savedInstanceState != null) {
             int index = savedInstanceState.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
             if (index != -1) {
+                if (this.adapter != null) {
+                    this.adapter.clear();
+                }
                 this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory()
                         .get(index);
                 this.drawList();
