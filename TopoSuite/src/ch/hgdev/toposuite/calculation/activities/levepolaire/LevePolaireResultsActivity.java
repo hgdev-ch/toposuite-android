@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,36 +64,26 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
         this.displayResults();
     }
 
-    /**
-     * Display the list of resulting points.
-     */
-    private void displayResults() {
-        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.leve_polaire_results_list_item,
-                this.levePolaire.getResults());
-        this.resultsListView.setAdapter(this.adapter);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * Save a point to the database of points.
-     * 
-     * @param position
-     *            Position of the point in the list of points.
-     * @return True if it was a success, false otherwise.
-     */
-    private boolean savePoint(int position) {
-        Result r = this.adapter.getItem(position);
-        if (SharedResources.getSetOfPoints().find(r.getDeterminationNumber()) == null) {
-            Point point = new Point(
-                    r.getDeterminationNumber(),
-                    r.getEast(),
-                    r.getNorth(),
-                    r.getAltitude(),
-                    false);
-            SharedResources.getSetOfPoints().add(point);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.save_points:
+            this.savePoints();
+            Toast toast = Toast.makeText(this,
+                    this.getText(R.string.points_add_success),
+                    Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
             return true;
-        } else {
-            // this point already exists
-            return false;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -129,6 +120,49 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
             return true;
         default:
             return super.onContextItemSelected(item);
+        }
+    }
+
+    /**
+     * Display the list of resulting points.
+     */
+    private void displayResults() {
+        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.leve_polaire_results_list_item,
+                this.levePolaire.getResults());
+        this.resultsListView.setAdapter(this.adapter);
+    }
+
+    /**
+     * Save all points from the list to the database of points. If a point
+     * already exists in the database, it is simply skipped.
+     */
+    private void savePoints() {
+        for (int position = 0; position < this.adapter.getCount(); position++) {
+            this.savePoint(position);
+        }
+    }
+
+    /**
+     * Save a point to the database of points.
+     * 
+     * @param position
+     *            Position of the point in the list of points.
+     * @return True if it was a success, false otherwise.
+     */
+    private boolean savePoint(int position) {
+        Result r = this.adapter.getItem(position);
+        if (SharedResources.getSetOfPoints().find(r.getDeterminationNumber()) == null) {
+            Point point = new Point(
+                    r.getDeterminationNumber(),
+                    r.getEast(),
+                    r.getNorth(),
+                    r.getAltitude(),
+                    false);
+            SharedResources.getSetOfPoints().add(point);
+            return true;
+        } else {
+            // this point already exists
+            return false;
         }
     }
 }
