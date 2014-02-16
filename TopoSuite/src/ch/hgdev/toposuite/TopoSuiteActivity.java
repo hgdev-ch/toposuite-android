@@ -95,6 +95,8 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                                 OrthogonalImplantationActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_gisement),
                                 GisementActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_circle),
+                                CircleActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_point_projection),
                                 PointProjectionActivity.class)
                 }));
