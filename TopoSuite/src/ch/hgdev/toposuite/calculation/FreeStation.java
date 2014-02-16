@@ -5,8 +5,6 @@ import java.util.Date;
 
 import org.json.JSONException;
 
-import android.widget.HorizontalScrollView;
-
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -50,39 +48,39 @@ public class FreeStation extends Calculation {
         }
 
         this.results.clear();
-        
+
         double unknOrient = 0.0;
 
         for (Measure m : this.measures) {
             Point res = new Point(m.getPoint().getNumber(), m.getPoint().getEast(),
                     m.getPoint().getNorth(), m.getPoint().getAltitude(),
                     false, false);
-            
+
             double horizDist = m.getDistance() * Math.sin(
                     MathUtils.gradToRad(m.getZenAngle()));
             double gis = MathUtils.modulo400(unknOrient + m.getHorizDir());
-            
-            if (!MathUtils.isZero(m.getLatDepl()) {
+
+            if (!MathUtils.isZero(m.getLatDepl())) {
                 double angle = Math.asin(Math.abs(m.getLatDepl() / horizDist));
                 horizDist = Math.abs(m.getLatDepl()) / Math.tan(angle);
-                
+
                 // correction of the direction [g]
                 gis += (MathUtils.isPositive(m.getLatDepl()))
                         ? MathUtils.radToGrad(angle) : -MathUtils.radToGrad(angle);
             }
-            
+
             res.setEast(MathUtils.pointLanceEast(0, gis, horizDist));
             res.setNorth(MathUtils.pointLanceNorth(0, gis, horizDist));
-            
+
             if (MathUtils.isPositive(m.getPoint().getAltitude())) {
                 res.setAltitude(res.getAltitude() - MathUtils.nivellTrigo(
                         horizDist, m.getZenAngle(), this.i, m.getS(), 0.0));
                 // TODO calculate the mean altitude
             }
-            
+
             this.results.add(new Result(res));
         }
-        
+
         // TODO finish the calculation...
     }
 
