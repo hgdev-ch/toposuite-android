@@ -10,7 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
+import ch.hgdev.toposuite.calculation.LeveOrthogonal.Measure;
+import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<LeveOrthogonal.Measure> {
@@ -40,7 +43,19 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<LeveOrthogonal.Measu
             TextView vNTextView = (TextView) view.findViewById(R.id.vn_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(result.getNumber()));
+                String numberText = DisplayUtils.toString(result.getNumber()) + " ";
+                Measure m = this.getItem(position);
+                Point point = new Point(
+                        m.getNumber(),
+                        m.getAbscissa(),
+                        m.getOrdinate(),
+                        0.0,
+                        false);
+                Point p = SharedResources.getSetOfPoints().find(m.getNumber());
+                numberText += point.equals(p) ?
+                        App.getContext().getString(R.string.heavy_checkmark) :
+                        App.getContext().getString(R.string.heavy_ballot);
+                numberTextView.setText(numberText);
             }
 
             if (abscissaTextView != null) {
