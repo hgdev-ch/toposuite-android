@@ -27,6 +27,8 @@
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
     <string name="cfgeo_webpage_url_short">www.cf-geo.ch</string>
     <string name="chemin_ortho_base_label">Cheminement orthogonal from the base</string>
+    <string name="circle_result_center_label">Center of the circle</string>
+    <string name="circle_result_radius_label">Radius of the circle</string>
     <string name="crag">CRAG (Commission paritaire romande d\'apprentissage de géomaticien&#47;ne)</string>
     <string name="delete">Delete</string>
     <string name="delete_3dots">Delete&#8230;</string>
