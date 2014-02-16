@@ -134,6 +134,7 @@
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Saisi</string>
     <string name="point_search">Rechercher un point</string>
+    <string name="points_add_success">Tous les points qui n\'existaient pas auparavant dans la base de données de points ont été ajoutés avec succès!</string>
     <string name="prism_height">Hauteur du prisme (S)</string>
     <string name="prism_height_3dots">Hauteur du prisme&#8230;</string>
     <string name="save">Sauvegarder</string>
