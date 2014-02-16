@@ -1,11 +1,223 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CircleActivity" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+		
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:orientation="horizontal">
+	
+	        <TextView
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.30"
+	            android:gravity="left|center_vertical"
+	            android:paddingLeft="@dimen/activity_horizontal_margin"
+	            android:text="@string/point_1"
+	            android:textStyle="bold" />
+	
+	        <Spinner
+	            android:id="@+id/point_1_spinner"
+	            android:layout_width="145dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.10" />
+	        
+	        <Space
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.60"/>
 
-</RelativeLayout>
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:id="@+id/point_1"
+	            android:layout_width="0dip"
+	            android:layout_height="30dp"
+	            android:layout_gravity="center"
+	            android:layout_weight="0.86"
+	            android:gravity="center"
+	            android:text="" />
+	
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:orientation="horizontal">
+	
+	        <TextView
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.30"
+	            android:gravity="left|center_vertical"
+	            android:paddingLeft="@dimen/activity_horizontal_margin"
+	            android:text="@string/point_2"
+	            android:textStyle="bold" />
+	
+	        <Spinner
+	            android:id="@+id/point_2_spinner"
+	            android:layout_width="145dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.10" />
+	        
+	         <Space
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.60"/>
+
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:id="@+id/point_2"
+	            android:layout_width="0dip"
+	            android:layout_height="31dp"
+	            android:layout_weight="0.86"
+	            android:gravity="center"
+	            android:text="" />
+	
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:orientation="horizontal">
+	        
+			<TextView
+			    android:layout_width="0dip"
+			    android:layout_height="match_parent"
+			    android:layout_weight="0.30"
+			    android:gravity="left|center_vertical"
+			    android:paddingLeft="@dimen/activity_horizontal_margin"
+			    android:text="@string/point_3"
+			    android:textStyle="bold" />
+	
+	        <Spinner
+	            android:id="@+id/point_3_spinner"
+	            android:layout_width="145dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.10" />
+
+	         <Space
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.60"/>
+	         
+		</LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:id="@+id/point_3"
+	            android:layout_width="0dip"
+	            android:layout_height="31dp"
+	            android:layout_weight="0.86"
+	            android:gravity="center"
+	            android:text="" />
+	
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingBottom="8dp"
+		    android:paddingTop="8dp">
+	        
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="match_parent"
+			    android:gravity="left|center_vertical"
+			    android:paddingLeft="@dimen/activity_horizontal_margin"
+			    android:text="@string/point_number"
+			    android:textStyle="bold" />
+	        
+	        <EditText
+	            android:id="@+id/point_number"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.40"
+	            android:gravity="left|center_vertical"
+	            android:inputType="numberSigned"
+	            android:paddingLeft="@dimen/activity_horizontal_margin" />
+	        
+	         <Space
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.60"/>
+		</LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="30dp"
+	        android:orientation="vertical">
+	        
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="30dp"
+		        android:orientation="horizontal" >
+		        
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.86"
+		            android:gravity="left|center_vertical"
+		            android:paddingLeft="@dimen/activity_horizontal_margin"
+		            android:text="@string/circle_result_center_label"
+		            android:textStyle="bold" />
+		        
+		        <TextView
+		            android:id="@+id/circle_center"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.86"
+		            android:gravity="left|center_vertical"
+		            android:paddingLeft="@dimen/activity_horizontal_margin"
+		            android:text="@string/no_value" />
+		
+		    </LinearLayout>
+	    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="30dp"
+		        android:orientation="horizontal" >
+		        
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.86"
+		            android:gravity="left|center_vertical"
+		            android:paddingLeft="@dimen/activity_horizontal_margin"
+		            android:text="@string/circle_result_radius_label"
+		            android:textStyle="bold" />
+		        
+		        <TextView
+		            android:id="@+id/circle_radius"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.86"
+		            android:gravity="left|center_vertical"
+		            android:paddingLeft="@dimen/activity_horizontal_margin"
+		            android:text="@string/no_value" />
+		
+		    </LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+</ScrollView>
