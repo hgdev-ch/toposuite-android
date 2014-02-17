@@ -113,14 +113,104 @@ public class TriangleSolver extends Calculation {
      */
     private void findMissingValues() {
         // three sides given
-        if (MathUtils.isPositive(this.a) && MathUtils.isPositive(this.b)
-                && MathUtils.isPositive(this.c)) {
-            this.alpha = this.determineAngle(this.a, this.b, this.c);
-            this.beta = this.determineAngle(this.b, this.a, this.c);
-            this.gamma = this.determineAngle(this.c, this.a, this.b);
+        if (this.areAllPositive(this.a, this.b, this.c)) {
+            this.alpha = this.determineAngleHavingThreeSides(this.a, this.b, this.c);
+            this.beta = this.determineAngleHavingThreeSides(this.b, this.a, this.c);
+            this.gamma = this.determineAngleHavingThreeSides(this.c, this.a, this.b);
             return;
         }
-        // TODO complete
+        // a, b and gamma given
+        if (this.areAllPositive(this.a, this.b, this.gamma)) {
+            this.c = this.determineSideHavingTwoSidesAndOneAngle(this.a, this.b, this.gamma);
+            this.alpha = this.determineAngleHavingThreeSides(this.a, this.b, this.c);
+            this.beta = this.determineAngleHavingThreeSides(this.b, this.a, this.c);
+            return;
+        }
+        // b, c and alpha given
+        if (this.areAllPositive(this.b, this.c, this.alpha)) {
+            this.a = this.determineSideHavingTwoSidesAndOneAngle(this.b, this.c, this.alpha);
+            this.beta = this.determineAngleHavingThreeSides(this.b, this.a, this.c);
+            this.gamma = this.determineAngleHavingThreeSides(this.c, this.a, this.b);
+            return;
+        }
+        // a, c and beta given
+        if (this.areAllPositive(this.a, this.c, this.beta)) {
+            this.b = this.determineSideHavingTwoSidesAndOneAngle(this.a, this.c, this.beta);
+            this.alpha = this.determineAngleHavingThreeSides(this.a, this.b, this.c);
+            this.gamma = this.determineAngleHavingThreeSides(this.c, this.a, this.b);
+            return;
+        }
+        // a, b and alpha given (2 solutions case)
+        if (this.areAllPositive(this.a, this.b, this.alpha)) {
+            // TODO
+        }
+        // a, b and beta given (2 solutions case)
+        if (this.areAllPositive(this.a, this.b, this.beta)) {
+            // TODO
+        }
+        // b, c and beta given (2 solutions case)
+        if (this.areAllPositive(this.b, this.c, this.beta)) {
+            // TODO
+        }
+        // b, c and gamma given (2 solutions case)
+        if (this.areAllPositive(this.b, this.c, this.gamma)) {
+            // TODO
+        }
+        // a, c and alpha given (2 solutions case)
+        if (this.areAllPositive(this.a, this.c, this.alpha)) {
+            // TODO
+        }
+        // a, c and gamma given (2 solutions case)
+        if (this.areAllPositive(this.a, this.c, this.gamma)) {
+            // TODO
+        }
+        // a, beta and gamma given
+        if (this.areAllPositive(this.a, this.beta, this.gamma)) {
+            this.alpha = this.determineAngleHavingTheTwoOthers(this.beta, this.gamma);
+            this.b = this.determineSideHavingOneSideAndTwoAngles(this.a, this.beta, this.alpha);
+            this.c = this.determineSideHavingOneSideAndTwoAngles(this.a, this.gamma, this.alpha);
+        }
+        // b, alpha and gamma given
+        if (this.areAllPositive(this.b, this.alpha, this.gamma)) {
+            this.beta = this.determineAngleHavingTheTwoOthers(this.alpha, this.gamma);
+            this.a = this.determineSideHavingOneSideAndTwoAngles(this.b, this.alpha, this.beta);
+            this.c = this.determineSideHavingOneSideAndTwoAngles(this.b, this.gamma, this.beta);
+        }
+        // c, alpha and beta given
+        if (this.areAllPositive(this.c, this.alpha, this.beta)) {
+            this.gamma = this.determineAngleHavingTheTwoOthers(this.alpha, this.beta);
+            this.a = this.determineSideHavingOneSideAndTwoAngles(this.c, this.alpha, this.gamma);
+            this.c = this.determineSideHavingOneSideAndTwoAngles(this.c, this.beta, this.gamma);
+        }
+        // a, alpha and beta given
+        if (this.areAllPositive(this.a, this.alpha, this.beta)) {
+            this.gamma = this.determineAngleHavingTheTwoOthers(this.alpha, this.beta);
+            this.b = this.determineSideHavingOneSideAndTwoAngles(this.a, this.beta, this.alpha);
+            this.c = this.determineSideHavingOneSideAndTwoAngles(this.a, this.gamma, this.alpha);
+        }
+        // a, alpha and gamma given
+        if (this.areAllPositive(this.a, this.alpha, this.gamma)) {
+            this.beta = this.determineAngleHavingTheTwoOthers(this.alpha, this.gamma);
+            this.b = this.determineSideHavingOneSideAndTwoAngles(this.a, this.beta, this.alpha);
+            this.c = this.determineSideHavingOneSideAndTwoAngles(this.a, this.gamma, this.alpha);
+        }
+        // b, alpha and beta given
+        if (this.areAllPositive(this.b, this.alpha, this.beta)) {
+            // TODO
+        }
+        // b, gamma and beta given
+        if (this.areAllPositive(this.b, this.gamma, this.beta)) {
+            // TODO
+        }
+        // c, gamma and alpha given
+        if (this.areAllPositive(this.c, this.gamma, this.alpha)) {
+            // TODO
+        }
+        // c, gamma and beta given
+        if (this.areAllPositive(this.c, this.gamma, this.beta)) {
+            // TODO
+        }
+
     }
 
     /**
@@ -174,6 +264,19 @@ public class TriangleSolver extends Calculation {
     }
 
     /**
+     * Return true if all provided parameters are positive.
+     * 
+     * @param a
+     * @param b
+     * @param c
+     * @return
+     */
+    private boolean areAllPositive(double a, double b, double c) {
+        return MathUtils.isPositive(a) && MathUtils.isPositive(b)
+                && MathUtils.isPositive(c);
+    }
+
+    /**
      * Determine an angle when having three sides.
      * 
      * @param a
@@ -181,10 +284,34 @@ public class TriangleSolver extends Calculation {
      * @param c
      * @return The angle.
      */
-    private double determineAngle(double a, double b, double c) {
+    private double determineAngleHavingThreeSides(double a, double b, double c) {
         return MathUtils.radToGrad(Math.acos(
                 ((Math.pow(b, 2) + Math.pow(c, 2)) - Math.pow(a, 2))
                         / (2 * b * c)));
+    }
+
+    /**
+     * Determine alpha angle when having beta and gamma.
+     */
+    private double determineAngleHavingTheTwoOthers(double beta, double gamma) {
+        return 200.0 - gamma - beta;
+    }
+
+    /**
+     * Determine c when having a, b and gamma.
+     * 
+     * @param a
+     * @param b
+     * @param gamma
+     * @return
+     */
+    private double determineSideHavingTwoSidesAndOneAngle(double a, double b, double gamma) {
+        return Math.sqrt((Math.pow(a, 2) + Math.pow(b, 2))
+                - (2 * a * b * Math.cos(MathUtils.gradToRad(gamma))));
+    }
+
+    private double determineSideHavingOneSideAndTwoAngles(double a, double beta, double alpha) {
+        return (a * Math.sin(MathUtils.gradToRad(beta))) / Math.sin(MathUtils.gradToRad(alpha));
     }
 
     @Override
