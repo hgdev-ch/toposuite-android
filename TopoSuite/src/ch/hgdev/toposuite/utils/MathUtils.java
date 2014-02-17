@@ -267,4 +267,15 @@ public class MathUtils {
         return ((((distance / Math.tan(MathUtils.gradToRad(zenAngle)))
                 + i) - s) + e) - r;
     }
+
+    /**
+     * Convert a scale factor into PPM (Part Per Million).
+     * 
+     * @param scaleFactor
+     *            a scale factor
+     * @return scale factor in PPM
+     */
+    public static int scaleToPPM(double scaleFactor) {
+        return (int) (1000000 * scaleFactor) - 1000000;
+    }
 }
