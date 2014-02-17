@@ -40,6 +40,23 @@ public class TestTriangleSolver extends TestCase {
             this.assertT(new TriangleSolver(0.0, 0.0, this.c, this.alpha, this.beta, 0.0, false));
             this.assertT(new TriangleSolver(this.a, 0.0, 0.0, this.alpha, this.beta, 0.0, false));
             this.assertT(new TriangleSolver(this.a, 0.0, 0.0, this.alpha, 0.0, this.gamma, false));
+            this.assertT(new TriangleSolver(0.0, this.b, 0.0, this.alpha, this.beta, 0.0, false));
+            this.assertT(new TriangleSolver(0.0, this.b, 0.0, 0.0, this.beta, this.gamma, false));
+            this.assertT(new TriangleSolver(0.0, 0.0, this.c, this.alpha, 0.0, this.gamma, false));
+            this.assertT(new TriangleSolver(0.0, 0.0, this.c, 0.0, this.beta, this.gamma, false));
+            // TODO test second solution of cases with 2 solutions (followings)
+            // this.assertT(new TriangleSolver(this.a, this.b, 0.0, this.alpha,
+            // 0.0, 0.0, false));
+            // this.assertT(new TriangleSolver(this.a, this.b, 0.0, 0.0,
+            // this.beta, 0.0, false));
+            // this.assertT(new TriangleSolver(0.0, this.b, this.c, 0.0,
+            // this.beta, 0.0, false));
+            // this.assertT(new TriangleSolver(0.0, this.b, this.c, 0.0, 0.0,
+            // this.gamma, false));
+            // this.assertT(new TriangleSolver(this.a, 0.0, this.c, this.alpha,
+            // 0.0, 0.0, false));
+            // this.assertT(new TriangleSolver(this.a, 0.0, this.c, 0.0, 0.0,
+            // this.gamma, false));
         } catch (IllegalArgumentException e) {
             Assert.fail("An illegal argument exception should not be thrown here");
         }
@@ -120,10 +137,10 @@ public class TestTriangleSolver extends TestCase {
     private void assertT(TriangleSolver t) {
         t.compute();
 
-        Assert.assertEquals("7.46", this.df2.format(t.getPerimeter()));
-        Assert.assertEquals("0.9362", this.df4.format(t.getHeight()));
-        Assert.assertEquals("1.6178", this.df4.format(t.getSurface()));
-        Assert.assertEquals("0.4337", this.df4.format(t.getIncircleRadius()));
-        Assert.assertEquals("1.9135", this.df4.format(t.getExcircleRadius()));
+        Assert.assertEquals("7.46", this.df2.format(t.getPerimeter().first));
+        Assert.assertEquals("0.9362", this.df4.format(t.getHeight().first));
+        Assert.assertEquals("1.6178", this.df4.format(t.getSurface().first));
+        Assert.assertEquals("0.4337", this.df4.format(t.getIncircleRadius().first));
+        Assert.assertEquals("1.9135", this.df4.format(t.getExcircleRadius().first));
     }
 }
