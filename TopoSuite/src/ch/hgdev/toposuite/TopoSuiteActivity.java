@@ -155,7 +155,8 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
     public final void createRightMenuItems() {
         SparseArray<CalculationGroup> groups = new SparseArray<CalculationGroup>();
 
-        CalculationGroup polarCalculation = new CalculationGroup("Calculs polaires");
+        CalculationGroup polarCalculation = new CalculationGroup(
+                this.getString(R.string.group_polar_calculation));
         polarCalculation.getChildren().add(
                 new ActivityItem(this.getString(R.string.title_activity_abriss),
                         AbrissActivity.class));
@@ -167,7 +168,8 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                 PolarImplantationActivity.class));
         groups.append(0, polarCalculation);
 
-        CalculationGroup orthoCalculation = new CalculationGroup("Calculs orthogonaux");
+        CalculationGroup orthoCalculation = new CalculationGroup(
+                this.getString(R.string.group_orthogonal_calculation));
         orthoCalculation.getChildren().add(
                 new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
                         LeveOrthoActivity.class));
@@ -179,13 +181,16 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                         OrthogonalImplantationActivity.class));
         groups.append(1, orthoCalculation);
 
-        CalculationGroup intersections = new CalculationGroup("Intersections");
+        CalculationGroup intersections = new CalculationGroup(
+                this.getString(R.string.group_intersections));
         groups.append(2, intersections);
 
-        CalculationGroup surfaces = new CalculationGroup("Surfaces");
+        CalculationGroup surfaces = new CalculationGroup(
+                this.getString(R.string.group_surfaces));
         groups.append(3, surfaces);
 
-        CalculationGroup various = new CalculationGroup("Divers");
+        CalculationGroup various = new CalculationGroup(
+                this.getString(R.string.group_various));
         various.getChildren().add(
                 new ActivityItem(this.getString(R.string.title_activity_gisement),
                         GisementActivity.class));
@@ -197,7 +202,8 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                         PointProjectionActivity.class));
         groups.append(4, various);
 
-        CalculationGroup mathematics = new CalculationGroup("Mathématiques");
+        CalculationGroup mathematics = new CalculationGroup(
+                this.getString(R.string.group_mathematics));
         groups.append(5, mathematics);
 
         ExpandableRightMenuAdapter a = new ExpandableRightMenuAdapter(this,
