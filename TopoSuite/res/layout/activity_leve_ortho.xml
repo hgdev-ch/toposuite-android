@@ -130,13 +130,12 @@
         
         <TextView
             android:id="@+id/scale_factor_label"
-            android:textStyle="bold"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.86"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/scale_factor_label" />
+            android:text="@string/scale_factor_label"
+            android:textStyle="bold" />
         
         <TextView
             android:id="@+id/scale_factor"

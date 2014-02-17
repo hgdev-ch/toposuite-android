@@ -33,6 +33,7 @@ import ch.hgdev.toposuite.calculation.activities.leveortho.EditMeasureDialogFrag
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDialogListener,
         EditMeasureDialogListener {
@@ -366,7 +367,13 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 this.leveOrtho.getOrthogonalBase().setMeasuredDistance(this.measuredDist);
 
                 double scaleFactor = this.leveOrtho.getOrthogonalBase().getScaleFactor();
-                this.scaleTextView.setText(DisplayUtils.toString(scaleFactor));
+
+                StringBuilder builder = new StringBuilder();
+                builder.append(DisplayUtils.toString(scaleFactor));
+                builder.append(" (");
+                builder.append(MathUtils.scaleToPPM(scaleFactor));
+                builder.append("ppm)");
+                this.scaleTextView.setText(builder.toString());
             }
         }
     }
