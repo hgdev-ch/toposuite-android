@@ -74,4 +74,8 @@ public class TestMathUtils extends TestCase {
         Assert.assertEquals("166.0595",
                 df.format(MathUtils.euclideanDistance(p1, p2)));
     }
+
+    public void testScaleToPPM() {
+        Assert.assertEquals(-250, MathUtils.scaleToPPM(0.99975));
+    }
 }
