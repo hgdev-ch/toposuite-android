@@ -152,6 +152,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         }
     }
 
+    /**
+     * Create items in the right menu.
+     */
     public final void createRightMenuItems() {
         SparseArray<CalculationGroup> groups = new SparseArray<CalculationGroup>();
 
