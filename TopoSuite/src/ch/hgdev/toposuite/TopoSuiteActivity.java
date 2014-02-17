@@ -1,10 +1,14 @@
 package ch.hgdev.toposuite;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
@@ -46,7 +51,7 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
     /**
      * The right items list that contains the list of available calculations.
      */
-    private ListView              drawerListRightMenu;
+    private ExpandableListView    drawerListRightMenu;
 
     /**
      * The action bar drawer toggle.
@@ -75,38 +80,11 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                                 HistoryActivity.class) }));
 
         // set the content of the right sliding menu
-        this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
-        this.drawerListRightMenu.setAdapter(new ArrayAdapter<ActivityItem>(this,
-                R.layout.drawer_list_item,
-                new ActivityItem[] {
-                        new ActivityItem(this.getString(R.string.title_activity_abriss),
-                                AbrissActivity.class),
-                        new ActivityItem(this.getString(R.string.title_activity_leve_polaire),
-                                LevePolaireActivity.class),
-                        new ActivityItem(
-                                this.getString(R.string.title_activity_polar_implantation),
-                                PolarImplantationActivity.class),
-                        new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
-                                LeveOrthoActivity.class),
-                        new ActivityItem(this.getString(R.string.title_activity_cheminement_ortho),
-                                CheminementOrthoActivity.class),
-                        new ActivityItem(this.getString(
-                                R.string.title_activity_orthogonal_implantation),
-                                OrthogonalImplantationActivity.class),
-                        new ActivityItem(this.getString(R.string.title_activity_gisement),
-                                GisementActivity.class),
-                        new ActivityItem(this.getString(R.string.title_activity_circle),
-                                CircleActivity.class),
-                        new ActivityItem(this.getString(R.string.title_activity_point_projection),
-                                PointProjectionActivity.class)
-                }));
+        this.drawerListRightMenu = (ExpandableListView) this.findViewById(R.id.right_drawer);
+        this.createRightMenuItems();
 
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(
                 this.drawerListLeftMenu));
-        this.drawerListRightMenu.setOnItemClickListener(new DrawerItemClickListener(
-                this.drawerListRightMenu));
-
-        this.drawerListRightMenu = (ListView) this.findViewById(R.id.right_drawer);
 
         this.getActionBar().setDisplayHomeAsUpEnabled(true);
         this.getActionBar().setHomeButtonEnabled(true);
@@ -174,6 +152,59 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         }
     }
 
+    public final void createRightMenuItems() {
+        SparseArray<CalculationGroup> groups = new SparseArray<CalculationGroup>();
+
+        CalculationGroup polarCalculation = new CalculationGroup("Calculs polaires");
+        polarCalculation.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_abriss),
+                        AbrissActivity.class));
+        polarCalculation.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_leve_polaire),
+                        LevePolaireActivity.class));
+        polarCalculation.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_polar_implantation),
+                PolarImplantationActivity.class));
+        groups.append(0, polarCalculation);
+
+        CalculationGroup orthoCalculation = new CalculationGroup("Calculs orthogonaux");
+        orthoCalculation.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
+                        LeveOrthoActivity.class));
+        orthoCalculation.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_cheminement_ortho),
+                        CheminementOrthoActivity.class));
+        orthoCalculation.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_orthogonal_implantation),
+                        OrthogonalImplantationActivity.class));
+        groups.append(1, orthoCalculation);
+
+        CalculationGroup intersections = new CalculationGroup("Intersections");
+        groups.append(2, intersections);
+
+        CalculationGroup surfaces = new CalculationGroup("Surfaces");
+        groups.append(3, surfaces);
+
+        CalculationGroup various = new CalculationGroup("Divers");
+        various.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_gisement),
+                        GisementActivity.class));
+        various.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_circle),
+                        CircleActivity.class));
+        various.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_point_projection),
+                        PointProjectionActivity.class));
+        groups.append(4, various);
+
+        CalculationGroup mathematics = new CalculationGroup("Mathématiques");
+        groups.append(5, mathematics);
+
+        ExpandableRightMenuAdapter a = new ExpandableRightMenuAdapter(this,
+                this.drawerListRightMenu, groups);
+        this.drawerListRightMenu.setAdapter(a);
+    }
+
     /**
      * Starts a new activity.
      * 
@@ -215,7 +246,7 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
      * 
      * @author HGdev
      */
-    private class ActivityItem {
+    public static class ActivityItem {
         /**
          * The title that will appear in the left or right sliding menu.
          */
@@ -251,6 +282,24 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
          */
         public Class<?> getActivityClass() {
             return this.activityClass;
+        }
+    }
+
+    public static class CalculationGroup {
+        private final String             groupName;
+        private final List<ActivityItem> children;
+
+        public CalculationGroup(String _groupName) {
+            this.groupName = _groupName;
+            this.children = new ArrayList<TopoSuiteActivity.ActivityItem>();
+        }
+
+        public String getGroupName() {
+            return this.groupName;
+        }
+
+        public List<ActivityItem> getChildren() {
+            return this.children;
         }
     }
 }
