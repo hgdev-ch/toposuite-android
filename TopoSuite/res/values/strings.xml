@@ -78,6 +78,12 @@
     <string name="flon_label">fLon</string>
     <string name="fs_label">fs</string>
     <string name="gisement_label">Gisement [g]</string>
+    <string name="group_polar_calculation">Polar calculations</string>
+    <string name="group_orthogonal_calculation">Orthogonal calculations</string>
+    <string name="group_intersections">Intersections</string>
+    <string name="group_surfaces">Surfaces</string>
+    <string name="group_various">Various</string>
+    <string name="group_mathematics">Mathematics</string>
     <string name="heavy_checkmark">&#x2714;</string>
     <string name="heavy_ballot">&#x2718;</string>
     <string name="home">Home</string>
