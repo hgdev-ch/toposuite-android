@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.json.JSONException;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.Pair;
 
@@ -27,7 +29,9 @@ public class TriangleSolver extends Calculation {
     private boolean              twoSolutions;
 
     public TriangleSolver(long id, Date lastModification) {
-        super(id, null, "Triangle solver", lastModification, true);
+        super(id, null,
+                App.getContext().getString(R.string.title_activity_triangle_solver),
+                lastModification, true);
     }
 
     public TriangleSolver(

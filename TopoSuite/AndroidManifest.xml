@@ -95,6 +95,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.circle.CircleActivity"
             android:label="@string/title_activity_circle" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverActivity"
+            android:label="@string/title_activity_triangle_solver" >
+        </activity>
     </application>
 
 </manifest>
