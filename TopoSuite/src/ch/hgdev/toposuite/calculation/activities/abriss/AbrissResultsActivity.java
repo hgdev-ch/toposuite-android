@@ -48,29 +48,29 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
                 bundle.getInt(AbrissActivity.STATION_NUMBER_LABEL));
         int position = bundle.getInt(AbrissActivity.CALCULATION_POSITION_LABEL);
 
-        ArrayList<Measure> orientationsList = new ArrayList<Measure>();
-        JSONArray jsonArray;
-        try {
-            jsonArray = new JSONArray(bundle.getString(AbrissActivity.ORIENTATIONS_LABEL));
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject json = (JSONObject) jsonArray.get(i);
-                Measure m = Measure.getMeasureFromJSON(json.toString());
-                orientationsList.add(m);
-            }
-        } catch (JSONException e) {
-            // TODO
-        }
-
         if (position != -1) {
             this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
             this.abriss.setStation(station);
         } else {
             this.abriss = new Abriss(station, true);
+
+            ArrayList<Measure> orientationsList = new ArrayList<Measure>();
+            JSONArray jsonArray;
+            try {
+                jsonArray = new JSONArray(bundle.getString(AbrissActivity.ORIENTATIONS_LABEL));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject json = (JSONObject) jsonArray.get(i);
+                    Measure m = Measure.getMeasureFromJSON(json.toString());
+                    orientationsList.add(m);
+                }
+            } catch (JSONException e) {
+                // TODO
+            }
+
+            this.abriss.getMeasures().addAll(orientationsList);
         }
 
-        this.abriss.getMeasures().clear();
         this.abriss.getResults().clear();
-        this.abriss.getMeasures().addAll(orientationsList);
         this.abriss.compute();
 
         this.displayResults();
