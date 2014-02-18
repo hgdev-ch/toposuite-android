@@ -39,16 +39,20 @@ public class TriangleSolver extends Calculation {
     private boolean              twoSolutions;
 
     public TriangleSolver(long id, Date lastModification) {
-        super(id, null,
+        super(id,
+                CalculationType.TRIANGLESOLVER,
                 App.getContext().getString(R.string.title_activity_triangle_solver),
                 lastModification, true);
+        this.initAttributes(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
 
     public TriangleSolver(
             double _a, double _b, double _c,
             double _alpha, double _beta, double _gamma,
             boolean hasDAO) throws IllegalArgumentException {
-        super(CalculationType.TRIANGLESOLVER, "Triangle solver", hasDAO);
+        super(CalculationType.TRIANGLESOLVER,
+                App.getContext().getString(R.string.title_activity_triangle_solver),
+                hasDAO);
 
         Preconditions.checkArgument(_a >= 0.0, "Argument was %s but expected nonnegative", _a);
         Preconditions.checkArgument(_b >= 0.0, "Argument was %s but expected nonnegative", _b);
@@ -60,14 +64,7 @@ public class TriangleSolver extends Calculation {
         Preconditions.checkArgument(
                 _gamma >= 0.0, "Argument was %s but expected nonnegative", _gamma);
 
-        this.a = new Pair<Double, Double>(_a, 0.0);
-        this.b = new Pair<Double, Double>(_b, 0.0);
-        this.c = new Pair<Double, Double>(_c, 0.0);
-        this.alpha = new Pair<Double, Double>(MathUtils.modulo400(_alpha), 0.0);
-        this.beta = new Pair<Double, Double>(MathUtils.modulo400(_beta), 0.0);
-        this.gamma = new Pair<Double, Double>(MathUtils.modulo400(_gamma), 0.0);
-
-        this.twoSolutions = false;
+        this.initAttributes(_a, _b, _c, _alpha, _beta, _gamma);
 
         if (!this.checkInputs()) {
             throw new IllegalArgumentException(
@@ -77,15 +74,37 @@ public class TriangleSolver extends Calculation {
 
         this.findMissingValues();
 
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
+    }
+
+    /**
+     * Initialize class attributes.
+     * 
+     * @param _a
+     * @param _b
+     * @param _c
+     * @param _alpha
+     * @param _beta
+     * @param _gamma
+     */
+    private void initAttributes(
+            double _a, double _b, double _c, double _alpha, double _beta, double _gamma) {
+        this.a = new Pair<Double, Double>(_a, 0.0);
+        this.b = new Pair<Double, Double>(_b, 0.0);
+        this.c = new Pair<Double, Double>(_c, 0.0);
+        this.alpha = new Pair<Double, Double>(MathUtils.modulo400(_alpha), 0.0);
+        this.beta = new Pair<Double, Double>(MathUtils.modulo400(_beta), 0.0);
+        this.gamma = new Pair<Double, Double>(MathUtils.modulo400(_gamma), 0.0);
+
+        this.twoSolutions = false;
+
         this.perimeter = new Pair<Double, Double>(0.0, 0.0);
         this.height = new Pair<Double, Double>(0.0, 0.0);
         this.surface = new Pair<Double, Double>(0.0, 0.0);
         this.incircleRadius = new Pair<Double, Double>(0.0, 0.0);
         this.excircleRadius = new Pair<Double, Double>(0.0, 0.0);
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     /**
