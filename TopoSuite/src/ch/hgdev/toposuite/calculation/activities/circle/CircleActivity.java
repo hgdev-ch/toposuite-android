@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite;
+package ch.hgdev.toposuite.calculation.activities.circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.R.id;
+import ch.hgdev.toposuite.R.layout;
+import ch.hgdev.toposuite.R.menu;
+import ch.hgdev.toposuite.R.string;
 import ch.hgdev.toposuite.calculation.Circle;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.history.HistoryActivity;

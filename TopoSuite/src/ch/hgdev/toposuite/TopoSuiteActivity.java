@@ -20,6 +20,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
+import ch.hgdev.toposuite.calculation.activities.circle.CircleActivity;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
