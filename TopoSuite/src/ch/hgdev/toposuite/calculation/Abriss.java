@@ -71,6 +71,7 @@ public class Abriss extends Calculation {
         }
 
         this.results.clear();
+        this.mean = 0.0;
 
         for (Measure m : this.orientations) {
             Gisement g = new Gisement(this.station, m.getPoint(), false);
