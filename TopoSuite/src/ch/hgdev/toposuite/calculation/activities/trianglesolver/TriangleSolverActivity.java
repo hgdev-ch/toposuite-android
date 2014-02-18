@@ -9,50 +9,99 @@ import android.widget.EditText;
 import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.TriangleSolver;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TriangleSolverActivity extends TopoSuiteActivity {
-    private double   a;
-    private double   b;
-    private double   c;
-    private double   alpha;
-    private double   beta;
-    private double   gamma;
+    private double         a;
+    private double         b;
+    private double         c;
+    private double         alpha;
+    private double         beta;
+    private double         gamma;
 
-    private EditText aEditText;
-    private EditText bEditText;
-    private EditText cEditText;
-    private EditText alphaEditText;
-    private EditText betaEditText;
-    private EditText gammaEditText;
+    private EditText       aEditText;
+    private EditText       bEditText;
+    private EditText       cEditText;
+    private EditText       alphaEditText;
+    private EditText       betaEditText;
+    private EditText       gammaEditText;
 
-    private TextView perimeterTextView;
-    private TextView heightTextView;
-    private TextView surfaceTextView;
-    private TextView incircleRadiusTextView;
-    private TextView excircleRadiusTextView;
+    private TextView       perimeterTextView;
+    private TextView       heightTextView;
+    private TextView       surfaceTextView;
+    private TextView       incircleRadiusTextView;
+    private TextView       excircleRadiusTextView;
 
-    private TextView perimeterBisTextView;
-    private TextView heightBisTextView;
-    private TextView surfaceBisTextView;
-    private TextView incircleRadiusBisTextView;
-    private TextView excircleRadiusBisTextView;
+    private TextView       perimeterBisTextView;
+    private TextView       heightBisTextView;
+    private TextView       surfaceBisTextView;
+    private TextView       incircleRadiusBisTextView;
+    private TextView       excircleRadiusBisTextView;
+
+    private TriangleSolver tS;
+
+    /**
+     * Position of the calculation in the calculations list. Only used when open
+     * from the history.
+     */
+    private int            position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.activity_triangle_solver);
+
+        this.position = -1;
+
         this.initViews();
+        this.initAttributes();
+
+        // check if we create a new calculation or if we modify an
+        // existing one.
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null) {
+            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.tS = (TriangleSolver) SharedResources.getCalculationsHistory()
+                    .get(this.position);
+            if (this.tS != null) {
+                if (MathUtils.isPositive(this.tS.getA())) {
+                    this.aEditText.setText(DisplayUtils.toString(this.tS.getA()));
+                }
+                if (MathUtils.isPositive(this.tS.getB())) {
+                    this.bEditText.setText(DisplayUtils.toString(this.tS.getB()));
+                }
+                if (MathUtils.isPositive(this.tS.getC())) {
+                    this.cEditText.setText(DisplayUtils.toString(this.tS.getC()));
+                }
+                if (MathUtils.isPositive(this.tS.getAlpha())) {
+                    this.alphaEditText.setText(DisplayUtils.toString(this.tS.getAlpha()));
+                }
+                if (MathUtils.isPositive(this.tS.getBeta())) {
+                    this.betaEditText.setText(DisplayUtils.toString(this.tS.getBeta()));
+                }
+                if (MathUtils.isPositive(this.tS.getGamma())) {
+                    this.gammaEditText.setText(DisplayUtils.toString(this.tS.getGamma()));
+                }
+                this.a = this.tS.getA();
+                this.b = this.tS.getB();
+                this.c = this.tS.getC();
+                this.alpha = this.tS.getAlpha();
+                this.beta = this.tS.getBeta();
+                this.gamma = this.tS.getGamma();
+            }
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.initAttributes();
     }
 
     @Override
@@ -146,14 +195,16 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     private void runCalculations() {
         this.getInputs();
-        try {
-            TriangleSolver t = new TriangleSolver(
-                    this.a, this.b, this.c, this.alpha, this.beta, this.gamma, true);
-            t.compute();
-            this.updateResults(t);
-        } catch (IllegalArgumentException e) {
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
+        if (this.tS == null) {
+            try {
+                this.tS = new TriangleSolver(
+                        this.a, this.b, this.c, this.alpha, this.beta, this.gamma, true);
+            } catch (IllegalArgumentException e) {
+                Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
+            }
         }
+        this.tS.compute();
+        this.updateResults();
         this.initAttributes();
     }
 
@@ -162,27 +213,27 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * 
      * @param t
      */
-    private void updateResults(TriangleSolver t) {
+    private void updateResults() {
         this.perimeterTextView.setText(
-                DisplayUtils.toString(t.getPerimeter().first));
+                DisplayUtils.toString(this.tS.getPerimeter().first));
         this.perimeterBisTextView.setText(
-                DisplayUtils.toString(t.getPerimeter().second));
+                DisplayUtils.toString(this.tS.getPerimeter().second));
         this.heightTextView.setText(
-                DisplayUtils.toString(t.getHeight().first));
+                DisplayUtils.toString(this.tS.getHeight().first));
         this.heightBisTextView.setText(
-                DisplayUtils.toString(t.getHeight().second));
+                DisplayUtils.toString(this.tS.getHeight().second));
         this.surfaceTextView.setText(
-                DisplayUtils.toString(t.getSurface().first));
+                DisplayUtils.toString(this.tS.getSurface().first));
         this.surfaceBisTextView.setText(
-                DisplayUtils.toString(t.getSurface().second));
+                DisplayUtils.toString(this.tS.getSurface().second));
         this.incircleRadiusTextView.setText(
-                DisplayUtils.toString(t.getIncircleRadius().first));
+                DisplayUtils.toString(this.tS.getIncircleRadius().first));
         this.incircleRadiusBisTextView.setText(
-                DisplayUtils.toString(t.getIncircleRadius().second));
+                DisplayUtils.toString(this.tS.getIncircleRadius().second));
         this.excircleRadiusTextView.setText(
-                DisplayUtils.toString(t.getExcircleRadius().first));
+                DisplayUtils.toString(this.tS.getExcircleRadius().first));
         this.excircleRadiusBisTextView.setText(
-                DisplayUtils.toString(t.getExcircleRadius().second));
+                DisplayUtils.toString(this.tS.getExcircleRadius().second));
     }
 
     /**
@@ -246,6 +297,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             TriangleSolverActivity.this.clearResults();
+            TriangleSolverActivity.this.initAttributes();
         }
     }
 }

@@ -3,15 +3,25 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.Pair;
 
 import com.google.common.base.Preconditions;
 
 public class TriangleSolver extends Calculation {
+
+    private static final String  A     = "a";
+    private static final String  B     = "b";
+    private static final String  C     = "c";
+    private static final String  ALPHA = "alpha";
+    private static final String  BETA  = "beta";
+    private static final String  GAMMA = "gamma";
 
     private Pair<Double, Double> a;
     private Pair<Double, Double> b;
@@ -72,6 +82,10 @@ public class TriangleSolver extends Calculation {
         this.surface = new Pair<Double, Double>(0.0, 0.0);
         this.incircleRadius = new Pair<Double, Double>(0.0, 0.0);
         this.excircleRadius = new Pair<Double, Double>(0.0, 0.0);
+
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
     }
 
     /**
@@ -376,6 +390,10 @@ public class TriangleSolver extends Calculation {
             this.surface.second = this.computeSurface(
                     this.a.second, this.b.second, this.c.second, this.excircleRadius.second);
         }
+
+        // update the calculation last modification date
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     /**
@@ -488,20 +506,32 @@ public class TriangleSolver extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO implement
-        return null;
+        JSONObject json = new JSONObject();
+
+        json.put(TriangleSolver.A, this.a.first);
+        json.put(TriangleSolver.B, this.b.first);
+        json.put(TriangleSolver.C, this.c.first);
+        json.put(TriangleSolver.ALPHA, this.alpha.first);
+        json.put(TriangleSolver.BETA, this.beta.first);
+        json.put(TriangleSolver.GAMMA, this.gamma.first);
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO implement
-
+        JSONObject json = new JSONObject(jsonInputArgs);
+        this.a.first = json.getDouble(TriangleSolver.A);
+        this.b.first = json.getDouble(TriangleSolver.B);
+        this.c.first = json.getDouble(TriangleSolver.C);
+        this.alpha.first = json.getDouble(TriangleSolver.ALPHA);
+        this.beta.first = json.getDouble(TriangleSolver.BETA);
+        this.gamma.first = json.getDouble(TriangleSolver.GAMMA);
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO implement
-        return null;
+        return TriangleSolverActivity.class;
     }
 
     public Pair<Double, Double> getPerimeter() {
@@ -524,4 +554,27 @@ public class TriangleSolver extends Calculation {
         return this.excircleRadius;
     }
 
+    public double getA() {
+        return this.a.first;
+    }
+
+    public double getB() {
+        return this.b.first;
+    }
+
+    public double getC() {
+        return this.c.first;
+    }
+
+    public double getAlpha() {
+        return this.alpha.first;
+    }
+
+    public double getBeta() {
+        return this.beta.first;
+    }
+
+    public double getGamma() {
+        return this.gamma.first;
+    }
 }

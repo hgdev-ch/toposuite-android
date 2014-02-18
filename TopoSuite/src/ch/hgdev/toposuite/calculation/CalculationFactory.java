@@ -68,6 +68,9 @@ public class CalculationFactory {
         case PROJPT:
             calculation = new PointProjectionOnALine(id, lastModification);
             break;
+        case TRIANGLESOLVER:
+            calculation = new TriangleSolver(id, lastModification);
+            break;
         default:
             Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR,
                     CalculationFactory.CALCULATION_NOT_FOUND);
