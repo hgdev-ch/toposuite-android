@@ -91,6 +91,10 @@ public class TriangleSolver extends Calculation {
                 && ((this.alpha.first + this.beta.first + this.gamma.first) < 200.0)) {
             return false;
         }
+        // at least one side is required
+        if (!this.isOnePositive(this.a.first, this.b.first, this.c.first)) {
+            return false;
+        }
 
         int count = 0;
 
@@ -425,6 +429,19 @@ public class TriangleSolver extends Calculation {
     private boolean areAllPositive(double a, double b, double c) {
         return MathUtils.isPositive(a) && MathUtils.isPositive(b)
                 && MathUtils.isPositive(c);
+    }
+
+    /**
+     * Return true if at least one parameter is positive.
+     * 
+     * @param a
+     * @param b
+     * @param c
+     * @return
+     */
+    private boolean isOnePositive(double a, double b, double c) {
+        return MathUtils.isPositive(a) || MathUtils.isPositive(b)
+                || MathUtils.isPositive(c);
     }
 
     /**
