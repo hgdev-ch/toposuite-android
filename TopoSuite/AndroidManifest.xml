@@ -92,7 +92,7 @@
             android:label="@string/title_activity_polar_implantation_results" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.CircleActivity"
+            android:name="ch.hgdev.toposuite.calculation.activities.circle.CircleActivity"
             android:label="@string/title_activity_circle" >
         </activity>
     </application>
