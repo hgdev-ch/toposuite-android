@@ -190,22 +190,32 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
         if (informationScore >= 10) {
             this.runCalculations();
+        } else {
+            this.clearResults();
         }
     }
 
     private void runCalculations() {
+        this.initAttributes();
         this.getInputs();
-        if (this.tS == null) {
-            try {
+        try {
+            if (this.tS == null) {
                 this.tS = new TriangleSolver(
                         this.a, this.b, this.c, this.alpha, this.beta, this.gamma, true);
-            } catch (IllegalArgumentException e) {
-                Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
+            } else {
+                this.tS.setA(this.a);
+                this.tS.setB(this.b);
+                this.tS.setC(this.c);
+                this.tS.setAlpha(this.alpha);
+                this.tS.setBeta(this.beta);
+                this.tS.setGamma(this.gamma);
             }
+            this.tS.compute();
+            this.updateResults();
+        } catch (IllegalArgumentException e) {
+            this.clearResults();
+            Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
         }
-        this.tS.compute();
-        this.updateResults();
-        this.initAttributes();
     }
 
     /**
@@ -286,6 +296,8 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         public void afterTextChanged(Editable s) {
             if (s.length() > 0) {
                 TriangleSolverActivity.this.chickenRun();
+            } else {
+                TriangleSolverActivity.this.clearResults();
             }
         }
 
@@ -296,8 +308,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            TriangleSolverActivity.this.clearResults();
-            TriangleSolverActivity.this.initAttributes();
+            // nothing
         }
     }
 }

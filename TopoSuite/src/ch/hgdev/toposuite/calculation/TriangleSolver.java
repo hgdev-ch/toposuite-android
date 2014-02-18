@@ -66,14 +66,6 @@ public class TriangleSolver extends Calculation {
 
         this.initAttributes(_a, _b, _c, _alpha, _beta, _gamma);
 
-        if (!this.checkInputs()) {
-            throw new IllegalArgumentException(
-                    "TriangleSolver: At least 3 of the arguments should be greater than 0 "
-                            + "and the sum of the 3 angles must be less than or equal to 200");
-        }
-
-        this.findMissingValues();
-
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
         }
@@ -389,7 +381,15 @@ public class TriangleSolver extends Calculation {
     /**
      * Compute perimeter, height, surface, incircle radius and excircle radius.
      */
-    public void compute() {
+    public void compute() throws IllegalArgumentException {
+        if (!this.checkInputs()) {
+            throw new IllegalArgumentException(
+                    "TriangleSolver: At least 3 of the arguments should be greater than 0 "
+                            + "and the sum of the 3 angles must be less than or equal to 200");
+        }
+
+        this.findMissingValues();
+
         this.perimeter.first = this.computePerimeter(this.a.first, this.b.first, this.c.first);
         this.height.first = this.computeHeight(this.beta.first, this.c.first);
         this.incircleRadius.first = this.computeIncircleRadius(
@@ -596,4 +596,35 @@ public class TriangleSolver extends Calculation {
     public double getGamma() {
         return this.gamma.first;
     }
+
+    public void setA(double a) {
+        this.a.first = a;
+        this.a.second = 0.0;
+    }
+
+    public void setB(double b) {
+        this.b.first = b;
+        this.b.second = 0.0;
+    }
+
+    public void setC(double c) {
+        this.c.first = c;
+        this.c.second = 0.0;
+    }
+
+    public void setAlpha(double alpha) {
+        this.alpha.first = alpha;
+        this.alpha.second = 0.0;
+    }
+
+    public void setBeta(double beta) {
+        this.beta.first = beta;
+        this.beta.second = 0.0;
+    }
+
+    public void setGamma(double gamma) {
+        this.gamma.first = gamma;
+        this.gamma.second = 0.0;
+    }
+
 }
