@@ -39,16 +39,20 @@ public class TriangleSolver extends Calculation {
     private boolean              twoSolutions;
 
     public TriangleSolver(long id, Date lastModification) {
-        super(id, null,
+        super(id,
+                CalculationType.TRIANGLESOLVER,
                 App.getContext().getString(R.string.title_activity_triangle_solver),
                 lastModification, true);
+        this.initAttributes(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
 
     public TriangleSolver(
             double _a, double _b, double _c,
             double _alpha, double _beta, double _gamma,
             boolean hasDAO) throws IllegalArgumentException {
-        super(CalculationType.TRIANGLESOLVER, "Triangle solver", hasDAO);
+        super(CalculationType.TRIANGLESOLVER,
+                App.getContext().getString(R.string.title_activity_triangle_solver),
+                hasDAO);
 
         Preconditions.checkArgument(_a >= 0.0, "Argument was %s but expected nonnegative", _a);
         Preconditions.checkArgument(_b >= 0.0, "Argument was %s but expected nonnegative", _b);
@@ -60,6 +64,25 @@ public class TriangleSolver extends Calculation {
         Preconditions.checkArgument(
                 _gamma >= 0.0, "Argument was %s but expected nonnegative", _gamma);
 
+        this.initAttributes(_a, _b, _c, _alpha, _beta, _gamma);
+
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
+    }
+
+    /**
+     * Initialize class attributes.
+     * 
+     * @param _a
+     * @param _b
+     * @param _c
+     * @param _alpha
+     * @param _beta
+     * @param _gamma
+     */
+    private void initAttributes(
+            double _a, double _b, double _c, double _alpha, double _beta, double _gamma) {
         this.a = new Pair<Double, Double>(_a, 0.0);
         this.b = new Pair<Double, Double>(_b, 0.0);
         this.c = new Pair<Double, Double>(_c, 0.0);
@@ -69,23 +92,11 @@ public class TriangleSolver extends Calculation {
 
         this.twoSolutions = false;
 
-        if (!this.checkInputs()) {
-            throw new IllegalArgumentException(
-                    "TriangleSolver: At least 3 of the arguments should be greater than 0 "
-                            + "and the sum of the 3 angles must be less than or equal to 200");
-        }
-
-        this.findMissingValues();
-
         this.perimeter = new Pair<Double, Double>(0.0, 0.0);
         this.height = new Pair<Double, Double>(0.0, 0.0);
         this.surface = new Pair<Double, Double>(0.0, 0.0);
         this.incircleRadius = new Pair<Double, Double>(0.0, 0.0);
         this.excircleRadius = new Pair<Double, Double>(0.0, 0.0);
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     /**
@@ -370,7 +381,15 @@ public class TriangleSolver extends Calculation {
     /**
      * Compute perimeter, height, surface, incircle radius and excircle radius.
      */
-    public void compute() {
+    public void compute() throws IllegalArgumentException {
+        if (!this.checkInputs()) {
+            throw new IllegalArgumentException(
+                    "TriangleSolver: At least 3 of the arguments should be greater than 0 "
+                            + "and the sum of the 3 angles must be less than or equal to 200");
+        }
+
+        this.findMissingValues();
+
         this.perimeter.first = this.computePerimeter(this.a.first, this.b.first, this.c.first);
         this.height.first = this.computeHeight(this.beta.first, this.c.first);
         this.incircleRadius.first = this.computeIncircleRadius(
@@ -577,4 +596,35 @@ public class TriangleSolver extends Calculation {
     public double getGamma() {
         return this.gamma.first;
     }
+
+    public void setA(double a) {
+        this.a.first = a;
+        this.a.second = 0.0;
+    }
+
+    public void setB(double b) {
+        this.b.first = b;
+        this.b.second = 0.0;
+    }
+
+    public void setC(double c) {
+        this.c.first = c;
+        this.c.second = 0.0;
+    }
+
+    public void setAlpha(double alpha) {
+        this.alpha.first = alpha;
+        this.alpha.second = 0.0;
+    }
+
+    public void setBeta(double beta) {
+        this.beta.first = beta;
+        this.beta.second = 0.0;
+    }
+
+    public void setGamma(double gamma) {
+        this.gamma.first = gamma;
+        this.gamma.second = 0.0;
+    }
+
 }
