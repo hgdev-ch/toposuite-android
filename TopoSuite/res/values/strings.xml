@@ -75,8 +75,10 @@
     <string name="error_point_number">A point\'s number must greater than or equal to 1.</string>
     <string name="error_same_points">The points must be different!</string>
     <string name="excircle_label">Excircle radius</string>
+    <string name="export">Export</string>
     <string name="export_3dots">Export&#8230;</string>
     <string name="extremity_label">Extremity</string>
+    <string name="filename">File name</string>
     <string name="flat_label">fLat</string>
     <string name="flon_label">fLon</string>
     <string name="fs_label">fs</string>
@@ -169,6 +171,7 @@
     <string name="solution_one">First solution</string>
     <string name="solution_two">Second (prospective) solution</string>
     <string name="station_label">Station</string>
+    <string name="success_export_dialog">Successfully exported <xliff:g>%d</xliff:g> points!</string>
     <string name="surface_label">Surface</string>
     <string name="target_point">Target point</string>
     <string name="title_activity_abriss">Abriss</string>

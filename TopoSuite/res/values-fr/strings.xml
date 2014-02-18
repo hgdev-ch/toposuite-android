@@ -75,8 +75,10 @@
     <string name="error_point_number">Le numéro d\'un point doit être supérieur ou égal à 1.</string>
     <string name="error_same_points">Les points doivent être différents!</string>
     <string name="excircle_label">Rayon du cercle conscrit</string>
+    <string name="export">Exporter</string>
     <string name="export_3dots">Exporter&#8230;</string>
     <string name="extremity_label">Extrémité</string>
+    <string name="filename">Nom du fichier</string>
     <string name="flat_label">fLat</string>
     <string name="flon_label">fLon</string>
     <string name="fs_label">fs</string>
@@ -169,6 +171,7 @@
     <string name="solution_one">Première solution</string>
     <string name="solution_two">Deuxième solution éventuelle</string>
     <string name="station_label">Station</string>
+    <string name="success_export_dialog">Les <xliff:g>%d</xliff:g> points ont été exportés avec succès!</string>
     <string name="surface_label">Surface</string>
     <string name="target_point">Point visé</string>
     <string name="title_activity_abriss">Orient. à la station</string>
