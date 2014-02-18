@@ -43,6 +43,11 @@ public class App extends Application {
                                                                         | InputType.TYPE_NUMBER_FLAG_SIGNED;
 
     /**
+     * CSV separator.
+     */
+    public static final String CSV_SEPARATOR                    = ";";
+
+    /**
      * Number of decimal to display with dealing with numbers.
      */
     public static String       numberOfDecimals                 = "%.4f";
@@ -93,6 +98,6 @@ public class App extends Application {
     }
 
     public static Context getContext() {
-        return context;
+        return App.context;
     }
 }

@@ -1,12 +1,17 @@
 package ch.hgdev.toposuite.dao.collections;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
+import android.content.Context;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
+import ch.hgdev.toposuite.export.DataExporter;
+import ch.hgdev.toposuite.export.SaveStrategy;
 
 import com.google.common.collect.Iterables;
 
@@ -18,7 +23,8 @@ import com.google.common.collect.Iterables;
  * @param <E>
  *            the type of the Set
  */
-public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
+public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> implements DAOMapper,
+        SaveStrategy {
     /**
      * Serial UID.
      */
@@ -167,5 +173,21 @@ public class DAOMapperTreeSet<E> extends TreeSet<E> implements DAOMapper {
      */
     public void setSearcheable(Searcher<E> _searcher) {
         this.searcher = _searcher;
+    }
+
+    @Override
+    public int saveAsCSV(Context context, String filename) throws IOException {
+        FileOutputStream outputStream;
+        int lines = 0;
+
+        outputStream = context.openFileOutput(
+                filename, Context.MODE_PRIVATE);
+        for (E element : this) {
+            outputStream.write(element.toCSV().getBytes());
+            lines++;
+        }
+        outputStream.close();
+
+        return lines;
     }
 }

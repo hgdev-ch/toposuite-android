@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -14,10 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.export.ExportDialog;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
@@ -28,11 +31,13 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
 public class PointsManagerActivity extends TopoSuiteActivity implements
         AddPointDialogFragment.AddPointDialogListener,
         EditPointDialogFragment.EditPointDialogListener,
-        SearchPointDialogFragment.SearchPointDialogListener {
+        SearchPointDialogFragment.SearchPointDialogListener,
+        ExportDialog.ExportDialogListener {
 
     private int                      selectedPointId;
     private ListView                 pointsListView;
     private ArrayListOfPointsAdapter adapter;
+    private ShareActionProvider      shareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         case R.id.search_point_button:
             this.showSearchPointDialog();
             return true;
+        case R.id.export_points_button:
+            this.showExportDialog();
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -72,6 +80,10 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.points_manager, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+        this.shareActionProvider = (ShareActionProvider) item.getActionProvider();
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -159,6 +171,23 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         default:
             return super.onContextItemSelected(item);
         }
+    }
+
+    /**
+     * Call to update the share intent
+     * 
+     * @param shareIntent
+     *            The share intent.
+     */
+    private void setShareIntent(Intent shareIntent) {
+        if (this.shareActionProvider != null) {
+            this.shareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+
+    private void showExportDialog() {
+        ExportDialog dialog = new ExportDialog();
+        dialog.show(this.getFragmentManager(), "ExportDialogFragments");
     }
 
     /**
@@ -252,5 +281,15 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         ArrayList<Point> points = new ArrayList<Point>(SharedResources.getSetOfPoints());
         this.adapter = new ArrayListOfPointsAdapter(this, R.layout.points_list_item, points);
         this.pointsListView.setAdapter(this.adapter);
+    }
+
+    @Override
+    public void onDialogSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDialogError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

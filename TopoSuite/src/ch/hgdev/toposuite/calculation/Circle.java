@@ -80,6 +80,9 @@ public class Circle extends Calculation {
                     0.0, false, false);
             this.radius = MathUtils.euclideanDistance(this.center, this.pointA);
         }
+
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     @Override

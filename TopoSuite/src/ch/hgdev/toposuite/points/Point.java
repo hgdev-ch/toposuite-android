@@ -3,10 +3,13 @@ package ch.hgdev.toposuite.points;
 import java.util.ArrayList;
 
 import android.content.Context;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
+import ch.hgdev.toposuite.export.DataExporter;
+import ch.hgdev.toposuite.export.DataImporter;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -19,7 +22,7 @@ import com.google.common.base.Preconditions;
  * @author HGdev
  * 
  */
-public class Point implements DAOUpdater {
+public class Point implements DAOUpdater, DataExporter, DataImporter {
 
     private final int            number;
     private double               east;
@@ -143,6 +146,43 @@ public class Point implements DAOUpdater {
     public String getBasePointAsString(Context context) {
         return this.basePoint ? context.getString(R.string.point_provided) : context
                 .getString(R.string.point_computed);
+    }
+
+    @Override
+    public String toCSV() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getNumber());
+        builder.append(App.CSV_SEPARATOR);
+        builder.append(this.getEast());
+        builder.append(App.CSV_SEPARATOR);
+        builder.append(this.getNorth());
+
+        if (!MathUtils.isZero(this.getAltitude())) {
+            builder.append(App.CSV_SEPARATOR);
+            builder.append(this.getAltitude());
+        }
+
+        return builder.toString();
+    }
+
+    @Override
+    public Point createPointFromCSV(String csvLine) {
+        String[] tmp = csvLine.split(App.CSV_SEPARATOR);
+        Point p = null;
+
+        if (tmp.length >= 3) {
+            int number = Integer.parseInt(tmp[0]);
+            double east = Double.parseDouble(tmp[1]);
+            double north = Double.parseDouble(tmp[2]);
+            double altitude = 0.0;
+
+            if (tmp.length == 4) {
+                altitude = Double.parseDouble(tmp[3]);
+            }
+
+            p = new Point(number, east, north, altitude, true);
+        }
+        return p;
     }
 
     @Override
