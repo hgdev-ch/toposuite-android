@@ -11,6 +11,7 @@
     <string name="altitude">Altitude</string>
     <string name="altitude_3dots">Altitude&#8230;</string>
     <string name="altitude_label">Dénivelé [m]</string>
+    <string name="angles_label">Angles</string>
     <string name="app_copyright">Copyright <xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
     <string name="app_developer">HGdev</string>
     <string name="app_developer_full_info"><xliff:g id="app_developer">%s</xliff:g> - <xliff:g id="app_developer_webpage_url">%s</xliff:g></string>
@@ -73,6 +74,7 @@
     <string name="error_no_station_selected">Aucune station sélectionné!</string>
     <string name="error_point_number">Le numéro d\'un point doit être supérieur ou égal à 1.</string>
     <string name="error_same_points">Les points doivent être différents!</string>
+    <string name="excircle_label">Rayon du cercle conscrit</string>
     <string name="extremity_label">Extrémité</string>
     <string name="flat_label">fLat</string>
     <string name="flon_label">fLon</string>
@@ -84,13 +86,18 @@
     <string name="group_surfaces">Surfaces</string>
     <string name="group_various">Divers</string>
     <string name="group_mathematics">Mathematiques</string>
+    <string name="height_label">Hauteur</string>
     <string name="heavy_checkmark">&#x2714;</string>
     <string name="heavy_ballot">&#x2718;</string>
     <string name="home">Accueil</string>
     <string name="horiz_direction_3dots">Direction horizontale&#8230;</string>
     <string name="i_label">Hauteur de l\'instrument (I) [m]</string>
+    <string name="incircle_label">Rayon du cercle inscrit</string>
     <string name="intersection_point_label">Point d\'intersection:</string>
     <string name="lateral_displacement_3dots">Déplacement latéral&#8230;</string>
+    <string name="letter_a">a</string>
+    <string name="letter_b">b</string>
+    <string name="letter_c">c</string>
     <string name="letter_alpha">&#945;</string>
     <string name="letter_beta">&#946;</string>
     <string name="letter_gamma">&#947;</string>
@@ -132,6 +139,7 @@
     <string name="origin_label">Origine</string>
     <string name="origin_only_label">Origine</string>
     <string name="orthogonal_implantation_label">Implantation orthogonale depuis la base </string>
+    <string name="perimeter_label">Perimètre</string>
     <string name="point_to_project">Point à projeter</string>
     <string name="point_1">Point A</string>
     <string name="point_2">Point B</string>
@@ -155,8 +163,12 @@
     <string name="scale_factor_label">Echelle</string>
     <string name="search">Rechercher</string>
     <string name="search_3dots">Rechercher&#8230;</string>
+    <string name="sides_label">Côtés</string>
     <string name="slope_label">Pente [%]</string>
+    <string name="solution_one">Première solution</string>
+    <string name="solution_two">Deuxième solution éventuelle</string>
     <string name="station_label">Station</string>
+    <string name="surface_label">Surface</string>
     <string name="target_point">Point visé</string>
     <string name="title_activity_abriss">Orient. à la station</string>
     <string name="title_activity_abriss_results">Abriss - résultats</string>
