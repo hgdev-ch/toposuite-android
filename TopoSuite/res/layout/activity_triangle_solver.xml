@@ -151,48 +151,48 @@
         android:paddingLeft="16dp" >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/perimeter_label"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/perimeter"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
             android:gravity="left|center_vertical"
             android:textSize="12sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/surface_label"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/surface"
-            android:layout_width="0dip"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
             android:gravity="left|center_vertical"
             android:textSize="12sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/height_label"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/height"
-            android:layout_width="0dip"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
             android:gravity="left|center_vertical"
@@ -209,7 +209,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/incircle_label"
             android:textSize="12sp" />
 
@@ -225,7 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/excircle_label"
             android:textSize="12sp" />
 
@@ -263,48 +263,48 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/perimeter_label"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/perimeter_bis"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/surface_label"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/surface_bis"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/height_label"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/height_bis"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -318,32 +318,32 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/incircle_label"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/incircle_bis"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:text="@string/excircle_label"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/excircle_bis"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:textSize="12sp" />
     </LinearLayout>
 
