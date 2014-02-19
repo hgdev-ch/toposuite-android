@@ -77,7 +77,7 @@
     <string name="error_no_station_selected">No station selected!</string>
     <string name="error_point_number">A point\'s number must greater than or equal to 1.</string>
     <string name="error_same_points">The points must be different!</string>
-    <string name="error_unsopported_format">Unsupported format!</string>
+    <string name="error_unsupported_format">Unsupported format!</string>
     <string name="excircle_label">Excircle radius</string>
     <string name="export">Export</string>
     <string name="export_3dots">Export&#8230;</string>
