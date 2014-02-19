@@ -2,10 +2,12 @@ package ch.hgdev.toposuite.calculation.activities.trianglesolver;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -96,8 +98,17 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.clear:
+        case R.id.clear_button:
             this.clearInputs();
+            return true;
+        case R.id.run_calculation_button:
+            if (!this.chickenRun()) {
+                Toast errorToast = Toast.makeText(this,
+                        this.getText(R.string.error_impossible_calculation),
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
+            }
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -260,8 +271,10 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     /**
      * Run the calculations if required parameters were filled.
+     * 
+     * @return True if the calculation can be run, false otherwise.
      */
-    private void chickenRun() {
+    private boolean chickenRun() {
 
         // If the information score is equal or greater than 1, then it is safe
         // to proceed to calculation.
@@ -287,13 +300,19 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         }
 
         if (informationScore >= 10) {
-            this.runCalculations();
+            return this.runCalculations();
         } else {
             this.clearResults();
+            return false;
         }
     }
 
-    private void runCalculations() {
+    /**
+     * Run the calculations.
+     * 
+     * @return True if successful, false otherwise.
+     */
+    private boolean runCalculations() {
         this.initAttributes();
         this.getInputs();
         try {
@@ -313,6 +332,8 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         } catch (IllegalArgumentException e) {
             this.clearResults();
             Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
+            return false;
         }
+        return true;
     }
 }
