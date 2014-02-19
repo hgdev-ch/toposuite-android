@@ -54,17 +54,13 @@ public class TriangleSolver extends Calculation {
                 App.getContext().getString(R.string.title_activity_triangle_solver),
                 hasDAO);
 
-        Preconditions.checkArgument(_a >= 0.0, "Argument was %s but expected nonnegative", _a);
-        Preconditions.checkArgument(_b >= 0.0, "Argument was %s but expected nonnegative", _b);
-        Preconditions.checkArgument(_c >= 0.0, "Argument was %s but expected nonnegative", _c);
-        Preconditions.checkArgument(
-                _alpha >= 0.0, "Argument was %s but expected nonnegative", _alpha);
-        Preconditions
-                .checkArgument(_beta >= 0.0, "Argument was %s but expected nonnegative", _beta);
-        Preconditions.checkArgument(
-                _gamma >= 0.0, "Argument was %s but expected nonnegative", _gamma);
-
         this.initAttributes(_a, _b, _c, _alpha, _beta, _gamma);
+
+        if (!this.checkInputs()) {
+            throw new IllegalArgumentException(
+                    "TriangleSolver: At least 3 of the arguments should be greater than 0 "
+                            + "and the sum of the 3 angles must be less than or equal to 200");
+        }
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
@@ -82,13 +78,14 @@ public class TriangleSolver extends Calculation {
      * @param _gamma
      */
     private void initAttributes(
-            double _a, double _b, double _c, double _alpha, double _beta, double _gamma) {
-        this.a = new Pair<Double, Double>(_a, 0.0);
-        this.b = new Pair<Double, Double>(_b, 0.0);
-        this.c = new Pair<Double, Double>(_c, 0.0);
-        this.alpha = new Pair<Double, Double>(MathUtils.modulo400(_alpha), 0.0);
-        this.beta = new Pair<Double, Double>(MathUtils.modulo400(_beta), 0.0);
-        this.gamma = new Pair<Double, Double>(MathUtils.modulo400(_gamma), 0.0);
+            double _a, double _b, double _c, double _alpha, double _beta, double _gamma)
+            throws IllegalArgumentException {
+        this.setA(_a);
+        this.setB(_b);
+        this.setC(_c);
+        this.setAlpha(_alpha);
+        this.setBeta(_beta);
+        this.setGamma(_gamma);
 
         this.twoSolutions = false;
 
@@ -597,34 +594,67 @@ public class TriangleSolver extends Calculation {
         return this.gamma.first;
     }
 
-    public void setA(double a) {
-        this.a.first = a;
-        this.a.second = 0.0;
+    public void setA(double _a) throws IllegalArgumentException {
+        Preconditions.checkArgument(_a >= 0.0, "Argument was %s but expected nonnegative", _a);
+        if (this.a == null) {
+            this.a = new Pair<Double, Double>(_a, 0.0);
+        } else {
+            this.a.first = _a;
+            this.a.second = 0.0;
+        }
     }
 
-    public void setB(double b) {
-        this.b.first = b;
-        this.b.second = 0.0;
+    public void setB(double _b) throws IllegalArgumentException {
+        Preconditions.checkArgument(_b >= 0.0, "Argument was %s but expected nonnegative", _b);
+        if (this.b == null) {
+            this.b = new Pair<Double, Double>(_b, 0.0);
+        } else {
+            this.b.first = _b;
+            this.b.second = 0.0;
+        }
     }
 
-    public void setC(double c) {
-        this.c.first = c;
-        this.c.second = 0.0;
+    public void setC(double _c) throws IllegalArgumentException {
+        Preconditions.checkArgument(_c >= 0.0, "Argument was %s but expected nonnegative", _c);
+        if (this.c == null) {
+            this.c = new Pair<Double, Double>(_c, 0.0);
+        } else {
+            this.c.first = _c;
+            this.c.second = 0.0;
+        }
     }
 
-    public void setAlpha(double alpha) {
-        this.alpha.first = alpha;
-        this.alpha.second = 0.0;
+    public void setAlpha(double _alpha) throws IllegalArgumentException {
+        Preconditions.checkArgument(
+                _alpha >= 0.0, "Argument was %s but expected nonnegative", _alpha);
+        if (this.alpha == null) {
+            this.alpha = new Pair<Double, Double>(MathUtils.modulo400(_alpha), 0.0);
+        } else {
+            this.alpha.first = _alpha;
+            this.alpha.second = 0.0;
+        }
     }
 
-    public void setBeta(double beta) {
-        this.beta.first = beta;
-        this.beta.second = 0.0;
+    public void setBeta(double _beta) throws IllegalArgumentException {
+        Preconditions.checkArgument(
+                _beta >= 0.0, "Argument was %s but expected nonnegative", _beta);
+        if (this.beta == null) {
+            this.beta = new Pair<Double, Double>(MathUtils.modulo400(_beta), 0.0);
+        } else {
+            this.beta.first = _beta;
+            this.beta.second = 0.0;
+        }
     }
 
-    public void setGamma(double gamma) {
-        this.gamma.first = gamma;
-        this.gamma.second = 0.0;
+    public void setGamma(double _gamma) throws IllegalArgumentException {
+        Preconditions.checkArgument(
+                _gamma >= 0.0, "Argument was %s but expected nonnegative", _gamma);
+        if (this.gamma == null) {
+            this.gamma = new Pair<Double, Double>(MathUtils.modulo400(_gamma), 0.0);
+        } else {
+            this.gamma.first = _gamma;
+            this.gamma.second = 0.0;
+        }
     }
 
 }
