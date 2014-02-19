@@ -19,6 +19,7 @@ public class Logger {
     public final static String TOPOSUITE_CALCULATION_NOT_IMPLEMENTED = "TOPOSUITE CALCULATION NOT IMPLEMENTED";
     public final static String TOPOSUITE_PARSE_ERROR                 = "TOPOSUITE PARSE ERROR";
     public final static String TOPOSUITE_INPUT_ERROR                 = "TOPOSUITE INPUT ERROR";
+    public final static String TOPOSUITE_IO_ERROR                    = "TOPOSUITE IO ERROR";
 
     public final static String TOPOSUITE_SQL_SUCCESS                 = "TOPOSUITE SQL SUCCESS";
 
