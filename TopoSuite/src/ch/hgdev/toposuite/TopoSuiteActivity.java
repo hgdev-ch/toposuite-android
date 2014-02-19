@@ -133,6 +133,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (this.drawerToggle.onOptionsItemSelected(item)) {
+            if (this.drawerLayout.isDrawerVisible(Gravity.RIGHT)) {
+                this.drawerLayout.closeDrawer(Gravity.RIGHT);
+            }
             return true;
         }
 
@@ -147,7 +150,6 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
             } else {
                 this.drawerLayout.openDrawer(Gravity.RIGHT);
             }
-
             return true;
         default:
             return super.onOptionsItemSelected(item);
