@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import ch.hgdev.toposuite.App;
@@ -89,44 +90,6 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         }
     }
 
-    /**
-     * Update angles and sides edit texts if their value is greater than 0.
-     */
-    private void updateAnglesAndSides() {
-        if (this.tS != null) {
-            if (MathUtils.isPositive(this.tS.getA())) {
-                this.aEditText.removeTextChangedListener(this.aWatcher);
-                this.aEditText.setText(DisplayUtils.toString(this.tS.getA()));
-                this.aEditText.addTextChangedListener(this.aWatcher);
-            }
-            if (MathUtils.isPositive(this.tS.getB())) {
-                this.bEditText.removeTextChangedListener(this.bWatcher);
-                this.bEditText.setText(DisplayUtils.toString(this.tS.getB()));
-                this.bEditText.addTextChangedListener(this.bWatcher);
-            }
-            if (MathUtils.isPositive(this.tS.getC())) {
-                this.cEditText.removeTextChangedListener(this.cWatcher);
-                this.cEditText.setText(DisplayUtils.toString(this.tS.getC()));
-                this.cEditText.addTextChangedListener(this.cWatcher);
-            }
-            if (MathUtils.isPositive(this.tS.getAlpha())) {
-                this.alphaEditText.removeTextChangedListener(this.alphaWatcher);
-                this.alphaEditText.setText(DisplayUtils.toString(this.tS.getAlpha()));
-                this.alphaEditText.addTextChangedListener(this.alphaWatcher);
-            }
-            if (MathUtils.isPositive(this.tS.getBeta())) {
-                this.betaEditText.removeTextChangedListener(this.betaWatcher);
-                this.betaEditText.setText(DisplayUtils.toString(this.tS.getBeta()));
-                this.betaEditText.addTextChangedListener(this.betaWatcher);
-            }
-            if (MathUtils.isPositive(this.tS.getGamma())) {
-                this.gammaEditText.removeTextChangedListener(this.gammaWatcher);
-                this.gammaEditText.setText(DisplayUtils.toString(this.tS.getGamma()));
-                this.gammaEditText.addTextChangedListener(this.gammaWatcher);
-            }
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -134,7 +97,20 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.triangle_solver_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.clear:
+            this.clearInputs();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -196,6 +172,145 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     }
 
     /**
+     * Update angles and sides edit texts if their value is greater than 0.
+     */
+    private void updateAnglesAndSides() {
+        if (this.tS != null) {
+            if (MathUtils.isPositive(this.tS.getA())) {
+                this.aEditText.removeTextChangedListener(this.aWatcher);
+                this.aEditText.setText(DisplayUtils.toString(this.tS.getA()));
+                this.aEditText.addTextChangedListener(this.aWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getB())) {
+                this.bEditText.removeTextChangedListener(this.bWatcher);
+                this.bEditText.setText(DisplayUtils.toString(this.tS.getB()));
+                this.bEditText.addTextChangedListener(this.bWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getC())) {
+                this.cEditText.removeTextChangedListener(this.cWatcher);
+                this.cEditText.setText(DisplayUtils.toString(this.tS.getC()));
+                this.cEditText.addTextChangedListener(this.cWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getAlpha())) {
+                this.alphaEditText.removeTextChangedListener(this.alphaWatcher);
+                this.alphaEditText.setText(DisplayUtils.toString(this.tS.getAlpha()));
+                this.alphaEditText.addTextChangedListener(this.alphaWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getBeta())) {
+                this.betaEditText.removeTextChangedListener(this.betaWatcher);
+                this.betaEditText.setText(DisplayUtils.toString(this.tS.getBeta()));
+                this.betaEditText.addTextChangedListener(this.betaWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getGamma())) {
+                this.gammaEditText.removeTextChangedListener(this.gammaWatcher);
+                this.gammaEditText.setText(DisplayUtils.toString(this.tS.getGamma()));
+                this.gammaEditText.addTextChangedListener(this.gammaWatcher);
+            }
+        }
+    }
+
+    /**
+     * Clear input EditTexts and results views.
+     */
+    private void clearInputs() {
+        this.aEditText.removeTextChangedListener(this.aWatcher);
+        this.aEditText.setText("");
+        this.aEditText.addTextChangedListener(this.aWatcher);
+
+        this.bEditText.removeTextChangedListener(this.bWatcher);
+        this.bEditText.setText("");
+        this.bEditText.addTextChangedListener(this.bWatcher);
+
+        this.cEditText.removeTextChangedListener(this.cWatcher);
+        this.cEditText.setText("");
+        this.cEditText.addTextChangedListener(this.cWatcher);
+
+        this.alphaEditText.removeTextChangedListener(this.alphaWatcher);
+        this.alphaEditText.setText("");
+        this.alphaEditText.addTextChangedListener(this.alphaWatcher);
+
+        this.betaEditText.removeTextChangedListener(this.betaWatcher);
+        this.betaEditText.setText("");
+        this.betaEditText.addTextChangedListener(this.betaWatcher);
+
+        this.gammaEditText.removeTextChangedListener(this.gammaWatcher);
+        this.gammaEditText.setText("");
+        this.gammaEditText.addTextChangedListener(this.gammaWatcher);
+
+        this.clearResults();
+    }
+
+    /**
+     * Get input from edit texts.
+     */
+    private void getInputs() {
+        if (this.aEditText.length() > 0) {
+            this.a = Double.parseDouble(this.aEditText.getText().toString());
+        }
+        if (this.bEditText.length() > 0) {
+            this.b = Double.parseDouble(this.bEditText.getText().toString());
+        }
+        if (this.cEditText.length() > 0) {
+            this.c = Double.parseDouble(this.cEditText.getText().toString());
+        }
+        if (this.alphaEditText.length() > 0) {
+            this.alpha = Double.parseDouble(this.alphaEditText.getText().toString());
+        }
+        if (this.betaEditText.length() > 0) {
+            this.beta = Double.parseDouble(this.betaEditText.getText().toString());
+        }
+        if (this.gammaEditText.length() > 0) {
+            this.gamma = Double.parseDouble(this.gammaEditText.getText().toString());
+        }
+    }
+
+    /**
+     * Clear result views.
+     */
+    private void clearResults() {
+        this.perimeterTextView.setText("");
+        this.perimeterBisTextView.setText("");
+        this.heightTextView.setText("");
+        this.heightBisTextView.setText("");
+        this.surfaceTextView.setText("");
+        this.surfaceBisTextView.setText("");
+        this.incircleRadiusTextView.setText("");
+        this.incircleRadiusBisTextView.setText("");
+        this.excircleRadiusTextView.setText("");
+        this.excircleRadiusBisTextView.setText("");
+    }
+
+    /**
+     * Update result views with results from the calculations.
+     * 
+     * @param t
+     */
+    private void updateResults() {
+        this.perimeterTextView.setText(
+                DisplayUtils.toString(this.tS.getPerimeter().first));
+        this.perimeterBisTextView.setText(
+                DisplayUtils.toString(this.tS.getPerimeter().second));
+        this.heightTextView.setText(
+                DisplayUtils.toString(this.tS.getHeight().first));
+        this.heightBisTextView.setText(
+                DisplayUtils.toString(this.tS.getHeight().second));
+        this.surfaceTextView.setText(
+                DisplayUtils.toString(this.tS.getSurface().first));
+        this.surfaceBisTextView.setText(
+                DisplayUtils.toString(this.tS.getSurface().second));
+        this.incircleRadiusTextView.setText(
+                DisplayUtils.toString(this.tS.getIncircleRadius().first));
+        this.incircleRadiusBisTextView.setText(
+                DisplayUtils.toString(this.tS.getIncircleRadius().second));
+        this.excircleRadiusTextView.setText(
+                DisplayUtils.toString(this.tS.getExcircleRadius().first));
+        this.excircleRadiusBisTextView.setText(
+                DisplayUtils.toString(this.tS.getExcircleRadius().second));
+
+        this.updateAnglesAndSides();
+    }
+
+    /**
      * Run the calculations if required parameters were filled.
      */
     private void chickenRun() {
@@ -250,76 +365,6 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         } catch (IllegalArgumentException e) {
             this.clearResults();
             Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
-        }
-    }
-
-    /**
-     * Update result views with results from the calculations.
-     * 
-     * @param t
-     */
-    private void updateResults() {
-        this.perimeterTextView.setText(
-                DisplayUtils.toString(this.tS.getPerimeter().first));
-        this.perimeterBisTextView.setText(
-                DisplayUtils.toString(this.tS.getPerimeter().second));
-        this.heightTextView.setText(
-                DisplayUtils.toString(this.tS.getHeight().first));
-        this.heightBisTextView.setText(
-                DisplayUtils.toString(this.tS.getHeight().second));
-        this.surfaceTextView.setText(
-                DisplayUtils.toString(this.tS.getSurface().first));
-        this.surfaceBisTextView.setText(
-                DisplayUtils.toString(this.tS.getSurface().second));
-        this.incircleRadiusTextView.setText(
-                DisplayUtils.toString(this.tS.getIncircleRadius().first));
-        this.incircleRadiusBisTextView.setText(
-                DisplayUtils.toString(this.tS.getIncircleRadius().second));
-        this.excircleRadiusTextView.setText(
-                DisplayUtils.toString(this.tS.getExcircleRadius().first));
-        this.excircleRadiusBisTextView.setText(
-                DisplayUtils.toString(this.tS.getExcircleRadius().second));
-
-        this.updateAnglesAndSides();
-    }
-
-    /**
-     * Clear result views.
-     */
-    private void clearResults() {
-        this.perimeterTextView.setText("");
-        this.perimeterBisTextView.setText("");
-        this.heightTextView.setText("");
-        this.heightBisTextView.setText("");
-        this.surfaceTextView.setText("");
-        this.surfaceBisTextView.setText("");
-        this.incircleRadiusTextView.setText("");
-        this.incircleRadiusBisTextView.setText("");
-        this.excircleRadiusTextView.setText("");
-        this.excircleRadiusBisTextView.setText("");
-    }
-
-    /**
-     * Get input from edit texts.
-     */
-    private void getInputs() {
-        if (this.aEditText.length() > 0) {
-            this.a = Double.parseDouble(this.aEditText.getText().toString());
-        }
-        if (this.bEditText.length() > 0) {
-            this.b = Double.parseDouble(this.bEditText.getText().toString());
-        }
-        if (this.cEditText.length() > 0) {
-            this.c = Double.parseDouble(this.cEditText.getText().toString());
-        }
-        if (this.alphaEditText.length() > 0) {
-            this.alpha = Double.parseDouble(this.alphaEditText.getText().toString());
-        }
-        if (this.betaEditText.length() > 0) {
-            this.beta = Double.parseDouble(this.betaEditText.getText().toString());
-        }
-        if (this.gammaEditText.length() > 0) {
-            this.gamma = Double.parseDouble(this.gammaEditText.getText().toString());
         }
     }
 
