@@ -64,6 +64,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
     private static final String   STATION_SELECTED_POSITION = "station_selected_position";
     private Spinner               stationSpinner;
     private int                   stationSelectedPosition;
+    private ArrayAdapter<Point>   stationAdapter;
     private TextView              stationPointTextView;
     private EditText              iEditText;
     private EditText              unknownOrientEditText;
@@ -74,6 +75,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
     private LevePolaire           levePolaire;
 
     private double                abrissZ0;
+    private Point                 abrissStation;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
@@ -146,9 +148,9 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         points.add(new Point(0, 0.0, 0.0, 0.0, false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        ArrayAdapter<Point> ap = new ArrayAdapter<Point>(
+        this.stationAdapter = new ArrayAdapter<Point>(
                 this, R.layout.spinner_list_item, points);
-        this.stationSpinner.setAdapter(ap);
+        this.stationSpinner.setAdapter(this.stationAdapter);
 
         for (Calculation c : SharedResources.getCalculationsHistory()) {
             if ((c != null) && (c.getType() != CalculationType.ABRISS)) {
@@ -157,12 +159,13 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
             Abriss a = (Abriss) c;
             a.compute();
             this.abrissZ0 = a.getMean();
+            this.abrissStation = a.getStation();
             break;
         }
 
         if (this.levePolaire != null) {
             this.stationSpinner.setSelection(
-                    ap.getPosition(this.levePolaire.getStation()));
+                    this.stationAdapter.getPosition(this.levePolaire.getStation()));
             Measure m = this.levePolaire.getDeterminations().get(0);
 
             this.iEditText.setText(DisplayUtils.toString(m.getI()));
@@ -286,9 +289,12 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                     errorToast.show();
                 } else {
                     this.unknownOrientEditText.setText(DisplayUtils.toString(this.abrissZ0));
+                    this.stationSpinner.setSelection(
+                            this.stationAdapter.getPosition(this.abrissStation));
                 }
             } else {
                 this.unknownOrientEditText.setText("");
+                this.stationSpinner.setSelection(0);
             }
             break;
         }
