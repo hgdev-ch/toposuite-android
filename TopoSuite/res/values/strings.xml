@@ -100,6 +100,7 @@
     <string name="horiz_direction_3dots">Horizontal direction&#8230;</string>
     <string name="i_label">Instrument height (I) [m]</string>
     <string name="import_label">Import</string>
+    <string name="import_3dots">Import&#8230;</string>
     <string name="incircle_label">Incircle radius</string>
     <string name="intersection_point_label">Intersection point:</string>
     <string name="lateral_displacement_3dots">Lateral displacement&#8230;</string>
