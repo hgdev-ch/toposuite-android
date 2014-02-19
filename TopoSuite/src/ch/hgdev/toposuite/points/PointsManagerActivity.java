@@ -21,6 +21,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.export.ExportDialog;
+import ch.hgdev.toposuite.export.ImportDialog;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
@@ -32,7 +33,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         AddPointDialogFragment.AddPointDialogListener,
         EditPointDialogFragment.EditPointDialogListener,
         SearchPointDialogFragment.SearchPointDialogListener,
-        ExportDialog.ExportDialogListener {
+        ExportDialog.ExportDialogListener,
+        ImportDialog.ImportDialogListener {
 
     private int                      selectedPointId;
     private ListView                 pointsListView;
@@ -71,6 +73,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             return true;
         case R.id.export_points_button:
             this.showExportDialog();
+            return true;
+        case R.id.import_points_button:
+            this.showImportDialog();
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -190,6 +195,11 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         dialog.show(this.getFragmentManager(), "ExportDialogFragments");
     }
 
+    private void showImportDialog() {
+        ImportDialog dialog = new ImportDialog();
+        dialog.show(this.getFragmentManager(), "ImportDialogFragment");
+    }
+
     /**
      * Display a dialog to allow the user to insert a new point.
      */
@@ -284,12 +294,23 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     }
 
     @Override
-    public void onDialogSuccess(String message) {
+    public void onExportDialogSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onDialogError(String message) {
+    public void onExportDialogError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onImportDialogSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        this.drawList();
+    }
+
+    @Override
+    public void onImportDialogError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

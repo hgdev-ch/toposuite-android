@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import android.content.Context;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
 import ch.hgdev.toposuite.export.DataExporter;
@@ -146,6 +147,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
 
     @Override
     public void notifyCreation(Object obj) {
+        App.arePointsExported = false;
         for (DAO dao : this.daoList) {
             dao.create(obj);
         }
@@ -153,6 +155,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
 
     @Override
     public void notifyDeletion(Object obj) {
+        App.arePointsExported = false;
         for (DAO dao : this.daoList) {
             dao.delete(obj);
         }
@@ -160,6 +163,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
 
     @Override
     public void notifyClear() {
+        App.arePointsExported = false;
         for (DAO dao : this.daoList) {
             dao.deleteAll();
         }
@@ -184,6 +188,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
                 filename, Context.MODE_PRIVATE);
         for (E element : this) {
             outputStream.write(element.toCSV().getBytes());
+            outputStream.write("\r\n".getBytes());
             lines++;
         }
         outputStream.close();

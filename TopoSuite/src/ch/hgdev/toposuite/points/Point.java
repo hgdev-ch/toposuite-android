@@ -24,7 +24,7 @@ import com.google.common.base.Preconditions;
  */
 public class Point implements DAOUpdater, DataExporter, DataImporter {
 
-    private final int            number;
+    private int                  number;
     private double               east;
     private double               north;
     private double               altitude;
@@ -81,6 +81,13 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         if (hasDAO) {
             this.registerDAO(PointsDataSource.getInstance());
         }
+    }
+
+    public Point() {
+        this.daoList = new ArrayList<DAO>();
+        this.basePoint = true;
+
+        this.registerDAO(PointsDataSource.getInstance());
     }
 
     @Override
@@ -166,9 +173,8 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     }
 
     @Override
-    public Point createPointFromCSV(String csvLine) {
+    public void createPointFromCSV(String csvLine) {
         String[] tmp = csvLine.split(App.CSV_SEPARATOR);
-        Point p = null;
 
         if (tmp.length >= 3) {
             int number = Integer.parseInt(tmp[0]);
@@ -180,9 +186,13 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
                 altitude = Double.parseDouble(tmp[3]);
             }
 
-            p = new Point(number, east, north, altitude, true);
+            this.number = number;
+            this.east = east;
+            this.north = north;
+            this.altitude = altitude;
+
+            this.notifyUpdate(this);
         }
-        return p;
     }
 
     @Override
@@ -208,6 +218,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
 
     @Override
     public void notifyUpdate(Object obj) {
+        App.arePointsExported = false;
         for (DAO dao : this.daoList) {
             dao.update(obj);
         }

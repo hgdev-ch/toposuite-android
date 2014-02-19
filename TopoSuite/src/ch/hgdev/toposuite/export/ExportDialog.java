@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 
@@ -46,7 +47,7 @@ public class ExportDialog extends DialogFragment {
          * @param message
          *            Success message.
          */
-        void onDialogSuccess(String message);
+        void onExportDialogSuccess(String message);
 
         /**
          * This callback is triggered when the action performed by the dialog
@@ -55,7 +56,7 @@ public class ExportDialog extends DialogFragment {
          * @param error
          *            Error message.
          */
-        void onDialogError(String message);
+        void onExportDialogError(String message);
     }
 
     @Override
@@ -111,12 +112,12 @@ public class ExportDialog extends DialogFragment {
     }
 
     private final void closeOnError(String message) {
-        this.listener.onDialogError(message);
+        this.listener.onExportDialogError(message);
         this.dismiss();
     }
 
     private final void closeOnSuccess(String message) {
-        this.listener.onDialogSuccess(message);
+        this.listener.onExportDialogSuccess(message);
         this.dismiss();
     }
 
@@ -166,5 +167,6 @@ public class ExportDialog extends DialogFragment {
         this.closeOnSuccess(String.format(
                 this.getActivity().getString(R.string.success_export_dialog),
                 lines));
+        App.arePointsExported = true;
     }
 }

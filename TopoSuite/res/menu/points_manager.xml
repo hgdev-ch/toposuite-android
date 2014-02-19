@@ -27,4 +27,9 @@
         android:showAsAction="ifRoom|withText"
         android:title="@string/export_3dots"/>
 
+	<item
+        android:id="@+id/import_points_button"
+        android:icon="@drawable/ic_action_upload"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/import_3dots"/>
 </menu>

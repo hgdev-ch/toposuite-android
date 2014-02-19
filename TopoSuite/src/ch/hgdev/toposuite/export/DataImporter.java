@@ -1,7 +1,5 @@
 package ch.hgdev.toposuite.export;
 
-import ch.hgdev.toposuite.points.Point;
-
 /**
  * Interface for importing data from a file.
  * 
@@ -10,11 +8,10 @@ import ch.hgdev.toposuite.points.Point;
  */
 public interface DataImporter {
     /**
-     * Unserialize object from CSV.
+     * Initialize Point's attributes from CSV.
      * 
      * @param csvLine
-     *            A CSV line.
-     * @return A point
+     *            A CSV line that contains the values of the Point's attributes.
      */
-    Point createPointFromCSV(String csvLine);
+    void createPointFromCSV(String csvLine);
 }

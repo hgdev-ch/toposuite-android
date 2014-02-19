@@ -69,6 +69,11 @@ public class App extends Application {
     public static final Locale locale                           = Locale.getDefault();
 
     /**
+     * Flag for verifying if the points have been exported or not.
+     */
+    public static boolean      arePointsExported                = false;
+
+    /**
      * Database helper.
      */
     public static DBHelper     dbHelper;
