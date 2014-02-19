@@ -61,7 +61,7 @@ public class ExportDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog d = super.onCreateDialog(savedInstanceState);
-        d.setTitle("Export");
+        d.setTitle(this.getActivity().getString(R.string.export));
 
         return d;
     }
