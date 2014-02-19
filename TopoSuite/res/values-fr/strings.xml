@@ -98,6 +98,7 @@
     <string name="home">Accueil</string>
     <string name="horiz_direction_3dots">Direction horizontale&#8230;</string>
     <string name="i_label">Hauteur de l\'instrument (I) [m]</string>
+    <string name="import">Importer</string>
     <string name="incircle_label">Rayon du cercle inscrit</string>
     <string name="intersection_point_label">Point d\'intersection:</string>
     <string name="lateral_displacement_3dots">Déplacement latéral&#8230;</string>
