@@ -76,6 +76,7 @@
     <string name="error_file_already_exists">File already exists!</string>
     <string name="error_impossible_calculation">Impossible calculation!</string>
     <string name="error_impossible_to_import">Impossible to import the file!</string>
+    <string name="error_no_abriss_calculation_found">No abriss calculation found!</string>
     <string name="error_no_station_selected">No station selected!</string>
     <string name="error_point_number">A point\'s number must greater than or equal to 1.</string>
     <string name="error_same_points">The points must be different!</string>
@@ -170,6 +171,7 @@
     <string name="point_search">Search for a point</string>
     <string name="prism_height">Prism height (S)</string>
     <string name="prism_height_3dots">Prism height&#8230;</string>
+    <string name="retrieve_z0">Retrieve unknown orientation from last abriss calculation</string>
     <string name="save">Save</string>
     <string name="save_3dots">Save&#8230;</string>
     <string name="save_all">Save all</string>
