@@ -115,6 +115,12 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         }
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.chickenRun();
+    }
+
     /**
      * Match views to activity view attributes and set some additional
      * properties.
