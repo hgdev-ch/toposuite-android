@@ -1,8 +1,6 @@
 package ch.hgdev.toposuite.calculation.activities.trianglesolver;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,13 +42,6 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     private TextView       surfaceBisTextView;
     private TextView       incircleRadiusBisTextView;
     private TextView       excircleRadiusBisTextView;
-
-    private InputWatcher   aWatcher;
-    private InputWatcher   bWatcher;
-    private InputWatcher   cWatcher;
-    private InputWatcher   alphaWatcher;
-    private InputWatcher   betaWatcher;
-    private InputWatcher   gammaWatcher;
 
     private TriangleSolver tS;
 
@@ -132,20 +123,6 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         this.betaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
         this.gammaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.aWatcher = new InputWatcher();
-        this.bWatcher = new InputWatcher();
-        this.cWatcher = new InputWatcher();
-        this.alphaWatcher = new InputWatcher();
-        this.betaWatcher = new InputWatcher();
-        this.gammaWatcher = new InputWatcher();
-
-        this.aEditText.addTextChangedListener(this.aWatcher);
-        this.bEditText.addTextChangedListener(this.bWatcher);
-        this.cEditText.addTextChangedListener(this.cWatcher);
-        this.alphaEditText.addTextChangedListener(this.alphaWatcher);
-        this.betaEditText.addTextChangedListener(this.betaWatcher);
-        this.gammaEditText.addTextChangedListener(this.gammaWatcher);
-
         this.perimeterTextView = (TextView) this.findViewById(R.id.perimeter);
         this.heightTextView = (TextView) this.findViewById(R.id.height);
         this.surfaceTextView = (TextView) this.findViewById(R.id.surface);
@@ -177,34 +154,22 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     private void updateAnglesAndSides() {
         if (this.tS != null) {
             if (MathUtils.isPositive(this.tS.getA())) {
-                this.aEditText.removeTextChangedListener(this.aWatcher);
                 this.aEditText.setText(DisplayUtils.toString(this.tS.getA()));
-                this.aEditText.addTextChangedListener(this.aWatcher);
             }
             if (MathUtils.isPositive(this.tS.getB())) {
-                this.bEditText.removeTextChangedListener(this.bWatcher);
                 this.bEditText.setText(DisplayUtils.toString(this.tS.getB()));
-                this.bEditText.addTextChangedListener(this.bWatcher);
             }
             if (MathUtils.isPositive(this.tS.getC())) {
-                this.cEditText.removeTextChangedListener(this.cWatcher);
                 this.cEditText.setText(DisplayUtils.toString(this.tS.getC()));
-                this.cEditText.addTextChangedListener(this.cWatcher);
             }
             if (MathUtils.isPositive(this.tS.getAlpha())) {
-                this.alphaEditText.removeTextChangedListener(this.alphaWatcher);
                 this.alphaEditText.setText(DisplayUtils.toString(this.tS.getAlpha()));
-                this.alphaEditText.addTextChangedListener(this.alphaWatcher);
             }
             if (MathUtils.isPositive(this.tS.getBeta())) {
-                this.betaEditText.removeTextChangedListener(this.betaWatcher);
                 this.betaEditText.setText(DisplayUtils.toString(this.tS.getBeta()));
-                this.betaEditText.addTextChangedListener(this.betaWatcher);
             }
             if (MathUtils.isPositive(this.tS.getGamma())) {
-                this.gammaEditText.removeTextChangedListener(this.gammaWatcher);
                 this.gammaEditText.setText(DisplayUtils.toString(this.tS.getGamma()));
-                this.gammaEditText.addTextChangedListener(this.gammaWatcher);
             }
         }
     }
@@ -213,29 +178,12 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * Clear input EditTexts and results views.
      */
     private void clearInputs() {
-        this.aEditText.removeTextChangedListener(this.aWatcher);
         this.aEditText.setText("");
-        this.aEditText.addTextChangedListener(this.aWatcher);
-
-        this.bEditText.removeTextChangedListener(this.bWatcher);
         this.bEditText.setText("");
-        this.bEditText.addTextChangedListener(this.bWatcher);
-
-        this.cEditText.removeTextChangedListener(this.cWatcher);
         this.cEditText.setText("");
-        this.cEditText.addTextChangedListener(this.cWatcher);
-
-        this.alphaEditText.removeTextChangedListener(this.alphaWatcher);
         this.alphaEditText.setText("");
-        this.alphaEditText.addTextChangedListener(this.alphaWatcher);
-
-        this.betaEditText.removeTextChangedListener(this.betaWatcher);
         this.betaEditText.setText("");
-        this.betaEditText.addTextChangedListener(this.betaWatcher);
-
-        this.gammaEditText.removeTextChangedListener(this.gammaWatcher);
         this.gammaEditText.setText("");
-        this.gammaEditText.addTextChangedListener(this.gammaWatcher);
 
         this.clearResults();
     }
@@ -365,32 +313,6 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         } catch (IllegalArgumentException e) {
             this.clearResults();
             Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
-        }
-    }
-
-    /**
-     * 
-     * @author HGdev
-     * 
-     */
-    private class InputWatcher implements TextWatcher {
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() > 0) {
-                TriangleSolverActivity.this.chickenRun();
-            } else {
-                TriangleSolverActivity.this.clearResults();
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // nothing
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // nothing
         }
     }
 }
