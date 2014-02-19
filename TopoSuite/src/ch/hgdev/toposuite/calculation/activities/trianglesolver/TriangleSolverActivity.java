@@ -44,6 +44,13 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     private TextView       incircleRadiusBisTextView;
     private TextView       excircleRadiusBisTextView;
 
+    private InputWatcher   aWatcher;
+    private InputWatcher   bWatcher;
+    private InputWatcher   cWatcher;
+    private InputWatcher   alphaWatcher;
+    private InputWatcher   betaWatcher;
+    private InputWatcher   gammaWatcher;
+
     private TriangleSolver tS;
 
     /**
@@ -71,30 +78,51 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
             this.tS = (TriangleSolver) SharedResources.getCalculationsHistory()
                     .get(this.position);
             if (this.tS != null) {
-                if (MathUtils.isPositive(this.tS.getA())) {
-                    this.aEditText.setText(DisplayUtils.toString(this.tS.getA()));
-                }
-                if (MathUtils.isPositive(this.tS.getB())) {
-                    this.bEditText.setText(DisplayUtils.toString(this.tS.getB()));
-                }
-                if (MathUtils.isPositive(this.tS.getC())) {
-                    this.cEditText.setText(DisplayUtils.toString(this.tS.getC()));
-                }
-                if (MathUtils.isPositive(this.tS.getAlpha())) {
-                    this.alphaEditText.setText(DisplayUtils.toString(this.tS.getAlpha()));
-                }
-                if (MathUtils.isPositive(this.tS.getBeta())) {
-                    this.betaEditText.setText(DisplayUtils.toString(this.tS.getBeta()));
-                }
-                if (MathUtils.isPositive(this.tS.getGamma())) {
-                    this.gammaEditText.setText(DisplayUtils.toString(this.tS.getGamma()));
-                }
+                this.updateAnglesAndSides();
                 this.a = this.tS.getA();
                 this.b = this.tS.getB();
                 this.c = this.tS.getC();
                 this.alpha = this.tS.getAlpha();
                 this.beta = this.tS.getBeta();
                 this.gamma = this.tS.getGamma();
+            }
+        }
+    }
+
+    /**
+     * Update angles and sides edit texts if their value is greater than 0.
+     */
+    private void updateAnglesAndSides() {
+        if (this.tS != null) {
+            if (MathUtils.isPositive(this.tS.getA())) {
+                this.aEditText.removeTextChangedListener(this.aWatcher);
+                this.aEditText.setText(DisplayUtils.toString(this.tS.getA()));
+                this.aEditText.addTextChangedListener(this.aWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getB())) {
+                this.bEditText.removeTextChangedListener(this.bWatcher);
+                this.bEditText.setText(DisplayUtils.toString(this.tS.getB()));
+                this.bEditText.addTextChangedListener(this.bWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getC())) {
+                this.cEditText.removeTextChangedListener(this.cWatcher);
+                this.cEditText.setText(DisplayUtils.toString(this.tS.getC()));
+                this.cEditText.addTextChangedListener(this.cWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getAlpha())) {
+                this.alphaEditText.removeTextChangedListener(this.alphaWatcher);
+                this.alphaEditText.setText(DisplayUtils.toString(this.tS.getAlpha()));
+                this.alphaEditText.addTextChangedListener(this.alphaWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getBeta())) {
+                this.betaEditText.removeTextChangedListener(this.betaWatcher);
+                this.betaEditText.setText(DisplayUtils.toString(this.tS.getBeta()));
+                this.betaEditText.addTextChangedListener(this.betaWatcher);
+            }
+            if (MathUtils.isPositive(this.tS.getGamma())) {
+                this.gammaEditText.removeTextChangedListener(this.gammaWatcher);
+                this.gammaEditText.setText(DisplayUtils.toString(this.tS.getGamma()));
+                this.gammaEditText.addTextChangedListener(this.gammaWatcher);
             }
         }
     }
@@ -128,12 +156,19 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         this.betaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
         this.gammaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.aEditText.addTextChangedListener(new InputWatcher());
-        this.bEditText.addTextChangedListener(new InputWatcher());
-        this.cEditText.addTextChangedListener(new InputWatcher());
-        this.alphaEditText.addTextChangedListener(new InputWatcher());
-        this.betaEditText.addTextChangedListener(new InputWatcher());
-        this.gammaEditText.addTextChangedListener(new InputWatcher());
+        this.aWatcher = new InputWatcher();
+        this.bWatcher = new InputWatcher();
+        this.cWatcher = new InputWatcher();
+        this.alphaWatcher = new InputWatcher();
+        this.betaWatcher = new InputWatcher();
+        this.gammaWatcher = new InputWatcher();
+
+        this.aEditText.addTextChangedListener(this.aWatcher);
+        this.bEditText.addTextChangedListener(this.bWatcher);
+        this.cEditText.addTextChangedListener(this.cWatcher);
+        this.alphaEditText.addTextChangedListener(this.alphaWatcher);
+        this.betaEditText.addTextChangedListener(this.betaWatcher);
+        this.gammaEditText.addTextChangedListener(this.gammaWatcher);
 
         this.perimeterTextView = (TextView) this.findViewById(R.id.perimeter);
         this.heightTextView = (TextView) this.findViewById(R.id.height);
@@ -244,6 +279,8 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
                 DisplayUtils.toString(this.tS.getExcircleRadius().first));
         this.excircleRadiusBisTextView.setText(
                 DisplayUtils.toString(this.tS.getExcircleRadius().second));
+
+        this.updateAnglesAndSides();
     }
 
     /**
