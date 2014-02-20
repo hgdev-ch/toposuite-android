@@ -407,6 +407,8 @@ public class TriangleSolver extends Calculation {
                     this.a.second, this.b.second, this.c.second, this.excircleRadius.second);
         }
 
+        this.twoSolutions = false;
+
         // update the calculation last modification date
         this.updateLastModification();
         this.notifyUpdate(this);
