@@ -3,7 +3,7 @@
     <item
 	    android:id="@+id/menu_item_share"
 	    android:showAsAction="ifRoom"
-	    android:title="Share"
+	    android:title="@string/share"
 	    android:actionProviderClass=
 	        "android.widget.ShareActionProvider" />
     <item

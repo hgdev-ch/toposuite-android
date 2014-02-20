@@ -181,6 +181,7 @@
     <string name="search_3dots">Search&#8230;</string>
     <string name="select_files_3dots">Select a file&#8230;</string>
     <string name="sides_label">Sides</string>
+    <string name="share">Share</string>
     <string name="slope_label">Slope [%]</string>
     <string name="solution_one">First solution</string>
     <string name="solution_two">Second (prospective) solution</string>

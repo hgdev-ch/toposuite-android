@@ -180,6 +180,7 @@
     <string name="search">Rechercher</string>
     <string name="search_3dots">Rechercher&#8230;</string>
     <string name="select_files_3dots">Selectionner un fichier&#8230;</string>
+    <string name="share">Partager</string>
     <string name="sides_label">Côtés</string>
     <string name="slope_label">Pente [%]</string>
     <string name="solution_one">Première solution</string>
