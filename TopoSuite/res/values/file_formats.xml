@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="file_formats">
-        <item>Format...</item>
+        <item>Format&#8230;</item>
         <item>CSV</item>
     </string-array>
 </resources>
