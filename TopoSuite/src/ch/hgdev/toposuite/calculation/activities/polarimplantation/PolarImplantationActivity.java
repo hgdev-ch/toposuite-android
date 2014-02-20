@@ -221,14 +221,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         int id = item.getItemId();
         switch (id) {
         case R.id.add_point_button:
-            if (this.checkInputs()) {
-                this.showAddPointDialog();
-            } else {
-                Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
-            }
+            this.showAddPointDialog();
             return true;
         case R.id.run_calculation_button:
             if (this.checkInputs()) {
@@ -282,12 +275,16 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                     errorToast.show();
                 } else {
                     this.unknownOrientEditText.setText(DisplayUtils.toString(this.abrissZ0));
+                    this.unknownOrientEditText.setEnabled(false);
                     this.stationSpinner.setSelection(
                             this.stationAdapter.getPosition(this.abrissStation));
+                    this.stationSpinner.setEnabled(false);
                 }
             } else {
                 this.unknownOrientEditText.setText("");
+                this.unknownOrientEditText.setEnabled(true);
                 this.stationSpinner.setSelection(0);
+                this.stationSpinner.setEnabled(true);
             }
             break;
         }
@@ -339,6 +336,9 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         if (this.unknownOrientEditText.length() == 0) {
             return false;
         }
+        if (this.adapter.isEmpty()) {
+            return false;
+        }
         return true;
     }
 
@@ -346,23 +346,6 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
      * Start the activity that shows the results of the calculation.
      */
     private void showPolarImplantationResultActivity() {
-        Bundle bundle = new Bundle();
-        bundle.putInt(PolarImplantationActivity.STATION_NUMBER_LABEL, this.station.getNumber());
-
-        JSONArray json = new JSONArray();
-        for (int i = 0; i < this.adapter.getCount(); i++) {
-            json.put(this.adapter.getItem(i).toJSONObject());
-        }
-
-        bundle.putString(PolarImplantationActivity.POINTS_WITH_S_LABEL, json.toString());
-
-        Intent resultsActivityIntent = new Intent(this, PolarImplantationResultsActivity.class);
-        resultsActivityIntent.putExtras(bundle);
-        this.startActivity(resultsActivityIntent);
-    }
-
-    @Override
-    public void onDialogAdd(AddPointWithSDialogFragment dialog) {
         double i = 0.0;
         double unknownOrient;
 
@@ -380,17 +363,37 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             return;
         }
 
-        double s = !MathUtils.isZero(i) ? dialog.getS() : 0.0;
+        Bundle bundle = new Bundle();
+        bundle.putInt(PolarImplantationActivity.STATION_NUMBER_LABEL, this.station.getNumber());
+
+        JSONArray json = new JSONArray();
+        for (int j = 0; j < this.adapter.getCount(); j++) {
+            Measure m = this.adapter.getItem(j);
+            m.setI(i);
+            m.setUnknownOrientation(unknownOrient);
+            json.put(m.toJSONObject());
+        }
+
+        bundle.putString(PolarImplantationActivity.POINTS_WITH_S_LABEL, json.toString());
+
+        Intent resultsActivityIntent = new Intent(this, PolarImplantationResultsActivity.class);
+        resultsActivityIntent.putExtras(bundle);
+        this.startActivity(resultsActivityIntent);
+    }
+
+    @Override
+    public void onDialogAdd(AddPointWithSDialogFragment dialog) {
+
         Measure m = new Measure(
                 dialog.getPoint(),
                 0.0,
                 0.0,
                 0.0,
-                s,
+                dialog.getS(),
                 0.0,
                 0.0,
-                i,
-                unknownOrient);
+                0.0,
+                0.0);
 
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
@@ -403,35 +406,18 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditPointWithSDialogFragment dialog) {
-        double i = 0.0;
-        double unknownOrient;
-
-        if (this.iEditText.length() > 0) {
-            i = Double.parseDouble(this.iEditText.getText().toString());
-        }
-        if (this.unknownOrientEditText.length() > 0) {
-            unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
-        } else {
-            Toast errorToast = Toast.makeText(this,
-                    this.getText(R.string.error_choose_unknown_orientation),
-                    Toast.LENGTH_SHORT);
-            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            errorToast.show();
-            return;
-        }
 
         this.adapter.remove(this.adapter.getItem(this.position));
-        double s = !MathUtils.isZero(i) ? dialog.getS() : 0.0;
         Measure m = new Measure(
                 dialog.getPoint(),
                 0.0,
                 0.0,
                 0.0,
-                s,
+                dialog.getS(),
                 0.0,
                 0.0,
-                i,
-                unknownOrient);
+                0.0,
+                0.0);
 
         this.position = -1;
         this.adapter.add(m);
