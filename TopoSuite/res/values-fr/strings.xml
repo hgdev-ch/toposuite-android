@@ -10,7 +10,7 @@
     <string name="add_3dots">Ajouter&#8230;</string>
     <string name="altitude">Altitude</string>
     <string name="altitude_3dots">Altitude&#8230;</string>
-    <string name="altitude_label">Dénivelé [m]</string>
+    <string name="altitude_label">Altitude [m]</string>
     <string name="angles_label">Angles</string>
     <string name="app_copyright">Copyright <xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
     <string name="app_developer">HGdev</string>
