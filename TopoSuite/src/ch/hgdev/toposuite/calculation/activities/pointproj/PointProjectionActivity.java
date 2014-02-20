@@ -54,7 +54,6 @@ public class PointProjectionActivity extends TopoSuiteActivity {
     private LinearLayout                point2Layout;
     private LinearLayout                gisementLayout;
 
-    private RadioButton                 modeLineRadio;
     private RadioButton                 modeGisementRadio;
 
     private int                         point1SelectedPosition;
@@ -93,7 +92,6 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         this.point2Layout = (LinearLayout) this.findViewById(R.id.point2_layout);
         this.gisementLayout = (LinearLayout) this.findViewById(R.id.gisement_layout);
 
-        this.modeLineRadio = (RadioButton) this.findViewById(R.id.mode_line);
         this.modeGisementRadio = (RadioButton) this.findViewById(R.id.mode_gisement);
 
         this.point1Spinner = (Spinner) this.findViewById(R.id.point_1_spinner);
