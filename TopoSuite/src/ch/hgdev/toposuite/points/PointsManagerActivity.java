@@ -1,11 +1,15 @@
 package ch.hgdev.toposuite.points;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -17,11 +21,13 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.export.ExportDialog;
 import ch.hgdev.toposuite.export.ImportDialog;
+import ch.hgdev.toposuite.utils.Logger;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
@@ -88,6 +94,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
         MenuItem item = menu.findItem(R.id.menu_item_share);
         this.shareActionProvider = (ShareActionProvider) item.getActionProvider();
+        this.updateShareIntent();
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -111,6 +118,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             errorToast.show();
         }
         this.showAddPointDialog();
+        this.updateShareIntent();
     }
 
     @Override
@@ -125,6 +133,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         point.setNorth(dialog.getNorth());
         point.setAltitude(dialog.getAltitude());
         this.drawList();
+        this.updateShareIntent();
     }
 
     @Override
@@ -293,6 +302,25 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         this.pointsListView.setAdapter(this.adapter);
     }
 
+    /**
+     * Update the share intent.
+     */
+    private void updateShareIntent() {
+        try {
+            SharedResources.getSetOfPoints().saveAsCSV(
+                    this, App.tmpDirectoryPath, App.FILENAME_FOR_POINTS_SHARING);
+        } catch (IOException e) {
+            Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+        }
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(
+                new File(App.tmpDirectoryPath, App.FILENAME_FOR_POINTS_SHARING)));
+        sendIntent.setType("text/csv");
+        this.setShareIntent(sendIntent);
+    }
+
     @Override
     public void onExportDialogSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
@@ -307,6 +335,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     public void onImportDialogSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         this.drawList();
+        this.updateShareIntent();
     }
 
     @Override

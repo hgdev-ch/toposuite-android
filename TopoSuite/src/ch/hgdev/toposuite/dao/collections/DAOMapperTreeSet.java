@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.dao.collections;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -180,12 +181,22 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     }
 
     @Override
+    public int saveAsCSV(Context context, String path, String filename) throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(new File(path, filename));
+        return this.saveAsCSV(context, outputStream);
+    }
+
+    @Override
     public int saveAsCSV(Context context, String filename) throws IOException {
-        FileOutputStream outputStream;
+        FileOutputStream outputStream = context.openFileOutput(
+                filename, Context.MODE_PRIVATE);
+        return this.saveAsCSV(context, outputStream);
+    }
+
+    @Override
+    public int saveAsCSV(Context context, FileOutputStream outputStream) throws IOException {
         int lines = 0;
 
-        outputStream = context.openFileOutput(
-                filename, Context.MODE_PRIVATE);
         for (E element : this) {
             outputStream.write(element.toCSV().getBytes());
             outputStream.write("\r\n".getBytes());
