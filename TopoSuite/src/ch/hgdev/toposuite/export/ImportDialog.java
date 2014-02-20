@@ -137,7 +137,8 @@ public class ImportDialog extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String filename = ImportDialog.this.adapter.getItem(pos);
 
-                // skip when the selected item is the default item of the spinner
+                // skip when the selected item is the default item of the
+                // spinner
                 if (filename.equals(ImportDialog.this.getActivity().getString(
                         R.string.select_files_3dots))) {
                     return;
@@ -147,7 +148,7 @@ public class ImportDialog extends DialogFragment {
                 ImportDialog.this.isConfirmationAsked = false;
 
                 File f = new File(ImportDialog.this.getActivity().getFilesDir(), filename);
-                SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat);
+                SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat, App.locale);
 
                 // display the last modification date of the selected file
                 ImportDialog.this.fileLastModificationTextView.setText(
