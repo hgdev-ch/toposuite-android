@@ -140,6 +140,19 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         this.betaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
         this.gammaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
+        this.aEditText.setHint(this.getString(R.string.letter_a));
+        this.bEditText.setHint(this.getString(R.string.letter_b));
+        this.cEditText.setHint(this.getString(R.string.letter_c));
+        this.alphaEditText.setHint(
+                this.getString(R.string.letter_alpha) + " "
+                        + this.getString(R.string.unit_gradian));
+        this.betaEditText.setHint(
+                this.getString(R.string.letter_beta) + " "
+                        + this.getString(R.string.unit_gradian));
+        this.gammaEditText.setHint(
+                this.getString(R.string.letter_gamma) + " "
+                        + this.getString(R.string.unit_gradian));
+
         this.perimeterTextView = (TextView) this.findViewById(R.id.perimeter);
         this.heightTextView = (TextView) this.findViewById(R.id.height);
         this.surfaceTextView = (TextView) this.findViewById(R.id.surface);
