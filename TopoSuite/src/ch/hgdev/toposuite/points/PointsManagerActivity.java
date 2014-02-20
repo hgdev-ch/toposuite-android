@@ -61,25 +61,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         // detect if another app is sending data to this activity
         Uri dataUri = this.getIntent().getData();
         if (dataUri != null) {
-            ContentResolver cr = this.getContentResolver();
-
             String mime = this.getIntent().getType();
-            String ext = mime.substring(mime.lastIndexOf("/") + 1);
-
-            try {
-                // clear existing points and calculations
-                SharedResources.getCalculationsHistory().clear();
-                SharedResources.getSetOfPoints().clear();
-
-                InputStream inputStream = cr.openInputStream(dataUri);
-                PointsImporter.importFromFile(inputStream, ext);
-            } catch (FileNotFoundException e) {
-                Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            } catch (IOException e) {
-                Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            }
+            this.importFromExternalFile(dataUri, mime);
         }
     }
 
@@ -351,17 +334,39 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     /**
      * TODO
      */
-    private void importFromExternalFile() {
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.delete_all_history)
-                .setMessage(R.string.loose_history)
+    private final void importFromExternalFile(final Uri dataUri, final String mime) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.import_label)
+                .setMessage(R.string.warning_import_file_without_warning_label)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(R.string.delete_all,
+                .setPositiveButton(R.string.import_label,
                         new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO
+                                ContentResolver cr = PointsManagerActivity.this
+                                        .getContentResolver();
+                                String ext = mime.substring(mime.lastIndexOf("/") + 1);
+
+                                try {
+                                    // clear existing points and calculations
+                                    SharedResources.getCalculationsHistory().clear();
+                                    SharedResources.getSetOfPoints().clear();
+
+                                    InputStream inputStream = cr.openInputStream(dataUri);
+                                    PointsImporter.importFromFile(inputStream, ext);
+
+                                    PointsManagerActivity.this.getIntent().setData(null);
+                                    PointsManagerActivity.this.drawList();
+                                } catch (FileNotFoundException e) {
+                                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                                    Toast.makeText(PointsManagerActivity.this, e.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                } catch (IOException e) {
+                                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                                    Toast.makeText(PointsManagerActivity.this, e.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
                             }
                         })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -371,7 +376,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                         // do nothing
                     }
                 });
-        builder.create().show();*/
+        builder.create().show();
     }
 
     @Override
