@@ -289,12 +289,16 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
                     errorToast.show();
                 } else {
                     this.unknownOrientEditText.setText(DisplayUtils.toString(this.abrissZ0));
+                    this.unknownOrientEditText.setEnabled(false);
                     this.stationSpinner.setSelection(
                             this.stationAdapter.getPosition(this.abrissStation));
+                    this.stationSpinner.setEnabled(false);
                 }
             } else {
                 this.unknownOrientEditText.setText("");
+                this.unknownOrientEditText.setEnabled(true);
                 this.stationSpinner.setSelection(0);
+                this.stationSpinner.setEnabled(true);
             }
             break;
         }
