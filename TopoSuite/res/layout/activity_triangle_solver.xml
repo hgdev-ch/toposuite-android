@@ -1,350 +1,397 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content" >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp" >
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/sides_label"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:text="@string/letter_a" />
-
-        <EditText
-            android:id="@+id/a"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:inputType=""
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:text="@string/letter_b" />
-
-        <EditText
-            android:id="@+id/b"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:inputType=""
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:text="@string/letter_c" />
-
-        <EditText
-            android:id="@+id/c"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:inputType=""
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/angles_label"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:text="@string/letter_alpha" />
-
-        <EditText
-            android:id="@+id/alpha"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:inputType=""
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:text="@string/letter_beta" />
-
-        <EditText
-            android:id="@+id/beta"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:inputType=""
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:text="@string/letter_gamma" />
-
-        <EditText
-            android:id="@+id/gamma"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:inputType=""
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp" >
-
-        <TextView
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/solution_one"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp" >
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/perimeter_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/perimeter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/surface_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/surface"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/height_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/height"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/incircle_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/incircle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/excircle_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/excircle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp" >
-
-        <TextView
-            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/solution_two"
-            android:textStyle="bold" />
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/sides_label"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:text="@string/letter_a" />
+
+            <EditText
+                android:id="@+id/a"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:inputType=""
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:text="@string/letter_b" />
+
+            <EditText
+                android:id="@+id/b"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:inputType=""
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:text="@string/letter_c" />
+
+            <EditText
+                android:id="@+id/c"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:inputType=""
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/angles_label"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:text="@string/letter_alpha" />
+
+            <EditText
+                android:id="@+id/alpha"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:inputType=""
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:text="@string/letter_beta" />
+
+            <EditText
+                android:id="@+id/beta"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:inputType=""
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:text="@string/letter_gamma" />
+
+            <EditText
+                android:id="@+id/gamma"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:inputType=""
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/solution_one"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/perimeter_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/perimeter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/surface_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/surface"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/height_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/incircle_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/incircle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/excircle_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/excircle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/solution_two"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/perimeter_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/perimeter_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/surface_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/surface_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/height_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/height_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/incircle_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/incircle_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/excircle_label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/excircle_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/perimeter_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/perimeter_bis"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/surface_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/surface_bis"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/height_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/height_bis"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/incircle_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/incircle_bis"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:text="@string/excircle_label"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/excircle_bis"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
