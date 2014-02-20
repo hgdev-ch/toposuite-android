@@ -146,7 +146,6 @@
     <string name="north_label">Nord [m]</string>
     <string name="number_of_points_label">Le fichier contient: <xliff:g>%d</xliff:g> points</string>
     <string name="optional_prths">(optionnel)</string>
-    <string name="or">Ou</string>
     <string name="ordinate">Ordonnées</string>
     <string name="ordinate_label">Ordonnées [m]</string>
     <string name="ordinate_3dots">Ordonnée&#8230;</string>
