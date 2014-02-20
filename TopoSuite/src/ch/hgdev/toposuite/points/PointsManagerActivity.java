@@ -1,10 +1,13 @@
 package ch.hgdev.toposuite.points;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -54,6 +57,13 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
         this.pointsListView = (ListView) this.findViewById(R.id.apm_list_of_points);
         this.registerForContextMenu(this.pointsListView);
+
+        // detect if another app is sending data to this activity
+        Uri dataUri = this.getIntent().getData();
+        if (dataUri != null) {
+            String mime = this.getIntent().getType();
+            this.importFromExternalFile(dataUri, mime);
+        }
     }
 
     @Override
@@ -319,6 +329,54 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                 new File(App.tmpDirectoryPath, App.FILENAME_FOR_POINTS_SHARING)));
         sendIntent.setType("text/csv");
         this.setShareIntent(sendIntent);
+    }
+
+    /**
+     * TODO
+     */
+    private final void importFromExternalFile(final Uri dataUri, final String mime) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.import_label)
+                .setMessage(R.string.warning_import_file_without_warning_label)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.import_label,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ContentResolver cr = PointsManagerActivity.this
+                                        .getContentResolver();
+                                String ext = mime.substring(mime.lastIndexOf("/") + 1);
+
+                                try {
+                                    // clear existing points and calculations
+                                    SharedResources.getCalculationsHistory().clear();
+                                    SharedResources.getSetOfPoints().clear();
+
+                                    InputStream inputStream = cr.openInputStream(dataUri);
+                                    PointsImporter.importFromFile(inputStream, ext);
+
+                                    PointsManagerActivity.this.getIntent().setData(null);
+                                    PointsManagerActivity.this.drawList();
+                                } catch (FileNotFoundException e) {
+                                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                                    Toast.makeText(PointsManagerActivity.this, e.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                } catch (IOException e) {
+                                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                                    Toast.makeText(PointsManagerActivity.this, e.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+        builder.create().show();
     }
 
     @Override

@@ -218,6 +218,7 @@
     <string name="ve_label">vE [cm]</string>
     <string name="vn_label">vN [cm]</string>
     <string name="warning_import_file">Attention: Cette actions va effecter tous les points et calculs existants.</string>
+    <string name="warning_import_file_without_warning_label">Attention: Cette actions va effecter tous les points et calculs existants.</string>
     <string name="with_support_from">Avec le soutien de</string>
     <string name="yes">Oui</string>
     <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>
