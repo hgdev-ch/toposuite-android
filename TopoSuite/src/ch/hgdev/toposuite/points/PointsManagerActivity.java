@@ -1,10 +1,13 @@
 package ch.hgdev.toposuite.points;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -54,6 +57,30 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
         this.pointsListView = (ListView) this.findViewById(R.id.apm_list_of_points);
         this.registerForContextMenu(this.pointsListView);
+
+        // detect if another app is sending data to this activity
+        Uri dataUri = this.getIntent().getData();
+        if (dataUri != null) {
+            ContentResolver cr = this.getContentResolver();
+
+            String mime = this.getIntent().getType();
+            String ext = mime.substring(mime.lastIndexOf("/") + 1);
+
+            try {
+                // clear existing points and calculations
+                SharedResources.getCalculationsHistory().clear();
+                SharedResources.getSetOfPoints().clear();
+
+                InputStream inputStream = cr.openInputStream(dataUri);
+                PointsImporter.importFromFile(inputStream, ext);
+            } catch (FileNotFoundException e) {
+                Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
@@ -319,6 +346,32 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                 new File(App.tmpDirectoryPath, App.FILENAME_FOR_POINTS_SHARING)));
         sendIntent.setType("text/csv");
         this.setShareIntent(sendIntent);
+    }
+
+    /**
+     * TODO
+     */
+    private void importFromExternalFile() {
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.delete_all_history)
+                .setMessage(R.string.loose_history)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.delete_all,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+        builder.create().show();*/
     }
 
     @Override

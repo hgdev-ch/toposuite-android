@@ -28,6 +28,21 @@
         <activity
             android:name="ch.hgdev.toposuite.points.PointsManagerActivity"
             android:label="@string/title_activity_points_manager" >
+            
+            <intent-filter>
+        		<action android:name="android.intent.action.VIEW"/>
+        		<category android:name="android.intent.category.BROWSABLE" />
+        		<category android:name="android.intent.category.DEFAULT"/>
+        		<data android:mimeType="text/plain" />
+        		<data android:mimeType="text/csv" />
+    		</intent-filter>
+    		
+            <intent-filter>
+        		<action android:name="android.intent.action.SENDTO"/>
+        		<category android:name="android.intent.category.DEFAULT"/>
+        		<data android:mimeType="text/plain" />
+        		<data android:mimeType="text/csv" />
+    		</intent-filter>
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity"
