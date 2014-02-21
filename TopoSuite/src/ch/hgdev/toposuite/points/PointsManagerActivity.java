@@ -30,6 +30,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.export.ExportDialog;
 import ch.hgdev.toposuite.export.ImportDialog;
+import ch.hgdev.toposuite.export.SupportedFileTypes;
 import ch.hgdev.toposuite.utils.Logger;
 
 /**
@@ -347,6 +348,14 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                                 ContentResolver cr = PointsManagerActivity.this
                                         .getContentResolver();
                                 String ext = mime.substring(mime.lastIndexOf("/") + 1);
+
+                                // make sure the file format is supported
+                                if (!SupportedFileTypes.isSupported(ext)) {
+                                    Toast.makeText(PointsManagerActivity.this,
+                                            R.string.error_unsupported_format,
+                                            Toast.LENGTH_LONG).show();
+                                    return;
+                                }
 
                                 try {
                                     // clear existing points and calculations

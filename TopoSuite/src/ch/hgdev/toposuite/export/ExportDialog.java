@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.export;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -89,9 +90,10 @@ public class ExportDialog extends DialogFragment {
         });
 
         this.formatSpinner = (Spinner) view.findViewById(R.id.format_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this.getActivity(), R.array.file_formats,
-                android.R.layout.simple_spinner_item);
+        List<String> list = SupportedFileTypes.toList();
+        list.add(0, this.getActivity().getString(R.string.format_3dots));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this.getActivity(), android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.formatSpinner.setAdapter(adapter);
 
@@ -125,6 +127,7 @@ public class ExportDialog extends DialogFragment {
      * Perform export.
      */
     private final void performExportAction() {
+        // make sure that the input is correct
         if ((this.formatSpinner.getSelectedItemPosition() == 0)
                 || this.filenameEditText.getText().toString().isEmpty()) {
             Toast.makeText(this.getActivity(), R.string.error_fill_data,
@@ -152,10 +155,14 @@ public class ExportDialog extends DialogFragment {
         int lines = 0;
 
         try {
-            if (format.equalsIgnoreCase("CSV")) {
+            SupportedFileTypes type = SupportedFileTypes.valueOf(format);
+
+            switch (type) {
+            case CSV:
                 lines = SharedResources.getSetOfPoints().saveAsCSV(
                         this.getActivity(), filename);
-            } else {
+                break;
+            default:
                 Toast.makeText(this.getActivity(), R.string.error_unsupported_format,
                         Toast.LENGTH_LONG).show();
                 return;

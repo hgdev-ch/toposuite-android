@@ -227,6 +227,13 @@ public class ImportDialog extends DialogFragment {
         String filename = this.adapter.getItem(fileNamePosition);
         String ext = Files.getFileExtension(filename);
 
+        // make sure the file format is supported
+        if (!SupportedFileTypes.isSupported(ext)) {
+            Toast.makeText(this.getActivity(), R.string.error_unsupported_format,
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
         try {
             InputStream inputStream = this.getActivity().openFileInput(
                     filename);
