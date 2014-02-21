@@ -18,13 +18,15 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Circle;
+import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class CircleActivity extends TopoSuiteActivity {
+public class CircleActivity extends TopoSuiteActivity implements
+        MergePointsDialog.MergePointsDialogListener {
     private static final String POINT_A      = "point_a";
     private static final String POINT_B      = "point_b";
     private static final String POINT_C      = "point_c";
@@ -161,15 +163,7 @@ public class CircleActivity extends TopoSuiteActivity {
     protected void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
-        points.addAll(SharedResources.getSetOfPoints());
-
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
-        this.pointASpinner.setAdapter(a);
-        this.pointBSpinner.setAdapter(a);
-        this.pointCSpinner.setAdapter(a);
+        ArrayAdapter<Point> a = this.initSpinners();
 
         if (this.circle != null) {
             this.pointASpinner.setSelection(
@@ -271,6 +265,8 @@ public class CircleActivity extends TopoSuiteActivity {
 
                 Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
                         .show();
+            } else {
+                this.showMergePointsDialog();
             }
 
             return true;
@@ -279,7 +275,45 @@ public class CircleActivity extends TopoSuiteActivity {
         }
     }
 
-    private void itemSelected() {
+    private final ArrayAdapter<Point> initSpinners() {
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.addAll(SharedResources.getSetOfPoints());
+
+        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+                this, R.layout.spinner_list_item, points);
+        this.pointASpinner.setAdapter(a);
+        this.pointBSpinner.setAdapter(a);
+        this.pointCSpinner.setAdapter(a);
+
+        return a;
+    }
+
+    private final void showMergePointsDialog() {
+        MergePointsDialog dialog = new MergePointsDialog();
+
+        Bundle args = new Bundle();
+        if (this.pointNumberEditText.length() > 0) {
+            args.putInt(
+                    MergePointsDialog.POINT_NUMBER,
+                    Integer.parseInt(
+                            this.pointNumberEditText.getText().toString()));
+        } else {
+            args.putInt(MergePointsDialog.POINT_NUMBER, 0);
+        }
+
+        args.putDouble(MergePointsDialog.NEW_EAST,
+                this.circle.getCenter().getEast());
+        args.putDouble(MergePointsDialog.NEW_NORTH,
+                this.circle.getCenter().getNorth());
+        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                this.circle.getCenter().getAltitude());
+
+        dialog.setArguments(args);
+        dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+    }
+
+    private final void itemSelected() {
         if ((this.pointASelectedPosition != 0)
                 && (this.pointBSelectedPosition != 0)
                 && (this.pointCSelectedPosition != 0)) {
@@ -316,5 +350,19 @@ public class CircleActivity extends TopoSuiteActivity {
                                 this.circle.getRadius()));
             }
         }
+    }
+
+    @Override
+    public void onMergePointsDialogSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        this.initSpinners();
+        this.pointASpinner.setSelection(this.pointASelectedPosition);
+        this.pointBSpinner.setSelection(this.pointBSelectedPosition);
+        this.pointCSpinner.setSelection(this.pointCSelectedPosition);
+    }
+
+    @Override
+    public void onMergePointsDialogError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

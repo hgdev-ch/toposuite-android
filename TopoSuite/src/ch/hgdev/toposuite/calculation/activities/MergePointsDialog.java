@@ -1,0 +1,246 @@
+package ch.hgdev.toposuite.calculation.activities;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.DisplayUtils;
+
+/**
+ * This class is used to display a dialog for merging two points.
+ * 
+ * @author HGdev
+ */
+public class MergePointsDialog extends DialogFragment {
+    public static final String         POINT_NUMBER                = "point_number";
+    public static final String         NEW_EAST                    = "new_east";
+    public static final String         NEW_NORTH                   = "new_north";
+    public static final String         NEW_ALTITUDE                = "new_altitude";
+
+    /**
+     * Merge mode: all. The value depends on the position in the
+     * R.array.merge_modes
+     */
+    private static final int           MERGE_MODE_ALL              = 0;
+
+    /**
+     * Merge mode: without altitude. The value depends on the position in the
+     * R.array.merge_modes
+     */
+    private static final int           MERGE_MODE_WITHOUT_ALTITUDE = 1;
+
+    /**
+     * Merge mode: altitude only. The value depends on the position in the
+     * R.array.merge_modes
+     */
+    private static final int           MERGE_MODE_ALTITUDE_ONLY    = 2;
+
+    private TextView                   pointNumberTextView;
+    private TextView                   actualPointTextView;
+    private TextView                   newPointTextView;
+    private TextView                   pointDifferencesTextView;
+    private Spinner                    mergeTypeSpinner;
+
+    private MergePointsDialogListener  listener;
+    private ArrayAdapter<CharSequence> adapter;
+
+    private int                        selectedMode                = 0;
+    private Point                      oldPt;
+    private Point                      newPt;
+
+    /**
+     * Listener for handling dialog events.
+     * 
+     * @author HGdev
+     */
+    public interface MergePointsDialogListener {
+        /**
+         * This callback is triggered when the action performed by the dialog
+         * succeed.
+         * 
+         * @param message
+         *            Success message.
+         */
+        void onMergePointsDialogSuccess(String message);
+
+        /**
+         * This callback is triggered when the action performed by the dialog
+         * fail.
+         * 
+         * @param error
+         *            Error message.
+         */
+        void onMergePointsDialogError(String message);
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog d = super.onCreateDialog(savedInstanceState);
+        d.setTitle(this.getString(R.string.merge_points_label));
+
+        return d;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dialog_merge_points, container, false);
+
+        int pointNumber = this.getArguments().getInt(MergePointsDialog.POINT_NUMBER);
+        this.oldPt = SharedResources.getSetOfPoints().find(pointNumber);
+        this.newPt = new Point(
+                0,
+                this.getArguments().getDouble(MergePointsDialog.NEW_EAST),
+                this.getArguments().getDouble(MergePointsDialog.NEW_NORTH),
+                this.getArguments().getDouble(MergePointsDialog.NEW_ALTITUDE),
+                false,
+                false);
+
+        this.pointNumberTextView = (TextView) view.findViewById(
+                R.id.point_number);
+        this.pointNumberTextView.setText(
+                String.format(
+                        this.getActivity().getString(
+                                R.string.existing_point_number), pointNumber));
+
+        this.actualPointTextView = (TextView) view.findViewById(
+                R.id.actual_point);
+        this.actualPointTextView.setText(
+                DisplayUtils.formatPoint(this.getActivity(), this.oldPt));
+
+        this.newPointTextView = (TextView) view.findViewById(
+                R.id.old_point);
+        this.newPointTextView.setText(DisplayUtils.formatPoint(
+                this.getActivity(), this.newPt));
+
+        this.pointDifferencesTextView = (TextView) view.findViewById(
+                R.id.point_differences);
+        this.pointDifferencesTextView.setText(
+                DisplayUtils.formatPoint(
+                        this.getActivity(),
+                        new Point(
+                                0,
+                                this.newPt.getEast() - this.oldPt.getEast(),
+                                this.newPt.getNorth() - this.oldPt.getNorth(),
+                                this.newPt.getAltitude() - this.oldPt.getAltitude(),
+                                false, false)));
+
+        Button meanButton = (Button) view.findViewById(R.id.mean_button);
+        meanButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MergePointsDialog.this.performMergeByMeanAction();
+            }
+        });
+
+        Button replaceButton = (Button) view.findViewById(R.id.replace_button);
+        replaceButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MergePointsDialog.this.performMergeByReplaceAction();
+            }
+        });
+
+        Button keepButton = (Button) view.findViewById(R.id.keep_button);
+        keepButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MergePointsDialog.this.performMergeByKeepAction();
+            }
+        });
+
+        this.mergeTypeSpinner = (Spinner) view.findViewById(R.id.merge_type_spinner);
+
+        this.adapter = ArrayAdapter.createFromResource(
+                this.getActivity(),
+                R.array.merge_modes,
+                android.R.layout.simple_spinner_dropdown_item);
+        this.adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
+        this.mergeTypeSpinner.setAdapter(this.adapter);
+
+        this.mergeTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                MergePointsDialog.this.selectedMode = pos;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // nothing
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            this.listener = (MergePointsDialogListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement MergePointsDialogListener");
+        }
+    }
+
+    private final void closeOnError(String message) {
+        this.listener.onMergePointsDialogError(message);
+        this.dismiss();
+    }
+
+    private final void closeOnSuccess(String message) {
+        this.listener.onMergePointsDialogSuccess(message);
+        this.dismiss();
+    }
+
+    private final void performMergeByMeanAction() {
+        if (this.selectedMode == MergePointsDialog.MERGE_MODE_ALTITUDE_ONLY) {
+            this.oldPt.setAltitude(
+                    (this.newPt.getAltitude() + this.oldPt.getAltitude()) / 2);
+        } else {
+            this.oldPt.setEast((this.newPt.getEast() + this.oldPt.getEast()) / 2);
+            this.oldPt.setNorth((this.newPt.getNorth() + this.oldPt.getNorth()) / 2);
+
+            if (this.selectedMode != MergePointsDialog.MERGE_MODE_WITHOUT_ALTITUDE) {
+                this.oldPt.setAltitude(
+                        (this.newPt.getAltitude() + this.oldPt.getAltitude()) / 2);
+            }
+        }
+
+        this.closeOnSuccess("Points successfully merged!");
+    }
+
+    private final void performMergeByReplaceAction() {
+        if (this.selectedMode == MergePointsDialog.MERGE_MODE_ALTITUDE_ONLY) {
+            this.oldPt.setAltitude(this.newPt.getAltitude());
+        } else {
+            this.oldPt.setEast(this.newPt.getEast());
+            this.oldPt.setNorth(this.newPt.getNorth());
+
+            if (this.selectedMode != MergePointsDialog.MERGE_MODE_WITHOUT_ALTITUDE) {
+                this.oldPt.setAltitude(this.newPt.getAltitude());
+            }
+        }
+
+        this.closeOnSuccess("Point successfully replaced!");
+    }
+
+    private final void performMergeByKeepAction() {
+        this.closeOnSuccess("Point kept!");
+    }
+}
