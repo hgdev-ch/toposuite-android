@@ -6,6 +6,7 @@
     <string name="abscissa_3dots">Abscissa&#8230;</string>
     <string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string>
     <string name="action_settings">Settings</string>
+    <string name="actual_label">Actual</string>
     <string name="add">Add</string>
     <string name="add_3dots">Add&#8230;</string>
     <string name="altitude">Altitude</string>
@@ -41,6 +42,7 @@
     <string name="developed_by">Developed by</string>
     <string name="dialog_add_point">Add a point</string>
     <string name="dialog_edit_point">Edit a point</string>
+    <string name="differences_label">Differences</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="disclaimer_notice">This calculation software is primarily intended for geomatic apprentices for educational purpose.
         The CRAG disclaims any liability for any other use.</string>
@@ -82,6 +84,7 @@
     <string name="error_same_points">The points must be different!</string>
     <string name="error_unsupported_format">Unsupported format!</string>
     <string name="excircle_label">Excircle radius</string>
+    <string name="existing_point_number">The point number is: <xliff:g>%d</xliff:g></string>
     <string name="export">Export</string>
     <string name="export_3dots">Export&#8230;</string>
     <string name="extremity_label">Extremity</string>
@@ -108,6 +111,7 @@
     <string name="import_3dots">Import&#8230;</string>
     <string name="incircle_label">Incircle radius</string>
     <string name="intersection_point_label">Intersection point:</string>
+    <string name="keep_button">Keep</string>
     <string name="last_modification_label">Last modification: <xliff:g>%s</xliff:g></string>
     <string name="lateral_displacement_3dots">Lateral displacement&#8230;</string>
     <string name="letter_a">a</string>
@@ -119,6 +123,7 @@
     <string name="longitudinal_displacement_3dots">Longitudinal displacement&#8230;</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="loose_history">All entries in the history will be lost</string>
+    <string name="mean_button">Mean</string>
     <string name="mean_error_compensated_label">Compensated:</string>
     <string name="mean_error_compensated_label_short">Comp.:</string>
     <string name="mean_error_direction_label">Direction:</string>
@@ -136,6 +141,8 @@
     <string name="measure_header_lat_depl">Lat. Depl. [m]</string>
     <string name="measure_header_lon_depl">Lon. Depl. [m]</string>
     <string name="measured_distance_hint">Meas. dist.</string>
+    <string name="merge_points_label">Merge the points</string>
+    <string name="merge_type_label">If mean/replace:</string>
     <string name="mode_label">Mode</string>
     <string name="mode_line_label">Line</string>
     <string name="mode_gisement_label">Gisement</string>
@@ -146,6 +153,7 @@
     <string name="north_3dots">North&#8230;</string>
     <string name="north_label">North [m]</string>
     <string name="number_of_points_label">The file contains: <xliff:g>%d</xliff:g> points</string>
+    <string name="new_label">New</string>
     <string name="optional_prths">(optional)</string>
     <string name="ordinate">Ordinate</string>
     <string name="ordinate_label">Ordinate [m]</string>
@@ -156,6 +164,7 @@
     <string name="origin_only_label">Origin</string>
     <string name="orthogonal_implantation_label">Orthogonal implantation from the base </string>
     <string name="perimeter_label">Perimeter</string>
+    <string name="point_already_exist">The point you want to save already exists!</string>
     <string name="point_to_project">Point to project</string>
     <string name="point_1">Point A</string>
     <string name="point_2">Point B</string>
@@ -171,6 +180,7 @@
     <string name="point_search">Search for a point</string>
     <string name="prism_height">Prism height (S)</string>
     <string name="prism_height_3dots">Prism height&#8230;</string>
+    <string name="replace_button">Replace</string>
     <string name="retrieve_z0">Retrieve unknown orientation from last abriss calculation</string>
     <string name="save">Save</string>
     <string name="save_3dots">Save&#8230;</string>

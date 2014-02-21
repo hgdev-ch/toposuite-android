@@ -6,6 +6,7 @@
     <string name="abscissa_3dots">Abscisse&#8230;</string>
     <string name="about_title">À propos <xliff:g id="app_name">%s</xliff:g></string>
     <string name="action_settings">Paramètres</string>
+    <string name="actual_label">Actuel</string>
     <string name="add">Ajouter</string>
     <string name="add_3dots">Ajouter&#8230;</string>
     <string name="altitude">Altitude</string>
@@ -41,6 +42,7 @@
     <string name="developed_by">Developpé par</string>
     <string name="dialog_add_point">Ajouter un point</string>
     <string name="dialog_edit_point">Editer un point</string>
+    <string name="differences_label">Ecarts</string>
     <string name="disclaimer">Avis de non responsabilité</string>
     <string name="disclaimer_notice">Ce programme de calcul est avant tout destiné aux apprentis géomaticiens/nes dans un but pédagogique.
         La CRAG décline toute responsabilité en cas d\'utilisation autre.</string>
@@ -82,6 +84,7 @@
     <string name="error_same_points">Les points doivent être différents!</string>
     <string name="error_unsupported_format">Format non supporté!</string>
     <string name="excircle_label">Rayon du cercle circonscrit</string>
+    <string name="existing_point_number">Le numéro de point est: <xliff:g>%d</xliff:g></string>
     <string name="export">Exporter</string>
     <string name="export_3dots">Exporter&#8230;</string>
     <string name="extremity_label">Extrémité</string>
@@ -108,6 +111,7 @@
     <string name="import_3dots">Importer&#8230;</string>
     <string name="incircle_label">Rayon du cercle inscrit</string>
     <string name="intersection_point_label">Point d\'intersection:</string>
+    <string name="keep_button">Conserver</string>
     <string name="last_modification_label">Dernière modification: <xliff:g>%s</xliff:g></string>
     <string name="lateral_displacement_3dots">Déplacement latéral&#8230;</string>
     <string name="letter_a">a</string>
@@ -119,6 +123,7 @@
     <string name="longitudinal_displacement_3dots">Déplacement longitudinal&#8230;</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
+    <string name="mean_button">Moy.</string>
     <string name="mean_error_compensated_label">Compensée:</string>
     <string name="mean_error_compensated_label_short">Comp.:</string>
     <string name="mean_error_direction_label">Direction:</string>
@@ -136,6 +141,8 @@
     <string name="measure_header_lat_depl">Depl. Lat. [m]</string>
     <string name="measure_header_lon_depl">Depl. Lon. [m]</string>
     <string name="measured_distance_hint">Dist. Mes.</string>
+    <string name="merge_points_label">Fusionner les points</string>
+    <string name="merge_type_label">Si moyenner/remplacer:</string>
     <string name="mode_label">Mode</string>
     <string name="mode_line_label">Droite</string>
     <string name="mode_gisement_label">Gisement</string>
@@ -146,6 +153,7 @@
     <string name="north_3dots">Nord&#8230;</string>
     <string name="north_label">Nord [m]</string>
     <string name="number_of_points_label">Le fichier contient: <xliff:g>%d</xliff:g> points</string>
+    <string name="new_label">Nouveau</string>
     <string name="optional_prths">(optionnel)</string>
     <string name="ordinate">Ordonnées</string>
     <string name="ordinate_label">Ordonnées [m]</string>
@@ -156,6 +164,7 @@
     <string name="origin_only_label">Origine</string>
     <string name="orthogonal_implantation_label">Implantation orthogonale depuis la base </string>
     <string name="perimeter_label">Perimètre</string>
+    <string name="point_already_exist">Le point que vous voulez enregistré existe déjà!</string>
     <string name="point_to_project">Point à projeter</string>
     <string name="point_1">Point A</string>
     <string name="point_2">Point B</string>
@@ -171,6 +180,7 @@
     <string name="point_search">Rechercher un point</string>
     <string name="prism_height">Hauteur du prisme (S)</string>
     <string name="prism_height_3dots">Hauteur du prisme&#8230;</string>
+    <string name="replace_button">Remplacer</string>
     <string name="retrieve_z0">Récupérer l\'inconnue d\'orientation du dernier calcul d\'abriss</string>
     <string name="save">Sauvegarder</string>
     <string name="save_3dots">Sauvegarder&#8230;</string>
