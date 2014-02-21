@@ -65,6 +65,7 @@ public class Abriss extends Calculation {
     /**
      * Perform the the computation.
      */
+    @Override
     public void compute() {
         if (this.orientations.size() == 0) {
             return;

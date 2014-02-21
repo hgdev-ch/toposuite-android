@@ -59,6 +59,7 @@ public class PolarImplantation extends Calculation {
     /**
      * Compute measure values from points and put it in the array of results.
      */
+    @Override
     public void compute() {
         if (this.measures.isEmpty()) {
             return;

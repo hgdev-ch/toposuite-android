@@ -96,6 +96,7 @@ public class PointProjectionOnALine extends Calculation {
                 true);
     }
 
+    @Override
     public void compute() {
         // displacement gisement
         double displGis = 0.0;

@@ -16,5 +16,6 @@ public enum CalculationType {
     ORTHOIMPL,
     FREESTATION,
     CIRCLE,
-    TRIANGLESOLVER
+    TRIANGLESOLVER,
+    AXISIMPLANTATION
 }

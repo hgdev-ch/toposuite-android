@@ -378,6 +378,7 @@ public class TriangleSolver extends Calculation {
     /**
      * Compute perimeter, height, surface, incircle radius and excircle radius.
      */
+    @Override
     public void compute() throws IllegalArgumentException {
         if (!this.checkInputs()) {
             throw new IllegalArgumentException(

@@ -58,6 +58,7 @@ public class LevePolaire extends Calculation {
      * Compute a new point for each determination and put it in the array of
      * results.
      */
+    @Override
     public void compute() {
         if (this.determinations.size() == 0) {
             return;
