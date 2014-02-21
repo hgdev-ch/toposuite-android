@@ -67,9 +67,19 @@ public class Measure {
      */
     private int                 measureNumber;
 
+    /**
+     * Abscissa.
+     */
+    private double              abscissa;
+
+    /**
+     * Ordinate.
+     */
+    private double              ordinate;
+
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
-            int _measureNumber) {
+            int _measureNumber, double _abscissa, double _ordinate) {
         this.point = _point;
         this.horizDir = _horizDir;
         this.zenAngle = _zenAngle;
@@ -80,6 +90,22 @@ public class Measure {
         this.i = _i;
         this.unknownOrientation = _unknownOrientation;
         this.measureNumber = _measureNumber;
+        this.abscissa = _abscissa;
+        this.ordinate = _ordinate;
+    }
+
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
+            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
+            int _measureNumber, double _abscissa) {
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
+                _unknownOrientation, _measureNumber, _abscissa, 0.0);
+    }
+
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
+            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
+            int _measureNumber) {
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
+                _unknownOrientation, _measureNumber, 0);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
@@ -202,6 +228,22 @@ public class Measure {
 
     public void setMeasureNumber(int measureNumber) {
         this.measureNumber = measureNumber;
+    }
+
+    public double getAbscissa() {
+        return this.abscissa;
+    }
+
+    public void setAbscissa(double abscissa) {
+        this.abscissa = abscissa;
+    }
+
+    public double getOrdinate() {
+        return this.ordinate;
+    }
+
+    public void setOrdinate(double ordinate) {
+        this.ordinate = ordinate;
     }
 
     public JSONObject toJSONObject() {
