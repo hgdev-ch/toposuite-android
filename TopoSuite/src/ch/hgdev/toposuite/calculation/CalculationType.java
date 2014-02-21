@@ -17,5 +17,6 @@ public enum CalculationType {
     FREESTATION,
     CIRCLE,
     TRIANGLESOLVER,
-    AXISIMPLANTATION
+    AXISIMPLANTATION,
+    SURFACE
 }
