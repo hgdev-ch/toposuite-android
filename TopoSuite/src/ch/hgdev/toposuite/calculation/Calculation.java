@@ -23,27 +23,27 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
     /**
      * The ID used by the database.
      */
-    private long            id;
+    private long                  id;
 
     /**
      * Type of calculation.
      */
-    private CalculationType type;
+    private final CalculationType type;
 
     /**
      * Calculations description.
      */
-    private String          description;
+    private String                description;
 
     /**
      * Date of the last modification.
      */
-    private Date            lastModification;
+    private Date                  lastModification;
 
     /**
      * List of DAO linked.
      */
-    private ArrayList<DAO>  daoList;
+    private final ArrayList<DAO>  daoList;
 
     /**
      * Constructs a new Calculation.
@@ -89,7 +89,17 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
         // SharedResources.getCalculationsHistory().add(0, this);
     }
 
+    /**
+     * Method that should return the activity class related to the calculation.
+     * 
+     * @return Activity class related to the calculation.
+     */
     public abstract Class<?> getActivityClass();
+
+    /**
+     * Method that actually performs the calculation.
+     */
+    public abstract void compute();
 
     /**
      * Getter for the ID.

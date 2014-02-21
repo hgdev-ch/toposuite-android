@@ -48,6 +48,7 @@ public class Circle extends Calculation {
                 lastModification, true);
     }
 
+    @Override
     public void compute() {
         if ((this.pointA == null) || (this.pointB == null)
                 || (this.pointC == null)) {

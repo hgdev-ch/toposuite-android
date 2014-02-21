@@ -63,6 +63,7 @@ public class OrthogonalImplantation extends Calculation {
         this.results = new ArrayList<OrthogonalImplantation.Result>();
     }
 
+    @Override
     public void compute() {
         if (this.measures.size() == 0) {
             return;

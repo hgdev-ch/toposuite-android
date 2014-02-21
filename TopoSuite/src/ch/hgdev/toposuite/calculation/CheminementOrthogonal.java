@@ -67,6 +67,7 @@ public class CheminementOrthogonal extends Calculation {
         }
     }
 
+    @Override
     public void compute() {
         if (this.measures.size() < 1) {
             return;

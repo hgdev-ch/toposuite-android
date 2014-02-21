@@ -112,6 +112,7 @@ public class Gisement extends Calculation {
     /**
      * Perform the gisement, distance, altitude and slope calculations.
      */
+    @Override
     public final void compute() {
         double deltaY = this.orientation.getEast() - this.origin.getEast();
         double deltaX = this.orientation.getNorth() - this.origin.getNorth();

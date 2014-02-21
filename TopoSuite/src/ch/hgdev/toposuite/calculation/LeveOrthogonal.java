@@ -68,6 +68,7 @@ public class LeveOrthogonal extends Calculation {
         this.results = new ArrayList<LeveOrthogonal.Measure>();
     }
 
+    @Override
     public void compute() {
         if (this.measures.size() < 1) {
             return;

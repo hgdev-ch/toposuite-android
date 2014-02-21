@@ -9,17 +9,17 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStation extends Calculation {
-    public static final String CALCULATION_NAME = "Station libre";
+    public static final String      CALCULATION_NAME = "Station libre";
 
-    private int                stationNumber;
-    private ArrayList<Measure> measures;
+    private int                     stationNumber;
+    private ArrayList<Measure>      measures;
     /** Height of the instrument (I). */
-    private double             i;
+    private double                  i;
 
-    private Point              stationResult;
-    private ArrayList<Result>  results;
-    private double             mse;
-    private double             unknownOrientation;
+    private Point                   stationResult;
+    private final ArrayList<Result> results;
+    private double                  mse;
+    private double                  unknownOrientation;
 
     public FreeStation(int _stationNumber, boolean hasDAO) {
         super(CalculationType.FREESTATION, FreeStation.CALCULATION_NAME, hasDAO);
@@ -30,7 +30,7 @@ public class FreeStation extends Calculation {
 
         if (hasDAO) {
             // TODO uncomment when the calculation works
-            //SharedResources.getCalculationsHistory().add(0, this);
+            // SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
@@ -42,6 +42,7 @@ public class FreeStation extends Calculation {
         this.results = new ArrayList<Result>();
     }
 
+    @Override
     public void compute() {
         if (this.measures.size() < 1) {
             return;
