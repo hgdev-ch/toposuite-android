@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.util.Log;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Surface extends Calculation {
+    private static final String                 POINTS_LIST = "points_list";
     private String                              name;
     private String                              description;
     private double                              surface;
@@ -94,19 +99,32 @@ public class Surface extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Auto-generated method stub
-        return null;
+        JSONObject json = new JSONObject();
+        if (this.points.size() > 0) {
+            JSONArray pointsArray = new JSONArray();
+            for (Surface.PointWithRadius p : this.points) {
+                pointsArray.put(p.toJSONObject());
+            }
+            json.put(Surface.POINTS_LIST, pointsArray);
+        }
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Auto-generated method stub
+        JSONObject json = new JSONObject(jsonInputArgs);
+        JSONArray pointsArray = json.getJSONArray(Surface.POINTS_LIST);
 
+        for (int i = 0; i < pointsArray.length(); i++) {
+            JSONObject jo = (JSONObject) pointsArray.get(i);
+            Surface.PointWithRadius p = Surface.PointWithRadius.getPointFromJSON(jo.toString());
+            this.points.add(p);
+        }
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Auto-generated method stub
+        // TODO complete when the activity is created
         return null;
     }
 
@@ -138,14 +156,46 @@ public class Surface extends Calculation {
      * 
      */
     public static class PointWithRadius extends Point {
+        private static final String NUMBER = "number";
+        private static final String EAST   = "east";
+        private static final String NORTH  = "north";
+        private static final String RADIUS = "radius";
         /**
          * Radius wrt to the point of origin. Altitude is ignored.
          */
-        private final double radius;
+        private final double        radius;
 
         public PointWithRadius(int number, double east, double north, double _radius) {
             super(number, east, north, 0.0, false);
             this.radius = _radius;
+        }
+
+        public JSONObject toJSONObject() {
+            JSONObject json = new JSONObject();
+            try {
+                json.put(Surface.PointWithRadius.NUMBER, this.getNumber());
+                json.put(Surface.PointWithRadius.EAST, this.getEast());
+                json.put(Surface.PointWithRadius.NORTH, this.getNorth());
+                json.put(Surface.PointWithRadius.RADIUS, this.radius);
+            } catch (JSONException e) {
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            }
+            return json;
+        }
+
+        public static PointWithRadius getPointFromJSON(String json) {
+            PointWithRadius p = null;
+            try {
+                JSONObject jo = new JSONObject(json);
+                int number = jo.getInt(Surface.PointWithRadius.NUMBER);
+                double east = jo.getDouble(Surface.PointWithRadius.EAST);
+                double north = jo.getDouble(Surface.PointWithRadius.NORTH);
+                double radius = jo.getDouble(Surface.PointWithRadius.RADIUS);
+                p = new PointWithRadius(number, east, north, radius);
+            } catch (JSONException e) {
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            }
+            return p;
         }
 
         public PointWithRadius(int number, double east, double north) {
@@ -157,5 +207,4 @@ public class Surface extends Calculation {
             return this.radius;
         }
     }
-
 }
