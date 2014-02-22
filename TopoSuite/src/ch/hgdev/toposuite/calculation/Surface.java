@@ -103,6 +103,9 @@ public class Surface extends Calculation {
             }
         }
         this.surface = Math.abs(this.surface);
+
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     @Override

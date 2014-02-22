@@ -23,6 +23,7 @@ import ch.hgdev.toposuite.calculation.Surface;
 import ch.hgdev.toposuite.calculation.Surface.PointWithRadius;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class SurfaceActivity extends TopoSuiteActivity implements
         AddPointWithRadiusDialogFragment.AddPointWithRadiusDialogListener,
@@ -58,6 +59,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         this.vertexNumber = 0;
         this.surface = 0.0;
         this.perimeter = 0.0;
+        this.name = "";
+        this.description = "";
 
         this.pointsListView = (ListView) this.findViewById(R.id.list_of_points);
         this.nameEditText = (EditText) this.findViewById(R.id.name);
@@ -78,7 +81,13 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.surfaceCalculation = (Surface) SharedResources.getCalculationsHistory()
                     .get(this.position);
-            list = (ArrayList<PointWithRadius>) this.surfaceCalculation.getPoints();
+            if (this.surfaceCalculation != null) {
+                list = (ArrayList<PointWithRadius>) this.surfaceCalculation.getPoints();
+                this.name = this.surfaceCalculation.getName();
+                this.description = this.surfaceCalculation.getDescription();
+                this.surface = this.surfaceCalculation.getSurface();
+                this.perimeter = this.surfaceCalculation.getSurface();
+            }
         }
 
         this.adapter = new ArrayListOfPointsWithRadiusAdapter(this,
@@ -87,6 +96,20 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         this.drawList();
 
         this.registerForContextMenu(this.pointsListView);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!this.name.isEmpty()) {
+            this.nameEditText.setText(this.name);
+        }
+        if (!this.description.isEmpty()) {
+            this.descriptionEditText.setText(this.description);
+        }
+        if (!MathUtils.isZero(this.surface) && !MathUtils.isZero(this.perimeter)) {
+            this.updateResults();
+        }
     }
 
     @Override
@@ -148,6 +171,15 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         }
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (this.checkInputs()) {
+            this.runCalculation();
+            this.updateResults();
+        }
+    }
+
     /**
      * Do the actual computation.
      */
@@ -158,9 +190,9 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             this.name = "";
         }
         if (this.descriptionEditText.length() > 0) {
-            this.name = this.descriptionEditText.getText().toString();
+            this.description = this.descriptionEditText.getText().toString();
         } else {
-            this.name = "";
+            this.description = "";
         }
 
         if (this.surfaceCalculation == null) {
