@@ -68,6 +68,8 @@ public class Surface extends Calculation {
         if (!this.checkInput()) {
             return;
         }
+        this.surface = 0.0;
+        this.perimeter = 0.0;
 
         int j;
         int nbVertex = this.points.size();

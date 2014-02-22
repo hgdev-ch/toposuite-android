@@ -86,8 +86,10 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 this.name = this.surfaceCalculation.getName();
                 this.description = this.surfaceCalculation.getDescription();
                 this.surface = this.surfaceCalculation.getSurface();
-                this.perimeter = this.surfaceCalculation.getSurface();
+                this.perimeter = this.surfaceCalculation.getPerimeter();
             }
+        } else {
+            this.surfaceCalculation = new Surface(this.name, this.description, true);
         }
 
         this.adapter = new ArrayListOfPointsWithRadiusAdapter(this,
@@ -159,6 +161,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             return true;
         case R.id.delete_point:
             this.adapter.remove(this.adapter.getItem(info.position));
+            this.surfaceCalculation.getPoints().remove(info.position);
             this.vertexNumber--;
             for (int i = info.position; i < this.adapter.getCount(); i++) {
                 this.adapter.getItem(i).setVertexNumber(
@@ -198,11 +201,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         if (this.surfaceCalculation == null) {
             this.surfaceCalculation = new Surface(this.name, this.description, true);
         } else {
-            this.surfaceCalculation.getPoints().clear();
-        }
-
-        for (int i = 0; i < this.adapter.getCount(); i++) {
-            this.surfaceCalculation.getPoints().add(this.adapter.getItem(i));
+            this.surfaceCalculation.setName(this.name);
+            this.surfaceCalculation.setDescription(this.description);
         }
 
         this.surfaceCalculation.compute();
@@ -273,6 +273,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 dialog.getPoint().getNorth(),
                 dialog.getRadius(),
                 this.vertexNumber);
+        this.surfaceCalculation.getPoints().add(p);
         this.adapter.add(p);
         this.adapter.notifyDataSetChanged();
         this.showAddPointDialog();
