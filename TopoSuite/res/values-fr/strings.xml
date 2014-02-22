@@ -37,6 +37,7 @@
     <string name="delete_all">Tout supprimer</string>
     <string name="delete_all_history">Effacer l\'historique</string>
     <string name="delete_all_points">Effacer tous les points?</string>
+    <string name="description">Description</string>
     <string name="determination_sight_3dots">Visée de détermination No&#8230;</string>
     <string name="determination_sight_label">Visée de détermination No</string>
     <string name="developed_by">Developpé par</string>
@@ -146,6 +147,7 @@
     <string name="mode_label">Mode</string>
     <string name="mode_line_label">Droite</string>
     <string name="mode_gisement_label">Gisement</string>
+    <string name="name">Nom</string>
     <string name="no">Non</string>
     <string name="no_files">Aucun fichier</string>
     <string name="no_value">-</string>

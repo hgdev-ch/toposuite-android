@@ -37,6 +37,7 @@
     <string name="delete_all">Delete all</string>
     <string name="delete_all_history">Clear history</string>
     <string name="delete_all_points">Delete all points?</string>
+    <string name="description">Description</string>
     <string name="determination_sight_3dots">Determination sight No&#8230;</string>
     <string name="determination_sight_label">Determination sight No</string>
     <string name="developed_by">Developed by</string>
@@ -146,6 +147,7 @@
     <string name="mode_label">Mode</string>
     <string name="mode_line_label">Line</string>
     <string name="mode_gisement_label">Gisement</string>
+    <string name="name">Name</string>
     <string name="no">No</string>
     <string name="no_files">No files</string>
     <string name="no_value">-</string>
