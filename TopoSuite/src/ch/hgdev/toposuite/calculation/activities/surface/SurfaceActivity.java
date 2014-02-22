@@ -82,11 +82,12 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             this.surfaceCalculation = (Surface) SharedResources.getCalculationsHistory()
                     .get(this.position);
             if (this.surfaceCalculation != null) {
-                list = (ArrayList<PointWithRadius>) this.surfaceCalculation.getPoints();
+                list = (ArrayList<Surface.PointWithRadius>) this.surfaceCalculation.getPoints();
                 this.name = this.surfaceCalculation.getName();
                 this.description = this.surfaceCalculation.getDescription();
                 this.surface = this.surfaceCalculation.getSurface();
                 this.perimeter = this.surfaceCalculation.getPerimeter();
+                this.vertexNumber = this.surfaceCalculation.getPoints().size();
             }
         } else {
             this.surfaceCalculation = new Surface(this.name, this.description, true);
