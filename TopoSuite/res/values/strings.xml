@@ -182,7 +182,8 @@
     <string name="point_search">Search for a point</string>
     <string name="prism_height">Prism height (S)</string>
     <string name="prism_height_3dots">Prism height&#8230;</string>
-    <string name="radius">Radius</string>
+    <string name="radius">Radius [m]</string>
+    <string name="radius_3dots">Radius&#8230;</string>
     <string name="replace_button">Replace</string>
     <string name="retrieve_z0">Retrieve unknown orientation from last abriss calculation</string>
     <string name="save">Save</string>
