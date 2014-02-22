@@ -111,12 +111,6 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity implements
                         Toast.LENGTH_SHORT);
                 successToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 successToast.show();
-            } else {
-                Toast errorToast = Toast.makeText(this,
-                        this.getText(R.string.point_already_exists),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
             }
             this.adapter.notifyDataSetChanged();
             return true;
