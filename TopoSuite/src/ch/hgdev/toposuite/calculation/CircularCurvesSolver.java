@@ -3,32 +3,45 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesSolverActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CircularCurvesSolver extends Calculation {
+    public static final String RADIUS      = "radius";
+    public static final String ALPHA_ANGLE = "alpha_angle";
+    public static final String CHORD_OF    = "chord_of";
+    public static final String TANGENT     = "tangent";
+    public static final String ARROW       = "arrow";
 
-    private double radius;
+    private double             radius;
     /** central angle */
-    private double alphaAngle;
-    private double chordOF;
-    private double tangent;
-    private double arrow;
+    private double             alphaAngle;
+    private double             chordOF;
+    private double             tangent;
+    private double             arrow;
 
-    private double bisector;
-    private double arc;
-    private double circumference;
-    private double chordOM;
+    private double             bisector;
+    private double             arc;
+    private double             circumference;
+    private double             chordOM;
     /** Vertex angle */
-    private double betaAngle;
-    private double circleSurface;
-    private double sectorSurface;
-    private double segmentSurface;
+    private double             betaAngle;
+    private double             circleSurface;
+    private double             sectorSurface;
+    private double             segmentSurface;
 
     public CircularCurvesSolver(double _radius, double _alphaAngle,
             double _chordOF, double _tangent, double _arrow, boolean hasDAO) {
 
-        super(CalculationType.CIRCCURVESOLVER, "TODO", hasDAO);
+        super(
+                CalculationType.CIRCCURVESOLVER,
+                App.getContext().getString(R.string.title_activity_circular_curve_solver),
+                hasDAO);
 
         this.radius = _radius;
         this.alphaAngle = _alphaAngle;
@@ -37,12 +50,17 @@ public class CircularCurvesSolver extends Calculation {
         this.arrow = _arrow;
 
         if (hasDAO) {
-            // TODO add to the calculation list
+            SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
     public CircularCurvesSolver(long id, Date lastModification) {
-        super(id, CalculationType.CIRCCURVESOLVER, "TODO", lastModification, true);
+        super(
+                id,
+                CalculationType.CIRCCURVESOLVER,
+                App.getContext().getString(R.string.title_activity_circular_curve_solver),
+                lastModification,
+                true);
     }
 
     public CircularCurvesSolver(boolean hasDAO) {
@@ -169,20 +187,29 @@ public class CircularCurvesSolver extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Auto-generated method stub
-        return null;
+        JSONObject jo = new JSONObject();
+        jo.put(CircularCurvesSolver.RADIUS, this.radius);
+        jo.put(CircularCurvesSolver.ALPHA_ANGLE, this.alphaAngle);
+        jo.put(CircularCurvesSolver.CHORD_OF, this.chordOF);
+        jo.put(CircularCurvesSolver.TANGENT, this.tangent);
+        jo.put(CircularCurvesSolver.ARROW, this.arrow);
+
+        return jo.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Auto-generated method stub
-
+        JSONObject jo = new JSONObject(jsonInputArgs);
+        this.radius = jo.getDouble(CircularCurvesSolver.RADIUS);
+        this.alphaAngle = jo.getDouble(CircularCurvesSolver.ALPHA_ANGLE);
+        this.chordOF = jo.getDouble(CircularCurvesSolver.CHORD_OF);
+        this.tangent = jo.getDouble(CircularCurvesSolver.TANGENT);
+        this.arrow = jo.getDouble(CircularCurvesSolver.ARROW);
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Auto-generated method stub
-        return null;
+        return CircularCurvesSolverActivity.class;
     }
 
     public double getRadius() {

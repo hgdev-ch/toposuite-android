@@ -50,6 +50,9 @@ public class CalculationFactory {
         case CIRCLE:
             calculation = new Circle(id, lastModification);
             break;
+        case CIRCCURVESOLVER:
+            calculation = new CircularCurvesSolver(id, lastModification);
+            break;
         case GISEMENT:
             calculation = new Gisement(id, lastModification);
             break;

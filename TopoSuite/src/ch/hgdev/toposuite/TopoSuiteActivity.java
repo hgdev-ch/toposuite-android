@@ -20,6 +20,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
+import ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesSolverActivity;
 import ch.hgdev.toposuite.calculation.activities.circle.CircleActivity;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
@@ -221,6 +222,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         mathematics.getChildren().add(
                 new ActivityItem(this.getString(R.string.title_activity_triangle_solver),
                         TriangleSolverActivity.class));
+        mathematics.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_circular_curve_solver),
+                        CircularCurvesSolverActivity.class));
         groups.append(5, mathematics);
 
         ExpandableRightMenuAdapter a = new ExpandableRightMenuAdapter(this,
