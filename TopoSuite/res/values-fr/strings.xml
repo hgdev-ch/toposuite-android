@@ -165,7 +165,7 @@
     <string name="origin_label">Origine</string>
     <string name="origin_only_label">Origine</string>
     <string name="orthogonal_implantation_label">Implantation orthogonale depuis la base </string>
-    <string name="perimeter_label">Perimètre</string>
+    <string name="perimeter_label">Perimètre [m]</string>
     <string name="point_already_exist">Le point que vous voulez enregistré existe déjà!</string>
     <string name="point_to_project">Point à projeter</string>
     <string name="point_1">Point A</string>
@@ -202,7 +202,7 @@
     <string name="station_label">Station</string>
     <string name="success_export_dialog">Les <xliff:g>%d</xliff:g> points ont été exportés avec succès!</string>
     <string name="success_import_dialog">Les points ont été importés avec succès!</string>
-    <string name="surface_label">Surface</string>
+    <string name="surface_label">Surface [m]</string>
     <string name="target_point">Point visé</string>
     <string name="title_activity_abriss">Orient. à la station</string>
     <string name="title_activity_abriss_results">Abriss - résultats</string>

@@ -165,7 +165,7 @@
     <string name="origin_label">Origin</string>
     <string name="origin_only_label">Origin</string>
     <string name="orthogonal_implantation_label">Orthogonal implantation from the base </string>
-    <string name="perimeter_label">Perimeter</string>
+    <string name="perimeter_label">Perimeter [m]</string>
     <string name="point_already_exist">The point you want to save already exists!</string>
     <string name="point_to_project">Point to project</string>
     <string name="point_1">Point A</string>
@@ -202,7 +202,7 @@
     <string name="station_label">Station</string>
     <string name="success_export_dialog">Successfully exported <xliff:g>%d</xliff:g> points!</string>
     <string name="success_import_dialog">Points successfully imported!</string>
-    <string name="surface_label">Surface</string>
+    <string name="surface_label">Surface [m]</string>
     <string name="target_point">Target point</string>
     <string name="title_activity_abriss">Abriss</string>
     <string name="title_activity_abriss_results">Abriss - Results</string>
