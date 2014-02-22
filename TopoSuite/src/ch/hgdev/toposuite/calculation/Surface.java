@@ -68,6 +68,8 @@ public class Surface extends Calculation {
         if (!this.checkInput()) {
             return;
         }
+        this.surface = 0.0;
+        this.perimeter = 0.0;
 
         int j;
         int nbVertex = this.points.size();
@@ -103,6 +105,9 @@ public class Surface extends Calculation {
             }
         }
         this.surface = Math.abs(this.surface);
+
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     @Override
@@ -139,9 +144,18 @@ public class Surface extends Calculation {
         return this.name;
     }
 
+    public void setName(String _name) {
+        this.name = _name;
+    }
+
     @Override
     public String getDescription() {
         return this.description;
+    }
+
+    @Override
+    public void setDescription(String _description) {
+        this.description = _description;
     }
 
     public double getSurface() {
