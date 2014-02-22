@@ -3,6 +3,8 @@ package ch.hgdev.toposuite.export;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hgdev.toposuite.App;
+
 /**
  * This enum contains the enumeration of all supported format.
  * 
@@ -34,7 +36,7 @@ public enum SupportedFileTypes {
      */
     public static boolean isSupported(String format) {
         try {
-            SupportedFileTypes.valueOf(format.toUpperCase());
+            SupportedFileTypes.valueOf(format.toUpperCase(App.locale));
         } catch (IllegalArgumentException e) {
             return false;
         }
@@ -54,7 +56,7 @@ public enum SupportedFileTypes {
         SupportedFileTypes type = null;
 
         try {
-            type = SupportedFileTypes.valueOf(format.toUpperCase());
+            type = SupportedFileTypes.valueOf(format.toUpperCase(App.locale));
         } catch (IllegalArgumentException e) {
             // nothing
         }

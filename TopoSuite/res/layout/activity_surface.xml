@@ -76,7 +76,6 @@
             android:layout_height="match_parent"
             android:layout_weight="0.86"
             android:gravity="left|center_vertical"
-            android:inputType="text"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -101,7 +100,6 @@
             android:layout_height="match_parent"
             android:layout_weight="0.86"
             android:gravity="left|center_vertical"
-            android:inputType="text"
             android:textSize="12sp" />
     </LinearLayout>
 
