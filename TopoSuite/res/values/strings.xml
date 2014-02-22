@@ -20,16 +20,23 @@
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
+    <string name="arc_label">Arc [m]</string>
+    <string name="arrow_label">Arrow [m]</string>
     <string name="base_label">Orthogonal survey from the base</string>
     <string name="calculate_3dots">Calculate&#8230;</string>
     <string name="calculated_distance_label">Calc. dist. [m]</string>
     <string name="cancel">Cancel</string>
+    <string name="central_angle_label">Central angle [g]</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
     <string name="cfgeo_webpage_url_short">www.cf-geo.ch</string>
     <string name="chemin_ortho_base_label">Cheminement orthogonal from the base</string>
+    <string name="chord_of_label">Chord (OF) [m]</string>
+    <string name="chord_om_label">Chord (OM) [m]</string>
     <string name="circle_result_center_label">Center of the circle</string>
     <string name="circle_result_radius_label">Radius of the circle</string>
+    <string name="circle_surface_label">Circle surface [m&#178;]</string>
+    <string name="circumference_label">Circle Circumference [m]</string>
     <string name="clear_3dots">Clear&#8230;</string>
     <string name="crag">CRAG (Commission paritaire romande d\'apprentissage de géomaticien&#47;ne)</string>
     <string name="delete">Delete</string>
@@ -185,6 +192,7 @@
     <string name="prism_height_3dots">Prism height&#8230;</string>
     <string name="radius">Radius [m]</string>
     <string name="radius_3dots">Radius&#8230;</string>
+    <string name="radius_label">Radius [m]</string>
     <string name="replace_button">Replace</string>
     <string name="retrieve_z0">Retrieve unknown orientation from last abriss calculation</string>
     <string name="save">Save</string>
@@ -195,6 +203,8 @@
     <string name="scale_factor_label">Scale</string>
     <string name="search">Search</string>
     <string name="search_3dots">Search&#8230;</string>
+    <string name="sector_surface_label">Sector surface [m&#178;]</string>
+    <string name="segment_surface_label">Segment surface [m&#178;]</string>
     <string name="select_files_3dots">Select a file&#8230;</string>
     <string name="sides_label">Sides</string>
     <string name="share">Share</string>
@@ -205,6 +215,7 @@
     <string name="success_export_dialog">Successfully exported <xliff:g>%d</xliff:g> points!</string>
     <string name="success_import_dialog">Points successfully imported!</string>
     <string name="surface_label">Surface [m&#178;]</string>
+    <string name="tangent_label">Tangent [m]</string>
     <string name="target_point">Target point</string>
     <string name="title_activity_abriss">Abriss</string>
     <string name="title_activity_abriss_results">Abriss - Results</string>
@@ -235,6 +246,7 @@
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation_label">Unkn. Orient. [g]</string>
     <string name="ve_label">vE [cm]</string>
+    <string name="vertex_angle">Vertex angle (&#946;) [g]</string>
     <string name="vertex_number">Vertex No</string>
     <string name="vn_label">vN [cm]</string>
     <string name="warning_import_file">Warning: This action will erase all existing points and calculations.</string>
