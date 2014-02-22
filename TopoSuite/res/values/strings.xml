@@ -182,6 +182,7 @@
     <string name="point_search">Search for a point</string>
     <string name="prism_height">Prism height (S)</string>
     <string name="prism_height_3dots">Prism height&#8230;</string>
+    <string name="radius">Radius</string>
     <string name="replace_button">Replace</string>
     <string name="retrieve_z0">Retrieve unknown orientation from last abriss calculation</string>
     <string name="save">Save</string>
@@ -230,6 +231,7 @@
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation_label">Unkn. Orient. [g]</string>
     <string name="ve_label">vE [cm]</string>
+    <string name="vertex_number">Vertex No</string>
     <string name="vn_label">vN [cm]</string>
     <string name="warning_import_file">Warning: This action will erase all existing points and calculations.</string>
     <string name="warning_import_file_without_warning_label">This action will erase all existing points and calculations.</string>

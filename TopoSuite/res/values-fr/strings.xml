@@ -182,6 +182,7 @@
     <string name="point_search">Rechercher un point</string>
     <string name="prism_height">Hauteur du prisme (S)</string>
     <string name="prism_height_3dots">Hauteur du prisme&#8230;</string>
+    <string name="radius">Rayon</string>
     <string name="replace_button">Remplacer</string>
     <string name="retrieve_z0">Récupérer l\'inconnue d\'orientation du dernier calcul d\'abriss</string>
     <string name="save">Sauvegarder</string>
@@ -230,6 +231,7 @@
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation_label">Inc. Orient. [g]</string>
     <string name="ve_label">vE [cm]</string>
+    <string name="vertex_number">Sommet No</string>
     <string name="vn_label">vN [cm]</string>
     <string name="warning_import_file">Attention: Cette actions va effecter tous les points et calculs existants.</string>
     <string name="warning_import_file_without_warning_label">Attention: Cette actions va effecter tous les points et calculs existants.</string>
