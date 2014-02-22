@@ -3,9 +3,14 @@ package ch.hgdev.toposuite.calculation.activities.surface;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -20,7 +25,10 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class SurfaceActivity extends TopoSuiteActivity implements
-        AddPointWithRadiusDialogFragment.AddPointWithRadiusDialogListener {
+        AddPointWithRadiusDialogFragment.AddPointWithRadiusDialogListener,
+        EditPointWithRadiusDialogFragment.EditPointWithRadiusDialogListener {
+    public static final String                    POINT_WITH_RADIUS_NUMBER_LABEL = "point_with_radius_number";
+    public static final String                    RADIUS_LABEL                   = "radius";
     private ListView                              pointsListView;
     private EditText                              nameEditText;
     private EditText                              descriptionEditText;
@@ -77,6 +85,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 R.layout.points_with_radius_list_item, list);
 
         this.drawList();
+
+        this.registerForContextMenu(this.pointsListView);
     }
 
     @Override
@@ -106,6 +116,35 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             return true;
         default:
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.surface_points_list_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.edit_point:
+            this.showEditPointDialog(info.position);
+            return true;
+        case R.id.delete_point:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.vertexNumber--;
+            for (int i = info.position; i < this.adapter.getCount(); i++) {
+                this.adapter.getItem(i).setVertexNumber(
+                        this.adapter.getItem(i).getVertexNumber() - 1);
+            }
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
         }
     }
 
@@ -168,6 +207,25 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         dialog.show(this.getFragmentManager(), "AddPointWithRadiusDialogFragment");
     }
 
+    /**
+     * Show a dialog to edit a point.
+     * 
+     * @param position
+     *            Position of the point in the list of points.
+     */
+    private void showEditPointDialog(int position) {
+        EditPointWithRadiusDialogFragment dialog = new EditPointWithRadiusDialogFragment();
+
+        this.position = position;
+        Surface.PointWithRadius p = this.adapter.getItem(position);
+        Bundle args = new Bundle();
+        args.putInt(SurfaceActivity.POINT_WITH_RADIUS_NUMBER_LABEL, p.getNumber());
+        args.putDouble(SurfaceActivity.RADIUS_LABEL, p.getRadius());
+
+        dialog.setArguments(args);
+        dialog.show(this.getFragmentManager(), "EditPointWithRadiusDialogFragment");
+    }
+
     @Override
     public void onDialogAdd(AddPointWithRadiusDialogFragment dialog) {
         this.vertexNumber++;
@@ -183,6 +241,26 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(AddPointWithRadiusDialogFragment dialog) {
+        // do nothing actually
+    }
+
+    @Override
+    public void onDialogEdit(EditPointWithRadiusDialogFragment dialog) {
+        int vertexNumber = this.adapter.getItem(this.position).getVertexNumber();
+        this.adapter.remove(this.adapter.getItem(this.position));
+
+        Surface.PointWithRadius p = new PointWithRadius(
+                dialog.getPoint().getNumber(),
+                dialog.getPoint().getEast(),
+                dialog.getPoint().getNorth(),
+                dialog.getRadius(),
+                vertexNumber);
+        this.adapter.add(p);
+        this.adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDialogCancel(EditPointWithRadiusDialogFragment dialog) {
         // do nothing actually
     }
 
