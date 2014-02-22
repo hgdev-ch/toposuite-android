@@ -167,7 +167,7 @@ public class Surface extends Calculation {
          * Radius wrt to the point of origin. Altitude is ignored.
          */
         private final double        radius;
-        private final int           vertexNumber;
+        private int                 vertexNumber;
 
         public PointWithRadius(int number, double east, double north, double _radius,
                 int _vertexNumber) {
@@ -218,6 +218,10 @@ public class Surface extends Calculation {
 
         public int getVertexNumber() {
             return this.vertexNumber;
+        }
+
+        public void setVertexNumber(int vertexNumber) {
+            this.vertexNumber = vertexNumber;
         }
     }
 }
