@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -24,7 +26,7 @@ public class Surface extends Calculation {
     public Surface(long id, Date lastModification) {
         super(id,
                 CalculationType.SURFACE,
-                "Surface",
+                App.getContext().getString(R.string.title_activity_surface),
                 lastModification,
                 true);
         this.points = new ArrayList<Surface.PointWithRadius>();
@@ -32,7 +34,7 @@ public class Surface extends Calculation {
 
     public Surface(String _name, String _description, boolean hasDAO) {
         super(CalculationType.SURFACE,
-                "Surface",
+                App.getContext().getString(R.string.title_activity_surface),
                 hasDAO);
         this.name = _name;
         this.description = _description;
