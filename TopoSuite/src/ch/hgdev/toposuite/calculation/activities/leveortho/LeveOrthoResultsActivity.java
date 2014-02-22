@@ -19,9 +19,11 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal.Measure;
+import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 
-public class LeveOrthoResultsActivity extends TopoSuiteActivity {
+public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
+        MergePointsDialog.MergePointsDialogListener {
 
     private TextView                  baseTextView;
     private ListView                  resultsListView;
@@ -94,12 +96,6 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity {
                         Toast.LENGTH_SHORT);
                 successToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 successToast.show();
-            } else {
-                Toast errorToast = Toast.makeText(this,
-                        this.getText(R.string.point_already_exists),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
             }
             this.adapter.notifyDataSetChanged();
             return true;
@@ -151,6 +147,23 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity {
             return true;
         } else {
             // this point already exists
+            MergePointsDialog dialog = new MergePointsDialog();
+
+            Bundle args = new Bundle();
+            args.putInt(
+                    MergePointsDialog.POINT_NUMBER,
+                    m.getNumber());
+
+            args.putDouble(MergePointsDialog.NEW_EAST,
+                    m.getAbscissa());
+            args.putDouble(MergePointsDialog.NEW_NORTH,
+                    m.getOrdinate());
+            args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                    0.0);
+
+            dialog.setArguments(args);
+            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+
             return false;
         }
     }
@@ -179,5 +192,15 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity {
                     }
                 });
         builder.create().show();
+    }
+
+    @Override
+    public void onMergePointsDialogSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onMergePointsDialogError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
