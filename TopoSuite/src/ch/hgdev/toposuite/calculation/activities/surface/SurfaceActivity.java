@@ -162,14 +162,20 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         } else {
             this.name = "";
         }
-        Surface s = new Surface(this.name, this.description, true);
-        for (int i = 0; i < this.adapter.getCount(); i++) {
-            s.getPoints().add(this.adapter.getItem(i));
+
+        if (this.surfaceCalculation == null) {
+            this.surfaceCalculation = new Surface(this.name, this.description, true);
+        } else {
+            this.surfaceCalculation.getPoints().clear();
         }
 
-        s.compute();
-        this.surface = s.getSurface();
-        this.perimeter = s.getPerimeter();
+        for (int i = 0; i < this.adapter.getCount(); i++) {
+            this.surfaceCalculation.getPoints().add(this.adapter.getItem(i));
+        }
+
+        this.surfaceCalculation.compute();
+        this.surface = this.surfaceCalculation.getSurface();
+        this.perimeter = this.surfaceCalculation.getPerimeter();
     }
 
     /**
