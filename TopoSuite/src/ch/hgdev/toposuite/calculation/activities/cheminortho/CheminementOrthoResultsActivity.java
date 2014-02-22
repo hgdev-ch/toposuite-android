@@ -19,10 +19,12 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal.Result;
+import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
+public class CheminementOrthoResultsActivity extends TopoSuiteActivity implements
+        MergePointsDialog.MergePointsDialogListener {
     private TextView                  baseTextView;
     private TextView                  scaleTextView;
     private TextView                  fsTextView;
@@ -114,12 +116,6 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
                         Toast.LENGTH_SHORT);
                 successToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 successToast.show();
-            } else {
-                Toast errorToast = Toast.makeText(this,
-                        this.getText(R.string.point_already_exists),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
             }
             this.adapter.notifyDataSetChanged();
             return true;
@@ -168,6 +164,23 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
             return true;
         } else {
             // this point already exists
+            MergePointsDialog dialog = new MergePointsDialog();
+
+            Bundle args = new Bundle();
+            args.putInt(
+                    MergePointsDialog.POINT_NUMBER,
+                    r.getNumber());
+
+            args.putDouble(MergePointsDialog.NEW_EAST,
+                    r.getEast());
+            args.putDouble(MergePointsDialog.NEW_NORTH,
+                    r.getNorth());
+            args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                    0.0);
+
+            dialog.setArguments(args);
+            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+
             return false;
         }
     }
@@ -196,5 +209,15 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity {
                     }
                 });
         builder.create().show();
+    }
+
+    @Override
+    public void onMergePointsDialogSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onMergePointsDialogError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
