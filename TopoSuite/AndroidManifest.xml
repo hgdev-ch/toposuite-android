@@ -122,6 +122,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.surface.SurfaceActivity"
             android:label="@string/title_activity_surface" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesSolverActivity"
+            android:label="@string/title_activity_circular_curve_solver" >
+        </activity>
     </application>
 
 </manifest>

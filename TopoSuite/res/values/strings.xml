@@ -211,6 +211,7 @@
     <string name="title_activity_cheminement_ortho">Cheminement orthogonal</string>
     <string name="title_activity_cheminement_ortho_results">Cheminement orthogonal results</string>
     <string name="title_activity_circle">Circle</string>
+    <string name="title_activity_circular_curve_solver">Circular curves solver</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_history">History</string>
     <string name="title_activity_leve_ortho">Orthogonal survey</string>
