@@ -56,6 +56,56 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingRight="8dp"
+            android:text="@string/surface_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/surface"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="left|center_vertical"
+            android:inputType="text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingRight="8dp"
+            android:text="@string/perimeter_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/perimeter"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="left|center_vertical"
+            android:inputType="text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
