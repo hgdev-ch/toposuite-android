@@ -203,7 +203,7 @@
     <string name="station_label">Station</string>
     <string name="success_export_dialog">Les <xliff:g>%d</xliff:g> points ont été exportés avec succès!</string>
     <string name="success_import_dialog">Les points ont été importés avec succès!</string>
-    <string name="surface_label">Surface [m]</string>
+    <string name="surface_label">Surface [m&#178;]</string>
     <string name="target_point">Point visé</string>
     <string name="title_activity_abriss">Orient. à la station</string>
     <string name="title_activity_abriss_results">Abriss - résultats</string>
