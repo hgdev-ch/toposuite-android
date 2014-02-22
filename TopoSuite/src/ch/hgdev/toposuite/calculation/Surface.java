@@ -170,16 +170,16 @@ public class Surface extends Calculation {
         private final int           vertexNumber;
 
         public PointWithRadius(int number, double east, double north, double _radius,
-                int _vertex_number) {
+                int _vertexNumber) {
             super(number, east, north, 0.0, false);
             this.radius = _radius;
-            this.vertexNumber = _vertex_number;
+            this.vertexNumber = _vertexNumber;
         }
 
-        public PointWithRadius(int number, double east, double north, int _vertex_number) {
+        public PointWithRadius(int number, double east, double north, int _vertexNumber) {
             super(number, east, north, 0.0, false);
             this.radius = 0.0;
-            this.vertexNumber = _vertex_number;
+            this.vertexNumber = _vertexNumber;
         }
 
         public JSONObject toJSONObject() {
