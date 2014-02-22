@@ -68,6 +68,9 @@ public class CalculationFactory {
         case PROJPT:
             calculation = new PointProjectionOnALine(id, lastModification);
             break;
+        case SURFACE:
+            calculation = new Surface(id, lastModification);
+            break;
         case TRIANGLESOLVER:
             calculation = new TriangleSolver(id, lastModification);
             break;

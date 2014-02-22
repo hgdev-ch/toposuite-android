@@ -237,6 +237,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 this.vertexNumber);
         this.adapter.add(p);
         this.adapter.notifyDataSetChanged();
+        this.showAddPointDialog();
     }
 
     @Override

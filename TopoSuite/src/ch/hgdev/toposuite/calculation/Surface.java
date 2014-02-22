@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.surface.SurfaceActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -41,6 +43,10 @@ public class Surface extends Calculation {
         this.points = new ArrayList<Surface.PointWithRadius>();
         this.surface = 0.0;
         this.perimeter = 0.0;
+
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
     }
 
     /**
@@ -126,8 +132,7 @@ public class Surface extends Calculation {
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO complete when the activity is created
-        return null;
+        return SurfaceActivity.class;
     }
 
     public String getName() {
