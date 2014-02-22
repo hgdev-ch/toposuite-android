@@ -50,6 +50,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener,
         EditDeterminationDialogFragment.EditDeterminationDialogListener {
 
+    public static final String    POLAR_SURVEY_POSITION     = "polar_survey_position";
     public static final String    STATION_NUMBER_LABEL      = "station_number";
     public static final String    DETERMINATIONS_LABEL      = "determinations";
 
@@ -377,17 +378,25 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         }
 
         Bundle bundle = new Bundle();
-        bundle.putInt(LevePolaireActivity.STATION_NUMBER_LABEL, this.station.getNumber());
 
-        JSONArray json = new JSONArray();
-        for (int j = 0; j < this.adapter.getCount(); j++) {
-            Measure m = this.adapter.getItem(j);
-            m.setI(i);
-            m.setUnknownOrientation(unknownOrient);
-            json.put(m.toJSONObject());
+        if (this.levePolaire != null) {
+            bundle.putInt(LevePolaireActivity.POLAR_SURVEY_POSITION,
+                    SharedResources.getCalculationsHistory().indexOf(
+                            this.levePolaire));
+        } else {
+            bundle.putInt(LevePolaireActivity.POLAR_SURVEY_POSITION, -1);
+            bundle.putInt(LevePolaireActivity.STATION_NUMBER_LABEL, this.station.getNumber());
+
+            JSONArray json = new JSONArray();
+            for (int j = 0; j < this.adapter.getCount(); j++) {
+                Measure m = this.adapter.getItem(j);
+                m.setI(i);
+                m.setUnknownOrientation(unknownOrient);
+                json.put(m.toJSONObject());
+            }
+
+            bundle.putString(LevePolaireActivity.DETERMINATIONS_LABEL, json.toString());
         }
-
-        bundle.putString(LevePolaireActivity.DETERMINATIONS_LABEL, json.toString());
 
         Intent resultsActivityIntent = new Intent(this, LevePolaireResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);

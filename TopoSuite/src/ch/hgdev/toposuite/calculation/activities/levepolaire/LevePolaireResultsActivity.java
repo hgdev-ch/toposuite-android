@@ -42,23 +42,29 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity implements
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
-        Point station = SharedResources.getSetOfPoints().find(
-                bundle.getInt(LevePolaireActivity.STATION_NUMBER_LABEL));
 
-        if (this.levePolaire == null) {
+        int pos = bundle.getInt(LevePolaireActivity.POLAR_SURVEY_POSITION);
+        if (pos != -1) {
+            this.levePolaire = (LevePolaire) SharedResources
+                    .getCalculationsHistory().get(pos);
+        } else {
+            Point station = SharedResources.getSetOfPoints().find(
+                    bundle.getInt(LevePolaireActivity.STATION_NUMBER_LABEL));
+
             this.levePolaire = new LevePolaire(station, true);
-        }
 
-        JSONArray jsonArray;
-        try {
-            jsonArray = new JSONArray(bundle.getString(LevePolaireActivity.DETERMINATIONS_LABEL));
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject json = (JSONObject) jsonArray.get(i);
-                Measure m = Measure.getMeasureFromJSON(json.toString());
-                this.levePolaire.getDeterminations().add(m);
+            JSONArray jsonArray;
+            try {
+                jsonArray = new JSONArray(
+                        bundle.getString(LevePolaireActivity.DETERMINATIONS_LABEL));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject json = (JSONObject) jsonArray.get(i);
+                    Measure m = Measure.getMeasureFromJSON(json.toString());
+                    this.levePolaire.getDeterminations().add(m);
+                }
+            } catch (JSONException e) {
+                // TODO
             }
-        } catch (JSONException e) {
-            // TODO
         }
 
         this.registerForContextMenu(this.resultsListView);
