@@ -23,9 +23,11 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.LevePolaire;
 import ch.hgdev.toposuite.calculation.LevePolaire.Result;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 
-public class LevePolaireResultsActivity extends TopoSuiteActivity {
+public class LevePolaireResultsActivity extends TopoSuiteActivity implements
+        MergePointsDialog.MergePointsDialogListener {
 
     private ListView                  resultsListView;
 
@@ -157,11 +159,27 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
                     r.getAltitude(),
                     false);
             SharedResources.getSetOfPoints().add(point);
-            return true;
         } else {
             // this point already exists
-            return false;
+            MergePointsDialog dialog = new MergePointsDialog();
+
+            Bundle args = new Bundle();
+            args.putInt(
+                    MergePointsDialog.POINT_NUMBER,
+                    r.getDeterminationNumber());
+
+            args.putDouble(MergePointsDialog.NEW_EAST,
+                    r.getEast());
+            args.putDouble(MergePointsDialog.NEW_NORTH,
+                    r.getNorth());
+            args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                    r.getAltitude());
+
+            dialog.setArguments(args);
+            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
         }
+
+        return true;
     }
 
     /**
@@ -188,5 +206,15 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity {
                     }
                 });
         builder.create().show();
+    }
+
+    @Override
+    public void onMergePointsDialogSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onMergePointsDialogError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
