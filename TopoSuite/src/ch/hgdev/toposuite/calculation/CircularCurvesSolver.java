@@ -6,7 +6,7 @@ import org.json.JSONException;
 
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class CircularCurveSolver extends Calculation {
+public class CircularCurvesSolver extends Calculation {
 
     private double radius;
     /** central angle */
@@ -25,7 +25,7 @@ public class CircularCurveSolver extends Calculation {
     private double sectorSurface;
     private double segmentSurface;
 
-    public CircularCurveSolver(double _radius, double _alphaAngle,
+    public CircularCurvesSolver(double _radius, double _alphaAngle,
             double _chordOF, double _tangent, double _arrow, boolean hasDAO) {
 
         super(CalculationType.CIRCCURVESOLVER, "TODO", hasDAO);
@@ -41,11 +41,11 @@ public class CircularCurveSolver extends Calculation {
         }
     }
 
-    public CircularCurveSolver(long id, Date lastModification) {
+    public CircularCurvesSolver(long id, Date lastModification) {
         super(id, CalculationType.CIRCCURVESOLVER, "TODO", lastModification, true);
     }
 
-    public CircularCurveSolver(boolean hasDAO) {
+    public CircularCurvesSolver(boolean hasDAO) {
         this(0.0, 0.0, 0.0, 0.0, 0.0, hasDAO);
     }
 

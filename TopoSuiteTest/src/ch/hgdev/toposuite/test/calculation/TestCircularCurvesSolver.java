@@ -5,9 +5,9 @@ import java.text.DecimalFormat;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import ch.hgdev.toposuite.calculation.CircularCurveSolver;
+import ch.hgdev.toposuite.calculation.CircularCurvesSolver;
 
-public class TestCircularCurveSolver extends TestCase {
+public class TestCircularCurvesSolver extends TestCase {
     private DecimalFormat df4;
     private DecimalFormat df3;
 
@@ -23,7 +23,7 @@ public class TestCircularCurveSolver extends TestCase {
 
     public void testRadiusAlpha() {
         // radius / alpha (central angle)
-        CircularCurveSolver ccs = new CircularCurveSolver(false);
+        CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
         ccs.setAlphaAngle(120.0);
         ccs.compute();
@@ -46,7 +46,7 @@ public class TestCircularCurveSolver extends TestCase {
 
     public void testRadiusTangent() {
         // radius / tangent
-        CircularCurveSolver ccs = new CircularCurveSolver(false);
+        CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
         ccs.setTangent(55.0553);
         ccs.compute();
@@ -69,7 +69,7 @@ public class TestCircularCurveSolver extends TestCase {
 
     public void testRadiusArrow() {
         // radius / arrow
-        CircularCurveSolver ccs = new CircularCurveSolver(false);
+        CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
         ccs.setArrow(16.4886);
         ccs.compute();
@@ -92,7 +92,7 @@ public class TestCircularCurveSolver extends TestCase {
 
     public void testRadiusChordOF() {
         // radius / chord OF
-        CircularCurveSolver ccs = new CircularCurveSolver(false);
+        CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
         ccs.setChordOF(64.7214);
         ccs.compute();
@@ -115,7 +115,7 @@ public class TestCircularCurveSolver extends TestCase {
 
     public void testChordOFAlpha() {
         // chord OF / alpha
-        CircularCurveSolver ccs = new CircularCurveSolver(false);
+        CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
         ccs.setAlphaAngle(120.0);
         ccs.compute();
@@ -138,7 +138,7 @@ public class TestCircularCurveSolver extends TestCase {
 
     public void testChordOFTengent() {
         // chord OF / tangent
-        CircularCurveSolver ccs = new CircularCurveSolver(false);
+        CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
         ccs.setTangent(55.0553);
         ccs.compute();
@@ -161,7 +161,7 @@ public class TestCircularCurveSolver extends TestCase {
 
     public void testChordOFArrow() {
         // chord OF / arrow
-        CircularCurveSolver ccs = new CircularCurveSolver(false);
+        CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
         ccs.setArrow(16.4886);
         ccs.compute();
@@ -184,7 +184,7 @@ public class TestCircularCurveSolver extends TestCase {
 
     public void testTangentAlpha() {
         // tangent / alpha
-        CircularCurveSolver ccs = new CircularCurveSolver(false);
+        CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setTangent(55.0553);
         ccs.setAlphaAngle(120.0);
         ccs.compute();
