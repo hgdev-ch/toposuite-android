@@ -27,6 +27,7 @@ import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity
 import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
 import ch.hgdev.toposuite.calculation.activities.pointproj.PointProjectionActivity;
 import ch.hgdev.toposuite.calculation.activities.polarimplantation.PolarImplantationActivity;
+import ch.hgdev.toposuite.calculation.activities.surface.SurfaceActivity;
 import ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverActivity;
 import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -194,6 +195,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
 
         CalculationGroup surfaces = new CalculationGroup(
                 this.getString(R.string.group_surfaces));
+        surfaces.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_surface),
+                        SurfaceActivity.class));
         groups.append(3, surfaces);
 
         CalculationGroup various = new CalculationGroup(

@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="19" />
-    
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -28,21 +28,23 @@
         <activity
             android:name="ch.hgdev.toposuite.points.PointsManagerActivity"
             android:label="@string/title_activity_points_manager" >
-            
             <intent-filter>
-        		<action android:name="android.intent.action.VIEW"/>
-        		<category android:name="android.intent.category.BROWSABLE" />
-        		<category android:name="android.intent.category.DEFAULT"/>
-        		<data android:mimeType="text/plain" />
-        		<data android:mimeType="text/csv" />
-    		</intent-filter>
-    		
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="text/csv" />
+            </intent-filter>
             <intent-filter>
-        		<action android:name="android.intent.action.SENDTO"/>
-        		<category android:name="android.intent.category.DEFAULT"/>
-        		<data android:mimeType="text/plain" />
-        		<data android:mimeType="text/csv" />
-    		</intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="text/csv" />
+            </intent-filter>
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity"
@@ -115,6 +117,10 @@
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverActivity"
             android:label="@string/title_activity_triangle_solver" >
+        </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.surface.SurfaceActivity"
+            android:label="@string/title_activity_surface" >
         </activity>
     </application>
 
