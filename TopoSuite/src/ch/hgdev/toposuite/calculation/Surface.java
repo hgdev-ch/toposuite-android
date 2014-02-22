@@ -142,9 +142,18 @@ public class Surface extends Calculation {
         return this.name;
     }
 
+    public void setName(String _name) {
+        this.name = _name;
+    }
+
     @Override
     public String getDescription() {
         return this.description;
+    }
+
+    @Override
+    public void setDescription(String _description) {
+        this.description = _description;
     }
 
     public double getSurface() {
