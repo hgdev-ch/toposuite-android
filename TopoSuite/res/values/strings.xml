@@ -23,6 +23,7 @@
     <string name="arc_label">Arc [m]</string>
     <string name="arrow_label">Arrow [m]</string>
     <string name="base_label">Orthogonal survey from the base</string>
+    <string name="bisector_label">Bisector [m]</string>
     <string name="calculate_3dots">Calculate&#8230;</string>
     <string name="calculated_distance_label">Calc. dist. [m]</string>
     <string name="cancel">Cancel</string>

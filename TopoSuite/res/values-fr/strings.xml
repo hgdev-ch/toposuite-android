@@ -23,6 +23,7 @@
     <string name="arc_label">Arc [m]</string>
     <string name="arrow_label">Flèche [m]</string>
     <string name="base_label">Levé orthogonal depuis la base</string>
+    <string name="bisector_label">Bissectrice [m]</string>
     <string name="calculate_3dots">Calculer&#8230;</string>
     <string name="calculated_distance_label">Dist. Calc. [m]</string>
     <string name="cancel">Annuler</string>
