@@ -158,18 +158,28 @@ public class Surface extends Calculation {
      * 
      */
     public static class PointWithRadius extends Point {
-        private static final String NUMBER = "number";
-        private static final String EAST   = "east";
-        private static final String NORTH  = "north";
-        private static final String RADIUS = "radius";
+        private static final String NUMBER        = "number";
+        private static final String EAST          = "east";
+        private static final String NORTH         = "north";
+        private static final String RADIUS        = "radius";
+        private static final String VERTEX_NUMBER = "vertex_number";
         /**
          * Radius wrt to the point of origin. Altitude is ignored.
          */
         private final double        radius;
+        private final int           vertexNumber;
 
-        public PointWithRadius(int number, double east, double north, double _radius) {
+        public PointWithRadius(int number, double east, double north, double _radius,
+                int _vertex_number) {
             super(number, east, north, 0.0, false);
             this.radius = _radius;
+            this.vertexNumber = _vertex_number;
+        }
+
+        public PointWithRadius(int number, double east, double north, int _vertex_number) {
+            super(number, east, north, 0.0, false);
+            this.radius = 0.0;
+            this.vertexNumber = _vertex_number;
         }
 
         public JSONObject toJSONObject() {
@@ -179,6 +189,7 @@ public class Surface extends Calculation {
                 json.put(Surface.PointWithRadius.EAST, this.getEast());
                 json.put(Surface.PointWithRadius.NORTH, this.getNorth());
                 json.put(Surface.PointWithRadius.RADIUS, this.radius);
+                json.put(Surface.PointWithRadius.VERTEX_NUMBER, this.vertexNumber);
             } catch (JSONException e) {
                 Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
             }
@@ -193,20 +204,20 @@ public class Surface extends Calculation {
                 double east = jo.getDouble(Surface.PointWithRadius.EAST);
                 double north = jo.getDouble(Surface.PointWithRadius.NORTH);
                 double radius = jo.getDouble(Surface.PointWithRadius.RADIUS);
-                p = new PointWithRadius(number, east, north, radius);
+                int vertex_number = jo.getInt(Surface.PointWithRadius.VERTEX_NUMBER);
+                p = new PointWithRadius(number, east, north, radius, vertex_number);
             } catch (JSONException e) {
                 Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
             }
             return p;
         }
 
-        public PointWithRadius(int number, double east, double north) {
-            super(number, east, north, 0.0, false);
-            this.radius = 0.0;
-        }
-
         public double getRadius() {
             return this.radius;
+        }
+
+        public int getVertexNumber() {
+            return this.vertexNumber;
         }
     }
 }
