@@ -30,6 +30,7 @@ import ch.hgdev.toposuite.calculation.activities.polarimplantation.PolarImplanta
 import ch.hgdev.toposuite.calculation.activities.surface.SurfaceActivity;
 import ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverActivity;
 import ch.hgdev.toposuite.entry.MainActivity;
+import ch.hgdev.toposuite.help.HelpActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
@@ -80,7 +81,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                         new ActivityItem(this.getString(R.string.title_activity_points_manager),
                                 PointsManagerActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_history),
-                                HistoryActivity.class) }));
+                                HistoryActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_help),
+                                HelpActivity.class) }));
 
         // set the content of the right sliding menu
         this.drawerListRightMenu = (ExpandableListView) this.findViewById(R.id.right_drawer);
