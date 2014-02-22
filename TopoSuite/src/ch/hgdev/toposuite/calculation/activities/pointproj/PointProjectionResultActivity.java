@@ -9,10 +9,12 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.PointProjectionOnALine;
+import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class PointProjectionResultActivity extends TopoSuiteActivity {
+public class PointProjectionResultActivity extends TopoSuiteActivity implements
+        MergePointsDialog.MergePointsDialogListener {
 
     private PointProjectionOnALine ppoal;
 
@@ -72,11 +74,39 @@ public class PointProjectionResultActivity extends TopoSuiteActivity {
 
                 Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
                         .show();
+            } else {
+                // this point already exists
+                MergePointsDialog dialog = new MergePointsDialog();
+
+                Bundle args = new Bundle();
+                args.putInt(
+                        MergePointsDialog.POINT_NUMBER,
+                        this.ppoal.getNumber());
+
+                args.putDouble(MergePointsDialog.NEW_EAST,
+                        this.ppoal.getProjPt().getEast());
+                args.putDouble(MergePointsDialog.NEW_NORTH,
+                        this.ppoal.getProjPt().getNorth());
+                args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                        this.ppoal.getProjPt().getAltitude());
+
+                dialog.setArguments(args);
+                dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
             }
 
             return true;
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onMergePointsDialogSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onMergePointsDialogError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
