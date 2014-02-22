@@ -18,5 +18,6 @@ public enum CalculationType {
     CIRCLE,
     TRIANGLESOLVER,
     AXISIMPLANTATION,
-    SURFACE
+    SURFACE,
+    CIRCCURVESOLVER
 }
