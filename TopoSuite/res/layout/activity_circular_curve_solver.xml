@@ -19,7 +19,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.20"
                 android:gravity="left|center_vertical"
-                android:text="Radius [m]"
+                android:text="@string/radius_label"
                 android:textStyle="bold" />
 
             <EditText
@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.20"
                 android:gravity="left|center_vertical"
-                android:text="Central angle [g]"
+                android:text="@string/central_angle_label"
                 android:textStyle="bold" />
 
             <EditText
@@ -57,7 +57,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.20"
                 android:gravity="left|center_vertical"
-                android:text="Chord (OF) [m]"
+                android:text="@string/chord_of_label"
                 android:textStyle="bold" />
 
             <EditText
@@ -73,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.20"
                 android:gravity="left|center_vertical"
-                android:text="Tangent [m]"
+                android:text="@string/tangent_label"
                 android:textStyle="bold" />
 
             <EditText
@@ -95,7 +95,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.20"
                 android:gravity="left|right|center_vertical"
-                android:text="Arrow [m]"
+                android:text="@string/arrow_label"
                 android:textStyle="bold" />
 
             <EditText
@@ -126,7 +126,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="Arc [m]"
+                android:text="@string/arc_label"
                 android:textStyle="bold" />
 
             <TextView
@@ -148,7 +148,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="Circle Circumference [m]"
+                android:text="@string/circumference_label"
                 android:textStyle="bold" />
 
             <TextView
@@ -170,7 +170,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="Chord (OM) [m]"
+                android:text="@string/chord_om_label"
                 android:textStyle="bold" />
 
             <TextView
@@ -196,7 +196,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="Vertex angle (&#946;) [g]"
+                android:text="@string/vertex_angle"
                 android:textStyle="bold" />
 
             <TextView
@@ -219,7 +219,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="Circle surface [m&#178;]"
+                android:text="@string/circle_surface_label"
                 android:textStyle="bold" />
 
             <TextView
@@ -241,7 +241,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="Sector surface [m&#178;]"
+                android:text="@string/sector_surface_label"
                 android:textStyle="bold" />
 
             <TextView
@@ -263,7 +263,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="Segment surface [m&#178;]"
+                android:text="@string/segment_surface_label"
                 android:textStyle="bold" />
 
             <TextView
