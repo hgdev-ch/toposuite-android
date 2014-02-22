@@ -3,18 +3,21 @@ package ch.hgdev.toposuite.calculation.activities.surface;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Surface;
 import ch.hgdev.toposuite.calculation.Surface.PointWithRadius;
 import ch.hgdev.toposuite.history.HistoryActivity;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class SurfaceActivity extends TopoSuiteActivity implements
         AddPointWithRadiusDialogFragment.AddPointWithRadiusDialogListener {
@@ -26,6 +29,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     private String                                name;
     private String                                description;
+    private double                                surface;
+    private double                                perimeter;
     private int                                   vertexNumber;
     private ArrayAdapter<Surface.PointWithRadius> adapter;
     private Surface                               surfaceCalculation;
@@ -43,12 +48,19 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
         this.position = -1;
         this.vertexNumber = 0;
+        this.surface = 0.0;
+        this.perimeter = 0.0;
 
         this.pointsListView = (ListView) this.findViewById(R.id.list_of_points);
         this.nameEditText = (EditText) this.findViewById(R.id.name);
         this.descriptionEditText = (EditText) this.findViewById(R.id.description);
         this.surfaceTextView = (TextView) this.findViewById(R.id.surface);
         this.perimeterTextView = (TextView) this.findViewById(R.id.perimeter);
+
+        this.nameEditText.setHint(
+                this.getString(R.string.name) + this.getString(R.string.optional_prths));
+        this.descriptionEditText.setHint(
+                this.getString(R.string.description) + this.getString(R.string.optional_prths));
 
         ArrayList<Surface.PointWithRadius> list = new ArrayList<Surface.PointWithRadius>();
         // check if we create a new surface calculation or if we modify an
@@ -80,9 +92,65 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         case R.id.add_point_button:
             this.showAddPointDialog();
             return true;
+        case R.id.run_calculation_button:
+            if (this.checkInputs()) {
+                this.runCalculation();
+                this.updateResults();
+            } else {
+                Toast errorToast = Toast.makeText(this,
+                        this.getText(R.string.error_three_points_required),
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
+            }
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * Do the actual computation.
+     */
+    private void runCalculation() {
+        if (this.nameEditText.length() > 0) {
+            this.name = this.nameEditText.getText().toString();
+        } else {
+            this.name = "";
+        }
+        if (this.descriptionEditText.length() > 0) {
+            this.name = this.descriptionEditText.getText().toString();
+        } else {
+            this.name = "";
+        }
+        Surface s = new Surface(this.name, this.description, true);
+        for (int i = 0; i < this.adapter.getCount(); i++) {
+            s.getPoints().add(this.adapter.getItem(i));
+        }
+
+        s.compute();
+        this.surface = s.getSurface();
+        this.perimeter = s.getPerimeter();
+    }
+
+    /**
+     * Update the surface and perimeter text view.
+     */
+    private void updateResults() {
+        this.surfaceTextView.setText(DisplayUtils.toString(this.surface));
+        this.perimeterTextView.setText(DisplayUtils.toString(this.perimeter));
+    }
+
+    /**
+     * Check that at least three points have been added.
+     * 
+     * @return True if input is OK, false otherwise.
+     */
+    private boolean checkInputs() {
+        if (this.adapter.getCount() < 3) {
+            return false;
+        }
+        return true;
     }
 
     /**
