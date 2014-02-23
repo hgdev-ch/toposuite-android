@@ -293,6 +293,138 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:text="@string/letter_a"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/a_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/letter_b"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/b_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/letter_c"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/c_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/letter_alpha"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/alpha_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/letter_beta"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/beta_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/letter_gamma"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/gamma_bis"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
                 android:text="@string/perimeter_label"
                 android:textSize="12sp" />
 
