@@ -130,6 +130,10 @@
             android:name="ch.hgdev.toposuite.help.HelpActivity"
             android:label="@string/title_activity_help" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.linesintersec.LinesIntersectionActivity"
+            android:label="@string/title_activity_lines_intersection" >
+        </activity>
     </application>
 
 </manifest>
