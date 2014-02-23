@@ -260,10 +260,10 @@ public class TriangleSolver extends Calculation {
                     this.alpha.first, this.gamma.first);
             this.beta.second = this.determineAngleHavingTheTwoOthers(
                     this.alpha.first, this.gamma.second);
-            this.a.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.first, this.c.first, this.beta.first);
-            this.a.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.first, this.c.first, this.beta.second);
+            this.b.first = this.determineSideHavingTwoSidesAndOneAngle(
+                    this.a.first, this.c.first, this.beta.first);
+            this.b.second = this.determineSideHavingTwoSidesAndOneAngle(
+                    this.a.first, this.c.first, this.beta.second);
             return;
         }
         // a, c and gamma given (2 solutions case)

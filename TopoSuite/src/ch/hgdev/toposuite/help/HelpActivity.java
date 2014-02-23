@@ -31,7 +31,7 @@ public class HelpActivity extends TopoSuiteActivity {
 
     private WebView loadHelp() {
         WebView helpWebView = new WebView(this);
-        helpWebView.loadUrl("file:///android_asset/" + this.getHelpFileName());
+        helpWebView.loadUrl("file:///android_asset/help/" + this.getHelpFileName());
         return helpWebView;
     }
 
@@ -44,7 +44,7 @@ public class HelpActivity extends TopoSuiteActivity {
         InputStream stream = null;
         try {
             String helpFile = "help_" + App.locale.getLanguage().toString() + ".html";
-            stream = this.getAssets().open(helpFile);
+            stream = this.getAssets().open("help/" + helpFile);
             return helpFile;
         } catch (IOException exception) {
             return "help.html";
