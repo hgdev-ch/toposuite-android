@@ -1,7 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-	<LinearLayout
+
+   	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical" >
@@ -14,7 +15,7 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
-		        android:layout_weight="0.25"
+		        android:layout_weight="0.05"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
 		        android:text="@string/line_1"
@@ -23,7 +24,6 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
-		        android:layout_weight="0.25"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
 		        android:text="@string/mode_label"
@@ -55,12 +55,13 @@
 		
 		<LinearLayout
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="50dp"
 	        android:orientation="horizontal">
 		    
 		    <TextView
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dip"
 		        android:layout_height="match_parent"
+		        android:layout_weight="0.15"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
 		        android:text="@string/point_1"
@@ -70,39 +71,30 @@
 	            android:id="@+id/point_1_d1_spinner"
 	            android:layout_width="145dp"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.20" />
-	        
-	        <Space
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.80" />
-		</LinearLayout>
-		
-		<LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal" >
-		        
-		        <TextView
+	            android:layout_weight="0.10" />
+	
+	        <TextView
 		            android:id="@+id/point_1_d1"
 		            android:layout_width="0dip"
 		            android:layout_height="30dp"
 		            android:layout_gravity="center"
-		            android:layout_weight="0.86"
+		            android:layout_weight="0.75"
 		            android:gravity="center"
 		            android:text="" />
 		
 		</LinearLayout>
+		
 	        
 		<LinearLayout
 		    android:id="@+id/point2_d1_spinner_layout"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="50dp"
 	        android:orientation="horizontal">
 		    
 		    <TextView
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dip"
 		        android:layout_height="match_parent"
+		        android:layout_weight="0.15"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
 		        android:text="@string/point_2"
@@ -112,30 +104,16 @@
 	            android:id="@+id/point_2_d1_spinner"
 	            android:layout_width="145dp"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.20" />
-	        
-	        <Space
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.80" />
+	            android:layout_weight="0.10" />
 	
-		</LinearLayout>
-		
-		<LinearLayout
-		    android:id="@+id/point2_d1_layout"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal">
-		        
-		        <TextView
+	        <TextView
 		            android:id="@+id/point_2_d1"
 		            android:layout_width="0dip"
 		            android:layout_height="30dp"
 		            android:layout_gravity="center"
-		            android:layout_weight="0.86"
+		            android:layout_weight="0.75"
 		            android:gravity="center"
 		            android:text="" />
-		
 		</LinearLayout>
 		
 		<LinearLayout
@@ -178,7 +156,7 @@
 			    android:layout_width="0dp"
 			    android:layout_height="wrap_content"
 			    android:layout_weight="0.86"
-			    android:text="@string/perpendicular"
+			    android:text="Perpendicular"
 			    android:onClick="onCheckboxClicked" />
 		        
 			<TextView
@@ -199,16 +177,10 @@
 	            android:enabled="false"
 	            android:gravity="left" />
 
-		</LinearLayout>
-		
-		<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">
-	        
-			<TextView
+	        <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="match_parent"
+			    android:layout_weight="0.05"
 			    android:gravity="left|center_vertical"
 			    android:paddingLeft="@dimen/activity_horizontal_margin"
 			    android:text="@string/displacement_label"
@@ -218,15 +190,10 @@
 	            android:id="@+id/displacement_d1"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.40"
+	            android:layout_weight="0.57"
 	            android:gravity="left|center_vertical"
 	            android:inputType=""
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
-	        
-	        <Space
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.60" />
 		</LinearLayout>
 		
 		<LinearLayout
@@ -237,7 +204,7 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
-		        android:layout_weight="0.25"
+		        android:layout_weight="0.05"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
 		        android:text="@string/line_2"
@@ -246,7 +213,6 @@
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
-		        android:layout_weight="0.25"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
 		        android:text="@string/mode_label"
@@ -278,12 +244,13 @@
 		
 		<LinearLayout
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
+	        android:layout_height="50dp"
+	        android:orientation="horizontal">
 		    
 		    <TextView
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dip"
 		        android:layout_height="match_parent"
+		        android:layout_weight="0.15"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
 		        android:text="@string/point_1"
@@ -293,40 +260,28 @@
 	            android:id="@+id/point_1_d2_spinner"
 	            android:layout_width="145dp"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.20" />
-	        
-	        <Space
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.80" />
+	            android:layout_weight="0.10" />
 	
-		</LinearLayout>
-		
-		<LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal" >
-		        
-		        <TextView
-		            android:id="@+id/point_1_d2"
-		            android:layout_width="0dip"
-		            android:layout_height="30dp"
-		            android:layout_gravity="center"
-		            android:layout_weight="0.86"
-		            android:gravity="center"
-		            android:text="" />
-		
+	        <TextView
+	            android:id="@+id/point_1_d2"
+	            android:layout_width="0dip"
+	            android:layout_height="30dp"
+	            android:layout_gravity="center"
+	            android:layout_weight="0.75"
+	            android:gravity="center"
+	            android:text="" />
 		</LinearLayout>
 	        
 		<LinearLayout
 		    android:id="@+id/point2_d2__spinner_layout"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="50dp"
 	        android:orientation="horizontal">
 		    
 		    <TextView
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dip"
 		        android:layout_height="match_parent"
+		        android:layout_weight="0.15"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
 		        android:text="@string/point_2"
@@ -336,30 +291,16 @@
 	            android:id="@+id/point_2_d2_spinner"
 	            android:layout_width="145dp"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.20" />
-	        
-	        <Space
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.80" />
+	            android:layout_weight="0.10" />
 	
-		</LinearLayout>
-		
-		<LinearLayout
-		    android:id="@+id/point2_d2_layout"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal" >
-		        
-		        <TextView
+	        <TextView
 		            android:id="@+id/point_2_d2"
 		            android:layout_width="0dip"
 		            android:layout_height="30dp"
 		            android:layout_gravity="center"
-		            android:layout_weight="0.86"
+		            android:layout_weight="0.75"
 		            android:gravity="center"
 		            android:text="" />
-		
 		</LinearLayout>
 		
 		<LinearLayout
@@ -372,7 +313,6 @@
 			<TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="match_parent"
-			    android:layout_weight="0.12"
 			    android:gravity="left|center_vertical"
 			    android:paddingLeft="@dimen/activity_horizontal_margin"
 			    android:text="@string/gisement_label"
@@ -382,10 +322,15 @@
 	            android:id="@+id/gisement_d2"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.40"
+	            android:layout_weight="0.28"
 	            android:gravity="left|center_vertical"
 	            android:inputType=""
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
+	        
+	        <Space
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.72" />
 		</LinearLayout>
 		
 		<LinearLayout
@@ -398,7 +343,7 @@
 			    android:layout_width="0dp"
 			    android:layout_height="wrap_content"
 			    android:layout_weight="0.86"
-			    android:text="Perpendicular"
+			    android:text="@string/perpendicular"
 			    android:onClick="onCheckboxClicked" />
 		        
 			<TextView
@@ -418,16 +363,11 @@
 	            android:layout_weight="0.86"
 	            android:enabled="false"
 	            android:gravity="left" />
-		</LinearLayout>
-		
-		<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">
 	        
-			<TextView
+	        <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="match_parent"
+			    android:layout_weight="0.05"
 			    android:gravity="left|center_vertical"
 			    android:paddingLeft="@dimen/activity_horizontal_margin"
 			    android:text="@string/displacement_label"
@@ -437,15 +377,10 @@
 	            android:id="@+id/displacement_d2"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.40"
+	            android:layout_weight="0.59"
 	            android:gravity="left|center_vertical"
 	            android:inputType=""
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
-	        
-	        <Space
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.60" />
 		</LinearLayout>
 		
 		<LinearLayout
@@ -465,7 +400,7 @@
 	            android:id="@+id/point_number"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.40"
+	            android:layout_weight="0.28"
 	            android:gravity="left|center_vertical"
 	            android:inputType="numberSigned"
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
@@ -473,7 +408,7 @@
 	        <Space
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.60" />
+	            android:layout_weight="0.72" />
 		</LinearLayout>
 	</LinearLayout>
 </ScrollView>
