@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="right|center_vertical"
-                android:text="@string/letter_a" />
+                android:text="@string/letter_a_unit" />
 
             <EditText
                 android:id="@+id/a"
@@ -49,7 +49,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="right|center_vertical"
-                android:text="@string/letter_b" />
+                android:text="@string/letter_b_unit" />
 
             <EditText
                 android:id="@+id/b"
@@ -65,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="right|center_vertical"
-                android:text="@string/letter_c" />
+                android:text="@string/letter_c_unit" />
 
             <EditText
                 android:id="@+id/c"
@@ -101,7 +101,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="right|center_vertical"
-                android:text="@string/letter_alpha" />
+                android:text="@string/letter_alpha_unit" />
 
             <EditText
                 android:id="@+id/alpha"
@@ -117,7 +117,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="right|center_vertical"
-                android:text="@string/letter_beta" />
+                android:text="@string/letter_beta_unit" />
 
             <EditText
                 android:id="@+id/beta"
@@ -133,7 +133,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="right|center_vertical"
-                android:text="@string/letter_gamma" />
+                android:text="@string/letter_gamma_unit" />
 
             <EditText
                 android:id="@+id/gamma"
@@ -293,7 +293,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="@string/letter_a"
+                android:text="@string/letter_a_unit"
                 android:textSize="12sp" />
 
             <TextView
@@ -315,7 +315,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="@string/letter_b"
+                android:text="@string/letter_b_unit"
                 android:textSize="12sp" />
 
             <TextView
@@ -337,7 +337,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="@string/letter_c"
+                android:text="@string/letter_c_unit"
                 android:textSize="12sp" />
 
             <TextView
@@ -359,7 +359,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="@string/letter_alpha"
+                android:text="@string/letter_alpha_unit"
                 android:textSize="12sp" />
 
             <TextView
@@ -381,7 +381,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="@string/letter_beta"
+                android:text="@string/letter_beta_unit"
                 android:textSize="12sp" />
 
             <TextView
@@ -403,7 +403,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:text="@string/letter_gamma"
+                android:text="@string/letter_gamma_unit"
                 android:textSize="12sp" />
 
             <TextView

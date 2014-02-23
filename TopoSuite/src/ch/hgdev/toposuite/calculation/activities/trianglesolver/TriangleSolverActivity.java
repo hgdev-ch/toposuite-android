@@ -148,23 +148,17 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         this.gammaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.aEditText.setHint(
-                this.getString(R.string.letter_a) + " "
-                        + this.getString(R.string.unit_meter));
+                this.getString(R.string.letter_a_unit));
         this.bEditText.setHint(
-                this.getString(R.string.letter_b) + " "
-                        + this.getString(R.string.unit_meter));
+                this.getString(R.string.letter_b_unit));
         this.cEditText.setHint(
-                this.getString(R.string.letter_c) + " "
-                        + this.getString(R.string.unit_meter));
+                this.getString(R.string.letter_c_unit));
         this.alphaEditText.setHint(
-                this.getString(R.string.letter_alpha) + " "
-                        + this.getString(R.string.unit_gradian));
+                this.getString(R.string.letter_alpha_unit));
         this.betaEditText.setHint(
-                this.getString(R.string.letter_beta) + " "
-                        + this.getString(R.string.unit_gradian));
+                this.getString(R.string.letter_beta_unit));
         this.gammaEditText.setHint(
-                this.getString(R.string.letter_gamma) + " "
-                        + this.getString(R.string.unit_gradian));
+                this.getString(R.string.letter_gamma_unit));
 
         this.aBisTextView = (TextView) this.findViewById(R.id.a_bis);
         this.bBisTextView = (TextView) this.findViewById(R.id.b_bis);
