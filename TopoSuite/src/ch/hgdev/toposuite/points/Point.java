@@ -119,6 +119,10 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         return this.number;
     }
 
+    public void setNumber(int _number) {
+        this.number = _number;
+    }
+
     public double getEast() {
         return this.east;
     }
