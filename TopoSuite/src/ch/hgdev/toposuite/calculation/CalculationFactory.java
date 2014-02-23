@@ -62,6 +62,9 @@ public class CalculationFactory {
         case LEVEORTHO:
             calculation = new LeveOrthogonal(id, lastModification);
             break;
+        case LINEINTERSEC:
+            calculation = new LinesIntersection(id, lastModification);
+            break;
         case ORTHOIMPL:
             calculation = new OrthogonalImplantation(id, lastModification);
             break;
