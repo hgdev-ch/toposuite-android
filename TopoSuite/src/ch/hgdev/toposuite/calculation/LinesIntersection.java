@@ -3,27 +3,41 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.linesintersec.LinesIntersectionActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LinesIntersection extends Calculation {
+    private static final String P1D1_NUMBER  = "p1d1_number";
+    private static final String P2D1_NUMBER  = "p2d1_number";
+    private static final String P1D2_NUMBER  = "p1d2_number";
+    private static final String P2D2_NUMBER  = "p2d2_number";
+    private static final String DISPL_D1     = "displ_d1";
+    private static final String DISPL_D2     = "displ_d2";
+    private static final String DIST_D1      = "displ_d1";
+    private static final String DIST_D2      = "displ_d2";
+    private static final String POINT_NUMBER = "point_number";
 
-    private Point  p1D1;
-    private Point  p2D1;
-    private double displacementD1;
-    private double gisementD1;
-    private double distanceP1D1;
+    private Point               p1D1;
+    private Point               p2D1;
+    private double              displacementD1;
+    private double              gisementD1;
+    private double              distanceP1D1;
 
-    private Point  p1D2;
-    private Point  p2D2;
-    private double displacementD2;
-    private double gisementD2;
-    private double distanceP1D2;
+    private Point               p1D2;
+    private Point               p2D2;
+    private double              displacementD2;
+    private double              gisementD2;
+    private double              distanceP1D2;
 
-    private int    pointNumber;
+    private int                 pointNumber;
 
-    private Point  intersectionPoint;
+    private Point               intersectionPoint;
 
     public LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
             double _distanceP1D1, Point _p1D2, Point _p2D2, double _displacementD2,
@@ -58,15 +72,23 @@ public class LinesIntersection extends Calculation {
     }
 
     public LinesIntersection(long id, Date lastModification) {
-        super(id, CalculationType.LINEINTERSEC, "TODO", lastModification, true);
+        super(
+                id,
+                CalculationType.LINEINTERSEC,
+                App.getContext().getString(R.string.title_activity_lines_intersection),
+                lastModification,
+                true);
     }
 
-    private LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
+    public LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
             double _gisementD1, double _distanceP1D1, Point _p1D2, Point _p2D2,
             double _displacementD2, double _gisementD2, double _distanceP1D2,
             int _pointNumber, boolean hasDAO) {
 
-        super(CalculationType.LINEINTERSEC, "FOO", hasDAO);
+        super(
+                CalculationType.LINEINTERSEC,
+                App.getContext().getString(R.string.title_activity_lines_intersection),
+                hasDAO);
 
         this.setP1D1(_p1D1);
         this.setGisementD1(_gisementD1);
@@ -93,7 +115,7 @@ public class LinesIntersection extends Calculation {
         this.setDistanceP1D2(_distanceP1D2);
 
         if (hasDAO) {
-            // TODO add to the calculation list
+            SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
@@ -194,20 +216,43 @@ public class LinesIntersection extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Auto-generated method stub
-        return null;
+        JSONObject jo = new JSONObject();
+
+        jo.put(LinesIntersection.P1D1_NUMBER, this.p1D1.getNumber());
+        jo.put(LinesIntersection.P2D1_NUMBER, this.p2D1.getNumber());
+        jo.put(LinesIntersection.P1D2_NUMBER, this.p1D2.getNumber());
+        jo.put(LinesIntersection.P2D2_NUMBER, this.p2D2.getNumber());
+        jo.put(LinesIntersection.DISPL_D1, this.displacementD1);
+        jo.put(LinesIntersection.DISPL_D2, this.displacementD2);
+        jo.put(LinesIntersection.DIST_D1, this.distanceP1D1);
+        jo.put(LinesIntersection.DIST_D2, this.distanceP1D2);
+        jo.put(LinesIntersection.POINT_NUMBER, this.pointNumber);
+
+        return jo.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Auto-generated method stub
+        JSONObject jo = new JSONObject(jsonInputArgs);
 
+        this.p1D1 = SharedResources.getSetOfPoints().find(
+                jo.getInt(LinesIntersection.P1D1_NUMBER));
+        this.p2D1 = SharedResources.getSetOfPoints().find(
+                jo.getInt(LinesIntersection.P2D1_NUMBER));
+        this.p1D2 = SharedResources.getSetOfPoints().find(
+                jo.getInt(LinesIntersection.P1D2_NUMBER));
+        this.p2D2 = SharedResources.getSetOfPoints().find(
+                jo.getInt(LinesIntersection.P2D2_NUMBER));
+        this.displacementD1 = jo.getInt(LinesIntersection.DISPL_D1);
+        this.displacementD2 = jo.getInt(LinesIntersection.DISPL_D2);
+        this.distanceP1D1 = jo.getInt(LinesIntersection.DIST_D1);
+        this.distanceP1D2 = jo.getInt(LinesIntersection.DIST_D2);
+        this.pointNumber = jo.getInt(LinesIntersection.POINT_NUMBER);
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Auto-generated method stub
-        return null;
+        return LinesIntersectionActivity.class;
     }
 
     public final Point getP1D1() {
