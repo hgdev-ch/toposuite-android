@@ -192,7 +192,7 @@ public class TriangleSolver extends Calculation {
             this.twoSolutions = true;
             this.a.second = this.a.first;
             this.b.second = this.b.first;
-            this.c.second = this.c.first;
+            this.alpha.second = this.alpha.first;
 
             this.beta.first = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.a.first, this.b.first, this.alpha.first);
@@ -205,6 +205,8 @@ public class TriangleSolver extends Calculation {
                     this.a.first, this.b.first, this.gamma.first);
             this.c.second = this.determineSideHavingTwoSidesAndOneAngle(
                     this.a.second, this.b.second, this.gamma.second);
+
+            this.checkSecondSolution();
             return;
         }
         // a, b and beta given (2 solutions case)
@@ -214,16 +216,19 @@ public class TriangleSolver extends Calculation {
             this.b.second = this.b.first;
             this.beta.second = this.beta.first;
 
-            this.alpha.first = this.determineAngleHavingTwoSidesAndOneAngle(
+            this.alpha.second = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.b.first, this.a.first, this.beta.first);
-            this.alpha.second = 200.0 - this.alpha.first;
-            this.gamma.first = this.beta.first - this.alpha.first;
+            this.alpha.first = 200.0 - this.alpha.second;
+            this.gamma.first = this.determineAngleHavingTheTwoOthers(
+                    this.beta.first, this.alpha.first);
             this.gamma.second = this.determineAngleHavingTheTwoOthers(
                     this.beta.second, this.alpha.second);
             this.c.first = this.determineSideHavingTwoSidesAndOneAngle(
                     this.a.first, this.b.first, this.gamma.first);
             this.c.second = this.determineSideHavingTwoSidesAndOneAngle(
                     this.a.second, this.b.second, this.gamma.second);
+
+            this.checkSecondSolution();
             return;
         }
         // b, c and beta given (2 solutions case)
@@ -244,6 +249,8 @@ public class TriangleSolver extends Calculation {
                     this.b.first, this.c.first, this.alpha.first);
             this.a.second = this.determineSideHavingTwoSidesAndOneAngle(
                     this.b.second, this.c.second, this.alpha.second);
+
+            this.checkSecondSolution();
             return;
         }
         // b, c and gamma given (2 solutions case)
@@ -264,6 +271,8 @@ public class TriangleSolver extends Calculation {
                     this.b.first, this.c.first, this.alpha.first);
             this.a.second = this.determineSideHavingTwoSidesAndOneAngle(
                     this.b.second, this.c.second, this.alpha.second);
+
+            this.checkSecondSolution();
             return;
         }
         // a, c and alpha given (2 solutions case)
@@ -284,6 +293,8 @@ public class TriangleSolver extends Calculation {
                     this.a.first, this.c.first, this.beta.first);
             this.b.second = this.determineSideHavingTwoSidesAndOneAngle(
                     this.a.second, this.c.second, this.beta.second);
+
+            this.checkSecondSolution();
             return;
         }
         // a, c and gamma given (2 solutions case)
@@ -305,6 +316,7 @@ public class TriangleSolver extends Calculation {
             this.b.second = this.determineSideHavingTwoSidesAndOneAngle(
                     this.c.second, this.a.second, this.beta.second);
 
+            this.checkSecondSolution();
             return;
         }
         // a, beta and gamma given
@@ -401,6 +413,28 @@ public class TriangleSolver extends Calculation {
     }
 
     /**
+     * There are cases were the second solution is not valid. This method checks
+     * for such cases and set the resulting angles and sides to 0.0 if the
+     * second solution is not valid.
+     */
+    private void checkSecondSolution() {
+        if (this.b.second > (this.c.second * Math.sin(MathUtils.gradToRad(this.beta.second)))) {
+            // every found value must be positive too
+            if (this.areAllPositive(this.a.second, this.b.second, this.c.second) &&
+                    this.areAllPositive(this.alpha.second, this.beta.second, this.gamma.second)) {
+                return;
+            }
+        }
+        this.a.second = 0.0;
+        this.b.second = 0.0;
+        this.c.second = 0.0;
+        this.alpha.second = 0.0;
+        this.beta.second = 0.0;
+        this.gamma.second = 0.0;
+
+    }
+
+    /**
      * Compute perimeter, height, surface, incircle radius and excircle radius.
      */
     @Override
@@ -422,6 +456,13 @@ public class TriangleSolver extends Calculation {
                 this.a.first, this.b.first, this.c.first, this.excircleRadius.first);
 
         if (this.twoSolutions) {
+            // if not all values are positive, then the calculation is
+            // impossible
+            if (!(this.areAllPositive(this.a.second, this.b.second, this.c.second) && this
+                    .areAllPositive(this.alpha.second, this.beta.second, this.gamma.second))) {
+                return;
+            }
+
             this.perimeter.second = this.computePerimeter(
                     this.a.second, this.b.second, this.c.second);
             this.height.second = this.computeHeight(this.beta.second, this.c.second);

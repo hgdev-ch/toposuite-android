@@ -9,7 +9,9 @@ import ch.hgdev.toposuite.calculation.TriangleSolver;
 
 public class TestTriangleSolver extends TestCase {
 
+    private DecimalFormat df1;
     private DecimalFormat df2;
+    private DecimalFormat df3;
     private DecimalFormat df4;
 
     private final double  a     = 3.4560;
@@ -22,8 +24,12 @@ public class TestTriangleSolver extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        this.df1 = new DecimalFormat("#.#");
+        this.df1.setRoundingMode(RoundingMode.HALF_UP);
         this.df2 = new DecimalFormat("#.##");
         this.df2.setRoundingMode(RoundingMode.HALF_UP);
+        this.df3 = new DecimalFormat("#.###");
+        this.df3.setRoundingMode(RoundingMode.HALF_UP);
         this.df4 = new DecimalFormat("#.####");
         this.df4.setRoundingMode(RoundingMode.HALF_UP);
 
@@ -44,12 +50,25 @@ public class TestTriangleSolver extends TestCase {
             this.assertT(new TriangleSolver(0.0, this.b, 0.0, 0.0, this.beta, this.gamma, false));
             this.assertT(new TriangleSolver(0.0, 0.0, this.c, this.alpha, 0.0, this.gamma, false));
             this.assertT(new TriangleSolver(0.0, 0.0, this.c, 0.0, this.beta, this.gamma, false));
+
+            // cases with two solution
             this.assertT(new TriangleSolver(this.a, this.b, 0.0, this.alpha, 0.0, 0.0, false));
+            this.assertT2Zero(new TriangleSolver(this.a, this.b, 0.0, this.alpha, 0.0, 0.0, false));
+
             this.assertT(new TriangleSolver(this.a, this.b, 0.0, 0.0, this.beta, 0.0, false));
+            this.assertT2A(new TriangleSolver(this.a, this.b, 0.0, 0.0, this.beta, 0.0, false));
+
             this.assertT(new TriangleSolver(0.0, this.b, this.c, 0.0, this.beta, 0.0, false));
+            this.assertT2B(new TriangleSolver(0.0, this.b, this.c, 0.0, this.beta, 0.0, false));
+
             this.assertT(new TriangleSolver(0.0, this.b, this.c, 0.0, 0.0, this.gamma, false));
+            this.assertT2Zero(new TriangleSolver(0.0, this.b, this.c, 0.0, 0.0, this.gamma, false));
+
             this.assertT(new TriangleSolver(this.a, 0.0, this.c, this.alpha, 0.0, 0.0, false));
+            this.assertT2Zero(new TriangleSolver(this.a, 0.0, this.c, this.alpha, 0.0, 0.0, false));
+
             this.assertT(new TriangleSolver(this.a, 0.0, this.c, 0.0, 0.0, this.gamma, false));
+            this.assertT2C(new TriangleSolver(this.a, 0.0, this.c, 0.0, 0.0, this.gamma, false));
         } catch (IllegalArgumentException e) {
             Assert.fail("An illegal argument exception should not be thrown here");
         }
@@ -123,7 +142,7 @@ public class TestTriangleSolver extends TestCase {
 
     /**
      * Assert resulting values for t computed with class parameters a, b, c,
-     * alpha, beta and gamma.
+     * alpha, beta and gamma. This tests only the first solution.
      * 
      * @param t
      */
@@ -135,5 +154,45 @@ public class TestTriangleSolver extends TestCase {
         Assert.assertEquals("1.6178", this.df4.format(t.getSurface().first));
         Assert.assertEquals("0.4337", this.df4.format(t.getIncircleRadius().first));
         Assert.assertEquals("1.9135", this.df4.format(t.getExcircleRadius().first));
+    }
+
+    private void assertT2A(TriangleSolver t) {
+        t.compute();
+
+        Assert.assertEquals("8.62", this.df2.format(t.getPerimeter().second));
+        Assert.assertEquals("1.345", this.df3.format(t.getHeight().second));
+        Assert.assertEquals("2.3247", this.df4.format(t.getSurface().second));
+        Assert.assertEquals("0.539", this.df3.format(t.getIncircleRadius().second));
+        Assert.assertEquals("1.9135", this.df4.format(t.getExcircleRadius().second));
+    }
+
+    private void assertT2B(TriangleSolver t) {
+        t.compute();
+
+        Assert.assertEquals("5.515", this.df3.format(t.getPerimeter().second));
+        Assert.assertEquals("0.936", this.df3.format(t.getHeight().second));
+        Assert.assertEquals("0.7072", this.df4.format(t.getSurface().second));
+        Assert.assertEquals("0.256", this.df3.format(t.getIncircleRadius().second));
+        Assert.assertEquals("1.9135", this.df4.format(t.getExcircleRadius().second));
+    }
+
+    private void assertT2C(TriangleSolver t) {
+        t.compute();
+
+        Assert.assertEquals("9.74", this.df2.format(t.getPerimeter().second));
+        Assert.assertEquals("2.517", this.df3.format(t.getHeight().second));
+        Assert.assertEquals("4.3498", this.df4.format(t.getSurface().second));
+        Assert.assertEquals("0.893", this.df3.format(t.getIncircleRadius().second));
+        Assert.assertEquals("1.9135", this.df4.format(t.getExcircleRadius().second));
+    }
+
+    private void assertT2Zero(TriangleSolver t) {
+        t.compute();
+
+        Assert.assertEquals("0", this.df1.format(t.getPerimeter().second));
+        Assert.assertEquals("0", this.df1.format(t.getHeight().second));
+        Assert.assertEquals("0", this.df1.format(t.getSurface().second));
+        Assert.assertEquals("0", this.df1.format(t.getIncircleRadius().second));
+        Assert.assertEquals("0", this.df1.format(t.getExcircleRadius().second));
     }
 }
