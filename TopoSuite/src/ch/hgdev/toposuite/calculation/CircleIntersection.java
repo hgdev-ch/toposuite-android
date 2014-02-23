@@ -147,4 +147,12 @@ public class CircleIntersection extends Calculation {
         // TODO implement
         return null;
     }
+
+    public Point getFirstIntersection() {
+        return this.firstIntersection;
+    }
+
+    public Point getSecondIntersection() {
+        return this.secondIntersection;
+    }
 }
