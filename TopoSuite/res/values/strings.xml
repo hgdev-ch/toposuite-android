@@ -66,6 +66,7 @@
 		(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 		SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
     <string name="displacement_label">Displacement</string>
+    <string name="dist_pt_1">Pt. A dist.</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
     <string name="distance_projpoint_line_label">Projected point to line distance:</string>
@@ -130,6 +131,8 @@
     <string name="letter_alpha_unit">&#945; [g]</string>
     <string name="letter_beta_unit">&#946; [g]</string>
     <string name="letter_gamma_unit">&#947; [g]</string>
+    <string name="line_1">Line 1</string>
+    <string name="line_2">Line 2</string>
     <string name="longitudinal_displacement_3dots">Longitudinal displacement&#8230;</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="loose_history">All entries in the history will be lost</string>
@@ -175,6 +178,7 @@
     <string name="origin_only_label">Origin</string>
     <string name="orthogonal_implantation_label">Orthogonal implantation from the base </string>
     <string name="perimeter_label">Perimeter [m]</string>
+    <string name="perpendicular">Perpendicular</string>
     <string name="point_already_exist">The point you want to save already exists!</string>
     <string name="point_to_project">Point to project</string>
     <string name="point_1">Point A</string>

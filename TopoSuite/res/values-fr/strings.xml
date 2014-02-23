@@ -66,6 +66,7 @@
         (Y COMPRIS LA NÉGLIGENCE OU AUTRE) PROVENANT DE TOUTE FORME DE L\'UTILISATION DE CE LOGICIEL,
         MÊME SI AVERTI DE LA POSSIBILITÉ DE TELS DOMMAGES.</string>
 	<string name="displacement_label">Déplacement</string>
+	<string name="dist_pt_1">Dist. pt. A</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
     <string name="distance_projpoint_line_label">Distance du point projeté à la droite:</string>
@@ -130,6 +131,8 @@
     <string name="letter_alpha_unit">&#945; [g]</string>
     <string name="letter_beta_unit">&#946; [g]</string>
     <string name="letter_gamma_unit">&#947; [g]</string>
+    <string name="line_1">Droite 1</string>
+    <string name="line_2">Droite 2</string>
     <string name="longitudinal_displacement_3dots">Déplacement longitudinal&#8230;</string>
     <string name="loose_calculations">Tous les calculs associés aux points seront également perdus!</string>
     <string name="loose_history">Toutes les entrées de l\'historique seront perdues!</string>
@@ -175,6 +178,7 @@
     <string name="origin_only_label">Origine</string>
     <string name="orthogonal_implantation_label">Implantation orthogonale depuis la base </string>
     <string name="perimeter_label">Perimètre [m]</string>
+    <string name="perpendicular">Perpendiculaire</string>
     <string name="point_already_exist">Le point que vous voulez enregistré existe déjà!</string>
     <string name="point_to_project">Point à projeter</string>
     <string name="point_1">Point A</string>
