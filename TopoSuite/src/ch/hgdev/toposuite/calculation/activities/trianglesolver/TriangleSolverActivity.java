@@ -33,6 +33,13 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     private EditText       betaEditText;
     private EditText       gammaEditText;
 
+    private TextView       aBisTextView;
+    private TextView       bBisTextView;
+    private TextView       cBisTextView;
+    private TextView       alphaBisTextView;
+    private TextView       betaBisTextView;
+    private TextView       gammaBisTextView;
+
     private TextView       perimeterTextView;
     private TextView       heightTextView;
     private TextView       surfaceTextView;
@@ -140,18 +147,25 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         this.betaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
         this.gammaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.aEditText.setHint(this.getString(R.string.letter_a));
-        this.bEditText.setHint(this.getString(R.string.letter_b));
-        this.cEditText.setHint(this.getString(R.string.letter_c));
+        this.aEditText.setHint(
+                this.getString(R.string.letter_a_unit));
+        this.bEditText.setHint(
+                this.getString(R.string.letter_b_unit));
+        this.cEditText.setHint(
+                this.getString(R.string.letter_c_unit));
         this.alphaEditText.setHint(
-                this.getString(R.string.letter_alpha) + " "
-                        + this.getString(R.string.unit_gradian));
+                this.getString(R.string.letter_alpha_unit));
         this.betaEditText.setHint(
-                this.getString(R.string.letter_beta) + " "
-                        + this.getString(R.string.unit_gradian));
+                this.getString(R.string.letter_beta_unit));
         this.gammaEditText.setHint(
-                this.getString(R.string.letter_gamma) + " "
-                        + this.getString(R.string.unit_gradian));
+                this.getString(R.string.letter_gamma_unit));
+
+        this.aBisTextView = (TextView) this.findViewById(R.id.a_bis);
+        this.bBisTextView = (TextView) this.findViewById(R.id.b_bis);
+        this.cBisTextView = (TextView) this.findViewById(R.id.c_bis);
+        this.alphaBisTextView = (TextView) this.findViewById(R.id.alpha_bis);
+        this.betaBisTextView = (TextView) this.findViewById(R.id.beta_bis);
+        this.gammaBisTextView = (TextView) this.findViewById(R.id.gamma_bis);
 
         this.perimeterTextView = (TextView) this.findViewById(R.id.perimeter);
         this.heightTextView = (TextView) this.findViewById(R.id.height);
@@ -246,6 +260,13 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * Clear result views.
      */
     private void clearResults() {
+        this.aBisTextView.setText("");
+        this.bBisTextView.setText("");
+        this.cBisTextView.setText("");
+        this.alphaBisTextView.setText("");
+        this.betaBisTextView.setText("");
+        this.gammaBisTextView.setText("");
+
         this.perimeterTextView.setText("");
         this.perimeterBisTextView.setText("");
         this.heightTextView.setText("");
@@ -264,6 +285,13 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * @param t
      */
     private void updateResults() {
+        this.aBisTextView.setText(DisplayUtils.toString(this.tS.getABis()));
+        this.bBisTextView.setText(DisplayUtils.toString(this.tS.getBBis()));
+        this.cBisTextView.setText(DisplayUtils.toString(this.tS.getCBis()));
+        this.alphaBisTextView.setText(DisplayUtils.toString(this.tS.getAlphaBis()));
+        this.betaBisTextView.setText(DisplayUtils.toString(this.tS.getBetaBis()));
+        this.gammaBisTextView.setText(DisplayUtils.toString(this.tS.getGammaBis()));
+
         this.perimeterTextView.setText(
                 DisplayUtils.toString(this.tS.getPerimeter().first));
         this.perimeterBisTextView.setText(

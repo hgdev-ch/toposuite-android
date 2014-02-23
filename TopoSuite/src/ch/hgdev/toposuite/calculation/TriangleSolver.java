@@ -190,6 +190,10 @@ public class TriangleSolver extends Calculation {
         // a, b and alpha given (2 solutions case)
         if (this.areAllPositive(this.a.first, this.b.first, this.alpha.first)) {
             this.twoSolutions = true;
+            this.a.second = this.a.first;
+            this.b.second = this.b.first;
+            this.c.second = this.c.first;
+
             this.beta.first = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.a.first, this.b.first, this.alpha.first);
             this.beta.second = 200.0 - this.beta.first;
@@ -206,6 +210,10 @@ public class TriangleSolver extends Calculation {
         // a, b and beta given (2 solutions case)
         if (this.areAllPositive(this.a.first, this.b.first, this.beta.first)) {
             this.twoSolutions = true;
+            this.a.second = this.a.first;
+            this.b.second = this.b.first;
+            this.beta.second = this.beta.first;
+
             this.alpha.first = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.b.first, this.a.first, this.beta.first);
             this.alpha.second = 200.0 - this.alpha.first;
@@ -221,6 +229,10 @@ public class TriangleSolver extends Calculation {
         // b, c and beta given (2 solutions case)
         if (this.areAllPositive(this.b.first, this.c.first, this.beta.first)) {
             this.twoSolutions = true;
+            this.b.second = this.b.first;
+            this.c.second = this.c.first;
+            this.beta.second = this.beta.first;
+
             this.gamma.first = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.b.first, this.c.first, this.beta.first);
             this.gamma.second = 200.0 - this.gamma.first;
@@ -237,6 +249,10 @@ public class TriangleSolver extends Calculation {
         // b, c and gamma given (2 solutions case)
         if (this.areAllPositive(this.b.first, this.c.first, this.gamma.first)) {
             this.twoSolutions = true;
+            this.b.second = this.b.first;
+            this.c.second = this.c.first;
+            this.gamma.second = this.gamma.first;
+
             this.beta.first = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.c.first, this.b.first, this.gamma.first);
             this.beta.second = 200.0 - this.beta.first;
@@ -253,6 +269,10 @@ public class TriangleSolver extends Calculation {
         // a, c and alpha given (2 solutions case)
         if (this.areAllPositive(this.a.first, this.c.first, this.alpha.first)) {
             this.twoSolutions = true;
+            this.a.second = this.a.first;
+            this.c.second = this.c.first;
+            this.alpha.second = this.alpha.first;
+
             this.gamma.first = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.a.first, this.c.first, this.alpha.first);
             this.gamma.second = 200.0 - this.gamma.first;
@@ -269,6 +289,10 @@ public class TriangleSolver extends Calculation {
         // a, c and gamma given (2 solutions case)
         if (this.areAllPositive(this.a.first, this.c.first, this.gamma.first)) {
             this.twoSolutions = true;
+            this.a.second = this.a.first;
+            this.c.second = this.c.first;
+            this.gamma.second = this.gamma.first;
+
             this.alpha.first = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.c.first, this.a.first, this.gamma.first);
             this.alpha.second = 200.0 - this.alpha.first;
@@ -595,6 +619,30 @@ public class TriangleSolver extends Calculation {
 
     public double getGamma() {
         return this.gamma.first;
+    }
+
+    public double getABis() {
+        return this.a.second;
+    }
+
+    public double getBBis() {
+        return this.b.second;
+    }
+
+    public double getCBis() {
+        return this.c.second;
+    }
+
+    public double getAlphaBis() {
+        return this.alpha.second;
+    }
+
+    public double getBetaBis() {
+        return this.beta.second;
+    }
+
+    public double getGammaBis() {
+        return this.gamma.second;
     }
 
     public void setA(double _a) throws IllegalArgumentException {
