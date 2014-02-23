@@ -239,7 +239,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
      * @return A clone of the current point.
      */
     @Override
-    protected Point clone() throws CloneNotSupportedException {
+    public Point clone() throws CloneNotSupportedException {
         return new Point(0, this.east, this.north, this.altitude,
                 this.basePoint, false);
     }
