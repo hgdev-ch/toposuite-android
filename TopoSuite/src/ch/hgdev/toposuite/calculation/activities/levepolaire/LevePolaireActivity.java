@@ -421,6 +421,7 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
         this.position = -1;
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
+        this.showAddDeterminationDialog();
     }
 
     @Override
