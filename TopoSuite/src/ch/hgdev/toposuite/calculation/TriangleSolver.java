@@ -200,7 +200,7 @@ public class TriangleSolver extends Calculation {
             this.gamma.first = this.determineAngleHavingTheTwoOthers(
                     this.alpha.first, this.beta.first);
             this.gamma.second = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.beta.second);
+                    this.alpha.second, this.beta.second);
             this.c.first = this.determineSideHavingTwoSidesAndOneAngle(
                     this.a.first, this.b.first, this.gamma.first);
             this.c.second = this.determineSideHavingTwoSidesAndOneAngle(
@@ -219,7 +219,7 @@ public class TriangleSolver extends Calculation {
             this.alpha.second = 200.0 - this.alpha.first;
             this.gamma.first = this.beta.first - this.alpha.first;
             this.gamma.second = this.determineAngleHavingTheTwoOthers(
-                    this.beta.first, this.alpha.second);
+                    this.beta.second, this.alpha.second);
             this.c.first = this.determineSideHavingTwoSidesAndOneAngle(
                     this.a.first, this.b.first, this.gamma.first);
             this.c.second = this.determineSideHavingTwoSidesAndOneAngle(
@@ -239,11 +239,11 @@ public class TriangleSolver extends Calculation {
             this.alpha.first = this.determineAngleHavingTheTwoOthers(
                     this.beta.first, this.gamma.first);
             this.alpha.second = this.determineAngleHavingTheTwoOthers(
-                    this.beta.first, this.gamma.second);
+                    this.beta.second, this.gamma.second);
             this.a.first = this.determineSideHavingTwoSidesAndOneAngle(
                     this.b.first, this.c.first, this.alpha.first);
             this.a.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.first, this.c.first, this.alpha.second);
+                    this.b.second, this.c.second, this.alpha.second);
             return;
         }
         // b, c and gamma given (2 solutions case)
@@ -259,11 +259,11 @@ public class TriangleSolver extends Calculation {
             this.alpha.first = this.determineAngleHavingTheTwoOthers(
                     this.beta.first, this.gamma.first);
             this.alpha.second = this.determineAngleHavingTheTwoOthers(
-                    this.beta.second, this.gamma.first);
+                    this.beta.second, this.gamma.second);
             this.a.first = this.determineSideHavingTwoSidesAndOneAngle(
                     this.b.first, this.c.first, this.alpha.first);
             this.a.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.first, this.c.first, this.alpha.second);
+                    this.b.second, this.c.second, this.alpha.second);
             return;
         }
         // a, c and alpha given (2 solutions case)
@@ -279,11 +279,11 @@ public class TriangleSolver extends Calculation {
             this.beta.first = this.determineAngleHavingTheTwoOthers(
                     this.alpha.first, this.gamma.first);
             this.beta.second = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.gamma.second);
+                    this.alpha.second, this.gamma.second);
             this.b.first = this.determineSideHavingTwoSidesAndOneAngle(
                     this.a.first, this.c.first, this.beta.first);
             this.b.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.first, this.c.first, this.beta.second);
+                    this.a.second, this.c.second, this.beta.second);
             return;
         }
         // a, c and gamma given (2 solutions case)
@@ -293,17 +293,18 @@ public class TriangleSolver extends Calculation {
             this.c.second = this.c.first;
             this.gamma.second = this.gamma.first;
 
-            this.alpha.first = this.determineAngleHavingTwoSidesAndOneAngle(
+            this.alpha.second = this.determineAngleHavingTwoSidesAndOneAngle(
                     this.c.first, this.a.first, this.gamma.first);
-            this.alpha.second = 200.0 - this.alpha.first;
+            this.alpha.first = 200.0 - this.alpha.second;
             this.beta.first = this.determineAngleHavingTheTwoOthers(
                     this.gamma.first, this.alpha.first);
             this.beta.second = this.determineAngleHavingTheTwoOthers(
-                    this.gamma.first, this.alpha.second);
+                    this.gamma.second, this.alpha.second);
             this.b.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.first, this.c.first, this.beta.first);
+                    this.c.first, this.a.first, this.beta.first);
             this.b.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.first, this.c.first, this.beta.second);
+                    this.c.second, this.a.second, this.beta.second);
+
             return;
         }
         // a, beta and gamma given
