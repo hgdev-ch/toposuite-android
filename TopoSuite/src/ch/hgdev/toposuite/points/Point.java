@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
@@ -226,5 +227,20 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         for (DAO dao : this.daoList) {
             dao.update(obj);
         }
+    }
+
+    /**
+     * Clone a point. Since a point must be unique, the point number will not be
+     * cloned.
+     * 
+     * The created point is <b>not</b> stored in the
+     * {@link SharedResources#getSetOfPoints()}.
+     * 
+     * @return A clone of the current point.
+     */
+    @Override
+    public Point clone() {
+        return new Point(0, this.east, this.north, this.altitude,
+                this.basePoint, false);
     }
 }
