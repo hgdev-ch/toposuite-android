@@ -178,7 +178,7 @@
 			    android:layout_width="0dp"
 			    android:layout_height="wrap_content"
 			    android:layout_weight="0.86"
-			    android:text="Perpendicular"
+			    android:text="@string/perpendicular"
 			    android:onClick="onCheckboxClicked" />
 		        
 			<TextView
