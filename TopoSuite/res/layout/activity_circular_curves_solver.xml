@@ -1,0 +1,300 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="left|center_vertical"
+                android:text="@string/radius_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/radius"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
+                android:gravity="right|center_vertical"
+                android:inputType="" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="left|center_vertical"
+                android:text="@string/central_angle_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/alpha_angle"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
+                android:gravity="right|center_vertical"
+                android:inputType="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="left|center_vertical"
+                android:text="@string/chord_of_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/chord_of"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
+                android:gravity="right|center_vertical"
+                android:inputType="" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="left|center_vertical"
+                android:text="@string/tangent_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/tangent"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
+                android:gravity="right|center_vertical"
+                android:inputType="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="left|right|center_vertical"
+                android:text="@string/arrow_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/arrow"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
+                android:gravity="right|center_vertical"
+                android:inputType="" />
+            
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50"/>
+        </LinearLayout>
+        
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/bisector_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bisector"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/no_value" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/arc_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/arc"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/no_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/circumference_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/circumference"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/no_value"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/chord_om_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/chord_om"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/no_value" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/vertex_angle"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/beta_angle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/no_value" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/circle_surface_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/circle_surface"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/no_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/sector_surface_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sector_surface"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/no_value" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/segment_surface_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/segment_surface"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/no_value"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
