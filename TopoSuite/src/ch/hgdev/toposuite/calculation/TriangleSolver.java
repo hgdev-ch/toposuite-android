@@ -20,6 +20,8 @@ public class TriangleSolver extends Calculation {
 
     private static final String  TRIANGLE_SOLVER = "Triangle solver: ";
 
+    private static final double  TOLERANCE       = 0.000001;
+
     private static final String  A               = "a";
     private static final String  B               = "b";
     private static final String  C               = "c";
@@ -427,7 +429,36 @@ public class TriangleSolver extends Calculation {
                     this.c.first, this.beta.first, this.gamma.first);
             return;
         }
+    }
 
+    /**
+     * Having every angles and sides, make sure there is no inconsistency.
+     * 
+     * @return True if no inconsistency has been found, false otherwise.
+     */
+    private boolean checkFoundValues() {
+        if (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first)) > TriangleSolver.TOLERANCE) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER
+                            + "the sum of the found angles does not meet the tolerance.");
+            return false;
+        }
+        if (!MathUtils.isPositive(this.a.first)) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER + "the value of 'a' is not positive.");
+            return false;
+        }
+        if (!MathUtils.isPositive(this.b.first)) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER + "the value of 'b' is not positive.");
+            return false;
+        }
+        if (!MathUtils.isPositive(this.c.first)) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER + "the value of 'c' is not positive.");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -436,7 +467,7 @@ public class TriangleSolver extends Calculation {
      * second solution is not valid.
      */
     private void checkSecondSolution() {
-        if (this.b.second > (this.c.second * Math.sin(MathUtils.gradToRad(this.beta.second)))) {
+        if (this.b.first > (this.c.first * Math.sin(MathUtils.gradToRad(this.beta.first)))) {
             if (this.areAllPositive(this.a.second, this.b.second, this.c.second) &&
                     this.areAllPositive(this.alpha.second, this.beta.second, this.gamma.second)) {
                 return;
@@ -470,6 +501,10 @@ public class TriangleSolver extends Calculation {
         this.initAttributes(this.a.first, this.b.first, this.c.first,
                 this.alpha.first, this.beta.first, this.gamma.first);
         this.findMissingValues();
+        if (!this.checkFoundValues()) {
+            this.initAttributes(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            return;
+        }
 
         this.perimeter.first = this.computePerimeter(this.a.first, this.b.first, this.c.first);
         this.height.first = this.computeHeight(this.beta.first, this.c.first);
