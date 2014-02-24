@@ -115,6 +115,8 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
                         Toast.LENGTH_SHORT);
                 errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 errorToast.show();
+            } else {
+                this.updateResults();
             }
             return true;
         default:
@@ -387,7 +389,6 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
                 this.tS.setGamma(this.gamma);
             }
             this.tS.compute();
-            this.updateResults();
         } catch (IllegalArgumentException e) {
             this.clearResults();
             Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
@@ -402,11 +403,11 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * @return True if all sides and angles are positive, false otherwise.
      */
     private boolean areAllSidesAndAnglesPositives() {
-        return (MathUtils.isPositive(this.a)
-                && MathUtils.isPositive(this.b)
-                && MathUtils.isPositive(this.c)
-                && MathUtils.isPositive(this.alpha)
-                && MathUtils.isPositive(this.beta)
-                && MathUtils.isPositive(this.gamma));
+        return (MathUtils.isPositive(this.tS.getA())
+                && MathUtils.isPositive(this.tS.getB())
+                && MathUtils.isPositive(this.tS.getC())
+                && MathUtils.isPositive(this.tS.getAlpha())
+                && MathUtils.isPositive(this.tS.getBeta())
+                && MathUtils.isPositive(this.tS.getGamma()));
     }
 }
