@@ -10,6 +10,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverActivity;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.Pair;
@@ -20,7 +21,7 @@ public class TriangleSolver extends Calculation {
 
     private static final String  TRIANGLE_SOLVER = "Triangle solver: ";
 
-    private static final double  TOLERANCE       = 0.000001;
+    private static final double  TOLERANCE       = 0.0001;
 
     private static final String  A               = "a";
     private static final String  B               = "b";
@@ -109,19 +110,16 @@ public class TriangleSolver extends Calculation {
      * @return True if OK, false otherwise.
      */
     private boolean checkInputs() {
-        // sum of the angles > 200
-        if ((this.alpha.first + this.beta.first + this.gamma.first) > 200.0) {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
-                    TriangleSolver.TRIANGLE_SOLVER + "the sum of the angles is over 200 [g].");
-            return false;
-        }
         // three angles given and sum of the angles < 200
-        if (MathUtils.isPositive(this.alpha.first) && MathUtils.isPositive(this.beta.first)
+        if (MathUtils.isPositive(this.alpha.first)
+                && MathUtils.isPositive(this.beta.first)
                 && MathUtils.isPositive(this.gamma.first)
-                && ((this.alpha.first + this.beta.first + this.gamma.first) < 200.0)) {
+                && (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first))
+                > TriangleSolver.TOLERANCE)) {
             Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
-                            + "three angles are given and their sum is less than 200 [g].");
+                            + "three angles are given and their sum does not equal 200 [g] "
+                            + "(taking a tolerance into account).");
             return false;
         }
         // at least one side is required
@@ -133,22 +131,22 @@ public class TriangleSolver extends Calculation {
 
         int count = 0;
 
-        if (this.a.first == 0.0) {
+        if (MathUtils.isPositive(this.a.first)) {
             count++;
         }
-        if (this.b.first == 0.0) {
+        if (MathUtils.isPositive(this.b.first)) {
             count++;
         }
-        if (this.c.first == 0.0) {
+        if (MathUtils.isPositive(this.c.first)) {
             count++;
         }
-        if (this.alpha.first == 0.0) {
+        if (MathUtils.isPositive(this.alpha.first)) {
             count++;
         }
-        if (this.beta.first == 0.0) {
+        if (MathUtils.isPositive(this.beta.first)) {
             count++;
         }
-        if (this.gamma.first == 0.0) {
+        if (MathUtils.isPositive(this.gamma.first)) {
             count++;
         }
 
@@ -156,8 +154,16 @@ public class TriangleSolver extends Calculation {
             return true;
         } else {
             Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
-                    TriangleSolver.TRIANGLE_SOLVER
-                            + "less than 3 inputs were provided.");
+                    String.format(
+                            "%s%s (a = %s; b = %s; c = %s; alpha = %s; beta = %s; gamma = %s)",
+                            TriangleSolver.TRIANGLE_SOLVER,
+                            "less than 3 inputs were provided.",
+                            DisplayUtils.toString(this.a.first),
+                            DisplayUtils.toString(this.b.first),
+                            DisplayUtils.toString(this.c.first),
+                            DisplayUtils.toString(this.alpha.first),
+                            DisplayUtils.toString(this.beta.first),
+                            DisplayUtils.toString(this.gamma.first)));
             return false;
         }
     }
