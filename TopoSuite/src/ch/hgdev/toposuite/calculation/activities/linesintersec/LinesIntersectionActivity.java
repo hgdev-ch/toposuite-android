@@ -293,24 +293,36 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
             this.point2D2SelectedPosition = this.adapter.getPosition(
                     this.lineIntersec.getP2D2());
 
-            if (MathUtils.isNegative(this.lineIntersec.getGisementD1())) {
+            if (!MathUtils.isZero(this.lineIntersec.getGisementD1())) {
                 this.gisementD1EditText.setText(DisplayUtils.toString(
                         this.lineIntersec.getGisementD1()));
             }
 
-            if (MathUtils.isNegative(this.lineIntersec.getGisementD2())) {
+            if (!MathUtils.isZero(this.lineIntersec.getGisementD2())) {
                 this.gisementD2EditText.setText(DisplayUtils.toString(
                         this.lineIntersec.getGisementD2()));
             }
 
-            if (!MathUtils.isNegative(this.lineIntersec.getDisplacementD1())) {
+            if (!MathUtils.isZero(this.lineIntersec.getDisplacementD1())) {
                 this.displacementD1EditText.setText(DisplayUtils.toString(
                         this.lineIntersec.getDisplacementD1()));
             }
 
-            if (!MathUtils.isNegative(this.lineIntersec.getDisplacementD2())) {
+            if (!MathUtils.isZero(this.lineIntersec.getDisplacementD2())) {
                 this.displacementD2EditText.setText(DisplayUtils.toString(
                         this.lineIntersec.getDisplacementD2()));
+            }
+
+            if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D1())) {
+                this.distP1D1EditText.setText(DisplayUtils.toString(
+                        this.lineIntersec.getDistanceP1D1()));
+                this.perpendicularD1CheckBox.setChecked(true);
+            }
+
+            if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D2())) {
+                this.distP1D2EditText.setText(DisplayUtils.toString(
+                        this.lineIntersec.getDistanceP1D2()));
+                this.perpendicularD2CheckBox.setChecked(true);
             }
 
             if (this.lineIntersec.getPointNumber() != 0) {
@@ -435,7 +447,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
                 gisementD2 = Double.parseDouble(
                         this.gisementD2EditText.getText().toString());
             } else {
-                p2D1 = this.adapter.getItem(this.point2D2SelectedPosition);
+                p2D2 = this.adapter.getItem(this.point2D2SelectedPosition);
             }
             double displacementD2 = 0.0;
             if (this.displacementD2EditText.length() > 0) {

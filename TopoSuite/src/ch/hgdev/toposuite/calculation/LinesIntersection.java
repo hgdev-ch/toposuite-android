@@ -19,8 +19,10 @@ public class LinesIntersection extends Calculation {
     private static final String P2D2_NUMBER  = "p2d2_number";
     private static final String DISPL_D1     = "displ_d1";
     private static final String DISPL_D2     = "displ_d2";
-    private static final String DIST_D1      = "displ_d1";
-    private static final String DIST_D2      = "displ_d2";
+    private static final String DIST_D1      = "dist_d1";
+    private static final String DIST_D2      = "dist_d2";
+    private static final String GIS_D1       = "gis_d1";
+    private static final String GIS_D2       = "gis_d2";
     private static final String POINT_NUMBER = "point_number";
 
     private Point               p1D1;
@@ -121,6 +123,10 @@ public class LinesIntersection extends Calculation {
 
     @Override
     public void compute() {
+        if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
+                || (this.p2D2 == null)) {
+            return;
+        }
 
         double alphaAngle, gammaAngle, pAngle, displGis;
 
@@ -226,6 +232,8 @@ public class LinesIntersection extends Calculation {
         jo.put(LinesIntersection.DISPL_D2, this.displacementD2);
         jo.put(LinesIntersection.DIST_D1, this.distanceP1D1);
         jo.put(LinesIntersection.DIST_D2, this.distanceP1D2);
+        jo.put(LinesIntersection.GIS_D1, this.gisementD1);
+        jo.put(LinesIntersection.GIS_D2, this.gisementD2);
         jo.put(LinesIntersection.POINT_NUMBER, this.pointNumber);
 
         return jo.toString();
@@ -237,17 +245,29 @@ public class LinesIntersection extends Calculation {
 
         this.p1D1 = SharedResources.getSetOfPoints().find(
                 jo.getInt(LinesIntersection.P1D1_NUMBER));
-        this.p2D1 = SharedResources.getSetOfPoints().find(
-                jo.getInt(LinesIntersection.P2D1_NUMBER));
+
+        int p2D1Position = jo.getInt(LinesIntersection.P2D1_NUMBER);
+        if (p2D1Position != 0) {
+            this.p2D1 = SharedResources.getSetOfPoints().find(p2D1Position);
+        } else {
+            this.setGisementD1(jo.getDouble(LinesIntersection.GIS_D1));
+        }
+
         this.p1D2 = SharedResources.getSetOfPoints().find(
                 jo.getInt(LinesIntersection.P1D2_NUMBER));
-        this.p2D2 = SharedResources.getSetOfPoints().find(
-                jo.getInt(LinesIntersection.P2D2_NUMBER));
-        this.displacementD1 = jo.getInt(LinesIntersection.DISPL_D1);
-        this.displacementD2 = jo.getInt(LinesIntersection.DISPL_D2);
-        this.distanceP1D1 = jo.getInt(LinesIntersection.DIST_D1);
-        this.distanceP1D2 = jo.getInt(LinesIntersection.DIST_D2);
-        this.pointNumber = jo.getInt(LinesIntersection.POINT_NUMBER);
+
+        int p2D2Position = jo.getInt(LinesIntersection.P2D2_NUMBER);
+        if (p2D2Position != 0) {
+            this.p2D2 = SharedResources.getSetOfPoints().find(p2D2Position);
+        } else {
+            this.setDistanceP1D2(jo.getDouble(LinesIntersection.GIS_D2));
+        }
+
+        this.setDisplacementD1(jo.getDouble(LinesIntersection.DISPL_D1));
+        this.setDisplacementD2(jo.getDouble(LinesIntersection.DISPL_D2));
+        this.setDistanceP1D1(jo.getDouble(LinesIntersection.DIST_D1));
+        this.setDistanceP1D2(jo.getDouble(LinesIntersection.DIST_D2));
+        this.setPointNumber(jo.getInt(LinesIntersection.POINT_NUMBER));
     }
 
     @Override
