@@ -150,13 +150,13 @@ public class TriangleSolver extends Calculation {
             count++;
         }
 
-        if (count < 4) {
+        if (count >= 3) {
+            return true;
+        } else {
             Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
                             + "less than 3 inputs were provided.");
             return false;
-        } else {
-            return true;
         }
     }
 

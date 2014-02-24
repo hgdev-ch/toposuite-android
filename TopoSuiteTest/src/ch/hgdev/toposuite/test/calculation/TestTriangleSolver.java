@@ -70,6 +70,7 @@ public class TestTriangleSolver extends TestCase {
             this.assertT(new TriangleSolver(this.a, 0.0, this.c, 0.0, 0.0, this.gamma, false));
             this.assertT2C(new TriangleSolver(this.a, 0.0, this.c, 0.0, 0.0, this.gamma, false));
         } catch (IllegalArgumentException e) {
+            e.printStackTrace();
             Assert.fail("An illegal argument exception should not be thrown here");
         }
     }
