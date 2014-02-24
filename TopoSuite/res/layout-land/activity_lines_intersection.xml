@@ -20,7 +20,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:textStyle="bold"
-	            android:text="Intersection point" />
+	            android:text="@string/intersection_point_label" />
 	        
 	        <TextView
 	            android:id="@+id/intersection_point"
