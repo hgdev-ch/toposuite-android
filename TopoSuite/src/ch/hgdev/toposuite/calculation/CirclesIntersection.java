@@ -10,7 +10,7 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class CircleIntersection extends Calculation {
+public class CirclesIntersection extends Calculation {
 
     private static final String CIRCLE_INTERSECTION = "Circle intersection: ";
 
@@ -40,7 +40,7 @@ public class CircleIntersection extends Calculation {
      */
     private Point               secondIntersection;
 
-    public CircleIntersection(long id, Date lastModification) {
+    public CirclesIntersection(long id, Date lastModification) {
         super(id,
                 CalculationType.CIRCLEINTERSEC,
                 "Circle intersection",
@@ -48,7 +48,7 @@ public class CircleIntersection extends Calculation {
                 true);
     }
 
-    public CircleIntersection(Point _centerFirst, double _radiusFirst,
+    public CirclesIntersection(Point _centerFirst, double _radiusFirst,
             Point _centerSecond, double _radiusSecond, boolean hasDAO) {
         super(CalculationType.CIRCLEINTERSEC,
                 "Circle intersection",
@@ -66,7 +66,7 @@ public class CircleIntersection extends Calculation {
         }
     }
 
-    public CircleIntersection(Point _centerFirst, Point _borderFirst,
+    public CirclesIntersection(Point _centerFirst, Point _borderFirst,
             Point _centerSecond, Point _borderSecond, boolean hasDAO) {
         super(CalculationType.CIRCLEINTERSEC,
                 "Circle intersection",
@@ -94,11 +94,11 @@ public class CircleIntersection extends Calculation {
             // radius to small => circles are next to each another
             if ((this.radiusFirst + this.radiusSecond) < distCenters) {
                 Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
-                        CircleIntersection.CIRCLE_INTERSECTION
+                        CirclesIntersection.CIRCLE_INTERSECTION
                                 + "the circles are next to each another (no intersection).");
             } else {
                 Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
-                        CircleIntersection.CIRCLE_INTERSECTION
+                        CirclesIntersection.CIRCLE_INTERSECTION
                                 + "one of the circle is included in the other one (no intersection).");
             }
             this.setZeros();
