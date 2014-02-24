@@ -238,21 +238,33 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     private void getInputs() {
         if (this.aEditText.length() > 0) {
             this.a = Double.parseDouble(this.aEditText.getText().toString());
+        } else {
+            this.a = 0.0;
         }
         if (this.bEditText.length() > 0) {
             this.b = Double.parseDouble(this.bEditText.getText().toString());
+        } else {
+            this.b = 0.0;
         }
         if (this.cEditText.length() > 0) {
             this.c = Double.parseDouble(this.cEditText.getText().toString());
+        } else {
+            this.c = 0.0;
         }
         if (this.alphaEditText.length() > 0) {
             this.alpha = Double.parseDouble(this.alphaEditText.getText().toString());
+        } else {
+            this.alpha = 0.0;
         }
         if (this.betaEditText.length() > 0) {
             this.beta = Double.parseDouble(this.betaEditText.getText().toString());
+        } else {
+            this.beta = 0.0;
         }
         if (this.gammaEditText.length() > 0) {
             this.gamma = Double.parseDouble(this.gammaEditText.getText().toString());
+        } else {
+            this.gamma = 0.0;
         }
     }
 
