@@ -445,6 +445,8 @@ public class TriangleSolver extends Calculation {
                             + "and the sum of the 3 angles must be less than or equal to 200");
         }
 
+        this.initAttributes(this.a.first, this.b.first, this.c.first,
+                this.alpha.first, this.beta.first, this.gamma.first);
         this.findMissingValues();
 
         this.perimeter.first = this.computePerimeter(this.a.first, this.b.first, this.c.first);
