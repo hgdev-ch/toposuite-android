@@ -18,6 +18,8 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Surface extends Calculation {
+    private static final String                 SURFACE     = "Surface: ";
+
     private static final String                 POINTS_LIST = "points_list";
     private String                              name;
     private String                              description;
@@ -58,6 +60,8 @@ public class Surface extends Calculation {
     private boolean checkInput() {
         // we need at least three points to define a surface
         if (this.points.size() < 3) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    Surface.SURFACE + "at least three points must be provided to define a surface.");
             return false;
         }
         return true;

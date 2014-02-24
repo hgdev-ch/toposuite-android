@@ -12,31 +12,33 @@ import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CircleIntersection extends Calculation {
 
+    private static final String CIRCLE_INTERSECTION = "Circle intersection: ";
+
     /**
      * Center of the first circle.
      */
-    private Point  centerFirst;
+    private Point               centerFirst;
     /**
      * Radius of the first circle.
      */
-    private double radiusFirst;
+    private double              radiusFirst;
     /**
      * Center of the second circle.
      */
-    private Point  centerSecond;
+    private Point               centerSecond;
     /**
      * Radius of the second circle.
      */
-    private double radiusSecond;
+    private double              radiusSecond;
 
     /**
      * Point on the first intersection.
      */
-    private Point  firstIntersection;
+    private Point               firstIntersection;
     /**
      * Point on the second intersection (if relevant).
      */
-    private Point  secondIntersection;
+    private Point               secondIntersection;
 
     public CircleIntersection(long id, Date lastModification) {
         super(id,
@@ -91,11 +93,13 @@ public class CircleIntersection extends Calculation {
         if (((-alpha * alpha) + 1) <= 0) {
             // radius to small => circles are next to each another
             if ((this.radiusFirst + this.radiusSecond) < distCenters) {
-                Log.e(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
-                        "Circle intersection: the circles are next to each another (no intersection).");
+                Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                        CircleIntersection.CIRCLE_INTERSECTION
+                                + "the circles are next to each another (no intersection).");
             } else {
-                Log.e(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
-                        "Circle intersection: one of the circle is included in the other one (no intersection).");
+                Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                        CircleIntersection.CIRCLE_INTERSECTION
+                                + "one of the circle is included in the other one (no intersection).");
             }
             this.setZeros();
             return;

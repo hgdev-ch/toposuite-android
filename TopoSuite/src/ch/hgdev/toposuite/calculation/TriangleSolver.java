@@ -5,10 +5,12 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverActivity;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.Pair;
 
@@ -16,12 +18,14 @@ import com.google.common.base.Preconditions;
 
 public class TriangleSolver extends Calculation {
 
-    private static final String  A     = "a";
-    private static final String  B     = "b";
-    private static final String  C     = "c";
-    private static final String  ALPHA = "alpha";
-    private static final String  BETA  = "beta";
-    private static final String  GAMMA = "gamma";
+    private static final String  TRIANGLE_SOLVER = "Triangle solver: ";
+
+    private static final String  A               = "a";
+    private static final String  B               = "b";
+    private static final String  C               = "c";
+    private static final String  ALPHA           = "alpha";
+    private static final String  BETA            = "beta";
+    private static final String  GAMMA           = "gamma";
 
     private Pair<Double, Double> a;
     private Pair<Double, Double> b;
@@ -105,16 +109,23 @@ public class TriangleSolver extends Calculation {
     private boolean checkInputs() {
         // sum of the angles > 200
         if ((this.alpha.first + this.beta.first + this.gamma.first) > 200.0) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER + "the sum of the angles is over 200 [g].");
             return false;
         }
         // three angles given and sum of the angles < 200
         if (MathUtils.isPositive(this.alpha.first) && MathUtils.isPositive(this.beta.first)
                 && MathUtils.isPositive(this.gamma.first)
                 && ((this.alpha.first + this.beta.first + this.gamma.first) < 200.0)) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER
+                            + "three angles are given and their sum is less than 200 [g].");
             return false;
         }
         // at least one side is required
         if (!this.isOnePositive(this.a.first, this.b.first, this.c.first)) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER + "at least one side is required.");
             return false;
         }
 
@@ -139,7 +150,14 @@ public class TriangleSolver extends Calculation {
             count++;
         }
 
-        return count < 4;
+        if (count < 4) {
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER
+                            + "less than 3 inputs were provided.");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -419,19 +437,23 @@ public class TriangleSolver extends Calculation {
      */
     private void checkSecondSolution() {
         if (this.b.second > (this.c.second * Math.sin(MathUtils.gradToRad(this.beta.second)))) {
-            // every found value must be positive too
             if (this.areAllPositive(this.a.second, this.b.second, this.c.second) &&
                     this.areAllPositive(this.alpha.second, this.beta.second, this.gamma.second)) {
                 return;
             }
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER
+                            + "at least one of the second solution angle or side is not positive.");
         }
+        Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                TriangleSolver.TRIANGLE_SOLVER
+                        + "the condition for the second solution (b > c * sin(beta) is not respected.");
         this.a.second = 0.0;
         this.b.second = 0.0;
         this.c.second = 0.0;
         this.alpha.second = 0.0;
         this.beta.second = 0.0;
         this.gamma.second = 0.0;
-
     }
 
     /**
@@ -462,6 +484,10 @@ public class TriangleSolver extends Calculation {
             // impossible
             if (!(this.areAllPositive(this.a.second, this.b.second, this.c.second) && this
                     .areAllPositive(this.alpha.second, this.beta.second, this.gamma.second))) {
+                Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                        TriangleSolver.TRIANGLE_SOLVER
+                                + "not all values of sides and angles are positives which makes "
+                                + "the second solution calculation impossible.");
                 return;
             }
 
