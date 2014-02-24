@@ -109,7 +109,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
             this.clearInputs();
             return true;
         case R.id.run_calculation_button:
-            if (!this.chickenRun()) {
+            if (!this.chickenRun() || !this.areAllSidesAndAnglesPositives()) {
                 Toast errorToast = Toast.makeText(this,
                         this.getText(R.string.error_impossible_calculation),
                         Toast.LENGTH_SHORT);
@@ -394,5 +394,19 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Checks that all sides and angles are positive values.
+     * 
+     * @return True if all sides and angles are positive, false otherwise.
+     */
+    private boolean areAllSidesAndAnglesPositives() {
+        return (MathUtils.isPositive(this.a)
+                && MathUtils.isPositive(this.b)
+                && MathUtils.isPositive(this.c)
+                && MathUtils.isPositive(this.alpha)
+                && MathUtils.isPositive(this.beta)
+                && MathUtils.isPositive(this.gamma));
     }
 }
