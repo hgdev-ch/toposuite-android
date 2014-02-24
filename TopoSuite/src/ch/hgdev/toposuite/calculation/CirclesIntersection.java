@@ -10,6 +10,8 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
+import com.google.common.base.Preconditions;
+
 public class CirclesIntersection extends Calculation {
 
     private static final String CIRCLE_INTERSECTION = "Circle intersection: ";
@@ -49,17 +51,16 @@ public class CirclesIntersection extends Calculation {
     }
 
     public CirclesIntersection(Point _centerFirst, double _radiusFirst,
-            Point _centerSecond, double _radiusSecond, boolean hasDAO) {
+            Point _centerSecond, double _radiusSecond, boolean hasDAO)
+            throws IllegalArgumentException {
         super(CalculationType.CIRCLEINTERSEC,
                 "Circle intersection",
                 hasDAO);
-        this.centerFirst = _centerFirst;
-        this.radiusFirst = _radiusFirst;
-        this.centerSecond = _centerSecond;
-        this.radiusSecond = _radiusSecond;
+        Preconditions.checkArgument(
+                !_centerFirst.equals(_centerSecond),
+                "The two provided points must be different.");
 
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false);
+        this.initAttributes(_centerFirst, _radiusFirst, _centerSecond, _radiusSecond);
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
@@ -67,21 +68,52 @@ public class CirclesIntersection extends Calculation {
     }
 
     public CirclesIntersection(Point _centerFirst, Point _borderFirst,
-            Point _centerSecond, Point _borderSecond, boolean hasDAO) {
+            Point _centerSecond, Point _borderSecond, boolean hasDAO)
+            throws IllegalArgumentException {
         super(CalculationType.CIRCLEINTERSEC,
                 "Circle intersection",
                 hasDAO);
-        this.centerFirst = _centerFirst;
-        this.radiusFirst = MathUtils.euclideanDistance(_centerFirst, _borderFirst);
-        this.centerSecond = _centerSecond;
-        this.radiusSecond = MathUtils.euclideanDistance(_centerSecond, _borderSecond);
 
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false);
+        this.initAttributes(_centerFirst, MathUtils.euclideanDistance(_centerFirst, _borderFirst),
+                _centerSecond, MathUtils.euclideanDistance(_centerSecond, _borderSecond));
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
         }
+    }
+
+    /**
+     * Initialize class attributes.
+     * 
+     * @param _centerFirst
+     *            Center of the first circle.
+     * @param _radiusFirst
+     *            Radius of the first circle.
+     * @param _centerSecond
+     *            Center of the second circle.
+     * @param _radiusSecond
+     *            Radius of the second circle.
+     * @throws IllegalArgumentException
+     */
+    private void initAttributes(Point _centerFirst, double _radiusFirst,
+            Point _centerSecond, double _radiusSecond) throws IllegalArgumentException {
+        Preconditions.checkArgument(
+                !_centerFirst.equals(_centerSecond),
+                "The two provided points must be different.");
+        Preconditions.checkNotNull(_centerFirst, "The first point must no be null");
+        Preconditions.checkNotNull(_centerSecond, "The second point must no be null");
+        Preconditions.checkArgument(MathUtils.isPositive(_radiusFirst),
+                "The first radius must be positive.");
+        Preconditions.checkArgument(MathUtils.isPositive(_radiusSecond),
+                "The second radius must be positive.");
+
+        this.centerFirst = _centerFirst;
+        this.radiusFirst = _radiusFirst;
+        this.centerSecond = _centerSecond;
+        this.radiusSecond = _radiusSecond;
+
+        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false);
+        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false);
     }
 
     @Override
@@ -114,13 +146,13 @@ public class CirclesIntersection extends Calculation {
                         + (this.radiusFirst * Math.sin(gisement + alpha)));
         this.firstIntersection.setNorth(
                 this.centerFirst.getNorth()
-                        + (this.radiusFirst * Math.sin(gisement + alpha)));
+                        + (this.radiusFirst * Math.cos(gisement + alpha)));
         this.secondIntersection.setEast(
                 this.centerFirst.getEast()
                         + (this.radiusFirst * Math.sin(gisement - alpha)));
         this.secondIntersection.setNorth(
                 this.centerFirst.getNorth()
-                        + (this.radiusFirst * Math.sin(gisement - alpha)));
+                        + (this.radiusFirst * Math.cos(gisement - alpha)));
     }
 
     /**
