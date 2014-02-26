@@ -1,8 +1,10 @@
 package ch.hgdev.toposuite.export;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.LineNumberReader;
@@ -115,8 +117,14 @@ public class ImportDialog extends DialogFragment {
 
         List<String> files = new ArrayList<String>();
 
-        String[] filesList = new File(
-                this.getActivity().getFilesDir().getAbsolutePath()).list();
+        String[] filesList = new File(App.publicDataDirectory).list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String filename) {
+                return SupportedFileTypes.isSupported(
+                        Files.getFileExtension(filename));
+            }
+
+        });
         Arrays.sort(filesList);
 
         if (filesList.length == 0) {
@@ -235,8 +243,8 @@ public class ImportDialog extends DialogFragment {
         }
 
         try {
-            InputStream inputStream = this.getActivity().openFileInput(
-                    filename);
+            InputStream inputStream = new FileInputStream(
+                    new File(App.publicDataDirectory, filename));
 
             if (inputStream != null) {
                 // remove previous points and calculations
@@ -244,9 +252,6 @@ public class ImportDialog extends DialogFragment {
                 SharedResources.getCalculationsHistory().clear();
 
                 PointsImporter.importFromFile(inputStream, ext);
-            } else {
-                this.closeOnError(this.getActivity().getString(
-                        R.string.error_impossible_to_import));
             }
         } catch (FileNotFoundException e) {
             Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());

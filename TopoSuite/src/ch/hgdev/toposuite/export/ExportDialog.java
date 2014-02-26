@@ -160,7 +160,7 @@ public class ExportDialog extends DialogFragment {
             switch (type) {
             case CSV:
                 lines = SharedResources.getSetOfPoints().saveAsCSV(
-                        this.getActivity(), filename);
+                        this.getActivity(), App.publicDataDirectory, filename);
                 break;
             default:
                 Toast.makeText(this.getActivity(), R.string.error_unsupported_format,

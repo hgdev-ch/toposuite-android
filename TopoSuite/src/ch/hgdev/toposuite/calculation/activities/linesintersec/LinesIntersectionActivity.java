@@ -269,7 +269,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
         // setup blink animation
         this.blinkAnimation = new AnimationDrawable();
         this.blinkAnimation.addFrame(this.getResources()
-                .getDrawable(android.R.color.holo_blue_bright), 900);
+                .getDrawable(android.R.color.holo_blue_light), 900);
         this.blinkAnimation.addFrame(this.getResources()
                 .getDrawable(android.R.color.transparent), 900);
         this.blinkAnimation.setOneShot(true);
@@ -309,11 +309,23 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
             if (!MathUtils.isZero(this.lineIntersec.getGisementD1())) {
                 this.gisementD1EditText.setText(DisplayUtils.toString(
                         this.lineIntersec.getGisementD1()));
+
+                if (this.point2D1SelectedPosition == 0) {
+                    RadioButton rb = (RadioButton) this.findViewById(
+                            R.id.mode_d1_gisement);
+                    rb.setChecked(true);
+                }
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getGisementD2())) {
                 this.gisementD2EditText.setText(DisplayUtils.toString(
                         this.lineIntersec.getGisementD2()));
+
+                if (this.point2D2SelectedPosition == 0) {
+                    RadioButton rb = (RadioButton) this.findViewById(
+                            R.id.mode_d2_gisement);
+                    rb.setChecked(true);
+                }
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getDisplacementD1())) {
