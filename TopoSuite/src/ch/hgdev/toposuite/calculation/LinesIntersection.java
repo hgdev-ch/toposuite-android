@@ -260,7 +260,7 @@ public class LinesIntersection extends Calculation {
         if (p2D2Position != 0) {
             this.p2D2 = SharedResources.getSetOfPoints().find(p2D2Position);
         } else {
-            this.setDistanceP1D2(jo.getDouble(LinesIntersection.GIS_D2));
+            this.setGisementD2(jo.getDouble(LinesIntersection.GIS_D2));
         }
 
         this.setDisplacementD1(jo.getDouble(LinesIntersection.DISPL_D1));
