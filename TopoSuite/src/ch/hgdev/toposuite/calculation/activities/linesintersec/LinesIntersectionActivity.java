@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation.activities.linesintersec;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
@@ -84,6 +85,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
     private LinesIntersectionActivity.Mode d2Mode;
 
     private LinesIntersection              lineIntersec;
+
+    private AnimationDrawable              blinkAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,6 +264,15 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
                 // actually nothing
             }
         });
+
+        // setup blink animation
+        this.blinkAnimation = new AnimationDrawable();
+        this.blinkAnimation.addFrame(this.getResources()
+                .getDrawable(android.R.color.holo_blue_bright), 800);
+        this.blinkAnimation.addFrame(this.getResources()
+                .getDrawable(android.R.color.transparent), 800);
+        this.blinkAnimation.setOneShot(true);
+        this.resultLayout.setBackground(this.blinkAnimation);
     }
 
     @Override
@@ -562,6 +574,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
         this.intersectionPointTextView.setText(DisplayUtils.formatPoint(
                 this, this.lineIntersec.getIntersectionPoint()));
         this.resultLayout.setVisibility(View.VISIBLE);
+        this.blinkAnimation.start();
     }
 
     private enum Mode {
