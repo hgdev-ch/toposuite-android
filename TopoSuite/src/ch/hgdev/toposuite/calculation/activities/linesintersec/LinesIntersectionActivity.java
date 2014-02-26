@@ -6,6 +6,7 @@ import java.util.List;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -420,6 +421,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
 
         switch (id) {
         case R.id.run_calculation_button:
+            Log.d("TOPOSUITE FOOBAR D1", this.d1Mode.toString());
+            Log.d("TOPOSUITE FOOBAR D2", this.d2Mode.toString());
+
             if ((this.point1D1SelectedPosition == 0)
                     || (this.point1D2SelectedPosition == 0)
                     || ((this.d1Mode == Mode.GISEMENT) && (this.gisementD1EditText.length() == 0))
@@ -533,17 +537,17 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
         case R.id.mode_d2_gisement:
             if (checked) {
                 this.point2D2SpinnerLayout.setVisibility(View.GONE);
-                if (this.point2D1Layout != null) {
+                if (this.point2D2Layout != null) {
                     this.point2D2Layout.setVisibility(View.GONE);
                 }
                 this.gisementD2Layout.setVisibility(View.VISIBLE);
-                this.d1Mode = LinesIntersectionActivity.Mode.GISEMENT;
+                this.d2Mode = LinesIntersectionActivity.Mode.GISEMENT;
                 break;
             }
         case R.id.mode_d2_line:
             if (checked) {
                 this.point2D2SpinnerLayout.setVisibility(View.VISIBLE);
-                if (this.point2D1Layout != null) {
+                if (this.point2D2Layout != null) {
                     this.point2D2Layout.setVisibility(View.VISIBLE);
                 }
                 this.gisementD2Layout.setVisibility(View.GONE);
