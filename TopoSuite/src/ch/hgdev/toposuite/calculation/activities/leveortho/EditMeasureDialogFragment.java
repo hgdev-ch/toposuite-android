@@ -143,7 +143,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
         LeveOrthogonal.Measure m = lo.getMeasures().get(this.measurePosition);
         this.number = m.getNumber();
         this.abscissa = m.getAbscissa();
-        this.ordinate = m.getAbscissa();
+        this.ordinate = m.getOrdinate();
 
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
