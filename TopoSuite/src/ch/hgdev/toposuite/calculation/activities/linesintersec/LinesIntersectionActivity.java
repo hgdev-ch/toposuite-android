@@ -268,9 +268,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
         // setup blink animation
         this.blinkAnimation = new AnimationDrawable();
         this.blinkAnimation.addFrame(this.getResources()
-                .getDrawable(android.R.color.holo_blue_bright), 800);
+                .getDrawable(android.R.color.holo_blue_bright), 900);
         this.blinkAnimation.addFrame(this.getResources()
-                .getDrawable(android.R.color.transparent), 800);
+                .getDrawable(android.R.color.transparent), 900);
         this.blinkAnimation.setOneShot(true);
         this.resultLayout.setBackground(this.blinkAnimation);
     }
