@@ -155,7 +155,7 @@ public class ImportDialog extends DialogFragment {
                 // reset the confirmation flag
                 ImportDialog.this.isConfirmationAsked = false;
 
-                File f = new File(ImportDialog.this.getActivity().getFilesDir(), filename);
+                File f = new File(App.publicDataDirectory, filename);
                 SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat, App.locale);
 
                 // display the last modification date of the selected file
