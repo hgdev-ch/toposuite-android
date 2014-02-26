@@ -200,11 +200,6 @@ public class ImportDialog extends DialogFragment {
         }
     }
 
-    private final void closeOnError(String message) {
-        this.listener.onImportDialogError(message);
-        this.dismiss();
-    }
-
     private final void closeOnSuccess(String message) {
         this.listener.onImportDialogSuccess(message);
         this.dismiss();
