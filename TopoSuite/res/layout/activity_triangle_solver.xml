@@ -170,6 +170,7 @@
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
                 android:text="@string/perimeter_label"
+                android:freezesText="true"
                 android:textSize="12sp" />
 
             <TextView
@@ -178,6 +179,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -200,6 +202,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -222,6 +225,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -244,6 +248,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -266,6 +271,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -302,6 +308,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -324,6 +331,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -346,6 +354,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -368,6 +377,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -390,6 +400,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -412,6 +423,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -434,6 +446,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -456,6 +469,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -478,6 +492,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -500,6 +515,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -522,7 +538,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
-                android:textSize="12sp" />
+                android:freezesText="true"
+                android:textSize="12sp"/>
         </LinearLayout>
     </LinearLayout>
 
