@@ -21,8 +21,8 @@ public class Surface extends Calculation {
     private static final String                 SURFACE     = "Surface: ";
 
     private static final String                 POINTS_LIST = "points_list";
-    private String                              name;
-    private String                              description;
+    private String                              surfaceName;
+    private String                              surfaceDescription;
     private double                              surface;
     private double                              perimeter;
     private final List<Surface.PointWithRadius> points;
@@ -36,12 +36,12 @@ public class Surface extends Calculation {
         this.points = new ArrayList<Surface.PointWithRadius>();
     }
 
-    public Surface(String _name, String _description, boolean hasDAO) {
+    public Surface(String _surfaceName, String _surfaceDescription, boolean hasDAO) {
         super(CalculationType.SURFACE,
                 App.getContext().getString(R.string.title_activity_surface),
                 hasDAO);
-        this.name = _name;
-        this.description = _description;
+        this.surfaceName = _surfaceName;
+        this.surfaceDescription = _surfaceDescription;
         this.points = new ArrayList<Surface.PointWithRadius>();
         this.surface = 0.0;
         this.perimeter = 0.0;
@@ -144,22 +144,20 @@ public class Surface extends Calculation {
         return SurfaceActivity.class;
     }
 
-    public String getName() {
-        return this.name;
+    public String getSurfaceName() {
+        return this.surfaceName;
     }
 
-    public void setName(String _name) {
-        this.name = _name;
+    public void setSurfaceName(String _name) {
+        this.surfaceName = _name;
     }
 
-    @Override
-    public String getDescription() {
-        return this.description;
+    public String getSurfaceDescription() {
+        return this.surfaceDescription;
     }
 
-    @Override
-    public void setDescription(String _description) {
-        this.description = _description;
+    public void setSurfaceDescription(String _description) {
+        this.surfaceDescription = _description;
     }
 
     public double getSurface() {
