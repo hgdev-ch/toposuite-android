@@ -2,7 +2,12 @@ package ch.hgdev.toposuite.calculation.activities.surface;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -23,6 +28,7 @@ import ch.hgdev.toposuite.calculation.Surface;
 import ch.hgdev.toposuite.calculation.Surface.PointWithRadius;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class SurfaceActivity extends TopoSuiteActivity implements
@@ -30,6 +36,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         EditPointWithRadiusDialogFragment.EditPointWithRadiusDialogListener {
     public static final String                    POINT_WITH_RADIUS_NUMBER_LABEL = "point_with_radius_number";
     public static final String                    RADIUS_LABEL                   = "radius";
+    private static final String                   POINT_WITH_RADIUS_LABEL        = "points_with_radius";
     private ListView                              pointsListView;
     private EditText                              nameEditText;
     private EditText                              descriptionEditText;
@@ -176,11 +183,36 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        JSONArray json = new JSONArray();
+        for (int i = 0; i < this.adapter.getCount(); i++) {
+            json.put(this.adapter.getItem(i).toJSONObject());
+        }
+        outState.putString(SurfaceActivity.POINT_WITH_RADIUS_LABEL, json.toString());
+    }
+
+    @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if (this.checkInputs()) {
-            this.runCalculation();
-            this.updateResults();
+
+        if (savedInstanceState != null) {
+            this.adapter.clear();
+            JSONArray jsonArray;
+            try {
+                jsonArray = new JSONArray(
+                        savedInstanceState.getString(SurfaceActivity.POINT_WITH_RADIUS_LABEL));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject json = (JSONObject) jsonArray.get(i);
+                    PointWithRadius p = PointWithRadius.getPointFromJSON(json.toString());
+                    this.adapter.add(p);
+                }
+            } catch (JSONException e) {
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+                        "SurfaceActivity: cannot restore saved instance.");
+            }
+            this.drawList();
         }
     }
 
