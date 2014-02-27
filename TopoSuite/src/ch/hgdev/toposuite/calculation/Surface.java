@@ -18,9 +18,12 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Surface extends Calculation {
-    private static final String                 SURFACE     = "Surface: ";
+    private static final String                 SURFACE             = "Surface: ";
 
-    private static final String                 POINTS_LIST = "points_list";
+    private static final String                 POINTS_LIST         = "points_list";
+    private static final String                 SURFACE_NAME        = "surface_name";
+    private static final String                 SURFACE_DESCRIPTION = "surface_description";
+
     private String                              surfaceName;
     private String                              surfaceDescription;
     private double                              surface;
@@ -124,6 +127,8 @@ public class Surface extends Calculation {
             }
             json.put(Surface.POINTS_LIST, pointsArray);
         }
+        json.put(SURFACE_NAME, this.surfaceName);
+        json.put(SURFACE_DESCRIPTION, this.surfaceDescription);
         return json.toString();
     }
 
@@ -137,6 +142,8 @@ public class Surface extends Calculation {
             Surface.PointWithRadius p = Surface.PointWithRadius.getPointFromJSON(jo.toString());
             this.points.add(p);
         }
+        this.surfaceName = json.getString(SURFACE_NAME);
+        this.surfaceDescription = json.getString(SURFACE_DESCRIPTION);
     }
 
     @Override
