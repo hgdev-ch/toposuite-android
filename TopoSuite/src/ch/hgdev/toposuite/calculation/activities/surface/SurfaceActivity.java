@@ -37,6 +37,10 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     public static final String                    POINT_WITH_RADIUS_NUMBER_LABEL = "point_with_radius_number";
     public static final String                    RADIUS_LABEL                   = "radius";
     private static final String                   POINT_WITH_RADIUS_LABEL        = "points_with_radius";
+    private static final String                   SURFACE_NAME_LABEL             = "surface_name";
+    private static final String                   SURFACE_DESCRIPTION_LABEL      = "surface_description";
+    private static final String                   PERIMETER_LABEL                = "perimeter_label";
+    private static final String                   SURFACE_LABEL                  = "surface_label";
     private ListView                              pointsListView;
     private EditText                              nameEditText;
     private EditText                              descriptionEditText;
@@ -47,7 +51,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     private String                                description;
     private double                                surface;
     private double                                perimeter;
-    private int                                   vertexNumber;
+    private int                                   vertexCount;
     private ArrayAdapter<Surface.PointWithRadius> adapter;
     private Surface                               surfaceCalculation;
 
@@ -63,7 +67,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         this.setContentView(R.layout.activity_surface);
 
         this.position = -1;
-        this.vertexNumber = 0;
         this.surface = 0.0;
         this.perimeter = 0.0;
         this.name = "";
@@ -90,11 +93,11 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                     .get(this.position);
             if (this.surfaceCalculation != null) {
                 list = (ArrayList<Surface.PointWithRadius>) this.surfaceCalculation.getPoints();
-                this.name = this.surfaceCalculation.getName();
-                this.description = this.surfaceCalculation.getDescription();
+                this.name = this.surfaceCalculation.getSurfaceName();
+                this.description = this.surfaceCalculation.getSurfaceDescription();
                 this.surface = this.surfaceCalculation.getSurface();
                 this.perimeter = this.surfaceCalculation.getPerimeter();
-                this.vertexNumber = this.surfaceCalculation.getPoints().size();
+                this.vertexCount = this.surfaceCalculation.getPoints().size();
             }
         } else {
             this.surfaceCalculation = new Surface(this.name, this.description, true);
@@ -102,6 +105,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
         this.adapter = new ArrayListOfPointsWithRadiusAdapter(this,
                 R.layout.points_with_radius_list_item, list);
+        this.vertexCount = this.adapter.getCount();
 
         this.drawList();
 
@@ -170,7 +174,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         case R.id.delete_point:
             this.adapter.remove(this.adapter.getItem(info.position));
             this.surfaceCalculation.getPoints().remove(info.position);
-            this.vertexNumber--;
+            this.vertexCount--;
             for (int i = info.position; i < this.adapter.getCount(); i++) {
                 this.adapter.getItem(i).setVertexNumber(
                         this.adapter.getItem(i).getVertexNumber() - 1);
@@ -191,6 +195,10 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             json.put(this.adapter.getItem(i).toJSONObject());
         }
         outState.putString(SurfaceActivity.POINT_WITH_RADIUS_LABEL, json.toString());
+        outState.putString(SurfaceActivity.SURFACE_DESCRIPTION_LABEL, this.description);
+        outState.putString(SurfaceActivity.SURFACE_NAME_LABEL, this.name);
+        outState.putDouble(SurfaceActivity.PERIMETER_LABEL, this.perimeter);
+        outState.putDouble(SurfaceActivity.SURFACE_LABEL, this.surface);
     }
 
     @Override
@@ -208,10 +216,16 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                     PointWithRadius p = PointWithRadius.getPointFromJSON(json.toString());
                     this.adapter.add(p);
                 }
+                this.vertexCount = jsonArray.length();
             } catch (JSONException e) {
                 Log.e(Logger.TOPOSUITE_PARSE_ERROR,
                         "SurfaceActivity: cannot restore saved instance.");
             }
+            this.name = savedInstanceState.getString(SurfaceActivity.SURFACE_NAME_LABEL);
+            this.description = savedInstanceState
+                    .getString(SurfaceActivity.SURFACE_DESCRIPTION_LABEL);
+            this.perimeter = savedInstanceState.getDouble(SurfaceActivity.PERIMETER_LABEL);
+            this.surface = savedInstanceState.getDouble(SurfaceActivity.SURFACE_LABEL);
             this.drawList();
         }
     }
@@ -231,12 +245,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             this.description = "";
         }
 
-        if (this.surfaceCalculation == null) {
-            this.surfaceCalculation = new Surface(this.name, this.description, true);
-        } else {
-            this.surfaceCalculation.setName(this.name);
-            this.surfaceCalculation.setDescription(this.description);
-        }
+        this.surfaceCalculation.setSurfaceName(this.name);
+        this.surfaceCalculation.setSurfaceDescription(this.description);
 
         this.surfaceCalculation.compute();
         this.surface = this.surfaceCalculation.getSurface();
@@ -299,13 +309,13 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogAdd(AddPointWithRadiusDialogFragment dialog) {
-        this.vertexNumber++;
+        this.vertexCount++;
         Surface.PointWithRadius p = new PointWithRadius(
                 dialog.getPoint().getNumber(),
                 dialog.getPoint().getEast(),
                 dialog.getPoint().getNorth(),
                 dialog.getRadius(),
-                this.vertexNumber);
+                this.vertexCount);
         this.surfaceCalculation.getPoints().add(p);
         this.adapter.add(p);
         this.adapter.notifyDataSetChanged();
