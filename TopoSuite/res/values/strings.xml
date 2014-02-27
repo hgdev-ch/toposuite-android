@@ -51,7 +51,7 @@
     <string name="developed_by">Developed by</string>
     <string name="dialog_add_point">Add a point</string>
     <string name="dialog_edit_point">Edit a point</string>
-    <string name="differences_label">Differences</string>
+    <string name="differences_label">Differences [cm]</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="disclaimer_notice">This calculation software is primarily intended for geomatic apprentices for educational purpose.
         The CRAG disclaims any liability for any other use.</string>

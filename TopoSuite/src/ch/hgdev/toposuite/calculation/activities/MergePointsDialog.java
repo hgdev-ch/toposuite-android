@@ -133,9 +133,9 @@ public class MergePointsDialog extends DialogFragment {
                         this.getActivity(),
                         new Point(
                                 0,
-                                this.newPt.getEast() - this.oldPt.getEast(),
-                                this.newPt.getNorth() - this.oldPt.getNorth(),
-                                this.newPt.getAltitude() - this.oldPt.getAltitude(),
+                                (this.newPt.getEast() - this.oldPt.getEast()) * 100,
+                                (this.newPt.getNorth() - this.oldPt.getNorth()) * 100,
+                                (this.newPt.getAltitude() - this.oldPt.getAltitude()) * 100,
                                 false, false)));
 
         Button meanButton = (Button) view.findViewById(R.id.mean_button);

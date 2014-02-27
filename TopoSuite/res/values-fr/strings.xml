@@ -51,7 +51,7 @@
     <string name="developed_by">Developpé par</string>
     <string name="dialog_add_point">Ajouter un point</string>
     <string name="dialog_edit_point">Editer un point</string>
-    <string name="differences_label">Ecarts</string>
+    <string name="differences_label">Ecarts [cm]</string>
     <string name="disclaimer">Avis de non responsabilité</string>
     <string name="disclaimer_notice">Ce programme de calcul est avant tout destiné aux apprentis géomaticiens/nes dans un but pédagogique.
         La CRAG décline toute responsabilité en cas d\'utilisation autre.</string>
