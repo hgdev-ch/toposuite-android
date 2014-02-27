@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -38,6 +39,7 @@ import ch.hgdev.toposuite.calculation.PolarImplantation;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class PolarImplantationActivity extends TopoSuiteActivity implements
@@ -210,7 +212,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                     this.adapter.add(m);
                 }
             } catch (JSONException e) {
-                // TODO
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+                        "PolarImplantationActivity: cannot restore saved instance.");
             }
             this.drawList();
         }
