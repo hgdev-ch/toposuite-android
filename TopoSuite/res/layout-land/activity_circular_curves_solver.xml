@@ -129,6 +129,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:text="@string/no_value" />
         </LinearLayout>
         
@@ -151,6 +152,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:text="@string/no_value" />
         </LinearLayout>
 
@@ -173,6 +175,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:text="@string/no_value"/>
         </LinearLayout>
 
@@ -195,6 +198,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:text="@string/no_value" />
         </LinearLayout>
 
@@ -221,6 +225,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:text="@string/no_value" />
         </LinearLayout>
 
@@ -244,6 +249,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:text="@string/no_value" />
         </LinearLayout>
 
@@ -266,6 +272,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:text="@string/no_value" />
         </LinearLayout>
 
@@ -288,6 +295,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
+                android:freezesText="true"
                 android:text="@string/no_value"/>
         </LinearLayout>
     </LinearLayout>
