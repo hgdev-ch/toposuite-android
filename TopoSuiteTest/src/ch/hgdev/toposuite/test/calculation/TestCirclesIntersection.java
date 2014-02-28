@@ -10,14 +10,11 @@ import ch.hgdev.toposuite.points.Point;
 
 public class TestCirclesIntersection extends TestCase {
 
-    private DecimalFormat df1;
     private DecimalFormat df3;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        this.df1 = new DecimalFormat("#.#");
-        this.df1.setRoundingMode(RoundingMode.HALF_UP);
         this.df3 = new DecimalFormat("#.###");
         this.df3.setRoundingMode(RoundingMode.HALF_UP);
     }
@@ -32,16 +29,14 @@ public class TestCirclesIntersection extends TestCase {
             CirclesIntersection c = new CirclesIntersection(p3, radius3, p1, radius1, false);
             c.compute();
 
-            Assert.assertEquals("-25",
-                    this.df1.format(c.getFirstIntersection().getEast()));
-            // TODO uncomment once circle intersection calculation has been
-            // fixed
-            // Assert.assertEquals("55.027",
-            // this.df3.format(c.getFirstIntersection().getNorth()));
-            // Assert.assertEquals("51.135",
-            // this.df3.format(c.getSecondIntersection().getEast()));
-            // Assert.assertEquals("12.374",
-            // this.df3.format(c.getSecondIntersection().getNorth()));
+            Assert.assertEquals("-24.999",
+                    this.df3.format(c.getFirstIntersection().getEast()));
+            Assert.assertEquals("54.675",
+                    this.df3.format(c.getFirstIntersection().getNorth()));
+            Assert.assertEquals("50.835",
+                    this.df3.format(c.getSecondIntersection().getEast()));
+            Assert.assertEquals("12.191",
+                    this.df3.format(c.getSecondIntersection().getNorth()));
         } catch (IllegalArgumentException e) {
             Assert.fail("An illegal argument exception should not be thrown here.");
         }

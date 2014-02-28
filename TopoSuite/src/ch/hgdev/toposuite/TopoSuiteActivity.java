@@ -22,6 +22,7 @@ import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesSolverActivity;
 import ch.hgdev.toposuite.calculation.activities.circle.CircleActivity;
+import ch.hgdev.toposuite.calculation.activities.circlesintersection.CirclesIntersectionActivity;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
@@ -199,6 +200,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         intersections.getChildren().add(
                 new ActivityItem(this.getString(R.string.title_activity_lines_intersection),
                         LinesIntersectionActivity.class));
+        intersections.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_circles_intersection),
+                        CirclesIntersectionActivity.class));
         groups.append(2, intersections);
 
         CalculationGroup surfaces = new CalculationGroup(

@@ -5,6 +5,8 @@ import java.util.Date;
 import org.json.JSONException;
 
 import android.util.Log;
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
@@ -45,7 +47,7 @@ public class CirclesIntersection extends Calculation {
     public CirclesIntersection(long id, Date lastModification) {
         super(id,
                 CalculationType.CIRCLEINTERSEC,
-                "Circle intersection",
+                App.getContext().getString(R.string.title_activity_circles_intersection),
                 lastModification,
                 true);
     }
@@ -71,7 +73,7 @@ public class CirclesIntersection extends Calculation {
             Point _centerSecond, Point _borderSecond, boolean hasDAO)
             throws IllegalArgumentException {
         super(CalculationType.CIRCLEINTERSEC,
-                "Circle intersection",
+                App.getContext().getString(R.string.title_activity_circles_intersection),
                 hasDAO);
 
         this.initAttributes(_centerFirst, MathUtils.euclideanDistance(_centerFirst, _borderFirst),
