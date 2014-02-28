@@ -5,13 +5,11 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.linesintersec.LinesIntersectionActivity;
 import ch.hgdev.toposuite.points.Point;
-import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LinesIntersection extends Calculation {
@@ -125,7 +123,7 @@ public class LinesIntersection extends Calculation {
 
     @Override
     public void compute() {
-        Log.d("TOPOSUITE FOOBAR", "Hey, I am here !");
+        // TODO raise an exception
         /*if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
                 || (this.p2D2 == null)) {
             return;
@@ -218,9 +216,6 @@ public class LinesIntersection extends Calculation {
 
         this.intersectionPoint = new Point(this.pointNumber, east, north, 0.0,
                 false, false);
-
-        Log.d("TOPOSUITE FOOBAR", "Result => " +
-                Logger.formatPoint(this.intersectionPoint));
 
         this.updateLastModification();
         this.notifyUpdate(this);

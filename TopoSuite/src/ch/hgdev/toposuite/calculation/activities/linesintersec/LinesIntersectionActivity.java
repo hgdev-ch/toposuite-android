@@ -6,7 +6,6 @@ import java.util.List;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +28,6 @@ import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
-import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LinesIntersectionActivity extends TopoSuiteActivity {
@@ -73,6 +72,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
     private CheckBox                       perpendicularD1CheckBox;
     private CheckBox                       perpendicularD2CheckBox;
 
+    private ScrollView                     scrollView;
+
     private ArrayAdapter<Point>            adapter;
 
     private int                            point1D1SelectedPosition;
@@ -106,6 +107,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
 
         this.point1D2SelectedPosition = 0;
         this.point2D2SelectedPosition = 0;
+
+        this.scrollView = (ScrollView) this.findViewById(R.id.scroll_view);
 
         this.point1D1TextView = (TextView) this.findViewById(R.id.point_1_d1);
         this.point2D1TextView = (TextView) this.findViewById(R.id.point_2_d1);
@@ -149,9 +152,11 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
 
         this.distP1D1EditText = (EditText) this.findViewById(R.id.dist_p1_d1);
         this.distP1D1EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.distP1D1EditText.setText("0.0");
 
         this.distP1D2EditText = (EditText) this.findViewById(R.id.dist_p1_d2);
         this.distP1D2EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.distP1D1EditText.setText("0.0");
 
         this.point2D1SpinnerLayout = (LinearLayout) this
                 .findViewById(R.id.point2_d1_spinner_layout);
@@ -447,7 +452,6 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
             }
 
             Point p1D1 = this.adapter.getItem(this.point1D1SelectedPosition);
-            Log.d("TOPOSUITE FOOBAR", "p1D1 => " + Logger.formatPoint(p1D1));
             Point p2D1 = null;
             double gisementD1 = 0.0;
             if (this.d1Mode == Mode.GISEMENT) {
@@ -511,8 +515,6 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
                 this.lineIntersec.setPointNumber(pointNumber);
             }
 
-            Log.d("TOPOSUITE FOOBAR", "P1D1 that should be modified => " +
-                    Logger.formatPoint(this.lineIntersec.getP1D1()));
             this.lineIntersec.compute();
             this.displayResult();
 
@@ -589,10 +591,11 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
     }
 
     private void displayResult() {
-        Log.d("TOPOSUITE FOOBAR", "SHOULD BE DISPLAYED");
+        this.blinkAnimation.stop();
         this.intersectionPointTextView.setText(DisplayUtils.formatPoint(
                 this, this.lineIntersec.getIntersectionPoint()));
         this.resultLayout.setVisibility(View.VISIBLE);
+        this.scrollView.scrollTo(0, 0);
         this.blinkAnimation.start();
     }
 
