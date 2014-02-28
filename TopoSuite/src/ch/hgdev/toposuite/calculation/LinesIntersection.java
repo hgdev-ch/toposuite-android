@@ -5,11 +5,13 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.linesintersec.LinesIntersectionActivity;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LinesIntersection extends Calculation {
@@ -123,10 +125,11 @@ public class LinesIntersection extends Calculation {
 
     @Override
     public void compute() {
-        if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
+        Log.d("TOPOSUITE FOOBAR", "Hey, I am here !");
+        /*if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
                 || (this.p2D2 == null)) {
             return;
-        }
+        }*/
 
         double alphaAngle, gammaAngle, pAngle, displGis;
 
@@ -203,10 +206,10 @@ public class LinesIntersection extends Calculation {
                 .getGisement();
 
         // safe check
-        if (MathUtils.equals(alphaAngle, -gammaAngle)
+        /*if (MathUtils.equals(alphaAngle, -gammaAngle)
                 && MathUtils.isZero(stPtIntersecDist)) {
             return;
-        }
+        }*/
 
         double east = MathUtils.pointLanceEast(p1D1clone.getEast(),
                 stPtIntersecGis, stPtIntersecDist);
@@ -215,6 +218,9 @@ public class LinesIntersection extends Calculation {
 
         this.intersectionPoint = new Point(this.pointNumber, east, north, 0.0,
                 false, false);
+
+        Log.d("TOPOSUITE FOOBAR", "Result => " +
+                Logger.formatPoint(this.intersectionPoint));
 
         this.updateLastModification();
         this.notifyUpdate(this);
@@ -318,6 +324,9 @@ public class LinesIntersection extends Calculation {
 
     public final void setGisementD1(double _gisementD1) {
         this.gisementD1 = _gisementD1;
+        if (!MathUtils.isZero(this.gisementD1)) {
+            this.setP2D1(this.gisementD1);
+        }
     }
 
     public final double getDistanceP1D1() {
@@ -371,6 +380,9 @@ public class LinesIntersection extends Calculation {
 
     public final void setGisementD2(double _gisementD2) {
         this.gisementD2 = _gisementD2;
+        if (!MathUtils.isZero(this.gisementD2)) {
+            this.setP2D2(this.gisementD2);
+        }
     }
 
     public final double getDistanceP1D2() {

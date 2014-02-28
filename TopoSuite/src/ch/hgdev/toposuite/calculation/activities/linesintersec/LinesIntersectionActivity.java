@@ -28,6 +28,7 @@ import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LinesIntersectionActivity extends TopoSuiteActivity {
@@ -433,9 +434,6 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
 
         switch (id) {
         case R.id.run_calculation_button:
-            Log.d("TOPOSUITE FOOBAR D1", this.d1Mode.toString());
-            Log.d("TOPOSUITE FOOBAR D2", this.d2Mode.toString());
-
             if ((this.point1D1SelectedPosition == 0)
                     || (this.point1D2SelectedPosition == 0)
                     || ((this.d1Mode == Mode.GISEMENT) && (this.gisementD1EditText.length() == 0))
@@ -449,6 +447,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
             }
 
             Point p1D1 = this.adapter.getItem(this.point1D1SelectedPosition);
+            Log.d("TOPOSUITE FOOBAR", "p1D1 => " + Logger.formatPoint(p1D1));
             Point p2D1 = null;
             double gisementD1 = 0.0;
             if (this.d1Mode == Mode.GISEMENT) {
@@ -500,17 +499,20 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
                         true);
             } else {
                 this.lineIntersec.setP1D1(p1D1);
-                this.lineIntersec.setP1D1(p2D1);
+                this.lineIntersec.setP2D1(p2D1);
                 this.lineIntersec.setDisplacementD1(displacementD1);
                 this.lineIntersec.setGisementD1(gisementD1);
                 this.lineIntersec.setDistanceP1D1(distP1D1);
                 this.lineIntersec.setP1D2(p1D2);
                 this.lineIntersec.setP2D2(p2D2);
                 this.lineIntersec.setDisplacementD2(displacementD2);
+                this.lineIntersec.setGisementD2(gisementD2);
                 this.lineIntersec.setDistanceP1D2(distP1D2);
                 this.lineIntersec.setPointNumber(pointNumber);
             }
 
+            Log.d("TOPOSUITE FOOBAR", "P1D1 that should be modified => " +
+                    Logger.formatPoint(this.lineIntersec.getP1D1()));
             this.lineIntersec.compute();
             this.displayResult();
 
@@ -587,6 +589,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
     }
 
     private void displayResult() {
+        Log.d("TOPOSUITE FOOBAR", "SHOULD BE DISPLAYED");
         this.intersectionPointTextView.setText(DisplayUtils.formatPoint(
                 this, this.lineIntersec.getIntersectionPoint()));
         this.resultLayout.setVisibility(View.VISIBLE);
