@@ -25,12 +25,15 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.LinesIntersection;
+import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
+import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class LinesIntersectionActivity extends TopoSuiteActivity {
+public class LinesIntersectionActivity extends TopoSuiteActivity implements
+        MergePointsDialog.MergePointsDialogListener {
     private static final String            LINES_INTERSEC_POSITION = "lines_intersec_position";
     private static final String            P1D1_SELECTED_POSITION  = "p1d1_selected_position";
     private static final String            P2D1_SELECTED_POSITION  = "p2d1_selected_position";
@@ -520,6 +523,45 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
 
             return true;
         case R.id.save_point:
+            // check if the user has supplied a point number
+            if ((this.lineIntersec == null) || (this.pointNumberEditText.length() == 0)) {
+                Toast.makeText(this, R.string.error_fill_data, Toast.LENGTH_LONG)
+                        .show();
+                return true;
+            }
+
+            this.lineIntersec.setPointNumber(Integer.parseInt(
+                    this.pointNumberEditText.getText().toString()));
+            this.lineIntersec.notifyUpdate(this.lineIntersec);
+
+            if (SharedResources.getSetOfPoints().find(
+                    this.lineIntersec.getPointNumber()) == null) {
+                SharedResources.getSetOfPoints().add(
+                        this.lineIntersec.getIntersectionPoint());
+                this.lineIntersec.getIntersectionPoint().registerDAO(
+                        PointsDataSource.getInstance());
+
+                Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
+                        .show();
+            } else {
+                // this point already exists
+                MergePointsDialog dialog = new MergePointsDialog();
+
+                Bundle args = new Bundle();
+                args.putInt(
+                        MergePointsDialog.POINT_NUMBER,
+                        this.lineIntersec.getPointNumber());
+
+                args.putDouble(MergePointsDialog.NEW_EAST,
+                        this.lineIntersec.getIntersectionPoint().getEast());
+                args.putDouble(MergePointsDialog.NEW_NORTH,
+                        this.lineIntersec.getIntersectionPoint().getNorth());
+                args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                        this.lineIntersec.getIntersectionPoint().getAltitude());
+
+                dialog.setArguments(args);
+                dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+            }
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -602,5 +644,15 @@ public class LinesIntersectionActivity extends TopoSuiteActivity {
     private enum Mode {
         LINE,
         GISEMENT;
+    }
+
+    @Override
+    public void onMergePointsDialogSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onMergePointsDialogError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
