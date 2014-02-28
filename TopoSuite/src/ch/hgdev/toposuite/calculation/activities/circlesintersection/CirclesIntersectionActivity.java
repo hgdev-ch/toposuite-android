@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -93,6 +94,14 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
             this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.circlesIntersection = (CirclesIntersection) SharedResources
                     .getCalculationsHistory().get(this.position);
+            this.centerOneSelectedPosition = this.adapter.getPosition(
+                    this.circlesIntersection.getCenterFirst());
+            this.centerTwoSelectedPosition = this.adapter.getPosition(
+                    this.circlesIntersection.getCenterSecond());
+            this.radiusOneEditText.setText(
+                    DisplayUtils.toString(this.circlesIntersection.getRadiusFirst()));
+            this.radiusTwoEditText.setText(
+                    DisplayUtils.toString(this.circlesIntersection.getRadiusSecond()));
         } else {
             this.circlesIntersection = new CirclesIntersection();
         }
@@ -293,6 +302,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
                 // actually nothing
             }
         });
+
+        this.radiusOneEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.radiusTwoEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
     }
 
     /**

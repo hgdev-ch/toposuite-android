@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.util.Log;
 import ch.hgdev.toposuite.App;
@@ -17,7 +18,12 @@ import com.google.common.base.Preconditions;
 
 public class CirclesIntersection extends Calculation {
 
-    private static final String CIRCLE_INTERSECTION = "Circle intersection: ";
+    private static final String CIRCLE_INTERSECTION  = "Circle intersection: ";
+
+    private static final String FIRST_RADIUS         = "first_radius";
+    private static final String CENTER_FIRST_NUMBER  = "center_first";
+    private static final String SECOND_RADIUS        = "second_radius";
+    private static final String CENTER_SECOND_NUMBER = "center_second";
 
     /**
      * Center of the first circle.
@@ -57,8 +63,8 @@ public class CirclesIntersection extends Calculation {
         super(CalculationType.CIRCLEINTERSEC,
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 true);
-        this.centerFirst = null;
-        this.centerSecond = null;
+        this.centerFirst = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.centerSecond = new Point(0, 0.0, 0.0, 0.0, false, false);
         this.radiusFirst = 0.0;
         this.radiusSecond = 0.0;
 
@@ -161,14 +167,27 @@ public class CirclesIntersection extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO implement
-        return null;
+        JSONObject json = new JSONObject();
+
+        json.put(CirclesIntersection.FIRST_RADIUS, this.radiusFirst);
+        json.put(CirclesIntersection.SECOND_RADIUS, this.radiusSecond);
+        json.put(CirclesIntersection.CENTER_FIRST_NUMBER, this.centerFirst.getNumber());
+        json.put(CirclesIntersection.CENTER_SECOND_NUMBER, this.centerSecond.getNumber());
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO implement
-
+        JSONObject json = new JSONObject(jsonInputArgs);
+        this.setCenterFirst(
+                SharedResources.getSetOfPoints().find(
+                        json.getInt(CirclesIntersection.CENTER_FIRST_NUMBER)));
+        this.setCenterSecond(
+                SharedResources.getSetOfPoints().find(
+                        json.getInt(CirclesIntersection.CENTER_SECOND_NUMBER)));
+        this.setRadiusFirst(json.getDouble(CirclesIntersection.FIRST_RADIUS));
+        this.setRadiusSecond(json.getDouble(CirclesIntersection.SECOND_RADIUS));
     }
 
     @Override
@@ -182,6 +201,22 @@ public class CirclesIntersection extends Calculation {
 
     public Point getSecondIntersection() {
         return this.secondIntersection;
+    }
+
+    public Point getCenterFirst() {
+        return this.centerFirst;
+    }
+
+    public double getRadiusFirst() {
+        return this.radiusFirst;
+    }
+
+    public Point getCenterSecond() {
+        return this.centerSecond;
+    }
+
+    public double getRadiusSecond() {
+        return this.radiusSecond;
     }
 
     public void setCenterFirst(Point centerFirst) throws IllegalArgumentException {
