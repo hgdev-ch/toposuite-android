@@ -155,7 +155,17 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
         switch (id) {
         case R.id.run_calculation_button:
             if (this.checkInputs()) {
-                this.runCalculations();
+                if (!MathUtils.isPositive(Double.parseDouble(this.radiusOneEditText.getText()
+                        .toString()))
+                        || !MathUtils.isPositive(Double.parseDouble(this.radiusTwoEditText
+                                .getText().toString()))) {
+                    Toast errorToast = Toast.makeText(this, R.string.error_radius_must_be_positive,
+                            Toast.LENGTH_SHORT);
+                    errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    errorToast.show();
+                } else {
+                    this.runCalculations();
+                }
             } else {
                 Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
                         Toast.LENGTH_SHORT);
