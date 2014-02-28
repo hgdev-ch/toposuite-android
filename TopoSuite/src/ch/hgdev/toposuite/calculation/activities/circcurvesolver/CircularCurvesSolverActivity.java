@@ -74,6 +74,11 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_circular_curve_solver);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         this.getMenuInflater().inflate(R.menu.circular_curves_solver, menu);

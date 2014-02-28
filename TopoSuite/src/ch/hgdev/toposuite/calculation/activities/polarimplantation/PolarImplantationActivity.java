@@ -173,6 +173,11 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_polar_implantation);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.polar_implantation, menu);
         return super.onCreateOptionsMenu(menu);

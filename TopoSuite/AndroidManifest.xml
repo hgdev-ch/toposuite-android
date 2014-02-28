@@ -61,7 +61,7 @@
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity"
-            android:label="@string/title_activity_abriss" >
+            android:label="@string/title_activity_leve_polaire" >
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.abriss.AbrissResultsActivity"

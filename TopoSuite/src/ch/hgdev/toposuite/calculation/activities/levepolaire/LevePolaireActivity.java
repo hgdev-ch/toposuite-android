@@ -180,6 +180,11 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_leve_polaire);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.levepolaire, menu);
         return super.onCreateOptionsMenu(menu);

@@ -62,6 +62,11 @@ public class HistoryActivity extends TopoSuiteActivity {
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_history);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.history, menu);
         return super.onCreateOptionsMenu(menu);

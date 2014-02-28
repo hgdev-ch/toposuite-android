@@ -43,8 +43,14 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_ortho_implantation_results);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //this.getMenuInflater().inflate(R.menu.ortho_implantation_results, menu);
+        // this.getMenuInflater().inflate(R.menu.ortho_implantation_results,
+        // menu);
         return super.onCreateOptionsMenu(menu);
     }
 

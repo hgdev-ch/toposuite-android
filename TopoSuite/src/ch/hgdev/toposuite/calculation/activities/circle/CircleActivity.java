@@ -191,6 +191,11 @@ public class CircleActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_circle);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
         return super.onCreateOptionsMenu(menu);

@@ -3,11 +3,13 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.circlesintersection.CirclesIntersectionActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -16,7 +18,12 @@ import com.google.common.base.Preconditions;
 
 public class CirclesIntersection extends Calculation {
 
-    private static final String CIRCLE_INTERSECTION = "Circle intersection: ";
+    private static final String CIRCLE_INTERSECTION  = "Circle intersection: ";
+
+    private static final String FIRST_RADIUS         = "first_radius";
+    private static final String CENTER_FIRST_NUMBER  = "center_first";
+    private static final String SECOND_RADIUS        = "second_radius";
+    private static final String CENTER_SECOND_NUMBER = "center_second";
 
     /**
      * Center of the first circle.
@@ -52,32 +59,32 @@ public class CirclesIntersection extends Calculation {
                 true);
     }
 
+    public CirclesIntersection() {
+        super(CalculationType.CIRCLEINTERSEC,
+                App.getContext().getString(R.string.title_activity_circles_intersection),
+                true);
+        this.centerFirst = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.centerSecond = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.radiusFirst = 0.0;
+        this.radiusSecond = 0.0;
+
+        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+
+        SharedResources.getCalculationsHistory().add(0, this);
+    }
+
     public CirclesIntersection(Point _centerFirst, double _radiusFirst,
             Point _centerSecond, double _radiusSecond, boolean hasDAO)
             throws IllegalArgumentException {
         super(CalculationType.CIRCLEINTERSEC,
-                "Circle intersection",
+                App.getContext().getString(R.string.title_activity_circles_intersection),
                 hasDAO);
         Preconditions.checkArgument(
                 !_centerFirst.equals(_centerSecond),
                 "The two provided points must be different.");
 
         this.initAttributes(_centerFirst, _radiusFirst, _centerSecond, _radiusSecond);
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
-    }
-
-    public CirclesIntersection(Point _centerFirst, Point _borderFirst,
-            Point _centerSecond, Point _borderSecond, boolean hasDAO)
-            throws IllegalArgumentException {
-        super(CalculationType.CIRCLEINTERSEC,
-                App.getContext().getString(R.string.title_activity_circles_intersection),
-                hasDAO);
-
-        this.initAttributes(_centerFirst, MathUtils.euclideanDistance(_centerFirst, _borderFirst),
-                _centerSecond, MathUtils.euclideanDistance(_centerSecond, _borderSecond));
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
@@ -99,23 +106,13 @@ public class CirclesIntersection extends Calculation {
      */
     private void initAttributes(Point _centerFirst, double _radiusFirst,
             Point _centerSecond, double _radiusSecond) throws IllegalArgumentException {
-        Preconditions.checkArgument(
-                !_centerFirst.equals(_centerSecond),
-                "The two provided points must be different.");
-        Preconditions.checkNotNull(_centerFirst, "The first point must no be null");
-        Preconditions.checkNotNull(_centerSecond, "The second point must no be null");
-        Preconditions.checkArgument(MathUtils.isPositive(_radiusFirst),
-                "The first radius must be positive.");
-        Preconditions.checkArgument(MathUtils.isPositive(_radiusSecond),
-                "The second radius must be positive.");
+        this.setCenterFirst(_centerFirst);
+        this.setRadiusFirst(_radiusFirst);
+        this.setCenterSecond(_centerSecond);
+        this.setRadiusSecond(_radiusSecond);
 
-        this.centerFirst = _centerFirst;
-        this.radiusFirst = _radiusFirst;
-        this.centerSecond = _centerSecond;
-        this.radiusSecond = _radiusSecond;
-
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false);
+        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
     }
 
     @Override
@@ -170,20 +167,32 @@ public class CirclesIntersection extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO implement
-        return null;
+        JSONObject json = new JSONObject();
+
+        json.put(CirclesIntersection.FIRST_RADIUS, this.radiusFirst);
+        json.put(CirclesIntersection.SECOND_RADIUS, this.radiusSecond);
+        json.put(CirclesIntersection.CENTER_FIRST_NUMBER, this.centerFirst.getNumber());
+        json.put(CirclesIntersection.CENTER_SECOND_NUMBER, this.centerSecond.getNumber());
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO implement
-
+        JSONObject json = new JSONObject(jsonInputArgs);
+        this.setCenterFirst(
+                SharedResources.getSetOfPoints().find(
+                        json.getInt(CirclesIntersection.CENTER_FIRST_NUMBER)));
+        this.setCenterSecond(
+                SharedResources.getSetOfPoints().find(
+                        json.getInt(CirclesIntersection.CENTER_SECOND_NUMBER)));
+        this.setRadiusFirst(json.getDouble(CirclesIntersection.FIRST_RADIUS));
+        this.setRadiusSecond(json.getDouble(CirclesIntersection.SECOND_RADIUS));
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO implement
-        return null;
+        return CirclesIntersectionActivity.class;
     }
 
     public Point getFirstIntersection() {
@@ -192,5 +201,43 @@ public class CirclesIntersection extends Calculation {
 
     public Point getSecondIntersection() {
         return this.secondIntersection;
+    }
+
+    public Point getCenterFirst() {
+        return this.centerFirst;
+    }
+
+    public double getRadiusFirst() {
+        return this.radiusFirst;
+    }
+
+    public Point getCenterSecond() {
+        return this.centerSecond;
+    }
+
+    public double getRadiusSecond() {
+        return this.radiusSecond;
+    }
+
+    public void setCenterFirst(Point centerFirst) throws IllegalArgumentException {
+        Preconditions.checkNotNull(centerFirst, "The first point must no be null");
+        this.centerFirst = centerFirst;
+    }
+
+    public void setRadiusFirst(double radiusFirst) throws IllegalArgumentException {
+        Preconditions.checkArgument(MathUtils.isPositive(radiusFirst),
+                "The first radius must be positive.");
+        this.radiusFirst = radiusFirst;
+    }
+
+    public void setCenterSecond(Point centerSecond) throws IllegalArgumentException {
+        Preconditions.checkNotNull(centerSecond, "The second point must no be null");
+        this.centerSecond = centerSecond;
+    }
+
+    public void setRadiusSecond(double radiusSecond) throws IllegalArgumentException {
+        Preconditions.checkArgument(MathUtils.isPositive(radiusSecond),
+                "The second radius must be positive.");
+        this.radiusSecond = radiusSecond;
     }
 }
