@@ -68,7 +68,7 @@
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.37"
+            android:layout_weight="0.25"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/mean_error_direction_label_short" />
@@ -77,7 +77,7 @@
             android:id="@+id/mean_error_direction"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.56"
+            android:layout_weight="0.75"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
         
@@ -101,7 +101,7 @@
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.55"
+            android:layout_weight="0.25"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/mean_error_compensated_label_short" />
@@ -110,7 +110,7 @@
             android:id="@+id/mean_error_compensated"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.64"
+            android:layout_weight="0.75"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
    </LinearLayout>
