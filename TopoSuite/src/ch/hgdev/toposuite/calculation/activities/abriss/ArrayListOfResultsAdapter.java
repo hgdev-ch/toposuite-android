@@ -36,7 +36,6 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             TextView targetPointTextView = (TextView) view.findViewById(R.id.target_point);
             TextView calcDistTextView = (TextView) view.findViewById(R.id.calculated_distance);
             TextView unknOrientTextView = (TextView) view.findViewById(R.id.unknown_orientation);
-            TextView orientDirTextView = (TextView) view.findViewById(R.id.oriented_direction);
             TextView errAngTextView = (TextView) view.findViewById(R.id.err_ang_item);
             TextView errTransTextView = (TextView) view.findViewById(R.id.err_trans_item);
             TextView errLonTextView = (TextView) view.findViewById(R.id.err_lon_item);
@@ -52,10 +51,6 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
 
             if (unknOrientTextView != null) {
                 unknOrientTextView.setText(DisplayUtils.toString(result.getUnknownOrientation()));
-            }
-
-            if (orientDirTextView != null) {
-                orientDirTextView.setText(DisplayUtils.toString(result.getOrientedDirection()));
             }
 
             if (errAngTextView != null) {
