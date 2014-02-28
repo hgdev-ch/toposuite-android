@@ -26,6 +26,11 @@ import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CirclesIntersectionActivity extends TopoSuiteActivity {
 
+    private static final String CENTER_ONE_SELECTED_POSITION = "center_one_selected_position";
+    private static final String BY_ONE_SELECTED_POSITION     = "by_one_selected_position";
+    private static final String CENTER_TWO_SELECTED_POSITION = "center_two_selected_position";
+    private static final String BY_TWO_SELECTED_POSITION     = "by_two_selected_position";
+
     private Spinner             centerOneSpinner;
     private int                 centerOneSelectedPosition;
     private Point               centerOnePoint;
@@ -73,6 +78,16 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
 
         this.position = -1;
 
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0.0, 0.0, 0.0, false, false));
+        points.addAll(SharedResources.getSetOfPoints());
+
+        this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
+        this.centerOneSpinner.setAdapter(this.adapter);
+        this.centerTwoSpinner.setAdapter(this.adapter);
+        this.byPointOneSpinner.setAdapter(this.adapter);
+        this.byPointTwoSpinner.setAdapter(this.adapter);
+
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
@@ -87,15 +102,45 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
     public void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, false, false));
-        points.addAll(SharedResources.getSetOfPoints());
+        this.centerOneSpinner.setSelection(this.centerOneSelectedPosition);
+        this.centerTwoSpinner.setSelection(this.centerTwoSelectedPosition);
+        this.byPointOneSpinner.setSelection(this.byPointOneSelectedPosition);
+        this.byPointTwoSpinner.setSelection(this.byPointTwoSelectedPosition);
+    }
 
-        this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
-        this.centerOneSpinner.setAdapter(this.adapter);
-        this.centerTwoSpinner.setAdapter(this.adapter);
-        this.byPointOneSpinner.setAdapter(this.adapter);
-        this.byPointTwoSpinner.setAdapter(this.adapter);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(CirclesIntersectionActivity.CENTER_ONE_SELECTED_POSITION,
+                this.centerOneSelectedPosition);
+        outState.putInt(CirclesIntersectionActivity.CENTER_TWO_SELECTED_POSITION,
+                this.centerTwoSelectedPosition);
+        outState.putInt(CirclesIntersectionActivity.BY_ONE_SELECTED_POSITION,
+                this.byPointOneSelectedPosition);
+        outState.putInt(CirclesIntersectionActivity.BY_TWO_SELECTED_POSITION,
+                this.byPointTwoSelectedPosition);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            this.centerOneSelectedPosition = savedInstanceState.getInt(
+                    CirclesIntersectionActivity.CENTER_ONE_SELECTED_POSITION);
+            this.centerTwoSelectedPosition = savedInstanceState.getInt(
+                    CirclesIntersectionActivity.CENTER_TWO_SELECTED_POSITION);
+            this.byPointOneSelectedPosition = savedInstanceState.getInt(
+                    CirclesIntersectionActivity.BY_ONE_SELECTED_POSITION);
+            this.byPointTwoSelectedPosition = savedInstanceState.getInt(
+                    CirclesIntersectionActivity.BY_TWO_SELECTED_POSITION);
+            this.centerOnePoint = this.adapter.getItem(this.centerOneSelectedPosition);
+            this.centerTwoPoint = this.adapter.getItem(this.centerTwoSelectedPosition);
+            this.byPointOne = this.adapter.getItem(this.byPointOneSelectedPosition);
+            this.byPointTwo = this.adapter.getItem(this.byPointTwoSelectedPosition);
+        }
     }
 
     @Override

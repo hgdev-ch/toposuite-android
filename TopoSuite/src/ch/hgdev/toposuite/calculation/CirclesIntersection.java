@@ -8,6 +8,7 @@ import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.circlesintersection.CirclesIntersectionActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -172,8 +173,7 @@ public class CirclesIntersection extends Calculation {
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO implement
-        return null;
+        return CirclesIntersectionActivity.class;
     }
 
     public Point getFirstIntersection() {
