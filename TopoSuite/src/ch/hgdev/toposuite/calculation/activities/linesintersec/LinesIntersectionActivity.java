@@ -159,7 +159,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
         this.distP1D2EditText = (EditText) this.findViewById(R.id.dist_p1_d2);
         this.distP1D2EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-        this.distP1D1EditText.setText("0.0");
+        this.distP1D2EditText.setText("0.0");
 
         this.point2D1SpinnerLayout = (LinearLayout) this
                 .findViewById(R.id.point2_d1_spinner_layout);
