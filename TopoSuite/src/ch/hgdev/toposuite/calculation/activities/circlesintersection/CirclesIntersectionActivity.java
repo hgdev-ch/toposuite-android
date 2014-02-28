@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -11,9 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CirclesIntersection;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -24,6 +30,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
     private int                 centerOneSelectedPosition;
     private Point               centerOnePoint;
     private TextView            centerOneTextView;
+    private double              radiusOne;
     private EditText            radiusOneEditText;
     private Spinner             byPointOneSpinner;
     private int                 byPointOneSelectedPosition;
@@ -34,6 +41,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
     private int                 centerTwoSelectedPosition;
     private Point               centerTwoPoint;
     private TextView            centerTwoTextView;
+    private double              radiusTwo;
     private EditText            radiusTwoEditText;
     private Spinner             byPointTwoSpinner;
     private int                 byPointTwoSelectedPosition;
@@ -42,8 +50,18 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
 
     private ArrayAdapter<Point> adapter;
 
+    private CirclesIntersection circlesIntersection;
+
     private TextView            intersectionOneTextView;
+    private Point               intersectionOne;
     private TextView            intersectionTwoTextView;
+    private Point               intersectionTwo;
+
+    /**
+     * Position of the calculation in the calculations list. Only used when open
+     * from the history.
+     */
+    private int                 position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +70,17 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
 
         this.mapViews();
         this.initViews();
+
+        this.position = -1;
+
+        Bundle bundle = this.getIntent().getExtras();
+        if ((bundle != null)) {
+            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.circlesIntersection = (CirclesIntersection) SharedResources
+                    .getCalculationsHistory().get(this.position);
+        } else {
+            this.circlesIntersection = new CirclesIntersection();
+        }
     }
 
     @Override
@@ -59,7 +88,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, false));
+        points.add(new Point(0, 0.0, 0.0, 0.0, false, false));
         points.addAll(SharedResources.getSetOfPoints());
 
         this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
@@ -67,7 +96,31 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
         this.centerTwoSpinner.setAdapter(this.adapter);
         this.byPointOneSpinner.setAdapter(this.adapter);
         this.byPointTwoSpinner.setAdapter(this.adapter);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.circles_intersection, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.run_calculation_button:
+            if (this.checkInputs()) {
+                this.runCalculations();
+            } else {
+                Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
+            }
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -215,4 +268,48 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
         }
     }
 
+    /**
+     * Check that inputs are OK so the calculation can be run safely.
+     * 
+     * @return True if OK, false otherwise.
+     */
+    private boolean checkInputs() {
+        if ((this.centerOneSelectedPosition < 1) || (this.centerTwoSelectedPosition < 1)) {
+            return false;
+        }
+        // the two points must be different
+        if (this.centerOneSelectedPosition == this.centerTwoSelectedPosition) {
+            return false;
+        }
+        if ((this.radiusOneEditText.length() < 1) || (this.radiusTwoEditText.length() < 1)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Do the actual calculation and update the results.
+     */
+    private void runCalculations() {
+        this.centerOnePoint = (Point) this.centerOneSpinner
+                .getItemAtPosition(this.centerOneSelectedPosition);
+        this.radiusOne = Double.parseDouble(this.radiusOneEditText.getText().toString());
+        this.centerTwoPoint = (Point) this.centerTwoSpinner
+                .getItemAtPosition(this.centerTwoSelectedPosition);
+        this.radiusTwo = Double.parseDouble(this.radiusTwoEditText.getText().toString());
+
+        this.circlesIntersection.setCenterFirst(this.centerOnePoint);
+        this.circlesIntersection.setRadiusFirst(this.radiusOne);
+        this.circlesIntersection.setCenterSecond(this.centerTwoPoint);
+        this.circlesIntersection.setRadiusSecond(this.radiusTwo);
+
+        this.circlesIntersection.compute();
+
+        this.intersectionOne = this.circlesIntersection.getFirstIntersection();
+        this.intersectionTwo = this.circlesIntersection.getSecondIntersection();
+        this.intersectionOneTextView.setText(
+                DisplayUtils.formatPoint(this, this.intersectionOne));
+        this.intersectionTwoTextView.setText(
+                DisplayUtils.formatPoint(this, this.intersectionTwo));
+    }
 }

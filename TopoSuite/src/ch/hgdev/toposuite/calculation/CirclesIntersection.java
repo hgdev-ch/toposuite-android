@@ -52,32 +52,32 @@ public class CirclesIntersection extends Calculation {
                 true);
     }
 
+    public CirclesIntersection() {
+        super(CalculationType.CIRCLEINTERSEC,
+                App.getContext().getString(R.string.title_activity_circles_intersection),
+                true);
+        this.centerFirst = null;
+        this.centerSecond = null;
+        this.radiusFirst = 0.0;
+        this.radiusSecond = 0.0;
+
+        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+
+        SharedResources.getCalculationsHistory().add(0, this);
+    }
+
     public CirclesIntersection(Point _centerFirst, double _radiusFirst,
             Point _centerSecond, double _radiusSecond, boolean hasDAO)
             throws IllegalArgumentException {
         super(CalculationType.CIRCLEINTERSEC,
-                "Circle intersection",
+                App.getContext().getString(R.string.title_activity_circles_intersection),
                 hasDAO);
         Preconditions.checkArgument(
                 !_centerFirst.equals(_centerSecond),
                 "The two provided points must be different.");
 
         this.initAttributes(_centerFirst, _radiusFirst, _centerSecond, _radiusSecond);
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
-    }
-
-    public CirclesIntersection(Point _centerFirst, Point _borderFirst,
-            Point _centerSecond, Point _borderSecond, boolean hasDAO)
-            throws IllegalArgumentException {
-        super(CalculationType.CIRCLEINTERSEC,
-                App.getContext().getString(R.string.title_activity_circles_intersection),
-                hasDAO);
-
-        this.initAttributes(_centerFirst, MathUtils.euclideanDistance(_centerFirst, _borderFirst),
-                _centerSecond, MathUtils.euclideanDistance(_centerSecond, _borderSecond));
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
@@ -99,23 +99,13 @@ public class CirclesIntersection extends Calculation {
      */
     private void initAttributes(Point _centerFirst, double _radiusFirst,
             Point _centerSecond, double _radiusSecond) throws IllegalArgumentException {
-        Preconditions.checkArgument(
-                !_centerFirst.equals(_centerSecond),
-                "The two provided points must be different.");
-        Preconditions.checkNotNull(_centerFirst, "The first point must no be null");
-        Preconditions.checkNotNull(_centerSecond, "The second point must no be null");
-        Preconditions.checkArgument(MathUtils.isPositive(_radiusFirst),
-                "The first radius must be positive.");
-        Preconditions.checkArgument(MathUtils.isPositive(_radiusSecond),
-                "The second radius must be positive.");
+        this.setCenterFirst(_centerFirst);
+        this.setRadiusFirst(_radiusFirst);
+        this.setCenterSecond(_centerSecond);
+        this.setRadiusSecond(_radiusSecond);
 
-        this.centerFirst = _centerFirst;
-        this.radiusFirst = _radiusFirst;
-        this.centerSecond = _centerSecond;
-        this.radiusSecond = _radiusSecond;
-
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false);
+        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
     }
 
     @Override
@@ -192,5 +182,27 @@ public class CirclesIntersection extends Calculation {
 
     public Point getSecondIntersection() {
         return this.secondIntersection;
+    }
+
+    public void setCenterFirst(Point centerFirst) throws IllegalArgumentException {
+        Preconditions.checkNotNull(centerFirst, "The first point must no be null");
+        this.centerFirst = centerFirst;
+    }
+
+    public void setRadiusFirst(double radiusFirst) throws IllegalArgumentException {
+        Preconditions.checkArgument(MathUtils.isPositive(radiusFirst),
+                "The first radius must be positive.");
+        this.radiusFirst = radiusFirst;
+    }
+
+    public void setCenterSecond(Point centerSecond) throws IllegalArgumentException {
+        Preconditions.checkNotNull(centerSecond, "The second point must no be null");
+        this.centerSecond = centerSecond;
+    }
+
+    public void setRadiusSecond(double radiusSecond) throws IllegalArgumentException {
+        Preconditions.checkArgument(MathUtils.isPositive(radiusSecond),
+                "The second radius must be positive.");
+        this.radiusSecond = radiusSecond;
     }
 }
