@@ -12,6 +12,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
     private final ArrayList<Abriss.Result> results;
@@ -63,7 +64,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
                         result.getErrTrans(), App.smallNumberOfDecimals));
             }
 
-            if (errLonTextView != null) {
+            if ((errLonTextView != null) && !MathUtils.isZero(result.getDistance())) {
                 errLonTextView.setText(DisplayUtils.toString(
                         result.getErrLong(), App.smallNumberOfDecimals));
             }

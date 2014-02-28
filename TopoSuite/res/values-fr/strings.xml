@@ -82,7 +82,7 @@
     <string name="east_3dots">Est&#8230;</string>
     <string name="east_label">Est [m]</string>
     <string name="edit">Modifier</string>
-    <string name="err_angle_label">Ecart résiduel angulaire[V](cc)</string>
+    <string name="err_angle_label">Ecart résiduel angulaire V [cc]</string>
     <string name="err_trans_label">Ecart latéral[cm]</string>
     <string name="err_lon_label">Ecart sur la distance[cm]</string>
     <string name="error_at_least_one_orientation">You devez saisir au moins une orientation!</string>
@@ -148,7 +148,7 @@
     <string name="mean_error_direction_label">Direction:</string>
     <string name="mean_error_direction_label_short">Dir.:</string>
     <string name="mean_error_label">Erreur Moy. [cc]</string>
-    <string name="mean_label">Inconnue d\'orientation moyenne[Z0] (g):</string>
+    <string name="mean_label">Inconnue d\'orientation moyenne Z0 [g]:</string>
     <string name="measure_add">Ajouter une mesure</string>
     <string name="measure_edit">Éditer une mesure</string>
     <string name="measure_header_distance">Distance [m]</string>
