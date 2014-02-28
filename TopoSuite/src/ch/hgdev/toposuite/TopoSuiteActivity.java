@@ -71,7 +71,7 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         super.setContentView(R.layout.global_layout);
 
         // set the titles that will appear in the action bar
-        this.getActionBar().setTitle(this.getString(R.string.app_name));
+        this.getActionBar().setTitle(this.getActivityTitle());
 
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
@@ -250,6 +250,13 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         Intent newActivityIntent = new Intent(this, activityClass);
         this.startActivity(newActivityIntent);
     }
+
+    /**
+     * The subclass must return the activity title with this method.
+     * 
+     * @return Activity title.
+     */
+    protected abstract String getActivityTitle();
 
     /**
      * Click listener for a drawer items list.

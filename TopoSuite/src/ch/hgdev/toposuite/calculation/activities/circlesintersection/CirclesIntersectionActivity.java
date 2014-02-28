@@ -118,6 +118,11 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity {
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_circles_intersection);
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 

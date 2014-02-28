@@ -125,6 +125,11 @@ public class AbrissActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_abriss);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.abriss, menu);
         return super.onCreateOptionsMenu(menu);

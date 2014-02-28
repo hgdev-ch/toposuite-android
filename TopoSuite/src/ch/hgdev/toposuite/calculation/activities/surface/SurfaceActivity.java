@@ -127,6 +127,11 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_surface);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.surface, menu);
         return super.onCreateOptionsMenu(menu);

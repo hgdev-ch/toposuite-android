@@ -56,6 +56,11 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_point_projection_result);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
         return super.onCreateOptionsMenu(menu);

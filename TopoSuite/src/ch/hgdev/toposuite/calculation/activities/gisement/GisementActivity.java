@@ -143,6 +143,11 @@ public class GisementActivity extends TopoSuiteActivity {
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_gisement);
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 

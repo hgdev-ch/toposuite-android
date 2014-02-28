@@ -163,6 +163,11 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_ortho_implantation_results);
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();

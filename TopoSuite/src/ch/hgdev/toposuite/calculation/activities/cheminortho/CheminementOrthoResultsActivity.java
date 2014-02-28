@@ -80,6 +80,11 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_cheminement_ortho_results);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
         return super.onCreateOptionsMenu(menu);

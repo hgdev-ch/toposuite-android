@@ -198,6 +198,11 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
     }
 
     @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_leve_ortho);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.leve_ortho, menu);
         return super.onCreateOptionsMenu(menu);

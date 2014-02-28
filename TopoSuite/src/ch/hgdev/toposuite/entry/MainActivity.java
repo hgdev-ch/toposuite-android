@@ -27,6 +27,11 @@ public class MainActivity extends TopoSuiteActivity {
         layout.addView(this.about());
     }
 
+    @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.app_name);
+    }
+
     /**
      * Set application about informations such as application name, authors,
      * copyright and so on.

@@ -50,6 +50,11 @@ public class PolarImplantationResultsActivity extends TopoSuiteActivity {
         this.displayResults();
     }
 
+    @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_polar_implantation_results);
+    }
+
     private void displayResults() {
         this.adapter = new ArrayListOfResultsAdapter(this,
                 R.layout.polar_implantation_results_list_item,
