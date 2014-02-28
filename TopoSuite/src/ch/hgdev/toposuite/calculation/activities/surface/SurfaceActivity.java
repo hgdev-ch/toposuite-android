@@ -51,7 +51,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     private String                                description;
     private double                                surface;
     private double                                perimeter;
-    private int                                   vertexCount;
     private ArrayAdapter<Surface.PointWithRadius> adapter;
     private Surface                               surfaceCalculation;
 
@@ -97,7 +96,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 this.description = this.surfaceCalculation.getSurfaceDescription();
                 this.surface = this.surfaceCalculation.getSurface();
                 this.perimeter = this.surfaceCalculation.getPerimeter();
-                this.vertexCount = this.surfaceCalculation.getPoints().size();
             }
         } else {
             this.surfaceCalculation = new Surface(this.name, this.description, true);
@@ -105,7 +103,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
         this.adapter = new ArrayListOfPointsWithRadiusAdapter(this,
                 R.layout.points_with_radius_list_item, list);
-        this.vertexCount = this.adapter.getCount();
 
         this.drawList();
 
@@ -174,7 +171,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         case R.id.delete_point:
             this.adapter.remove(this.adapter.getItem(info.position));
             this.surfaceCalculation.getPoints().remove(info.position);
-            this.vertexCount--;
             for (int i = info.position; i < this.adapter.getCount(); i++) {
                 this.adapter.getItem(i).setVertexNumber(
                         this.adapter.getItem(i).getVertexNumber() - 1);
@@ -216,7 +212,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                     PointWithRadius p = PointWithRadius.getPointFromJSON(json.toString());
                     this.adapter.add(p);
                 }
-                this.vertexCount = jsonArray.length();
             } catch (JSONException e) {
                 Log.e(Logger.TOPOSUITE_PARSE_ERROR,
                         "SurfaceActivity: cannot restore saved instance.");
@@ -309,13 +304,12 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogAdd(AddPointWithRadiusDialogFragment dialog) {
-        this.vertexCount++;
         Surface.PointWithRadius p = new PointWithRadius(
                 dialog.getPoint().getNumber(),
                 dialog.getPoint().getEast(),
                 dialog.getPoint().getNorth(),
                 dialog.getRadius(),
-                this.vertexCount);
+                this.surfaceCalculation.getPoints().size() + 1);
         this.surfaceCalculation.getPoints().add(p);
         this.adapter.add(p);
         this.adapter.notifyDataSetChanged();
@@ -329,16 +323,14 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditPointWithRadiusDialogFragment dialog) {
-        int vertexNumber = this.adapter.getItem(this.position).getVertexNumber();
-        this.adapter.remove(this.adapter.getItem(this.position));
+        Surface.PointWithRadius p = this.adapter.getItem(this.position);
+        p.setNumber(dialog.getPoint().getNumber());
+        p.setEast(dialog.getPoint().getEast());
+        p.setNorth(dialog.getPoint().getNorth());
+        p.setRadius(dialog.getRadius());
 
-        Surface.PointWithRadius p = new PointWithRadius(
-                dialog.getPoint().getNumber(),
-                dialog.getPoint().getEast(),
-                dialog.getPoint().getNorth(),
-                dialog.getRadius(),
-                vertexNumber);
-        this.adapter.add(p);
+        this.adapter.clear();
+        this.adapter.addAll(this.surfaceCalculation.getPoints());
         this.adapter.notifyDataSetChanged();
     }
 

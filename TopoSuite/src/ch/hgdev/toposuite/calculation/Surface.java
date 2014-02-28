@@ -127,8 +127,8 @@ public class Surface extends Calculation {
             }
             json.put(Surface.POINTS_LIST, pointsArray);
         }
-        json.put(SURFACE_NAME, this.surfaceName);
-        json.put(SURFACE_DESCRIPTION, this.surfaceDescription);
+        json.put(Surface.SURFACE_NAME, this.surfaceName);
+        json.put(Surface.SURFACE_DESCRIPTION, this.surfaceDescription);
         return json.toString();
     }
 
@@ -142,8 +142,8 @@ public class Surface extends Calculation {
             Surface.PointWithRadius p = Surface.PointWithRadius.getPointFromJSON(jo.toString());
             this.points.add(p);
         }
-        this.surfaceName = json.getString(SURFACE_NAME);
-        this.surfaceDescription = json.getString(SURFACE_DESCRIPTION);
+        this.surfaceName = json.getString(Surface.SURFACE_NAME);
+        this.surfaceDescription = json.getString(Surface.SURFACE_DESCRIPTION);
     }
 
     @Override
@@ -194,7 +194,7 @@ public class Surface extends Calculation {
         /**
          * Radius wrt to the point of origin. Altitude is ignored.
          */
-        private final double        radius;
+        private double              radius;
         private int                 vertexNumber;
 
         public PointWithRadius(int number, double east, double north, double _radius,
@@ -242,6 +242,10 @@ public class Surface extends Calculation {
 
         public double getRadius() {
             return this.radius;
+        }
+
+        public void setRadius(double _radius) {
+            this.radius = _radius;
         }
 
         public int getVertexNumber() {
