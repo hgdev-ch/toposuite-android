@@ -185,7 +185,7 @@
 	            android:id="@+id/gisement_d1"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.28"
+	            android:layout_weight="0.50"
 	            android:gravity="left|center_vertical"
 	            android:inputType=""
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
@@ -193,7 +193,7 @@
 	        <Space
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.72" />
+	            android:layout_weight="0.50" />
 		</LinearLayout>
 		
 		<LinearLayout
@@ -410,10 +410,15 @@
 	            android:id="@+id/gisement_d2"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.40"
+	            android:layout_weight="0.50"
 	            android:gravity="left|center_vertical"
 	            android:inputType=""
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
+	        
+	        <Space
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.50" />
 		</LinearLayout>
 		
 		<LinearLayout
