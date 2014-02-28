@@ -6,6 +6,7 @@ import java.util.List;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -530,8 +531,10 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         case R.id.save_point:
             // check if the user has supplied a point number
             if ((this.lineIntersec == null) || (this.pointNumberEditText.length() == 0)) {
-                Toast.makeText(this, R.string.error_fill_data, Toast.LENGTH_LONG)
-                        .show();
+                Toast errorToast = Toast.makeText(this, R.string.error_no_points_to_save,
+                        Toast.LENGTH_SHORT);
+                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                errorToast.show();
                 return true;
             }
 
