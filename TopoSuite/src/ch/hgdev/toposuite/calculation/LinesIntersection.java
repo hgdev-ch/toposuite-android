@@ -330,6 +330,29 @@ public class LinesIntersection extends Calculation {
 
     public final void setDistanceP1D1(double _distanceP1D1) {
         this.distanceP1D1 = _distanceP1D1;
+        if (!MathUtils.isZero(this.distanceP1D1)) {
+            if ((this.p1D1 == null) || (this.p2D1 == null)) {
+                return;
+            }
+
+            double gis = new Gisement(
+                    this.p1D1, this.p2D1, false).getGisement();
+
+            this.p1D1.setEast(
+                    MathUtils.pointLanceEast(this.p1D1.getEast(),
+                            gis, this.distanceP1D1));
+            this.p1D1.setNorth(
+                    MathUtils.pointLanceNorth(this.p1D1.getNorth(),
+                            gis, this.distanceP1D1));
+
+            gis += 100;
+            this.p2D1.setEast(
+                    MathUtils.pointLanceEast(this.p2D1.getEast(),
+                            gis, 100));
+            this.p2D1.setNorth(
+                    MathUtils.pointLanceNorth(this.p2D1.getNorth(),
+                            gis, 100));
+        }
     }
 
     public final Point getP1D2() {
@@ -386,6 +409,29 @@ public class LinesIntersection extends Calculation {
 
     public final void setDistanceP1D2(double _distanceP1D2) {
         this.distanceP1D2 = _distanceP1D2;
+        if (!MathUtils.isZero(this.distanceP1D1)) {
+            if ((this.p1D2 == null) || (this.p2D2 == null)) {
+                return;
+            }
+
+            double gis = new Gisement(
+                    this.p1D2, this.p2D2, false).getGisement();
+
+            this.p1D2.setEast(
+                    MathUtils.pointLanceEast(this.p1D2.getEast(),
+                            gis, this.distanceP1D2));
+            this.p1D2.setNorth(
+                    MathUtils.pointLanceNorth(this.p1D2.getNorth(),
+                            gis, this.distanceP1D2));
+
+            gis += 100;
+            this.p2D2.setEast(
+                    MathUtils.pointLanceEast(this.p2D2.getEast(),
+                            gis, 100));
+            this.p2D2.setNorth(
+                    MathUtils.pointLanceNorth(this.p2D2.getNorth(),
+                            gis, 100));
+        }
     }
 
     public int getPointNumber() {
