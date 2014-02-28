@@ -24,9 +24,11 @@
     <string name="arrow_label">Flèche [m]</string>
     <string name="base_label">Levé orthogonal depuis la base</string>
     <string name="bisector_label">Bissectrice [m]</string>
+    <string name="by_point_label">Selon point</string>
     <string name="calculate_3dots">Calculer&#8230;</string>
     <string name="calculated_distance_label">Dist. Calc. [m]</string>
     <string name="cancel">Annuler</string>
+    <string name="center_label">Centre</string>
     <string name="central_angle_label">Angle centre [g]</string>
     <string name="cfgeo">centre de formation géomatique suisse</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
@@ -34,6 +36,8 @@
     <string name="chemin_ortho_base_label">Cheminement orthogonal depuis la base</string>
     <string name="chord_of_label">Corde (OF) [m]</string>
     <string name="chord_om_label">Corde (OM) [m]</string>
+    <string name="circle_one_label">Cercle A</string>
+    <string name="circle_two_label">Cercle B</string>
     <string name="circle_result_center_label">Centre du cercle</string>
     <string name="circle_result_radius_label">Rayon du cercle</string>
     <string name="circle_surface_label">Surface cercle [m&#178;]</string>
@@ -122,6 +126,8 @@
     <string name="import_3dots">Importer&#8230;</string>
     <string name="incircle_label">Rayon du cercle inscrit [m]</string>
     <string name="intersection_point_label">Point d\'intersection:</string>
+    <string name="intersection_one_label">Premier point d\'intersection:</string>
+    <string name="intersection_two_label">Second point d\'intersection:</string>
     <string name="keep_button">Conserver</string>
     <string name="last_modification_label">Dernière modification: <xliff:g>%s</xliff:g></string>
     <string name="lateral_displacement_3dots">Déplacement latéral&#8230;</string>
