@@ -36,8 +36,8 @@
     <string name="chemin_ortho_base_label">Cheminement orthogonal depuis la base</string>
     <string name="chord_of_label">Corde (OF) [m]</string>
     <string name="chord_om_label">Corde (OM) [m]</string>
-    <string name="circle_one_label">Cercle 1</string>
-    <string name="circle_two_label">Cercle 2</string>
+    <string name="circle_one_label">Cercle A</string>
+    <string name="circle_two_label">Cercle B</string>
     <string name="circle_result_center_label">Centre du cercle</string>
     <string name="circle_result_radius_label">Rayon du cercle</string>
     <string name="circle_surface_label">Surface cercle [m&#178;]</string>

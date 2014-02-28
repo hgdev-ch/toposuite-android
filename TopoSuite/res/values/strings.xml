@@ -36,8 +36,8 @@
     <string name="chemin_ortho_base_label">Cheminement orthogonal from the base</string>
     <string name="chord_of_label">Chord (OF) [m]</string>
     <string name="chord_om_label">Chord (OM) [m]</string>
-    <string name="circle_one_label">Circle 1</string>
-    <string name="circle_two_label">Circle 2</string>
+    <string name="circle_one_label">Circle A</string>
+    <string name="circle_two_label">Circle B</string>
     <string name="circle_result_center_label">Center of the circle</string>
     <string name="circle_result_radius_label">Radius of the circle</string>
     <string name="circle_surface_label">Circle surface [m&#178;]</string>
