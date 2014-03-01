@@ -200,69 +200,81 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
             }
 
             if ((this.intersectionOneEditText.length() < 1)
-                    || (this.intersectionTwoEditText.length() < 1)) {
-                Toast.makeText(this, R.string.error_enter_point_number,
+                    && (this.intersectionTwoEditText.length() < 1)) {
+                Toast.makeText(this, R.string.error_no_points_saved,
                         Toast.LENGTH_SHORT).show();
                 return true;
             }
 
-            this.intersectionOne.setNumber(
-                    Integer.parseInt(this.intersectionOneEditText.getText().toString()));
-            this.intersectionTwo.setNumber(
-                    Integer.parseInt(this.intersectionTwoEditText.getText().toString()));
+            // save first point
+            if (this.intersectionOneEditText.length() > 0) {
+                this.intersectionOne.setNumber(
+                        Integer.parseInt(this.intersectionOneEditText.getText().toString()));
+                if (SharedResources.getSetOfPoints().find(
+                        this.intersectionOne.getNumber()) == null) {
+                    SharedResources.getSetOfPoints().add(this.intersectionOne);
+                    this.intersectionOne.registerDAO(PointsDataSource.getInstance());
 
-            if (SharedResources.getSetOfPoints().find(
-                    this.intersectionOne.getNumber()) == null) {
-                SharedResources.getSetOfPoints().add(this.intersectionOne);
-                this.intersectionOne.registerDAO(PointsDataSource.getInstance());
+                    Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
+                            .show();
+                } else {
+                    // this point already exists
+                    MergePointsDialog dialog = new MergePointsDialog();
 
-                Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
-                        .show();
+                    Bundle args = new Bundle();
+                    args.putInt(
+                            MergePointsDialog.POINT_NUMBER,
+                            this.intersectionOne.getNumber());
+
+                    args.putDouble(MergePointsDialog.NEW_EAST,
+                            this.intersectionOne.getEast());
+                    args.putDouble(MergePointsDialog.NEW_NORTH,
+                            this.intersectionOne.getNorth());
+                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                            this.intersectionOne.getAltitude());
+
+                    dialog.setArguments(args);
+                    dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                }
             } else {
-                // this point already exists
-                MergePointsDialog dialog = new MergePointsDialog();
-
-                Bundle args = new Bundle();
-                args.putInt(
-                        MergePointsDialog.POINT_NUMBER,
-                        this.intersectionOne.getNumber());
-
-                args.putDouble(MergePointsDialog.NEW_EAST,
-                        this.intersectionOne.getEast());
-                args.putDouble(MergePointsDialog.NEW_NORTH,
-                        this.intersectionOne.getNorth());
-                args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                        this.intersectionOne.getAltitude());
-
-                dialog.setArguments(args);
-                dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                Toast.makeText(this, R.string.point_one_not_saved,
+                        Toast.LENGTH_SHORT).show();
             }
 
-            if (SharedResources.getSetOfPoints().find(
-                    this.intersectionTwo.getNumber()) == null) {
-                SharedResources.getSetOfPoints().add(this.intersectionTwo);
-                this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
+            // save second point
+            if (this.intersectionTwoEditText.length() > 0) {
+                this.intersectionTwo.setNumber(
+                        Integer.parseInt(this.intersectionTwoEditText.getText().toString()));
 
-                Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
-                        .show();
+                if (SharedResources.getSetOfPoints().find(
+                        this.intersectionTwo.getNumber()) == null) {
+                    SharedResources.getSetOfPoints().add(this.intersectionTwo);
+                    this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
+
+                    Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
+                            .show();
+                } else {
+                    // this point already exists
+                    MergePointsDialog dialog = new MergePointsDialog();
+
+                    Bundle args = new Bundle();
+                    args.putInt(
+                            MergePointsDialog.POINT_NUMBER,
+                            this.intersectionTwo.getNumber());
+
+                    args.putDouble(MergePointsDialog.NEW_EAST,
+                            this.intersectionTwo.getEast());
+                    args.putDouble(MergePointsDialog.NEW_NORTH,
+                            this.intersectionTwo.getNorth());
+                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                            this.intersectionTwo.getAltitude());
+
+                    dialog.setArguments(args);
+                    dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                }
             } else {
-                // this point already exists
-                MergePointsDialog dialog = new MergePointsDialog();
-
-                Bundle args = new Bundle();
-                args.putInt(
-                        MergePointsDialog.POINT_NUMBER,
-                        this.intersectionTwo.getNumber());
-
-                args.putDouble(MergePointsDialog.NEW_EAST,
-                        this.intersectionTwo.getEast());
-                args.putDouble(MergePointsDialog.NEW_NORTH,
-                        this.intersectionTwo.getNorth());
-                args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                        this.intersectionTwo.getAltitude());
-
-                dialog.setArguments(args);
-                dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                Toast.makeText(this, R.string.point_two_not_saved,
+                        Toast.LENGTH_SHORT).show();
             }
             return true;
         default:

@@ -95,6 +95,7 @@
     <string name="error_impossible_to_import">Impossible to import the file!</string>
     <string name="error_no_abriss_calculation_found">No abriss calculation found!</string>
     <string name="error_no_points_to_save">There is no point to save!</string>
+    <string name="error_no_points_saved">No point saved! Have you entered the point\'s number?</string>
     <string name="error_no_station_selected">No station selected!</string>
     <string name="error_radius_must_be_positive">The radius value must be positive!</string>
     <string name="error_point_number">A point\'s number must greater than or equal to 1.</string>
@@ -202,6 +203,8 @@
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Provided</string>
     <string name="point_search">Search for a point</string>
+    <string name="point_one_not_saved">First point was NOT saved!</string>
+    <string name="point_two_not_saved">Second point was NOT saved!</string>
     <string name="prism_height">Prism height (S)</string>
     <string name="prism_height_3dots">Prism height&#8230;</string>
     <string name="radius">Radius [m]</string>
