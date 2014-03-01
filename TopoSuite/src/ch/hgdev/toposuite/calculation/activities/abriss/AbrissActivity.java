@@ -29,6 +29,7 @@ import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class AbrissActivity extends TopoSuiteActivity implements
         AddOrientationDialogFragment.AddOrientationDialogListener,
@@ -258,10 +259,12 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogAdd(AddOrientationDialogFragment dialog) {
+        double zenithAngle = (MathUtils.isZero(dialog.getZenithalAngle()))
+                ? 100.0 : dialog.getZenithalAngle();
         this.adapter.add(new Measure(
                 dialog.getOrientation(),
                 dialog.getHorizontalDirection(),
-                dialog.getZenithalAngle(),
+                zenithAngle,
                 dialog.getHorizontalDistance()));
         this.adapter.notifyDataSetChanged();
         this.showAddOrientationDialog();
@@ -274,11 +277,13 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditOrientationDialogFragment dialog) {
+        double zenithAngle = (MathUtils.isZero(dialog.getZenithalAngle()))
+                ? 100.0 : dialog.getZenithalAngle();
         Measure orientation = this.adapter.getItem(dialog.getOrientationPosition());
         orientation.setPoint(dialog.getOrientation());
         orientation.setHorizDir(dialog.getHorizontalDirection());
         orientation.setDistance(dialog.getHorizontalDistance());
-        orientation.setZenAngle(dialog.getZenithalAngle());
+        orientation.setZenAngle(zenithAngle);
         this.adapter.notifyDataSetChanged();
     }
 
