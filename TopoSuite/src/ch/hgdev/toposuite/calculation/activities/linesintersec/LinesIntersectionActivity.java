@@ -95,6 +95,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
     private AnimationDrawable              blinkAnimation;
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -283,7 +284,14 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         this.blinkAnimation.addFrame(this.getResources()
                 .getDrawable(android.R.color.transparent), 900);
         this.blinkAnimation.setOneShot(true);
-        this.resultLayout.setBackground(this.blinkAnimation);
+
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            this.resultLayout.setBackgroundDrawable(this.blinkAnimation);
+        } else {
+            this.resultLayout.setBackground(this.blinkAnimation);
+        }
+
     }
 
     @Override
