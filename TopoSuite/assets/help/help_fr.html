@@ -1,4 +1,18 @@
-<meta http-equiv='content-type' content='text/html; charset=utf-8' />
+<meta http-equiv='content-type' content='text/html; charset=utf-8' />  
+
+<style type="text/css">
+        ol {
+            counter-reset: item
+        }
+        li {
+            display: block
+        }
+        li:before {
+            content: counters(item, ".")" ";
+            counter-increment: item
+        }
+</style>
+
 <h1>Aide à l'utilisation de TopoSuite</h1>
 <ol>
     <li>
@@ -155,7 +169,6 @@ Toutes les distances à introduire doivent être en "Mètres".
 <h2 id="calculs">Calculs</h2>
 
 <h3 id="polaires">Calculs polaires</h3>
-
 <h4 id="abriss">Orientation à la station</h4>
   <p>
     Le calcul d'orientation à la station permet de calculer l'inconnue d'orientation.
@@ -165,7 +178,7 @@ Toutes les distances à introduire doivent être en "Mètres".
 <h4 id="libre">Station libre</h4>
   <p>
      Le calcul de station libre permet d'obtenir les coordonnées de la station ainsi que l'inconnue d'orientation
-     <!-- Le reste des explications devra attendre que la fonctionnalité existe -->
+     <!-- TODO complete -->
   </p>
 <h4 id="leve_pol">Levé polaire</h4>
   <p>
@@ -240,11 +253,13 @@ Toutes les distances à introduire doivent être en "Mètres".
     Pour l'intersection de cercles, deux possibilités :                                         <br>
       - Rentrer manuellement la grandeur des rayons                                       <br>
       - Choisir un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br>
-    Attention : Il y a presque toujours 2 solutions.
+    Attention : Il y a presque toujours 2 solutions.  <br>
+    Il y en a qu'une seulement si les deux cercles sont tangents.
+    <br>Il n'y en a aucune si les deux cercles ne se croisent pas.
   </p>
 <h4 id="inter_droites_cercles">Droite/cercle</h4>
 
-
+    <!-- TODO complete -->
 <h3 id="surfaces">Surfaces</h3>
 <h4 id="surf_arc">Calcul de surface (y c. avec arcs de cercles)</h4>
   <p> 
@@ -263,7 +278,8 @@ Toutes les distances à introduire doivent être en "Mètres".
     Point 7        <br>
   </p>
 <h4 id="surf_para">Déplacement parallèle de limite avec surface imposée</h4>
-
+   <!-- TODO complete -->
+   
 <h3 id="divers">Divers</h3>
 <h4 id="gisement">Gisement/distance</h4>
   <p>
@@ -293,7 +309,7 @@ Toutes les distances à introduire doivent être en "Mètres".
     l'extrémité de l'arc de cercle n'est pas égale aux autres distances.
   </p>
 <h4 id="helmert">Transformation de Helmert (transformation conforme à 4 paramètres)</h4>
-
+   <!-- TODO complete -->
 <h3 id="math">Mathématiques</h3>
 <h4 id="triangle">Résolutions de triangles</h4>
   <p>
@@ -322,7 +338,15 @@ Toutes les distances à introduire doivent être en "Mètres".
   <br>
     <img src="file:///android_asset/help/img/circular_curve.png" alt="éléments circulaires"/> 
   <br>
-    <!-- Mettre la légende des éléments de l'image -->
+    S = Sommet<br>
+    C = Centre<br>
+    CO = CM = CF = Rayon <br>
+    OF = Corde (OF)<br>
+    OS = OF = Tangente<br>
+    MS = Bissectrice<br>
+    &beta; = Angle au sommet<br>
+    &alpha;  = Angle au centre<br>   
+    M = Milieu de courbe
+    
 
   </p>
-<!-- TODO complete -->
