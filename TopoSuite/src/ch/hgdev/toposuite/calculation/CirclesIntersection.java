@@ -183,14 +183,28 @@ public class CirclesIntersection extends Calculation {
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
-        this.setCenterFirst(
-                SharedResources.getSetOfPoints().find(
-                        json.getInt(CirclesIntersection.CENTER_FIRST_NUMBER)));
-        this.setCenterSecond(
-                SharedResources.getSetOfPoints().find(
-                        json.getInt(CirclesIntersection.CENTER_SECOND_NUMBER)));
-        this.setRadiusFirst(json.getDouble(CirclesIntersection.FIRST_RADIUS));
-        this.setRadiusSecond(json.getDouble(CirclesIntersection.SECOND_RADIUS));
+
+        Point centerFirst = SharedResources.getSetOfPoints().find(
+                json.getInt(CirclesIntersection.CENTER_FIRST_NUMBER));
+        if (centerFirst != null) {
+            this.setCenterFirst(centerFirst);
+        }
+
+        Point centerSecond = SharedResources.getSetOfPoints().find(
+                json.getInt(CirclesIntersection.CENTER_SECOND_NUMBER));
+        if (centerSecond != null) {
+            this.setCenterSecond(centerSecond);
+        }
+
+        double radiusFirst = json.getDouble(CirclesIntersection.FIRST_RADIUS);
+        if (MathUtils.isPositive(radiusFirst)) {
+            this.setRadiusFirst(radiusFirst);
+        }
+
+        double radiusSecond = json.getDouble(CirclesIntersection.SECOND_RADIUS);
+        if (MathUtils.isPositive(radiusSecond)) {
+            this.setRadiusSecond(radiusSecond);
+        }
     }
 
     @Override
@@ -223,7 +237,7 @@ public class CirclesIntersection extends Calculation {
     }
 
     public void setCenterFirst(Point centerFirst) throws IllegalArgumentException {
-        Preconditions.checkNotNull(centerFirst, "The first point must no be null");
+        Preconditions.checkNotNull(centerFirst, "The first point must not be null");
         this.centerFirst = centerFirst;
     }
 
@@ -234,7 +248,7 @@ public class CirclesIntersection extends Calculation {
     }
 
     public void setCenterSecond(Point centerSecond) throws IllegalArgumentException {
-        Preconditions.checkNotNull(centerSecond, "The second point must no be null");
+        Preconditions.checkNotNull(centerSecond, "The second point must not be null");
         this.centerSecond = centerSecond;
     }
 
