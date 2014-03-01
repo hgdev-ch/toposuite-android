@@ -73,9 +73,9 @@
 	<string name="dist_pt_1">Dist. pt. A</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
-    <string name="distance_projpoint_line_label">Distance du point projeté à la droite:</string>
-    <string name="distance_projpoint_point_1_label">Distance du point projeté au point A:</string>
-    <string name="distance_projpoint_point_2_label">Distance du point projeté au point B:</string>
+    <string name="distance_projpoint_line_label">Distance du point projeté à la droite [m]:</string>
+    <string name="distance_projpoint_point_1_label">Distance du point projeté au point A [m]:</string>
+    <string name="distance_projpoint_point_2_label">Distance du point projeté au point B [m]:</string>
     <string name="drawer_close">Ferme le menu de navigation</string>
     <string name="drawer_open">Ouvre le menu de navigation</string>
     <string name="east">Est</string>
