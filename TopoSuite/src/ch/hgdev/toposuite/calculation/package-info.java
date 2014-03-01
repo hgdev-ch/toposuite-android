@@ -47,7 +47,9 @@
  *      </li>
  *      <li>
  *          Don't forget to make appropriate constructors. See
- *          {@link ch.hgdev.toposuite.calculation.Gisement}
+ *          {@link ch.hgdev.toposuite.calculation.Gisement}. <strong>And do not forget to call <pre>this.updateLastModification()</pre>
+            and <pre>this.notifyUpdate(this);</pre> at the end of the {@link ch.hgdev.toposuite.calculation.Calculation#compute()}
+            method in order to notify the observers (aka the DAO)!</strong>
  *      </li>
  * </ol>
  * 
