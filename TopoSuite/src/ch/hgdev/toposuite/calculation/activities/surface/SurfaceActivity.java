@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.calculation.activities.surface;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,7 +83,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         this.descriptionEditText.setHint(
                 this.getString(R.string.description) + this.getString(R.string.optional_prths));
 
-        ArrayList<Surface.PointWithRadius> list = new ArrayList<Surface.PointWithRadius>();
         // check if we create a new surface calculation or if we modify an
         // existing one.
         Bundle bundle = this.getIntent().getExtras();
@@ -91,7 +91,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             this.surfaceCalculation = (Surface) SharedResources.getCalculationsHistory()
                     .get(this.position);
             if (this.surfaceCalculation != null) {
-                list = (ArrayList<Surface.PointWithRadius>) this.surfaceCalculation.getPoints();
                 this.name = this.surfaceCalculation.getSurfaceName();
                 this.description = this.surfaceCalculation.getSurfaceDescription();
                 this.surface = this.surfaceCalculation.getSurface();
@@ -102,7 +101,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         }
 
         this.adapter = new ArrayListOfPointsWithRadiusAdapter(this,
-                R.layout.points_with_radius_list_item, list);
+                R.layout.points_with_radius_list_item,
+                (ArrayList<Surface.PointWithRadius>) this.surfaceCalculation.getPoints());
 
         this.drawList();
 
@@ -175,11 +175,20 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             return true;
         case R.id.delete_point:
             this.adapter.remove(this.adapter.getItem(info.position));
-            this.surfaceCalculation.getPoints().remove(info.position);
+
+            // update the vertices number
             for (int i = info.position; i < this.adapter.getCount(); i++) {
                 this.adapter.getItem(i).setVertexNumber(
                         this.adapter.getItem(i).getVertexNumber() - 1);
             }
+
+            /*this.adapter.sort(new Comparator<Surface.PointWithRadius>() {
+                @Override
+                public int compare(Surface.PointWithRadius lhs, Surface.PointWithRadius rhs) {
+                    return (lhs.getVertexNumber() > rhs.getVertexNumber()) ? 1 : -1;
+                }
+            });*/
+
             this.adapter.notifyDataSetChanged();
             return true;
         default:
@@ -315,7 +324,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 dialog.getPoint().getNorth(),
                 dialog.getRadius(),
                 this.surfaceCalculation.getPoints().size() + 1);
-        this.surfaceCalculation.getPoints().add(p);
+        //this.surfaceCalculation.getPoints().add(p);
         this.adapter.add(p);
         this.adapter.notifyDataSetChanged();
         this.showAddPointDialog();
@@ -334,8 +343,14 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         p.setNorth(dialog.getPoint().getNorth());
         p.setRadius(dialog.getRadius());
 
-        this.adapter.clear();
-        this.adapter.addAll(this.surfaceCalculation.getPoints());
+        this.adapter.remove(p);
+        this.adapter.add(p);
+        this.adapter.sort(new Comparator<Surface.PointWithRadius>() {
+            @Override
+            public int compare(Surface.PointWithRadius lhs, Surface.PointWithRadius rhs) {
+                return (lhs.getVertexNumber() > rhs.getVertexNumber()) ? 1 : -1;
+            }
+        });
         this.adapter.notifyDataSetChanged();
     }
 
