@@ -57,6 +57,13 @@ public class CirclesIntersection extends Calculation {
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 lastModification,
                 true);
+        this.centerFirst = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.centerSecond = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.radiusFirst = 0.0;
+        this.radiusSecond = 0.0;
+
+        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
     }
 
     public CirclesIntersection() {
