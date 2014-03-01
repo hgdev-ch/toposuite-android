@@ -105,10 +105,14 @@ public class Abriss extends Calculation {
             this.results.get(index).setErrTrans(errTrans);
 
             // [cm] => measured distance - calculated distance
-            this.results.get(index).setErrLong(
+            /*this.results.get(index).setErrLong(
                     MathUtils.mToCm(
                             (Math.sin(MathUtils.gradToRad(m.getZenAngle())
-                                    * m.getDistance())) - calcDist));
+                                    * m.getDistance())) - calcDist));*/
+            this.results.get(index).setErrLong(
+                    MathUtils.mToCm(
+                            calcDist - (Math.sin(MathUtils.gradToRad(m.getZenAngle()))
+                                    * m.getDistance())));
 
             this.mse += Math.pow(errAngle, 2);
 
