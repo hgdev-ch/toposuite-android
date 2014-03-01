@@ -93,7 +93,7 @@
     <string name="error_fill_data">Tous les champs obligatoires doivent être remplis!</string>
     <string name="error_impossible_calculation">Calcul impossible!</string>
     <string name="error_impossible_to_import">Impossible à importer le fichier!</string>
-    <string name="error_no_abriss_calculation_found">Aucun calcul d\'abriss trouvé!</string>
+    <string name="error_no_abriss_calculation_found">Aucun calcul d\'orientation à la station trouvé!</string>
     <string name="error_no_points_to_save">Il n\'y a aucun point à sauvegarder!</string>
     <string name="error_no_points_saved">Aucun point sauvegardé!Avez-vous entré un numéro de point?</string>
     <string name="error_no_station_selected">Aucune station sélectionné!</string>
@@ -211,7 +211,7 @@
     <string name="radius_3dots">Rayon&#8230;</string>
     <string name="radius_label">Rayon [m]</string>
     <string name="replace_button">Remplacer</string>
-    <string name="retrieve_z0">Récupérer l\'inconnue d\'orientation du dernier calcul d\'abriss</string>
+    <string name="retrieve_z0">Récupérer l\'inconnue d\'orientation du dernier calcul d\'orientation à la station</string>
     <string name="save">Sauvegarder</string>
     <string name="save_3dots">Sauvegarder&#8230;</string>
     <string name="save_all">Tout sauvegarder</string>
@@ -238,7 +238,7 @@
     <string name="tangent_label">Tangente [m]</string>
     <string name="target_point">Point visé</string>
     <string name="title_activity_abriss">Orient. à la station</string>
-    <string name="title_activity_abriss_results">Abriss - résultats</string>
+    <string name="title_activity_abriss_results">Orient. à la station - résultats</string>
     <string name="title_activity_cheminement_ortho">Cheminement orthogonal</string>
     <string name="title_activity_cheminement_ortho_results">Cheminement orthogonal - résultats</string>
     <string name="title_activity_circle">Cercle</string>
