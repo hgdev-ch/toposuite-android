@@ -228,6 +228,9 @@
     <string name="station_label">Station</string>
     <string name="success_export_dialog">Successfully exported <xliff:g>%d</xliff:g> points!</string>
     <string name="success_import_dialog">Points successfully imported!</string>
+    <string name="success_merge">Points successfully merged!</string>
+    <string name="success_point_kept">Point kept!</string>
+    <string name="success_replace">Point successfully replaced!</string>
     <string name="surface_label">Surface [m&#178;]</string>
     <string name="tangent_label">Tangent [m]</string>
     <string name="target_point">Target point</string>

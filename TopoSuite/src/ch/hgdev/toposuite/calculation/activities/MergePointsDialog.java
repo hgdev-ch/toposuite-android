@@ -216,7 +216,7 @@ public class MergePointsDialog extends DialogFragment {
             }
         }
 
-        this.closeOnSuccess("Points successfully merged!");
+        this.closeOnSuccess(this.getActivity().getString(R.string.success_merge));
     }
 
     private final void performMergeByReplaceAction() {
@@ -231,10 +231,10 @@ public class MergePointsDialog extends DialogFragment {
             }
         }
 
-        this.closeOnSuccess("Point successfully replaced!");
+        this.closeOnSuccess(this.getActivity().getString(R.string.success_replace));
     }
 
     private final void performMergeByKeepAction() {
-        this.closeOnSuccess("Point kept!");
+        this.closeOnSuccess(this.getActivity().getString(R.string.success_point_kept));
     }
 }
