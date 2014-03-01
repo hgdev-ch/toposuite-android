@@ -21,5 +21,5 @@ public enum CalculationType {
     SURFACE,
     CIRCCURVESOLVER,
     LINEINTERSEC,
-    CIRCLEINTERSEC
+    CIRCLESINTERSEC
 }

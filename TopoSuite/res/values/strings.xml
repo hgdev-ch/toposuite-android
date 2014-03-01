@@ -88,6 +88,7 @@
     <string name="error_at_least_one_orientation">You must provide at least one orientation!</string>
     <string name="error_choose_unknown_orientation">You must select an unknown orientation!</string>
     <string name="error_choose_file">Please, choose file to import!</string>
+    <string name="error_enter_point_number">Please, enter points number!</string>
     <string name="error_fill_data">Every mandatory field must be field!</string>
     <string name="error_file_already_exists">File already exists!</string>
     <string name="error_impossible_calculation">Impossible calculation!</string>

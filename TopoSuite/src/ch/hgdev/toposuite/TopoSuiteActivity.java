@@ -70,9 +70,6 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.global_layout);
 
-        // set the titles that will appear in the action bar
-        this.getActionBar().setTitle(this.getActivityTitle());
-
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
         // set the content of the left sliding menu
@@ -95,9 +92,6 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(
                 this.drawerListLeftMenu));
 
-        this.getActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getActionBar().setHomeButtonEnabled(true);
-
         // the drawerToggle handles the actions when a sliding menu is opened or
         // closed
         this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout,
@@ -116,6 +110,11 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
 
         this.drawerLayout.setDrawerListener(this.drawerToggle);
 
+        // set the titles that will appear in the action bar
+        this.getActionBar().setTitle(this.getActivityTitle());
+        this.getActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getActionBar().setHomeButtonEnabled(true);
+
     }
 
     @Override
@@ -127,7 +126,6 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         this.getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }

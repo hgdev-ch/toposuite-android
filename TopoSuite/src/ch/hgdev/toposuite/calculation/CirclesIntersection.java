@@ -53,14 +53,14 @@ public class CirclesIntersection extends Calculation {
 
     public CirclesIntersection(long id, Date lastModification) {
         super(id,
-                CalculationType.CIRCLEINTERSEC,
+                CalculationType.CIRCLESINTERSEC,
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 lastModification,
                 true);
     }
 
     public CirclesIntersection() {
-        super(CalculationType.CIRCLEINTERSEC,
+        super(CalculationType.CIRCLESINTERSEC,
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 true);
         this.centerFirst = new Point(0, 0.0, 0.0, 0.0, false, false);
@@ -77,7 +77,7 @@ public class CirclesIntersection extends Calculation {
     public CirclesIntersection(Point _centerFirst, double _radiusFirst,
             Point _centerSecond, double _radiusSecond, boolean hasDAO)
             throws IllegalArgumentException {
-        super(CalculationType.CIRCLEINTERSEC,
+        super(CalculationType.CIRCLESINTERSEC,
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 hasDAO);
         Preconditions.checkArgument(
@@ -152,6 +152,9 @@ public class CirclesIntersection extends Calculation {
         this.secondIntersection.setNorth(
                 this.centerFirst.getNorth()
                         + (this.radiusFirst * Math.cos(gisement - alpha)));
+
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     /**
