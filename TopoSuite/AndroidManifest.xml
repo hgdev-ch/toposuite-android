@@ -137,11 +137,7 @@
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.circlesintersection.CirclesIntersectionActivity"
-            android:label="@string/title_activity_circles_intersection"
-            android:parentActivityName="ch.hgdev.toposuite.TopoSuiteActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ch.hgdev.toposuite.TopoSuiteActivity" />
+            android:label="@string/title_activity_circles_intersection" >
         </activity>
     </application>
 
