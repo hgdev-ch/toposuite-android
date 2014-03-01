@@ -117,60 +117,95 @@ Toutes les distances à introduire doivent être en "Mètres".
 
 </p>
 <h3 id="points">Gestion des points</h3>
-<p> 
-Il est possible soit d'ajouter les points manuellement un par un, 
-ou d'importer directement tous les points à l'aide d'un fichier CSV. Le fichier CSV doit être dans le dossier de 
-l'application pour être importé depuis le programme. <br>
-Si le fichier provient d'ailleurs, il suffit de cliquer sur le fichier et de l'ouvrir avec l'application TopoSuite. <br>
-Le fichier doit être structuré de la manière suivante.<br>
-N° Point ; Coordonnée Est  ; Coordonnée Nord ; Altitude<br>
-<br>
-Il est également possible d'exporter le fichier de point avec le bouton partager, ou le bouton "Exporter". 
-Ce dernier permet d'exporter le ficher dans le dossier interne de TopoSuite et peut être récupérer dans le logiciel 
-avec la fonction "Importer"<br>
-
-<br>
-Le bouton "supprimer" permet de supprimer tous les points en même temps. Pour modifier ou supprimer qu'un seul point, il suffit 
-de laisser le doigt longuement sur le point souhaité.
-<br>Il y a également un bouton "Rechercher" qui permet de retrouver un point souhaité.
-
-  </p>
-<h3 id="historique">Historique</h3>
- <p>L'historique permet de reprendre n'importe quel calcul déjà effectué.
+  <p> 
+    Il est possible soit d'ajouter les points manuellement, 
+    ou d'importer directement tous les points à l'aide d'un fichier CSV. 
+    Depuis l'appareil (sans connexion):<br>
+    Il faut placer le fichier CSV dans le dossier de 
+    l'application (/TopoSuite) pour être importé depuis le menu du programme.
   <br>
- Une touche permet également d'effacer toutes les données stockées.
-   </p>
+    L'autre solution (avec connexion ou non):<br>
+    En "appuyant" sur le fichier de points, l'appareil va te proposer d'ouvrir le fichier avec plusieurs applications, 
+    dont "TopoSuite". 
+    En choisissant TopoSuite dans la liste, l'application va s'ouvrir et importer
+    la liste des points en demandant une confirmation au travers une popup.
+  <br>
+    Le fichier doit être structuré de la manière suivante.<br>
+    N° Point ; Coordonnée Est  ; Coordonnée Nord ; Altitude<br>
+  <b>Les points ne doivent pas comporter de lettre ou de "."</b>
+  <br>
+    Il est également possible d'exporter le fichier de point avec le bouton partager, ou le bouton "Exporter". 
+    Ce dernier permet d'exporter le ficher dans le dossier interne de TopoSuite et peut être récupérer dans le logiciel 
+    avec la fonction "Importer"<br>
+  <br>
+    Pour modifier ou supprimer qu'un seul point, il suffit 
+    de laisser le doigt longuement sur le point souhaité.
+  <br>
+    Il y a également un bouton "Rechercher" qui permet de retrouver un point souhaité.
+    Le bouton "supprimer" permet de supprimer tous les points en même temps.
+  </p>
+  
+<h3 id="historique">Historique</h3>
+  <p>
+      L'historique permet de reprendre n'importe quel calcul déjà effectué.
+      <br>
+      Une touche permet également d'effacer toutes les données stockées.
+  </p>
 
 <h2 id="calculs">Calculs</h2>
 
 <h3 id="polaires">Calculs polaires</h3>
+
 <h4 id="abriss">Orientation à la station</h4>
+  <p>
+  </p>
 <h4 id="libre">Station libre</h4>
+  <p>
+    
+  </p>
 <h4 id="leve_pol">Levé polaire</h4>
-<p>La valeur de l'inconnue d'orientation peut être récupérée avec la coche en haut à gauche.
-                                                                     <br>
-La condition géométrique suivante doit normalement être remplie : <br>
--La distance de la station au point nouveau ne doit pas dépasser 1.25 fois la longueur du vecteur 
-d'orientation (distance de la station au point servant d'orientation).
-                                   </p>
+  <p>
+    La valeur de l'inconnue d'orientation peut être récupérée avec la coche en haut à gauche.
+    <br>
+    La condition géométrique suivante devrait être remplie : 
+    <br>
+    -La distance de la station au point nouveau ne doit pas dépasser 1.25 fois la longueur du vecteur 
+    d'orientation le plus long(distance de la station au point servant d'orientation).
+  </p>
 
 <h4 id="imp_pol">Implantation polaire</h4>
+  <p>
+    La condition géométrique suivante devrait être remplie : 
+    <br>
+    -La distance de la station au point implanté ne doit pas dépasser 1.25 fois la longueur du vecteur 
+    d'orientation le plus long(distance de la station au point servant d'orientation).  
+  </p>
 <h4 id="imp_axe">Implantation d'un axe</h4>
 
 <h3 id="orthogonaux">Calculs orthogonaux</h3>
 <h4 id="levo_ortho">Levé orthogonal</h4>
-<p>
-La valeur mesurée de la base du levé orthogonal doit être rentrée afin de calculer le facteur d'echelle.
-<br>
-Les valeurs d'abscisse et ordonnées doivent être rentrées selon l'image si dessous:<br>
-<!--<img src="file:///android_asset/help/img/leve_ortho.png" alt="levé orthogonal"/>  -->
-</p>
+  <p>
+    La valeur mesurée de la base du levé orthogonal doit être rentrée afin de calculer le facteur d'echelle.
+  <br>
+    Les valeurs d'abscisse et ordonnées doivent être rentrées selon l'image si dessous:<br>
+  <!--<img src="file:///android_asset/help/img/leve_ortho.png" alt="levé orthogonal"/>  -->
+  </p>
 <h4 id="chem_ortho">Cheminement orthogonal</h4>
-<p>Les signes à respecter pour le cheminement orthogonal sont les suivants :
-<br>
-<img src="file:///android_asset/help/img/chem_ortho.png" alt="cheminement orthogonal"/>
-</p>
+  <p>
+    Les signes à respecter pour le cheminement orthogonal sont les suivants :
+  <br>
+    <img src="file:///android_asset/help/img/chem_ortho.png" alt="cheminement orthogonal"/>
+  <br>
+   Conditions liées au calcul et à la méthode :<br>
+      - La différence entre AB calculé et AB mesuré doit être dans la tolérance.    <br>
+      - La longueur totale du cheminement ne doit pas dépasser 3 fois la distance AB.  <br>
+      - Des points peuvent être déterminés « hors base » (cheminement lancé depuis chacun des points de rattachement),
+        mais la distance cumulée hors base ne doit pas dépasser ½ AB.
+  </p>
 <h4 id="impl_ortho">Implantation orthogonale</h4>
+  <p>
+    
+  </p>
 
 <h3 id="intersections">Intersections</h3>
 <h4 id="inter_droites">Droites (et/ou directions)</h4>
@@ -180,55 +215,61 @@ Les valeurs d'abscisse et ordonnées doivent être rentrées selon l'image si de
 
 <h3 id="surfaces">Surfaces</h3>
 <h4 id="surf_arc">Calcul de surface (y c. avec arcs de cercles)</h4>
-<p> Pour le calcul de surface, les éléments à saisir sont :
-<br>Les points dans le sens des aiguilles d'une montre. <br>
-Exemple selon l'image ci-dessous : <br>
-<img src="file:///android_asset/help/img/surface.png" alt="surface"/><br>
-Point 1<br>
-Point 2, Rayon + <br>
-Point 3,        <br>
-Point 4,        <br>
-Point 5, Rayon -  <br>
-Point 6,        <br>
-Point 7        <br>
-</p>
+  <p> 
+    Pour le calcul de surface, les éléments à saisir sont :
+    <br>
+    Les points dans le sens des aiguilles d'une montre. <br>
+
+    Exemple selon l'image ci-dessous : <br>
+      <img src="file:///android_asset/help/img/surface.png" alt="surface"/><br>
+    Point 1<br>
+    Point 2, Rayon + <br>
+    Point 3,        <br>
+    Point 4,        <br>
+    Point 5, Rayon -  <br>
+    Point 6,        <br>
+    Point 7        <br>
+  </p>
 <h4 id="surf_para">Déplacement parallèle de limite avec surface imposée</h4>
 
 <h3 id="divers">Divers</h3>
-<h4 id="gisement">Gisement / distance</h4>
+<h4 id="gisement">Gisement/distance</h4>
+  Pour le calcul de gisement/distance, il suffit de choisir dans la liste des points connus :<br>
+   le point d'origine ainsi que le point d'orientation.
 <h4 id="projection">Projection d'un point sur une droite</h4>
 <h4 id="cercle_3points">Calcul d'un cercle par trois points</h4>
 <h4 id="seg_arc">Segmentation d'un arc de cercles</h4>
-<h4 id="helmert">Transformaation de Helmert (transformation conforme à 4 paramètres)</h4>
+<h4 id="helmert">Transformation de Helmert (transformation conforme à 4 paramètres)</h4>
 
 <h3 id="math">Mathématiques</h3>
 <h4 id="triangle">Résolutions de triangles</h4>
-<p>Les éléments à saisir pour résoudre un triangle sont les suivants:
-<br>
-- 3 Côtés<br>
-- 2 Côtés, 1 Angle compris <br>
-- 1 Côté, 2 Angles<br>
-
-<img src="file:///android_asset/help/img/triangle.png" alt="triangle"/>
-<br>
-r = Rayon du cercle inscrit<br>
-R = Rayon du cercle circonscrit   <br>
-h = Hauteur                      <br>
-</p>
+  <p>
+    Les éléments à saisir pour résoudre un triangle sont les suivants:
+  <br>
+    - 3 Côtés<br>
+    - 2 Côtés, 1 Angle compris <br>
+    - 1 Côté, 2 Angles<br>
+  <img src="file:///android_asset/help/img/triangle.png" alt="triangle"/>
+  <br>
+    r = Rayon du cercle inscrit<br>
+    R = Rayon du cercle circonscrit   <br>
+    h = Hauteur                      <br>
+  </p>
 <h4 id="circ">Résolution d'éléments circulaires</h4>
-<p>Les éléments à saisir pour calculer sont les suivants:<br>
-- Rayon, Corde<br>
-- Rayon, Angle au centre<br>
-- Rayon, Tangente<br>
-- Rayon, Flèche<br>
-- Corde, Angle au centre<br>
-- Corde, Tangente<br>
-- Corde, Flèche<br>
-- Tangente, Angle au centre<br>
-<br>
-<!--<img src="file:///android_asset/help/img/circulaire.png" alt="éléments circulaires"/>  -->
-<br>
- <!-- Mettre la légende des éléments de l'image -->
+  <p>
+    Les éléments à saisir pour calculer sont les suivants:<br>
+    - Rayon, Corde<br>
+    - Rayon, Angle au centre<br>
+    - Rayon, Tangente<br>
+    - Rayon, Flèche<br>
+    - Corde, Angle au centre<br>
+    - Corde, Tangente<br>
+    - Corde, Flèche<br>
+    - Tangente, Angle au centre<br>
+  <br>
+    <!--<img src="file:///android_asset/help/img/circulaire.png" alt="éléments circulaires"/>  -->
+  <br>
+    <!-- Mettre la légende des éléments de l'image -->
 
-</p>
+  </p>
 <!-- TODO complete -->
