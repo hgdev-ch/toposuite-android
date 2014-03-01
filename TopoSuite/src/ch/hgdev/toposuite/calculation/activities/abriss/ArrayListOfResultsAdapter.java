@@ -55,8 +55,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             }
 
             if (errAngTextView != null) {
-                errAngTextView.setText(DisplayUtils.toString(
-                        result.getErrAngle(), App.smallNumberOfDecimals));
+                errAngTextView.setText(DisplayUtils.formatCC(result.getErrAngle()));
             }
 
             if (errTransTextView != null) {

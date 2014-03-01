@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.utils;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -55,6 +57,25 @@ public class DisplayUtils {
      */
     public static String toString(double value) {
         return String.format(App.numberOfDecimals, value);
+    }
+
+    /**
+     * Format a value in CC (1/10000 Grad). This removes any decimal precision
+     * and rounds the value half up. If the value appears to be either infinite
+     * or NaN, a simple dash is returned.
+     * 
+     * @param value
+     *            Input value in CC.
+     * @return Formatted CC value.
+     */
+    public static String formatCC(double value) {
+        if (Double.isInfinite(value) || Double.isNaN(value)) {
+            return "-";
+        } else {
+            DecimalFormat df = new DecimalFormat("#");
+            df.setRoundingMode(RoundingMode.HALF_UP);
+            return df.format(value);
+        }
     }
 
     /**

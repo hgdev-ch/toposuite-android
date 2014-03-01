@@ -101,9 +101,9 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         this.resultsListView.setAdapter(this.adapter);
 
         this.meanTextView.setText(DisplayUtils.toString(this.abriss.getMean()));
-        this.meanErrorDirectionTextView.setText("±" + DisplayUtils.toString(
+        this.meanErrorDirectionTextView.setText("±" + DisplayUtils.formatCC(
                 this.abriss.getMSE()));
-        this.meanErrorCompensatedTextView.setText("±" + DisplayUtils.toString(
+        this.meanErrorCompensatedTextView.setText("±" + DisplayUtils.formatCC(
                 this.abriss.getMeanErrComp()));
     }
 }
