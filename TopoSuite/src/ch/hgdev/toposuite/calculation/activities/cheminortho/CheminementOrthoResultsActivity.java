@@ -22,6 +22,7 @@ import ch.hgdev.toposuite.calculation.CheminementOrthogonal.Result;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CheminementOrthoResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -67,12 +68,12 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
             this.baseTextView.setText(builder.toString());
             this.scaleTextView.setText(DisplayUtils.toString(
                     this.cheminOrtho.getScale()));
-            this.fsTextView.setText(DisplayUtils.toString(
-                    this.cheminOrtho.getFs()));
-            this.fLonTextView.setText(DisplayUtils.toString(
-                    this.cheminOrtho.getfE()));
-            this.fLatTextView.setText(DisplayUtils.toString(
-                    this.cheminOrtho.getfN()));
+            this.fsTextView.setText(DisplayUtils.formatDifferences(
+                    MathUtils.mToCm(this.cheminOrtho.getFs())));
+            this.fLonTextView.setText(DisplayUtils.formatDifferences(
+                    MathUtils.mToCm(this.cheminOrtho.getfE())));
+            this.fLatTextView.setText(DisplayUtils.formatDifferences(
+                    MathUtils.mToCm(this.cheminOrtho.getfN())));
 
             this.registerForContextMenu(this.resultsListView);
             this.drawList();

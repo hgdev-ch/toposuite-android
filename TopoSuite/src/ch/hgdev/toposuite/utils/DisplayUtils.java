@@ -127,4 +127,15 @@ public class DisplayUtils {
                 DisplayUtils.toString(pt.getEast()), context.getString(R.string.north),
                 DisplayUtils.toString(pt.getNorth()));
     }
+
+    /**
+     * Format given centimeters in order to display them in a TextView.
+     * 
+     * @param cm
+     *            centimeters.
+     * @return formatted centimeters.
+     */
+    public static String formatDifferences(double cm) {
+        return String.format("%.1f", cm);
+    }
 }
