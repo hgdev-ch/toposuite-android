@@ -108,10 +108,10 @@
     <string name="export_3dots">Exporter&#8230;</string>
     <string name="extremity_label">Extrémité</string>
     <string name="filename">Nom du fichier</string>
-    <string name="flat_label">fLat</string>
-    <string name="flon_label">fLon</string>
+    <string name="flat_label">fLat [cm]</string>
+    <string name="flon_label">fLon [cm]</string>
     <string name="format_3dots">Format&#8230;</string>
-    <string name="fs_label">fs</string>
+    <string name="fs_label">fs [cm]</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="group_polar_calculation">Calculs polaires</string>
     <string name="group_orthogonal_calculation">Calculs orthogonaux</string>
