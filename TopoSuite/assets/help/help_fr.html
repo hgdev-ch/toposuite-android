@@ -158,10 +158,14 @@ Toutes les distances à introduire doivent être en "Mètres".
 
 <h4 id="abriss">Orientation à la station</h4>
   <p>
+    Le calcul d'orientation à la station permet de calculer l'inconnue d'orientation.
+    Une modification d'une valeur peut se faire si on clique longuement sur une mesure  <br>
+    
   </p>
 <h4 id="libre">Station libre</h4>
   <p>
-    
+     Le calcul de station libre permet d'obtenir les coordonnées de la station ainsi que l'inconnue d'orientation
+     <!-- Le reste des explications devra attendre que la fonctionnalité existe -->
   </p>
 <h4 id="leve_pol">Levé polaire</h4>
   <p>
@@ -174,14 +178,25 @@ Toutes les distances à introduire doivent être en "Mètres".
   </p>
 
 <h4 id="imp_pol">Implantation polaire</h4>
-  <p>
+  <p>      
+    Le calcul d'implantation polaire permet (à partir de coordonnées) d'obtenir les valeurs suivantes :    <br>
+     - de l'angle horizontal,<br>
+     - de la distance horizontale   <br>
+     - de la distance inclinée   <br>
+     - de l'angle zénithal, <br>
+     - de la hauteur de prisme <br>
+     - du gisement <br>
+    pour faire une implantation sur le terrain.     <br>
     La condition géométrique suivante devrait être remplie : 
     <br>
     -La distance de la station au point implanté ne doit pas dépasser 1.25 fois la longueur du vecteur 
     d'orientation le plus long(distance de la station au point servant d'orientation).  
   </p>
 <h4 id="imp_axe">Implantation d'un axe</h4>
-
+  <p>
+    Ce calcul permet d'obtenir le décalage transversal et longitudinal (à partir du point de base "A")<br>
+    
+  </p>
 <h3 id="orthogonaux">Calculs orthogonaux</h3>
 <h4 id="levo_ortho">Levé orthogonal</h4>
   <p>
@@ -199,17 +214,34 @@ Toutes les distances à introduire doivent être en "Mètres".
    Conditions liées au calcul et à la méthode :<br>
       - La différence entre AB calculé et AB mesuré doit être dans la tolérance.    <br>
       - La longueur totale du cheminement ne doit pas dépasser 3 fois la distance AB.  <br>
-      - Des points peuvent être déterminés « hors base » (cheminement lancé depuis chacun des points de rattachement),
+      - Des points peuvent être déterminés "hors base" (cheminement lancé depuis chacun des points de rattachement),
         mais la distance cumulée hors base ne doit pas dépasser ½ AB.
   </p>
 <h4 id="impl_ortho">Implantation orthogonale</h4>
   <p>
-    
+    Le calcul d'implantation orthogonale permet (à partir de coordonnées) d'obtenir les valeurs d'abscisses et d'ordonnées,
+    pour faire une implantation sur le terrain.
   </p>
 
 <h3 id="intersections">Intersections</h3>
 <h4 id="inter_droites">Droites (et/ou directions)</h4>
+  <p>
+    La définition des droites peut être donnée : <br>
+       - Soit par deux points                 <br>
+       - Soit par un point et un angle         <br>
+    
+    La droite peut être soit décalée soit être perpendiculaire à la droite définie.   <br>
+    Pour le décalage, un signe positif décale la droite sur la droite et un signe négatif la décale sur la gauche.<br>   
+    Si la droite est à la perpendicualaire de celle donnée, une distance du point A peut-être rentrée. 
+    Les signes sont les mêmes que pour le décalage de la droite. 
+  </p>
 <h4 id="inter_cercles">Intersections de cercles (distances)</h4>
+  <p>
+    Pour l'intersection de cercles, deux possibilités :                                         <br>
+      - Rentrer manuellement la grandeur des rayons                                       <br>
+      - Choisir un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br>
+    Attention : Il y a presque toujours 2 solutions.
+  </p>
 <h4 id="inter_droites_cercles">Droite/cercle</h4>
 
 
@@ -234,11 +266,32 @@ Toutes les distances à introduire doivent être en "Mètres".
 
 <h3 id="divers">Divers</h3>
 <h4 id="gisement">Gisement/distance</h4>
-  Pour le calcul de gisement/distance, il suffit de choisir dans la liste des points connus :<br>
-   le point d'origine ainsi que le point d'orientation.
+  <p>
+    Pour le calcul de gisement/distance, il suffit de choisir dans la liste des points connus :<br>
+    le point d'origine ainsi que le point d'orientation.
+  </p>
 <h4 id="projection">Projection d'un point sur une droite</h4>
+  <p>
+    Pour définir la droite, il existe deux possibilités :  <br>
+     - Par deux points connus,<br>
+     - Par un point et un gisement<br>
+     La droite peut être déplacée sur la droite avec une signe positif, et sur la gauche avec un signe négatif. <br>
+     Il faut ensuite choisir le point à projeter dans la liste des points connus et entrer le N° de point voulu 
+     pour enregistrer le point projeté.               
+    
+  </p>
 <h4 id="cercle_3points">Calcul d'un cercle par trois points</h4>
+  <p>
+    A partir de trois points de la liste de coordonnées, il est possible d'obtenir les coordonnées du centre et le rayon du cercle.<br>
+    Il est possible d'enregistrer les coordonnées du centre en rentrant un N° de point.
+  </p>
 <h4 id="seg_arc">Segmentation d'un arc de cercles</h4>
+  <p>
+    Ce calcul permet d'obtenir des coordonnées réparties le long de l'arc de cercle.   <br>
+    La segmentation peut se faire à partir du nombre de segment que l'on veut ou d'une distance rentrée manuellement.  <br>
+    Il est clair, dans la deuxième solution, que la distance restante entre le dernier point calculé et 
+    l'extrémité de l'arc de cercle n'est pas égale aux autres distances.
+  </p>
 <h4 id="helmert">Transformation de Helmert (transformation conforme à 4 paramètres)</h4>
 
 <h3 id="math">Mathématiques</h3>
