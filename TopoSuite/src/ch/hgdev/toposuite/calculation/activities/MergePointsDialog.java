@@ -31,12 +31,6 @@ public class MergePointsDialog extends DialogFragment {
     public static final String         NEW_ALTITUDE                = "new_altitude";
 
     /**
-     * Merge mode: all. The value depends on the position in the
-     * R.array.merge_modes
-     */
-    private static final int           MERGE_MODE_ALL              = 0;
-
-    /**
      * Merge mode: without altitude. The value depends on the position in the
      * R.array.merge_modes
      */
