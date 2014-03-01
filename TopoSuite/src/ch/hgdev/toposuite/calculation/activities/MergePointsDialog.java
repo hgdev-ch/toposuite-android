@@ -128,15 +128,7 @@ public class MergePointsDialog extends DialogFragment {
 
         this.pointDifferencesTextView = (TextView) view.findViewById(
                 R.id.point_differences);
-        this.pointDifferencesTextView.setText(
-                DisplayUtils.formatPoint(
-                        this.getActivity(),
-                        new Point(
-                                0,
-                                (this.newPt.getEast() - this.oldPt.getEast()) * 100,
-                                (this.newPt.getNorth() - this.oldPt.getNorth()) * 100,
-                                (this.newPt.getAltitude() - this.oldPt.getAltitude()) * 100,
-                                false, false)));
+        this.pointDifferencesTextView.setText(this.calculateDifferences());
 
         Button meanButton = (Button) view.findViewById(R.id.mean_button);
         meanButton.setOnClickListener(new OnClickListener() {
@@ -198,9 +190,17 @@ public class MergePointsDialog extends DialogFragment {
         }
     }
 
-    private final void closeOnError(String message) {
-        this.listener.onMergePointsDialogError(message);
-        this.dismiss();
+    private String calculateDifferences() {
+        double deltaEast = (this.newPt.getEast() - this.oldPt.getEast()) * 100;
+        double deltaNorth = (this.newPt.getNorth() - this.oldPt.getNorth()) * 100;
+        double fs = Math.sqrt(Math.pow(deltaEast, 2) + Math.pow(deltaNorth, 2));
+        double deltaAlt = (this.newPt.getAltitude() - this.oldPt.getAltitude()) * 100;
+        return String.format(
+                "%s: %s\n%s: %s\n%s: %s\n%s: %s",
+                this.getActivity().getString(R.string.east), DisplayUtils.toString(deltaEast),
+                this.getActivity().getString(R.string.north), DisplayUtils.toString(deltaNorth),
+                this.getActivity().getString(R.string.fs_label), DisplayUtils.toString(fs),
+                this.getActivity().getString(R.string.altitude), DisplayUtils.toString(deltaAlt));
     }
 
     private final void closeOnSuccess(String message) {
