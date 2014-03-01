@@ -95,6 +95,7 @@
     <string name="error_impossible_to_import">Impossible à importer le fichier!</string>
     <string name="error_no_abriss_calculation_found">Aucun calcul d\'abriss trouvé!</string>
     <string name="error_no_points_to_save">Il n\'y a aucun point à sauvegarder!</string>
+    <string name="error_no_points_saved">Aucun point sauvegardé!Avez-vous entré un numéro de point?</string>
     <string name="error_no_station_selected">Aucune station sélectionné!</string>
     <string name="error_radius_must_be_positive">La valeur du rayon doit être positive!</string>
     <string name="error_point_number">Le numéro d\'un point doit être supérieur ou égal à 1.</string>
@@ -202,6 +203,8 @@
     <string name="point_number_3dots">Point No&#8230;</string>
     <string name="point_provided">Saisi</string>
     <string name="point_search">Rechercher un point</string>
+    <string name="point_one_not_saved">Le premier point n\'a pas été sauvegardé!</string>
+    <string name="point_two_not_saved">Le second point n\'a pas été sauvegardé!</string>
     <string name="prism_height">Hauteur du prisme (S)</string>
     <string name="prism_height_3dots">Hauteur du prisme&#8230;</string>
     <string name="radius">Rayon [m]</string>
