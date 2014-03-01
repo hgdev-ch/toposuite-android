@@ -266,11 +266,16 @@
                 android:id="@+id/intersection_one_number"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.20"
+                android:layout_weight="0.25"
                 android:gravity="right|center_vertical"
                 android:hint="@string/point_number_3dots"
                 android:inputType=""
                 android:textSize="12sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75" />
         </LinearLayout>
 
         <LinearLayout
@@ -302,8 +307,8 @@
                 android:gravity="center"
                 android:text="" />
         </LinearLayout>
-        
-                <LinearLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -312,11 +317,16 @@
                 android:id="@+id/intersection_two_number"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.20"
+                android:layout_weight="0.25"
                 android:gravity="right|center_vertical"
                 android:hint="@string/point_number_3dots"
                 android:inputType=""
                 android:textSize="12sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75" />
         </LinearLayout>
     </LinearLayout>
 
