@@ -143,6 +143,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity"
             android:label="@string/title_activity_free_station" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.freestation.FreeStationResultsActivity"
+            android:label="@string/title_activity_free_station_results" >
+        </activity>
     </application>
 
 </manifest>
