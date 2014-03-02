@@ -15,7 +15,7 @@ public class FreeStationActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //this.getMenuInflater().inflate(R.menu.free_station, menu);
+        this.getMenuInflater().inflate(R.menu.free_station, menu);
         return true;
     }
 
