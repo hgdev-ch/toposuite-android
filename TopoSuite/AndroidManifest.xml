@@ -147,6 +147,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.freestation.FreeStationResultsActivity"
             android:label="@string/title_activity_free_station_results" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.linecircleintersection.LineCircleIntersectionActivity"
+            android:label="@string/title_activity_line_circle_intersection" >
+        </activity>
     </application>
 
 </manifest>

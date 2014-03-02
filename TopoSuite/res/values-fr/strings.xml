@@ -257,6 +257,7 @@
     <string name="title_activity_leve_ortho_results">Levé orthogonal - résultats</string>
     <string name="title_activity_leve_polaire">Levé polaire</string>
     <string name="title_activity_leve_polaire_results">Levé polaire - résultats</string>
+    <string name="title_activity_line_circle_intersection">Intersection droite-cercle</string>
     <string name="title_activity_lines_intersection">Intersection de droites</string>
     <string name="title_activity_orthogonal_implantation">Implantation orthogonale</string>
     <string name="title_activity_ortho_implantation_results">Implantation orthogonale - résultats</string>

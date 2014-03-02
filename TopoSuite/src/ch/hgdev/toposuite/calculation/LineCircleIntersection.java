@@ -5,7 +5,10 @@ import java.util.Date;
 import org.json.JSONException;
 
 import android.util.Log;
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.linecircleintersection.LineCircleIntersectionActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
@@ -33,7 +36,7 @@ public class LineCircleIntersection extends Calculation {
     public LineCircleIntersection(long id, Date lastModification) {
         super(id,
                 CalculationType.LINECIRCINTERSEC,
-                "line circle intersection",
+                App.getContext().getString(R.string.title_activity_line_circle_intersection),
                 lastModification,
                 true);
     }
@@ -42,7 +45,7 @@ public class LineCircleIntersection extends Calculation {
             Point _centerC, double _radiusC,
             boolean hasDAO) {
         super(CalculationType.LINECIRCINTERSEC,
-                "line circle intersection",
+                App.getContext().getString(R.string.title_activity_line_circle_intersection),
                 hasDAO);
 
         this.initAttributes(_p1L, _p2L, _displacementL, _centerC, _radiusC);
@@ -177,8 +180,7 @@ public class LineCircleIntersection extends Calculation {
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO implement
-        return null;
+        return LineCircleIntersectionActivity.class;
     }
 
     public Point getFirstIntersection() {
