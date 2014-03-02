@@ -111,6 +111,7 @@
     <string name="flat_label">fLat [cm]</string>
     <string name="flon_label">fLon [cm]</string>
     <string name="format_3dots">Format&#8230;</string>
+    <string name="free_station_label">Calculation of the free station</string>
     <string name="fs_label">fs [cm]</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="group_polar_calculation">Polar calculations</string>
@@ -212,12 +213,14 @@
     <string name="radius_label">Radius [m]</string>
     <string name="replace_button">Replace</string>
     <string name="retrieve_z0">Retrieve unknown orientation from last abriss calculation</string>
+    <string name="sa_label">sA [cm]:</string>
     <string name="save">Save</string>
     <string name="save_3dots">Save&#8230;</string>
     <string name="save_all">Save all</string>
     <string name="save_all_points">All points will be saved</string>
     <string name="save_points">Save points</string>
     <string name="scale_factor_label">Scale</string>
+    <string name="se_label">sE [cm]:</string>
     <string name="search">Search</string>
     <string name="search_3dots">Search&#8230;</string>
     <string name="sector_surface_label">Sector surface [m&#178;]</string>
@@ -226,6 +229,7 @@
     <string name="sides_label">Sides</string>
     <string name="share">Share</string>
     <string name="slope_label">Slope [%]</string>
+    <string name="sn_label">sN [cm]:</string>
     <string name="solution_one">First solution</string>
     <string name="solution_two">Second (prospective) solution</string>
     <string name="station_label">Station</string>
@@ -269,6 +273,7 @@
     <string name="unit_gradian_cc">[cc]</string>
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation_label">Unkn. Orient. [g]</string>
+    <string name="va_label">vA [cm]</string>
     <string name="ve_label">vE [cm]</string>
     <string name="vertex_angle">Vertex angle (&#946;) [g]</string>
     <string name="vertex_number">Vertex No</string>

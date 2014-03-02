@@ -172,19 +172,18 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.unit_meter));
         this.distanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
+        this.sEditText = new EditText(this.getActivity());
+        this.sEditText.setHint(this.getActivity().getString(
+                R.string.prism_height_3dots)
+                + this.getActivity().getString(R.string.unit_meter));
+        this.sEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+
         this.zenAngleEditText = new EditText(this.getActivity());
         this.zenAngleEditText.setHint(this.getActivity().getString(
                 R.string.zenithal_angle_3dots)
                 + this.getActivity().getString(R.string.unit_gradian)
                 + this.getActivity().getString(R.string.optional_prths));
         this.zenAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-
-        this.sEditText = new EditText(this.getActivity());
-        this.sEditText.setHint(this.getActivity().getString(
-                R.string.prism_height_3dots)
-                + this.getActivity().getString(R.string.unit_meter)
-                + this.getActivity().getString(R.string.optional_prths));
-        this.sEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.latDeplEditText = new EditText(this.getActivity());
         this.latDeplEditText.setHint(this.getActivity().getString(
@@ -216,8 +215,8 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         this.layout.addView(this.determinationNoEditText);
         this.layout.addView(this.horizDirEditText);
         this.layout.addView(this.distanceEditText);
-        this.layout.addView(this.zenAngleEditText);
         this.layout.addView(this.sEditText);
+        this.layout.addView(this.zenAngleEditText);
         this.layout.addView(this.latDeplEditText);
         this.layout.addView(this.lonDeplEditText);
     }
@@ -228,11 +227,8 @@ public class AddDeterminationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.determinationNoEditText.length() == 0) || (this.horizDirEditText.length() == 0)
-                || (this.distanceEditText.length() == 0)) {
-            return false;
-        }
-        return true;
+        return ((this.determinationNoEditText.length() > 0) && (this.horizDirEditText.length() > 0)
+                && (this.distanceEditText.length() > 0) && (this.sEditText.length() > 0));
     }
 
     public int getDeterminationNo() {
