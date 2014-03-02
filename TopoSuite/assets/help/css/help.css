@@ -29,3 +29,8 @@ li:before {
     content: counters(item, ".")" ";
     counter-increment: item;
 }
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
