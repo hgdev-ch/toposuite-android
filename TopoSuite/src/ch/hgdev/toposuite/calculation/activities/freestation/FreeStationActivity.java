@@ -1,25 +1,26 @@
 package ch.hgdev.toposuite.calculation.activities.freestation;
 
-import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.R.layout;
-import ch.hgdev.toposuite.R.menu;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Menu;
+import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.TopoSuiteActivity;
 
-public class FreeStationActivity extends Activity {
+public class FreeStationActivity extends TopoSuiteActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_free_station);
+        this.setContentView(R.layout.activity_free_station);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.free_station, menu);
+        //this.getMenuInflater().inflate(R.menu.free_station, menu);
         return true;
     }
 
+    @Override
+    protected String getActivityTitle() {
+        return this.getString(R.string.title_activity_free_station);
+    }
 }
