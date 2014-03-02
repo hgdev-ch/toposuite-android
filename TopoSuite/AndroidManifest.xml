@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.hgdev.toposuite"
-    android:versionCode="25"
-    android:versionName="1.0.0-BETA4" >
+    android:versionCode="26"
+    android:versionName="1.0.0-664ca79" >
 
     <uses-sdk
         android:minSdkVersion="15"
