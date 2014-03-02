@@ -111,6 +111,7 @@
     <string name="flat_label">fLat [cm]</string>
     <string name="flon_label">fLon [cm]</string>
     <string name="format_3dots">Format&#8230;</string>
+    <string name="free_station_label">Calcul de la station libre</string>
     <string name="fs_label">fs [cm]</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="group_polar_calculation">Calculs polaires</string>
@@ -212,11 +213,13 @@
     <string name="radius_label">Rayon [m]</string>
     <string name="replace_button">Remplacer</string>
     <string name="retrieve_z0">Récupérer l\'inconnue d\'orientation du dernier calcul d\'orientation à la station</string>
+    <string name="sa_label">sH [cm]:</string>
     <string name="save">Sauvegarder</string>
     <string name="save_3dots">Sauvegarder&#8230;</string>
     <string name="save_all">Tout sauvegarder</string>
     <string name="save_all_points">Tous les points seront sauvegardés</string>
     <string name="save_points">Sauvegarder les points</string>
+    <string name="se_label">sE [cm]:</string>
     <string name="scale_factor_label">Echelle</string>
     <string name="search">Rechercher</string>
     <string name="search_3dots">Rechercher&#8230;</string>
@@ -227,6 +230,7 @@
     <string name="sides_label">Côtés</string>
     <string name="slope_label">Pente [%]</string>
     <string name="solution_one">Première solution</string>
+    <string name="sn_label">sN [cm]:</string>
     <string name="solution_two">Deuxième solution éventuelle</string>
     <string name="station_label">Station</string>
     <string name="success_export_dialog">Les <xliff:g>%d</xliff:g> points ont été exportés avec succès!</string>
@@ -269,6 +273,7 @@
     <string name="unit_gradian_cc">[cc]</string>
     <string name="unit_meter">[m]</string>
     <string name="unknown_orientation_label">Inc. Orient. [g]</string>
+    <string name="va_label">vH [cm]</string>
     <string name="ve_label">vE [cm]</string>
     <string name="vertex_angle">Angle sommet (&#946;) [g]</string>
     <string name="vertex_number">Sommet No</string>
