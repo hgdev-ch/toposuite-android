@@ -92,7 +92,7 @@
     <string name="error_file_already_exists">Le fichier existe déjà!</string>
     <string name="error_fill_data">Tous les champs obligatoires doivent être remplis!</string>
     <string name="error_impossible_calculation">Calcul impossible!</string>
-    <string name="error_impossible_to_import">Impossible à importer le fichier!</string>
+    <string name="error_impossible_to_import">Impossible d\'importer le fichier!</string>
     <string name="error_no_abriss_calculation_found">Aucun calcul d\'orientation à la station trouvé!</string>
     <string name="error_no_points_to_save">Il n\'y a aucun point à sauvegarder!</string>
     <string name="error_no_points_saved">Aucun point sauvegardé!Avez-vous entré un numéro de point?</string>
@@ -279,8 +279,8 @@
     <string name="vertex_angle">Angle sommet (&#946;) [g]</string>
     <string name="vertex_number">Sommet No</string>
     <string name="vn_label">vN [cm]</string>
-    <string name="warning_import_file">Attention: Cette actions va effecter tous les points et calculs existants.</string>
-    <string name="warning_import_file_without_warning_label">Attention: Cette actions va effecter tous les points et calculs existants.</string>
+    <string name="warning_import_file">Attention: cette action va affecter tous les points et calculs existants.</string>
+    <string name="warning_import_file_without_warning_label">Cette action va affecter tous les points et calculs existants.</string>
     <string name="with_support_from">Avec le soutien de</string>
     <string name="yes">Oui</string>
     <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>
