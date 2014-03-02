@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.json.JSONException;
 
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -49,13 +50,16 @@ public class FreeStation extends Calculation {
         this.results = new ArrayList<Result>();
 
         if (hasDAO) {
-            // TODO uncomment when the calculation works
-            // SharedResources.getCalculationsHistory().add(0, this);
+            SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
     public FreeStation(int _stationNumber, boolean hasDAO) {
         this(_stationNumber, 0.0, hasDAO);
+    }
+
+    public FreeStation(boolean hasDAO) {
+        this(0, hasDAO);
     }
 
     public FreeStation(long id, Date lastModification) {
@@ -229,6 +233,9 @@ public class FreeStation extends Calculation {
         this.meanFS /= this.results.size();
 
         this.unknownOrientation = meanRotations;
+
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     @Override
