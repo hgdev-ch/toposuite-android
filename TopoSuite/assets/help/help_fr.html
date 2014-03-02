@@ -167,7 +167,25 @@ Toutes les distances à introduire doivent être en "Mètres".
 <h4 id="libre">Station libre</h4>
   <p>
      Le calcul de station libre permet d'obtenir les coordonnées de la station ainsi que l'inconnue d'orientation
-     <!-- TODO complete -->
+     Afin de calculer la station libre avec des moyens classiques, il y a quelques
+    conditions à respecter :                   <br>
+      - Prendre au minimum 3 points de rattachement ;     <br>
+      - Mesurer les angles et distances sur chaque point de rattachement ;  <br>
+      - Bien répartir les points de rattachement de manière à envelopper la zone de
+          travail ;                                         <br>
+      - La station libre doit si possible se situer à l’intérieur du polygone décrit par les
+          points de rattachement ;                    <br>
+      - Choisir les points de rattachement représentatifs de la qualité de la zone de
+        travail (règles de voisinage). Par exemple, il est inutile de prendre des PFP2
+            pour s’intégrer dans une zone de mensuration graphique numérisée. Dans
+            une zone de mensuration numérique de bonne qualité, il faut privilégier de
+            prendre des PFP3 ;     <br>
+      - Ne pas prendre deux points de rattachement très proches l’un de l’autre. Cela
+          peut donner des valeurs peu favorables pour le facteur d’échelle et pour
+          l’angle de rotation ;               <br>
+      - Privilégier le fait de prendre des points stables dont la matérialisation n’est pas
+          douteuse (si possible des chevilles à la place de bornes penchées).   <br>
+    La méthode utilisée pour la station libre est un calcul d'Helmert.
   </p>
 <h4 id="leve_pol">Levé polaire</h4>
   <p>
@@ -176,8 +194,10 @@ Toutes les distances à introduire doivent être en "Mètres".
     La condition géométrique suivante devrait être remplie : 
     <br>
     -La distance de la station au point nouveau ne doit pas dépasser 1.25 fois la longueur du vecteur 
-    d'orientation le plus long(distance de la station au point servant d'orientation).
-  </p>
+    d'orientation le plus long(distance de la station au point servant d'orientation).  <br>
+    Pour les déplacements les signes suivants sont à respecter : <br>
+    <img src="file:///android_asset/help/img/polar_survey.png" alt="levé polaire"/>
+  </p>                                                          
 
 <h4 id="imp_pol">Implantation polaire</h4>
   <p>      
@@ -192,20 +212,20 @@ Toutes les distances à introduire doivent être en "Mètres".
     La condition géométrique suivante devrait être remplie : 
     <br>
     -La distance de la station au point implanté ne doit pas dépasser 1.25 fois la longueur du vecteur 
-    d'orientation le plus long(distance de la station au point servant d'orientation).  
+    d'orientation le plus long(distance de la station au point servant d'orientation). 
+    <img src="file:///android_asset/help/img/polar_implantation.png" alt="Implantation polaire"/> 
   </p>
 <h4 id="imp_axe">Implantation d'un axe</h4>
   <p>
     Ce calcul permet d'obtenir le décalage transversal et longitudinal (à partir du point de base "A")<br>
-    
   </p>
 <h3 id="orthogonaux">Calculs orthogonaux</h3>
 <h4 id="levo_ortho">Levé orthogonal</h4>
   <p>
-    La valeur mesurée de la base du levé orthogonal doit être rentrée afin de calculer le facteur d'echelle.
+    La valeur mesurée de la base du levé orthogonal (A-B) doit être rentrée afin de calculer le facteur d'echelle.
   <br>
-    Les valeurs d'abscisse et ordonnées doivent être rentrées selon l'image si dessous:<br>
-  <!--<img src="file:///android_asset/help/img/leve_ortho.png" alt="levé orthogonal"/>  -->
+    Les valeurs d'abscisse (x) et ordonnées (y) doivent être rentrées selon l'image si dessous:<br>
+  <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="levé orthogonal"/>
   </p>
 <h4 id="chem_ortho">Cheminement orthogonal</h4>
   <p>
@@ -223,6 +243,8 @@ Toutes les distances à introduire doivent être en "Mètres".
   <p>
     Le calcul d'implantation orthogonale permet (à partir de coordonnées) d'obtenir les valeurs d'abscisses et d'ordonnées,
     pour faire une implantation sur le terrain.
+    Les valeurs d'abscisse (x) et ordonnées (y) données correspondent à l'image si dessous:<br>
+    <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="Implantation orthogonale"/>
   </p>
 
 <h3 id="intersections">Intersections</h3>
@@ -233,9 +255,11 @@ Toutes les distances à introduire doivent être en "Mètres".
        - Soit par un point et un angle         <br>
     
     La droite peut être soit décalée soit être perpendiculaire à la droite définie.   <br>
-    Pour le décalage, un signe positif décale la droite sur la droite et un signe négatif la décale sur la gauche.<br>   
-    Si la droite est à la perpendicualaire de celle donnée, une distance du point A peut-être rentrée. 
-    Les signes sont les mêmes que pour le décalage de la droite. 
+    Pour le décalage (Valeur X), un signe positif décale la droite sur la droite et un signe négatif la décale sur la gauche.<br>   
+    Si la droite est à la perpendicualaire de celle donnée, une distance du point A (Valeur Y) peut-être rentrée.    <br>
+    Voir image ci-dessous:     <br>
+    <img src="file:///android_asset/help/img/lines_intersection.png" alt="Intersection de lignes"/>
+    <br>
   </p>
 <h4 id="inter_cercles">Intersections de cercles (distances)</h4>
   <p>
@@ -245,10 +269,21 @@ Toutes les distances à introduire doivent être en "Mètres".
     Attention : Il y a presque toujours 2 solutions.  <br>
     Il y en a qu'une seulement si les deux cercles sont tangents.
     <br>Il n'y en a aucune si les deux cercles ne se croisent pas.
+    <img src="file:///android_asset/help/img/circles_intersection.png" alt="Intersection de cercles"/>
+    Définition du premier cercle    -> Centre : A et rayon : r1<br>
+    Définition du deuxième cercle   -> Centre : B et rayon : r2<br>
+    Les intersections calculées sont : I1 et I2.
   </p>
 <h4 id="inter_droites_cercles">Droite/cercle</h4>
-
-    <!-- TODO complete -->
+     La définition des droites peut être donnée : <br>
+       - Soit par deux points                 <br>
+       - Soit par un point et un angle         <br>
+       Et pour la définition du cercle, deux possibilités :                                         <br>
+      - Rentrer manuellement la grandeur des rayons                                       <br>
+      - Choisir un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br>
+    La droite peut être décalée (signe positif = à droite ; signe négatif = à gauche).  <br>
+    <img src="file:///android_asset/help/img/line_circle_intersection.png" alt="Intersection d'un cercle et d'une droite"/>      <br>
+    Les deux points calculés sont I1 et I2.
 <h3 id="surfaces">Surfaces</h3>
 <h4 id="surf_arc">Calcul de surface (y c. avec arcs de cercles)</h4>
   <p> 
@@ -257,7 +292,7 @@ Toutes les distances à introduire doivent être en "Mètres".
     Les points dans le sens des aiguilles d'une montre. <br>
 
     Exemple selon l'image ci-dessous : <br>
-      <img src="file:///android_asset/help/img/surface.png" alt="surface"/><br>
+      <img src="file:///android_asset/help/img/surface.png" alt="Surface"/><br>
     Point 1<br>
     Point 2, Rayon + <br>
     Point 3,        <br>
@@ -267,9 +302,15 @@ Toutes les distances à introduire doivent être en "Mètres".
     Point 7        <br>
   </p>
 <h4 id="surf_para">Déplacement parallèle de limite avec surface imposée</h4>
-   <!-- TODO complete -->
+   Le but de ce calcul est de retrouver de combien doit-on décaler la limite AD afin d'obtenir la surface désirée (S).<br>
+   XY doit être parallèle à AD  <br>
+   Les valeurs obtenues sont les suivantes:
+   d = longueur du déplacement de la limite AD<br>
+   a = distance entre les points limites A et D<br>
+   b = distance entre les points limites X et Y
    
-<h3 id="divers">Divers</h3>
+   
+<h3 id="divers">Divers</h3>                                                                  &phi;
 <h4 id="gisement">Gisement/distance</h4>
   <p>
     Pour le calcul de gisement/distance, il suffit de choisir dans la liste des points connus :<br>
@@ -307,7 +348,7 @@ Toutes les distances à introduire doivent être en "Mètres".
     - 3 Côtés<br>
     - 2 Côtés, 1 Angle compris <br>
     - 1 Côté, 2 Angles<br>
-  <img src="file:///android_asset/help/img/triangle.png" alt="triangle"/>
+  <img src="file:///android_asset/help/img/triangle.png" alt="Triangle"/>
   <br>
     r = Rayon du cercle inscrit<br>
     R = Rayon du cercle circonscrit   <br>
@@ -325,7 +366,7 @@ Toutes les distances à introduire doivent être en "Mètres".
     - Corde, Flèche<br>
     - Tangente, Angle au centre<br>
   <br>
-    <img src="file:///android_asset/help/img/circular_curve.png" alt="éléments circulaires"/> 
+    <img src="file:///android_asset/help/img/circular_curve.png" alt="Eléments circulaires"/> 
   <br>
     S = Sommet<br>
     C = Centre<br>
@@ -335,7 +376,9 @@ Toutes les distances à introduire doivent être en "Mètres".
     MS = Bissectrice<br>
     &beta; = Angle au sommet<br>
     2&alpha;  = Angle au centre<br>   
-    M = Milieu de courbe
-    
-
+    M = Milieu de courbe <br>
+    Sur l'image ci-dessous :<br>
+    <img src="file:///android_asset/help/img/circular_curve2.png" alt="Eléments circulaires"/>   <br>
+    L'image du haut représente la surface du secteur <br>
+    L'image du bas représente la surface du segment.
   </p>
