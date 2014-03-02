@@ -22,6 +22,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
+            android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
    </LinearLayout>
    
@@ -74,12 +75,14 @@
             android:layout_height="match_parent"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
+            android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
         
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
+            android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/sn_label" />
         
@@ -89,12 +92,14 @@
             android:layout_height="match_parent"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
+            android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
         
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
+            android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/sa_label" />
         
@@ -104,6 +109,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
+            android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
    </LinearLayout>
    
@@ -127,6 +133,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
+            android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
    </LinearLayout>
     
