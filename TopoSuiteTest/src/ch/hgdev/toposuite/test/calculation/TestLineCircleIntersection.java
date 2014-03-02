@@ -10,12 +10,15 @@ import ch.hgdev.toposuite.points.Point;
 
 public class TestLineCircleIntersection extends TestCase {
 
+    private DecimalFormat df1;
     private DecimalFormat df2;
     private DecimalFormat df3;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        this.df1 = new DecimalFormat("#.#");
+        this.df1.setRoundingMode(RoundingMode.HALF_UP);
         this.df2 = new DecimalFormat("#.##");
         this.df2.setRoundingMode(RoundingMode.HALF_UP);
         this.df3 = new DecimalFormat("#.###");
@@ -48,38 +51,38 @@ public class TestLineCircleIntersection extends TestCase {
         displacement = 10.765;
         lci = new LineCircleIntersection(p1, p3, displacement, p3, radius);
         lci.compute();
-        Assert.assertEquals("102.047",
+        Assert.assertEquals("102.045",
                 this.df3.format(lci.getFirstIntersection().getEast()));
-        Assert.assertEquals("170.503",
-                this.df3.format(lci.getFirstIntersection().getNorth()));
-        Assert.assertEquals("17.094",
+        Assert.assertEquals("170.5",
+                this.df1.format(lci.getFirstIntersection().getNorth()));
+        Assert.assertEquals("17.092",
                 this.df3.format(lci.getSecondIntersection().getEast()));
-        Assert.assertEquals("18.86",
+        Assert.assertEquals("18.859",
+                this.df3.format(lci.getSecondIntersection().getNorth()));
+
+        displacement = 24.875;
+        lci = new LineCircleIntersection(p1, p3, displacement, p3, radius);
+        lci.compute();
+        Assert.assertEquals("112.916",
+                this.df3.format(lci.getFirstIntersection().getEast()));
+        Assert.assertEquals("161.036",
+                this.df3.format(lci.getFirstIntersection().getNorth()));
+        Assert.assertEquals("30.841",
+                this.df3.format(lci.getSecondIntersection().getEast()));
+        Assert.assertEquals("14.53",
                 this.df2.format(lci.getSecondIntersection().getNorth()));
 
-        // displacement = 24.875;
-        // lci = new LineCircleIntersection(p1, p3, displacement, p3, radius);
-        // lci.compute();
-        // Assert.assertEquals("112.916",
-        // this.df3.format(lci.getFirstIntersection().getEast()));
-        // Assert.assertEquals("161.036",
-        // this.df3.format(lci.getFirstIntersection().getNorth()));
-        // Assert.assertEquals("30.841",
-        // this.df3.format(lci.getSecondIntersection().getEast()));
-        // Assert.assertEquals("14.53",
-        // this.df2.format(lci.getSecondIntersection().getNorth()));
-
-        // displacement = 10.0;
-        // radius = 20.0;
-        // lci = new LineCircleIntersection(p1, p3, displacement, p1, radius);
-        // lci.compute();
-        // Assert.assertEquals("42.19",
-        // this.df2.format(lci.getFirstIntersection().getEast()));
-        // Assert.assertEquals("65.223",
-        // this.df3.format(lci.getFirstIntersection().getNorth()));
-        // Assert.assertEquals("25.259",
-        // this.df3.format(lci.getSecondIntersection().getEast()));
-        // Assert.assertEquals("35.002",
-        // this.df3.format(lci.getSecondIntersection().getNorth()));
+        displacement = 10.0;
+        radius = 20.0;
+        lci = new LineCircleIntersection(p1, p3, displacement, p1, radius);
+        lci.compute();
+        Assert.assertEquals("42.19",
+                this.df2.format(lci.getFirstIntersection().getEast()));
+        Assert.assertEquals("65.223",
+                this.df3.format(lci.getFirstIntersection().getNorth()));
+        Assert.assertEquals("25.259",
+                this.df3.format(lci.getSecondIntersection().getEast()));
+        Assert.assertEquals("35.002",
+                this.df3.format(lci.getSecondIntersection().getNorth()));
     }
 }

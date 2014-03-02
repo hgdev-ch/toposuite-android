@@ -98,7 +98,7 @@ public class LineCircleIntersection extends Calculation {
 
         // check that the circle crosses the line
         if (MathUtils.isPositive((-proj * proj) + 1)) {
-            beta = MathUtils.radToGrad(Math.atan(proj) / Math.sqrt((-proj * proj) + 1));
+            beta = MathUtils.radToGrad(Math.atan(proj / Math.sqrt((-proj * proj) + 1)));
         } else {
             Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
                     LINE_CIRCLE_INTERSECTION
