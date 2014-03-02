@@ -65,6 +65,9 @@ public class CalculationFactory {
         case LEVEORTHO:
             calculation = new LeveOrthogonal(id, lastModification);
             break;
+        case LINECIRCINTERSEC:
+            calculation = new LineCircleIntersection(id, lastModification);
+            break;
         case LINEINTERSEC:
             calculation = new LinesIntersection(id, lastModification);
             break;
