@@ -244,6 +244,7 @@
     <string name="title_activity_circle">Cercle</string>
     <string name="title_activity_circles_intersection">Intersection de cercles</string>
     <string name="title_activity_circular_curve_solver">Résolution de courbes circulaires</string>
+    <string name="title_activity_free_station">Station libre</string>
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_help">Aide</string>
     <string name="title_activity_history">Historique</string>
