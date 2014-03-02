@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.calculation.activities.freestation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
@@ -19,7 +20,10 @@ import ch.hgdev.toposuite.calculation.activities.levepolaire.ArrayListOfDetermin
 import ch.hgdev.toposuite.history.HistoryActivity;
 
 public class FreeStationActivity extends TopoSuiteActivity implements
-        AddDeterminationDialogFragment.AddDeterminationDialogListener {
+        AddMeasureDialogFragment.AddMeasureDialogListener {
+
+    /** Position of this free station calculation in the calculation history. */
+    public static final String    FREE_STATION_POSITION = "free_station_position";
 
     private EditText              stationEditText;
     private EditText              iEditText;
@@ -109,7 +113,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
      * Display a dialog to allow the user to insert a new determination.
      */
     private void showAddDeterminationDialog() {
-        AddDeterminationDialogFragment dialog = new AddDeterminationDialogFragment();
+        AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
         dialog.show(this.getFragmentManager(), "AddDeterminationDialogFragment");
     }
 
@@ -118,7 +122,19 @@ public class FreeStationActivity extends TopoSuiteActivity implements
      * when the user run the calculation.
      */
     private void startFreeStationResultsActivity() {
-        // TODO
+        Bundle bundle = new Bundle();
+
+        // At this point we are sure that the free station calculation
+        // has been instantiated.
+        bundle.putInt(
+                FreeStationActivity.FREE_STATION_POSITION,
+                SharedResources.getCalculationsHistory().indexOf(
+                        this.freeStation));
+
+        Intent resultsActivityIntent = new Intent(
+                this, FreeStationResultsActivity.class);
+        resultsActivityIntent.putExtras(bundle);
+        this.startActivity(resultsActivityIntent);
     }
 
     /**
@@ -138,9 +154,9 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     }
 
     @Override
-    public void onDialogAdd(AddDeterminationDialogFragment dialog) {
+    public void onDialogAdd(AddMeasureDialogFragment dialog) {
         Measure m = new Measure(
-                null,
+                dialog.getPoint(),
                 dialog.getHorizDir(),
                 dialog.getZenAngle(),
                 dialog.getDistance(),
@@ -149,7 +165,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                 dialog.getLonDepl(),
                 0.0,
                 0.0,
-                dialog.getDeterminationNo());
+                dialog.getPoint().getNumber()); // small trick to use the determinations_list_item layout. 
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
     }

@@ -1,62 +1,73 @@
 package ch.hgdev.toposuite.calculation.activities.freestation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class AddDeterminationDialogFragment extends DialogFragment {
+public class AddMeasureDialogFragment extends DialogFragment {
     /**
-     * The activity that creates an instance of AddDeterminationDialogFragment
-     * must implement this interface in order to receive event callbacks. Each
-     * method passes the DialogFragment in case the host needs to query it.
+     * The activity that creates an instance of AddMeasureDialogFragment must
+     * implement this interface in order to receive event callbacks. Each method
+     * passes the DialogFragment in case the host needs to query it.
      * 
      * @author HGdev
      * 
      */
-    public interface AddDeterminationDialogListener {
+    public interface AddMeasureDialogListener {
         /**
          * Define what to do when the "Add" button is clicked.
          * 
          * @param dialog
          *            Dialog to fetch information from.
          */
-        void onDialogAdd(AddDeterminationDialogFragment dialog);
+        void onDialogAdd(AddMeasureDialogFragment dialog);
     }
 
-    AddDeterminationDialogListener listener;
-    private int                    determinationNo;
-    private double                 horizDir;
-    private double                 distance;
-    private double                 zenAngle;
-    private double                 s;
-    private double                 latDepl;
-    private double                 lonDepl;
+    AddMeasureDialogListener listener;
+    private Point            point;
+    private double           horizDir;
+    private double           distance;
+    private double           zenAngle;
+    private double           s;
+    private double           latDepl;
+    private double           lonDepl;
 
-    private LinearLayout           layout;
-    private EditText               determinationNoEditText;
-    private EditText               horizDirEditText;
-    private EditText               distanceEditText;
-    private EditText               zenAngleEditText;
-    private EditText               sEditText;
-    private EditText               latDeplEditText;
-    private EditText               lonDeplEditText;
+    private LinearLayout     layout;
+    private Spinner          pointSpinner;
+    private TextView         pointTextView;
+    private EditText         horizDirEditText;
+    private EditText         distanceEditText;
+    private EditText         zenAngleEditText;
+    private EditText         sEditText;
+    private EditText         latDeplEditText;
+    private EditText         lonDeplEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
-        this.genAddDeterminationView();
+        this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(this.getActivity().getString(R.string.measure_add))
                 .setView(this.layout)
@@ -84,46 +95,46 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (AddDeterminationDialogFragment.this.checkDialogInputs()) {
+                        if (AddMeasureDialogFragment.this.checkDialogInputs()) {
                             // TODO check that if S is set, I is set too and
                             // pop-up an error
-                            if (AddDeterminationDialogFragment.this.zenAngleEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.zenAngle = Double
-                                        .parseDouble(AddDeterminationDialogFragment.this.zenAngleEditText
+                            if (AddMeasureDialogFragment.this.zenAngleEditText.length() > 0) {
+                                AddMeasureDialogFragment.this.zenAngle = Double
+                                        .parseDouble(AddMeasureDialogFragment.this.zenAngleEditText
                                                 .getText().toString());
                             }
-                            if (AddDeterminationDialogFragment.this.sEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.s = Double
-                                        .parseDouble(AddDeterminationDialogFragment.this.sEditText
+                            if (AddMeasureDialogFragment.this.sEditText.length() > 0) {
+                                AddMeasureDialogFragment.this.s = Double
+                                        .parseDouble(AddMeasureDialogFragment.this.sEditText
                                                 .getText().toString());
                             }
-                            if (AddDeterminationDialogFragment.this.latDeplEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.latDepl = Double
-                                        .parseDouble(AddDeterminationDialogFragment.this.latDeplEditText
+                            if (AddMeasureDialogFragment.this.latDeplEditText.length() > 0) {
+                                AddMeasureDialogFragment.this.latDepl = Double
+                                        .parseDouble(AddMeasureDialogFragment.this.latDeplEditText
                                                 .getText().toString());
                             }
-                            if (AddDeterminationDialogFragment.this.lonDeplEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.lonDepl = Double
-                                        .parseDouble(AddDeterminationDialogFragment.this.lonDeplEditText
+                            if (AddMeasureDialogFragment.this.lonDeplEditText.length() > 0) {
+                                AddMeasureDialogFragment.this.lonDepl = Double
+                                        .parseDouble(AddMeasureDialogFragment.this.lonDeplEditText
                                                 .getText().toString());
                             }
 
-                            AddDeterminationDialogFragment.this.determinationNo = Integer.parseInt(
-                                    AddDeterminationDialogFragment.this.determinationNoEditText
+                            AddMeasureDialogFragment.this.point =
+                                    (Point) AddMeasureDialogFragment.this.pointSpinner
+                                            .getSelectedItem();
+                            AddMeasureDialogFragment.this.horizDir = Double
+                                    .parseDouble(AddMeasureDialogFragment.this.horizDirEditText
                                             .getText().toString());
-                            AddDeterminationDialogFragment.this.horizDir = Double
-                                    .parseDouble(AddDeterminationDialogFragment.this.horizDirEditText
+                            AddMeasureDialogFragment.this.distance = Double
+                                    .parseDouble(AddMeasureDialogFragment.this.distanceEditText
                                             .getText().toString());
-                            AddDeterminationDialogFragment.this.distance = Double
-                                    .parseDouble(AddDeterminationDialogFragment.this.distanceEditText
-                                            .getText().toString());
-                            AddDeterminationDialogFragment.this.listener
-                                    .onDialogAdd(AddDeterminationDialogFragment.this);
+                            AddMeasureDialogFragment.this.listener
+                                    .onDialogAdd(AddMeasureDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
-                                    AddDeterminationDialogFragment.this.getActivity(),
-                                    AddDeterminationDialogFragment.this.getActivity().getString(
+                                    AddMeasureDialogFragment.this.getActivity(),
+                                    AddMeasureDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data),
                                     Toast.LENGTH_SHORT);
                             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -140,10 +151,10 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            this.listener = (AddDeterminationDialogListener) activity;
+            this.listener = (AddMeasureDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement AddDeterminationDialogListener");
+                    + " must implement AddMeasureDialogListener");
         }
     }
 
@@ -154,11 +165,35 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
-        this.determinationNoEditText = new EditText(this.getActivity());
-        this.determinationNoEditText.setHint(
-                this.getActivity().getString(R.string.determination_sight_3dots));
-        this.determinationNoEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        this.pointTextView = new TextView(this.getActivity());
+        this.pointTextView.setText("");
+
+        this.pointSpinner = new Spinner(this.getActivity());
+        this.pointSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Point point = (Point) AddMeasureDialogFragment.this.pointSpinner
+                        .getItemAtPosition(pos);
+                if (point.getNumber() > 0) {
+                    AddMeasureDialogFragment.this.pointTextView.setText(DisplayUtils
+                            .formatPoint(AddMeasureDialogFragment.this.getActivity(), point));
+                } else {
+                    AddMeasureDialogFragment.this.pointTextView.setText("");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.addAll(SharedResources.getSetOfPoints());
+        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+                this.getActivity(), R.layout.spinner_list_item, points);
+        this.pointSpinner.setAdapter(a);
 
         this.horizDirEditText = new EditText(this.getActivity());
         this.horizDirEditText.setHint(
@@ -199,7 +234,6 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.lonDeplEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.determinationNo = 0;
         this.horizDir = 0.0;
         this.distance = 0.0;
         this.zenAngle = 100.0;
@@ -211,8 +245,9 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     /**
      * Create a view to get information from the user.
      */
-    private void genAddDeterminationView() {
-        this.layout.addView(this.determinationNoEditText);
+    private void genAddMeasureView() {
+        this.layout.addView(this.pointSpinner);
+        this.layout.addView(this.pointTextView);
         this.layout.addView(this.horizDirEditText);
         this.layout.addView(this.distanceEditText);
         this.layout.addView(this.sEditText);
@@ -227,35 +262,37 @@ public class AddDeterminationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        return ((this.determinationNoEditText.length() > 0) && (this.horizDirEditText.length() > 0)
-                && (this.distanceEditText.length() > 0) && (this.sEditText.length() > 0));
+        return ((this.pointSpinner.getSelectedItemPosition() > 0)
+                && (this.horizDirEditText.length() > 0)
+                && (this.distanceEditText.length() > 0)
+                && (this.sEditText.length() > 0));
     }
 
-    public int getDeterminationNo() {
-        return this.determinationNo;
-    }
-
-    public double getHorizDir() {
+    public final double getHorizDir() {
         return this.horizDir;
     }
 
-    public double getDistance() {
+    public final double getDistance() {
         return this.distance;
     }
 
-    public double getZenAngle() {
+    public final double getZenAngle() {
         return this.zenAngle;
     }
 
-    public double getS() {
+    public final double getS() {
         return this.s;
     }
 
-    public double getLatDepl() {
+    public final double getLatDepl() {
         return this.latDepl;
     }
 
-    public double getLonDepl() {
+    public final double getLonDepl() {
         return this.lonDepl;
+    }
+
+    public final Point getPoint() {
+        return this.point;
     }
 }
