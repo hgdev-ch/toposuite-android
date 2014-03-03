@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.freestation;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.ListView;
 import android.widget.TextView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -12,14 +13,16 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class FreeStationResultsActivity extends TopoSuiteActivity {
 
-    private TextView    freeStationTextView;
-    private TextView    freeStationPointTextView;
-    private TextView    sETextView;
-    private TextView    sNTextView;
-    private TextView    sATextView;
-    private TextView    unknownOrientationTextView;
+    private TextView                  freeStationTextView;
+    private TextView                  freeStationPointTextView;
+    private TextView                  sETextView;
+    private TextView                  sNTextView;
+    private TextView                  sATextView;
+    private TextView                  unknownOrientationTextView;
 
-    private FreeStation freeStation;
+    private ListView                  resultsListView;
+    private ArrayListOfResultsAdapter adapter;
+    private FreeStation               freeStation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class FreeStationResultsActivity extends TopoSuiteActivity {
         this.sATextView = (TextView) this.findViewById(R.id.sa);
         this.unknownOrientationTextView = (TextView) this.findViewById(
                 R.id.unknown_orientation);
+
+        this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
@@ -58,6 +63,8 @@ public class FreeStationResultsActivity extends TopoSuiteActivity {
                     DisplayUtils.formatDifferences(this.freeStation.getsA()));
             this.unknownOrientationTextView.setText(
                     DisplayUtils.toString(this.freeStation.getUnknownOrientation()));
+
+            this.drawList();
         }
     }
 
@@ -70,5 +77,11 @@ public class FreeStationResultsActivity extends TopoSuiteActivity {
     @Override
     protected String getActivityTitle() {
         return this.getString(R.string.title_activity_free_station_results);
+    }
+
+    private void drawList() {
+        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.free_station_results_list_item,
+                this.freeStation.getResults());
+        this.resultsListView.setAdapter(this.adapter);
     }
 }
