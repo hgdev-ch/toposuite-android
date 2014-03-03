@@ -18,6 +18,7 @@ import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.ArrayListOfDeterminationsAdapter;
 import ch.hgdev.toposuite.history.HistoryActivity;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStationActivity extends TopoSuiteActivity implements
         AddMeasureDialogFragment.AddMeasureDialogListener {
@@ -56,6 +57,15 @@ public class FreeStationActivity extends TopoSuiteActivity implements
             this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
                     this.position);
+
+            if (this.freeStation.getStationNumber() != 0) {
+                this.stationEditText.setText(String.valueOf(
+                        this.freeStation.getStationNumber()));
+            }
+
+            if (MathUtils.isPositive(this.freeStation.getI())) {
+                this.iEditText.setText(String.valueOf(this.freeStation.getI()));
+            }
         } else {
             this.freeStation = new FreeStation(true);
         }

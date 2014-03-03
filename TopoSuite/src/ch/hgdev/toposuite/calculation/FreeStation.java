@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStation extends Calculation {
-    public static final String      CALCULATION_NAME = "Station libre";
+    private static final String     STATION_NUMBER = "station_number";
+    private static final String     MEASURES       = "measures";
+    private static final String     INSTRUMENT     = "instrument";
 
     private int                     stationNumber;
     private ArrayList<Measure>      measures;
@@ -42,7 +49,8 @@ public class FreeStation extends Calculation {
     private double                  meanFS;
 
     public FreeStation(int _stationNumber, double _i, boolean hasDAO) {
-        super(CalculationType.FREESTATION, FreeStation.CALCULATION_NAME, hasDAO);
+        super(CalculationType.FREESTATION, App.getContext().getString(
+                R.string.title_activity_free_station), hasDAO);
 
         this.stationNumber = _stationNumber;
         this.i = _i;
@@ -63,7 +71,8 @@ public class FreeStation extends Calculation {
     }
 
     public FreeStation(long id, Date lastModification) {
-        super(id, CalculationType.FREESTATION, FreeStation.CALCULATION_NAME,
+        super(id, CalculationType.FREESTATION, App.getContext().getString(
+                R.string.title_activity_free_station),
                 lastModification, true);
 
         this.measures = new ArrayList<Measure>();
@@ -240,17 +249,49 @@ public class FreeStation extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        return null;
+        JSONObject jo = new JSONObject();
+        jo.put(FreeStation.STATION_NUMBER, this.stationNumber);
+        jo.put(FreeStation.INSTRUMENT, this.i);
+
+        JSONArray measuresArray = new JSONArray();
+        for (Measure m : this.measures) {
+            measuresArray.put(m.toJSONObject());
+        }
+        jo.put(FreeStation.MEASURES, measuresArray);
+
+        return jo.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO
+        JSONObject jo = new JSONObject(jsonInputArgs);
+        this.stationNumber = jo.getInt(FreeStation.STATION_NUMBER);
+        this.i = jo.getInt(FreeStation.INSTRUMENT);
+
+        for (int i = 0; i < jo.getJSONArray(FreeStation.MEASURES).length(); i++) {
+            JSONObject measureObject = (JSONObject) jo.getJSONArray(
+                    FreeStation.MEASURES).get(i);
+
+            Point st = SharedResources.getSetOfPoints().find(
+                    measureObject.getInt(Measure.ORIENTATION_NUMBER));
+
+            Measure m = new Measure(
+                    st,
+                    measureObject.getDouble(Measure.HORIZ_DIR),
+                    measureObject.getDouble(Measure.ZEN_ANGLE),
+                    measureObject.getDouble(Measure.DISTANCE),
+                    measureObject.getDouble(Measure.S),
+                    measureObject.getDouble(Measure.LAT_DEPL),
+                    measureObject.getDouble(Measure.LON_DEPL),
+                    measureObject.getDouble(Measure.I),
+                    measureObject.getDouble(Measure.UNKNOWN_ORIENTATION));
+            this.measures.add(m);
+        }
     }
 
     @Override
     public Class<?> getActivityClass() {
-        return null;
+        return FreeStationActivity.class;
     }
 
     public final int getStationNumber() {

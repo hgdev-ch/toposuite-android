@@ -56,6 +56,9 @@ public class CalculationFactory {
         case CIRCCURVESOLVER:
             calculation = new CircularCurvesSolver(id, lastModification);
             break;
+        case FREESTATION:
+            calculation = new FreeStation(id, lastModification);
+            break;
         case GISEMENT:
             calculation = new Gisement(id, lastModification);
             break;
