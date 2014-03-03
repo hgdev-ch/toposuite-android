@@ -310,7 +310,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
 
     private void showAddMeasureDialog() {
         AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
-        dialog.show(this.getFragmentManager(), "AddMeasureDialogFragment");
+        dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
     private void showEditMeasureDialog(int pos) {
