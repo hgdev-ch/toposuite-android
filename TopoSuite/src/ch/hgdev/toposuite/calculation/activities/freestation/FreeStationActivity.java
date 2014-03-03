@@ -70,11 +70,29 @@ public class FreeStationActivity extends TopoSuiteActivity implements
             this.freeStation = new FreeStation(true);
         }
 
+        this.registerForContextMenu(this.determinationsListView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         this.adapter = new ArrayListOfDeterminationsAdapter(this,
                 R.layout.determinations_list_item, this.freeStation.getMeasures());
         this.drawList();
+    }
 
-        this.registerForContextMenu(this.determinationsListView);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(FreeStationActivity.FREE_STATION_POSITION,
+                SharedResources.getCalculationsHistory().indexOf(
+                        this.freeStation));
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
+                savedInstanceState.getInt(
+                        FreeStationActivity.FREE_STATION_POSITION));
     }
 
     @Override
