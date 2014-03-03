@@ -3,9 +3,14 @@ package ch.hgdev.toposuite.calculation.activities.freestation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,14 +26,14 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStationActivity extends TopoSuiteActivity implements
-        AddMeasureDialogFragment.AddMeasureDialogListener {
+        MeasureDialogFragment.MeasureDialogListener {
 
     /** Position of this free station calculation in the calculation history. */
     public static final String    FREE_STATION_POSITION = "free_station_position";
 
     private EditText              stationEditText;
     private EditText              iEditText;
-    private ListView              determinationsListView;
+    private ListView              measuresListView;
 
     private ArrayAdapter<Measure> adapter;
     private FreeStation           freeStation;
@@ -45,7 +50,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
         this.stationEditText = (EditText) this.findViewById(
                 R.id.station_edit_text);
         this.iEditText = (EditText) this.findViewById(R.id.i);
-        this.determinationsListView = (ListView) this.findViewById(
+        this.measuresListView = (ListView) this.findViewById(
                 R.id.determinations_list);
 
         this.iEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
@@ -70,7 +75,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
             this.freeStation = new FreeStation(true);
         }
 
-        this.registerForContextMenu(this.determinationsListView);
+        this.registerForContextMenu(this.measuresListView);
     }
 
     @Override
@@ -107,11 +112,35 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.leve_ortho_measures_list_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.edit_measure:
+            this.showEditMeasureDialog(info.position);
+            return true;
+        case R.id.delete_measure:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
         case R.id.add_determination_button:
-            this.showAddDeterminationDialog();
+            this.showAddMeasureDialog();
             return true;
         case R.id.run_calculation_button:
             if (this.checkInputs()) {
@@ -138,11 +167,20 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     }
 
     /**
-     * Display a dialog to allow the user to insert a new determination.
+     * Display a dialog to allow the user to insert a new measure.
      */
-    private void showAddDeterminationDialog() {
-        AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
-        dialog.show(this.getFragmentManager(), "AddDeterminationDialogFragment");
+    private void showAddMeasureDialog() {
+        MeasureDialogFragment dialog = new MeasureDialogFragment();
+        dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
+    }
+
+    /**
+     * Display a dialog to allow the user to edit an existing measure.
+     */
+    private void showEditMeasureDialog(int position) {
+        Measure m = this.freeStation.getMeasures().get(position);
+        MeasureDialogFragment dialog = new MeasureDialogFragment(m);
+        dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
     /**
@@ -169,7 +207,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
      * Draw the main table containing all the determinations.
      */
     private void drawList() {
-        this.determinationsListView.setAdapter(this.adapter);
+        this.measuresListView.setAdapter(this.adapter);
     }
 
     /**
@@ -182,7 +220,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     }
 
     @Override
-    public void onDialogAdd(AddMeasureDialogFragment dialog) {
+    public void onDialogAdd(MeasureDialogFragment dialog) {
         Measure m = new Measure(
                 dialog.getPoint(),
                 dialog.getHorizDir(),
@@ -195,6 +233,22 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                 0.0,
                 dialog.getPoint().getNumber()); // small trick to use the determinations_list_item layout. 
         this.adapter.add(m);
+        this.adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDialogEdit(MeasureDialogFragment dialog) {
+        int position = this.freeStation.getMeasures().indexOf(dialog.getMeasure());
+
+        Measure m = this.freeStation.getMeasures().get(position);
+        m.setPoint(dialog.getPoint());
+        m.setHorizDir(dialog.getHorizDir());
+        m.setZenAngle(dialog.getZenAngle());
+        m.setDistance(dialog.getDistance());
+        m.setS(dialog.getS());
+        m.setLatDepl(dialog.getLatDepl());
+        m.setLonDepl(dialog.getLonDepl());
+
         this.adapter.notifyDataSetChanged();
     }
 }

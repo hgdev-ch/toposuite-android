@@ -23,55 +23,94 @@ import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class AddMeasureDialogFragment extends DialogFragment {
+public class MeasureDialogFragment extends DialogFragment {
     /**
-     * The activity that creates an instance of AddMeasureDialogFragment must
+     * The activity that creates an instance of MeasureDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
      * 
      * @author HGdev
      * 
      */
-    public interface AddMeasureDialogListener {
+    public interface MeasureDialogListener {
         /**
          * Define what to do when the "Add" button is clicked.
          * 
          * @param dialog
          *            Dialog to fetch information from.
          */
-        void onDialogAdd(AddMeasureDialogFragment dialog);
+        void onDialogAdd(MeasureDialogFragment dialog);
+
+        /**
+         * Define what to do when the "Edit" button is clicked.
+         * 
+         * @param dialog
+         *            Dialog to fetch information from.
+         */
+        void onDialogEdit(MeasureDialogFragment dialog);
     }
 
-    AddMeasureDialogListener listener;
-    private Point            point;
-    private double           horizDir;
-    private double           distance;
-    private double           zenAngle;
-    private double           s;
-    private double           latDepl;
-    private double           lonDepl;
+    MeasureDialogListener    listener;
+    private Point               point;
+    private double              horizDir;
+    private double              distance;
+    private double              zenAngle;
+    private double              s;
+    private double              latDepl;
+    private double              lonDepl;
 
-    private LinearLayout     layout;
-    private Spinner          pointSpinner;
-    private TextView         pointTextView;
-    private EditText         horizDirEditText;
-    private EditText         distanceEditText;
-    private EditText         zenAngleEditText;
-    private EditText         sEditText;
-    private EditText         latDeplEditText;
-    private EditText         lonDeplEditText;
+    private LinearLayout        layout;
+    private Spinner             pointSpinner;
+    private TextView            pointTextView;
+    private EditText            horizDirEditText;
+    private EditText            distanceEditText;
+    private EditText            zenAngleEditText;
+    private EditText            sEditText;
+    private EditText            latDeplEditText;
+    private EditText            lonDeplEditText;
+
+    private ArrayAdapter<Point> adapter;
+
+    /**
+     * True if the dialog is for edition, false otherwise.
+     */
+    private boolean             isEdition;
+
+    /**
+     * TODO make something cleaner and only use measure instead of this huge
+     * amount of attributes...
+     */
+    private Measure             measure;
+
+    public MeasureDialogFragment() {
+        this.isEdition = false;
+    }
+
+    public MeasureDialogFragment(Measure m) {
+        this.isEdition = true;
+        this.measure = m;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
+
+        if (this.isEdition) {
+            this.setAttributes();
+        }
+
         this.genAddMeasureView();
+
+        int positiveButtonRes = (this.isEdition) ? R.string.edit : R.string.add;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(this.getActivity().getString(R.string.measure_add))
                 .setView(this.layout)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+                .setPositiveButton(positiveButtonRes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // overridden below because the dialog dismiss itself
@@ -95,46 +134,52 @@ public class AddMeasureDialogFragment extends DialogFragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (AddMeasureDialogFragment.this.checkDialogInputs()) {
+                        if (MeasureDialogFragment.this.checkDialogInputs()) {
                             // TODO check that if S is set, I is set too and
                             // pop-up an error
-                            if (AddMeasureDialogFragment.this.zenAngleEditText.length() > 0) {
-                                AddMeasureDialogFragment.this.zenAngle = Double
-                                        .parseDouble(AddMeasureDialogFragment.this.zenAngleEditText
+                            if (MeasureDialogFragment.this.zenAngleEditText.length() > 0) {
+                                MeasureDialogFragment.this.zenAngle = Double
+                                        .parseDouble(MeasureDialogFragment.this.zenAngleEditText
                                                 .getText().toString());
                             }
-                            if (AddMeasureDialogFragment.this.sEditText.length() > 0) {
-                                AddMeasureDialogFragment.this.s = Double
-                                        .parseDouble(AddMeasureDialogFragment.this.sEditText
+                            if (MeasureDialogFragment.this.sEditText.length() > 0) {
+                                MeasureDialogFragment.this.s = Double
+                                        .parseDouble(MeasureDialogFragment.this.sEditText
                                                 .getText().toString());
                             }
-                            if (AddMeasureDialogFragment.this.latDeplEditText.length() > 0) {
-                                AddMeasureDialogFragment.this.latDepl = Double
-                                        .parseDouble(AddMeasureDialogFragment.this.latDeplEditText
+                            if (MeasureDialogFragment.this.latDeplEditText.length() > 0) {
+                                MeasureDialogFragment.this.latDepl = Double
+                                        .parseDouble(MeasureDialogFragment.this.latDeplEditText
                                                 .getText().toString());
                             }
-                            if (AddMeasureDialogFragment.this.lonDeplEditText.length() > 0) {
-                                AddMeasureDialogFragment.this.lonDepl = Double
-                                        .parseDouble(AddMeasureDialogFragment.this.lonDeplEditText
+                            if (MeasureDialogFragment.this.lonDeplEditText.length() > 0) {
+                                MeasureDialogFragment.this.lonDepl = Double
+                                        .parseDouble(MeasureDialogFragment.this.lonDeplEditText
                                                 .getText().toString());
                             }
 
-                            AddMeasureDialogFragment.this.point =
-                                    (Point) AddMeasureDialogFragment.this.pointSpinner
+                            MeasureDialogFragment.this.point =
+                                    (Point) MeasureDialogFragment.this.pointSpinner
                                             .getSelectedItem();
-                            AddMeasureDialogFragment.this.horizDir = Double
-                                    .parseDouble(AddMeasureDialogFragment.this.horizDirEditText
+                            MeasureDialogFragment.this.horizDir = Double
+                                    .parseDouble(MeasureDialogFragment.this.horizDirEditText
                                             .getText().toString());
-                            AddMeasureDialogFragment.this.distance = Double
-                                    .parseDouble(AddMeasureDialogFragment.this.distanceEditText
+                            MeasureDialogFragment.this.distance = Double
+                                    .parseDouble(MeasureDialogFragment.this.distanceEditText
                                             .getText().toString());
-                            AddMeasureDialogFragment.this.listener
-                                    .onDialogAdd(AddMeasureDialogFragment.this);
+
+                            if (MeasureDialogFragment.this.isEdition) {
+                                MeasureDialogFragment.this.listener
+                                        .onDialogAdd(MeasureDialogFragment.this);
+                            } else {
+                                MeasureDialogFragment.this.listener
+                                        .onDialogEdit(MeasureDialogFragment.this);
+                            }
                             dialog.dismiss();
                         } else {
                             Toast errorToast = Toast.makeText(
-                                    AddMeasureDialogFragment.this.getActivity(),
-                                    AddMeasureDialogFragment.this.getActivity().getString(
+                                    MeasureDialogFragment.this.getActivity(),
+                                    MeasureDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data),
                                     Toast.LENGTH_SHORT);
                             errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -151,10 +196,10 @@ public class AddMeasureDialogFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            this.listener = (AddMeasureDialogListener) activity;
+            this.listener = (MeasureDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement AddMeasureDialogListener");
+                    + " must implement MeasureDialogListener");
         }
     }
 
@@ -172,13 +217,13 @@ public class AddMeasureDialogFragment extends DialogFragment {
         this.pointSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point point = (Point) AddMeasureDialogFragment.this.pointSpinner
+                Point point = (Point) MeasureDialogFragment.this.pointSpinner
                         .getItemAtPosition(pos);
                 if (point.getNumber() > 0) {
-                    AddMeasureDialogFragment.this.pointTextView.setText(DisplayUtils
-                            .formatPoint(AddMeasureDialogFragment.this.getActivity(), point));
+                    MeasureDialogFragment.this.pointTextView.setText(DisplayUtils
+                            .formatPoint(MeasureDialogFragment.this.getActivity(), point));
                 } else {
-                    AddMeasureDialogFragment.this.pointTextView.setText("");
+                    MeasureDialogFragment.this.pointTextView.setText("");
                 }
             }
 
@@ -191,9 +236,9 @@ public class AddMeasureDialogFragment extends DialogFragment {
         List<Point> points = new ArrayList<Point>();
         points.add(new Point(0, 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+        this.adapter = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);
-        this.pointSpinner.setAdapter(a);
+        this.pointSpinner.setAdapter(this.adapter);
 
         this.horizDirEditText = new EditText(this.getActivity());
         this.horizDirEditText.setHint(
@@ -240,6 +285,29 @@ public class AddMeasureDialogFragment extends DialogFragment {
         this.s = 0.0;
         this.latDepl = 0.0;
         this.lonDepl = 0.0;
+    }
+
+    /**
+     * Fill views.
+     */
+    private void setAttributes() {
+        this.point = this.measure.getPoint();
+        this.horizDir = this.measure.getHorizDir();
+        this.distance = this.measure.getDistance();
+        this.zenAngle = this.measure.getZenAngle();
+        this.s = this.measure.getS();
+        this.latDepl = this.measure.getLatDepl();
+        this.lonDepl = this.measure.getLonDepl();
+
+        this.pointSpinner.setSelection(this.adapter.getPosition(this.point));
+        this.pointTextView.setText(DisplayUtils.formatPoint(
+                this.getActivity(), this.point));
+        this.horizDirEditText.setText(DisplayUtils.toString(this.horizDir));
+        this.distanceEditText.setText(DisplayUtils.toString(this.distance));
+        this.sEditText.setText(DisplayUtils.toString(this.getS()));
+        this.zenAngleEditText.setText(DisplayUtils.toString(this.getZenAngle()));
+        this.latDeplEditText.setText(DisplayUtils.toString(this.getLatDepl()));
+        this.lonDeplEditText.setText(DisplayUtils.toString(this.getLonDepl()));
     }
 
     /**
@@ -294,5 +362,9 @@ public class AddMeasureDialogFragment extends DialogFragment {
 
     public final Point getPoint() {
         return this.point;
+    }
+
+    public final Measure getMeasure() {
+        return this.measure;
     }
 }
