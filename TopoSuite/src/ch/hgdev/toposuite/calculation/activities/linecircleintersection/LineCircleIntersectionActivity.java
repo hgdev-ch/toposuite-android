@@ -34,15 +34,12 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
     private TextView                            point1TextView;
     private TextView                            point2TextView;
     private TextView                            distP1TexView;
-    private TextView                            intersectionPointTextView;
     private EditText                            gisementEditText;
     private EditText                            displacementEditText;
-    private EditText                            pointNumberEditText;
     private EditText                            distP1EditText;
     private LinearLayout                        point2SpinnerLayout;
     private LinearLayout                        point2Layout;
     private LinearLayout                        gisementLayout;
-    private LinearLayout                        resultLayout;
     private RadioButton                         modeGisementRadio;
     private CheckBox                            perpendicularCheckBox;
     private int                                 point1SelectedPosition;
