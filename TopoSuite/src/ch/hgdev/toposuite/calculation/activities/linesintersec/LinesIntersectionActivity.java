@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -152,8 +151,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         this.displacementD2EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.pointNumberEditText = (EditText) this.findViewById(R.id.point_number);
-        this.pointNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        this.pointNumberEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.distP1D1EditText = (EditText) this.findViewById(R.id.dist_p1_d1);
         this.distP1D1EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
