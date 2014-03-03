@@ -91,6 +91,7 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
         switch (id) {
         case R.id.clear_button:
             this.clearInputs();
+            this.clearResults();
             return true;
         case R.id.run_calculation_button:
             if (this.chickenRun()) {
@@ -275,5 +276,20 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
         this.chordOFEditText.setText("");
         this.tangentEditText.setText("");
         this.arrowEditText.setText("");
+    }
+
+    /**
+     * Clear the result text views.
+     */
+    private void clearResults() {
+        String noValue = this.getString(R.string.no_value);
+        this.bisectorTextView.setText(noValue);
+        this.arcTextView.setText(noValue);
+        this.circumferenceTextView.setText(noValue);
+        this.chordOMTextView.setText(noValue);
+        this.betaAngleTextView.setText(noValue);
+        this.circleSurfaceTextView.setText(noValue);
+        this.sectorSurfaceTextView.setText(noValue);
+        this.segmentSurfaceTextView.setText(noValue);
     }
 }
