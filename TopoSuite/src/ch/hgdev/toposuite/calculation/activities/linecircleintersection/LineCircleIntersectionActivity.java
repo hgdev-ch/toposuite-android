@@ -1,10 +1,15 @@
 package ch.hgdev.toposuite.calculation.activities.linecircleintersection;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,13 +18,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.LineCircleIntersection;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LineCircleIntersectionActivity extends TopoSuiteActivity {
 
+    // line
     private Spinner                             point1Spinner;
     private Spinner                             point2Spinner;
     private TextView                            point1TextView;
@@ -41,6 +50,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
     private boolean                             isLinePerpendicular;
     private LineCircleIntersectionActivity.Mode mode;
 
+    // circle
     private Spinner                             centerCSpinner;
     private int                                 centerCSelectedPosition;
     private Point                               centerCPoint;
@@ -52,13 +62,22 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
     private Point                               byPoint;
     private TextView                            byPointTextView;
 
+    // results
     private TextView                            intersectionOneTextView;
     private EditText                            intersectionOneEditText;
     private Point                               intersectionOne;
-
     private TextView                            intersectionTwoTextView;
     private EditText                            intersectionTwoEditText;
     private Point                               intersectionTwo;
+
+    private ArrayAdapter<Point>                 adapter;
+    private LineCircleIntersection              lineCircleIntersection;
+
+    /**
+     * Position of the calculation in the calculations list. Only used when open
+     * from the history.
+     */
+    private int                                 position;
 
     private enum Mode {
         LINE,
@@ -77,8 +96,38 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
         this.point1SelectedPosition = 0;
         this.point2SelectedPosition = 0;
 
+        this.position = -1;
+
         this.mapViews();
         this.initViews();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0.0, 0.0, 0.0, false, false));
+        points.addAll(SharedResources.getSetOfPoints());
+
+        this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
+        this.point1Spinner.setAdapter(this.adapter);
+        this.point2Spinner.setAdapter(this.adapter);
+        this.centerCSpinner.setAdapter(this.adapter);
+        this.byPointSpinner.setAdapter(this.adapter);
+
+        Bundle bundle = this.getIntent().getExtras();
+        if ((bundle != null)) {
+            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            // TODO handle resume from history
+        }
+
+        this.point1Spinner.setSelection(this.point1SelectedPosition);
+        this.point2Spinner.setSelection(this.point2SelectedPosition);
+        this.modeGisementRadio.callOnClick();
+
+        this.centerCSpinner.setSelection(this.centerCSelectedPosition);
+        this.byPointSpinner.setSelection(this.byPointSelectedPosition);
     }
 
     @Override
@@ -90,6 +139,19 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
     @Override
     protected String getActivityTitle() {
         return this.getString(R.string.title_activity_line_circle_intersection);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.run_calculation_button:
+            return true;
+        case R.id.save_points:
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -239,6 +301,108 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
         } else {
             this.radiusCEditText.setEnabled(true);
         }
+    }
+
+    /**
+     * Handle click on the radio button.
+     * 
+     * @param view
+     *            The radio button.
+     */
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch (view.getId()) {
+        case R.id.mode_gisement:
+            if (checked) {
+                this.point2SpinnerLayout.setVisibility(View.GONE);
+                if (this.point2Layout != null) {
+                    this.point2Layout.setVisibility(View.GONE);
+                }
+                this.gisementLayout.setVisibility(View.VISIBLE);
+                this.mode = LineCircleIntersectionActivity.Mode.GISEMENT;
+                break;
+            }
+        case R.id.mode_line:
+            if (checked) {
+                this.point2SpinnerLayout.setVisibility(View.VISIBLE);
+                if (this.point2Layout != null) {
+                    this.point2Layout.setVisibility(View.VISIBLE);
+                }
+                this.gisementLayout.setVisibility(View.GONE);
+                this.mode = LineCircleIntersectionActivity.Mode.LINE;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Handle click on checkbox.
+     * 
+     * @param view
+     */
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+
+        this.distP1TexView.setEnabled(checked);
+        this.distP1EditText.setEnabled(checked);
+        this.isLinePerpendicular = checked;
+    }
+
+    /**
+     * Do the actual calculation and update the results.
+     */
+    private void runCalculations() {
+        if (this.lineCircleIntersection == null) {
+            this.lineCircleIntersection = new LineCircleIntersection();
+        }
+
+        Point p1 = this.adapter.getItem(this.point1SelectedPosition);
+        Point p2 = null;
+        double gisement = 0.0;
+        if (this.mode == Mode.GISEMENT) {
+            gisement = Double.parseDouble(
+                    this.gisementEditText.getText().toString());
+        } else {
+            p2 = this.adapter.getItem(this.point2SelectedPosition);
+        }
+        double displacement = 0.0;
+        if (this.displacementEditText.length() > 0) {
+            displacement = Double.parseDouble(
+                    this.displacementEditText.getText().toString());
+        }
+        double distP1 = 0.0;
+        if ((this.distP1EditText.length() > 0) && this.isLinePerpendicular) {
+            distP1 = Double.parseDouble(
+                    this.displacementEditText.getText().toString());
+        }
+
+        this.centerCPoint = (Point) this.centerCSpinner
+                .getItemAtPosition(this.centerCSelectedPosition);
+        this.radiusC = Double.parseDouble(this.radiusCEditText.getText().toString());
+
+        // TODO handle case with gisement in calculation
+        this.lineCircleIntersection.setP1L(p1);
+        this.lineCircleIntersection.setP2L(p2);
+        this.lineCircleIntersection.setDisplacementL(displacement);
+        this.lineCircleIntersection.setCenterC(this.centerCPoint);
+        this.lineCircleIntersection.setRadiusC(this.radiusC);
+
+        this.lineCircleIntersection.compute();
+
+        this.intersectionOne = this.lineCircleIntersection.getFirstIntersection();
+        this.intersectionTwo = this.lineCircleIntersection.getSecondIntersection();
+
+    }
+
+    /**
+     * Update the results view.
+     */
+    private void updateResults() {
+        this.intersectionOneTextView.setText(
+                DisplayUtils.formatPoint(this, this.intersectionOne));
+        this.intersectionTwoTextView.setText(
+                DisplayUtils.formatPoint(this, this.intersectionTwo));
     }
 
 }

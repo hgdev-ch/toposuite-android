@@ -60,6 +60,24 @@ public class LineCircleIntersection extends Calculation {
         this(_p1L, _p2L, _displacementL, _centerC, _radiusC, false);
     }
 
+    public LineCircleIntersection() {
+        super(CalculationType.LINECIRCINTERSEC,
+                App.getContext().getString(R.string.title_activity_line_circle_intersection),
+                true);
+
+        this.p1L = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.p2L = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.displacementL = 0.0;
+
+        this.centerC = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.radiusC = 0.0;
+
+        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+
+        SharedResources.getCalculationsHistory().add(0, this);
+    }
+
     private void initAttributes(Point _p1L, Point _p2L, double _displacementL,
             Point _centerC, double _radiusC) {
         this.setP1L(_p1L);
