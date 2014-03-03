@@ -21,7 +21,6 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
-import ch.hgdev.toposuite.calculation.activities.levepolaire.ArrayListOfDeterminationsAdapter;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -81,7 +80,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        this.adapter = new ArrayListOfDeterminationsAdapter(this,
+        this.adapter = new ArrayListOfMeasuresAdapter(this,
                 R.layout.determinations_list_item, this.freeStation.getMeasures());
         this.drawList();
     }
