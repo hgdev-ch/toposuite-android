@@ -23,6 +23,7 @@ import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoAct
 import ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesSolverActivity;
 import ch.hgdev.toposuite.calculation.activities.circle.CircleActivity;
 import ch.hgdev.toposuite.calculation.activities.circlesintersection.CirclesIntersectionActivity;
+import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
@@ -179,9 +180,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         polarCalculation.getChildren().add(new ActivityItem(
                 this.getString(R.string.title_activity_polar_implantation),
                 PolarImplantationActivity.class));
-        /*polarCalculation.getChildren().add(new ActivityItem(
+        polarCalculation.getChildren().add(new ActivityItem(
                 this.getString(R.string.title_activity_free_station),
-                FreeStationActivity.class));*/
+                FreeStationActivity.class));
         groups.append(0, polarCalculation);
 
         CalculationGroup orthoCalculation = new CalculationGroup(
