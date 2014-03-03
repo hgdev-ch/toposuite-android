@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -19,6 +20,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.LineCircleIntersection;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -69,6 +71,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
     private Point                               intersectionTwo;
 
     private ArrayAdapter<Point>                 adapter;
+    private LineCircleIntersection              lineCircleIntersection;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
@@ -136,6 +139,19 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
     @Override
     protected String getActivityTitle() {
         return this.getString(R.string.title_activity_line_circle_intersection);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.run_calculation_button:
+            return true;
+        case R.id.save_points:
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -318,6 +334,65 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
                 break;
             }
         }
+    }
+
+    /**
+     * Handle click on checkbox.
+     * 
+     * @param view
+     */
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+
+        this.distP1TexView.setEnabled(checked);
+        this.distP1EditText.setEnabled(checked);
+        this.isLinePerpendicular = checked;
+    }
+
+    /**
+     * Do the actual calculation and update the results.
+     */
+    private void runCalculations() {
+        if (this.lineCircleIntersection == null) {
+            this.lineCircleIntersection = new LineCircleIntersection();
+        }
+
+        Point p1 = this.adapter.getItem(this.point1SelectedPosition);
+        Point p2 = null;
+        double gisement = 0.0;
+        if (this.mode == Mode.GISEMENT) {
+            gisement = Double.parseDouble(
+                    this.gisementEditText.getText().toString());
+        } else {
+            p2 = this.adapter.getItem(this.point2SelectedPosition);
+        }
+        double displacement = 0.0;
+        if (this.displacementEditText.length() > 0) {
+            displacement = Double.parseDouble(
+                    this.displacementEditText.getText().toString());
+        }
+        double distP1 = 0.0;
+        if ((this.distP1EditText.length() > 0) && this.isLinePerpendicular) {
+            distP1 = Double.parseDouble(
+                    this.displacementEditText.getText().toString());
+        }
+
+        this.centerCPoint = (Point) this.centerCSpinner
+                .getItemAtPosition(this.centerCSelectedPosition);
+        this.radiusC = Double.parseDouble(this.radiusCEditText.getText().toString());
+
+        // TODO handle case with gisement in calculation
+        this.lineCircleIntersection.setP1L(p1);
+        this.lineCircleIntersection.setP2L(p2);
+        this.lineCircleIntersection.setDisplacementL(displacement);
+        this.lineCircleIntersection.setCenterC(this.centerCPoint);
+        this.lineCircleIntersection.setRadiusC(this.radiusC);
+
+        this.lineCircleIntersection.compute();
+
+        this.intersectionOne = this.lineCircleIntersection.getFirstIntersection();
+        this.intersectionTwo = this.lineCircleIntersection.getSecondIntersection();
+
     }
 
     /**
