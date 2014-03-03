@@ -1,10 +1,14 @@
 package ch.hgdev.toposuite.calculation.activities.linecircleintersection;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,13 +17,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LineCircleIntersectionActivity extends TopoSuiteActivity {
 
+    // line
     private Spinner                             point1Spinner;
     private Spinner                             point2Spinner;
     private TextView                            point1TextView;
@@ -41,6 +48,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
     private boolean                             isLinePerpendicular;
     private LineCircleIntersectionActivity.Mode mode;
 
+    // circle
     private Spinner                             centerCSpinner;
     private int                                 centerCSelectedPosition;
     private Point                               centerCPoint;
@@ -52,13 +60,21 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
     private Point                               byPoint;
     private TextView                            byPointTextView;
 
+    // results
     private TextView                            intersectionOneTextView;
     private EditText                            intersectionOneEditText;
     private Point                               intersectionOne;
-
     private TextView                            intersectionTwoTextView;
     private EditText                            intersectionTwoEditText;
     private Point                               intersectionTwo;
+
+    private ArrayAdapter<Point>                 adapter;
+
+    /**
+     * Position of the calculation in the calculations list. Only used when open
+     * from the history.
+     */
+    private int                                 position;
 
     private enum Mode {
         LINE,
@@ -77,8 +93,38 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
         this.point1SelectedPosition = 0;
         this.point2SelectedPosition = 0;
 
+        this.position = -1;
+
         this.mapViews();
         this.initViews();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point(0, 0.0, 0.0, 0.0, false, false));
+        points.addAll(SharedResources.getSetOfPoints());
+
+        this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
+        this.point1Spinner.setAdapter(this.adapter);
+        this.point2Spinner.setAdapter(this.adapter);
+        this.centerCSpinner.setAdapter(this.adapter);
+        this.byPointSpinner.setAdapter(this.adapter);
+
+        Bundle bundle = this.getIntent().getExtras();
+        if ((bundle != null)) {
+            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            // TODO handle resume from history
+        }
+
+        this.point1Spinner.setSelection(this.point1SelectedPosition);
+        this.point2Spinner.setSelection(this.point2SelectedPosition);
+        this.modeGisementRadio.callOnClick();
+
+        this.centerCSpinner.setSelection(this.centerCSelectedPosition);
+        this.byPointSpinner.setSelection(this.byPointSelectedPosition);
     }
 
     @Override
@@ -239,6 +285,49 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
         } else {
             this.radiusCEditText.setEnabled(true);
         }
+    }
+
+    /**
+     * Handle click on the radio button.
+     * 
+     * @param view
+     *            The radio button.
+     */
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch (view.getId()) {
+        case R.id.mode_gisement:
+            if (checked) {
+                this.point2SpinnerLayout.setVisibility(View.GONE);
+                if (this.point2Layout != null) {
+                    this.point2Layout.setVisibility(View.GONE);
+                }
+                this.gisementLayout.setVisibility(View.VISIBLE);
+                this.mode = LineCircleIntersectionActivity.Mode.GISEMENT;
+                break;
+            }
+        case R.id.mode_line:
+            if (checked) {
+                this.point2SpinnerLayout.setVisibility(View.VISIBLE);
+                if (this.point2Layout != null) {
+                    this.point2Layout.setVisibility(View.VISIBLE);
+                }
+                this.gisementLayout.setVisibility(View.GONE);
+                this.mode = LineCircleIntersectionActivity.Mode.LINE;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Update the results view.
+     */
+    private void updateResults() {
+        this.intersectionOneTextView.setText(
+                DisplayUtils.formatPoint(this, this.intersectionOne));
+        this.intersectionTwoTextView.setText(
+                DisplayUtils.formatPoint(this, this.intersectionTwo));
     }
 
 }
