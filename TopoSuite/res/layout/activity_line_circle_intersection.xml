@@ -1,11 +1,456 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".LineCircleIntersectionActivity" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" >
+
+        <LinearLayout
+            android:id="@+id/result_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/intersection_point_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/intersection_point"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="left|center_vertical"
+                android:text="@string/line"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="left|center_vertical"
+                android:text="@string/mode_label"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.21"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/mode_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/mode_line_label" />
+
+                <RadioButton
+                    android:id="@+id/mode_gisement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/mode_gisement_label" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/point_1"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/point_1_d1_spinner"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.80" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/point_1_d1"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/point2_d1_spinner_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/point_2"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/point_2_d1_spinner"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.80" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/point2_d1_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/point_2_d1"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gisement_d1_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/gisement_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/gisement_d1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50"
+                android:gravity="left|center_vertical"
+                android:inputType=""
+                android:paddingLeft="@dimen/activity_horizontal_margin" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.50" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/is_d1_perpendicular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.86"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/perpendicular" />
+
+            <TextView
+                android:id="@+id/dist_p1_d1_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:enabled="false"
+                android:gravity="left|center_vertical"
+                android:text="@string/dist_pt_1"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/dist_p1_d1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:enabled="false"
+                android:gravity="left" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/displacement_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/displacement_d1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.40"
+                android:gravity="left|center_vertical"
+                android:inputType=""
+                android:paddingLeft="@dimen/activity_horizontal_margin" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.60" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/circle_label"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="left|center_vertical"
+                android:text="@string/center_label" />
+
+            <Spinner
+                android:id="@+id/center_spinner"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.15" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.65" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/center_textview"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:freezesText="true"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="left|center_vertical"
+                android:text="@string/radius_label" />
+
+            <EditText
+                android:id="@+id/radius_one"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="right|center_vertical"
+                android:hint="@string/radius_label"
+                android:inputType=""
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="left|center_vertical"
+                android:text="@string/by_point_label" />
+
+            <Spinner
+                android:id="@+id/by_point_spinner"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.15" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/by_point_textview"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:freezesText="true"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/intersection_one_label"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/intersection_one"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:freezesText="true"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/intersection_one_number"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="right|center_vertical"
+                android:hint="@string/point_number_3dots"
+                android:inputType=""
+                android:textSize="12sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:text="@string/intersection_two_label"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/intersection_two"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:freezesText="true"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/intersection_two_number"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="right|center_vertical"
+                android:hint="@string/point_number_3dots"
+                android:inputType=""
+                android:textSize="12sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
