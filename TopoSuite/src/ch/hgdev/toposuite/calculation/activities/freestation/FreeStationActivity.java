@@ -227,10 +227,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                 dialog.getDistance(),
                 dialog.getS(),
                 dialog.getLatDepl(),
-                dialog.getLonDepl(),
-                0.0,
-                0.0,
-                dialog.getPoint().getNumber()); // small trick to use the determinations_list_item layout. 
+                dialog.getLonDepl());
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
     }

@@ -54,7 +54,7 @@ public class MeasureDialogFragment extends DialogFragment {
         void onDialogEdit(MeasureDialogFragment dialog);
     }
 
-    MeasureDialogListener    listener;
+    MeasureDialogListener       listener;
     private Point               point;
     private double              horizDir;
     private double              distance;
@@ -170,10 +170,10 @@ public class MeasureDialogFragment extends DialogFragment {
 
                             if (MeasureDialogFragment.this.isEdition) {
                                 MeasureDialogFragment.this.listener
-                                        .onDialogAdd(MeasureDialogFragment.this);
+                                        .onDialogEdit(MeasureDialogFragment.this);
                             } else {
                                 MeasureDialogFragment.this.listener
-                                        .onDialogEdit(MeasureDialogFragment.this);
+                                        .onDialogAdd(MeasureDialogFragment.this);
                             }
                             dialog.dismiss();
                         } else {
