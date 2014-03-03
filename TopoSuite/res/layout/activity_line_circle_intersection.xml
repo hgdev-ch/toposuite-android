@@ -10,24 +10,6 @@
         android:paddingRight="8dp" >
 
         <LinearLayout
-            android:id="@+id/result_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/intersection_point_label"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/intersection_point"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -85,7 +67,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/point_1_d1_spinner"
+                android:id="@+id/point_1_spinner"
                 android:layout_width="145dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.20" />
@@ -102,7 +84,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/point_1_d1"
+                android:id="@+id/point_1"
                 android:layout_width="0dip"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
@@ -112,7 +94,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/point2_d1_spinner_layout"
+            android:id="@+id/point2_spinner_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -125,7 +107,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/point_2_d1_spinner"
+                android:id="@+id/point_2_spinner"
                 android:layout_width="145dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.20" />
@@ -137,13 +119,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/point2_d1_layout"
+            android:id="@+id/point2_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/point_2_d1"
+                android:id="@+id/point_2"
                 android:layout_width="0dip"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
@@ -153,7 +135,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/gisement_d1_layout"
+            android:id="@+id/gisement_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -167,7 +149,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/gisement_d1"
+                android:id="@+id/gisement"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.50"
@@ -194,7 +176,7 @@
                 android:text="@string/perpendicular" />
 
             <TextView
-                android:id="@+id/dist_p1_d1_label"
+                android:id="@+id/dist_p1_label"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:enabled="false"
@@ -203,7 +185,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/dist_p1_d1"
+                android:id="@+id/dist_p1"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -216,7 +198,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -225,7 +206,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/displacement_d1"
+                android:id="@+id/displacement"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.40"
@@ -305,7 +286,7 @@
                 android:text="@string/radius_label" />
 
             <EditText
-                android:id="@+id/radius_one"
+                android:id="@+id/radius"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.20"
