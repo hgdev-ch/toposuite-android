@@ -377,17 +377,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         this.point1D2Spinner.setSelection(this.point1D2SelectedPosition);
         this.point2D2Spinner.setSelection(this.point2D2SelectedPosition);
 
-        if (this.d1Mode == Mode.GISEMENT) {
-            this.modeGisementD1Radio.callOnClick();
-        } else {
-            this.modeGisementD1Radio.callOnClick();
-        }
-
-        if (this.d2Mode == Mode.GISEMENT) {
-            this.modeGisementD2Radio.callOnClick();
-        } else {
-            this.modeGisementD2Radio.callOnClick();
-        }
+        this.modeGisementD1Radio.callOnClick();
+        this.modeGisementD2Radio.callOnClick();
     }
 
     @Override
