@@ -113,25 +113,28 @@
 </ol>
 
 <h2 id="generale">Aide générale</h2>
-<p>  Unités du programme <br>
+<p>  Unités du programme :<br>
 Tous les angles à introduire doivent être en "Grades" ou en "Gons"      <br>
 Toutes les distances à introduire doivent être en "Mètres".
+Les distances que le programme attend, sont toutes des distances inclinées.     <br>
+Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une distance horizontale.
+
 
 
 </p>
 <h3 id="points">Gestion des points</h3>
   <p> 
     Il est possible soit d'ajouter les points manuellement, 
-    ou d'importer directement tous les points à l'aide d'un fichier CSV. 
+    soit d'importer directement tous les points à l'aide d'un fichier CSV.    <br>
     Depuis l'appareil (sans connexion):<br>
     Il faut placer le fichier CSV dans le dossier de 
     l'application (/TopoSuite) pour être importé depuis le menu du programme.
   <br>
     L'autre solution (avec connexion ou non):<br>
-    En "appuyant" sur le fichier de points, l'appareil va te proposer d'ouvrir le fichier avec plusieurs applications, 
+    En "appuyant" sur le fichier de points, l'appareil va proposer d'ouvrir le fichier avec plusieurs applications, 
     dont "TopoSuite". 
     En choisissant TopoSuite dans la liste, l'application va s'ouvrir et importer
-    la liste des points en demandant une confirmation au travers une popup.
+    la liste des points en demandant une confirmation au travers d'une popup.
   <br>
     Le fichier doit être structuré de la manière suivante.<br>
     N° Point ; Coordonnée Est  ; Coordonnée Nord ; Altitude<br>
@@ -145,7 +148,7 @@ Toutes les distances à introduire doivent être en "Mètres".
     de laisser le doigt longuement sur le point souhaité.
   <br>
     Il y a également un bouton "Rechercher" qui permet de retrouver un point souhaité.
-    Le bouton "supprimer" permet de supprimer tous les points en même temps.
+    Le bouton "Supprimer" permet de supprimer tous les points en même temps.
   </p>
   
 <h3 id="historique">Historique</h3>
@@ -161,12 +164,12 @@ Toutes les distances à introduire doivent être en "Mètres".
 <h4 id="abriss">Orientation à la station</h4>
   <p>
     Le calcul d'orientation à la station permet de calculer l'inconnue d'orientation.
-    Une modification d'une valeur peut se faire si on clique longuement sur une mesure  <br>
+    Une modification d'une valeur peut se faire si on clique longuement sur une mesure.  <br>
     
   </p>
 <h4 id="libre">Station libre</h4>
   <p>
-     Le calcul de station libre permet d'obtenir les coordonnées de la station ainsi que l'inconnue d'orientation
+     Le calcul de station libre permet d'obtenir les coordonnées (3D) de la station ainsi que l'inconnue d'orientation
      Afin de calculer la station libre avec des moyens classiques, il y a quelques
     conditions à respecter :                   <br>
       - Prendre au minimum 3 points de rattachement ;     <br>
@@ -195,45 +198,45 @@ Toutes les distances à introduire doivent être en "Mètres".
     <br>
     -La distance de la station au point nouveau ne doit pas dépasser 1.25 fois la longueur du vecteur 
     d'orientation le plus long(distance de la station au point servant d'orientation).  <br>
-    Pour les déplacements les signes suivants sont à respecter : <br>
+    Pour les déplacements les signes suivants sont à respecter : <br>    <br>
     <img src="file:///android_asset/help/img/polar_survey.png" alt="levé polaire"/>
   </p>                                                          
 
 <h4 id="imp_pol">Implantation polaire</h4>
   <p>      
     Le calcul d'implantation polaire permet (à partir de coordonnées) d'obtenir les valeurs suivantes :    <br>
-     - de l'angle horizontal,<br>
-     - de la distance horizontale   <br>
-     - de la distance inclinée   <br>
+     - de l'angle horizontal,(Hz)<br>
+     - de la distance horizontale,   <br>
+     - de la distance inclinée,   <br>
      - de l'angle zénithal, <br>
-     - de la hauteur de prisme <br>
-     - du gisement <br>
-    pour faire une implantation sur le terrain.     <br>
+     - de la hauteur de prisme, <br>
+     - du gisement, (φ) <br>
+       <br>
     La condition géométrique suivante devrait être remplie : 
     <br>
     -La distance de la station au point implanté ne doit pas dépasser 1.25 fois la longueur du vecteur 
-    d'orientation le plus long(distance de la station au point servant d'orientation).     <br>
+    d'orientation le plus long(distance de la station au point servant d'orientation).     <br>  <br>
     <img src="file:///android_asset/help/img/polar_implantation.png" alt="Implantation polaire"/> 
   </p>
 <h4 id="imp_axe">Implantation d'un axe</h4>
   <p>
-    Ce calcul permet d'obtenir le décalage transversal et longitudinal (à partir du point de base "A")<br>
+    Ce calcul permet d'obtenir le décalage transversal et longitudinal par rapport à un axe AB(à partir du point de base "A")<br>
   </p>
 <h3 id="orthogonaux">Calculs orthogonaux</h3>
 <h4 id="levo_ortho">Levé orthogonal</h4>
   <p>
     La valeur mesurée de la base du levé orthogonal (A-B) doit être rentrée afin de calculer le facteur d'echelle.
-  <br>
-    Les valeurs d'abscisse (x) et ordonnées (y) doivent être rentrées selon l'image si dessous:<br>
+  <br><br>
+    Les valeurs d'abscisses (x) et d'ordonnées (y) doivent être introduites selon l'image ci-dessous:<br>
   <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="levé orthogonal"/>
   </p>
 <h4 id="chem_ortho">Cheminement orthogonal</h4>
   <p>
     Les signes à respecter pour le cheminement orthogonal sont les suivants :
-  <br>
+  <br>             <br>
     <img src="file:///android_asset/help/img/chem_ortho.png" alt="cheminement orthogonal"/>
   <br>
-   Conditions liées au calcul et à la méthode :<br>
+   Les conditions géométriques suivantes devraient être remplies :<br>
       - La différence entre AB calculé et AB mesuré doit être dans la tolérance.    <br>
       - La longueur totale du cheminement ne doit pas dépasser 3 fois la distance AB.  <br>
       - Des points peuvent être déterminés "hors base" (cheminement lancé depuis chacun des points de rattachement),
@@ -243,7 +246,7 @@ Toutes les distances à introduire doivent être en "Mètres".
   <p>
     Le calcul d'implantation orthogonale permet (à partir de coordonnées) d'obtenir les valeurs d'abscisses et d'ordonnées,
     pour faire une implantation sur le terrain.
-    Les valeurs d'abscisse (x) et ordonnées (y) données correspondent à l'image si dessous:<br>
+    Les valeurs d'abscisses (x) et d'ordonnées (y) doivent être données selon l'image ci-dessous:<br> <br>
     <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="Implantation orthogonale"/>
   </p>
 
@@ -251,13 +254,13 @@ Toutes les distances à introduire doivent être en "Mètres".
 <h4 id="inter_droites">Droites (et/ou directions)</h4>
   <p>
     La définition des droites peut être donnée : <br>
-       - Soit par deux points                 <br>
-       - Soit par un point et un angle         <br>
+       - Soit par deux points,                 <br>
+       - Soit par un point et un angle (&phi;).       <br>
     
-    La droite peut être soit décalée soit être perpendiculaire à la droite définie.   <br>
+    La droite peut être soit décalée, soit être perpendiculaire à la droite définie.   <br>
     Pour le décalage (Valeur X), un signe positif décale la droite sur la droite et un signe négatif la décale sur la gauche.<br>   
     Si la droite est à la perpendicualaire de celle donnée, une distance du point A (Valeur Y) peut-être rentrée.    <br>
-    Voir image ci-dessous:     <br>
+    Voir image ci-dessous:     <br> <br>
     <img src="file:///android_asset/help/img/lines_intersection.png" alt="Intersection de lignes"/>
     <br>
   </p>
@@ -265,23 +268,24 @@ Toutes les distances à introduire doivent être en "Mètres".
   <p>
     Pour l'intersection de cercles, deux possibilités :                                         <br>
       - Rentrer manuellement la grandeur des rayons                                       <br>
-      - Choisir un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br>
+      - Choisir un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br><br>
     Attention : Il y a presque toujours 2 solutions.  <br>
     Il y en a qu'une seulement si les deux cercles sont tangents.
-    <br>Il n'y en a aucune si les deux cercles ne se croisent pas.
+    <br>Il n'y en a aucune si les deux cercles ne se croisent pas. <br>
+    Définition du premier cercle  &nbsp;&nbsp;  -> Centre : A et Rayon : r1<br>
+    Définition du deuxième cercle   -> Centre : B et Rayon : r2<br>   <br>    
     <img src="file:///android_asset/help/img/circles_intersection.png" alt="Intersection de cercles"/>
-    Définition du premier cercle    -> Centre : A et rayon : r1<br>
-    Définition du deuxième cercle   -> Centre : B et rayon : r2<br>
+      <br>
     Les intersections calculées sont : I1 et I2.
   </p>
-<h4 id="inter_droites_cercles">Droite/cercle</h4>
+<h4 id="inter_droites_cercles">Droite/Cercle</h4>
      La définition des droites peut être donnée : <br>
        - Soit par deux points                 <br>
-       - Soit par un point et un angle         <br>
-       Et pour la définition du cercle, deux possibilités :                                         <br>
-      - Rentrer manuellement la grandeur des rayons                                       <br>
-      - Choisir un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br>
-    La droite peut être décalée (signe positif = à droite ; signe négatif = à gauche).  <br>
+       - Soit par un point et un angle  (G)       <br> <br>
+       La définition du cercle peut être donnée  :      <br>
+      - Soit en rentrant manuellement la grandeur des rayons                                       <br>
+      - Soit en choisisant un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br>
+    La droite peut être décalée (signe positif = à droite ; signe négatif = à gauche).  <br> <br>
     <img src="file:///android_asset/help/img/line_circle_intersection.png" alt="Intersection d'un cercle et d'une droite"/>      <br>
     Les deux points calculés sont I1 et I2.
 <h3 id="surfaces">Surfaces</h3>
@@ -289,9 +293,9 @@ Toutes les distances à introduire doivent être en "Mètres".
   <p> 
     Pour le calcul de surface, les éléments à saisir sont :
     <br>
-    Les points dans le sens des aiguilles d'une montre. <br>
+    - Les points dans le sens des aiguilles d'une montre. <br>
 
-    Exemple selon l'image ci-dessous : <br>
+    Selon l'image ci-dessous : <br>  <br>
       <img src="file:///android_asset/help/img/surface.png" alt="Surface"/><br>
     Point 1<br>
     Point 2, Rayon + <br>
@@ -304,18 +308,19 @@ Toutes les distances à introduire doivent être en "Mètres".
 <h4 id="surf_para">Déplacement parallèle de limite avec surface imposée</h4>
    Le but de ce calcul est de retrouver de combien doit-on décaler la limite AD afin d'obtenir la surface désirée (S).<br>
    XY doit être parallèle à AD  <br>
-   Les valeurs obtenues sont les suivantes:
-   d = longueur du déplacement de la limite AD<br>
+   Les valeurs obtenues sont les suivantes:     <br>
+   d = longueur du déplacement de la limite AD <br>
    a = distance entre les points limites A et D<br>
    b = distance entre les points limites X et Y <br>
-   S = Surface imposée<br>
+   S = Surface imposée<br>          <br>
    <img src="file:///android_asset/help/img/parallel_displacement.png" alt="Déplacement parallèle de limite avec surface imposée"/><br>
    
-<h3 id="divers">Divers</h3>                                                                  &phi;
+<h3 id="divers">Divers</h3>                                                 
 <h4 id="gisement">Gisement/distance</h4>
   <p>
     Pour le calcul de gisement/distance, il suffit de choisir dans la liste des points connus :<br>
-    le point d'origine ainsi que le point d'orientation.
+    - le point d'origine,<br> 
+    - le point d'orientation.
   </p>
 <h4 id="projection">Projection d'un point sur une droite</h4>
   <p>
@@ -323,8 +328,8 @@ Toutes les distances à introduire doivent être en "Mètres".
      - Par deux points connus,<br>
      - Par un point et un gisement<br>
      La droite peut être déplacée sur la droite avec une signe positif, et sur la gauche avec un signe négatif. <br>
-     Il faut ensuite choisir le point à projeter dans la liste des points connus et entrer le N° de point voulu 
-     pour enregistrer le point projeté.               
+     Il faut ensuite choisir le point à projeter dans la liste des points connus.<br>
+     Le n° de point demandé est celui de la projection du point sur la ligne.               
     
   </p>
 <h4 id="cercle_3points">Calcul d'un cercle par trois points</h4>
@@ -339,8 +344,11 @@ Toutes les distances à introduire doivent être en "Mètres".
     Il est clair, dans la deuxième solution, que la distance restante entre le dernier point calculé et 
     l'extrémité de l'arc de cercle n'est pas égale aux autres distances.
   </p>
-<h4 id="helmert">Transformation de Helmert (transformation conforme à 4 paramètres)</h4>
-   <!-- TODO complete -->
+<h4 id="helmert">Transformation d'Helmert (transformation conforme à 4 paramètres)</h4>
+   La transformation d'Helmert est utilisée afin de faire une intégration des points localement.
+   Pour faire le calcul, il faut choisir le fichier de points en coordonnées locales ainsi que le fichier de points en coordonnées globales. <br>
+   Il est possible d'avoir en plus des 4 paramètres, une translation en altimètrie.   <br>
+   
 <h3 id="math">Mathématiques</h3>
 <h4 id="triangle">Résolutions de triangles</h4>
   <p>
@@ -348,12 +356,12 @@ Toutes les distances à introduire doivent être en "Mètres".
   <br>
     - 3 Côtés<br>
     - 2 Côtés, 1 Angle compris <br>
-    - 1 Côté, 2 Angles<br>
+    - 1 Côté, 2 Angles<br>      <br>
   <img src="file:///android_asset/help/img/triangle.png" alt="Triangle"/>
   <br>
     r = Rayon du cercle inscrit<br>
     R = Rayon du cercle circonscrit   <br>
-    h = Hauteur                      <br>
+    h = Hauteur calculée                     <br>
   </p>
 <h4 id="circ">Résolution d'éléments circulaires</h4>
   <p>
@@ -378,9 +386,8 @@ Toutes les distances à introduire doivent être en "Mètres".
     &beta; = Angle au sommet<br>
     2&alpha;  = Angle au centre<br>   
     M = Milieu de courbe <br>
-    Sur l'image ci-dessous :<br>
-    <img src="file:///android_asset/help/img/circular_curve_2.png" alt="Eléments circulaires"/>   <br>
+    <br> <br>
+    <img src="file:///android_asset/help/img/circular_curve2.png" alt="Eléments circulaires"/>   <br>
     L'image du haut représente la surface du secteur <br>
     L'image du bas représente la surface du segment.
   </p>
-
