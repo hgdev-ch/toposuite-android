@@ -230,6 +230,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                 dialog.getLonDepl());
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
+        this.showAddMeasureDialog();
     }
 
     @Override
