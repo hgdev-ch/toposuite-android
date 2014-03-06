@@ -52,8 +52,9 @@ It is able to do the following calculations:
     * triangle solver
     * circular elements resolution
 
-Data, such as points or measures, may be imported into the application. The
-supported input files are CSV (with ";" as a separator for now), LTOP and PTP.
+Data, such as points, may be imported into the application. The supported input
+files are CSV (with ";" as a separator for now), LTOP and PTP. The list of
+points can be exported to CSV and shared through e-mail, etc.
 
 It is currently available in English and French (German planned).
 
