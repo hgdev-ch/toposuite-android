@@ -159,4 +159,16 @@ public class DisplayUtils {
     public static String formatDifferences(double cm) {
         return String.format("%.1f", cm);
     }
+
+    /**
+     * Convert 0.0 values to empty strings.
+     * 
+     * @param doubleAsString
+     *            a double value formatted as a String
+     * @return an empty String if the value is 0.0, the original String
+     *         otherwise.
+     */
+    public static String zeroToEmpty(String doubleAsString) {
+        return MathUtils.isZero(Double.parseDouble(doubleAsString)) ? "" : doubleAsString;
+    }
 }
