@@ -318,8 +318,8 @@ public class MeasureDialogFragment extends DialogFragment {
         this.layout.addView(this.pointTextView);
         this.layout.addView(this.horizDirEditText);
         this.layout.addView(this.distanceEditText);
-        this.layout.addView(this.sEditText);
         this.layout.addView(this.zenAngleEditText);
+        this.layout.addView(this.sEditText);
         this.layout.addView(this.latDeplEditText);
         this.layout.addView(this.lonDeplEditText);
     }
