@@ -35,7 +35,11 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<Measure> {
             TextView numberTextView = (TextView) view.findViewById(R.id.measure_number_item);
             TextView horizOrientTextView = (TextView) view.findViewById(R.id.horiz_orient_item);
             TextView horizDistTextView = (TextView) view.findViewById(R.id.horiz_dist_item);
-            TextView altitudeTextView = (TextView) view.findViewById(R.id.altitude_item);
+
+            // FIXME R.id.altitude MUST be called R.id.zen_angle, it must be fixed in
+            // the R.layout.determinations_list_item
+            TextView zenAngleTextView = (TextView) view.findViewById(R.id.altitude_item);
+
             TextView sTextView = (TextView) view.findViewById(R.id.s_item);
             TextView latDeplTextView = (TextView) view.findViewById(R.id.lat_depl_item);
             TextView lonDeplTextView = (TextView) view.findViewById(R.id.lon_depl_item);
@@ -49,8 +53,8 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<Measure> {
             if (horizDistTextView != null) {
                 horizDistTextView.setText(DisplayUtils.toString(determination.getDistance()));
             }
-            if (altitudeTextView != null) {
-                altitudeTextView.setText(DisplayUtils.toString(determination.getS()));
+            if (zenAngleTextView != null) {
+                zenAngleTextView.setText(DisplayUtils.toString(determination.getZenAngle()));
             }
             if (sTextView != null) {
                 sTextView.setText(DisplayUtils.toString(determination.getS()));

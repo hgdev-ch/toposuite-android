@@ -26,6 +26,8 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class MeasureDialogFragment extends DialogFragment {
     /**
@@ -86,13 +88,18 @@ public class MeasureDialogFragment extends DialogFragment {
      */
     private Measure             measure;
 
-    public MeasureDialogFragment() {
+    /** True if the instrument height is provided, false otherwise */
+    private boolean             isSMandatory;
+
+    public MeasureDialogFragment(boolean _isSMandatory) {
         this.isEdition = false;
+        this.isSMandatory = _isSMandatory;
     }
 
-    public MeasureDialogFragment(Measure m) {
+    public MeasureDialogFragment(Measure m, boolean _isSMandatory) {
         this.isEdition = true;
         this.measure = m;
+        this.isSMandatory = _isSMandatory;
     }
 
     @Override
@@ -252,18 +259,25 @@ public class MeasureDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.unit_meter));
         this.distanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.sEditText = new EditText(this.getActivity());
-        this.sEditText.setHint(this.getActivity().getString(
-                R.string.prism_height_3dots)
-                + this.getActivity().getString(R.string.unit_meter));
-        this.sEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-
         this.zenAngleEditText = new EditText(this.getActivity());
         this.zenAngleEditText.setHint(this.getActivity().getString(
                 R.string.zenithal_angle_3dots)
                 + this.getActivity().getString(R.string.unit_gradian)
                 + this.getActivity().getString(R.string.optional_prths));
         this.zenAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+
+        this.sEditText = new EditText(this.getActivity());
+        if (this.isSMandatory) {
+            this.sEditText.setHint(this.getActivity().getString(
+                    R.string.prism_height_3dots)
+                    + this.getActivity().getString(R.string.unit_meter));
+        } else {
+            this.sEditText.setHint(this.getActivity().getString(
+                    R.string.prism_height_3dots)
+                    + this.getActivity().getString(R.string.unit_meter)
+                    + this.getActivity().getString(R.string.optional_prths));
+        }
+        this.sEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.latDeplEditText = new EditText(this.getActivity());
         this.latDeplEditText.setHint(this.getActivity().getString(
@@ -304,10 +318,13 @@ public class MeasureDialogFragment extends DialogFragment {
                 this.getActivity(), this.point));
         this.horizDirEditText.setText(DisplayUtils.toString(this.horizDir));
         this.distanceEditText.setText(DisplayUtils.toString(this.distance));
-        this.sEditText.setText(DisplayUtils.toString(this.getS()));
         this.zenAngleEditText.setText(DisplayUtils.toString(this.getZenAngle()));
-        this.latDeplEditText.setText(DisplayUtils.toString(this.getLatDepl()));
-        this.lonDeplEditText.setText(DisplayUtils.toString(this.getLonDepl()));
+        this.sEditText.setText(DisplayUtils.zeroToEmpty(
+                DisplayUtils.toString(this.getS())));
+        this.latDeplEditText.setText(DisplayUtils.zeroToEmpty(
+                DisplayUtils.toString(this.getLatDepl())));
+        this.lonDeplEditText.setText(DisplayUtils.zeroToEmpty(
+                DisplayUtils.toString(this.getLonDepl())));
     }
 
     /**
@@ -333,7 +350,8 @@ public class MeasureDialogFragment extends DialogFragment {
         return ((this.pointSpinner.getSelectedItemPosition() > 0)
                 && (this.horizDirEditText.length() > 0)
                 && (this.distanceEditText.length() > 0)
-                && (this.sEditText.length() > 0));
+                && ((this.isSMandatory && (!MathUtils.isZero(
+                ViewUtils.readDouble(this.sEditText)))) || !this.isSMandatory));
     }
 
     public final double getHorizDir() {

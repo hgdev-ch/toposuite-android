@@ -23,6 +23,7 @@ import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class FreeStationActivity extends TopoSuiteActivity implements
         MeasureDialogFragment.MeasureDialogListener {
@@ -169,7 +170,9 @@ public class FreeStationActivity extends TopoSuiteActivity implements
      * Display a dialog to allow the user to insert a new measure.
      */
     private void showAddMeasureDialog() {
-        MeasureDialogFragment dialog = new MeasureDialogFragment();
+        boolean isSMandatory = ((this.iEditText.length() == 0) ||
+                MathUtils.isZero(ViewUtils.readDouble(this.iEditText))) ? false : true;
+        MeasureDialogFragment dialog = new MeasureDialogFragment(isSMandatory);
         dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
@@ -177,8 +180,11 @@ public class FreeStationActivity extends TopoSuiteActivity implements
      * Display a dialog to allow the user to edit an existing measure.
      */
     private void showEditMeasureDialog(int position) {
+        boolean isSMandatory = ((this.iEditText.length() == 0) ||
+                MathUtils.isZero(ViewUtils.readDouble(this.iEditText))) ? false : true;
+
         Measure m = this.freeStation.getMeasures().get(position);
-        MeasureDialogFragment dialog = new MeasureDialogFragment(m);
+        MeasureDialogFragment dialog = new MeasureDialogFragment(m, isSMandatory);
         dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
