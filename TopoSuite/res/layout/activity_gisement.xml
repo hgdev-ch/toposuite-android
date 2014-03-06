@@ -149,7 +149,7 @@
 	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
-	            android:text="@string/altitude_label"
+	            android:text="@string/altitude_difference_label"
 	            android:textStyle="bold" />
 	        
 	        <TextView
