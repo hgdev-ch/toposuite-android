@@ -17,7 +17,7 @@ public class ViewUtils {
      * @return
      */
     public static double readDouble(EditText editText) {
-        return ((editText == null) || (editText.length() > 0)) ? Double.parseDouble(
+        return ((editText != null) && (editText.length() > 0)) ? Double.parseDouble(
                 editText.getText().toString()) : 0.0;
     }
 }
