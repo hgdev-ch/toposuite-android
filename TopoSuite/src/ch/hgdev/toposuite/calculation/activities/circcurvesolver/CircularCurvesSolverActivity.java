@@ -15,6 +15,7 @@ import ch.hgdev.toposuite.calculation.CircularCurvesSolver;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularCurvesSolverActivity extends TopoSuiteActivity {
 
@@ -195,6 +196,12 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
      * @return true if the user input is valid, false otherwise
      */
     private boolean checkInput() {
+        // check if the central angle is 0.0
+        if ((this.alphaAngleEditText.length() > 0) && MathUtils.isZero(
+                ViewUtils.readDouble(this.alphaAngleEditText))) {
+            return false;
+        }
+
         // radius / alpha
         if ((this.radiusEditText.length() > 0) && (this.alphaAngleEditText.length() > 0)) {
             return true;
