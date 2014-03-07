@@ -114,7 +114,7 @@
     <string name="flon_label">fLon [cm]</string>
     <string name="format_3dots">Format&#8230;</string>
     <string name="free_station_label">Calculation of the free station</string>
-    <string name="fs_label">fs [cm]</string>
+    <string name="fs_label">FS [cm]</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="group_polar_calculation">Polar calculations</string>
     <string name="group_orthogonal_calculation">Orthogonal calculations</string>
