@@ -292,6 +292,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         }
         this.distP1EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
         this.displacementEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.gisementEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
         this.point1Spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -505,12 +506,8 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 .getItemAtPosition(this.centerCSelectedPosition);
         this.radiusC = Double.parseDouble(this.radiusCEditText.getText().toString());
 
-        // TODO handle case with gisement in calculation
-        this.lineCircleIntersection.setP1L(p1);
-        this.lineCircleIntersection.setP2L(p2);
-        this.lineCircleIntersection.setDisplacementL(displacement);
-        this.lineCircleIntersection.setCenterC(this.centerCPoint);
-        this.lineCircleIntersection.setRadiusC(this.radiusC);
+        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement,
+                this.centerCPoint, this.radiusC);
 
         this.lineCircleIntersection.compute();
 
