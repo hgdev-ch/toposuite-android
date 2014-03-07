@@ -164,6 +164,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity {
         this.displacementEditText = (EditText) this.findViewById(R.id.displacement);
         this.distP1EditText = (EditText) this.findViewById(R.id.dist_p1);
         this.point2SpinnerLayout = (LinearLayout) this.findViewById(R.id.point2_spinner_layout);
+        this.point2Layout = (LinearLayout) this.findViewById(R.id.point2_layout);
         this.gisementLayout = (LinearLayout) this.findViewById(R.id.gisement_layout);
         this.modeGisementRadio = (RadioButton) this.findViewById(R.id.mode_gisement);
         this.point1Spinner = (Spinner) this.findViewById(R.id.point_1_spinner);
