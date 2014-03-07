@@ -217,7 +217,7 @@
     <string name="radius_3dots">Rayon&#8230;</string>
     <string name="radius_label">Rayon [m]</string>
     <string name="replace_button">Remplacer</string>
-    <string name="retrieve_z0">Récupérer l\'inconnue d\'orientation du dernier calcul d\'orientation à la station</string>
+    <string name="retrieve_z0">Récupérer l\'inconnue d\'orientation du dernier calcul</string>
     <string name="sa_label">sH [cm]:</string>
     <string name="save">Sauvegarder</string>
     <string name="save_3dots">Sauvegarder&#8230;</string>

@@ -217,7 +217,7 @@
     <string name="radius_3dots">Radius&#8230;</string>
     <string name="radius_label">Radius [m]</string>
     <string name="replace_button">Replace</string>
-    <string name="retrieve_z0">Retrieve unknown orientation from last abriss calculation</string>
+    <string name="retrieve_z0">Retrieve unknown orientation from last calculation</string>
     <string name="sa_label">sA [cm]:</string>
     <string name="save">Save</string>
     <string name="save_3dots">Save&#8230;</string>
