@@ -459,6 +459,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             if (this.point2SelectedPosition < 1) {
                 return false;
             }
+            if (this.point1SelectedPosition == this.point2SelectedPosition) {
+                return false;
+            }
         } else {
             if (this.gisementEditText.length() < 1) {
                 return false;
