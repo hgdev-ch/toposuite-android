@@ -44,27 +44,33 @@ public class LineCircleIntersection extends Calculation {
     }
 
     public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL, double _gisement,
-            Point _centerC, double _radiusC,
+            double _distance, Point _centerC, double _radiusC,
             boolean hasDAO) throws IllegalArgumentException {
         super(CalculationType.LINECIRCINTERSEC,
                 App.getContext().getString(R.string.title_activity_line_circle_intersection),
                 hasDAO);
 
-        this.initAttributes(_p1L, _p2L, _displacementL, _gisement, _centerC, _radiusC);
+        this.initAttributes(_p1L, _p2L, _displacementL, _gisement, _distance, _centerC, _radiusC);
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
-    public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL,
+    public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL, double _distance,
             Point _centerC, double _radiusC) {
-        this(_p1L, _p2L, _displacementL, 0.0, _centerC, _radiusC, false);
+        this(_p1L, _p2L, _displacementL, 0.0, _distance, _centerC, _radiusC, false);
     }
 
     public LineCircleIntersection(Point _p1L, double _displacementL, double _gisement,
+            double _distance,
             Point _centerC, double _radiusC) {
-        this(_p1L, null, _displacementL, _gisement, _centerC, _radiusC, false);
+        this(_p1L, null, _displacementL, _gisement, _distance, _centerC, _radiusC, false);
+    }
+
+    public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL, Point _centerC,
+            double _radiusC) {
+        this(_p1L, _p2L, _displacementL, 0.0, _centerC, _radiusC);
     }
 
     public LineCircleIntersection() {
@@ -103,7 +109,7 @@ public class LineCircleIntersection extends Calculation {
      * @throws IllegalArgumentException
      */
     public void initAttributes(Point _p1L, Point _p2L, double _displacementL, double _gisement,
-            Point _centerC, double _radiusC) throws IllegalArgumentException {
+            double _distance, Point _centerC, double _radiusC) throws IllegalArgumentException {
         Preconditions.checkNotNull(_p1L, "The first point must not be null");
 
         this.p1L = _p1L;
@@ -118,6 +124,18 @@ public class LineCircleIntersection extends Calculation {
             this.p2L = _p2L;
         }
         this.displacementL = _displacementL;
+        if (!MathUtils.isZero(_distance)) {
+            double gis = new Gisement(this.p1L, this.p2L, false).getGisement();
+            this.p1L.setEast(
+                    MathUtils.pointLanceEast(this.p1L.getEast(), gis, _distance));
+            this.p1L.setNorth(
+                    MathUtils.pointLanceNorth(this.p1L.getNorth(), gis, _distance));
+            gis += 100;
+            this.p2L.setEast(
+                    MathUtils.pointLanceEast(this.p2L.getEast(), gis, 100));
+            this.p2L.setNorth(
+                    MathUtils.pointLanceNorth(this.p2L.getNorth(), gis, 100));
+        }
 
         this.centerC = _centerC;
         this.radiusC = _radiusC;

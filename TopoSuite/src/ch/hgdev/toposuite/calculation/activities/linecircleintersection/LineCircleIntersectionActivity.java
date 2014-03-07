@@ -509,7 +509,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 .getItemAtPosition(this.centerCSelectedPosition);
         this.radiusC = Double.parseDouble(this.radiusCEditText.getText().toString());
 
-        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement,
+        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1, 
                 this.centerCPoint, this.radiusC);
 
         this.lineCircleIntersection.compute();
