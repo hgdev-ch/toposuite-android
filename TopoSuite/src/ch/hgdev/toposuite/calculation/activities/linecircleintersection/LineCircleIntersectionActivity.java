@@ -33,6 +33,11 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
 
+    private static final String                 LINE_POINT_ONE_SELECTED_POSITION  = "line_point_one_selected_position";
+    private static final String                 LINE_POINT_TWO_SELECTED_POSITION  = "line_point_two_selected_position";
+    private static final String                 CIRCLE_CENTER_SELECTED_POSITION   = "circle_center_selected_position";
+    private static final String                 CIRCLE_BY_POINT_SELECTED_POSITION = "circle_by_point_selected_position";
+
     // line
     private Spinner                             point1Spinner;
     private Spinner                             point2Spinner;
@@ -179,6 +184,34 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     @Override
     protected String getActivityTitle() {
         return this.getString(R.string.title_activity_line_circle_intersection);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(LINE_POINT_ONE_SELECTED_POSITION, this.point1SelectedPosition);
+        outState.putInt(LINE_POINT_TWO_SELECTED_POSITION, this.point2SelectedPosition);
+
+        outState.putInt(CIRCLE_CENTER_SELECTED_POSITION, this.centerCSelectedPosition);
+        outState.putInt(CIRCLE_BY_POINT_SELECTED_POSITION, this.byPointSelectedPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            this.point1SelectedPosition = savedInstanceState.getInt(
+                    LINE_POINT_ONE_SELECTED_POSITION);
+            this.point2SelectedPosition = savedInstanceState.getInt(
+                    LINE_POINT_TWO_SELECTED_POSITION);
+
+            this.centerCSelectedPosition = savedInstanceState.getInt(
+                    CIRCLE_CENTER_SELECTED_POSITION);
+            this.byPointSelectedPosition = savedInstanceState.getInt(
+                    CIRCLE_BY_POINT_SELECTED_POSITION);
+        }
     }
 
     @Override
@@ -430,9 +463,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
      */
     private void fillRadiusC() {
         if ((this.centerCSelectedPosition > 0) && (this.byPointSelectedPosition > 0)) {
-            this.radiusCEditText.setText(DisplayUtils.toString(
-                    MathUtils.euclideanDistance(this.centerCPoint, this.byPoint)));
-            this.radiusCEditText.setEnabled(false);
+            if ((this.centerCPoint != null) && (this.byPoint != null)) {
+                this.radiusCEditText.setText(DisplayUtils.toString(
+                        MathUtils.euclideanDistance(this.centerCPoint, this.byPoint)));
+                this.radiusCEditText.setEnabled(false);
+            }
         } else {
             this.radiusCEditText.setEnabled(true);
         }
