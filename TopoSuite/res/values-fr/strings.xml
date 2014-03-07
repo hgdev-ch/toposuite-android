@@ -109,6 +109,7 @@
     <string name="export">Exporter</string>
     <string name="export_3dots">Exporter&#8230;</string>
     <string name="extremity_label">Extrémité</string>
+    <string name="fh_label">FH [cm]</string>
     <string name="filename">Nom du fichier</string>
     <string name="flat_label">fLat [cm]</string>
     <string name="flon_label">fLon [cm]</string>
