@@ -18,7 +18,6 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
-import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * This class is used to display a dialog for merging two points.
@@ -197,7 +196,7 @@ public class MergePointsDialog extends DialogFragment {
                 this.getActivity().getString(R.string.north),
                 DisplayUtils.toString(deltaNorth),
                 this.getActivity().getString(R.string.fs_label),
-                DisplayUtils.formatDifferences(MathUtils.mToCm(fs)),
+                DisplayUtils.toString(fs),
                 this.getActivity().getString(R.string.altitude),
                 DisplayUtils.toString(deltaAlt));
     }
