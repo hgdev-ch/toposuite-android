@@ -266,7 +266,7 @@ public class FreeStation extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject jo = new JSONObject(jsonInputArgs);
         this.stationNumber = jo.getInt(FreeStation.STATION_NUMBER);
-        this.i = jo.getInt(FreeStation.INSTRUMENT);
+        this.i = jo.getDouble(FreeStation.INSTRUMENT);
 
         for (int i = 0; i < jo.getJSONArray(FreeStation.MEASURES).length(); i++) {
             JSONObject measureObject = (JSONObject) jo.getJSONArray(
