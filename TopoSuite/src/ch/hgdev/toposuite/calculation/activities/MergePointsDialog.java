@@ -18,6 +18,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * This class is used to display a dialog for merging two points.
@@ -215,8 +216,12 @@ public class MergePointsDialog extends DialogFragment {
             this.oldPt.setNorth((this.newPt.getNorth() + this.oldPt.getNorth()) / 2);
 
             if (this.selectedMode != MergePointsDialog.MERGE_MODE_WITHOUT_ALTITUDE) {
-                this.oldPt.setAltitude(
-                        (this.newPt.getAltitude() + this.oldPt.getAltitude()) / 2);
+                if (MathUtils.isZero(this.oldPt.getAltitude())) {
+                    this.oldPt.setAltitude(this.newPt.getAltitude());
+                } else if (!MathUtils.isZero(this.newPt.getAltitude())) {
+                    this.oldPt.setAltitude(
+                            (this.newPt.getAltitude() + this.oldPt.getAltitude()) / 2);
+                }
             }
         }
 
