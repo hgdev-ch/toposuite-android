@@ -60,10 +60,10 @@
                     <a href="#inter_droites">Droites (et/ou directions)</a>
                 </li>
                 <li>
-                    <a href="#inter_cercles">Intersections de cercles (distances)</a>
+                    <a href="#inter_cercles">Intersections de Cercles (distances)</a>
                 </li>
                 <li>
-                    <a href="#inter_droites_cercles">Droite/cercle</a>
+                    <a href="#inter_droites_cercles">Droite / Cercle</a>
                 </li>
             </ol>
         </li>
@@ -82,7 +82,7 @@
             <a href="#divers">Divers</a>
             <ol>
                 <li>
-                    <a href="#gisement">Gisement / distance</a>
+                    <a href="#gisement">Gisement / Distance</a>
                 </li>
                 <li>
                     <a href="#projection">Projection d'un point sur une droite</a>
@@ -91,7 +91,7 @@
                     <a href="#cercle_3points">Calcul d'un cercle par trois points</a>
                 </li>
                 <li>
-                    <a href="#seg_arc">Segmentation d'un arc de cercles</a>
+                    <a href="#seg_arc">Segmentation d'un arc de cercle</a>
                 </li>
                 <li>
                     <a href="#helmert">Transformaation de Helmert (transformation conforme à 4 paramètres)</a>
@@ -105,7 +105,7 @@
                     <a href="#triangle">Résolutions de triangles</a>
                 </li>
                 <li>
-                    <a href="#circ">Résolution d'éléments circulaires</a>
+                    <a href="#circ">Résolutions d'éléments circulaires</a>
                 </li>
             </ol>
         </li>
@@ -116,7 +116,7 @@
 <p>  Unités du programme :<br>
 Tous les angles à introduire doivent être en "Grades" ou en "Gons"      <br>
 Toutes les distances à introduire doivent être en "Mètres".
-Les distances que le programme attend, sont toutes des distances inclinées.     <br>
+Les distances que le programme attend, sont toutes des distances inclinées. <br>
 Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une distance horizontale.
 
 
@@ -125,7 +125,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <h3 id="points">Gestion des points</h3>
   <p> 
     Il est possible soit d'ajouter les points manuellement, 
-    soit d'importer directement tous les points à l'aide d'un fichier CSV.    <br>
+    soit d'importer directement tous les points, à l'aide d'un fichier CSV.    <br>
     Depuis l'appareil (sans connexion):<br>
     Il faut placer le fichier CSV dans le dossier de 
     l'application (/TopoSuite) pour être importé depuis le menu du programme.
@@ -140,8 +140,8 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     N° Point ; Coordonnée Est  ; Coordonnée Nord ; Altitude<br>
   <b>Les points ne doivent pas comporter de lettre ou de "."</b>
   <br>
-    Il est également possible d'exporter le fichier de point avec le bouton partager, ou le bouton "Exporter". 
-    Ce dernier permet d'exporter le ficher dans le dossier interne de TopoSuite et peut être récupérer dans le logiciel 
+    Il est également possible d'exporter le fichier de point avec le bouton "Partager", ou le bouton "Exporter". 
+    Ce dernier permet d'exporter le ficher dans le dossier interne de TopoSuite et peut être récupéré dans le logiciel 
     avec la fonction "Importer"<br>
   <br>
     Pour modifier ou supprimer qu'un seul point, il suffit 
@@ -197,7 +197,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     La condition géométrique suivante devrait être remplie : 
     <br>
     -La distance de la station au point nouveau ne doit pas dépasser 1.25 fois la longueur du vecteur 
-    d'orientation le plus long(distance de la station au point servant d'orientation).  <br>
+    d'orientation le plus long (distance de la station au point servant d'orientation).  <br>
     Pour les déplacements les signes suivants sont à respecter : <br>    <br>
     <img src="file:///android_asset/help/img/polar_survey.png" alt="levé polaire"/>
   </p>                                                          
@@ -205,12 +205,12 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <h4 id="imp_pol">Implantation polaire</h4>
   <p>      
     Le calcul d'implantation polaire permet (à partir de coordonnées) d'obtenir les valeurs suivantes :    <br>
-     - de l'angle horizontal,(Hz)<br>
-     - de la distance horizontale,   <br>
-     - de la distance inclinée,   <br>
-     - de l'angle zénithal, <br>
-     - de la hauteur de prisme, <br>
-     - du gisement, (φ) <br>
+     - l'angle horizontal,(Hz)<br>
+     - la distance horizontale,   <br>
+     - la distance inclinée,   <br>
+     - l'angle zénithal, <br>
+     - la hauteur de prisme, <br>
+     - le gisement (φ) <br>
        <br>
     La condition géométrique suivante devrait être remplie : 
     <br>
@@ -220,7 +220,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
   </p>
 <h4 id="imp_axe">Implantation d'un axe</h4>
   <p>
-    Ce calcul permet d'obtenir le décalage transversal et longitudinal par rapport à un axe AB(à partir du point de base "A")<br>
+    Ce calcul permet d'obtenir le décalage transversal et longitudinal par rapport à un axe AB (à partir du point de base "A")<br>
   </p>
 <h3 id="orthogonaux">Calculs orthogonaux</h3>
 <h4 id="levo_ortho">Levé orthogonal</h4>
@@ -228,7 +228,11 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     La valeur mesurée de la base du levé orthogonal (A-B) doit être rentrée afin de calculer le facteur d'echelle.
   <br><br>
     Les valeurs d'abscisses (x) et d'ordonnées (y) doivent être introduites selon l'image ci-dessous:<br>
-  <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="levé orthogonal"/>
+  <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="levé orthogonal"/> <br>   <br>
+  Les conditions géométriques suivantes devraient être remplies :<br>
+    - L'abscisse hors base ne doit généralement pas dépasser le quart de la longueur de la base.  <br>
+    - L'ordonnée ne doit pas dépasser 35 m (pour un point limite).                                   <br>
+    - L'ordonnée ne doit généralement pas dépasser la longueur de la base.                              <br>
   </p>
 <h4 id="chem_ortho">Cheminement orthogonal</h4>
   <p>
@@ -247,7 +251,8 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     Le calcul d'implantation orthogonale permet (à partir de coordonnées) d'obtenir les valeurs d'abscisses et d'ordonnées,
     pour faire une implantation sur le terrain.
     Les valeurs d'abscisses (x) et d'ordonnées (y) doivent être données selon l'image ci-dessous:<br> <br>
-    <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="Implantation orthogonale"/>
+    <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="Implantation orthogonale"/> <br><br>
+    Les conditions géométriques du levé orthogonal devraient être remplies.
   </p>
 
 <h3 id="intersections">Intersections</h3>
@@ -258,8 +263,8 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
        - Soit par un point et un angle (&phi;).       <br>
     
     La droite peut être soit décalée, soit être perpendiculaire à la droite définie.   <br>
-    Pour le décalage (Valeur X), un signe positif décale la droite sur la droite et un signe négatif la décale sur la gauche.<br>   
-    Si la droite est à la perpendicualaire de celle donnée, une distance du point A (Valeur Y) peut-être rentrée.    <br>
+    Pour le décalage (valeur X), un signe positif décale la droite sur la droite et un signe négatif la décale sur la gauche.<br>   
+    Si la droite est à la perpendicualaire de celle donnée, une distance du point A (valeur Y) peut-être rentrée.    <br>
     Voir image ci-dessous:     <br> <br>
     <img src="file:///android_asset/help/img/lines_intersection.png" alt="Intersection de lignes"/>
     <br>
@@ -316,7 +321,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
    <img src="file:///android_asset/help/img/parallel_displacement.png" alt="Déplacement parallèle de limite avec surface imposée"/><br>
    
 <h3 id="divers">Divers</h3>                                                 
-<h4 id="gisement">Gisement/distance</h4>
+<h4 id="gisement">Gisement/Distance</h4>
   <p>
     Pour le calcul de gisement/distance, il suffit de choisir dans la liste des points connus :<br>
     - le point d'origine,<br> 
@@ -337,7 +342,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     A partir de trois points de la liste de coordonnées, il est possible d'obtenir les coordonnées du centre et le rayon du cercle.<br>
     Il est possible d'enregistrer les coordonnées du centre en rentrant un N° de point.
   </p>
-<h4 id="seg_arc">Segmentation d'un arc de cercles</h4>
+<h4 id="seg_arc">Segmentation d'un arc de cercle</h4>
   <p>
     Ce calcul permet d'obtenir des coordonnées réparties le long de l'arc de cercle.   <br>
     La segmentation peut se faire à partir du nombre de segment que l'on veut ou d'une distance rentrée manuellement.  <br>
