@@ -52,7 +52,7 @@
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/mean_error_label"
+            android:text="@string/mean_error_without_unit_label"
             android:textStyle="bold" />
 	</LinearLayout>
 	
