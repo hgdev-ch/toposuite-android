@@ -292,6 +292,34 @@ public class LineCircleIntersection extends Calculation {
         return LineCircleIntersectionActivity.class;
     }
 
+    public Point getP1L() {
+        return this.p1L;
+    }
+
+    public Point getP2L() {
+        return this.p2L;
+    }
+
+    public double getDisplacementL() {
+        return this.displacementL;
+    }
+
+    public double getGisementL() {
+        return this.gisementL;
+    }
+
+    public double getDistanceL() {
+        return this.distanceL;
+    }
+
+    public Point getCenterC() {
+        return this.centerC;
+    }
+
+    public double getRadiusC() {
+        return this.radiusC;
+    }
+
     public Point getFirstIntersection() {
         return this.firstIntersection;
     }

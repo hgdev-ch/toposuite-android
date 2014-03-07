@@ -121,7 +121,45 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            // TODO handle resume from history
+            this.lineCircleIntersection = (LineCircleIntersection) SharedResources
+                    .getCalculationsHistory().get(this.position);
+
+            this.point1SelectedPosition = this.adapter.getPosition(
+                    this.lineCircleIntersection.getP1L());
+            this.point2SelectedPosition = this.adapter.getPosition(
+                    this.lineCircleIntersection.getP2L());
+            double distance = this.lineCircleIntersection.getDistanceL();
+            if (MathUtils.isPositive(distance)) {
+                this.isLinePerpendicular = true;
+                this.distP1EditText.setText(DisplayUtils.toString(distance));
+            } else {
+                this.isLinePerpendicular = false;
+                this.distP1EditText.setText("");
+            }
+            this.distP1TexView.setEnabled(this.isLinePerpendicular);
+            this.distP1EditText.setEnabled(this.isLinePerpendicular);
+
+            double displacement = this.lineCircleIntersection.getDisplacementL();
+            if (!MathUtils.isZero(displacement)) {
+                this.displacementEditText.setText(
+                        DisplayUtils.toString(displacement));
+            }
+            double gisement = this.lineCircleIntersection.getGisementL();
+            if (MathUtils.isPositive(gisement)) {
+                this.modeGisementRadio.setChecked(true);
+                this.setModeGisement();
+                this.gisementEditText.setText(
+                        DisplayUtils.toString(gisement));
+            } else {
+                this.modeGisementRadio.setChecked(false);
+                this.setModeLine();
+                this.gisementEditText.setText("");
+            }
+
+            this.centerCSelectedPosition = this.adapter.getPosition(
+                    this.lineCircleIntersection.getCenterC());
+            this.radiusCEditText.setText(
+                    DisplayUtils.toString(this.lineCircleIntersection.getRadiusC()));
         }
 
         this.point1Spinner.setSelection(this.point1SelectedPosition);
@@ -412,25 +450,39 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         switch (view.getId()) {
         case R.id.mode_gisement:
             if (checked) {
-                this.point2SpinnerLayout.setVisibility(View.GONE);
-                if (this.point2Layout != null) {
-                    this.point2Layout.setVisibility(View.GONE);
-                }
-                this.gisementLayout.setVisibility(View.VISIBLE);
-                this.mode = LineCircleIntersectionActivity.Mode.GISEMENT;
+                this.setModeGisement();
                 break;
             }
         case R.id.mode_line:
             if (checked) {
-                this.point2SpinnerLayout.setVisibility(View.VISIBLE);
-                if (this.point2Layout != null) {
-                    this.point2Layout.setVisibility(View.VISIBLE);
-                }
-                this.gisementLayout.setVisibility(View.GONE);
-                this.mode = LineCircleIntersectionActivity.Mode.LINE;
+                this.setModeLine();
                 break;
             }
         }
+    }
+
+    /**
+     * Set mode to gisement and adapt views accordingly.
+     */
+    private void setModeGisement() {
+        this.point2SpinnerLayout.setVisibility(View.GONE);
+        if (this.point2Layout != null) {
+            this.point2Layout.setVisibility(View.GONE);
+        }
+        this.gisementLayout.setVisibility(View.VISIBLE);
+        this.mode = LineCircleIntersectionActivity.Mode.GISEMENT;
+    }
+
+    /**
+     * Set mode to line and adapt views accordingly.
+     */
+    private void setModeLine() {
+        this.point2SpinnerLayout.setVisibility(View.VISIBLE);
+        if (this.point2Layout != null) {
+            this.point2Layout.setVisibility(View.VISIBLE);
+        }
+        this.gisementLayout.setVisibility(View.GONE);
+        this.mode = LineCircleIntersectionActivity.Mode.LINE;
     }
 
     /**
@@ -444,6 +496,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         this.distP1TexView.setEnabled(checked);
         this.distP1EditText.setEnabled(checked);
         this.isLinePerpendicular = checked;
+        if (!checked) {
+            this.distP1EditText.setText("");
+        }
     }
 
     /**
@@ -509,7 +564,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 .getItemAtPosition(this.centerCSelectedPosition);
         this.radiusC = Double.parseDouble(this.radiusCEditText.getText().toString());
 
-        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1, 
+        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1,
                 this.centerCPoint, this.radiusC);
 
         this.lineCircleIntersection.compute();
