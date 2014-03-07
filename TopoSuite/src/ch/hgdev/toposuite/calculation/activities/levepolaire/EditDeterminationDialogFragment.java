@@ -101,21 +101,29 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                                 EditDeterminationDialogFragment.this.zenAngle = Double
                                         .parseDouble(EditDeterminationDialogFragment.this.zenAngleEditText
                                                 .getText().toString());
+                            } else {
+                                EditDeterminationDialogFragment.this.zenAngle = 0.0;
                             }
                             if (EditDeterminationDialogFragment.this.sEditText.length() > 0) {
                                 EditDeterminationDialogFragment.this.s = Double
                                         .parseDouble(EditDeterminationDialogFragment.this.sEditText
                                                 .getText().toString());
+                            } else {
+                                EditDeterminationDialogFragment.this.s = 0.0;
                             }
                             if (EditDeterminationDialogFragment.this.latDeplEditText.length() > 0) {
                                 EditDeterminationDialogFragment.this.latDepl = Double
                                         .parseDouble(EditDeterminationDialogFragment.this.latDeplEditText
                                                 .getText().toString());
+                            } else {
+                                EditDeterminationDialogFragment.this.latDepl = 0.0;
                             }
                             if (EditDeterminationDialogFragment.this.lonDeplEditText.length() > 0) {
                                 EditDeterminationDialogFragment.this.lonDepl = Double
                                         .parseDouble(EditDeterminationDialogFragment.this.lonDeplEditText
                                                 .getText().toString());
+                            } else {
+                                EditDeterminationDialogFragment.this.lonDepl = 0.0;
                             }
 
                             EditDeterminationDialogFragment.this.determinationNo = Integer
