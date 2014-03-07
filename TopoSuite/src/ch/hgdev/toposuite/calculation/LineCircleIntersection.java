@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.util.Log;
 import ch.hgdev.toposuite.App;
@@ -14,12 +15,24 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
+import com.google.common.base.Preconditions;
+
 public class LineCircleIntersection extends Calculation {
-    private static final String LINE_CIRCLE_INTERSECTION = "Line-Circle intersection: ";
+    private static final String LINE_CIRCLE_INTERSECTION   = "Line-Circle intersection: ";
+
+    private static final String LINE_POINT_ONE_NUMBER      = "line_point_one_number";
+    private static final String LINE_POINT_TWO_NUMBER      = "line_point_two_number";
+    private static final String LINE_DISPLACEMENT          = "line_displacement";
+    private static final String LINE_GISEMENT              = "line_gisement";
+    private static final String LINE_DISTANCE              = "line_distance";
+    private static final String CIRCLE_POINT_CENTER_NUMBER = "circle_point_center_number";
+    private static final String CIRCLE_RADIUS              = "circle_radius";
 
     private Point               p1L;
     private Point               p2L;
     private double              displacementL;
+    private double              gisementL;
+    private double              distanceL;
 
     private Point               centerC;
     private double              radiusC;
@@ -41,23 +54,34 @@ public class LineCircleIntersection extends Calculation {
                 true);
     }
 
-    public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL,
-            Point _centerC, double _radiusC,
-            boolean hasDAO) {
+    public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL, double _gisement,
+            double _distance, Point _centerC, double _radiusC,
+            boolean hasDAO) throws IllegalArgumentException {
         super(CalculationType.LINECIRCINTERSEC,
                 App.getContext().getString(R.string.title_activity_line_circle_intersection),
                 hasDAO);
 
-        this.initAttributes(_p1L, _p2L, _displacementL, _centerC, _radiusC);
+        this.initAttributes(_p1L, _p2L, _displacementL, _gisement, _distance, _centerC, _radiusC);
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
-    public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL,
+    public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL, double _distance,
             Point _centerC, double _radiusC) {
-        this(_p1L, _p2L, _displacementL, _centerC, _radiusC, false);
+        this(_p1L, _p2L, _displacementL, 0.0, _distance, _centerC, _radiusC, false);
+    }
+
+    public LineCircleIntersection(Point _p1L, double _displacementL, double _gisement,
+            double _distance,
+            Point _centerC, double _radiusC) {
+        this(_p1L, null, _displacementL, _gisement, _distance, _centerC, _radiusC, false);
+    }
+
+    public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL, Point _centerC,
+            double _radiusC) {
+        this(_p1L, _p2L, _displacementL, 0.0, _centerC, _radiusC);
     }
 
     public LineCircleIntersection() {
@@ -68,6 +92,8 @@ public class LineCircleIntersection extends Calculation {
         this.p1L = new Point(0, 0.0, 0.0, 0.0, false, false);
         this.p2L = new Point(0, 0.0, 0.0, 0.0, false, false);
         this.displacementL = 0.0;
+        this.gisementL = 0.0;
+        this.distanceL = 0.0;
 
         this.centerC = new Point(0, 0.0, 0.0, 0.0, false, false);
         this.radiusC = 0.0;
@@ -78,14 +104,56 @@ public class LineCircleIntersection extends Calculation {
         SharedResources.getCalculationsHistory().add(0, this);
     }
 
-    private void initAttributes(Point _p1L, Point _p2L, double _displacementL,
-            Point _centerC, double _radiusC) {
-        this.setP1L(_p1L);
-        this.setP2L(_p2L);
-        this.setDisplacementL(_displacementL);
+    /**
+     * Initialize class attributes.
+     * 
+     * @param _p1L
+     *            First point on the line. Must NOT be null.
+     * @param _p2L
+     *            Second point on the line. May be null.
+     * @param _displacementL
+     *            Displacement.
+     * @param _gisement
+     *            Gisement. Not used of _p2L is not null.
+     * @param _centerC
+     *            Center of the circle.
+     * @param _radiusC
+     *            Radius of the circle.
+     * @throws IllegalArgumentException
+     */
+    public void initAttributes(Point _p1L, Point _p2L, double _displacementL, double _gisement,
+            double _distance, Point _centerC, double _radiusC) throws IllegalArgumentException {
+        Preconditions.checkNotNull(_p1L, "The first point must not be null");
 
-        this.setCenterC(_centerC);
-        this.setRadiusC(_radiusC);
+        this.p1L = _p1L;
+        if (_p2L == null) {
+            this.p2L = new Point(
+                    0,
+                    MathUtils.pointLanceEast(_p1L.getEast(), _gisement, 100),
+                    MathUtils.pointLanceNorth(_p1L.getNorth(), _gisement, 100.0),
+                    0.0,
+                    false);
+        } else {
+            this.p2L = _p2L;
+        }
+        this.displacementL = _displacementL;
+        this.gisementL = _gisement;
+        if (!MathUtils.isZero(_distance)) {
+            this.distanceL = _distance;
+            double gis = new Gisement(this.p1L, this.p2L, false).getGisement();
+            this.p1L.setEast(
+                    MathUtils.pointLanceEast(this.p1L.getEast(), gis, _distance));
+            this.p1L.setNorth(
+                    MathUtils.pointLanceNorth(this.p1L.getNorth(), gis, _distance));
+            gis += 100;
+            this.p2L.setEast(
+                    MathUtils.pointLanceEast(this.p2L.getEast(), gis, 100));
+            this.p2L.setNorth(
+                    MathUtils.pointLanceNorth(this.p2L.getNorth(), gis, 100));
+        }
+
+        this.centerC = _centerC;
+        this.radiusC = _radiusC;
 
         this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
         this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
@@ -187,13 +255,36 @@ public class LineCircleIntersection extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO implement
-        return null;
+        JSONObject json = new JSONObject();
+
+        json.put(LINE_POINT_ONE_NUMBER, this.p1L.getNumber());
+        json.put(LINE_POINT_TWO_NUMBER, this.p2L.getNumber());
+        json.put(LINE_DISPLACEMENT, this.displacementL);
+        json.put(LINE_GISEMENT, this.gisementL);
+        json.put(LINE_DISTANCE, this.distanceL);
+        json.put(CIRCLE_POINT_CENTER_NUMBER, this.centerC.getNumber());
+        json.put(CIRCLE_RADIUS, this.radiusC);
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO implement
+        JSONObject json = new JSONObject(jsonInputArgs);
+
+        Point p1L = SharedResources.getSetOfPoints().find(
+                json.getInt(LINE_POINT_ONE_NUMBER));
+        Point p2L = SharedResources.getSetOfPoints().find(
+                json.getInt(LINE_POINT_TWO_NUMBER));
+        double displacement = json.getDouble(LINE_DISPLACEMENT);
+        double gisement = json.getDouble(LINE_GISEMENT);
+        double distance = json.getDouble(LINE_DISTANCE);
+
+        Point centerC = SharedResources.getSetOfPoints().find(
+                json.getInt(CIRCLE_POINT_CENTER_NUMBER));
+        double radiusC = json.getDouble(CIRCLE_RADIUS);
+
+        this.initAttributes(p1L, p2L, displacement, gisement, distance, centerC, radiusC);
     }
 
     @Override
@@ -207,25 +298,5 @@ public class LineCircleIntersection extends Calculation {
 
     public Point getSecondIntersection() {
         return this.secondIntersection;
-    }
-
-    public void setP1L(Point p1l) {
-        this.p1L = p1l;
-    }
-
-    public void setP2L(Point p2l) {
-        this.p2L = p2l;
-    }
-
-    public void setDisplacementL(double displacementL) {
-        this.displacementL = displacementL;
-    }
-
-    public void setCenterC(Point centerC) {
-        this.centerC = centerC;
-    }
-
-    public void setRadiusC(double radiusC) {
-        this.radiusC = radiusC;
     }
 }
