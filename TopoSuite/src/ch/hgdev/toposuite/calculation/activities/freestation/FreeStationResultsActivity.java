@@ -120,7 +120,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
             args.putDouble(MergePointsDialog.NEW_NORTH,
                     st.getNorth());
             args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                    0.0);
+                    st.getAltitude());
 
             dialog.setArguments(args);
             dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
