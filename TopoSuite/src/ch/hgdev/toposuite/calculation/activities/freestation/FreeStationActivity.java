@@ -146,11 +146,9 @@ public class FreeStationActivity extends TopoSuiteActivity implements
             if (this.checkInputs()) {
                 // update I and station number
                 this.freeStation.setI(
-                        Double.parseDouble(
-                                this.iEditText.getText().toString()));
+                        ViewUtils.readDouble(this.iEditText));
                 this.freeStation.setStationNumber(
-                        Integer.parseInt(
-                                this.stationEditText.getText().toString()));
+                        ViewUtils.readInt(this.stationEditText));
 
                 this.startFreeStationResultsActivity();
             } else {
@@ -219,7 +217,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
      * Check user inputs.
      */
     private boolean checkInputs() {
-        return ((this.freeStation != null) && (this.iEditText.length() > 0)
+        return ((this.freeStation != null)
                 && (this.stationEditText.length() > 0)
                 && (this.freeStation.getMeasures().size() >= 3));
     }
