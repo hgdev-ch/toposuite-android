@@ -8,11 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.FreeStation;
-import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> {
@@ -42,19 +39,8 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
             TextView fSTextView = (TextView) view.findViewById(R.id.fs_item);
 
             if (numberTextView != null) {
-                String numberText = DisplayUtils.toString(result.getPoint().getNumber()) + " ";
-                FreeStation.Result r = this.getItem(position);
-                Point point = new Point(
-                        r.getPoint().getNumber(),
-                        r.getPoint().getEast(),
-                        r.getPoint().getNorth(),
-                        0.0,
-                        false);
-                Point p = SharedResources.getSetOfPoints().find(r.getPoint().getNumber());
-                numberText += point.equals(p) ?
-                        App.getContext().getString(R.string.heavy_checkmark) :
-                        App.getContext().getString(R.string.heavy_ballot);
-                numberTextView.setText(numberText);
+                numberTextView.setText(
+                        DisplayUtils.toString(result.getPoint().getNumber()));
             }
 
             if (vETextView != null) {
