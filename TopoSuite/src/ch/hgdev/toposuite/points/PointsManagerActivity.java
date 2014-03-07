@@ -354,6 +354,13 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                                         .getContentResolver();
                                 String ext = mime.substring(mime.lastIndexOf("/") + 1);
 
+                                // ugly hack to support ES File Explorer and Samsung's file
+                                // explorer that set the MIME type of a CSV file to
+                                // "text/comma-separated-values" instead of "text/csv"
+                                if (ext.equalsIgnoreCase("comma-separated-values")) {
+                                    ext = "csv";
+                                }
+
                                 // make sure the file format is supported
                                 if (!SupportedFileTypes.isSupported(ext)) {
                                     Toast.makeText(PointsManagerActivity.this,
