@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.widget.EditText;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
@@ -46,5 +47,27 @@ public class ViewUtils {
         Intent pointsManagerIntent = new Intent(
                 currentActivity, PointsManagerActivity.class);
         currentActivity.startActivity(pointsManagerIntent);
+    }
+
+    /**
+     * Convenient function for locking screen orientation.
+     * 
+     * @param currentActivity
+     *            Activity that request the lock.
+     */
+    public static void lockScreenOrientation(Activity currentActivity) {
+        currentActivity.setRequestedOrientation(
+                ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+    }
+
+    /**
+     * Convenient function for unlocking screen orientation.
+     * 
+     * @param currentActivity
+     *            Activity that request the unlock.
+     */
+    public static void unlockScreenOrientation(Activity currentActivity) {
+        currentActivity.setRequestedOrientation(
+                ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 }
