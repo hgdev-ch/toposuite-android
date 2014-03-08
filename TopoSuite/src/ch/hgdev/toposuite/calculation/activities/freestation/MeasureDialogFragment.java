@@ -54,6 +54,8 @@ public class MeasureDialogFragment extends DialogFragment {
          *            Dialog to fetch information from.
          */
         void onDialogEdit(MeasureDialogFragment dialog);
+
+        void onDialogCancel();
     }
 
     MeasureDialogListener       listener;
@@ -129,7 +131,7 @@ public class MeasureDialogFragment extends DialogFragment {
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // nothing
+                        MeasureDialogFragment.this.listener.onDialogCancel();
                     }
                 });
         Dialog dialog = builder.create();

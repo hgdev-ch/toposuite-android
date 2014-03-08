@@ -168,6 +168,8 @@ public class FreeStationActivity extends TopoSuiteActivity implements
      * Display a dialog to allow the user to insert a new measure.
      */
     private void showAddMeasureDialog() {
+        ViewUtils.lockScreenOrientation(this);
+
         boolean isSMandatory = ((this.iEditText.length() == 0) ||
                 MathUtils.isZero(ViewUtils.readDouble(this.iEditText))) ? false : true;
         MeasureDialogFragment dialog = new MeasureDialogFragment(isSMandatory);
@@ -178,6 +180,8 @@ public class FreeStationActivity extends TopoSuiteActivity implements
      * Display a dialog to allow the user to edit an existing measure.
      */
     private void showEditMeasureDialog(int position) {
+        ViewUtils.lockScreenOrientation(this);
+
         boolean isSMandatory = ((this.iEditText.length() == 0) ||
                 MathUtils.isZero(ViewUtils.readDouble(this.iEditText))) ? false : true;
 
@@ -251,5 +255,12 @@ public class FreeStationActivity extends TopoSuiteActivity implements
         m.setLonDepl(dialog.getLonDepl());
 
         this.adapter.notifyDataSetChanged();
+
+        ViewUtils.unlockScreenOrientation(this);
+    }
+
+    @Override
+    public void onDialogCancel() {
+        ViewUtils.unlockScreenOrientation(this);
     }
 }

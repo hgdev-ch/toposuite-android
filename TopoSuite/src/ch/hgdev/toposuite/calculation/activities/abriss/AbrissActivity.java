@@ -30,6 +30,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class AbrissActivity extends TopoSuiteActivity implements
         AddOrientationDialogFragment.AddOrientationDialogListener,
@@ -213,7 +214,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
         switch (item.getItemId()) {
         case R.id.edit_orientation:
-            this.editOrientationDialog(info.position);
+            this.showEditOrientationDialog(info.position);
             return true;
         case R.id.delete_calculation:
             this.adapter.remove(this.adapter.getItem(info.position));
@@ -228,6 +229,8 @@ public class AbrissActivity extends TopoSuiteActivity implements
      * Display a dialog to allow the user to insert a new orientation.
      */
     private void showAddOrientationDialog() {
+        ViewUtils.lockScreenOrientation(this);
+
         AddOrientationDialogFragment dialog = new AddOrientationDialogFragment();
         dialog.show(this.getFragmentManager(), "AddOrientationDialogFragment");
     }
@@ -235,7 +238,9 @@ public class AbrissActivity extends TopoSuiteActivity implements
     /**
      * Display a dialog to allow the user to edit an orientation.
      */
-    private void editOrientationDialog(int position) {
+    private void showEditOrientationDialog(int position) {
+        ViewUtils.lockScreenOrientation(this);
+
         EditOrientationDialogFragment dialog = new EditOrientationDialogFragment();
         Bundle args = new Bundle();
         Measure measure = this.adapter.getItem(position);
@@ -272,7 +277,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(AddOrientationDialogFragment dialog) {
-        // DO NOTHING
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
@@ -285,10 +290,12 @@ public class AbrissActivity extends TopoSuiteActivity implements
         orientation.setDistance(dialog.getHorizontalDistance());
         orientation.setZenAngle(zenithAngle);
         this.adapter.notifyDataSetChanged();
+
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
     public void onDialogCancel(EditOrientationDialogFragment dialog) {
-        // DO NOTHING
+        ViewUtils.unlockScreenOrientation(this);
     }
 }

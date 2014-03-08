@@ -28,6 +28,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class OrthogonalImplantationActivity extends TopoSuiteActivity
         implements AddMeasureDialogFragment.AddMeasureDialogListener,
@@ -309,11 +310,15 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     }
 
     private void showAddMeasureDialog() {
+        ViewUtils.lockScreenOrientation(this);
+
         AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
         dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
     private void showEditMeasureDialog(int pos) {
+        ViewUtils.lockScreenOrientation(this);
+
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
         int orthImplPos = SharedResources.getCalculationsHistory().indexOf(
@@ -342,7 +347,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
 
     @Override
     public void onDialogCancel(AddMeasureDialogFragment dialog) {
-        // NOTHING
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
@@ -351,10 +356,12 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         Point p = this.adapter.getItem(dialog.getMeasurePosition());
         p = dialog.getPoint();
         this.adapter.notifyDataSetChanged();
+
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
     public void onDialogCancel(EditMeasureDialogFragment dialog) {
-        // NOTHING
+        ViewUtils.unlockScreenOrientation(this);
     }
 }

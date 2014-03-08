@@ -42,6 +42,7 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
  * Activity related to the polar survey calculation.
@@ -161,7 +162,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     this.z0Station = fs.getStationResult();
                 } else {
                     Log.e(Logger.TOPOSUITE_CALCULATION_INVALID_TYPE,
-                            POLAR_SURVEY_ACTIVITY
+                            PolarSurveyActivity.POLAR_SURVEY_ACTIVITY
                                     + "trying to get Z0 from a calculation that does not compute one");
                 }
                 this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
@@ -266,7 +267,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 }
             } catch (JSONException e) {
                 Log.e(Logger.TOPOSUITE_PARSE_ERROR,
-                        POLAR_SURVEY_ACTIVITY + "error retrieving list of determinations from JSON");
+                        PolarSurveyActivity.POLAR_SURVEY_ACTIVITY
+                                + "error retrieving list of determinations from JSON");
             }
             this.drawList();
         }
@@ -350,6 +352,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
      * Display a dialog to allow the user to insert a new determination.
      */
     private void showAddDeterminationDialog() {
+        ViewUtils.lockScreenOrientation(this);
+
         AddDeterminationDialogFragment dialog = new AddDeterminationDialogFragment();
         dialog.show(this.getFragmentManager(), "AddDeterminationDialogFragment");
     }
@@ -360,6 +364,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
      *            Position of the determination measure to edit.
      */
     private void showEditDeterminationDialog(int position) {
+        ViewUtils.lockScreenOrientation(this);
+
         EditDeterminationDialogFragment dialog = new EditDeterminationDialogFragment();
 
         this.position = position;
@@ -471,7 +477,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(AddDeterminationDialogFragment dialog) {
-        // do nothing actually
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
@@ -492,10 +498,12 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         this.position = -1;
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
+
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
     public void onDialogCancel(EditDeterminationDialogFragment dialog) {
-        // do nothing actually
+        ViewUtils.unlockScreenOrientation(this);
     }
 }

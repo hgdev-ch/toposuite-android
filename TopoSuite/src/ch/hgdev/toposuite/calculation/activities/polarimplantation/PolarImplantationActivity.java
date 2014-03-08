@@ -42,6 +42,7 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PolarImplantationActivity extends TopoSuiteActivity implements
         AddPointWithSDialogFragment.AddPointWithSDialogListener,
@@ -309,6 +310,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
      * Show a dialog to add a new point, with optional S.
      */
     private void showAddPointDialog() {
+        ViewUtils.lockScreenOrientation(this);
+
         AddPointWithSDialogFragment dialog = new AddPointWithSDialogFragment();
         dialog.show(this.getFragmentManager(), "AddPointWithSDialogFragment");
     }
@@ -319,6 +322,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
      *            Position of the point with S to edit.
      */
     private void showEditPointWithSDialog(int position) {
+        ViewUtils.lockScreenOrientation(this);
+
         EditPointWithSDialogFragment dialog = new EditPointWithSDialogFragment();
 
         this.position = position;
@@ -398,7 +403,6 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogAdd(AddPointWithSDialogFragment dialog) {
-
         Measure m = new Measure(
                 dialog.getPoint(),
                 0.0,
@@ -417,7 +421,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(AddPointWithSDialogFragment dialog) {
-        // do nothing actually
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
@@ -438,10 +442,12 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.position = -1;
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
+
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
     public void onDialogCancel(EditPointWithSDialogFragment dialog) {
-        // do nothing actually
+        ViewUtils.unlockScreenOrientation(this);
     }
 }

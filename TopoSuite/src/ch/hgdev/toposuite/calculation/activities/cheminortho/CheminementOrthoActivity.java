@@ -29,6 +29,7 @@ import ch.hgdev.toposuite.calculation.activities.cheminortho.EditMeasureDialogFr
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CheminementOrthoActivity extends TopoSuiteActivity implements
         AddMeasureDialogListener, EditMeasureDialogListener {
@@ -312,11 +313,15 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
     }
 
     private void showAddMeasureDialog() {
+        ViewUtils.lockScreenOrientation(this);
+
         AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
         dialog.show(this.getFragmentManager(), "AddPointDialogFragment");
     }
 
     private void showEditMeasureDialog(int pos) {
+        ViewUtils.lockScreenOrientation(this);
+
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
         int leveOrthoPos = SharedResources.getCalculationsHistory().indexOf(this.cheminOrtho);
@@ -349,7 +354,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(AddMeasureDialogFragment dialog) {
-        // NOTHING
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
@@ -360,10 +365,12 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         m.setNumber(dialog.getNumber());
         m.setDistance(dialog.getDistance());
         this.adapter.notifyDataSetChanged();
+
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
     public void onDialogCancel(EditMeasureDialogFragment dialog) {
-        // NOTHING
+        ViewUtils.unlockScreenOrientation(this);
     }
 }
