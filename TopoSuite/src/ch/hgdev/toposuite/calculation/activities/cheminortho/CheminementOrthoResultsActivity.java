@@ -145,7 +145,9 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
      * already exists in the database, it is simply skipped.
      */
     private void savePoints() {
-        for (int position = 0; position < this.adapter.getCount(); position++) {
+        // This loop stops at this.adapter.getCount()-1 because the last point is
+        // the extremity and it must not be changed.
+        for (int position = 0; position < (this.adapter.getCount() - 1); position++) {
             this.savePoint(position);
         }
     }
