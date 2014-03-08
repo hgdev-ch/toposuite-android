@@ -1,6 +1,9 @@
 package ch.hgdev.toposuite.utils;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.widget.EditText;
+import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
  * Useful functions for interacting with View object.
@@ -31,5 +34,17 @@ public class ViewUtils {
     public static int readInt(EditText editText) {
         return ((editText != null) && (editText.length() > 0)) ? Integer.parseInt(
                 editText.getText().toString()) : 0;
+    }
+
+    /**
+     * Start the Points Manager Activity ({@link PointsManagerActivity}).
+     * 
+     * @param currentActivity
+     *            Activity that performs the redirection.
+     */
+    public static void redirectToPointsManagerActivity(Activity currentActivity) {
+        Intent pointsManagerIntent = new Intent(
+                currentActivity, PointsManagerActivity.class);
+        currentActivity.startActivity(pointsManagerIntent);
     }
 }
