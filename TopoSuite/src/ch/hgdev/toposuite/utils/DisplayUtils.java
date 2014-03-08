@@ -157,7 +157,7 @@ public class DisplayUtils {
      * @return formatted centimeters.
      */
     public static String formatDifferences(double cm) {
-        return String.format("%.1f", cm);
+        return String.format(App.locale, "%.1f", cm);
     }
 
     /**
