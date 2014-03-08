@@ -18,7 +18,7 @@ public class MathUtils {
     /**
      * The machine precision used to perform logical operation on doubles.
      */
-    public static final double EPSILON      = Double.MIN_VALUE;
+    public static final double EPSILON      = Double.MIN_NORMAL;
 
     /**
      * Check if a double is zero.
