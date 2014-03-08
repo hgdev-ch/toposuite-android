@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.calculation.activities.levepolaire;
+package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
 import java.util.ArrayList;
 
@@ -11,16 +11,16 @@ import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
-import ch.hgdev.toposuite.calculation.LevePolaire;
-import ch.hgdev.toposuite.calculation.LevePolaire.Result;
+import ch.hgdev.toposuite.calculation.PolarSurvey;
+import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
-public class ArrayListOfResultsAdapter extends ArrayAdapter<LevePolaire.Result> {
-    private final ArrayList<LevePolaire.Result> results;
+public class ArrayListOfResultsAdapter extends ArrayAdapter<PolarSurvey.Result> {
+    private final ArrayList<PolarSurvey.Result> results;
 
     public ArrayListOfResultsAdapter(Context context, int textViewResourceId,
-            ArrayList<LevePolaire.Result> _results) {
+            ArrayList<PolarSurvey.Result> _results) {
         super(context, textViewResourceId, _results);
         this.results = _results;
     }
@@ -31,9 +31,9 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<LevePolaire.Result> 
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.leve_polaire_results_list_item, null);
+            view = inflater.inflate(R.layout.polar_survey_results_list_item, null);
         }
-        LevePolaire.Result result = this.results.get(position);
+        PolarSurvey.Result result = this.results.get(position);
 
         if (result != null) {
             TextView numberTextView = (TextView) view.findViewById(R.id.determination_number_item);

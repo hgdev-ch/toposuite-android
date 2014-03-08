@@ -10,19 +10,19 @@ import org.json.JSONObject;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
-import ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity;
+import ch.hgdev.toposuite.calculation.activities.polarsurvey.PolarSurveyActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
- * Implementation of the "leve polaire" calculation. It computes the north and
+ * Implementation of the polar survey calculation. It computes the north and
  * east coordinates of the "thrown point", accessible by getters after a call to
  * the compute() method.
  * 
  * @author HGdev
  * 
  */
-public class LevePolaire extends Calculation {
+public class PolarSurvey extends Calculation {
     public static final String       STATION_NUMBER      = "station_number";
     public static final String       DETERMINATIONS_LIST = "determinations_list";
 
@@ -30,9 +30,9 @@ public class LevePolaire extends Calculation {
     private final ArrayList<Measure> determinations;
     private final ArrayList<Result>  results;
 
-    public LevePolaire(long id, Date lastModification) {
-        super(id, CalculationType.LEVEPOLAIRE,
-                App.getContext().getString(R.string.title_activity_leve_polaire),
+    public PolarSurvey(long id, Date lastModification) {
+        super(id, CalculationType.POLARSURVEY,
+                App.getContext().getString(R.string.title_activity_polar_survey),
                 lastModification,
                 true);
 
@@ -40,9 +40,9 @@ public class LevePolaire extends Calculation {
         this.results = new ArrayList<Result>();
     }
 
-    public LevePolaire(Point _station, boolean hasDAO) {
-        super(CalculationType.LEVEPOLAIRE,
-                App.getContext().getString(R.string.title_activity_leve_polaire),
+    public PolarSurvey(Point _station, boolean hasDAO) {
+        super(CalculationType.POLARSURVEY,
+                App.getContext().getString(R.string.title_activity_polar_survey),
                 hasDAO);
 
         this.determinations = new ArrayList<Measure>();
@@ -101,7 +101,7 @@ public class LevePolaire extends Calculation {
     public String exportToJSON() throws JSONException {
         JSONObject json = new JSONObject();
         if (this.station != null) {
-            json.put(LevePolaire.STATION_NUMBER, this.station.getNumber());
+            json.put(PolarSurvey.STATION_NUMBER, this.station.getNumber());
         }
 
         if (this.determinations.size() > 0) {
@@ -110,7 +110,7 @@ public class LevePolaire extends Calculation {
                 determinationsArray.put(m.toJSONObject());
             }
 
-            json.put(LevePolaire.DETERMINATIONS_LIST, determinationsArray);
+            json.put(PolarSurvey.DETERMINATIONS_LIST, determinationsArray);
         }
 
         return json.toString();
@@ -120,9 +120,9 @@ public class LevePolaire extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
         this.station = SharedResources.getSetOfPoints().find(
-                json.getInt(LevePolaire.STATION_NUMBER));
+                json.getInt(PolarSurvey.STATION_NUMBER));
 
-        JSONArray determinationsArray = json.getJSONArray(LevePolaire.DETERMINATIONS_LIST);
+        JSONArray determinationsArray = json.getJSONArray(PolarSurvey.DETERMINATIONS_LIST);
 
         for (int i = 0; i < determinationsArray.length(); i++) {
             JSONObject jo = (JSONObject) determinationsArray.get(i);
@@ -143,7 +143,7 @@ public class LevePolaire extends Calculation {
 
     @Override
     public Class<?> getActivityClass() {
-        return LevePolaireActivity.class;
+        return PolarSurveyActivity.class;
     }
 
     public ArrayList<Measure> getDeterminations() {
@@ -159,7 +159,7 @@ public class LevePolaire extends Calculation {
     }
 
     /**
-     * Class to store the results of the leve polaire calculation on each
+     * Class to store the results of the polar survey calculation on each
      * determination.
      * 
      * @author HGdev

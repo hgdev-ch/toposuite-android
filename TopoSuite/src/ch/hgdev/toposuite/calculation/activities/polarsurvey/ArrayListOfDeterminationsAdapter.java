@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.calculation.activities.levepolaire;
+package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
 import java.util.ArrayList;
 

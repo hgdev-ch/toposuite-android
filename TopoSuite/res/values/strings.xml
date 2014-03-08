@@ -260,8 +260,6 @@
     <string name="title_activity_history">History</string>
     <string name="title_activity_leve_ortho">Orthogonal survey</string>
     <string name="title_activity_leve_ortho_results">Orthogonal survey results</string>
-    <string name="title_activity_leve_polaire">Polar survey</string>
-    <string name="title_activity_leve_polaire_results">Polar survey results</string>
     <string name="title_activity_line_circle_intersection">Line-circle intersection</string>
     <string name="title_activity_lines_intersection">Lines intersection</string>
     <string name="title_activity_orthogonal_implantation">Orthogonal implantation</string>
@@ -271,6 +269,8 @@
     <string name="title_activity_points_manager">Points Manager</string>
     <string name="title_activity_polar_implantation">Polar implantation</string>
     <string name="title_activity_polar_implantation_results">Polar implantation results</string>
+    <string name="title_activity_polar_survey">Polar survey</string>
+    <string name="title_activity_polar_survey_results">Polar survey results</string>
     <string name="title_activity_surface">Surface</string>
     <string name="title_activity_triangle_solver">Triangle solver</string>
     <string name="toggle_right_menu_button">Calculations</string>

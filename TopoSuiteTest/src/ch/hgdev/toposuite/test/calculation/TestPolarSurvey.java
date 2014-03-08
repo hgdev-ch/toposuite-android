@@ -5,18 +5,18 @@ import java.text.DecimalFormat;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import ch.hgdev.toposuite.calculation.LevePolaire;
-import ch.hgdev.toposuite.calculation.LevePolaire.Result;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.calculation.PolarSurvey;
+import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
 import ch.hgdev.toposuite.points.Point;
 
 /**
- * Tests for the LevePolaire class.
+ * Tests for the PolarSurvey class.
  * 
  * @author HGdev
  * 
  */
-public class TestLevePolaire extends TestCase {
+public class TestPolarSurvey extends TestCase {
     private DecimalFormat df2;
     private DecimalFormat df3;
 
@@ -39,7 +39,7 @@ public class TestLevePolaire extends TestCase {
         Measure m5 = new Measure(null, 5.9274, 107.3266, 32.265, 0.0, 0.0, 1.1, 0.0, z0);
         Measure m6 = new Measure(null, 45.9760, 96.9650, 15.864, 0.0, 0.5, 1.5, i, z0);
 
-        LevePolaire lp = new LevePolaire(station, false);
+        PolarSurvey lp = new PolarSurvey(station, false);
 
         lp.getDeterminations().add(m2);
         lp.getDeterminations().add(m3);
@@ -81,7 +81,7 @@ public class TestLevePolaire extends TestCase {
         Measure m4 = new Measure(null, 278.5222, 91.7697, 14.117, 1.60, 0.0, 0.0, i, z0);
         Measure m5 = new Measure(null, 321.489, 115.1289, 31.219, 0.0, -1.2, 0.0, i, z0);
 
-        LevePolaire lp = new LevePolaire(station, false);
+        PolarSurvey lp = new PolarSurvey(station, false);
 
         lp.getDeterminations().add(m1);
         lp.getDeterminations().add(m2);

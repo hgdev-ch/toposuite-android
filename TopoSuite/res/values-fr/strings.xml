@@ -260,8 +260,6 @@
     <string name="title_activity_history">Historique</string>
     <string name="title_activity_leve_ortho">Levé orthogonal</string>
     <string name="title_activity_leve_ortho_results">Levé orthogonal - résultats</string>
-    <string name="title_activity_leve_polaire">Levé polaire</string>
-    <string name="title_activity_leve_polaire_results">Levé polaire - résultats</string>
     <string name="title_activity_line_circle_intersection">Intersection droite-cercle</string>
     <string name="title_activity_lines_intersection">Intersection de droites</string>
     <string name="title_activity_orthogonal_implantation">Implantation orthogonale</string>
@@ -271,6 +269,8 @@
     <string name="title_activity_points_manager">Gestion des points</string>
     <string name="title_activity_polar_implantation">Implantation polaire</string>
     <string name="title_activity_polar_implantation_results">Implantation polaire - résultats</string>
+    <string name="title_activity_polar_survey">Levé polaire</string>
+    <string name="title_activity_polar_survey_results">Levé polaire - résultats</string>
     <string name="title_activity_surface">Surface</string>
     <string name="title_activity_triangle_solver">Résolution de triangle</string>
     <string name="toggle_right_menu_button">Calculs</string>

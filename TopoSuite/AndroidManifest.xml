@@ -52,8 +52,8 @@
             android:label="@string/title_activity_abriss" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireActivity"
-            android:label="@string/title_activity_leve_polaire" >
+            android:name="ch.hgdev.toposuite.calculation.activities.polarsurvey.PolarSurveyActivity"
+            android:label="@string/title_activity_polar_survey" >
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.abriss.AbrissResultsActivity"
@@ -76,8 +76,8 @@
             android:label="@string/title_activity_cheminement_ortho_results" >
         </activity>
         <activity
-            android:name="ch.hgdev.toposuite.calculation.activities.levepolaire.LevePolaireResultsActivity"
-            android:label="@string/title_activity_leve_polaire_results" >
+            android:name="ch.hgdev.toposuite.calculation.activities.polarsurvey.PolarSurveyResultsActivity"
+            android:label="@string/title_activity_polar_survey_results" >
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.pointproj.PointProjectionActivity"

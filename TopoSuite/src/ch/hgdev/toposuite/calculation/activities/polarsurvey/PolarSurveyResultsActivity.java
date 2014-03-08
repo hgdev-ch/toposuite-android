@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.calculation.activities.levepolaire;
+package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,47 +20,47 @@ import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.calculation.LevePolaire;
-import ch.hgdev.toposuite.calculation.LevePolaire.Result;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.calculation.PolarSurvey;
+import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 
-public class LevePolaireResultsActivity extends TopoSuiteActivity implements
+public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
 
     private ListView                  resultsListView;
 
-    private LevePolaire               levePolaire;
+    private PolarSurvey               polarSurvey;
     private ArrayListOfResultsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_leve_polaire_results);
+        this.setContentView(R.layout.activity_polar_survey_results);
 
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
 
-        int pos = bundle.getInt(LevePolaireActivity.POLAR_SURVEY_POSITION);
+        int pos = bundle.getInt(PolarSurveyActivity.POLAR_SURVEY_POSITION);
         if (pos != -1) {
-            this.levePolaire = (LevePolaire) SharedResources
+            this.polarSurvey = (PolarSurvey) SharedResources
                     .getCalculationsHistory().get(pos);
         } else {
             Point station = SharedResources.getSetOfPoints().find(
-                    bundle.getInt(LevePolaireActivity.STATION_NUMBER_LABEL));
+                    bundle.getInt(PolarSurveyActivity.STATION_NUMBER_LABEL));
 
-            this.levePolaire = new LevePolaire(station, true);
+            this.polarSurvey = new PolarSurvey(station, true);
 
             JSONArray jsonArray;
             try {
                 jsonArray = new JSONArray(
-                        bundle.getString(LevePolaireActivity.DETERMINATIONS_LABEL));
+                        bundle.getString(PolarSurveyActivity.DETERMINATIONS_LABEL));
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject json = (JSONObject) jsonArray.get(i);
                     Measure m = Measure.getMeasureFromJSON(json.toString());
-                    this.levePolaire.getDeterminations().add(m);
+                    this.polarSurvey.getDeterminations().add(m);
                 }
             } catch (JSONException e) {
                 // TODO
@@ -69,14 +69,14 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity implements
 
         this.registerForContextMenu(this.resultsListView);
 
-        this.levePolaire.compute();
+        this.polarSurvey.compute();
 
         this.displayResults();
     }
 
     @Override
     protected String getActivityTitle() {
-        return this.getString(R.string.title_activity_leve_polaire_results);
+        return this.getString(R.string.title_activity_polar_survey_results);
     }
 
     @Override
@@ -132,8 +132,8 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity implements
      * Display the list of resulting points.
      */
     private void displayResults() {
-        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.leve_polaire_results_list_item,
-                this.levePolaire.getResults());
+        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.polar_survey_results_list_item,
+                this.polarSurvey.getResults());
         this.resultsListView.setAdapter(this.adapter);
     }
 
@@ -199,8 +199,8 @@ public class LevePolaireResultsActivity extends TopoSuiteActivity implements
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                LevePolaireResultsActivity.this.savePoints();
-                                LevePolaireResultsActivity.this.adapter.notifyDataSetChanged();
+                                PolarSurveyResultsActivity.this.savePoints();
+                                PolarSurveyResultsActivity.this.adapter.notifyDataSetChanged();
                             }
                         })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -62,9 +62,6 @@ public class CalculationFactory {
         case GISEMENT:
             calculation = new Gisement(id, lastModification);
             break;
-        case LEVEPOLAIRE:
-            calculation = new LevePolaire(id, lastModification);
-            break;
         case LEVEORTHO:
             calculation = new LeveOrthogonal(id, lastModification);
             break;
@@ -79,6 +76,9 @@ public class CalculationFactory {
             break;
         case POLARIMPLANT:
             calculation = new PolarImplantation(id, lastModification);
+            break;
+        case POLARSURVEY:
+            calculation = new PolarSurvey(id, lastModification);
             break;
         case PROJPT:
             calculation = new PointProjectionOnALine(id, lastModification);

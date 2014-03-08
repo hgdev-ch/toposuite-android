@@ -9,7 +9,7 @@ public enum CalculationType {
     GISEMENT,
     ABRISS,
     POLARIMPLANT,
-    LEVEPOLAIRE,
+    POLARSURVEY,
     LEVEORTHO,
     CHEMINORTHO,
     PROJPT,
