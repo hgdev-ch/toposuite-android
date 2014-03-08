@@ -34,6 +34,7 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.calculation.CalculationType;
+import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarImplantation;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -64,8 +65,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     private Point                 station;
     private PolarImplantation     polarImplantation;
 
-    private double                abrissZ0;
-    private Point                 abrissStation;
+    private double                z0;
+    private Point                 z0Station;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
@@ -79,7 +80,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.setContentView(R.layout.activity_polar_implantation);
 
         this.position = -1;
-        this.abrissZ0 = 0.0;
+        this.z0 = 0.0;
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
@@ -147,14 +148,20 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.stationSpinner.setAdapter(this.stationAdapter);
 
         for (Calculation c : SharedResources.getCalculationsHistory()) {
-            if ((c != null) && (c.getType() != CalculationType.ABRISS)) {
-                continue;
+            if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
+                Abriss a = (Abriss) c;
+                a.compute();
+                this.z0 = a.getMean();
+                this.z0Station = a.getStation();
+                break;
             }
-            Abriss a = (Abriss) c;
-            a.compute();
-            this.abrissZ0 = a.getMean();
-            this.abrissStation = a.getStation();
-            break;
+            if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
+                FreeStation fs = (FreeStation) c;
+                fs.compute();
+                this.z0 = fs.getUnknownOrientation();
+                this.z0Station = fs.getStationResult();
+                break;
+            }
         }
 
         if (this.polarImplantation != null) {
@@ -275,17 +282,17 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         switch (view.getId()) {
         case R.id.checkbox_z0:
             if (checked) {
-                if (MathUtils.isZero(this.abrissZ0)) {
+                if (MathUtils.isZero(this.z0)) {
                     Toast errorToast = Toast.makeText(this,
                             this.getText(R.string.error_no_abriss_calculation_found),
                             Toast.LENGTH_SHORT);
                     errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     errorToast.show();
                 } else {
-                    this.unknownOrientEditText.setText(DisplayUtils.toString(this.abrissZ0));
+                    this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
                     this.unknownOrientEditText.setEnabled(false);
                     this.stationSpinner.setSelection(
-                            this.stationAdapter.getPosition(this.abrissStation));
+                            this.stationAdapter.getPosition(this.z0Station));
                     this.stationSpinner.setEnabled(false);
                 }
             } else {

@@ -156,7 +156,6 @@ public class LevePolaireActivity extends TopoSuiteActivity implements
 
         for (Calculation c : SharedResources.getCalculationsHistory()) {
             if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
-
                 Abriss a = (Abriss) c;
                 a.compute();
                 this.z0 = a.getMean();
