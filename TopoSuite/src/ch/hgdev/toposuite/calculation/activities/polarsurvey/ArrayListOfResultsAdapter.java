@@ -8,12 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.PolarSurvey;
-import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
-import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<PolarSurvey.Result> {
@@ -42,19 +38,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<PolarSurvey.Result> 
             TextView altitudeTextView = (TextView) view.findViewById(R.id.altitude_item);
 
             if (numberTextView != null) {
-                String numberText = DisplayUtils.toString(result.getDeterminationNumber()) + " ";
-                Result r = this.getItem(position);
-                Point point = new Point(
-                        r.getDeterminationNumber(),
-                        r.getEast(),
-                        r.getNorth(),
-                        r.getAltitude(),
-                        false);
-                Point p = SharedResources.getSetOfPoints().find(r.getDeterminationNumber());
-                numberText += point.equals(p) ?
-                        App.getContext().getString(R.string.heavy_checkmark) :
-                        App.getContext().getString(R.string.heavy_ballot);
-                numberTextView.setText(numberText);
+                numberTextView.setText(DisplayUtils.toString(result.getDeterminationNumber()));
             }
             if (eastTextView != null) {
                 eastTextView.setText(DisplayUtils.toString(result.getEast()));

@@ -27,6 +27,7 @@ import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -36,6 +37,8 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
 
     private PolarSurvey               polarSurvey;
     private ArrayListOfResultsAdapter adapter;
+
+    private int                       saveCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
                 }
             } catch (JSONException e) {
                 Log.e(Logger.TOPOSUITE_PARSE_ERROR,
-                        POLAR_SURVEY_RESULTS_ACTIVITY
+                        PolarSurveyResultsActivity.POLAR_SURVEY_RESULTS_ACTIVITY
                                 + "error retrieving list of determinations from JSON");
             }
         }
@@ -79,6 +82,8 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         this.registerForContextMenu(this.resultsListView);
 
         this.polarSurvey.compute();
+
+        this.saveCounter = this.polarSurvey.getResults().size();
 
         this.displayResults();
     }
@@ -225,6 +230,10 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
     @Override
     public void onMergePointsDialogSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        --this.saveCounter;
+        if (this.saveCounter == 0) {
+            ViewUtils.redirectToPointsManagerActivity(this);
+        }
     }
 
     @Override
