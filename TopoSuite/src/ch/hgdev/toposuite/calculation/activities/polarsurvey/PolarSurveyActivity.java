@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -39,6 +40,7 @@ import ch.hgdev.toposuite.calculation.PolarSurvey;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
@@ -50,20 +52,24 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class PolarSurveyActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener,
         EditDeterminationDialogFragment.EditDeterminationDialogListener {
+    private static final String   POLAR_SURVEY_ACTIVITY                     = "PolarSurveyActivity: ";
 
-    public static final String    POLAR_SURVEY_POSITION     = "polar_survey_position";
-    public static final String    STATION_NUMBER_LABEL      = "station_number";
-    public static final String    DETERMINATIONS_LABEL      = "determinations";
+    public static final String    POLAR_SURVEY_POSITION                     = "polar_survey_position";
+    public static final String    STATION_NUMBER_LABEL                      = "station_number";
+    public static final String    UNKNOWN_ORIENTATION_LABEL                 = "unknown_orientation";
+    public static final String    UNKNOWN_ORIENTATION_CALCULATION_ID_LABEL_ = "unknown_orientation_calculation_id";
+    public static final String    INSTRUMENT_HEIGHT_LABEL                   = "instrument_height";
+    public static final String    DETERMINATIONS_LABEL                      = "determinations";
 
-    public static final String    DETERMINATION_NUMBER      = "determination_number";
-    public static final String    HORIZ_DIR                 = "horizontal_direction";
-    public static final String    DISTANCE                  = "distance";
-    public static final String    ZEN_ANGLE                 = "zenithal_angle";
-    public static final String    S                         = "s";
-    public static final String    LAT_DEPL                  = "lateral_displacement";
-    public static final String    LON_DEPL                  = "longitudinal displacement";
+    public static final String    DETERMINATION_NUMBER                      = "determination_number";
+    public static final String    HORIZ_DIR                                 = "horizontal_direction";
+    public static final String    DISTANCE                                  = "distance";
+    public static final String    ZEN_ANGLE                                 = "zenithal_angle";
+    public static final String    S                                         = "s";
+    public static final String    LAT_DEPL                                  = "lateral_displacement";
+    public static final String    LON_DEPL                                  = "longitudinal displacement";
 
-    private static final String   STATION_SELECTED_POSITION = "station_selected_position";
+    private static final String   STATION_SELECTED_POSITION                 = "station_selected_position";
     private Spinner               stationSpinner;
     private int                   stationSelectedPosition;
     private ArrayAdapter<Point>   stationAdapter;
@@ -74,10 +80,13 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     private ArrayAdapter<Measure> adapter;
 
     private Point                 station;
+    private double                z0;
+    private double                instrumentHeight;
+
     private PolarSurvey           polarSurvey;
 
-    private double                z0;
     private Point                 z0Station;
+    private long                  z0Id;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
@@ -92,6 +101,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
 
         this.position = -1;
         this.z0 = 0.0;
+        this.instrumentHeight = 0.0;
+        this.z0Id = -1;
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
@@ -133,6 +144,28 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
             this.polarSurvey = (PolarSurvey) SharedResources.getCalculationsHistory().get(
                     this.position);
             list = this.polarSurvey.getDeterminations();
+
+            this.z0Id = this.polarSurvey.getZ0CalculationId();
+            // the user has retrieved his z0 from last calculation previously
+            if (this.z0Id != -1) {
+                Calculation c = SharedResources.getCalculationsHistory().find(this.z0Id);
+                if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
+                    Abriss a = (Abriss) c;
+                    a.compute();
+                    this.z0 = a.getMean();
+                    this.z0Station = a.getStation();
+                } else if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
+                    FreeStation fs = (FreeStation) c;
+                    fs.compute();
+                    this.z0 = fs.getUnknownOrientation();
+                    this.z0Station = fs.getStationResult();
+                } else {
+                    Log.e(Logger.TOPOSUITE_CALCULATION_INVALID_TYPE,
+                            POLAR_SURVEY_ACTIVITY
+                                    + "trying to get Z0 from a calculation that does not compute one");
+                }
+                this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
+            }
         }
 
         this.adapter = new ArrayListOfDeterminationsAdapter(this,
@@ -160,6 +193,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 a.compute();
                 this.z0 = a.getMean();
                 this.z0Station = a.getStation();
+                this.z0Id = c.getId();
                 break;
             }
             if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
@@ -167,6 +201,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 fs.compute();
                 this.z0 = fs.getUnknownOrientation();
                 this.z0Station = fs.getStationResult();
+                this.z0Id = c.getId();
                 break;
             }
         }
@@ -176,8 +211,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     this.stationAdapter.getPosition(this.polarSurvey.getStation()));
             Measure m = this.polarSurvey.getDeterminations().get(0);
 
-            this.iEditText.setText(DisplayUtils.toString(m.getI()));
-            this.unknownOrientEditText.setText(DisplayUtils.toString(m.getUnknownOrientation()));
+            this.iEditText.setText(DisplayUtils.toString(this.instrumentHeight));
+            this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
         } else {
             if (this.stationSelectedPosition > 0) {
                 this.stationSpinner.setSelection(
@@ -230,7 +265,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     this.adapter.add(m);
                 }
             } catch (JSONException e) {
-                // TODO
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+                        POLAR_SURVEY_ACTIVITY + "error retrieving list of determinations from JSON");
             }
             this.drawList();
         }
@@ -372,14 +408,11 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
      * Perform actions required when the calculation button is clicked.
      */
     private void showPolarSurveyResultActivity() {
-        double i = 0.0;
-        double unknownOrient;
-
         if (this.iEditText.length() > 0) {
-            i = Double.parseDouble(this.iEditText.getText().toString());
+            this.instrumentHeight = Double.parseDouble(this.iEditText.getText().toString());
         }
         if (this.unknownOrientEditText.length() > 0) {
-            unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+            this.z0 = Double.parseDouble(this.unknownOrientEditText.getText().toString());
         } else {
             Toast errorToast = Toast.makeText(this,
                     this.getText(R.string.error_choose_unknown_orientation),
@@ -398,13 +431,13 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         } else {
             bundle.putInt(PolarSurveyActivity.POLAR_SURVEY_POSITION, -1);
             bundle.putInt(PolarSurveyActivity.STATION_NUMBER_LABEL, this.station.getNumber());
+            bundle.putDouble(PolarSurveyActivity.UNKNOWN_ORIENTATION_LABEL, this.z0);
+            bundle.putLong(PolarSurveyActivity.UNKNOWN_ORIENTATION_CALCULATION_ID_LABEL_, this.z0Id);
+            bundle.putDouble(PolarSurveyActivity.INSTRUMENT_HEIGHT_LABEL, this.instrumentHeight);
 
             JSONArray json = new JSONArray();
             for (int j = 0; j < this.adapter.getCount(); j++) {
-                Measure m = this.adapter.getItem(j);
-                m.setI(i);
-                m.setUnknownOrientation(unknownOrient);
-                json.put(m.toJSONObject());
+                json.put(this.adapter.getItem(j).toJSONObject());
             }
 
             bundle.putString(PolarSurveyActivity.DETERMINATIONS_LABEL, json.toString());

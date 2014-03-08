@@ -27,6 +27,16 @@ public class PolarSurvey extends Calculation {
     public static final String       DETERMINATIONS_LIST = "determinations_list";
 
     private Point                    station;
+    private double                   unknownOrientation;
+    private double                   instrumentHeight;
+    /**
+     * A user can either provide a Z0 (unknown orientation) or either retrieve
+     * it from another calculation (abriss or free station typically). In the
+     * latter case, we need to store the calculation ID in order to be able to
+     * retrieve the correct z0 from within a call from the calculation history.
+     */
+    private long                     z0CalculationId;
+
     private final ArrayList<Measure> determinations;
     private final ArrayList<Result>  results;
 
@@ -40,7 +50,15 @@ public class PolarSurvey extends Calculation {
         this.results = new ArrayList<Result>();
     }
 
-    public PolarSurvey(Point _station, boolean hasDAO) {
+    public PolarSurvey(Point _station, double _unknownOrientation, double _instrumentHeight,
+            long _z0CalculationId,
+            boolean hasDAO) {
+        this(_station, _unknownOrientation, _instrumentHeight, hasDAO);
+        this.z0CalculationId = _z0CalculationId;
+    }
+
+    public PolarSurvey(Point _station, double _unknownOrientation, double _instrumentHeight,
+            boolean hasDAO) {
         super(CalculationType.POLARSURVEY,
                 App.getContext().getString(R.string.title_activity_polar_survey),
                 hasDAO);
@@ -48,6 +66,8 @@ public class PolarSurvey extends Calculation {
         this.determinations = new ArrayList<Measure>();
         this.results = new ArrayList<Result>();
         this.station = _station;
+        this.unknownOrientation = MathUtils.gradToRad(MathUtils.modulo400(_unknownOrientation));
+        this.instrumentHeight = _instrumentHeight;
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
@@ -69,7 +89,6 @@ public class PolarSurvey extends Calculation {
 
         for (Measure m : this.determinations) {
             double zenAngle = MathUtils.gradToRad(MathUtils.modulo400(m.getZenAngle()));
-            double z0 = MathUtils.gradToRad(MathUtils.modulo400(m.getUnknownOrientation()));
             double hz = MathUtils.gradToRad(MathUtils.modulo400(m.getHorizDir()));
 
             double horizDist = Math.sin(zenAngle) * m.getDistance();
@@ -77,13 +96,15 @@ public class PolarSurvey extends Calculation {
             hz = hz + Math.atan(m.getLatDepl() / horizDist);
             horizDist = MathUtils.pythagoras(horizDist, m.getLatDepl());
 
-            double east = this.station.getEast() + (Math.sin(z0 + hz) * horizDist);
-            double north = this.station.getNorth() + (Math.cos(z0 + hz) * horizDist);
+            double east = this.station.getEast()
+                    + (Math.sin(this.unknownOrientation + hz) * horizDist);
+            double north = this.station.getNorth()
+                    + (Math.cos(this.unknownOrientation + hz) * horizDist);
 
             double altitude;
-            if (!MathUtils.isZero(m.getI()) && !MathUtils.isZero(m.getS())) {
+            if (!MathUtils.isZero(this.instrumentHeight) && !MathUtils.isZero(m.getS())) {
                 altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle))
-                        + m.getI()) - m.getS();
+                        + this.instrumentHeight) - m.getS();
             } else {
                 altitude = 0.0;
             }
@@ -156,6 +177,18 @@ public class PolarSurvey extends Calculation {
 
     public Point getStation() {
         return this.station;
+    }
+
+    public double getUnknownOrientation() {
+        return this.unknownOrientation;
+    }
+
+    public long getZ0CalculationId() {
+        return this.z0CalculationId;
+    }
+
+    public double getInstrumentHeight() {
+        return this.instrumentHeight;
     }
 
     /**

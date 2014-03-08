@@ -34,12 +34,12 @@ public class TestPolarSurvey extends TestCase {
         double i = 1.63;
         double z0 = 233.2435;
 
-        Measure m2 = new Measure(null, 288.833, 96.1645, 12.621, 1.40, 0.0, 0.0, i, z0);
-        Measure m3 = new Measure(null, 317.0352, 95.2922, 30.996, 1.63, 0.0, 0.0, i, z0);
-        Measure m5 = new Measure(null, 5.9274, 107.3266, 32.265, 0.0, 0.0, 1.1, 0.0, z0);
-        Measure m6 = new Measure(null, 45.9760, 96.9650, 15.864, 0.0, 0.5, 1.5, i, z0);
+        Measure m2 = new Measure(null, 288.833, 96.1645, 12.621, 1.40, 0.0, 0.0);
+        Measure m3 = new Measure(null, 317.0352, 95.2922, 30.996, 1.63, 0.0, 0.0);
+        Measure m5 = new Measure(null, 5.9274, 107.3266, 32.265, 0.0, 0.0, 1.1);
+        Measure m6 = new Measure(null, 45.9760, 96.9650, 15.864, 0.0, 0.5, 1.5);
 
-        PolarSurvey lp = new PolarSurvey(station, false);
+        PolarSurvey lp = new PolarSurvey(station, z0, i, false);
 
         lp.getDeterminations().add(m2);
         lp.getDeterminations().add(m3);
@@ -75,13 +75,13 @@ public class TestPolarSurvey extends TestCase {
         double i = 1.58;
         double z0 = 371.2579;
 
-        Measure m1 = new Measure(null, 353.0032, 102.6626, 27.032, 1.60, 0.0, 0.0, i, z0);
-        Measure m2 = new Measure(null, 32.205, 109.2742, 18.393, 1.70, 0.0, 0.0, i, z0);
-        Measure m3 = new Measure(null, 126.0412, 108.9541, 11.056, 1.58, 0.0, 0.0, i, z0);
-        Measure m4 = new Measure(null, 278.5222, 91.7697, 14.117, 1.60, 0.0, 0.0, i, z0);
-        Measure m5 = new Measure(null, 321.489, 115.1289, 31.219, 0.0, -1.2, 0.0, i, z0);
+        Measure m1 = new Measure(null, 353.0032, 102.6626, 27.032, 1.60, 0.0, 0.0);
+        Measure m2 = new Measure(null, 32.205, 109.2742, 18.393, 1.70, 0.0, 0.0);
+        Measure m3 = new Measure(null, 126.0412, 108.9541, 11.056, 1.58, 0.0, 0.0);
+        Measure m4 = new Measure(null, 278.5222, 91.7697, 14.117, 1.60, 0.0, 0.0);
+        Measure m5 = new Measure(null, 321.489, 115.1289, 31.219, 0.0, -1.2, 0.0);
 
-        PolarSurvey lp = new PolarSurvey(station, false);
+        PolarSurvey lp = new PolarSurvey(station, z0, i, false);
 
         lp.getDeterminations().add(m1);
         lp.getDeterminations().add(m2);

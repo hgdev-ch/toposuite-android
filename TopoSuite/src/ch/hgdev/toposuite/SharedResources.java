@@ -24,7 +24,7 @@ public class SharedResources {
     /**
      * Set of points.
      */
-    private static DAOMapperTreeSet<Point>        setOfPoints;
+    private static DAOMapperTreeSet<Point>         setOfPoints;
 
     /**
      * Static getter for the calculations history.
@@ -33,10 +33,16 @@ public class SharedResources {
      */
     public static DAOMapperArrayList<Calculation> getCalculationsHistory() {
         if (calculationsHistory == null) {
-            calculationsHistory = new DAOMapperArrayList<Calculation>();
+            calculationsHistory = new DAOMapperArrayList<Calculation>(
+                    new Searcher<Calculation>() {
+                        @Override
+                        public boolean isFound(Calculation currentElement, Object expectedElement) {
+                            return ((Long) expectedElement).equals(currentElement.getId());
+                        }
+                    });
             calculationsHistory.registerDAO(CalculationsDataSource.getInstance());
         }
-        
+
         return calculationsHistory;
     }
 
@@ -58,7 +64,7 @@ public class SharedResources {
                 @Override
                 public boolean isFound(Point currentElement, Object expectedElement) {
                     Integer expectedNumber = (Integer) expectedElement;
-                    return currentElement.getNumber() == (int)expectedNumber;
+                    return currentElement.getNumber() == expectedNumber;
                 }
             });
             setOfPoints.registerDAO(PointsDataSource.getInstance());

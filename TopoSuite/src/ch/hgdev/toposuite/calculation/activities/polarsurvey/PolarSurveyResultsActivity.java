@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -25,9 +26,11 @@ import ch.hgdev.toposuite.calculation.PolarSurvey;
 import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.Logger;
 
 public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
+    private static final String       POLAR_SURVEY_RESULTS_ACTIVITY = "PolarSurveyResultsActivity: ";
 
     private ListView                  resultsListView;
 
@@ -50,8 +53,12 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         } else {
             Point station = SharedResources.getSetOfPoints().find(
                     bundle.getInt(PolarSurveyActivity.STATION_NUMBER_LABEL));
+            double z0 = bundle.getDouble(PolarSurveyActivity.UNKNOWN_ORIENTATION_LABEL);
+            double instrumentHeight = bundle.getDouble(PolarSurveyActivity.INSTRUMENT_HEIGHT_LABEL);
+            long z0CalculationId = bundle.getLong(
+                    PolarSurveyActivity.UNKNOWN_ORIENTATION_CALCULATION_ID_LABEL_);
 
-            this.polarSurvey = new PolarSurvey(station, true);
+            this.polarSurvey = new PolarSurvey(station, z0, instrumentHeight, z0CalculationId, true);
 
             JSONArray jsonArray;
             try {
@@ -63,7 +70,9 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
                     this.polarSurvey.getDeterminations().add(m);
                 }
             } catch (JSONException e) {
-                // TODO
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+                        POLAR_SURVEY_RESULTS_ACTIVITY
+                                + "error retrieving list of determinations from JSON");
             }
         }
 

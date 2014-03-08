@@ -18,12 +18,17 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     /**
      * Serial UID.
      */
-    private static final long serialVersionUID = -2385665453541274357L;
+    private static final long         serialVersionUID = -2385665453541274357L;
+
+    /**
+     * Searcher interface for finding object in the collection.
+     */
+    private final Searcher<? super E> searcher;
 
     /**
      * List of observers.
      */
-    private final List<DAO>   daoList;
+    private final List<DAO>           daoList;
 
     /**
      * Control whether methods that change the list automatically call the
@@ -34,15 +39,16 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
      * 
      * The default value is set to true.
      */
-    private boolean           notifyOnChange;
+    private boolean                   notifyOnChange;
 
     /**
      * Construct a new {@link DAOMapperArrayList}.
      */
-    public DAOMapperArrayList() {
+    public DAOMapperArrayList(Searcher<? super E> _searcher) {
         super();
         this.daoList = new ArrayList<DAO>();
         this.notifyOnChange = true;
+        this.searcher = _searcher;
     }
 
     @Override
@@ -86,6 +92,22 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
         if (this.notifyOnChange) {
             this.notifyClear();
         }
+    }
+
+    /**
+     * Find a object E in the ArrayList.
+     * 
+     * @param needle
+     *            the needle to find in the haystack
+     * @return the object that match the search criteria
+     */
+    public E find(Object needle) {
+        for (E element : this) {
+            if (this.searcher.isFound(element, needle)) {
+                return element;
+            }
+        }
+        return null;
     }
 
     /**
