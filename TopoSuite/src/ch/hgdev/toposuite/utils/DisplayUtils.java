@@ -26,6 +26,9 @@ public class DisplayUtils {
      * @return Value as a String.
      */
     public static String toString(int value) {
+        if ((value == Integer.MAX_VALUE) || (value == Integer.MIN_VALUE)) {
+            return "-";
+        }
         return Integer.toString(value);
     }
 
@@ -42,6 +45,12 @@ public class DisplayUtils {
      * @return Value as a String.
      */
     public static String toString(double value, String precision) {
+        if ((value == Double.MAX_VALUE)
+                || (value == Double.MIN_VALUE)
+                || (Double.isInfinite(value))
+                || (Double.isNaN(value))) {
+            return "-";
+        }
         return String.format(precision, value);
     }
 
@@ -56,6 +65,12 @@ public class DisplayUtils {
      * @return Value as a String.
      */
     public static String toString(double value) {
+        if ((value == Double.MAX_VALUE)
+                || (value == Double.MIN_VALUE)
+                || (Double.isInfinite(value))
+                || (Double.isNaN(value))) {
+            return "-";
+        }
         return String.format(App.numberOfDecimals, value);
     }
 
@@ -69,7 +84,10 @@ public class DisplayUtils {
      * @return Formatted CC value.
      */
     public static String formatCC(double value) {
-        if (Double.isInfinite(value) || Double.isNaN(value)) {
+        if ((value == Double.MAX_VALUE)
+                || (value == Double.MIN_VALUE)
+                || Double.isInfinite(value)
+                || Double.isNaN(value)) {
             return "-";
         } else {
             DecimalFormat df = new DecimalFormat("#");
