@@ -21,6 +21,7 @@ import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal.Measure;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -31,6 +32,8 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
     private ArrayListOfResultsAdapter adapter;
 
     private LeveOrthogonal            leveOrtho;
+
+    private int                       saveCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
             this.baseTextView.setText(builder.toString());
             this.registerForContextMenu(this.resultsListView);
             this.drawList();
+
+            this.saveCounter = this.leveOrtho.getResults().size();
         }
     }
 
@@ -202,6 +207,10 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
     @Override
     public void onMergePointsDialogSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        --this.saveCounter;
+        if (this.saveCounter == 0) {
+            ViewUtils.redirectToPointsManagerActivity(this);
+        }
     }
 
     @Override

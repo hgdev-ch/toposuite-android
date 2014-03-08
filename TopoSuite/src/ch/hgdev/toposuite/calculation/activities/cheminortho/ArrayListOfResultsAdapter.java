@@ -8,12 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
-import ch.hgdev.toposuite.calculation.CheminementOrthogonal.Result;
-import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
@@ -50,19 +46,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<CheminementOrthogona
             TextView vNTextView = (TextView) view.findViewById(R.id.vn_item);
 
             if (numberTextView != null) {
-                String numberText = DisplayUtils.toString(result.getNumber()) + " ";
-                Result r = this.getItem(position);
-                Point point = new Point(
-                        r.getNumber(),
-                        r.getEast(),
-                        r.getNorth(),
-                        0.0,
-                        false);
-                Point p = SharedResources.getSetOfPoints().find(r.getNumber());
-                numberText += point.equals(p) ?
-                        App.getContext().getString(R.string.heavy_checkmark) :
-                        App.getContext().getString(R.string.heavy_ballot);
-                numberTextView.setText(numberText);
+                numberTextView.setText(DisplayUtils.toString(result.getNumber()));
             }
 
             if (abscissaTextView != null) {

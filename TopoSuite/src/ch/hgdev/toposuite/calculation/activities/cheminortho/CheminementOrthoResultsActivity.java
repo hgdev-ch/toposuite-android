@@ -23,6 +23,7 @@ import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CheminementOrthoResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -37,6 +38,8 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
     private ArrayListOfResultsAdapter adapter;
 
     private CheminementOrthogonal     cheminOrtho;
+
+    private int                       saveCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,8 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
 
             this.registerForContextMenu(this.resultsListView);
             this.drawList();
+
+            this.saveCounter = this.cheminOrtho.getResults().size() - 1;
         }
     }
 
@@ -222,6 +227,10 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
     @Override
     public void onMergePointsDialogSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        --this.saveCounter;
+        if (this.saveCounter == 0) {
+            ViewUtils.redirectToPointsManagerActivity(this);
+        }
     }
 
     @Override
