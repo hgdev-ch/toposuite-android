@@ -405,6 +405,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
+        this.showAddPointDialog();
     }
 
     @Override
