@@ -11,7 +11,6 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
-import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
@@ -48,7 +47,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            int position = bundle.getInt(FreeStationActivity.FREE_STATION_POSITION);
             this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
                     position);
             this.freeStation.compute();
