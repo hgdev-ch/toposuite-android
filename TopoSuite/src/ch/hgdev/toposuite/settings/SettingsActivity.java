@@ -20,10 +20,11 @@ public class SettingsActivity extends TopoSuiteActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.activity_settings);
 
         // Display the settings fragment as the main content.
         this.getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
+                .add(R.id.layout, new SettingsFragment())
                 .commit();
     }
 
