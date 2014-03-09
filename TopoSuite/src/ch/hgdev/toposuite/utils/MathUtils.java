@@ -21,6 +21,12 @@ public class MathUtils {
     public static final double EPSILON      = Double.MIN_NORMAL;
 
     /**
+     * Use this value when you need to set a variable which needs to be ignored
+     * later in some calculations.
+     */
+    public static final double IGNORE       = Double.MIN_VALUE;
+
+    /**
      * Check if a double is zero.
      * 
      * @param d
@@ -101,7 +107,7 @@ public class MathUtils {
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(double d) {
-        if (isMax(d) || isMin(d)) {
+        if ((d == IGNORE) || isMax(d) || isMin(d)) {
             return true;
         }
         return false;
