@@ -18,6 +18,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -205,6 +206,11 @@ public class ImportDialog extends DialogFragment {
         this.dismiss();
     }
 
+    private final void closeOnError(String message) {
+        this.listener.onImportDialogError(message);
+        this.dismiss();
+    }
+
     /**
      * Import the selected file.
      */
@@ -246,7 +252,12 @@ public class ImportDialog extends DialogFragment {
                 SharedResources.getSetOfPoints().clear();
                 SharedResources.getCalculationsHistory().clear();
 
-                PointsImporter.importFromFile(inputStream, ext);
+                List<Pair<Integer, String>> errors = PointsImporter.importFromFile(
+                        inputStream, ext);
+                if (!errors.isEmpty()) {
+                    this.closeOnError(PointsImporter.formatErrors(filename, errors));
+                    return;
+                }
             }
         } catch (FileNotFoundException e) {
             Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());

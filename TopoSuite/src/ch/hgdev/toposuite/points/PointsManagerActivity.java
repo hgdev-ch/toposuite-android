@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -375,10 +377,18 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                                     SharedResources.getSetOfPoints().clear();
 
                                     InputStream inputStream = cr.openInputStream(dataUri);
-                                    PointsImporter.importFromFile(inputStream, ext);
+                                    List<Pair<Integer, String>> errors =
+                                            PointsImporter.importFromFile(inputStream, ext);
 
                                     PointsManagerActivity.this.getIntent().setData(null);
                                     PointsManagerActivity.this.drawList();
+
+                                    if (!errors.isEmpty()) {
+                                        dialog.dismiss();
+                                        PointsManagerActivity.this.onImportDialogError(
+                                                PointsImporter.formatErrors(ext, errors));
+                                    }
+
                                 } catch (FileNotFoundException e) {
                                     Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
                                     Toast.makeText(PointsManagerActivity.this, e.getMessage(),
@@ -419,6 +429,17 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     @Override
     public void onImportDialogError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.error_import_label)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setMessage(message)
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        });
+        builder.create().show();
     }
 }

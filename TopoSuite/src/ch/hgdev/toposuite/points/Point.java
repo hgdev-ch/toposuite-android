@@ -11,6 +11,7 @@ import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
 import ch.hgdev.toposuite.export.DataExporter;
 import ch.hgdev.toposuite.export.DataImporter;
+import ch.hgdev.toposuite.export.InvalidFormatException;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -178,25 +179,33 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     }
 
     @Override
-    public void createPointFromCSV(String csvLine) {
+    public void createPointFromCSV(String csvLine) throws InvalidFormatException {
         String[] tmp = csvLine.split(App.CSV_SEPARATOR);
 
         if (tmp.length >= 3) {
-            int number = Integer.parseInt(tmp[0]);
-            double east = Double.parseDouble(tmp[1]);
-            double north = Double.parseDouble(tmp[2]);
-            double altitude = 0.0;
+            try {
+                int number = Integer.parseInt(tmp[0]);
+                double east = Double.parseDouble(tmp[1]);
+                double north = Double.parseDouble(tmp[2]);
+                double altitude = 0.0;
 
-            if (tmp.length == 4) {
-                altitude = Double.parseDouble(tmp[3]);
+                if (tmp.length == 4) {
+                    altitude = Double.parseDouble(tmp[3]);
+                }
+
+                this.number = number;
+                this.east = east;
+                this.north = north;
+                this.altitude = altitude;
+
+                this.notifyUpdate(this);
+            } catch (NumberFormatException e) {
+                throw new InvalidFormatException(App.getContext().getString(
+                        R.string.exception_invalid_format_values));
             }
-
-            this.number = number;
-            this.east = east;
-            this.north = north;
-            this.altitude = altitude;
-
-            this.notifyUpdate(this);
+        } else {
+            throw new InvalidFormatException(App.getContext().getString(
+                    R.string.exception_invalid_format_values_number));
         }
     }
 

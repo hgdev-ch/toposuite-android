@@ -12,6 +12,7 @@ public interface DataImporter {
      * 
      * @param csvLine
      *            A CSV line that contains the values of the Point's attributes.
+     * @throws InvalidFormatException
      */
-    void createPointFromCSV(String csvLine);
+    void createPointFromCSV(String csvLine) throws InvalidFormatException;
 }
