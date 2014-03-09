@@ -63,16 +63,14 @@
     <string name="disclaimer">Disclaimer</string>
     <string name="disclaimer_notice">This calculation software is primarily intended for geomatic apprentices for educational purpose.
         The CRAG disclaims any liability for any other use.</string>
-    <string name="disclaimer_text">
-        This program is free software; you can redistribute it and/or
+    <string name="disclaimer_text">        This program is free software; you can redistribute it and/or
         modify it under the terms of the GNU General Public License version 2
         as published by the Free Software Foundation.
         
         This program is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-        GNU General Public License version 2 (in about menu under settings) for more details.
-    </string>
+        GNU General Public License version 2 (in about menu under settings) for more details.</string>
     <string name="displacement_label">Displacement</string>
     <string name="dist_pt_1">Pt. A dist.</string>
     <string name="distance_label">Distance [m]</string>
@@ -280,6 +278,7 @@
     <string name="title_activity_polar_survey_results">Polar survey results</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_surface">Surface</string>
+    <string name="title_activity_about">About TopoSuite</string>
     <string name="title_activity_triangle_solver">Triangle solver</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="unit_centimeter">[cm]</string>
