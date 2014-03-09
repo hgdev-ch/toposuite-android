@@ -50,7 +50,7 @@ public class ArrayListOfDeterminationsAdapter extends ArrayAdapter<Measure> {
                 horizDistTextView.setText(DisplayUtils.toString(determination.getDistance()));
             }
             if (altitudeTextView != null) {
-                altitudeTextView.setText(DisplayUtils.toString(determination.getS()));
+                altitudeTextView.setText(DisplayUtils.toString(determination.getZenAngle()));
             }
             if (sTextView != null) {
                 sTextView.setText(DisplayUtils.toString(determination.getS()));
