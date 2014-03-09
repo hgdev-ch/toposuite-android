@@ -43,6 +43,18 @@ public class MathUtils {
     }
 
     /**
+     * Check if a double has the value of the largest possible value for a
+     * double.
+     * 
+     * @param d
+     *            a double
+     * @return true if d is equal to the maximum value, false otherwise.
+     */
+    public static boolean isMax(double d) {
+        return d == Double.MAX_VALUE;
+    }
+
+    /**
      * Check if a double is strictly negative.
      * 
      * @param d
@@ -51,6 +63,18 @@ public class MathUtils {
      */
     public static boolean isNegative(double d) {
         return d < -MathUtils.EPSILON;
+    }
+
+    /**
+     * Check if a double has the value of the smallest possible value for a
+     * double.
+     * 
+     * @param d
+     *            a double
+     * @return true if d is equal to the minimum value, false otherwise.
+     */
+    public static boolean isMin(double d) {
+        return d == Double.MIN_VALUE;
     }
 
     /**
@@ -64,6 +88,23 @@ public class MathUtils {
      */
     public static boolean equals(double a, double b) {
         return Double.doubleToLongBits(a) == Double.doubleToLongBits(b);
+    }
+
+    /**
+     * Determine if the given value could be ignored or not. This is useful in
+     * some calculations. For instance, some value may be optional and in this
+     * case, it should be ignored. In order to be ignored, a value of type
+     * double must be set to either Double.MIN_VALUE or Double.MAX_VALUE.
+     * 
+     * @param d
+     *            a double
+     * @return True if the value can be ignored, false otherwise.
+     */
+    public static boolean isIgnorable(double d) {
+        if (isMax(d) || isMin(d)) {
+            return true;
+        }
+        return false;
     }
 
     /**
