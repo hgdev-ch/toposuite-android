@@ -9,6 +9,7 @@ import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarImplantation;
 import ch.hgdev.toposuite.calculation.PolarImplantation.Result;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestPolarImplantation extends TestCase {
     private DecimalFormat df3;
@@ -31,9 +32,36 @@ public class TestPolarImplantation extends TestCase {
         double z0 = 48.8732;
         double i = 1.58;
 
-        Measure m2 = new Measure(p2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, z0);
-        Measure m3 = new Measure(p3, 0.0, 0.0, 0.0, 1.8, 0.0, 0.0, i, z0);
-        Measure m4 = new Measure(p4, 0.0, 0.0, 0.0, 1.5, 0.0, 0.0, i, z0);
+        Measure m2 = new Measure(
+                p2,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                z0);
+        Measure m3 = new Measure(
+                p3,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                1.8,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                i,
+                z0);
+        Measure m4 = new Measure(
+                p4,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                1.5,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                i,
+                z0);
 
         PolarImplantation pi = new PolarImplantation(station, false);
 

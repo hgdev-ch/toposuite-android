@@ -25,6 +25,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 class AddPointWithSDialogFragment extends DialogFragment {
     /**
@@ -176,7 +177,7 @@ class AddPointWithSDialogFragment extends DialogFragment {
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
 
-        this.s = 0.0;
+        this.s = MathUtils.IGNORE_DOUBLE;
     }
 
     /**

@@ -73,7 +73,7 @@ public class PolarImplantation extends Calculation {
             double horizDist = MathUtils.euclideanDistance(this.station, d.getPoint());
 
             double altitude = d.getPoint().getAltitude() - this.station.getAltitude();
-            if (!MathUtils.isZero(d.getI()) && !MathUtils.isZero(d.getS())) {
+            if (!MathUtils.isIgnorable(d.getI()) && !MathUtils.isIgnorable(d.getS())) {
                 altitude = (altitude - d.getI()) + d.getS();
             }
 

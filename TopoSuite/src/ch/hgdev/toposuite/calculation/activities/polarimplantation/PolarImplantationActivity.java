@@ -81,7 +81,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.setContentView(R.layout.activity_polar_implantation);
 
         this.position = -1;
-        this.z0 = 0.0;
+        this.z0 = MathUtils.IGNORE_DOUBLE;
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
@@ -283,7 +283,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         switch (view.getId()) {
         case R.id.checkbox_z0:
             if (checked) {
-                if (MathUtils.isZero(this.z0)) {
+                if (MathUtils.isIgnorable(this.z0)) {
                     Toast errorToast = Toast.makeText(this,
                             this.getText(R.string.error_no_abriss_calculation_found),
                             Toast.LENGTH_SHORT);
@@ -405,14 +405,10 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     public void onDialogAdd(AddPointWithSDialogFragment dialog) {
         Measure m = new Measure(
                 dialog.getPoint(),
-                0.0,
-                0.0,
-                0.0,
-                dialog.getS(),
-                0.0,
-                0.0,
-                0.0,
-                0.0);
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                dialog.getS());
 
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
@@ -430,14 +426,10 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.adapter.remove(this.adapter.getItem(this.position));
         Measure m = new Measure(
                 dialog.getPoint(),
-                0.0,
-                0.0,
-                0.0,
-                dialog.getS(),
-                0.0,
-                0.0,
-                0.0,
-                0.0);
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                dialog.getS());
 
         this.position = -1;
         this.adapter.add(m);
