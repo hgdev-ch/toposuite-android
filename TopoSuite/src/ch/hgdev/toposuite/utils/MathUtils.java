@@ -100,14 +100,18 @@ public class MathUtils {
      * Determine if the given value could be ignored or not. This is useful in
      * some calculations. For instance, some value may be optional and in this
      * case, it should be ignored. In order to be ignored, a value of type
-     * double must be set to either Double.MIN_VALUE or Double.MAX_VALUE.
+     * double must be set to {@link MathUtils.IGNORE}.
      * 
      * @param d
      *            a double
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(double d) {
-        if ((d == IGNORE) || isMax(d) || isMin(d)) {
+        if ((d == IGNORE)
+                || isMax(d)
+                || isMin(d)
+                || Double.isInfinite(d)
+                || Double.isNaN(d)) {
             return true;
         }
         return false;
