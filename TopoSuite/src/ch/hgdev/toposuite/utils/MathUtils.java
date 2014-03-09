@@ -13,18 +13,24 @@ public class MathUtils {
     /**
      * The earth equatorial radius in meters.
      */
-    public static final double EARTH_RADIUS = 6378100.0;
+    public static final double EARTH_RADIUS  = 6378100.0;
 
     /**
      * The machine precision used to perform logical operation on doubles.
      */
-    public static final double EPSILON      = Double.MIN_NORMAL;
+    public static final double EPSILON       = Double.MIN_NORMAL;
 
     /**
      * Use this value when you need to set a variable which needs to be ignored
      * later in some calculations.
      */
-    public static final double IGNORE       = Double.MIN_VALUE;
+    public static final double IGNORE_DOUBLE = Double.MIN_VALUE;
+
+    /**
+     * Use this value when you need to set a variable which needs to be ignored
+     * later in some calculations.
+     */
+    public static final int    IGNORE_INT    = Integer.MIN_VALUE;
 
     /**
      * Check if a double is zero.
@@ -100,18 +106,59 @@ public class MathUtils {
      * Determine if the given value could be ignored or not. This is useful in
      * some calculations. For instance, some value may be optional and in this
      * case, it should be ignored. In order to be ignored, a value of type
-     * double must be set to {@link MathUtils.IGNORE}.
+     * double must be set to {@link MathUtils.IGNORE_DOUBLE}.
      * 
      * @param d
      *            a double
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(double d) {
-        if ((d == IGNORE)
+        if ((d == IGNORE_DOUBLE)
                 || isMax(d)
                 || isMin(d)
                 || Double.isInfinite(d)
                 || Double.isNaN(d)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if a int has the value of the largest possible value for a int.
+     * 
+     * @param value
+     *            an int
+     * @return true if d is equal to the maximum value, false otherwise.
+     */
+    public static boolean isMax(int value) {
+        return value == Integer.MAX_VALUE;
+    }
+
+    /**
+     * Check if a int has the value of the smallest possible value for a int.
+     * 
+     * @param value
+     *            an int
+     * @return true if d is equal to the minimum value, false otherwise.
+     */
+    public static boolean isMin(int value) {
+        return value == Integer.MIN_VALUE;
+    }
+
+    /**
+     * Determine if the given value could be ignored or not. This is useful in
+     * some calculations. For instance, some value may be optional and in this
+     * case, it should be ignored. In order to be ignored, a value of type
+     * double must be set to {@link MathUtils.IGNORE_INT}.
+     * 
+     * @param value
+     *            an integer
+     * @return True if the value can be ignored, false otherwise.
+     */
+    public static boolean isIgnorable(int value) {
+        if ((value == IGNORE_INT)
+                || isMax(value)
+                || isMin(value)) {
             return true;
         }
         return false;
