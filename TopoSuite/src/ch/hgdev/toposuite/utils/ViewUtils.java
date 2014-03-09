@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.widget.EditText;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
@@ -56,8 +57,15 @@ public class ViewUtils {
      *            Activity that request the lock.
      */
     public static void lockScreenOrientation(Activity currentActivity) {
-        currentActivity.setRequestedOrientation(
-                ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        int currentOrientation = currentActivity.getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            currentActivity.setRequestedOrientation(
+                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }
+        else {
+            currentActivity.setRequestedOrientation(
+                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
     }
 
     /**
