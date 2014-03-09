@@ -8,6 +8,7 @@ import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Measure {
     public static final String  ORIENTATION_NUMBER     = "orientation_number";
@@ -98,48 +99,50 @@ public class Measure {
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
             int _measureNumber, double _abscissa) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
-                _unknownOrientation, _measureNumber, _abscissa, 0.0);
+                _unknownOrientation, _measureNumber, _abscissa, MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
             int _measureNumber) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
-                _unknownOrientation, _measureNumber, 0);
+                _unknownOrientation, _measureNumber, MathUtils.IGNORE_INT);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
-                _unknownOrientation, 0);
+                _unknownOrientation, MathUtils.IGNORE_INT);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i) {
-        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
+                MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl) {
-        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl,
+                MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl) {
-        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s) {
-        this(_point, _horizDir, _zenAngle, _distance, _s, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, _s, MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance) {
-        this(_point, _horizDir, _zenAngle, _distance, 0.0);
+        this(_point, _horizDir, _zenAngle, _distance, MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle) {
-        this(_point, _horizDir, _zenAngle, 0.0);
+        this(_point, _horizDir, _zenAngle, MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir) {
@@ -147,7 +150,7 @@ public class Measure {
     }
 
     public Measure(Point _point) {
-        this(_point, 0.0);
+        this(_point, MathUtils.IGNORE_DOUBLE);
     }
 
     public Point getPoint() {
