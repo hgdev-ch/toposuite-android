@@ -5,6 +5,7 @@
     <string name="abscissa_label">Abscisse [m]</string>
     <string name="abscissa_3dots">Abscisse&#8230;</string>
     <string name="about_title">À propos <xliff:g id="app_name">%s</xliff:g></string>
+    <string name="about_toposuite">À propos de TopoSuite</string>
     <string name="action_settings">Paramètres</string>
     <string name="actual_label">Actuel</string>
     <string name="add">Ajouter</string>
@@ -21,6 +22,7 @@
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
+    <string name="application_settings">Préférences de l\'application</string>
     <string name="arc_label">Arc [m]</string>
     <string name="arrow_label">Flèche [m]</string>
     <string name="base_label">Levé orthogonal depuis la base</string>
@@ -120,6 +122,7 @@
     <string name="format_3dots">Format&#8230;</string>
     <string name="free_station_label">Calcul de la station libre</string>
     <string name="fs_label">FS [cm]</string>
+    <string name="general_settings">Préférences générales</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="group_polar_calculation">Calculs polaires</string>
     <string name="group_orthogonal_calculation">Calculs orthogonaux</string>
