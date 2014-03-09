@@ -47,19 +47,19 @@ public class ArrayListOfPointsWithSAdapter extends
             TextView sTextView = (TextView) view.findViewById(R.id.s_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(m.getPoint().getNumber()));
+                numberTextView.setText(DisplayUtils.toStringForTextView(m.getPoint().getNumber()));
             }
             if (eastTextView != null) {
-                eastTextView.setText(DisplayUtils.toString(m.getPoint().getEast()));
+                eastTextView.setText(DisplayUtils.toStringForTextView(m.getPoint().getEast()));
             }
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toString(m.getPoint().getNorth()));
+                northTextView.setText(DisplayUtils.toStringForTextView(m.getPoint().getNorth()));
             }
             if (altitudeTextView != null) {
-                altitudeTextView.setText(DisplayUtils.toString(m.getPoint().getAltitude()));
+                altitudeTextView.setText(DisplayUtils.toStringForTextView(m.getPoint().getAltitude()));
             }
             if (sTextView != null) {
-                sTextView.setText(DisplayUtils.toString(m.getS()));
+                sTextView.setText(DisplayUtils.toStringForTextView(m.getS()));
             }
         }
 

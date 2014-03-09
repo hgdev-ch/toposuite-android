@@ -14,14 +14,14 @@ public class TestDisplayUtils extends TestCase {
 
     /**
      * Test method for
-     * {@link ch.hgdev.toposuite.utils.DisplayUtils#toString(double)}.
+     * {@link ch.hgdev.toposuite.utils.DisplayUtils#toStringForTextView(double)}.
      */
     public void testToStringDouble() {
-        Assert.assertEquals("12.0043", DisplayUtils.toString(12.0043));
-        Assert.assertEquals("0.0000", DisplayUtils.toString(0.0));
-        Assert.assertEquals("9832.1230", DisplayUtils.toString(9832.1230));
-        Assert.assertEquals("-12.0021", DisplayUtils.toString(-12.0021));
-        Assert.assertEquals("42.0000", DisplayUtils.toString(42.0));
+        Assert.assertEquals("12.0043", DisplayUtils.toStringForTextView(12.0043));
+        Assert.assertEquals("0.0000", DisplayUtils.toStringForTextView(0.0));
+        Assert.assertEquals("9832.1230", DisplayUtils.toStringForTextView(9832.1230));
+        Assert.assertEquals("-12.0021", DisplayUtils.toStringForTextView(-12.0021));
+        Assert.assertEquals("42.0000", DisplayUtils.toStringForTextView(42.0));
     }
 
     /**

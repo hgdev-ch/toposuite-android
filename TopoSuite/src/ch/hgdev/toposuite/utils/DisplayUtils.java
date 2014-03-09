@@ -19,13 +19,14 @@ import ch.hgdev.toposuite.points.Point;
 public class DisplayUtils {
 
     /**
-     * Convert a value of type int to a String.
+     * Convert a value of type int to a String. This method is meant to be used
+     * to set values in TextView views.
      * 
      * @param value
      *            The value to convert to a String.
      * @return Value as a String.
      */
-    public static String toString(int value) {
+    public static String toStringForTextView(int value) {
         if (MathUtils.isIgnorable(value)) {
             return "-";
         }
@@ -33,8 +34,24 @@ public class DisplayUtils {
     }
 
     /**
+     * Convert a value of type int to a String. This method is meant to be used
+     * to set values in EditText views.
+     * 
+     * @param value
+     *            The value to convert to a String.
+     * @return Value as a String.
+     */
+    public static String toStringForEditText(int value) {
+        if (MathUtils.isIgnorable(value)) {
+            return "";
+        }
+        return Integer.toString(value);
+    }
+
+    /**
      * Convert a value of type double to a String according to a given number of
-     * decimals.
+     * decimals. This method is meant to be used to set values in TextView
+     * views.
      * 
      * TODO check rounding mode of String.format
      * 
@@ -44,11 +61,29 @@ public class DisplayUtils {
      *            The number of decimal. (eg. "%.1f")
      * @return Value as a String.
      */
-    public static String toString(double value, String precision) {
+    public static String toStringForTextView(double value, String precision) {
         if (MathUtils.isIgnorable(value)) {
             return "-";
         }
         return String.format(precision, value);
+    }
+
+    /**
+     * Convert a value of type double to a String according to the number of
+     * decimals to display which are set in the application settings. This
+     * method is meant to be used to set values in EditText views.
+     * 
+     * TODO check rounding mode of String.format
+     * 
+     * @param value
+     *            The value to convert to a String.
+     * @return Value as a String.
+     */
+    public static String toStringForEditText(double value) {
+        if (MathUtils.isIgnorable(value)) {
+            return "";
+        }
+        return String.format(App.numberOfDecimals, value);
     }
 
     /**
@@ -61,7 +96,7 @@ public class DisplayUtils {
      *            The value to convert to a String.
      * @return Value as a String.
      */
-    public static String toString(double value) {
+    public static String toStringForTextView(double value) {
         if (MathUtils.isIgnorable(value)) {
             return "-";
         }
@@ -138,9 +173,10 @@ public class DisplayUtils {
      */
     public static String formatPoint(Context context, Point pt) {
         return String.format("%s: %s, %s: %s, %s: %s", context.getString(R.string.east),
-                DisplayUtils.toString(pt.getEast()), context.getString(R.string.north),
-                DisplayUtils.toString(pt.getNorth()), context.getString(R.string.altitude),
-                DisplayUtils.toString(pt.getAltitude()));
+                DisplayUtils.toStringForTextView(pt.getEast()), context.getString(R.string.north),
+                DisplayUtils.toStringForTextView(pt.getNorth()),
+                context.getString(R.string.altitude),
+                DisplayUtils.toStringForTextView(pt.getAltitude()));
     }
 
     /**
@@ -154,8 +190,8 @@ public class DisplayUtils {
      */
     public static String format2DPoint(Context context, Point pt) {
         return String.format("%s: %s, %s: %s", context.getString(R.string.east),
-                DisplayUtils.toString(pt.getEast()), context.getString(R.string.north),
-                DisplayUtils.toString(pt.getNorth()));
+                DisplayUtils.toStringForTextView(pt.getEast()), context.getString(R.string.north),
+                DisplayUtils.toStringForTextView(pt.getNorth()));
     }
 
     /**

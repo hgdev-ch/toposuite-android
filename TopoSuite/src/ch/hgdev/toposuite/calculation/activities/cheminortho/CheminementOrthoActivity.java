@@ -303,7 +303,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
                 }
             }
 
-            this.calcDistTextView.setText(DisplayUtils.toString(
+            this.calcDistTextView.setText(DisplayUtils.toStringForTextView(
                     this.cheminOrtho.getOrthogonalBase().getCalculatedDistance()));
         }
     }

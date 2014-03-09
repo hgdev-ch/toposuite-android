@@ -40,25 +40,25 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<OrthogonalImplantati
             TextView ordinateTextView = (TextView) view.findViewById(R.id.ordinate_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(result.getPoint().getNumber()));
+                numberTextView.setText(DisplayUtils.toStringForTextView(result.getPoint().getNumber()));
             }
 
             if (eastTextView != null) {
-                eastTextView.setText(DisplayUtils.toString(result.getPoint().getEast(),
+                eastTextView.setText(DisplayUtils.toStringForTextView(result.getPoint().getEast(),
                         App.smallNumberOfDecimals));
             }
 
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toString(result.getPoint().getNorth(),
+                northTextView.setText(DisplayUtils.toStringForTextView(result.getPoint().getNorth(),
                         App.smallNumberOfDecimals));
             }
 
             if (abscissaTextView != null) {
-                abscissaTextView.setText(DisplayUtils.toString(result.getAbscissa()));
+                abscissaTextView.setText(DisplayUtils.toStringForTextView(result.getAbscissa()));
             }
 
             if (ordinateTextView != null) {
-                ordinateTextView.setText(DisplayUtils.toString(result.getOrdinate()));
+                ordinateTextView.setText(DisplayUtils.toStringForTextView(result.getOrdinate()));
             }
         }
 

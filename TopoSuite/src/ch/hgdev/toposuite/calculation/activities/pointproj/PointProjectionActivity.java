@@ -186,13 +186,13 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             this.point2SelectedPosition = a.getPosition(ppoal.getP2());
             this.pointSelectedPosition = a.getPosition(ppoal.getPtToProj());
 
-            this.gisementEditText.setText(DisplayUtils.toString(
+            this.gisementEditText.setText(DisplayUtils.toStringForEditText(
                     ppoal.getGisement()));
 
-            this.displacementEditText.setText(DisplayUtils.toString(
+            this.displacementEditText.setText(DisplayUtils.toStringForEditText(
                     ppoal.getDisplacement()));
 
-            this.pointNumberEditText.setText(DisplayUtils.toString(
+            this.pointNumberEditText.setText(DisplayUtils.toStringForEditText(
                     ppoal.getNumber()));
         }
 

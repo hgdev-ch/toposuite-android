@@ -193,13 +193,13 @@ public class MergePointsDialog extends DialogFragment {
         return String.format(
                 "%s: %s\n%s: %s\n%s: %s\n%s: %s",
                 this.getActivity().getString(R.string.east),
-                DisplayUtils.toString(deltaEast),
+                DisplayUtils.toStringForTextView(deltaEast),
                 this.getActivity().getString(R.string.north),
-                DisplayUtils.toString(deltaNorth),
+                DisplayUtils.toStringForTextView(deltaNorth),
                 this.getActivity().getString(R.string.fs_without_unit_label),
-                DisplayUtils.toString(fs),
+                DisplayUtils.toStringForTextView(fs),
                 this.getActivity().getString(R.string.fh_label),
-                DisplayUtils.toString(deltaAlt));
+                DisplayUtils.toStringForTextView(deltaAlt));
     }
 
     private final void closeOnSuccess(String message) {

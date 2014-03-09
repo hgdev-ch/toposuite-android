@@ -323,7 +323,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                     this.lineIntersec.getP2D2());
 
             if (!MathUtils.isZero(this.lineIntersec.getGisementD1())) {
-                this.gisementD1EditText.setText(DisplayUtils.toString(
+                this.gisementD1EditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getGisementD1()));
 
                 if (this.point2D1SelectedPosition == 0) {
@@ -334,7 +334,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getGisementD2())) {
-                this.gisementD2EditText.setText(DisplayUtils.toString(
+                this.gisementD2EditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getGisementD2()));
 
                 if (this.point2D2SelectedPosition == 0) {
@@ -345,29 +345,29 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getDisplacementD1())) {
-                this.displacementD1EditText.setText(DisplayUtils.toString(
+                this.displacementD1EditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getDisplacementD1()));
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getDisplacementD2())) {
-                this.displacementD2EditText.setText(DisplayUtils.toString(
+                this.displacementD2EditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getDisplacementD2()));
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D1())) {
-                this.distP1D1EditText.setText(DisplayUtils.toString(
+                this.distP1D1EditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getDistanceP1D1()));
                 this.perpendicularD1CheckBox.setChecked(true);
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D2())) {
-                this.distP1D2EditText.setText(DisplayUtils.toString(
+                this.distP1D2EditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getDistanceP1D2()));
                 this.perpendicularD2CheckBox.setChecked(true);
             }
 
             if (this.lineIntersec.getPointNumber() != 0) {
-                this.pointNumberEditText.setText(DisplayUtils.toString(
+                this.pointNumberEditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getPointNumber()));
             }
         }

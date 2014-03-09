@@ -156,7 +156,7 @@ public class CalculationsDataSource implements DAO {
 
         long rowID = db.update(CalculationsTable.TABLE_NAME_CALCULATIONS, calculationValues,
                 CalculationsTable.COLUMN_NAME_ID + " = ?",
-                new String[] { DisplayUtils.toString(calculation.getId()) });
+                new String[] { DisplayUtils.toStringForTextView(calculation.getId()) });
         if (rowID == -1) {
             Log.e(Logger.TOPOSUITE_SQL_ERROR, CalculationsDataSource.ERROR_UPDATE + " => " +
                     Logger.formatCalculation(calculation));

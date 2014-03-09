@@ -165,7 +165,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                             PolarSurveyActivity.POLAR_SURVEY_ACTIVITY
                                     + "trying to get Z0 from a calculation that does not compute one");
                 }
-                this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
+                this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
             }
         }
 
@@ -211,8 +211,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
             this.stationSpinner.setSelection(
                     this.stationAdapter.getPosition(this.polarSurvey.getStation()));
 
-            this.iEditText.setText(DisplayUtils.toString(this.instrumentHeight));
-            this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
+            this.iEditText.setText(DisplayUtils.toStringForEditText(this.instrumentHeight));
+            this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
         } else {
             if (this.stationSelectedPosition > 0) {
                 this.stationSpinner.setSelection(
@@ -331,7 +331,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     errorToast.show();
                 } else {
-                    this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
+                    this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
                     this.unknownOrientEditText.setEnabled(false);
                     this.stationSpinner.setSelection(
                             this.stationAdapter.getPosition(this.z0Station));

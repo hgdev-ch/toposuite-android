@@ -150,7 +150,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
                 this.getActivity().getString(R.string.prism_height_3dots)
                         + this.getActivity().getString(R.string.unit_meter)
                         + this.getActivity().getString(R.string.optional_prths));
-        this.sEditText.setText(DisplayUtils.toString(this.s));
+        this.sEditText.setText(DisplayUtils.toStringForEditText(this.s));
         this.sEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.pointSpinner = new Spinner(this.getActivity());

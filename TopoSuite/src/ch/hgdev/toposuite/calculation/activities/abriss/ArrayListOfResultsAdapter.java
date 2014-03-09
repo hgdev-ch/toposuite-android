@@ -42,16 +42,16 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             TextView errLonTextView = (TextView) view.findViewById(R.id.err_lon_item);
 
             if (targetPointTextView != null) {
-                targetPointTextView.setText(DisplayUtils.toString(result.getOrientation()
+                targetPointTextView.setText(DisplayUtils.toStringForTextView(result.getOrientation()
                         .getNumber()));
             }
 
             if (calcDistTextView != null) {
-                calcDistTextView.setText(DisplayUtils.toString(result.getCalculatedDistance()));
+                calcDistTextView.setText(DisplayUtils.toStringForTextView(result.getCalculatedDistance()));
             }
 
             if (unknOrientTextView != null) {
-                unknOrientTextView.setText(DisplayUtils.toString(result.getUnknownOrientation()));
+                unknOrientTextView.setText(DisplayUtils.toStringForTextView(result.getUnknownOrientation()));
             }
 
             if (errAngTextView != null) {
@@ -59,12 +59,12 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             }
 
             if (errTransTextView != null) {
-                errTransTextView.setText(DisplayUtils.toString(
+                errTransTextView.setText(DisplayUtils.toStringForTextView(
                         result.getErrTrans(), App.smallNumberOfDecimals));
             }
 
             if ((errLonTextView != null) && !MathUtils.isZero(result.getDistance())) {
-                errLonTextView.setText(DisplayUtils.toString(
+                errLonTextView.setText(DisplayUtils.toStringForTextView(
                         result.getErrLong(), App.smallNumberOfDecimals));
             }
         }

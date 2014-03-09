@@ -105,9 +105,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
             this.centerTwoSelectedPosition = this.adapter.getPosition(
                     this.circlesIntersection.getCenterSecond());
             this.radiusOneEditText.setText(
-                    DisplayUtils.toString(this.circlesIntersection.getRadiusFirst()));
+                    DisplayUtils.toStringForEditText(this.circlesIntersection.getRadiusFirst()));
             this.radiusTwoEditText.setText(
-                    DisplayUtils.toString(this.circlesIntersection.getRadiusSecond()));
+                    DisplayUtils.toStringForEditText(this.circlesIntersection.getRadiusSecond()));
         }
     }
 
@@ -424,7 +424,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
      */
     private void fillRadiusOne() {
         if ((this.centerOneSelectedPosition > 0) && (this.byPointOneSelectedPosition > 0)) {
-            this.radiusOneEditText.setText(DisplayUtils.toString(
+            this.radiusOneEditText.setText(DisplayUtils.toStringForEditText(
                     MathUtils.euclideanDistance(this.centerOnePoint, this.byPointOne)));
             this.radiusOneEditText.setEnabled(false);
         } else {
@@ -438,7 +438,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
      */
     private void fillRadiusTwo() {
         if ((this.centerTwoSelectedPosition > 0) && (this.byPointTwoSelectedPosition > 0)) {
-            this.radiusTwoEditText.setText(DisplayUtils.toString(
+            this.radiusTwoEditText.setText(DisplayUtils.toStringForEditText(
                     MathUtils.euclideanDistance(this.centerTwoPoint, this.byPointTwo)));
             this.radiusTwoEditText.setEnabled(false);
         } else {

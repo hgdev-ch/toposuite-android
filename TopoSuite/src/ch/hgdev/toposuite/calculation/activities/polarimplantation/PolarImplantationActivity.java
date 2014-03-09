@@ -170,8 +170,9 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                     this.stationAdapter.getPosition(this.polarImplantation.getStation()));
             Measure m = this.polarImplantation.getMeasures().get(0);
 
-            this.iEditText.setText(DisplayUtils.toString(m.getI()));
-            this.unknownOrientEditText.setText(DisplayUtils.toString(m.getUnknownOrientation()));
+            this.iEditText.setText(DisplayUtils.toStringForEditText(m.getI()));
+            this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(m
+                    .getUnknownOrientation()));
         } else {
             if (this.stationSelectedPosition > 0) {
                 this.stationSpinner.setSelection(
@@ -290,7 +291,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                     errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     errorToast.show();
                 } else {
-                    this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
+                    this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
                     this.unknownOrientEditText.setEnabled(false);
                     this.stationSpinner.setSelection(
                             this.stationAdapter.getPosition(this.z0Station));

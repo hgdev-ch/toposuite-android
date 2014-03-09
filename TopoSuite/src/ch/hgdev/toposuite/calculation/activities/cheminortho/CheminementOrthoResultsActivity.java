@@ -69,7 +69,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
             builder.append(this.cheminOrtho.getOrthogonalBase().getExtemity());
 
             this.baseTextView.setText(builder.toString());
-            this.scaleTextView.setText(DisplayUtils.toString(
+            this.scaleTextView.setText(DisplayUtils.toStringForTextView(
                     this.cheminOrtho.getScale()));
             this.fsTextView.setText(DisplayUtils.formatDifferences(
                     MathUtils.mToCm(this.cheminOrtho.getFs())));
