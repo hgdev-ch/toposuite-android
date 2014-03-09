@@ -210,7 +210,6 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         if (this.polarSurvey != null) {
             this.stationSpinner.setSelection(
                     this.stationAdapter.getPosition(this.polarSurvey.getStation()));
-            Measure m = this.polarSurvey.getDeterminations().get(0);
 
             this.iEditText.setText(DisplayUtils.toString(this.instrumentHeight));
             this.unknownOrientEditText.setText(DisplayUtils.toString(this.z0));
