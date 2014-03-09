@@ -101,6 +101,7 @@
     <string name="error_no_station_selected">No station selected!</string>
     <string name="error_radius_must_be_positive">The radius value must be positive!</string>
     <string name="error_point_number">A point\'s number must greater than or equal to 1.</string>
+    <string name="error_points_import">An error occurred while importing points! Some points may have not been imported!</string>
     <string name="error_same_points">The points must be different!</string>
     <string name="error_three_points_required">At least three points should be provided!</string>
     <string name="error_unsupported_format">Unsupported format!</string>
