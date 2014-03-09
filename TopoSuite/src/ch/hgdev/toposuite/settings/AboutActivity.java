@@ -16,7 +16,11 @@ public class AboutActivity extends TopoSuiteActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_about);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         ScrollView aboutScrollView = (ScrollView) this.findViewById(R.id.about_scrollview);
         aboutScrollView.addView(this.genAboutView());
 
