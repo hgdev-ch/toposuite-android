@@ -93,6 +93,7 @@
     <string name="error_enter_point_number">Vous devez entrer des numéros de points!</string>
     <string name="error_file_already_exists">Le fichier existe déjà!</string>
     <string name="error_fill_data">Tous les champs obligatoires doivent être remplis!</string>
+    <string name="error_import">Error d\'importation</string>
     <string name="error_impossible_calculation">Calcul impossible!</string>
     <string name="error_impossible_to_import">Impossible d\'importer le fichier!</string>
     <string name="error_no_abriss_calculation_found">Aucun calcul d\'orientation à la station trouvé!</string>

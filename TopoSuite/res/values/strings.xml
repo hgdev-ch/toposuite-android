@@ -91,8 +91,9 @@
     <string name="error_choose_unknown_orientation">You must select an unknown orientation!</string>
     <string name="error_choose_file">Please, choose file to import!</string>
     <string name="error_enter_point_number">Please, enter points number!</string>
-    <string name="error_fill_data">Every mandatory field must be field!</string>
     <string name="error_file_already_exists">File already exists!</string>
+    <string name="error_fill_data">Every mandatory field must be field!</string>
+    <string name="error_import">Import error</string>
     <string name="error_impossible_calculation">Impossible calculation!</string>
     <string name="error_impossible_to_import">Impossible to import the file!</string>
     <string name="error_no_abriss_calculation_found">No abriss calculation found!</string>
