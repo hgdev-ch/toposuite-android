@@ -1,16 +1,11 @@
 package ch.hgdev.toposuite.entry;
 
-import java.util.Calendar;
-
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.AppUtils;
 
 /**
  * Starting activity of the application.
@@ -37,45 +32,10 @@ public class MainActivity extends TopoSuiteActivity {
      * copyright and so on.
      */
     private WebView about() {
-        String appName = this.getString(R.string.app_name);
-        int year = Calendar.getInstance().get(Calendar.YEAR);
+
         WebView view = new WebView(this);
-        StringBuilder html = new StringBuilder()
-                .append("<meta http-equiv='content-type' content='text/html; charset=utf-8' />")
-                .append("<div><img src='file:///android_asset/toposuite_logo.png' style='float: left;' alt='")
-                .append(appName)
-                .append("'/>")
-                .append("<h1>")
-                .append(String.format(this.getString(R.string.about_title), appName))
-                .append("</h1><p>")
-                .append(appName)
-                .append(" ")
-                .append(String.format(this.getString(R.string.app_version), this.getVersionNumber()))
-                .append("</p></div><br/><p style='clear: both;'>")
-                .append(this.getString(R.string.developed_by))
-                .append(":<br/>")
-                .append("<img src='file:///android_asset/hgdev_logo.png' alt='")
-                .append(this.getString(R.string.app_developer))
-                .append("'/><br/>")
-                .append(String.format(
-                        this.getString(R.string.app_developer_full_info),
-                        this.getString(R.string.app_developer),
-                        "<a href='" + this.getString(R.string.app_developer_webpage_url) + "'>"
-                                + this.getString(R.string.app_developer_webpage_url_short) + "</a>"))
-                .append("<p>")
-                .append(String.format(this.getString(R.string.app_copyright), year,
-                        this.getString(R.string.crag)))
-                .append("</p><div>")
-                .append(this.getString(R.string.with_support_from))
-                .append(":<br/><table><tr><td>")
-                .append("<img src='file:///android_asset/cf_geo.png' alt='")
-                .append(this.getString(R.string.cfgeo))
-                .append("'/></td><td>")
-                .append(this.getString(R.string.cfgeo))
-                .append(" - " + "<a href='" + this.getString(R.string.cfgeo_webpage_url) + "'>"
-                        + this.getString(R.string.cfgeo_webpage_url_short) + "</a>")
-                .append("</td></tr></table></div>")
-                .append("<p>")
+        StringBuilder html = AppUtils.getAboutString();
+        html.append("<p>")
                 .append(this.getString(R.string.disclaimer) + ":<br/>")
                 .append(this.getString(R.string.disclaimer_notice) + "<br/><br/>")
                 .append(this.getString(R.string.disclaimer_text))
@@ -83,21 +43,5 @@ public class MainActivity extends TopoSuiteActivity {
         view.loadDataWithBaseURL("file:///android_res/drawable/", html.toString(), "text/html",
                 "utf-8", null);
         return view;
-    }
-
-    /**
-     * Get current application version number.
-     * 
-     * @return String version of the application.
-     */
-    private String getVersionNumber() {
-        String version = "?";
-        try {
-            PackageInfo pi = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
-            version = pi.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e(Logger.TOPOSUITE_RESSOURCE_NOT_FOUND, "Application name", e);
-        }
-        return version;
     }
 }
