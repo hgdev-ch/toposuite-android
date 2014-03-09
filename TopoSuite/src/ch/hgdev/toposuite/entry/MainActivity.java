@@ -77,7 +77,7 @@ public class MainActivity extends TopoSuiteActivity {
                 .append("</td></tr></table></div>")
                 .append("<p>")
                 .append(this.getString(R.string.disclaimer) + ":<br/>")
-                .append(this.getString(R.string.disclaimer_notice) + "<br/>")
+                .append(this.getString(R.string.disclaimer_notice) + "<br/><br/>")
                 .append(this.getString(R.string.disclaimer_text))
                 .append("</p>");
         view.loadDataWithBaseURL("file:///android_res/drawable/", html.toString(), "text/html",

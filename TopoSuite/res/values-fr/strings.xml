@@ -61,16 +61,16 @@
     <string name="disclaimer">Avis de non responsabilité</string>
     <string name="disclaimer_notice">Ce programme de calcul est avant tout destiné aux apprentis géomaticiens/nes dans un but pédagogique.
         La CRAG décline toute responsabilité en cas d\'utilisation autre.</string>
-    <string name="disclaimer_text">CE LOGICIEL EST FOURNI "TEL QUEL" PAR LES DÉTENTEURS DU COPYRIGHT ET LES COLLABORATEURS
-        ET TOUTE GARANTIE EXPLICITE OU IMPLICITE, Y COMPRIS, MAIS SANS S\'Y LIMITER, LES
-        GARANTIES DE QUALITÉ MARCHANDE ET D\'ADAPTATION À UN USAGE PARTICULIER SONT EXCLUES.
-        EN AUCUN CAS LE TITULAIRE DU DROIT D\'AUTEUR OU SES COLLABORATEURS NE SERONT TENUS
-        RESPONSABLES DES DOMMAGES DIRECTS, INDIRECTS, ACCESSOIRES, SPÉCIAUX, EXEMPLAIRES OU
-        INDIRECTS (Y COMPRIS, MAIS SANS S\'Y LIMITER, L\'ACQUISITION DE BIENS OU DE SERVICES DE
-        SUBSTITUTION; PERTE DE DONNÉES OU DE PROFITS; OU CESSATION D\'ACTIVITÉS) QUELQU\'EN SOIT
-        LA CAUSE ET EN THÉORIE DE LA RESPONSABILITÉ, QU\'ELLE SOIT PAR CONTRAT, STRICTE OU PAR DÉLIT
-        (Y COMPRIS LA NÉGLIGENCE OU AUTRE) PROVENANT DE TOUTE FORME DE L\'UTILISATION DE CE LOGICIEL,
-        MÊME SI AVERTI DE LA POSSIBILITÉ DE TELS DOMMAGES.</string>
+    <string name="disclaimer_text">
+        Ce programme est un logiciel libre; vous pouvez le redistribuer et/ou
+        le modifier sous les conditions de la licence GNU General Public License version 2
+        telle que publiée par la Free Software Foundation.
+        
+        Ce programme est distribué dans l\'espoir qu\'il sera utile,
+        mais SANS AUCUNE GARANTIE; sans même la garantie implicite de
+        COMMERCIALISATION ou D\'ADAPTATION À UN USAGE PARTICULIER. Lisez la licence
+        GNU General Public License version 2 (dans le menu à propos dans les préférences) pour plus de détails.
+    </string>
 	<string name="displacement_label">Déplacement</string>
 	<string name="dist_pt_1">Dist. pt. A</string>
     <string name="distance_label">Distance [m]</string>
