@@ -1,6 +1,5 @@
 package ch.hgdev.toposuite.settings;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -24,7 +23,7 @@ public class SettingsActivity extends TopoSuiteActivity {
 
         // Display the settings fragment as the main content.
         this.getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment(this))
+                .replace(android.R.id.content, new SettingsFragment())
                 .commit();
     }
 
@@ -41,12 +40,6 @@ public class SettingsActivity extends TopoSuiteActivity {
      * 
      */
     public static class SettingsFragment extends PreferenceFragment {
-        private Activity activity;
-
-        public SettingsFragment(Activity _activity) {
-            super();
-            this.activity = _activity;
-        }
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -68,8 +61,8 @@ public class SettingsActivity extends TopoSuiteActivity {
          */
         private void startAboutActivity() {
             Intent aboutActivityIntent = new Intent(
-                    this.activity, AboutActivity.class);
-            this.activity.startActivity(aboutActivityIntent);
+                    this.getActivity(), AboutActivity.class);
+            this.getActivity().startActivity(aboutActivityIntent);
         }
     }
 }
