@@ -104,6 +104,8 @@
     <string name="error_same_points">The points must be different!</string>
     <string name="error_three_points_required">At least three points should be provided!</string>
     <string name="error_unsupported_format">Unsupported format!</string>
+    <string name="exception_invalid_format_values">This line contains invalid values!</string>
+    <string name="exception_invalid_format_values_number">This line contains an invalid number of values!</string>
     <string name="excircle_label">Excircle radius [m]</string>
     <string name="existing_point_number">The point number is: <xliff:g>%d</xliff:g></string>
     <string name="export">Export</string>
