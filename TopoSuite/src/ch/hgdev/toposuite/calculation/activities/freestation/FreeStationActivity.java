@@ -145,8 +145,12 @@ public class FreeStationActivity extends TopoSuiteActivity implements
         case R.id.run_calculation_button:
             if (this.checkInputs()) {
                 // update I and station number
-                this.freeStation.setI(
-                        ViewUtils.readDouble(this.iEditText));
+                if (this.iEditText.length() > 0) {
+                    this.freeStation.setI(
+                            ViewUtils.readDouble(this.iEditText));
+                } else {
+                    this.freeStation.setI(MathUtils.IGNORE_DOUBLE);
+                }
                 this.freeStation.setStationNumber(
                         ViewUtils.readInt(this.stationEditText));
 

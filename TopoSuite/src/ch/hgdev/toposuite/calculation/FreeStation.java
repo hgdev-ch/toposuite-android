@@ -131,8 +131,11 @@ public class FreeStation extends Calculation {
 
             double weight = 0.0;
             if (MathUtils.isPositive(m.getPoint().getAltitude())) {
+                // small trick to handle ignorable I
+                double tmpI = (MathUtils.isIgnorable(this.i)) ? 0.0 : this.i;
+
                 res.setAltitude(res.getAltitude() - MathUtils.nivellTrigo(
-                        horizDist, m.getZenAngle(), this.i, m.getS(), 0.0));
+                        horizDist, m.getZenAngle(), tmpI, m.getS(), 0.0));
                 weight = 1 / Math.pow((horizDist / 1000), 2);
                 totalWeights += weight;
                 meanAltitude += weight * res.getAltitude();
@@ -242,6 +245,12 @@ public class FreeStation extends Calculation {
         this.meanFS /= this.results.size();
 
         this.unknownOrientation = meanRotations;
+
+        // if I is not provided, there is no altimetry, so we just set
+        // the altitude of the station to 0.0
+        if (MathUtils.isIgnorable(this.i)) {
+            this.stationResult.setAltitude(0.0);
+        }
 
         this.updateLastModification();
         this.notifyUpdate(this);

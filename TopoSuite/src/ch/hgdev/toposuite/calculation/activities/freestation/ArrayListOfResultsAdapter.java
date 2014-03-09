@@ -8,17 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> {
     private final ArrayList<FreeStation.Result> results;
+    private final boolean                       hasAltimetry;
 
     public ArrayListOfResultsAdapter(Context context, int textViewResourceId,
-            ArrayList<FreeStation.Result> results) {
+            ArrayList<FreeStation.Result> results, boolean _hasAltimetry) {
         super(context, textViewResourceId, results);
         this.results = results;
+        this.hasAltimetry = _hasAltimetry;
     }
 
     @Override
@@ -52,7 +55,12 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
             }
 
             if (vATextView != null) {
-                vATextView.setText(DisplayUtils.toString(result.getvA()));
+                if (this.hasAltimetry) {
+                    vATextView.setText(DisplayUtils.toString(result.getvA()));
+                } else {
+                    vATextView.setText(
+                            App.getContext().getString(R.string.no_value));
+                }
             }
 
             if (fSTextView != null) {

@@ -13,6 +13,7 @@ import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStationResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -63,8 +64,14 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
                     DisplayUtils.formatDifferences(this.freeStation.getsE()));
             this.sNTextView.setText(
                     DisplayUtils.formatDifferences(this.freeStation.getsN()));
-            this.sATextView.setText(
-                    DisplayUtils.formatDifferences(this.freeStation.getsA()));
+
+            if (!MathUtils.isIgnorable(this.freeStation.getI())) {
+                this.sATextView.setText(
+                        DisplayUtils.formatDifferences(this.freeStation.getsA()));
+            } else {
+                this.sATextView.setText(this.getString(R.string.no_value));
+            }
+
             this.unknownOrientationTextView.setText(
                     DisplayUtils.toString(this.freeStation.getUnknownOrientation()));
 
@@ -97,7 +104,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
 
     private void drawList() {
         this.adapter = new ArrayListOfResultsAdapter(this, R.layout.free_station_results_list_item,
-                this.freeStation.getResults());
+                this.freeStation.getResults(), !MathUtils.isIgnorable(this.freeStation.getI()));
         this.resultsListView.setAdapter(this.adapter);
     }
 
