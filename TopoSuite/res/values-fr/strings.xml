@@ -115,13 +115,14 @@
     <string name="export">Exporter</string>
     <string name="export_3dots">Exporter&#8230;</string>
     <string name="extremity_label">Extrémité</string>
-    <string name="fh_label">FH [cm]</string>
+    <string name="fh_label">FH</string>
     <string name="filename">Nom du fichier</string>
     <string name="flat_label">fLat [cm]</string>
     <string name="flon_label">fLon [cm]</string>
     <string name="format_3dots">Format&#8230;</string>
     <string name="free_station_label">Calcul de la station libre</string>
     <string name="fs_label">FS [cm]</string>
+    <string name="fs_without_unit_label">FS</string>
     <string name="general_settings">Préférences générales</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="group_polar_calculation">Calculs polaires</string>
@@ -203,7 +204,7 @@
     <string name="orthogonal_implantation_label">Implantation orthogonale depuis la base </string>
     <string name="perimeter_label">Perimètre [m]</string>
     <string name="perpendicular">Perpendiculaire</string>
-    <string name="point_already_exist">Le point que vous voulez enregistré existe déjà!</string>
+    <string name="point_already_exist">Le point que vous voulez enregistrer existe déjà!</string>
     <string name="point_to_project">Point à projeter</string>
     <string name="point_1">Point A</string>
     <string name="point_2">Point B</string>
