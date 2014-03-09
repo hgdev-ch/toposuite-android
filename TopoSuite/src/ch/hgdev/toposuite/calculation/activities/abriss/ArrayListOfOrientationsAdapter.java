@@ -38,20 +38,20 @@ public class ArrayListOfOrientationsAdapter extends ArrayAdapter<Measure> {
             TextView zenAngleTextView = (TextView) view.findViewById(R.id.zen_angle_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(
+                numberTextView.setText(DisplayUtils.toStringForTextView(
                         orientation.getPoint().getNumber()));
             }
 
             if (horizOrientTextView != null) {
-                horizOrientTextView.setText(DisplayUtils.toString(orientation.getHorizDir()));
+                horizOrientTextView.setText(DisplayUtils.toStringForTextView(orientation.getHorizDir()));
             }
 
             if (horizDistTextView != null) {
-                horizDistTextView.setText(DisplayUtils.toString(orientation.getDistance()));
+                horizDistTextView.setText(DisplayUtils.toStringForTextView(orientation.getDistance()));
             }
 
             if (zenAngleTextView != null) {
-                zenAngleTextView.setText(DisplayUtils.toString(orientation.getZenAngle()));
+                zenAngleTextView.setText(DisplayUtils.toStringForTextView(orientation.getZenAngle()));
             }
         }
 

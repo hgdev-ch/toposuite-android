@@ -40,18 +40,18 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
         TextView projPointP2DistTextView = (TextView) this.findViewById(
                 R.id.distance_projpoint_point_2);
 
-        pointNumberTextView.setText(DisplayUtils.toString(
+        pointNumberTextView.setText(DisplayUtils.toStringForTextView(
                 this.ppoal.getNumber()));
-        eastTextView.setText(DisplayUtils.toString(
+        eastTextView.setText(DisplayUtils.toStringForTextView(
                 this.ppoal.getProjPt().getEast()));
-        northTextView.setText(DisplayUtils.toString(
+        northTextView.setText(DisplayUtils.toStringForTextView(
                 this.ppoal.getProjPt().getNorth()));
 
-        projPointLineDistTextView.setText(DisplayUtils.toString(
+        projPointLineDistTextView.setText(DisplayUtils.toStringForTextView(
                 this.ppoal.getDistPtToLine()));
-        projPointP1DistTextView.setText(DisplayUtils.toString(
+        projPointP1DistTextView.setText(DisplayUtils.toStringForTextView(
                 this.ppoal.getDistPtToP1()));
-        projPointP2DistTextView.setText(DisplayUtils.toString(
+        projPointP2DistTextView.setText(DisplayUtils.toStringForTextView(
                 this.ppoal.getDistPtToP2()));
     }
 

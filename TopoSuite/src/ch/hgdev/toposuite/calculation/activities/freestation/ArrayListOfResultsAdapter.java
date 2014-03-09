@@ -43,20 +43,20 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
 
             if (numberTextView != null) {
                 numberTextView.setText(
-                        DisplayUtils.toString(result.getPoint().getNumber()));
+                        DisplayUtils.toStringForTextView(result.getPoint().getNumber()));
             }
 
             if (vETextView != null) {
-                vETextView.setText(DisplayUtils.toString(result.getvE()));
+                vETextView.setText(DisplayUtils.toStringForTextView(result.getvE()));
             }
 
             if (vNTextView != null) {
-                vNTextView.setText(DisplayUtils.toString(result.getvN()));
+                vNTextView.setText(DisplayUtils.toStringForTextView(result.getvN()));
             }
 
             if (vATextView != null) {
                 if (this.hasAltimetry) {
-                    vATextView.setText(DisplayUtils.toString(result.getvA()));
+                    vATextView.setText(DisplayUtils.toStringForTextView(result.getvA()));
                 } else {
                     vATextView.setText(
                             App.getContext().getString(R.string.no_value));
@@ -64,7 +64,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
             }
 
             if (fSTextView != null) {
-                fSTextView.setText(DisplayUtils.toString(result.getfS()));
+                fSTextView.setText(DisplayUtils.toStringForTextView(result.getfS()));
             }
         }
 

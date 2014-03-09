@@ -82,7 +82,7 @@ public class MeasureDialogFragment extends DialogFragment {
     /**
      * True if the dialog is for edition, false otherwise.
      */
-    private boolean             isEdition;
+    private final boolean       isEdition;
 
     /**
      * TODO make something cleaner and only use measure instead of this huge
@@ -91,7 +91,7 @@ public class MeasureDialogFragment extends DialogFragment {
     private Measure             measure;
 
     /** True if the instrument height is provided, false otherwise */
-    private boolean             isSMandatory;
+    private final boolean       isSMandatory;
 
     public MeasureDialogFragment(boolean _isSMandatory) {
         this.isEdition = false;
@@ -318,15 +318,15 @@ public class MeasureDialogFragment extends DialogFragment {
         this.pointSpinner.setSelection(this.adapter.getPosition(this.point));
         this.pointTextView.setText(DisplayUtils.formatPoint(
                 this.getActivity(), this.point));
-        this.horizDirEditText.setText(DisplayUtils.toString(this.horizDir));
-        this.distanceEditText.setText(DisplayUtils.toString(this.distance));
-        this.zenAngleEditText.setText(DisplayUtils.toString(this.getZenAngle()));
+        this.horizDirEditText.setText(DisplayUtils.toStringForEditText(this.horizDir));
+        this.distanceEditText.setText(DisplayUtils.toStringForEditText(this.distance));
+        this.zenAngleEditText.setText(DisplayUtils.toStringForEditText(this.getZenAngle()));
         this.sEditText.setText(DisplayUtils.zeroToEmpty(
-                DisplayUtils.toString(this.getS())));
+                DisplayUtils.toStringForEditText(this.getS())));
         this.latDeplEditText.setText(DisplayUtils.zeroToEmpty(
-                DisplayUtils.toString(this.getLatDepl())));
+                DisplayUtils.toStringForEditText(this.getLatDepl())));
         this.lonDeplEditText.setText(DisplayUtils.zeroToEmpty(
-                DisplayUtils.toString(this.getLonDepl())));
+                DisplayUtils.toStringForEditText(this.getLonDepl())));
     }
 
     /**

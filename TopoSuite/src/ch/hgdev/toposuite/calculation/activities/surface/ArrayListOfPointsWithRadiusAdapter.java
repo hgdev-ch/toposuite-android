@@ -40,19 +40,19 @@ public class ArrayListOfPointsWithRadiusAdapter extends ArrayAdapter<Surface.Poi
             TextView northTextView = (TextView) view.findViewById(R.id.point_north_item);
 
             if (vertexTextView != null) {
-                vertexTextView.setText(DisplayUtils.toString(p.getVertexNumber()));
+                vertexTextView.setText(DisplayUtils.toStringForTextView(p.getVertexNumber()));
             }
             if (radiusTextView != null) {
-                radiusTextView.setText(DisplayUtils.toString(p.getRadius()));
+                radiusTextView.setText(DisplayUtils.toStringForTextView(p.getRadius()));
             }
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(p.getNumber()));
+                numberTextView.setText(DisplayUtils.toStringForTextView(p.getNumber()));
             }
             if (eastTextView != null) {
-                eastTextView.setText(DisplayUtils.toString(p.getEast()));
+                eastTextView.setText(DisplayUtils.toStringForTextView(p.getEast()));
             }
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toString(p.getNorth()));
+                northTextView.setText(DisplayUtils.toStringForTextView(p.getNorth()));
             }
         }
         return view;

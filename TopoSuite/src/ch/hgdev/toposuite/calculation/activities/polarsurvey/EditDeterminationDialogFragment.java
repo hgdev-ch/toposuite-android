@@ -16,6 +16,7 @@ import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class EditDeterminationDialogFragment extends DialogFragment {
     /**
@@ -95,35 +96,33 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         if (EditDeterminationDialogFragment.this.checkDialogInputs()) {
-                            // TODO check that if S is set, I is set too and
-                            // pop-up an error
                             if (EditDeterminationDialogFragment.this.zenAngleEditText.length() > 0) {
                                 EditDeterminationDialogFragment.this.zenAngle = Double
                                         .parseDouble(EditDeterminationDialogFragment.this.zenAngleEditText
                                                 .getText().toString());
                             } else {
-                                EditDeterminationDialogFragment.this.zenAngle = 0.0;
+                                EditDeterminationDialogFragment.this.zenAngle = MathUtils.IGNORE_DOUBLE;
                             }
                             if (EditDeterminationDialogFragment.this.sEditText.length() > 0) {
                                 EditDeterminationDialogFragment.this.s = Double
                                         .parseDouble(EditDeterminationDialogFragment.this.sEditText
                                                 .getText().toString());
                             } else {
-                                EditDeterminationDialogFragment.this.s = 0.0;
+                                EditDeterminationDialogFragment.this.s = MathUtils.IGNORE_DOUBLE;
                             }
                             if (EditDeterminationDialogFragment.this.latDeplEditText.length() > 0) {
                                 EditDeterminationDialogFragment.this.latDepl = Double
                                         .parseDouble(EditDeterminationDialogFragment.this.latDeplEditText
                                                 .getText().toString());
                             } else {
-                                EditDeterminationDialogFragment.this.latDepl = 0.0;
+                                EditDeterminationDialogFragment.this.latDepl = MathUtils.IGNORE_DOUBLE;
                             }
                             if (EditDeterminationDialogFragment.this.lonDeplEditText.length() > 0) {
                                 EditDeterminationDialogFragment.this.lonDepl = Double
                                         .parseDouble(EditDeterminationDialogFragment.this.lonDeplEditText
                                                 .getText().toString());
                             } else {
-                                EditDeterminationDialogFragment.this.lonDepl = 0.0;
+                                EditDeterminationDialogFragment.this.lonDepl = MathUtils.IGNORE_DOUBLE;
                             }
 
                             EditDeterminationDialogFragment.this.determinationNo = Integer
@@ -186,7 +185,8 @@ public class EditDeterminationDialogFragment extends DialogFragment {
         this.determinationNoEditText = new EditText(this.getActivity());
         this.determinationNoEditText.setHint(
                 this.getActivity().getString(R.string.determination_sight_3dots));
-        this.determinationNoEditText.setText(DisplayUtils.toString(this.determinationNo));
+        this.determinationNoEditText
+                .setText(DisplayUtils.toStringForEditText(this.determinationNo));
         this.determinationNoEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
@@ -194,14 +194,14 @@ public class EditDeterminationDialogFragment extends DialogFragment {
         this.horizDirEditText.setHint(
                 this.getActivity().getString(R.string.horiz_direction_3dots)
                         + this.getActivity().getString(R.string.unit_gradian));
-        this.horizDirEditText.setText(DisplayUtils.toString(this.horizDir));
+        this.horizDirEditText.setText(DisplayUtils.toStringForEditText(this.horizDir));
         this.horizDirEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.distanceEditText = new EditText(this.getActivity());
         this.distanceEditText.setHint(this.getActivity().getString(
                 R.string.distance_3dots)
                 + this.getActivity().getString(R.string.unit_meter));
-        this.distanceEditText.setText(DisplayUtils.toString(this.distance));
+        this.distanceEditText.setText(DisplayUtils.toStringForEditText(this.distance));
         this.distanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.zenAngleEditText = new EditText(this.getActivity());
@@ -209,7 +209,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 R.string.zenithal_angle_3dots)
                 + this.getActivity().getString(R.string.unit_gradian)
                 + this.getActivity().getString(R.string.optional_prths));
-        this.zenAngleEditText.setText(DisplayUtils.toString(this.zenAngle));
+        this.zenAngleEditText.setText(DisplayUtils.toStringForEditText(this.zenAngle));
         this.zenAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.sEditText = new EditText(this.getActivity());
@@ -217,7 +217,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 R.string.prism_height_3dots)
                 + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
-        this.sEditText.setText(DisplayUtils.toString(this.s));
+        this.sEditText.setText(DisplayUtils.toStringForEditText(this.s));
         this.sEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.latDeplEditText = new EditText(this.getActivity());
@@ -225,7 +225,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 R.string.lateral_displacement_3dots)
                 + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
-        this.latDeplEditText.setText(DisplayUtils.toString(this.latDepl));
+        this.latDeplEditText.setText(DisplayUtils.toStringForEditText(this.latDepl));
         this.latDeplEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.lonDeplEditText = new EditText(this.getActivity());
@@ -233,7 +233,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 R.string.longitudinal_displacement_3dots)
                 + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
-        this.lonDeplEditText.setText(DisplayUtils.toString(this.lonDepl));
+        this.lonDeplEditText.setText(DisplayUtils.toStringForEditText(this.lonDepl));
         this.lonDeplEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
     }
 

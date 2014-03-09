@@ -194,7 +194,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         }
 
         if (this.measuredDist != Double.MIN_VALUE) {
-            this.measuredDistEditText.setText(DisplayUtils.toString(this.measuredDist));
+            this.measuredDistEditText.setText(DisplayUtils.toStringForEditText(this.measuredDist));
         }
     }
 
@@ -343,7 +343,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 }
             }
 
-            this.calcDistTextView.setText(DisplayUtils.toString(
+            this.calcDistTextView.setText(DisplayUtils.toStringForTextView(
                     this.leveOrtho.getOrthogonalBase().getCalculatedDistance()));
 
             this.updateScaleFactor();
@@ -375,7 +375,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 double scaleFactor = this.leveOrtho.getOrthogonalBase().getScaleFactor();
 
                 StringBuilder builder = new StringBuilder();
-                builder.append(DisplayUtils.toString(scaleFactor));
+                builder.append(DisplayUtils.toStringForTextView(scaleFactor));
                 builder.append(" (");
                 builder.append(MathUtils.scaleToPPM(scaleFactor));
                 builder.append("ppm)");

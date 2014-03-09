@@ -41,25 +41,25 @@ public class ArrayListOfDeterminationsAdapter extends ArrayAdapter<Measure> {
             TextView lonDeplTextView = (TextView) view.findViewById(R.id.lon_depl_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(determination.getMeasureNumber()));
+                numberTextView.setText(DisplayUtils.toStringForTextView(determination.getMeasureNumber()));
             }
             if (horizOrientTextView != null) {
-                horizOrientTextView.setText(DisplayUtils.toString(determination.getHorizDir()));
+                horizOrientTextView.setText(DisplayUtils.toStringForTextView(determination.getHorizDir()));
             }
             if (horizDistTextView != null) {
-                horizDistTextView.setText(DisplayUtils.toString(determination.getDistance()));
+                horizDistTextView.setText(DisplayUtils.toStringForTextView(determination.getDistance()));
             }
             if (altitudeTextView != null) {
-                altitudeTextView.setText(DisplayUtils.toString(determination.getZenAngle()));
+                altitudeTextView.setText(DisplayUtils.toStringForTextView(determination.getZenAngle()));
             }
             if (sTextView != null) {
-                sTextView.setText(DisplayUtils.toString(determination.getS()));
+                sTextView.setText(DisplayUtils.toStringForTextView(determination.getS()));
             }
             if (latDeplTextView != null) {
-                latDeplTextView.setText(DisplayUtils.toString(determination.getLatDepl()));
+                latDeplTextView.setText(DisplayUtils.toStringForTextView(determination.getLatDepl()));
             }
             if (lonDeplTextView != null) {
-                lonDeplTextView.setText(DisplayUtils.toString(determination.getLonDepl()));
+                lonDeplTextView.setText(DisplayUtils.toStringForTextView(determination.getLonDepl()));
             }
         }
 

@@ -351,7 +351,7 @@ public class CircleActivity extends TopoSuiteActivity implements
 
             if (MathUtils.isPositive(this.circle.getRadius())) {
                 this.circleRadiusTextView.setText(
-                        DisplayUtils.toString(
+                        DisplayUtils.toStringForTextView(
                                 this.circle.getRadius()));
             }
         }

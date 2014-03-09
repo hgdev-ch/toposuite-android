@@ -73,7 +73,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
             }
 
             this.unknownOrientationTextView.setText(
-                    DisplayUtils.toString(this.freeStation.getUnknownOrientation()));
+                    DisplayUtils.toStringForTextView(this.freeStation.getUnknownOrientation()));
 
             this.drawList();
         }

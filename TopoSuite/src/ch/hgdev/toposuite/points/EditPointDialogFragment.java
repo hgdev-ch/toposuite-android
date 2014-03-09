@@ -159,19 +159,19 @@ public class EditPointDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
-        this.numberEditText.setText(DisplayUtils.toString(this.number));
+        this.numberEditText.setText(DisplayUtils.toStringForEditText(this.number));
         this.numberEditText.setEnabled(false);
 
         this.eastEditText = new EditText(this.getActivity());
-        this.eastEditText.setText(DisplayUtils.toString(this.east));
+        this.eastEditText.setText(DisplayUtils.toStringForEditText(this.east));
         this.eastEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.northEditText = new EditText(this.getActivity());
-        this.northEditText.setText(DisplayUtils.toString(this.north));
+        this.northEditText.setText(DisplayUtils.toStringForEditText(this.north));
         this.northEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.altitudeEditText = new EditText(this.getActivity());
-        this.altitudeEditText.setText(DisplayUtils.toString(this.altitude));
+        this.altitudeEditText.setText(DisplayUtils.toStringForEditText(this.altitude));
         this.altitudeEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
     }
 

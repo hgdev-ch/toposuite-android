@@ -215,7 +215,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         if (this.number == 0) {
             return "";
         }
-        return DisplayUtils.toString(this.number);
+        return DisplayUtils.toStringForEditText(this.number);
     }
 
     @Override

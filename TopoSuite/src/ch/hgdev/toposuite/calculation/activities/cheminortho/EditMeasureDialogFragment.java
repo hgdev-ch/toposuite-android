@@ -144,11 +144,11 @@ public class EditMeasureDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
-        this.numberEditText.setText(DisplayUtils.toString(this.number));
+        this.numberEditText.setText(DisplayUtils.toStringForEditText(this.number));
         this.numberEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.distanceEditText = new EditText(this.getActivity());
-        this.distanceEditText.setText(DisplayUtils.toString(this.distance));
+        this.distanceEditText.setText(DisplayUtils.toStringForEditText(this.distance));
         this.distanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
     }
 

@@ -45,16 +45,16 @@ public class ArrayListOfPointsAdapter extends ArrayAdapter<Point> {
             TextView basePointTextView = (TextView) view.findViewById(R.id.point_basepoint_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(point.getNumber()));
+                numberTextView.setText(DisplayUtils.toStringForTextView(point.getNumber()));
             }
             if (eastTextView != null) {
-                eastTextView.setText(DisplayUtils.toString(point.getEast()));
+                eastTextView.setText(DisplayUtils.toStringForTextView(point.getEast()));
             }
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toString(point.getNorth()));
+                northTextView.setText(DisplayUtils.toStringForTextView(point.getNorth()));
             }
             if (altitudeTextView != null) {
-                altitudeTextView.setText(DisplayUtils.toString(point.getAltitude()));
+                altitudeTextView.setText(DisplayUtils.toStringForTextView(point.getAltitude()));
             }
             if (basePointTextView != null) {
                 basePointTextView.setText(point.getBasePointAsString(this.context));

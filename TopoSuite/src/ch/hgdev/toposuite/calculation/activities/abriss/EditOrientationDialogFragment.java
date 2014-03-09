@@ -216,15 +216,17 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.zenithalAngle = this.bundle.getDouble(EditOrientationDialogFragment.ZENITHAL_ANGLE);
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
-        this.horizontalDirectionEditText.setText(DisplayUtils.toString(this.horizontalDirection));
+        this.horizontalDirectionEditText.setText(DisplayUtils
+                .toStringForEditText(this.horizontalDirection));
         this.horizontalDirectionEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
-        this.horizontalDistanceEditText.setText(DisplayUtils.toString(this.horizontalDistance));
+        this.horizontalDistanceEditText.setText(DisplayUtils
+                .toStringForEditText(this.horizontalDistance));
         this.horizontalDistanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.zenithalAngleEditText = new EditText(this.getActivity());
-        this.zenithalAngleEditText.setText(DisplayUtils.toString(this.zenithalAngle));
+        this.zenithalAngleEditText.setText(DisplayUtils.toStringForEditText(this.zenithalAngle));
         this.zenithalAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
     }
 

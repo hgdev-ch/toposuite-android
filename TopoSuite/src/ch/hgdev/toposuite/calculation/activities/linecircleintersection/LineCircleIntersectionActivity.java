@@ -136,7 +136,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             double distance = this.lineCircleIntersection.getDistanceL();
             if (MathUtils.isPositive(distance)) {
                 this.isLinePerpendicular = true;
-                this.distP1EditText.setText(DisplayUtils.toString(distance));
+                this.distP1EditText.setText(DisplayUtils.toStringForEditText(distance));
             } else {
                 this.isLinePerpendicular = false;
                 this.distP1EditText.setText("");
@@ -147,14 +147,14 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             double displacement = this.lineCircleIntersection.getDisplacementL();
             if (!MathUtils.isZero(displacement)) {
                 this.displacementEditText.setText(
-                        DisplayUtils.toString(displacement));
+                        DisplayUtils.toStringForEditText(displacement));
             }
             double gisement = this.lineCircleIntersection.getGisementL();
             if (MathUtils.isPositive(gisement)) {
                 this.modeGisementRadio.setChecked(true);
                 this.setModeGisement();
                 this.gisementEditText.setText(
-                        DisplayUtils.toString(gisement));
+                        DisplayUtils.toStringForEditText(gisement));
             } else {
                 this.modeGisementRadio.setChecked(false);
                 this.setModeLine();
@@ -164,7 +164,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             this.centerCSelectedPosition = this.adapter.getPosition(
                     this.lineCircleIntersection.getCenterC());
             this.radiusCEditText.setText(
-                    DisplayUtils.toString(this.lineCircleIntersection.getRadiusC()));
+                    DisplayUtils.toStringForEditText(this.lineCircleIntersection.getRadiusC()));
         }
 
         this.point1Spinner.setSelection(this.point1SelectedPosition);
@@ -464,7 +464,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     private void fillRadiusC() {
         if ((this.centerCSelectedPosition > 0) && (this.byPointSelectedPosition > 0)) {
             if ((this.centerCPoint != null) && (this.byPoint != null)) {
-                this.radiusCEditText.setText(DisplayUtils.toString(
+                this.radiusCEditText.setText(DisplayUtils.toStringForEditText(
                         MathUtils.euclideanDistance(this.centerCPoint, this.byPoint)));
                 this.radiusCEditText.setEnabled(false);
             }

@@ -112,7 +112,7 @@ public class PointsDataSource implements DAO {
                 PointsTable.TABLE_NAME_POINTS,
                 pointValues,
                 PointsTable.COLUMN_NAME_NUMBER + " = ?",
-                new String[] { DisplayUtils.toString(point.getNumber()) });
+                new String[] { DisplayUtils.toStringForTextView(point.getNumber()) });
         if (rowID == -1) {
             Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_UPDATE + " => " +
                     Logger.formatPoint(point));

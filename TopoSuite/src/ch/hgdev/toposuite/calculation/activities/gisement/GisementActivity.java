@@ -190,10 +190,10 @@ public class GisementActivity extends TopoSuiteActivity {
                 this.gisement.setOrientation(p2);
             }
 
-            this.gisementValue.setText(DisplayUtils.toString(this.gisement.getGisement()));
-            this.distValue.setText(DisplayUtils.toString(this.gisement.getHorizDist()));
-            this.altitudeValue.setText(DisplayUtils.toString(this.gisement.getAltitude()));
-            this.slopeValue.setText(DisplayUtils.toString(this.gisement.getSlope()));
+            this.gisementValue.setText(DisplayUtils.toStringForTextView(this.gisement.getGisement()));
+            this.distValue.setText(DisplayUtils.toStringForTextView(this.gisement.getHorizDist()));
+            this.altitudeValue.setText(DisplayUtils.toStringForTextView(this.gisement.getAltitude()));
+            this.slopeValue.setText(DisplayUtils.toStringForTextView(this.gisement.getSlope()));
         }
     }
 

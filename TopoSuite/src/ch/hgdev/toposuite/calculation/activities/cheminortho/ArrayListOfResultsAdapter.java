@@ -46,23 +46,23 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<CheminementOrthogona
             TextView vNTextView = (TextView) view.findViewById(R.id.vn_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toString(result.getNumber()));
+                numberTextView.setText(DisplayUtils.toStringForTextView(result.getNumber()));
             }
 
             if (abscissaTextView != null) {
-                abscissaTextView.setText(DisplayUtils.toString(result.getEast()));
+                abscissaTextView.setText(DisplayUtils.toStringForTextView(result.getEast()));
             }
 
             if (ordinateTextView != null) {
-                ordinateTextView.setText(DisplayUtils.toString(result.getNorth()));
+                ordinateTextView.setText(DisplayUtils.toStringForTextView(result.getNorth()));
             }
 
             if (vETextView != null) {
-                vETextView.setText(DisplayUtils.toString(result.getvE()));
+                vETextView.setText(DisplayUtils.toStringForTextView(result.getvE()));
             }
 
             if (ordinateTextView != null) {
-                vNTextView.setText(DisplayUtils.toString(result.getvN()));
+                vNTextView.setText(DisplayUtils.toStringForTextView(result.getvN()));
             }
         }
 

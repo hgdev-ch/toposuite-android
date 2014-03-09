@@ -194,22 +194,22 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     private void updateAnglesAndSides() {
         if (this.tS != null) {
             if (MathUtils.isPositive(this.tS.getA())) {
-                this.aEditText.setText(DisplayUtils.toString(this.tS.getA()));
+                this.aEditText.setText(DisplayUtils.toStringForEditText(this.tS.getA()));
             }
             if (MathUtils.isPositive(this.tS.getB())) {
-                this.bEditText.setText(DisplayUtils.toString(this.tS.getB()));
+                this.bEditText.setText(DisplayUtils.toStringForEditText(this.tS.getB()));
             }
             if (MathUtils.isPositive(this.tS.getC())) {
-                this.cEditText.setText(DisplayUtils.toString(this.tS.getC()));
+                this.cEditText.setText(DisplayUtils.toStringForEditText(this.tS.getC()));
             }
             if (MathUtils.isPositive(this.tS.getAlpha())) {
-                this.alphaEditText.setText(DisplayUtils.toString(this.tS.getAlpha()));
+                this.alphaEditText.setText(DisplayUtils.toStringForEditText(this.tS.getAlpha()));
             }
             if (MathUtils.isPositive(this.tS.getBeta())) {
-                this.betaEditText.setText(DisplayUtils.toString(this.tS.getBeta()));
+                this.betaEditText.setText(DisplayUtils.toStringForEditText(this.tS.getBeta()));
             }
             if (MathUtils.isPositive(this.tS.getGamma())) {
-                this.gammaEditText.setText(DisplayUtils.toString(this.tS.getGamma()));
+                this.gammaEditText.setText(DisplayUtils.toStringForEditText(this.tS.getGamma()));
             }
         }
     }
@@ -293,33 +293,33 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * @param t
      */
     private void updateResults() {
-        this.aBisTextView.setText(DisplayUtils.toString(this.tS.getABis()));
-        this.bBisTextView.setText(DisplayUtils.toString(this.tS.getBBis()));
-        this.cBisTextView.setText(DisplayUtils.toString(this.tS.getCBis()));
-        this.alphaBisTextView.setText(DisplayUtils.toString(this.tS.getAlphaBis()));
-        this.betaBisTextView.setText(DisplayUtils.toString(this.tS.getBetaBis()));
-        this.gammaBisTextView.setText(DisplayUtils.toString(this.tS.getGammaBis()));
+        this.aBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getABis()));
+        this.bBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getBBis()));
+        this.cBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getCBis()));
+        this.alphaBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getAlphaBis()));
+        this.betaBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getBetaBis()));
+        this.gammaBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getGammaBis()));
 
         this.perimeterTextView.setText(
-                DisplayUtils.toString(this.tS.getPerimeter().first));
+                DisplayUtils.toStringForTextView(this.tS.getPerimeter().first));
         this.perimeterBisTextView.setText(
-                DisplayUtils.toString(this.tS.getPerimeter().second));
+                DisplayUtils.toStringForTextView(this.tS.getPerimeter().second));
         this.heightTextView.setText(
-                DisplayUtils.toString(this.tS.getHeight().first));
+                DisplayUtils.toStringForTextView(this.tS.getHeight().first));
         this.heightBisTextView.setText(
-                DisplayUtils.toString(this.tS.getHeight().second));
+                DisplayUtils.toStringForTextView(this.tS.getHeight().second));
         this.surfaceTextView.setText(
-                DisplayUtils.toString(this.tS.getSurface().first));
+                DisplayUtils.toStringForTextView(this.tS.getSurface().first));
         this.surfaceBisTextView.setText(
-                DisplayUtils.toString(this.tS.getSurface().second));
+                DisplayUtils.toStringForTextView(this.tS.getSurface().second));
         this.incircleRadiusTextView.setText(
-                DisplayUtils.toString(this.tS.getIncircleRadius().first));
+                DisplayUtils.toStringForTextView(this.tS.getIncircleRadius().first));
         this.incircleRadiusBisTextView.setText(
-                DisplayUtils.toString(this.tS.getIncircleRadius().second));
+                DisplayUtils.toStringForTextView(this.tS.getIncircleRadius().second));
         this.excircleRadiusTextView.setText(
-                DisplayUtils.toString(this.tS.getExcircleRadius().first));
+                DisplayUtils.toStringForTextView(this.tS.getExcircleRadius().first));
         this.excircleRadiusBisTextView.setText(
-                DisplayUtils.toString(this.tS.getExcircleRadius().second));
+                DisplayUtils.toStringForTextView(this.tS.getExcircleRadius().second));
 
         this.updateAnglesAndSides();
     }
