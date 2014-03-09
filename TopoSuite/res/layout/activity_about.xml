@@ -8,4 +8,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AboutActivity" >
 
+    <FrameLayout
+        android:id="@+id/about_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+    </FrameLayout>
+    
 </RelativeLayout>

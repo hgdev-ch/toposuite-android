@@ -15,9 +15,7 @@ public class AboutActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        this.getMenuInflater().inflate(R.menu.about, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
