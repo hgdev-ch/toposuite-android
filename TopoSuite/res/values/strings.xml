@@ -275,6 +275,7 @@
     <string name="title_activity_polar_implantation_results">Polar implantation results</string>
     <string name="title_activity_polar_survey">Polar survey</string>
     <string name="title_activity_polar_survey_results">Polar survey results</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="title_activity_surface">Surface</string>
     <string name="title_activity_triangle_solver">Triangle solver</string>
     <string name="toggle_right_menu_button">Calculations</string>
