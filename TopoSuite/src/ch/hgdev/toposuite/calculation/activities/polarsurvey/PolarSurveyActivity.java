@@ -101,8 +101,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         this.setContentView(R.layout.activity_polar_survey);
 
         this.position = -1;
-        this.z0 = 0.0;
-        this.instrumentHeight = 0.0;
+        this.z0 = MathUtils.IGNORE_DOUBLE;
+        this.instrumentHeight = MathUtils.IGNORE_DOUBLE;
         this.z0Id = -1;
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
@@ -325,7 +325,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         switch (view.getId()) {
         case R.id.checkbox_z0:
             if (checked) {
-                if (MathUtils.isZero(this.z0)) {
+                if (MathUtils.isIgnorable(this.z0)) {
                     Toast errorToast = Toast.makeText(this,
                             this.getText(R.string.error_no_abriss_calculation_found),
                             Toast.LENGTH_SHORT);
@@ -465,8 +465,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 dialog.getS(),
                 dialog.getLatDepl(),
                 dialog.getLonDepl(),
-                0.0,
-                0.0,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
                 dialog.getDeterminationNo());
 
         this.position = -1;
@@ -491,8 +491,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 dialog.getS(),
                 dialog.getLatDepl(),
                 dialog.getLonDepl(),
-                0.0,
-                0.0,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
                 dialog.getDeterminationNo());
 
         this.position = -1;
