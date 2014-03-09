@@ -1,9 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <!-- TODO uncomment once settings are supported
     <PreferenceScreen
         android:key="screen_general_settings"
         android:title="@string/general_settings" >
     </PreferenceScreen>
+    -->
     <PreferenceScreen
         android:key="screen_about_toposuite"
         android:title="@string/about_toposuite" >
