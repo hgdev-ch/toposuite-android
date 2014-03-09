@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class AddDeterminationDialogFragment extends DialogFragment {
     /**
@@ -94,8 +95,6 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         if (AddDeterminationDialogFragment.this.checkDialogInputs()) {
-                            // TODO check that if S is set, I is set too and
-                            // pop-up an error
                             if (AddDeterminationDialogFragment.this.zenAngleEditText.length() > 0) {
                                 AddDeterminationDialogFragment.this.zenAngle = Double
                                         .parseDouble(AddDeterminationDialogFragment.this.zenAngleEditText
@@ -209,13 +208,13 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.lonDeplEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.determinationNo = 0;
-        this.horizDir = 0.0;
-        this.distance = 0.0;
+        this.determinationNo = MathUtils.IGNORE_INT;
+        this.horizDir = MathUtils.IGNORE_DOUBLE;
+        this.distance = MathUtils.IGNORE_DOUBLE;
         this.zenAngle = 100.0;
-        this.s = 0.0;
-        this.latDepl = 0.0;
-        this.lonDepl = 0.0;
+        this.s = MathUtils.IGNORE_DOUBLE;
+        this.latDepl = MathUtils.IGNORE_DOUBLE;
+        this.lonDepl = MathUtils.IGNORE_DOUBLE;
     }
 
     /**

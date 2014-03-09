@@ -102,11 +102,11 @@ public class PolarSurvey extends Calculation {
                     + (Math.cos(this.unknownOrientation + hz) * horizDist);
 
             double altitude;
-            if (!MathUtils.isZero(this.instrumentHeight) && !MathUtils.isZero(m.getS())) {
+            if (!MathUtils.isIgnorable(this.instrumentHeight) && !MathUtils.isIgnorable(m.getS())) {
                 altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle))
                         + this.instrumentHeight) - m.getS();
             } else {
-                altitude = 0.0;
+                altitude = MathUtils.IGNORE_DOUBLE;
             }
 
             Result r = new Result(m.getMeasureNumber(), east, north, altitude);
