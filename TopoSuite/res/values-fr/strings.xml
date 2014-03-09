@@ -122,7 +122,7 @@
     <string name="format_3dots">Format&#8230;</string>
     <string name="free_station_label">Calcul de la station libre</string>
     <string name="fs_label">FS [cm]</string>
-    <string name="fs_withou_unit_label">FS</string>
+    <string name="fs_without_unit_label">FS</string>
     <string name="general_settings">Préférences générales</string>
     <string name="gisement_label">Gisement [g]</string>
     <string name="group_polar_calculation">Calculs polaires</string>
