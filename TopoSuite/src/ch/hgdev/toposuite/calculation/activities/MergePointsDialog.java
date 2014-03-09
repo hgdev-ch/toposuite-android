@@ -196,7 +196,7 @@ public class MergePointsDialog extends DialogFragment {
                 DisplayUtils.toString(deltaEast),
                 this.getActivity().getString(R.string.north),
                 DisplayUtils.toString(deltaNorth),
-                this.getActivity().getString(R.string.fs_label),
+                this.getActivity().getString(R.string.fs_without_unit_label),
                 DisplayUtils.toString(fs),
                 this.getActivity().getString(R.string.fh_label),
                 DisplayUtils.toString(deltaAlt));
