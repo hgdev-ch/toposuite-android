@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.settings;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -66,17 +67,9 @@ public class SettingsActivity extends TopoSuiteActivity {
          * Start the {@link AboutActivity}.
          */
         private void startAboutActivity() {
-            // TODO choose between Activity or Fragment
-
-            // uncomment for starting the AboutActivity
-            /*Intent aboutActivityIntent = new Intent(
+            Intent aboutActivityIntent = new Intent(
                     this.activity, AboutActivity.class);
-            this.activity.startActivity(aboutActivityIntent);*/
-
-            // uncomment for replacing the current fragment by the AboutFragment
-            /*this.activity.getFragmentManager().beginTransaction()
-                    .replace(android.R.id.content, new AboutFragment())
-                    .commit();*/
+            this.activity.startActivity(aboutActivityIntent);
         }
     }
 }
