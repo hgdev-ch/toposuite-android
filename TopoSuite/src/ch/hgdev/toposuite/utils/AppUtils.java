@@ -71,6 +71,11 @@ public class AppUtils {
                 .append(" - " + "<a href='"
                         + App.getContext().getString(R.string.cfgeo_webpage_url) + "'>"
                         + App.getContext().getString(R.string.cfgeo_webpage_url_short) + "</a>")
+                .append("<tr><td></td><td>" + App.getContext().getString(R.string.cepm))
+                .append(" - " + "<a href='"
+                        + App.getContext().getString(R.string.cepm_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.cepm_webpage_url_short) + "</a>")
+                .append("</td></tr>")
                 .append("</td></tr></table></div>");
 
         return html;

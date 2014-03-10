@@ -15,7 +15,7 @@
     <string name="altitude_label">Altitude [m]</string>
     <string name="altitude_difference_label">Altitude difference [m]</string>
     <string name="angles_label">Angles</string>
-    <string name="app_copyright">Copyright<xliff:g>%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
+    <string name="app_copyright">Copyright<xliff:g> &#169; %s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
     <string name="app_developer">HGdev</string>
     <string name="app_developer_full_info"><xliff:g id="app_developer">%s</xliff:g> - <xliff:g id="app_developer_webpage_url">%s</xliff:g></string>
     <string name="app_developer_webpage_url">http://www.hgdev.ch/</string>
@@ -33,7 +33,10 @@
     <string name="cancel">Cancel</string>
     <string name="center_label">Centre</string>
     <string name="central_angle_label">Central angle [g]</string>
-    <string name="cfgeo">centre de formation géomatique suisse</string>
+    <string name="cepm">Centre d\'Enseignement Professionnel de Morges (CEPM)</string>
+    <string name="cepm_webpage_url">http://www.cepm.ch/</string>
+    <string name="cepm_webpage_url_short">www.cepm.ch</string>
+    <string name="cfgeo">Centre de Formation Géomatique Suisse (CF-geo)</string>
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
     <string name="cfgeo_webpage_url_short">www.cf-geo.ch</string>
     <string name="chemin_ortho_base_label">Cheminement orthogonal from the base</string>
