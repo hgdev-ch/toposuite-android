@@ -85,7 +85,7 @@ public class PointProjectionOnALine extends Calculation {
 
     public PointProjectionOnALine(int _number, Point _p1, Point _p2, Point _ptToProj,
             boolean hasDAO) {
-        this(_number, _p1, _p2, _ptToProj, 0.0, hasDAO);
+        this(_number, _p1, _p2, _ptToProj, MathUtils.IGNORE_DOUBLE, hasDAO);
     }
 
     public PointProjectionOnALine(long id, Date lastModification) {
@@ -99,14 +99,14 @@ public class PointProjectionOnALine extends Calculation {
     @Override
     public void compute() {
         // displacement gisement
-        double displGis = 0.0;
+        double displGis = MathUtils.IGNORE_DOUBLE;
 
         Gisement g;
 
-        // if a displacement is supplied by the used, we need to update the
+        // if a displacement is supplied by the user, we need to update the
         // points p1 and p2. New points will be created to ensure that the
         // original ones are not overwritten.
-        if (!MathUtils.isZero(this.displacement)) {
+        if (!MathUtils.isIgnorable(this.displacement)) {
             g = new Gisement(this.p1, this.p2, false);
             g.compute();
 
@@ -120,14 +120,14 @@ public class PointProjectionOnALine extends Calculation {
                             Math.abs(this.displacement)),
                     MathUtils.pointLanceNorth(this.p1.getNorth(), displGis,
                             Math.abs(this.displacement)),
-                    0.0, false, false);
+                    MathUtils.IGNORE_DOUBLE, false, false);
             this.p2 = new Point(
                     this.p2.getNumber(),
                     MathUtils.pointLanceEast(this.p2.getEast(), displGis,
                             Math.abs(this.displacement)),
                     MathUtils.pointLanceNorth(this.p2.getNorth(), displGis,
                             Math.abs(this.displacement)),
-                    0.0, false, false);
+                    MathUtils.IGNORE_DOUBLE, false, false);
         }
 
         g = new Gisement(this.p1, this.p2, false);
@@ -139,7 +139,7 @@ public class PointProjectionOnALine extends Calculation {
                         PointProjectionOnALine.DISTANCE),
                 MathUtils.pointLanceNorth(this.ptToProj.getNorth(), displGis,
                         PointProjectionOnALine.DISTANCE),
-                0.0, false, false);
+                MathUtils.IGNORE_DOUBLE, false, false);
 
         // calculation of the triangle angles according to the following schema:
         // @formatter:off
@@ -180,7 +180,7 @@ public class PointProjectionOnALine extends Calculation {
                 this.number,
                 MathUtils.pointLanceEast(this.p1.getEast(), gis, dist),
                 MathUtils.pointLanceNorth(this.p1.getNorth(), gis, dist),
-                0.0, false, false);
+                MathUtils.IGNORE_DOUBLE, false, false);
 
         // distance point to line
         this.distPtToLine = MathUtils.euclideanDistance(this.ptToProj, this.projPt);
@@ -254,7 +254,7 @@ public class PointProjectionOnALine extends Calculation {
                 PointProjectionOnALine.DISTANCE);
         double north = MathUtils.pointLanceNorth(p1.getNorth(), gisement,
                 PointProjectionOnALine.DISTANCE);
-        return new Point(4242, east, north, 0.0, false, false);
+        return new Point(4242, east, north, MathUtils.IGNORE_DOUBLE, false, false);
     }
 
     public Point getP1() {

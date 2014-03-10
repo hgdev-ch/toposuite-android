@@ -7,6 +7,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.PointProjectionOnALine;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestPointProjectionOnALine extends TestCase {
 
@@ -14,10 +15,10 @@ public class TestPointProjectionOnALine extends TestCase {
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.HALF_UP);
 
-        Point p1 = new Point(1, 25.0000, 55.0000, 0.0, false, false);
-        Point p2 = new Point(2, 89.1570, 82.4730, 0.0, false, false);
+        Point p1 = new Point(1, 25.0000, 55.0000, MathUtils.IGNORE_DOUBLE, false, false);
+        Point p2 = new Point(2, 89.1570, 82.4730, MathUtils.IGNORE_DOUBLE, false, false);
 
-        Point ptToProj = new Point(5, 113.2040, 37.4110, 0.0, false, false);
+        Point ptToProj = new Point(5, 113.2040, 37.4110, MathUtils.IGNORE_DOUBLE, false, false);
 
         double inputGisement = 74.243;
 
@@ -39,7 +40,7 @@ public class TestPointProjectionOnALine extends TestCase {
         Assert.assertEquals("74.159", df.format(pp.getDistPtToP1()));
         Assert.assertEquals("54.159", df.format(pp.getDistPtToP2()));
 
-        dist = 0.0;
+        dist = MathUtils.IGNORE_DOUBLE;
         pp = new PointProjectionOnALine(42, p1, p2, ptToProj, dist, false);
         pp.compute();
         Assert.assertEquals("93.172", df.format(pp.getProjPt().getEast()));

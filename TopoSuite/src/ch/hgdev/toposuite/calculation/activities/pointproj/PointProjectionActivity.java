@@ -27,6 +27,7 @@ import ch.hgdev.toposuite.calculation.PointProjectionOnALine.Mode;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class PointProjectionActivity extends TopoSuiteActivity {
     public static final String          POINT_PROJ_POSITION       = "point_proj_position";
@@ -167,7 +168,8 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point(
+                0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -282,7 +284,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             Point p1 = (Point) this.point1Spinner.getItemAtPosition(
                     this.point1SelectedPosition);
 
-            double displ = 0.0;
+            double displ = MathUtils.IGNORE_DOUBLE;
 
             if (this.displacementEditText.length() > 0) {
                 displ = Double.parseDouble(
