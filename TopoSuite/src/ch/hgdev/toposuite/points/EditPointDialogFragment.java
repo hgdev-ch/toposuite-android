@@ -159,18 +159,26 @@ public class EditPointDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
+        this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
         this.numberEditText.setText(DisplayUtils.toStringForEditText(this.number));
         this.numberEditText.setEnabled(false);
 
         this.eastEditText = new EditText(this.getActivity());
+        this.eastEditText.setHint(this.getActivity().getString(R.string.east_3dots)
+                + this.getActivity().getString(R.string.unit_meter));
         this.eastEditText.setText(DisplayUtils.toStringForEditText(this.east));
         this.eastEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.northEditText = new EditText(this.getActivity());
+        this.northEditText.setHint(this.getActivity().getString(R.string.north_3dots)
+                + this.getActivity().getString(R.string.unit_meter));
         this.northEditText.setText(DisplayUtils.toStringForEditText(this.north));
         this.northEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
         this.altitudeEditText = new EditText(this.getActivity());
+        this.altitudeEditText.setHint(this.getActivity().getString(R.string.altitude_3dots)
+                + this.getActivity().getString(R.string.unit_meter)
+                + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setText(DisplayUtils.toStringForEditText(this.altitude));
         this.altitudeEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
     }

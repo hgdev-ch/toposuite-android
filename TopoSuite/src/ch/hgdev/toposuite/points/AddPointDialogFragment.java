@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * Dialog window to allow the user to add a new point to the list of points.
@@ -166,10 +167,10 @@ public class AddPointDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
 
-        this.number = 0;
-        this.east = 0.0;
-        this.north = 0.0;
-        this.altitude = 0.0;
+        this.number = MathUtils.IGNORE_INT;
+        this.east = MathUtils.IGNORE_DOUBLE;
+        this.north = MathUtils.IGNORE_DOUBLE;
+        this.altitude = MathUtils.IGNORE_DOUBLE;
     }
 
     /**
