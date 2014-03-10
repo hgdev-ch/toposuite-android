@@ -50,7 +50,12 @@ public class TriangleSolver extends Calculation {
                 CalculationType.TRIANGLESOLVER,
                 App.getContext().getString(R.string.title_activity_triangle_solver),
                 lastModification, true);
-        this.initAttributes(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        this.initAttributes(MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE);
     }
 
     public TriangleSolver(
@@ -96,11 +101,16 @@ public class TriangleSolver extends Calculation {
 
         this.twoSolutions = false;
 
-        this.perimeter = new Pair<Double, Double>(0.0, 0.0);
-        this.height = new Pair<Double, Double>(0.0, 0.0);
-        this.surface = new Pair<Double, Double>(0.0, 0.0);
-        this.incircleRadius = new Pair<Double, Double>(0.0, 0.0);
-        this.excircleRadius = new Pair<Double, Double>(0.0, 0.0);
+        this.perimeter = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        this.height = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        this.surface = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        this.incircleRadius = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        this.excircleRadius = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
     }
 
     /**
@@ -469,8 +479,8 @@ public class TriangleSolver extends Calculation {
 
     /**
      * There are cases were the second solution is not valid. This method checks
-     * for such cases and set the resulting angles and sides to 0.0 if the
-     * second solution is not valid.
+     * for such cases and set the resulting angles and sides to
+     * MathUtils.IGNORE_DOUBLE if the second solution is not valid.
      */
     private void checkSecondSolution() {
         if (this.b.first > (this.c.first * Math.sin(MathUtils.gradToRad(this.beta.first)))) {
@@ -485,12 +495,12 @@ public class TriangleSolver extends Calculation {
         Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
                 TriangleSolver.TRIANGLE_SOLVER
                         + "the condition for the second solution (b > c * sin(beta) is not respected.");
-        this.a.second = 0.0;
-        this.b.second = 0.0;
-        this.c.second = 0.0;
-        this.alpha.second = 0.0;
-        this.beta.second = 0.0;
-        this.gamma.second = 0.0;
+        this.a.second = MathUtils.IGNORE_DOUBLE;
+        this.b.second = MathUtils.IGNORE_DOUBLE;
+        this.c.second = MathUtils.IGNORE_DOUBLE;
+        this.alpha.second = MathUtils.IGNORE_DOUBLE;
+        this.beta.second = MathUtils.IGNORE_DOUBLE;
+        this.gamma.second = MathUtils.IGNORE_DOUBLE;
     }
 
     /**
@@ -508,7 +518,13 @@ public class TriangleSolver extends Calculation {
                 this.alpha.first, this.beta.first, this.gamma.first);
         this.findMissingValues();
         if (!this.checkFoundValues()) {
-            this.initAttributes(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            this.initAttributes(
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE);
             return;
         }
 
@@ -759,30 +775,30 @@ public class TriangleSolver extends Calculation {
     public void setA(double _a) throws IllegalArgumentException {
         Preconditions.checkArgument(_a >= 0.0, "Argument was %s but expected nonnegative", _a);
         if (this.a == null) {
-            this.a = new Pair<Double, Double>(_a, 0.0);
+            this.a = new Pair<Double, Double>(_a, MathUtils.IGNORE_DOUBLE);
         } else {
             this.a.first = _a;
-            this.a.second = 0.0;
+            this.a.second = MathUtils.IGNORE_DOUBLE;
         }
     }
 
     public void setB(double _b) throws IllegalArgumentException {
         Preconditions.checkArgument(_b >= 0.0, "Argument was %s but expected nonnegative", _b);
         if (this.b == null) {
-            this.b = new Pair<Double, Double>(_b, 0.0);
+            this.b = new Pair<Double, Double>(_b, MathUtils.IGNORE_DOUBLE);
         } else {
             this.b.first = _b;
-            this.b.second = 0.0;
+            this.b.second = MathUtils.IGNORE_DOUBLE;
         }
     }
 
     public void setC(double _c) throws IllegalArgumentException {
         Preconditions.checkArgument(_c >= 0.0, "Argument was %s but expected nonnegative", _c);
         if (this.c == null) {
-            this.c = new Pair<Double, Double>(_c, 0.0);
+            this.c = new Pair<Double, Double>(_c, MathUtils.IGNORE_DOUBLE);
         } else {
             this.c.first = _c;
-            this.c.second = 0.0;
+            this.c.second = MathUtils.IGNORE_DOUBLE;
         }
     }
 
@@ -790,10 +806,11 @@ public class TriangleSolver extends Calculation {
         Preconditions.checkArgument(
                 _alpha >= 0.0, "Argument was %s but expected nonnegative", _alpha);
         if (this.alpha == null) {
-            this.alpha = new Pair<Double, Double>(MathUtils.modulo400(_alpha), 0.0);
+            this.alpha = new Pair<Double, Double>(MathUtils.modulo400(_alpha),
+                    MathUtils.IGNORE_DOUBLE);
         } else {
             this.alpha.first = _alpha;
-            this.alpha.second = 0.0;
+            this.alpha.second = MathUtils.IGNORE_DOUBLE;
         }
     }
 
@@ -801,10 +818,11 @@ public class TriangleSolver extends Calculation {
         Preconditions.checkArgument(
                 _beta >= 0.0, "Argument was %s but expected nonnegative", _beta);
         if (this.beta == null) {
-            this.beta = new Pair<Double, Double>(MathUtils.modulo400(_beta), 0.0);
+            this.beta = new Pair<Double, Double>(MathUtils.modulo400(_beta),
+                    MathUtils.IGNORE_DOUBLE);
         } else {
             this.beta.first = _beta;
-            this.beta.second = 0.0;
+            this.beta.second = MathUtils.IGNORE_DOUBLE;
         }
     }
 
@@ -812,10 +830,11 @@ public class TriangleSolver extends Calculation {
         Preconditions.checkArgument(
                 _gamma >= 0.0, "Argument was %s but expected nonnegative", _gamma);
         if (this.gamma == null) {
-            this.gamma = new Pair<Double, Double>(MathUtils.modulo400(_gamma), 0.0);
+            this.gamma = new Pair<Double, Double>(MathUtils.modulo400(_gamma),
+                    MathUtils.IGNORE_DOUBLE);
         } else {
             this.gamma.first = _gamma;
-            this.gamma.second = 0.0;
+            this.gamma.second = MathUtils.IGNORE_DOUBLE;
         }
     }
 

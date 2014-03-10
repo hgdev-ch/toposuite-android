@@ -180,12 +180,12 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * Initialize class attributes
      */
     private void initAttributes() {
-        this.a = 0.0;
-        this.b = 0.0;
-        this.c = 0.0;
-        this.alpha = 0.0;
-        this.beta = 0.0;
-        this.gamma = 0.0;
+        this.a = MathUtils.IGNORE_DOUBLE;
+        this.b = MathUtils.IGNORE_DOUBLE;
+        this.c = MathUtils.IGNORE_DOUBLE;
+        this.alpha = MathUtils.IGNORE_DOUBLE;
+        this.beta = MathUtils.IGNORE_DOUBLE;
+        this.gamma = MathUtils.IGNORE_DOUBLE;
     }
 
     /**
@@ -235,32 +235,32 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         if (this.aEditText.length() > 0) {
             this.a = Double.parseDouble(this.aEditText.getText().toString());
         } else {
-            this.a = 0.0;
+            this.a = MathUtils.IGNORE_DOUBLE;
         }
         if (this.bEditText.length() > 0) {
             this.b = Double.parseDouble(this.bEditText.getText().toString());
         } else {
-            this.b = 0.0;
+            this.b = MathUtils.IGNORE_DOUBLE;
         }
         if (this.cEditText.length() > 0) {
             this.c = Double.parseDouble(this.cEditText.getText().toString());
         } else {
-            this.c = 0.0;
+            this.c = MathUtils.IGNORE_DOUBLE;
         }
         if (this.alphaEditText.length() > 0) {
             this.alpha = Double.parseDouble(this.alphaEditText.getText().toString());
         } else {
-            this.alpha = 0.0;
+            this.alpha = MathUtils.IGNORE_DOUBLE;
         }
         if (this.betaEditText.length() > 0) {
             this.beta = Double.parseDouble(this.betaEditText.getText().toString());
         } else {
-            this.beta = 0.0;
+            this.beta = MathUtils.IGNORE_DOUBLE;
         }
         if (this.gammaEditText.length() > 0) {
             this.gamma = Double.parseDouble(this.gammaEditText.getText().toString());
         } else {
-            this.gamma = 0.0;
+            this.gamma = MathUtils.IGNORE_DOUBLE;
         }
     }
 
