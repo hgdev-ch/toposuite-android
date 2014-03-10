@@ -233,6 +233,10 @@ public class Gisement extends Calculation {
      * @return the altitude
      */
     private double computeAltitude() {
+        if (MathUtils.isIgnorable(this.orientation.getAltitude())
+                || MathUtils.isIgnorable(this.origin.getAltitude())) {
+            return MathUtils.IGNORE_DOUBLE;
+        }
         return this.orientation.getAltitude() - this.origin.getAltitude();
     }
 
@@ -247,8 +251,9 @@ public class Gisement extends Calculation {
      * @return the slope in percent
      */
     private double computeSlope(double altitude, double horizDist) {
-        if (MathUtils.isZero(horizDist)) {
-            return 0.0;
+        if (MathUtils.isIgnorable(horizDist)
+                || MathUtils.isIgnorable(altitude)) {
+            return MathUtils.IGNORE_DOUBLE;
         }
         return (altitude / horizDist) * 100;
     }

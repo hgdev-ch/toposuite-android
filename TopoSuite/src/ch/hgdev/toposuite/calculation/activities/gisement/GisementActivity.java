@@ -18,6 +18,7 @@ import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * Activity providing an interface for calculating the Gisement / Distance.
@@ -116,7 +117,8 @@ public class GisementActivity extends TopoSuiteActivity {
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point(
+                0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -190,9 +192,11 @@ public class GisementActivity extends TopoSuiteActivity {
                 this.gisement.setOrientation(p2);
             }
 
-            this.gisementValue.setText(DisplayUtils.toStringForTextView(this.gisement.getGisement()));
+            this.gisementValue
+                    .setText(DisplayUtils.toStringForTextView(this.gisement.getGisement()));
             this.distValue.setText(DisplayUtils.toStringForTextView(this.gisement.getHorizDist()));
-            this.altitudeValue.setText(DisplayUtils.toStringForTextView(this.gisement.getAltitude()));
+            this.altitudeValue
+                    .setText(DisplayUtils.toStringForTextView(this.gisement.getAltitude()));
             this.slopeValue.setText(DisplayUtils.toStringForTextView(this.gisement.getSlope()));
         }
     }
