@@ -262,7 +262,7 @@
     <string name="title_activity_abriss_results">Orient. à la station - résultats</string>
     <string name="title_activity_cheminement_ortho">Cheminement orthogonal</string>
     <string name="title_activity_cheminement_ortho_results">Cheminement orthogonal - résultats</string>
-    <string name="title_activity_circle">Cercle</string>
+    <string name="title_activity_circle">Cercle par 3 points</string>
     <string name="title_activity_circles_intersection">Intersection de cercles</string>
     <string name="title_activity_circular_curve_solver">Résolution de courbes circulaires</string>
     <string name="title_activity_free_station">Station libre</string>
@@ -288,6 +288,7 @@
     <string name="title_activity_about">A propos de TopoSuite</string>
     <string name="title_activity_triangle_solver">Résolution de triangle</string>
     <string name="toggle_right_menu_button">Calculs</string>
+    <string name="toposuite">TopoSuite</string>
     <string name="unit_centimeter">[cm]</string>
     <string name="unit_gradian">[g]</string>
     <string name="unit_gradian_cc">[cc]</string>

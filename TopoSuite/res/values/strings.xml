@@ -260,7 +260,7 @@
     <string name="title_activity_abriss_results">Abriss - Results</string>
     <string name="title_activity_cheminement_ortho">Cheminement orthogonal</string>
     <string name="title_activity_cheminement_ortho_results">Cheminement orthogonal results</string>
-    <string name="title_activity_circle">Circle</string>
+    <string name="title_activity_circle">Circle through 3 points</string>
     <string name="title_activity_circles_intersection">Circles intersection</string>
     <string name="title_activity_circular_curve_solver">Circular curves solver</string>
     <string name="title_activity_free_station">Free station</string>
@@ -286,6 +286,7 @@
     <string name="title_activity_about">About TopoSuite</string>
     <string name="title_activity_triangle_solver">Triangle solver</string>
     <string name="toggle_right_menu_button">Calculations</string>
+    <string name="toposuite">TopoSuite</string>
     <string name="unit_centimeter">[cm]</string>
     <string name="unit_gradian">[g]</string>
     <string name="unit_gradian_cc">[cc]</string>
