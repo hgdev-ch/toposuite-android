@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.entry;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.utils.AppUtils;
@@ -32,9 +33,52 @@ public class MainActivity extends TopoSuiteActivity {
      * copyright and so on.
      */
     private WebView about() {
+        String appName = AppUtils.getAppName();
 
         WebView view = new WebView(this);
-        StringBuilder html = AppUtils.getAboutString();
+        StringBuilder html = new StringBuilder()
+                .append("<meta http-equiv='content-type' content='text/html; charset=utf-8' />")
+                .append("<div><img src='file:///android_asset/toposuite_logo.png' style='float: left;' alt='")
+                .append(appName)
+                .append("'/>")
+                .append("<h1>")
+                .append(appName)
+                .append("</h1>")
+                .append("<p>")
+                .append(String.format(App.getContext().getString(R.string.app_copyright),
+                        AppUtils.getYear(),
+                        App.getContext().getString(R.string.crag)))
+                .append("</p></div><br/><p style='clear: both;'>")
+                .append(App.getContext().getString(R.string.developed_by))
+                .append(":<br/>")
+                .append("<img src='file:///android_asset/hgdev_logo.png' alt='")
+                .append(App.getContext().getString(R.string.app_developer))
+                .append("'/><br/>")
+                .append(String.format(
+                        App.getContext().getString(R.string.app_developer_full_info),
+                        App.getContext().getString(R.string.app_developer),
+                        "<a href='"
+                                + App.getContext().getString(R.string.app_developer_webpage_url)
+                                + "'>"
+                                + App.getContext().getString(
+                                        R.string.app_developer_webpage_url_short) + "</a>"))
+                .append("<div>")
+                .append(App.getContext().getString(R.string.with_support_from))
+                .append(":<br/><table><tr><td>")
+                .append("<img src='file:///android_asset/cf_geo.png' alt='")
+                .append(App.getContext().getString(R.string.cfgeo))
+                .append("'/></td><td>")
+                .append(App.getContext().getString(R.string.cfgeo))
+                .append(" - " + "<a href='"
+                        + App.getContext().getString(R.string.cfgeo_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.cfgeo_webpage_url_short) + "</a>")
+                .append("<tr><td></td><td>" + App.getContext().getString(R.string.cepm))
+                .append(" - " + "<a href='"
+                        + App.getContext().getString(R.string.cepm_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.cepm_webpage_url_short) + "</a>")
+                .append("</td></tr>")
+                .append("</td></tr></table></div>");
+
         html.append("<p>")
                 .append(this.getString(R.string.disclaimer) + ":<br/>")
                 .append(this.getString(R.string.disclaimer_notice) + "<br/><br/>")
