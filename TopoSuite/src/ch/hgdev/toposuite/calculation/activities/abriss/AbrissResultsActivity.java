@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 
 public class AbrissResultsActivity extends TopoSuiteActivity {
     private ListView                    resultsListView;
@@ -64,7 +66,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
                     orientationsList.add(m);
                 }
             } catch (JSONException e) {
-                // TODO
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
             }
 
             this.abriss.getMeasures().addAll(orientationsList);
