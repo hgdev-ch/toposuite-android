@@ -74,9 +74,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
 
         this.abriss.getResults().clear();
         this.abriss.compute();
-        this.abriss.setDescription(this.abriss.getCalculationName()
-                + " - " + this.getString(R.string.station_label) + ": "
-                + DisplayUtils.toStringForTextView(this.abriss.getStation().getNumber()));
+
         this.displayResults();
     }
 
