@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -222,8 +221,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
             if ((p1.getNumber() == 0) || (p2.getNumber() == 0) ||
                     (this.adapter.getCount() < 2)) {
-                Toast.makeText(this, R.string.error_fill_data,
-                        Toast.LENGTH_LONG).show();
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
             }
 
@@ -290,7 +288,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             this.resetResults();
         } else if (p1.getNumber() == p2.getNumber()) {
             this.resetResults();
-            Toast.makeText(this, R.string.error_same_points, Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this, this.getString(R.string.error_same_points));
         } else {
             if (this.cheminOrtho == null) {
                 this.cheminOrtho = new CheminementOrthogonal(p1, p2, true);

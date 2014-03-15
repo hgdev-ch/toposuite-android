@@ -5,7 +5,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -14,6 +13,7 @@ import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class FreeStationResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -111,7 +111,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
     private boolean savePoint(Point st) {
         if (SharedResources.getSetOfPoints().find(st.getNumber()) == null) {
             SharedResources.getSetOfPoints().add(st);
-            Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this, this.getString(R.string.point_add_success));
             return true;
         } else {
             // this point already exists
@@ -137,11 +137,11 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
 
     @Override
     public void onMergePointsDialogSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 
     @Override
     public void onMergePointsDialogError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 }

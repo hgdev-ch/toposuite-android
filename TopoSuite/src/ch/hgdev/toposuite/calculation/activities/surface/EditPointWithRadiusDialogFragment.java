@@ -105,7 +105,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
                                     .onDialogEdit(EditPointWithRadiusDialogFragment.this);
                             dialog.dismiss();
                         } else {
-                            ViewUtils.showErrorToast(
+                            ViewUtils.showToast(
                                     EditPointWithRadiusDialogFragment.this.getActivity(),
                                     EditPointWithRadiusDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data));

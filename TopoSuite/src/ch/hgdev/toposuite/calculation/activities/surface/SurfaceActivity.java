@@ -145,7 +145,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 this.runCalculation();
                 this.updateResults();
             } else {
-                ViewUtils.showErrorToast(
+                ViewUtils.showToast(
                         this, this.getText(R.string.error_three_points_required));
             }
             return true;

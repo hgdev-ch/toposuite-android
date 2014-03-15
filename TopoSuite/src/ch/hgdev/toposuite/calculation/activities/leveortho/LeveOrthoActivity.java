@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -265,8 +264,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         case R.id.run_calculation_button:
             if ((this.originSelectedPosition == 0) || (this.extremitySelectedPosition == 0)
                     || (this.adapter.getCount() == 0)) {
-                Toast.makeText(this, R.string.error_fill_data, Toast.LENGTH_LONG)
-                        .show();
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
             }
 
@@ -330,7 +328,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
             this.resetResults();
         } else if (p1.getNumber() == p2.getNumber()) {
             this.resetResults();
-            Toast.makeText(this, R.string.error_same_points, Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this, this.getString(R.string.error_same_points));
         } else {
             if (this.leveOrtho == null) {
                 this.leveOrtho = new LeveOrthogonal(p1, p2, true);

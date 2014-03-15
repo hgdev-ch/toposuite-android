@@ -29,12 +29,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.PointsImporter;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 import com.google.common.io.Files;
 
@@ -218,17 +218,15 @@ public class ImportDialog extends DialogFragment {
         // check use input
         int fileNamePosition = this.filesListSpinner.getSelectedItemPosition();
         if (fileNamePosition == 0) {
-            Toast.makeText(this.getActivity(),
-                    this.getActivity().getString(R.string.error_choose_file),
-                    Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this.getActivity(),
+                    this.getActivity().getString(R.string.error_choose_file));
             return;
         }
 
         if (!App.arePointsExported && !this.isConfirmationAsked) {
-            Toast.makeText(
+            ViewUtils.showToast(
                     this.getActivity(),
-                    this.getActivity().getString(R.string.import_confirmation),
-                    Toast.LENGTH_LONG).show();
+                    this.getActivity().getString(R.string.import_confirmation));
             this.isConfirmationAsked = true;
             return;
         }
@@ -238,8 +236,8 @@ public class ImportDialog extends DialogFragment {
 
         // make sure the file format is supported
         if (!SupportedFileTypes.isSupported(ext)) {
-            Toast.makeText(this.getActivity(), R.string.error_unsupported_format,
-                    Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this.getActivity(),
+                    this.getActivity().getString(R.string.error_unsupported_format));
             return;
         }
 
@@ -261,11 +259,11 @@ public class ImportDialog extends DialogFragment {
             }
         } catch (FileNotFoundException e) {
             Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
-            Toast.makeText(this.getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
         } catch (IOException e) {
             Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
-            Toast.makeText(this.getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
         }
 

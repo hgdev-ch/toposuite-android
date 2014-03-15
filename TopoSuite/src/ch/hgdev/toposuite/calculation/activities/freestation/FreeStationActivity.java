@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,7 +13,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -156,11 +154,8 @@ public class FreeStationActivity extends TopoSuiteActivity implements
 
                 this.startFreeStationResultsActivity();
             } else {
-                Toast errorToast = Toast.makeText(
-                        this, this.getText(R.string.error_fill_data),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
+                ViewUtils.showToast(
+                        this, this.getString(R.string.error_fill_data));
             }
             return true;
         default:

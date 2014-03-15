@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -12,6 +11,7 @@ import ch.hgdev.toposuite.calculation.PointProjectionOnALine;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PointProjectionResultActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -77,8 +77,7 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
                 SharedResources.getSetOfPoints().add(this.ppoal.getProjPt());
                 this.ppoal.getProjPt().registerDAO(PointsDataSource.getInstance());
 
-                Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
-                        .show();
+                ViewUtils.showToast(this, this.getString(R.string.point_add_success));
             } else {
                 // this point already exists
                 MergePointsDialog dialog = new MergePointsDialog();
@@ -107,11 +106,11 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
 
     @Override
     public void onMergePointsDialogSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 
     @Override
     public void onMergePointsDialogError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 }

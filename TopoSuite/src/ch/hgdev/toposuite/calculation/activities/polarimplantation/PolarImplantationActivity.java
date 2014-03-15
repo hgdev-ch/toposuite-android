@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +25,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -244,10 +242,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             if (this.checkInputs()) {
                 this.showPolarImplantationResultActivity();
             } else {
-                Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
             }
             return true;
         default:
@@ -285,11 +280,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         case R.id.checkbox_z0:
             if (checked) {
                 if (MathUtils.isIgnorable(this.z0)) {
-                    Toast errorToast = Toast.makeText(this,
-                            this.getText(R.string.error_no_abriss_calculation_found),
-                            Toast.LENGTH_SHORT);
-                    errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    errorToast.show();
+                    ViewUtils.showToast(this,
+                            this.getString(R.string.error_no_abriss_calculation_found));
                 } else {
                     this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
                     this.unknownOrientEditText.setEnabled(false);
@@ -372,11 +364,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         if (!ViewUtils.isEmpty(this.unknownOrientEditText)) {
             unknownOrient = ViewUtils.readDouble(this.unknownOrientEditText);
         } else {
-            Toast errorToast = Toast.makeText(this,
-                    this.getText(R.string.error_choose_unknown_orientation),
-                    Toast.LENGTH_SHORT);
-            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            errorToast.show();
+            ViewUtils.showToast(this,
+                    this.getString(R.string.error_choose_unknown_orientation));
             return;
         }
 

@@ -1,12 +1,10 @@
 package ch.hgdev.toposuite.calculation.activities.circcurvesolver;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -98,11 +96,8 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
             if (this.chickenRun()) {
                 this.updateResults();
             } else {
-                Toast errorToast = Toast.makeText(this,
-                        this.getText(R.string.error_impossible_calculation),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
+                ViewUtils.showToast(this,
+                        this.getText(R.string.error_impossible_calculation));
             }
             return true;
         default:

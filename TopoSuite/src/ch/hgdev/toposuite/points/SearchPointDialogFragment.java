@@ -7,10 +7,9 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Gravity;
 import android.widget.EditText;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
  * @author HGdev
@@ -64,13 +63,10 @@ public class SearchPointDialogFragment extends DialogFragment {
                                     SearchPointDialogFragment.this.listener
                                             .onDialogSearch(SearchPointDialogFragment.this);
                                 } else {
-                                    Toast errorToast = Toast.makeText(
+                                    ViewUtils.showToast(
                                             SearchPointDialogFragment.this.getActivity(),
                                             SearchPointDialogFragment.this.getActivity().getString(
-                                                    R.string.error_fill_data),
-                                            Toast.LENGTH_LONG);
-                                    errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                                    errorToast.show();
+                                                    R.string.error_fill_data));
                                 }
                             }
                         })

@@ -84,10 +84,10 @@ public class ViewUtils {
      * @param errorMessage
      *            Error message to display in the toast.
      */
-    public static void showErrorToast(Context context, CharSequence errorMessage) {
-        Toast errorToast = Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT);
-        errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        errorToast.show();
+    public static void showToast(Context context, CharSequence errorMessage) {
+        Toast toast = Toast.makeText(context, errorMessage, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
     }
 
     /**

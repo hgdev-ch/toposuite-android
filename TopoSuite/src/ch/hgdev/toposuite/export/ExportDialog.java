@@ -16,10 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 import com.google.common.io.Files;
 
@@ -130,8 +130,8 @@ public class ExportDialog extends DialogFragment {
         // make sure that the input is correct
         if ((this.formatSpinner.getSelectedItemPosition() == 0)
                 || this.filenameEditText.getText().toString().isEmpty()) {
-            Toast.makeText(this.getActivity(), R.string.error_fill_data,
-                    Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this.getActivity(),
+                    this.getActivity().getString(R.string.error_fill_data));
             return;
         }
 
@@ -147,8 +147,8 @@ public class ExportDialog extends DialogFragment {
 
         File f = new File(this.getActivity().getFilesDir(), filename);
         if (f.isFile()) {
-            Toast.makeText(this.getActivity(), R.string.error_file_already_exists,
-                    Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this.getActivity(),
+                    this.getActivity().getString(R.string.error_file_already_exists));
             return;
         }
 
@@ -163,8 +163,8 @@ public class ExportDialog extends DialogFragment {
                         this.getActivity(), App.publicDataDirectory, filename);
                 break;
             default:
-                Toast.makeText(this.getActivity(), R.string.error_unsupported_format,
-                        Toast.LENGTH_LONG).show();
+                ViewUtils.showToast(this.getActivity(),
+                        this.getActivity().getString(R.string.error_unsupported_format));
                 return;
             }
         } catch (IOException e) {

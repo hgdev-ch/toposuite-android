@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -122,11 +120,8 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
         switch (item.getItemId()) {
         case R.id.save_point:
             if (this.savePoint(info.position)) {
-                Toast successToast = Toast.makeText(this,
-                        this.getText(R.string.point_add_success),
-                        Toast.LENGTH_SHORT);
-                successToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                successToast.show();
+                ViewUtils.showToast(this,
+                        this.getText(R.string.point_add_success));
             }
             this.adapter.notifyDataSetChanged();
             return true;
@@ -150,7 +145,8 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
      * already exists in the database, it is simply skipped.
      */
     private void savePoints() {
-        // This loop stops at this.adapter.getCount()-1 because the last point is
+        // This loop stops at this.adapter.getCount()-1 because the last point
+        // is
         // the extremity and it must not be changed.
         for (int position = 0; position < (this.adapter.getCount() - 1); position++) {
             this.savePoint(position);
@@ -226,7 +222,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
 
     @Override
     public void onMergePointsDialogSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
         --this.saveCounter;
         if (this.saveCounter == 0) {
             ViewUtils.redirectToPointsManagerActivity(this);
@@ -235,6 +231,6 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
 
     @Override
     public void onMergePointsDialogError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 }
