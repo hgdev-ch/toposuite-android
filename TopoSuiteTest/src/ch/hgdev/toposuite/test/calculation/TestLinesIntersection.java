@@ -13,6 +13,10 @@ public class TestLinesIntersection extends TestCase {
     private Point         p3;
     private Point         p4;
     private Point         p5;
+    private Point         p10;
+    private Point         p20;
+    private Point         p30;
+    private Point         p40;
 
     private DecimalFormat df;
 
@@ -24,6 +28,11 @@ public class TestLinesIntersection extends TestCase {
         this.p3 = new Point(3, 50.177, 99.941, 0.0, true, false);
         this.p4 = new Point(4, 67.0, 14.0, 0.0, true, false);
         this.p5 = new Point(5, 113.204, 37.411, 0.0, true, false);
+
+        this.p10 = new Point(10, 43.5816, 144.4225, 0.0, true, false);
+        this.p20 = new Point(20, 357.7832, 48.6002, 0.0, true, false);
+        this.p30 = new Point(30, 140.1251, 249.2679, 0.0, true, false);
+        this.p40 = new Point(40, -29.2174, 39.2745, 0.0, true, false);
 
         this.df = new DecimalFormat("#.###");
         this.df.setRoundingMode(RoundingMode.HALF_UP);
@@ -122,6 +131,22 @@ public class TestLinesIntersection extends TestCase {
         Assert.assertEquals("74.929", this.df.format(
                 li.getIntersectionPoint().getEast()));
         Assert.assertEquals("45.706", this.df.format(
+                li.getIntersectionPoint().getNorth()));
+    }
+
+    public void testCompute9() {
+        LinesIntersection li = new LinesIntersection(
+                this.p10, this.p20, 0.0, -21.954, this.p30,
+                this.p40, 0.0, -1.569, 42, false);
+        li.compute();
+
+        /*Assert.assertEquals("69.386", this.df.format(
+                li.getIntersectionPoint().getEast()));*/
+        Assert.assertEquals("70.373", this.df.format(
+                li.getIntersectionPoint().getEast()));
+        /*Assert.assertEquals("304.297", this.df.format(
+                li.getIntersectionPoint().getNorth()));*/
+        Assert.assertEquals("307.533", this.df.format(
                 li.getIntersectionPoint().getNorth()));
     }
 }

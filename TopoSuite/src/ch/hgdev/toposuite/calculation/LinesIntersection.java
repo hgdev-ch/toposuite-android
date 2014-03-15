@@ -352,10 +352,10 @@ public class LinesIntersection extends Calculation {
 
             gis += 100;
             this.p2D1.setEast(
-                    MathUtils.pointLanceEast(this.p2D1.getEast(),
+                    MathUtils.pointLanceEast(this.p1D1.getEast(),
                             gis, 100));
             this.p2D1.setNorth(
-                    MathUtils.pointLanceNorth(this.p2D1.getNorth(),
+                    MathUtils.pointLanceNorth(this.p1D1.getNorth(),
                             gis, 100));
         }
     }
@@ -431,10 +431,10 @@ public class LinesIntersection extends Calculation {
 
             gis += 100;
             this.p2D2.setEast(
-                    MathUtils.pointLanceEast(this.p2D2.getEast(),
+                    MathUtils.pointLanceEast(this.p1D2.getEast(),
                             gis, 100));
             this.p2D2.setNorth(
-                    MathUtils.pointLanceNorth(this.p2D2.getNorth(),
+                    MathUtils.pointLanceNorth(this.p1D2.getNorth(),
                             gis, 100));
         }
     }
