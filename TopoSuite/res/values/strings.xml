@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="a_label">A</string>
+    <string name="b_label">B</string>
+    <string name="c_label">C</string>
+    <string name="d_label">D</string>
     <string name="abscissa">Abscissa</string>
     <string name="abscissa_label">Abscissa [m]</string>
     <string name="abscissa_3dots">Abscissa&#8230;</string>
@@ -141,6 +145,7 @@
     <string name="import_confirmation">Press the \'Import\' button again to confirm the action.</string>
     <string name="import_label">Import</string>
     <string name="import_3dots">Import&#8230;</string>
+    <string name="imposed_surface_label">Imposed surface [m²]</string>
     <string name="incircle_label">Incircle radius [m]</string>
     <string name="intersection_point_label">Intersection point:</string>
     <string name="intersection_one_label">First intersection point:</string>
@@ -155,6 +160,8 @@
     <string name="letter_beta_unit">&#946; [g]</string>
     <string name="letter_gamma_unit">&#947; [g]</string>
     <string name="licenses">Licenses</string>
+    <string name="limit_point_east_number">Limit-point east number</string>
+    <string name="limit_point_west_number">Limit-point west number</string>
     <string name="line">Line</string>
     <string name="line_1">Line 1</string>
     <string name="line_2">Line 2</string>
