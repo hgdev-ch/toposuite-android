@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -31,6 +29,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class SurfaceActivity extends TopoSuiteActivity implements
         AddPointWithRadiusDialogFragment.AddPointWithRadiusDialogListener,
@@ -67,8 +66,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         this.setContentView(R.layout.activity_surface);
 
         this.position = -1;
-        this.surface = 0.0;
-        this.perimeter = 0.0;
+        this.surface = MathUtils.IGNORE_DOUBLE;
+        this.perimeter = MathUtils.IGNORE_DOUBLE;
         this.name = "";
         this.description = "";
 
@@ -146,11 +145,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 this.runCalculation();
                 this.updateResults();
             } else {
-                Toast errorToast = Toast.makeText(this,
-                        this.getText(R.string.error_three_points_required),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
+                ViewUtils.showErrorToast(
+                        this, this.getText(R.string.error_three_points_required));
             }
             return true;
         default:
@@ -181,14 +177,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 this.adapter.getItem(i).setVertexNumber(
                         this.adapter.getItem(i).getVertexNumber() - 1);
             }
-
-            /*this.adapter.sort(new Comparator<Surface.PointWithRadius>() {
-                @Override
-                public int compare(Surface.PointWithRadius lhs, Surface.PointWithRadius rhs) {
-                    return (lhs.getVertexNumber() > rhs.getVertexNumber()) ? 1 : -1;
-                }
-            });*/
-
             this.adapter.notifyDataSetChanged();
             return true;
         default:
@@ -324,7 +312,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 dialog.getPoint().getNorth(),
                 dialog.getRadius(),
                 this.surfaceCalculation.getPoints().size() + 1);
-        //this.surfaceCalculation.getPoints().add(p);
         this.adapter.add(p);
         this.adapter.notifyDataSetChanged();
         this.showAddPointDialog();
