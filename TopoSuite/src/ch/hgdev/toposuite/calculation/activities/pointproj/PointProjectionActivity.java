@@ -28,6 +28,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PointProjectionActivity extends TopoSuiteActivity {
     public static final String          POINT_PROJ_POSITION       = "point_proj_position";
@@ -284,22 +285,14 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             Point p1 = (Point) this.point1Spinner.getItemAtPosition(
                     this.point1SelectedPosition);
 
-            double displ = MathUtils.IGNORE_DOUBLE;
-
-            if (this.displacementEditText.length() > 0) {
-                displ = Double.parseDouble(
-                        this.displacementEditText.getText().toString());
-            }
-
-            int ptNumber = Integer.parseInt(
-                    this.pointNumberEditText.getText().toString());
+            double displ = ViewUtils.readDouble(this.displacementEditText);
+            int ptNumber = ViewUtils.readInt(this.pointNumberEditText);
 
             Point p = (Point) this.pointSpinner.getItemAtPosition(
                     this.pointSelectedPosition);
 
             if (this.selectedMode == Mode.GISEMENT) {
-                double gisement = Double.parseDouble(
-                        this.gisementEditText.getText().toString());
+                double gisement = ViewUtils.readDouble(this.gisementEditText);
                 ppoal = new PointProjectionOnALine(ptNumber, p1, gisement, p, displ, true);
             } else {
                 Point p2 = (Point) this.point2Spinner.getItemAtPosition(
