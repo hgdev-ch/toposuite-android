@@ -25,6 +25,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class EditPointWithSDialogFragment extends DialogFragment {
     /**
@@ -93,9 +94,8 @@ public class EditPointWithSDialogFragment extends DialogFragment {
                     public void onClick(View view) {
                         if (EditPointWithSDialogFragment.this.checkDialogInputs()) {
                             if (EditPointWithSDialogFragment.this.sEditText.length() > 0) {
-                                EditPointWithSDialogFragment.this.s =
-                                        Double.parseDouble(EditPointWithSDialogFragment.this
-                                                .sEditText.getText().toString());
+                                EditPointWithSDialogFragment.this.s = ViewUtils.readDouble(
+                                        EditPointWithSDialogFragment.this.sEditText);
                             }
                             EditPointWithSDialogFragment.this.point =
                                     (Point) EditPointWithSDialogFragment.this.pointSpinner
