@@ -26,6 +26,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CirclesIntersectionActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -173,10 +174,8 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
         switch (id) {
         case R.id.run_calculation_button:
             if (this.checkInputs()) {
-                if (!MathUtils.isPositive(Double.parseDouble(this.radiusOneEditText.getText()
-                        .toString()))
-                        || !MathUtils.isPositive(Double.parseDouble(this.radiusTwoEditText
-                                .getText().toString()))) {
+                if (!MathUtils.isPositive(ViewUtils.readDouble(this.radiusOneEditText))
+                        || !MathUtils.isPositive(ViewUtils.readDouble(this.radiusTwoEditText))) {
                     Toast errorToast = Toast.makeText(this, R.string.error_radius_must_be_positive,
                             Toast.LENGTH_SHORT);
                     errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -475,10 +474,10 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
 
         this.centerOnePoint = (Point) this.centerOneSpinner
                 .getItemAtPosition(this.centerOneSelectedPosition);
-        this.radiusOne = Double.parseDouble(this.radiusOneEditText.getText().toString());
+        this.radiusOne = ViewUtils.readDouble(this.radiusOneEditText);
         this.centerTwoPoint = (Point) this.centerTwoSpinner
                 .getItemAtPosition(this.centerTwoSelectedPosition);
-        this.radiusTwo = Double.parseDouble(this.radiusTwoEditText.getText().toString());
+        this.radiusTwo = ViewUtils.readDouble(this.radiusTwoEditText);
 
         this.circlesIntersection.setCenterFirst(this.centerOnePoint);
         this.circlesIntersection.setRadiusFirst(this.radiusOne);

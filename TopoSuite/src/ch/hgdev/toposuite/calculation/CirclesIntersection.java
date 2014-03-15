@@ -57,27 +57,14 @@ public class CirclesIntersection extends Calculation {
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 lastModification,
                 true);
-        this.centerFirst = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.centerSecond = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.radiusFirst = 0.0;
-        this.radiusSecond = 0.0;
-
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.initAttributes();
     }
 
     public CirclesIntersection() {
         super(CalculationType.CIRCLESINTERSEC,
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 true);
-        this.centerFirst = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.centerSecond = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.radiusFirst = 0.0;
-        this.radiusSecond = 0.0;
-
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
-
+        this.initAttributes();
         SharedResources.getCalculationsHistory().add(0, this);
     }
 
@@ -118,8 +105,18 @@ public class CirclesIntersection extends Calculation {
         this.setCenterSecond(_centerSecond);
         this.setRadiusSecond(_radiusSecond);
 
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.firstIntersection = new Point(false);
+        this.secondIntersection = new Point(false);
+    }
+
+    private void initAttributes() {
+        this.centerFirst = new Point(false);
+        this.centerSecond = new Point(false);
+        this.radiusFirst = MathUtils.IGNORE_DOUBLE;
+        this.radiusSecond = MathUtils.IGNORE_DOUBLE;
+
+        this.firstIntersection = new Point(false);
+        this.secondIntersection = new Point(false);
     }
 
     @Override
@@ -139,7 +136,7 @@ public class CirclesIntersection extends Calculation {
                         CirclesIntersection.CIRCLE_INTERSECTION
                                 + "one of the circle is included in the other one (no intersection).");
             }
-            this.setZeros();
+            this.setIgnorableResults();
             return;
         }
         alpha = Math.atan(-alpha / Math.sqrt((-alpha * alpha) + 1)) + (2 * Math.atan(1));
@@ -165,14 +162,15 @@ public class CirclesIntersection extends Calculation {
     }
 
     /**
-     * Set resulting points coordinate to 0.0. This usually indicates that there
-     * was an error.
+     * Set resulting points coordinate to an ignorable value. This usually
+     * indicates that there was an error during the calculation or that the
+     * calculation was simply impossible.
      */
-    private void setZeros() {
-        this.firstIntersection.setEast(0.0);
-        this.firstIntersection.setNorth(0.0);
-        this.secondIntersection.setEast(0.0);
-        this.secondIntersection.setNorth(0.0);
+    private void setIgnorableResults() {
+        this.firstIntersection.setEast(MathUtils.IGNORE_DOUBLE);
+        this.firstIntersection.setNorth(MathUtils.IGNORE_DOUBLE);
+        this.secondIntersection.setEast(MathUtils.IGNORE_DOUBLE);
+        this.secondIntersection.setNorth(MathUtils.IGNORE_DOUBLE);
     }
 
     @Override
