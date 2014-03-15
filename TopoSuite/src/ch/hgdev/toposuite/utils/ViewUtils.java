@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.utils;
 
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -15,6 +17,18 @@ import ch.hgdev.toposuite.points.PointsManagerActivity;
 public class ViewUtils {
 
     /**
+     * Regular expression pattern to check if a string can be transformed to a
+     * double.
+     */
+    private static Pattern doublePattern = Pattern.compile("^-?\\d+(\\.\\d+)?$");
+
+    /**
+     * Regular expression pattern to check if a string can be transformed to an
+     * integer.
+     */
+    private static Pattern intPattern    = Pattern.compile("^-?\\d+$");
+
+    /**
      * Convenient function for easily reading a double value from an EditText.
      * 
      * @param editText
@@ -22,8 +36,13 @@ public class ViewUtils {
      * @return The value contained in the edit text as double.
      */
     public static double readDouble(EditText editText) {
-        return ((editText != null) && (editText.length() > 0)) ? Double.parseDouble(
-                editText.getText().toString()) : 0.0;
+        if ((editText != null) && (editText.length() > 0)) {
+            String val = editText.getText().toString();
+            return (doublePattern.matcher(val).matches()) ?
+                    Double.parseDouble(val)
+                    : MathUtils.IGNORE_DOUBLE;
+        }
+        return MathUtils.IGNORE_DOUBLE;
     }
 
     /**
@@ -34,8 +53,13 @@ public class ViewUtils {
      * @return The value contained in the edit text as int.
      */
     public static int readInt(EditText editText) {
-        return ((editText != null) && (editText.length() > 0)) ? Integer.parseInt(
-                editText.getText().toString()) : 0;
+        if ((editText != null) && (editText.length() > 0)) {
+            String val = editText.getText().toString();
+            return (intPattern.matcher(val).matches()) ?
+                    Integer.parseInt(val)
+                    : MathUtils.IGNORE_INT;
+        }
+        return MathUtils.IGNORE_INT;
     }
 
     /**
