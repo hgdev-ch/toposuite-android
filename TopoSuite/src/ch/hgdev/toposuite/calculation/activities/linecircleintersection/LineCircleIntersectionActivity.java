@@ -29,6 +29,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -579,25 +580,22 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         Point p2 = null;
         double gisement = 0.0;
         if (this.mode == Mode.GISEMENT) {
-            gisement = Double.parseDouble(
-                    this.gisementEditText.getText().toString());
+            gisement = ViewUtils.readDouble(this.gisementEditText);
         } else {
             p2 = this.adapter.getItem(this.point2SelectedPosition);
         }
         double distP1 = 0.0;
         if ((this.distP1EditText.length() > 0) && this.isLinePerpendicular) {
-            distP1 = Double.parseDouble(
-                    this.displacementEditText.getText().toString());
+            distP1 = ViewUtils.readDouble(this.displacementEditText);
         }
         double displacement = 0.0;
         if (this.displacementEditText.length() > 0) {
-            displacement = Double.parseDouble(
-                    this.displacementEditText.getText().toString());
+            displacement = ViewUtils.readDouble(this.displacementEditText);
         }
 
         this.centerCPoint = (Point) this.centerCSpinner
                 .getItemAtPosition(this.centerCSelectedPosition);
-        this.radiusC = Double.parseDouble(this.radiusCEditText.getText().toString());
+        this.radiusC = ViewUtils.readDouble(this.radiusCEditText);
 
         this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1,
                 this.centerCPoint, this.radiusC);
