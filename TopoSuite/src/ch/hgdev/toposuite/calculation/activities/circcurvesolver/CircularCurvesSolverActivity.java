@@ -121,32 +121,11 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
         }
 
         double radius, alphaAngle, chordOF, tangent, arrow;
-        radius = alphaAngle = chordOF = tangent = arrow = 0.0;
-
-        if (this.radiusEditText.length() > 0) {
-            radius = Double.parseDouble(
-                    this.radiusEditText.getText().toString());
-        }
-
-        if (this.alphaAngleEditText.length() > 0) {
-            alphaAngle = Double.parseDouble(
-                    this.alphaAngleEditText.getText().toString());
-        }
-
-        if (this.chordOFEditText.length() > 0) {
-            chordOF = Double.parseDouble(
-                    this.chordOFEditText.getText().toString());
-        }
-
-        if (this.tangentEditText.length() > 0) {
-            tangent = Double.parseDouble(
-                    this.tangentEditText.getText().toString());
-        }
-
-        if (this.arrowEditText.length() > 0) {
-            arrow = Double.parseDouble(
-                    this.arrowEditText.getText().toString());
-        }
+        radius = ViewUtils.readDouble(this.radiusEditText);
+        alphaAngle = ViewUtils.readDouble(this.alphaAngleEditText);
+        chordOF = ViewUtils.readDouble(this.chordOFEditText);
+        tangent = ViewUtils.readDouble(this.tangentEditText);
+        arrow = ViewUtils.readDouble(this.arrowEditText);
 
         if (this.ccs == null) {
             this.ccs = new CircularCurvesSolver(
@@ -257,23 +236,23 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
             return;
         }
 
-        if (!MathUtils.isZero(this.ccs.getRadius())) {
+        if (!MathUtils.isIgnorable(this.ccs.getRadius())) {
             this.radiusEditText.setText(String.valueOf(this.ccs.getRadius()));
         }
 
-        if (!MathUtils.isZero(this.ccs.getAlphaAngle())) {
+        if (!MathUtils.isIgnorable(this.ccs.getAlphaAngle())) {
             this.alphaAngleEditText.setText(String.valueOf(this.ccs.getAlphaAngle()));
         }
 
-        if (!MathUtils.isZero(this.ccs.getChordOF())) {
+        if (!MathUtils.isIgnorable(this.ccs.getChordOF())) {
             this.chordOFEditText.setText(String.valueOf(this.ccs.getChordOF()));
         }
 
-        if (!MathUtils.isZero(this.ccs.getTangent())) {
+        if (!MathUtils.isIgnorable(this.ccs.getTangent())) {
             this.tangentEditText.setText(String.valueOf(this.ccs.getTangent()));
         }
 
-        if (!MathUtils.isZero(this.ccs.getArrow())) {
+        if (!MathUtils.isIgnorable(this.ccs.getArrow())) {
             this.arrowEditText.setText(String.valueOf(this.ccs.getArrow()));
         }
     }

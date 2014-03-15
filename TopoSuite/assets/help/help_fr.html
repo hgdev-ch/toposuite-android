@@ -116,9 +116,12 @@
 <p>  Unités du programme :<br>
 Tous les angles à introduire doivent être en "Grades" ou en "Gons"      <br>
 Toutes les distances à introduire doivent être en "Mètres".
-Les distances que le programme attend, sont toutes des distances inclinées. <br>
+Les distances que le programme attend sont toutes des distances inclinées. <br>
 Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une distance horizontale.
-
+ <br>
+ ATTENTION de valider vos dernières valeurs dans les masques de saisies pour que le programme prenne en compte cette valeur.
+ Pour cela, il faut placer le curseur sur la case du numéro de point à sauvegarder ou valider votre dernière valeur 
+ avec "NEXT" ou "Done" ou "Enter".
 
 
 </p>
@@ -136,16 +139,16 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     En choisissant TopoSuite dans la liste, l'application va s'ouvrir et importer
     la liste des points en demandant une confirmation au travers d'une popup.
   <br>
-    Le fichier doit être structuré de la manière suivante.<br>
+    Le fichier doit être structuré de la manière suivante:<br>
     N° Point ; Coordonnée Est  ; Coordonnée Nord ; Altitude<br>
   <b>Les points ne doivent pas comporter de lettre ou de "."</b>
   <br>
     Il est également possible d'exporter le fichier de point avec le bouton "Partager", ou le bouton "Exporter". 
     Ce dernier permet d'exporter le ficher dans le dossier interne de TopoSuite et peut être récupéré dans le logiciel 
-    avec la fonction "Importer"<br>
+    avec la fonction "Importer".<br>
   <br>
-    Pour modifier ou supprimer qu'un seul point, il suffit 
-    de laisser le doigt longuement sur le point souhaité.
+    Pour ne modifier ou ne supprimer qu'un seul point, il suffit 
+    de laisser longuement le doigt sur le point souhaité.
   <br>
     Il y a également un bouton "Rechercher" qui permet de retrouver un point souhaité.
     Le bouton "Supprimer" permet de supprimer tous les points en même temps.
@@ -164,7 +167,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <h4 id="abriss">Orientation à la station</h4>
   <p>
     Le calcul d'orientation à la station permet de calculer l'inconnue d'orientation.
-    Une modification d'une valeur peut se faire si on clique longuement sur une mesure.  <br>
+    La modification d'une valeur peut se faire en cliquant longuement sur une mesure.  <br>
     
   </p>
 <h4 id="libre">Station libre</h4>
@@ -181,12 +184,12 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
       - Choisir les points de rattachement représentatifs de la qualité de la zone de
         travail (règles de voisinage). Par exemple, il est inutile de prendre des PFP2
             pour s’intégrer dans une zone de mensuration graphique numérisée. Dans
-            une zone de mensuration numérique de bonne qualité, il faut privilégier de
-            prendre des PFP3 ;     <br>
-      - Ne pas prendre deux points de rattachement très proches l’un de l’autre. Cela
+            une zone de mensuration numérique de bonne qualité, il faut privilégier la prise
+             de PFP3 ;     <br>
+      - Ne pas prendre deux points de rattachement trop proches l’un de l’autre. Cela
           peut donner des valeurs peu favorables pour le facteur d’échelle et pour
           l’angle de rotation ;               <br>
-      - Privilégier le fait de prendre des points stables dont la matérialisation n’est pas
+      - Privilégier la prise de points stables dont la matérialisation n’est pas
           douteuse (si possible des chevilles à la place de bornes penchées).   <br>
     La méthode utilisée pour la station libre est un calcul d'Helmert.
   </p>
@@ -198,7 +201,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     <br>
     -La distance de la station au point nouveau ne doit pas dépasser 1.25 fois la longueur du vecteur 
     d'orientation le plus long (distance de la station au point servant d'orientation).  <br>
-    Pour les déplacements les signes suivants sont à respecter : <br>    <br>
+    Pour les déplacements, les signes suivants sont à respecter : <br>    <br>
     <img src="file:///android_asset/help/img/polar_survey.png" alt="levé polaire"/>  <br>
     ATTENTION : L'altitude d'un point avec un DM1 ou un DM2 n'est pas à l'emplacement des coordonnées définitives.<br> 
     Il faut supprimer l'altimétrie dans le gestionnaire des points si celle-ci n'est pas significative. <br>
@@ -217,7 +220,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     La condition géométrique suivante devrait être remplie : 
     <br>
     -La distance de la station au point implanté ne doit pas dépasser 1.25 fois la longueur du vecteur 
-    d'orientation le plus long(distance de la station au point servant d'orientation).     <br>  <br>
+    d'orientation le plus long (distance de la station au point servant d'orientation).     <br>  <br>
     <img src="file:///android_asset/help/img/polar_implantation.png" alt="Implantation polaire"/> 
   </p>
 <h4 id="imp_axe">Implantation d'un axe</h4>
@@ -250,7 +253,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
   </p>
 <h4 id="impl_ortho">Implantation orthogonale</h4>
   <p>
-    Le calcul d'implantation orthogonale permet (à partir de coordonnées) d'obtenir les valeurs d'abscisses et d'ordonnées,
+    Le calcul d'implantation orthogonale permet (à partir de coordonnées) d'obtenir les valeurs d'abscisses et d'ordonnées
     pour faire une implantation sur le terrain.
     Les valeurs d'abscisses (x) et d'ordonnées (y) doivent être données selon l'image ci-dessous:<br> <br>
     <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="Implantation orthogonale"/> <br><br>
@@ -261,10 +264,10 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <h4 id="inter_droites">Droites (et/ou directions)</h4>
   <p>
     La définition des droites peut être donnée : <br>
-       - Soit par deux points,                 <br>
+       - Soit par deux points;                 <br>
        - Soit par un point et un angle (&phi;).       <br>
     
-    La droite peut être soit décalée, soit être perpendiculaire à la droite définie.   <br>
+    La droite peut être soit décalée, soit perpendiculaire à la droite définie.   <br>
     Pour le décalage (valeur X), un signe positif décale la droite sur la droite et un signe négatif la décale sur la gauche.<br>   
     Si la droite est à la perpendicualaire de celle donnée, une distance du point A (valeur Y) peut-être rentrée.    <br>
     Voir image ci-dessous:     <br> <br>
@@ -274,10 +277,10 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <h4 id="inter_cercles">Intersections de cercles (distances)</h4>
   <p>
     Pour l'intersection de cercles, deux possibilités :                                         <br>
-      - Rentrer manuellement la grandeur des rayons                                       <br>
+      - Rentrer manuellement la grandeur des rayons;                                       <br>
       - Choisir un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br><br>
     Attention : Il y a presque toujours 2 solutions.  <br>
-    Il y en a qu'une seulement si les deux cercles sont tangents.
+    Il n'y en a qu'une seulement si les deux cercles sont tangents.
     <br>Il n'y en a aucune si les deux cercles ne se croisent pas. <br>
     Définition du premier cercle  &nbsp;&nbsp;  -> Centre : A et Rayon : r1<br>
     Définition du deuxième cercle   -> Centre : B et Rayon : r2<br>   <br>    
@@ -313,7 +316,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     Point 7        <br>
   </p>
 <h4 id="surf_para">Déplacement parallèle de limite avec surface imposée</h4>
-   Le but de ce calcul est de retrouver de combien doit-on décaler la limite AD afin d'obtenir la surface désirée (S).<br>
+   Le but de ce calcul est de retrouver la valeur du décalage de la limite AD afin d'obtenir la surface désirée (S).<br>
    XY doit être parallèle à AD  <br>
    Les valeurs obtenues sont les suivantes:     <br>
    d = longueur du déplacement de la limite AD <br>
@@ -332,11 +335,15 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <h4 id="projection">Projection d'un point sur une droite</h4>
   <p>
     Pour définir la droite, il existe deux possibilités :  <br>
-     - Par deux points connus,<br>
-     - Par un point et un gisement<br>
-     La droite peut être déplacée sur la droite avec une signe positif, et sur la gauche avec un signe négatif. <br>
+     - Par deux points connus;<br>
+     - Par un point et un gisement.<br>
+     La droite peut être déplacée sur la droite avec un signe positif, et sur la gauche avec un signe négatif. <br>
      Il faut ensuite choisir le point à projeter dans la liste des points connus.<br>
-     Le n° de point demandé est celui de la projection du point sur la ligne.               
+     Le N° de point demandé est celui de la projection du point sur la ligne. <br>
+   <img src="file:///android_asset/help/img/point_project_line.png" alt="Projection d'un point sur une droite"/><br>  -->
+     x = Distance du point à projeté (P) à la droite     <br>
+     y = Distance du point projeté au point A   <br>
+     z = Distance du point projeté au point B   <br>        
     
   </p>
 <h4 id="cercle_3points">Calcul d'un cercle par trois points</h4>
@@ -347,14 +354,14 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <h4 id="seg_arc">Segmentation d'un arc de cercle</h4>
   <p>
     Ce calcul permet d'obtenir des coordonnées réparties le long de l'arc de cercle.   <br>
-    La segmentation peut se faire à partir du nombre de segment que l'on veut ou d'une distance rentrée manuellement.  <br>
+    La segmentation peut se faire à partir du nombre de segments que l'on veut ou d'une distance rentrée manuellement.  <br>
     Il est clair, dans la deuxième solution, que la distance restante entre le dernier point calculé et 
     l'extrémité de l'arc de cercle n'est pas égale aux autres distances.
   </p>
 <h4 id="helmert">Transformation d'Helmert (transformation conforme à 4 paramètres)</h4>
    La transformation d'Helmert est utilisée afin de faire une intégration des points localement.
    Pour faire le calcul, il faut choisir le fichier de points en coordonnées locales ainsi que le fichier de points en coordonnées globales. <br>
-   Il est possible d'avoir en plus des 4 paramètres, une translation en altimètrie.   <br>
+   Il est possible d'avoir, en plus des 4 paramètres, une translation en altimètrie.   <br>
    
 <h3 id="math">Mathématiques</h3>
 <h4 id="triangle">Résolutions de triangles</h4>

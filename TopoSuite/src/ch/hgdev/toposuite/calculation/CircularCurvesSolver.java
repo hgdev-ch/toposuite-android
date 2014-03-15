@@ -64,7 +64,11 @@ public class CircularCurvesSolver extends Calculation {
     }
 
     public CircularCurvesSolver(boolean hasDAO) {
-        this(0.0, 0.0, 0.0, 0.0, 0.0, hasDAO);
+        this(MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE, hasDAO);
     }
 
     @Override
