@@ -63,6 +63,17 @@ public class ViewUtils {
     }
 
     /**
+     * Check if an EditText is empty or not.
+     * 
+     * @param editText
+     *            The EditText to check.
+     * @return True if empty, false otherwise.
+     */
+    public static boolean isEmpty(EditText editText) {
+        return editText.length() == 0;
+    }
+
+    /**
      * Start the Points Manager Activity ({@link PointsManagerActivity}).
      * 
      * @param currentActivity
