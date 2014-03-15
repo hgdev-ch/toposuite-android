@@ -10,7 +10,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -19,6 +18,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
  * Activity providing an interface for calculating the Gisement / Distance.
@@ -183,7 +183,7 @@ public class GisementActivity extends TopoSuiteActivity {
             this.resetResults();
         } else if (p1.getNumber() == p2.getNumber()) {
             this.resetResults();
-            Toast.makeText(this, R.string.error_same_points, Toast.LENGTH_LONG).show();
+            ViewUtils.showToast(this, this.getString(R.string.error_same_points));
         } else {
             if (this.gisement == null) {
                 this.gisement = new Gisement(p1, p2);

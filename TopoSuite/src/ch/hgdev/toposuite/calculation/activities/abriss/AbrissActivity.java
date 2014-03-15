@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -167,14 +166,14 @@ public class AbrissActivity extends TopoSuiteActivity implements
             Point station = (Point) this.stationSpinner.getSelectedItem();
 
             if (station.getNumber() == 0) {
-                Toast.makeText(this, R.string.error_no_station_selected, Toast.LENGTH_LONG)
-                        .show();
+                ViewUtils.showToast(this,
+                        this.getString(R.string.error_no_station_selected));
                 return true;
             }
 
             if (this.orientationsListView.getChildCount() == 0) {
-                Toast.makeText(this, R.string.error_at_least_one_orientation, Toast.LENGTH_LONG)
-                        .show();
+                ViewUtils.showToast(this,
+                        this.getString(R.string.error_at_least_one_orientation));
                 return true;
             }
 

@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -275,8 +274,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
                     || ((this.selectedMode == Mode.LINE) && (this.point2SelectedPosition == 0))
                     || ((this.selectedMode == Mode.GISEMENT) &&
                     (this.gisementEditText.length() == 0))) {
-                Toast.makeText(this, R.string.error_fill_data,
-                        Toast.LENGTH_LONG).show();
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
             }
 

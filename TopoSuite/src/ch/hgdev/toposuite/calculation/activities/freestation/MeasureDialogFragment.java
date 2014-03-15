@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -19,7 +18,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -186,13 +184,10 @@ public class MeasureDialogFragment extends DialogFragment {
                             }
                             dialog.dismiss();
                         } else {
-                            Toast errorToast = Toast.makeText(
+                            ViewUtils.showToast(
                                     MeasureDialogFragment.this.getActivity(),
                                     MeasureDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data),
-                                    Toast.LENGTH_SHORT);
-                            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            errorToast.show();
+                                            R.string.error_fill_data));
                         }
                     }
                 });

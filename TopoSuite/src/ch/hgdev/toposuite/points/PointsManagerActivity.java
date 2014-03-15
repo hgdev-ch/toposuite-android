@@ -17,7 +17,6 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +24,6 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -34,6 +32,7 @@ import ch.hgdev.toposuite.export.ExportDialog;
 import ch.hgdev.toposuite.export.ImportDialog;
 import ch.hgdev.toposuite.export.SupportedFileTypes;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
@@ -124,16 +123,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             this.addPoint(dialog.getNumber(), dialog.getEast(),
                     dialog.getNorth(), dialog.getAltitude());
             this.drawList();
-            Toast successToast = Toast.makeText(this, this.getString(R.string.point_add_success),
-                    Toast.LENGTH_SHORT);
-            successToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            successToast.show();
+            ViewUtils.showToast(this, this.getString(R.string.point_add_success));
         } else {
-            Toast errorToast = Toast
-                    .makeText(this, this.getString(R.string.point_already_exists),
-                            Toast.LENGTH_LONG);
-            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            errorToast.show();
+            ViewUtils.showToast(this, this.getString(R.string.point_already_exists));
         }
         this.showAddPointDialog();
         this.updateShareIntent();
@@ -167,10 +159,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             this.showEditPointDialog(position);
 
         } else {
-            Toast errorToast = Toast.makeText(this, this.getString(R.string.point_not_found),
-                    Toast.LENGTH_LONG);
-            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            errorToast.show();
+            ViewUtils.showToast(this, this.getString(R.string.point_not_found));
         }
     }
 
@@ -271,11 +260,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
      */
     private void addPoint(int number, double east, double north, double altitude) {
         if (number < 1) {
-            Toast errorToast = Toast
-                    .makeText(this, this.getString(R.string.error_point_number),
-                            Toast.LENGTH_LONG);
-            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            errorToast.show();
+            ViewUtils.showToast(this, this.getString(R.string.error_point_number));
         } else {
             // when created by a user and not computed, a point IS a basepoint
             boolean basePoint = true;
@@ -356,18 +341,21 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                                         .getContentResolver();
                                 String ext = mime.substring(mime.lastIndexOf("/") + 1);
 
-                                // ugly hack to support ES File Explorer and Samsung's file
-                                // explorer that set the MIME type of a CSV file to
-                                // "text/comma-separated-values" instead of "text/csv"
+                                // ugly hack to support ES File Explorer and
+                                // Samsung's file
+                                // explorer that set the MIME type of a CSV file
+                                // to
+                                // "text/comma-separated-values" instead of
+                                // "text/csv"
                                 if (ext.equalsIgnoreCase("comma-separated-values")) {
                                     ext = "csv";
                                 }
 
                                 // make sure the file format is supported
                                 if (!SupportedFileTypes.isSupported(ext)) {
-                                    Toast.makeText(PointsManagerActivity.this,
-                                            R.string.error_unsupported_format,
-                                            Toast.LENGTH_LONG).show();
+                                    ViewUtils.showToast(PointsManagerActivity.this,
+                                            PointsManagerActivity.this.getString(
+                                                    R.string.error_unsupported_format));
                                     return;
                                 }
 
@@ -391,12 +379,10 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
                                 } catch (FileNotFoundException e) {
                                     Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
-                                    Toast.makeText(PointsManagerActivity.this, e.getMessage(),
-                                            Toast.LENGTH_LONG).show();
+                                    ViewUtils.showToast(PointsManagerActivity.this, e.getMessage());
                                 } catch (IOException e) {
                                     Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
-                                    Toast.makeText(PointsManagerActivity.this, e.getMessage(),
-                                            Toast.LENGTH_LONG).show();
+                                    ViewUtils.showToast(PointsManagerActivity.this, e.getMessage());
                                 }
                             }
                         })
@@ -412,17 +398,17 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     @Override
     public void onExportDialogSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 
     @Override
     public void onExportDialogError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 
     @Override
     public void onImportDialogSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
         this.drawList();
         this.updateShareIntent();
     }

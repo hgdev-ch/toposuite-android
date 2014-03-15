@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -18,12 +17,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class EditMeasureDialogFragment extends DialogFragment {
     /**
@@ -100,13 +99,10 @@ public class EditMeasureDialogFragment extends DialogFragment {
                                     .onDialogEdit(EditMeasureDialogFragment.this);
                             dialog.dismiss();
                         } else {
-                            Toast errorToast = Toast.makeText(
+                            ViewUtils.showToast(
                                     EditMeasureDialogFragment.this.getActivity(),
                                     EditMeasureDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data),
-                                    Toast.LENGTH_SHORT);
-                            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            errorToast.show();
+                                            R.string.error_fill_data));
                         }
                     }
                 });

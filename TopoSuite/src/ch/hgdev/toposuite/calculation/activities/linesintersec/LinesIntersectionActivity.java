@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -454,7 +452,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                     || ((this.d2Mode == Mode.LINE) && (this.point2D2SelectedPosition == 0))
                     || (this.isD1Perpendicular && (this.distP1D1EditText.length() == 0))
                     || (this.isD2Perpendicular && (this.distP1D2EditText.length() == 0))) {
-                Toast.makeText(this, R.string.error_fill_data, Toast.LENGTH_LONG).show();
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
             }
 
@@ -522,10 +520,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         case R.id.save_point:
             // check if the user has supplied a point number
             if ((this.lineIntersec == null) || (this.pointNumberEditText.length() == 0)) {
-                Toast errorToast = Toast.makeText(this, R.string.error_no_points_to_save,
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
+                ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
                 return true;
             }
 
@@ -540,8 +535,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 this.lineIntersec.getIntersectionPoint().registerDAO(
                         PointsDataSource.getInstance());
 
-                Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
-                        .show();
+                ViewUtils.showToast(this, this.getString(R.string.point_add_success));
             } else {
                 // this point already exists
                 MergePointsDialog dialog = new MergePointsDialog();
@@ -647,11 +641,11 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
     @Override
     public void onMergePointsDialogSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 
     @Override
     public void onMergePointsDialogError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 }

@@ -89,17 +89,17 @@ public class LineCircleIntersection extends Calculation {
                 App.getContext().getString(R.string.title_activity_line_circle_intersection),
                 true);
 
-        this.p1L = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.p2L = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.p1L = new Point(false);
+        this.p2L = new Point(false);
         this.displacementL = 0.0;
         this.gisementL = 0.0;
         this.distanceL = 0.0;
 
-        this.centerC = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.centerC = new Point(false);
         this.radiusC = 0.0;
 
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.firstIntersection = new Point(false);
+        this.secondIntersection = new Point(false);
 
         SharedResources.getCalculationsHistory().add(0, this);
     }
@@ -131,7 +131,7 @@ public class LineCircleIntersection extends Calculation {
                     0,
                     MathUtils.pointLanceEast(_p1L.getEast(), _gisement, 100),
                     MathUtils.pointLanceNorth(_p1L.getNorth(), _gisement, 100.0),
-                    0.0,
+                    MathUtils.IGNORE_DOUBLE,
                     false);
         } else {
             this.p2L = _p2L;
@@ -155,8 +155,8 @@ public class LineCircleIntersection extends Calculation {
         this.centerC = _centerC;
         this.radiusC = _radiusC;
 
-        this.firstIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
-        this.secondIntersection = new Point(0, 0.0, 0.0, 0.0, false, false);
+        this.firstIntersection = new Point(false);
+        this.secondIntersection = new Point(false);
     }
 
     @Override
@@ -194,7 +194,7 @@ public class LineCircleIntersection extends Calculation {
                             + "No line-circle crossing. The radius should be longer than "
                             + DisplayUtils.toStringForTextView(minRadius)
                             + " (" + DisplayUtils.toStringForTextView(this.radiusC) + " given).");
-            this.setZeros();
+            this.setIgnorableResults();
             return;
         }
 
@@ -243,14 +243,14 @@ public class LineCircleIntersection extends Calculation {
     }
 
     /**
-     * Set resulting points coordinate to 0.0. This usually indicates that there
-     * was an error.
+     * Set resulting points coordinate to ignorable values. This usually
+     * indicates that there was an error or that the calculation was impossible.
      */
-    private void setZeros() {
-        this.firstIntersection.setEast(0.0);
-        this.firstIntersection.setNorth(0.0);
-        this.secondIntersection.setEast(0.0);
-        this.secondIntersection.setNorth(0.0);
+    private void setIgnorableResults() {
+        this.firstIntersection.setEast(MathUtils.IGNORE_DOUBLE);
+        this.firstIntersection.setNorth(MathUtils.IGNORE_DOUBLE);
+        this.secondIntersection.setEast(MathUtils.IGNORE_DOUBLE);
+        this.secondIntersection.setNorth(MathUtils.IGNORE_DOUBLE);
     }
 
     @Override

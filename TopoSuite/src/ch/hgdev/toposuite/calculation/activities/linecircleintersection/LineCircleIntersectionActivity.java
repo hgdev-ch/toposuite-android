@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -224,23 +222,18 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 this.runCalculations();
                 this.updateResults();
             } else {
-                Toast errorToast = Toast.makeText(this, this.getText(R.string.error_fill_data),
-                        Toast.LENGTH_SHORT);
-                errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                errorToast.show();
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
             }
             return true;
         case R.id.save_points:
             if ((this.intersectionOne == null) || (this.intersectionTwo == null)) {
-                Toast.makeText(this, R.string.error_no_points_to_save,
-                        Toast.LENGTH_SHORT).show();
+                ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
                 return true;
             }
 
             if ((this.intersectionOneEditText.length() < 1)
                     && (this.intersectionTwoEditText.length() < 1)) {
-                Toast.makeText(this, R.string.error_no_points_saved,
-                        Toast.LENGTH_SHORT).show();
+                ViewUtils.showToast(this, this.getString(R.string.error_no_points_saved));
                 return true;
             }
 
@@ -253,8 +246,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                     SharedResources.getSetOfPoints().add(this.intersectionOne);
                     this.intersectionOne.registerDAO(PointsDataSource.getInstance());
 
-                    Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
-                            .show();
+                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
                 } else {
                     // this point already exists
                     MergePointsDialog dialog = new MergePointsDialog();
@@ -275,8 +267,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                     dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
                 }
             } else {
-                Toast.makeText(this, R.string.point_one_not_saved,
-                        Toast.LENGTH_SHORT).show();
+                ViewUtils.showToast(this, this.getString(R.string.point_one_not_saved));
             }
 
             // save second point
@@ -289,8 +280,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                     SharedResources.getSetOfPoints().add(this.intersectionTwo);
                     this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
 
-                    Toast.makeText(this, R.string.point_add_success, Toast.LENGTH_LONG)
-                            .show();
+                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
                 } else {
                     // this point already exists
                     MergePointsDialog dialog = new MergePointsDialog();
@@ -311,8 +301,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                     dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
                 }
             } else {
-                Toast.makeText(this, R.string.point_two_not_saved,
-                        Toast.LENGTH_SHORT).show();
+                ViewUtils.showToast(this, this.getString(R.string.point_two_not_saved));
             }
             return true;
         default:
@@ -585,11 +574,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             p2 = this.adapter.getItem(this.point2SelectedPosition);
         }
         double distP1 = 0.0;
-        if ((this.distP1EditText.length() > 0) && this.isLinePerpendicular) {
+        if (!ViewUtils.isEmpty(this.distP1EditText) && this.isLinePerpendicular) {
             distP1 = ViewUtils.readDouble(this.displacementEditText);
         }
         double displacement = 0.0;
-        if (this.displacementEditText.length() > 0) {
+        if (!ViewUtils.isEmpty(this.displacementEditText)) {
             displacement = ViewUtils.readDouble(this.displacementEditText);
         }
 
@@ -619,12 +608,12 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
     @Override
     public void onMergePointsDialogSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 
     @Override
     public void onMergePointsDialogError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ViewUtils.showToast(this, message);
     }
 
 }

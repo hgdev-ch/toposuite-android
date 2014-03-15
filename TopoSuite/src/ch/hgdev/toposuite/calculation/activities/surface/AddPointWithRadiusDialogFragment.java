@@ -103,7 +103,7 @@ public class AddPointWithRadiusDialogFragment extends DialogFragment {
                                     .onDialogAdd(AddPointWithRadiusDialogFragment.this);
                             dialog.dismiss();
                         } else {
-                            ViewUtils.showErrorToast(
+                            ViewUtils.showToast(
                                     AddPointWithRadiusDialogFragment.this.getActivity(),
                                     AddPointWithRadiusDialogFragment.this.getActivity().getString(
                                             R.string.error_fill_data));
