@@ -17,6 +17,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class TriangleSolverActivity extends TopoSuiteActivity {
     private double         a;
@@ -232,36 +233,12 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * Get input from edit texts.
      */
     private void getInputs() {
-        if (this.aEditText.length() > 0) {
-            this.a = Double.parseDouble(this.aEditText.getText().toString());
-        } else {
-            this.a = MathUtils.IGNORE_DOUBLE;
-        }
-        if (this.bEditText.length() > 0) {
-            this.b = Double.parseDouble(this.bEditText.getText().toString());
-        } else {
-            this.b = MathUtils.IGNORE_DOUBLE;
-        }
-        if (this.cEditText.length() > 0) {
-            this.c = Double.parseDouble(this.cEditText.getText().toString());
-        } else {
-            this.c = MathUtils.IGNORE_DOUBLE;
-        }
-        if (this.alphaEditText.length() > 0) {
-            this.alpha = Double.parseDouble(this.alphaEditText.getText().toString());
-        } else {
-            this.alpha = MathUtils.IGNORE_DOUBLE;
-        }
-        if (this.betaEditText.length() > 0) {
-            this.beta = Double.parseDouble(this.betaEditText.getText().toString());
-        } else {
-            this.beta = MathUtils.IGNORE_DOUBLE;
-        }
-        if (this.gammaEditText.length() > 0) {
-            this.gamma = Double.parseDouble(this.gammaEditText.getText().toString());
-        } else {
-            this.gamma = MathUtils.IGNORE_DOUBLE;
-        }
+        this.a = ViewUtils.readDouble(this.aEditText);
+        this.b = ViewUtils.readDouble(this.bEditText);
+        this.c = ViewUtils.readDouble(this.cEditText);
+        this.alpha = ViewUtils.readDouble(this.alphaEditText);
+        this.beta = ViewUtils.readDouble(this.betaEditText);
+        this.gamma = ViewUtils.readDouble(this.gammaEditText);
     }
 
     /**
