@@ -95,6 +95,7 @@ public class CalculationFactory {
         }
 
         if ((calculation != null) && !Strings.isNullOrEmpty(jsonInputArgs)) {
+            calculation.setDescription(description);
             try {
                 calculation.importFromJSON(jsonInputArgs);
             } catch (JSONException e) {
