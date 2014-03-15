@@ -85,6 +85,20 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         }
     }
 
+    public Point(boolean hasDAO) {
+        this.daoList = new ArrayList<DAO>();
+        this.basePoint = true;
+
+        this.number = MathUtils.IGNORE_INT;
+        this.east = MathUtils.IGNORE_DOUBLE;
+        this.north = MathUtils.IGNORE_DOUBLE;
+        this.altitude = MathUtils.IGNORE_DOUBLE;
+
+        if (hasDAO) {
+            this.registerDAO(PointsDataSource.getInstance());
+        }
+    }
+
     public Point() {
         this.daoList = new ArrayList<DAO>();
         this.basePoint = true;
