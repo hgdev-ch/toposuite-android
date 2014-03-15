@@ -142,6 +142,11 @@ public class OrthogonalImplantation extends Calculation {
         return OrthogonalImplantationActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_orthogonal_implantation);
+    }
+
     public OrthogonalBase getOrthogonalBase() {
         return this.orthogonalBase;
     }

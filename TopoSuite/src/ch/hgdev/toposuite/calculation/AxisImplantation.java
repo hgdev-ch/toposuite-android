@@ -60,6 +60,12 @@ public class AxisImplantation extends Calculation {
         return null;
     }
 
+    @Override
+    public String getCalculationName() {
+        // TODO Implement
+        return null;
+    }
+
     public class Result {
         private int    number;
         private double east;

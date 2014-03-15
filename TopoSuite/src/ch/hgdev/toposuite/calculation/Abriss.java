@@ -105,10 +105,11 @@ public class Abriss extends Calculation {
             this.results.get(index).setErrTrans(errTrans);
 
             // [cm] => measured distance - calculated distance
-            /*this.results.get(index).setErrLong(
-                    MathUtils.mToCm(
-                            (Math.sin(MathUtils.gradToRad(m.getZenAngle())
-                                    * m.getDistance())) - calcDist));*/
+            /*
+             * this.results.get(index).setErrLong( MathUtils.mToCm(
+             * (Math.sin(MathUtils.gradToRad(m.getZenAngle()) m.getDistance()))
+             * - calcDist));
+             */
             this.results.get(index).setErrLong(
                     MathUtils.mToCm(
                             calcDist - (Math.sin(MathUtils.gradToRad(m.getZenAngle()))
@@ -170,6 +171,11 @@ public class Abriss extends Calculation {
     @Override
     public Class<?> getActivityClass() {
         return AbrissActivity.class;
+    }
+
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_abriss);
     }
 
     public Point getStation() {

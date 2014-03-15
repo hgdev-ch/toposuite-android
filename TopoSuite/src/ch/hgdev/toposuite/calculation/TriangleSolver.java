@@ -704,6 +704,11 @@ public class TriangleSolver extends Calculation {
         return TriangleSolverActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_triangle_solver);
+    }
+
     public Pair<Double, Double> getPerimeter() {
         return this.perimeter;
     }

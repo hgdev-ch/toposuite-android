@@ -114,6 +114,11 @@ public class Circle extends Calculation {
         return CircleActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_circle);
+    }
+
     public Point getPointA() {
         return this.pointA;
     }

@@ -101,6 +101,12 @@ public class LimitDisplacement extends Calculation {
         return null;
     }
 
+    @Override
+    public String getCalculationName() {
+        // TODO
+        return "TODO";
+    }
+
     public final Point getPointA() {
         return this.pointA;
     }

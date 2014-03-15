@@ -173,16 +173,17 @@ public class FreeStation extends Calculation {
                             g1.getGisement(), g1.getHorizDist(),
                             g2.getGisement(), g2.getHorizDist()));
 
-            // calculation of the rotation between fictive and cadastral coordinates
+            // calculation of the rotation between fictive and cadastral
+            // coordinates
             // according to the following formula:
-            //      mod400(gis_cadastral - gis_fictive)
+            // mod400(gis_cadastral - gis_fictive)
             double rotation = MathUtils.modulo400(g2.getGisement() - g1.getGisement());
             intermRes.get(i).rotation = rotation;
             meanRotations += rotation;
 
             // calculation of the multiplication constants between fictive and
             // cadastral coordinates according to the following formula:
-            //      dist_cadastral / dist_fictive 
+            // dist_cadastral / dist_fictive
             double constant = g2.getHorizDist() / g1.getHorizDist();
             intermRes.get(i).constant = constant;
             meanConstants += constant;
@@ -191,7 +192,8 @@ public class FreeStation extends Calculation {
         meanRotations /= n;
         meanConstants /= n;
 
-        // calculation of the gisement/distance between the fictive centroid and the
+        // calculation of the gisement/distance between the fictive centroid and
+        // the
         // station (which is actually at the coordinates 0;0).
         this.stationResult = new Point(this.stationNumber, 0.0, 0.0, 0.0, false, false);
         Gisement g = new Gisement(centroidFict, this.stationResult, false);
@@ -208,11 +210,15 @@ public class FreeStation extends Calculation {
 
         double diffAlt = 0.0;
 
-        /*double a = meanConstants * Math.cos(MathUtils.gradToRad(meanRotations));
-        double b = meanConstants * Math.sin(MathUtils.gradToRad(meanRotations));
-
-        double paramTranslatY = centroidYCadast - (a * centroidYFict) - (b * centroidXFict);
-        double paramTranslatX = (centroidXCadast - (a * centroidXFict)) + (b * centroidYFict);*/
+        /*
+         * double a = meanConstants *
+         * Math.cos(MathUtils.gradToRad(meanRotations)); double b =
+         * meanConstants * Math.sin(MathUtils.gradToRad(meanRotations));
+         * 
+         * double paramTranslatY = centroidYCadast - (a * centroidYFict) - (b *
+         * centroidXFict); double paramTranslatX = (centroidXCadast - (a *
+         * centroidXFict)) + (b * centroidYFict);
+         */
 
         double u = 0.0;
         double v = 0.0;
@@ -226,20 +232,24 @@ public class FreeStation extends Calculation {
             double newE = MathUtils.pointLanceEast(
                     this.stationResult.getEast(), newGis, newDist);
             double vE = (newE - this.measures.get(i).getPoint().getEast()) * 100;
-            /*double vE = (paramTranslatY + (a * this.results.get(i).getPoint().getEast()) +
-                    (b * this.results.get(i).getPoint().getNorth()))
-                    - this.measures.get(i).getPoint().getEast();
-            vE *= 100;*/
+            /*
+             * double vE = (paramTranslatY + (a *
+             * this.results.get(i).getPoint().getEast()) + (b *
+             * this.results.get(i).getPoint().getNorth())) -
+             * this.measures.get(i).getPoint().getEast(); vE *= 100;
+             */
             this.results.get(i).setvE(vE);
 
             // vN [cm]
             double newN = MathUtils.pointLanceNorth(
                     this.stationResult.getNorth(), newGis, newDist);
             double vN = (newN - this.measures.get(i).getPoint().getNorth()) * 100;
-            /*double vN = (paramTranslatX + (a * this.results.get(i).getPoint().getNorth()) +
-                    (b * this.results.get(i).getPoint().getEast()))
-                    - this.measures.get(i).getPoint().getNorth();
-            vN *= 100;*/
+            /*
+             * double vN = (paramTranslatX + (a *
+             * this.results.get(i).getPoint().getNorth()) + (b *
+             * this.results.get(i).getPoint().getEast())) -
+             * this.measures.get(i).getPoint().getNorth(); vN *= 100;
+             */
             this.results.get(i).setvN(vN);
 
             // vA [cm]
@@ -325,6 +335,11 @@ public class FreeStation extends Calculation {
     @Override
     public Class<?> getActivityClass() {
         return FreeStationActivity.class;
+    }
+
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_free_station);
     }
 
     public final int getStationNumber() {

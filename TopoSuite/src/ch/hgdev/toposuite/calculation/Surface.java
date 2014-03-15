@@ -151,6 +151,11 @@ public class Surface extends Calculation {
         return SurfaceActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_surface);
+    }
+
     public String getSurfaceName() {
         return this.surfaceName;
     }

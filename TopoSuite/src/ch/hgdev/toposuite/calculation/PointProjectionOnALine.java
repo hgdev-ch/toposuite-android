@@ -237,6 +237,11 @@ public class PointProjectionOnALine extends Calculation {
         return PointProjectionActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_point_projection);
+    }
+
     /**
      * Create a point from a given gisement and a point. The new point is
      * determined using the "point lancé".

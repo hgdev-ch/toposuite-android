@@ -166,6 +166,11 @@ public class LeveOrthogonal extends Calculation {
         return LeveOrthoActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_leve_ortho);
+    }
+
     public static class Measure {
         public static final String NUMBER   = "number";
         public static final String ABSCISSA = "abscissa";

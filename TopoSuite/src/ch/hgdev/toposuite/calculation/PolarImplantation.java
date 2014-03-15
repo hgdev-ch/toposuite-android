@@ -153,6 +153,11 @@ public class PolarImplantation extends Calculation {
         return PolarImplantationActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_polar_implantation);
+    }
+
     public ArrayList<Measure> getMeasures() {
         return this.measures;
     }

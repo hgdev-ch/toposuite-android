@@ -216,6 +216,11 @@ public class CircularCurvesSolver extends Calculation {
         return CircularCurvesSolverActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_circular_curve_solver);
+    }
+
     public double getRadius() {
         return this.radius;
     }

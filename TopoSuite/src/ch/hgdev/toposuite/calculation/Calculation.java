@@ -97,6 +97,13 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
     public abstract Class<?> getActivityClass();
 
     /**
+     * Method that should return the calculation name.
+     * 
+     * @return Calculation name.
+     */
+    public abstract String getCalculationName();
+
+    /**
      * Method that actually performs the calculation.
      */
     public abstract void compute();

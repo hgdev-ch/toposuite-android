@@ -292,6 +292,11 @@ public class LineCircleIntersection extends Calculation {
         return LineCircleIntersectionActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_line_circle_intersection);
+    }
+
     public Point getP1L() {
         return this.p1L;
     }

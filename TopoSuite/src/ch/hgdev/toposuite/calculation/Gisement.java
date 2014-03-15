@@ -369,4 +369,9 @@ public class Gisement extends Calculation {
     public Class<?> getActivityClass() {
         return GisementActivity.class;
     }
+
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_gisement);
+    }
 }

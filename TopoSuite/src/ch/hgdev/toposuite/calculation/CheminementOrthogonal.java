@@ -227,6 +227,11 @@ public class CheminementOrthogonal extends Calculation {
         return CheminementOrthoActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_cheminement_ortho);
+    }
+
     public OrthogonalBase getOrthogonalBase() {
         return this.orthogonalBase;
     }

@@ -124,10 +124,10 @@ public class LinesIntersection extends Calculation {
     @Override
     public void compute() {
         // TODO raise an exception
-        /*if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
-                || (this.p2D2 == null)) {
-            return;
-        }*/
+        /*
+         * if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
+         * || (this.p2D2 == null)) { return; }
+         */
 
         double alphaAngle, gammaAngle, pAngle, displGis;
 
@@ -204,10 +204,10 @@ public class LinesIntersection extends Calculation {
                 .getGisement();
 
         // safe check
-        /*if (MathUtils.equals(alphaAngle, -gammaAngle)
-                && MathUtils.isZero(stPtIntersecDist)) {
-            return;
-        }*/
+        /*
+         * if (MathUtils.equals(alphaAngle, -gammaAngle) &&
+         * MathUtils.isZero(stPtIntersecDist)) { return; }
+         */
 
         double east = MathUtils.pointLanceEast(p1D1clone.getEast(),
                 stPtIntersecGis, stPtIntersecDist);
@@ -274,6 +274,11 @@ public class LinesIntersection extends Calculation {
     @Override
     public Class<?> getActivityClass() {
         return LinesIntersectionActivity.class;
+    }
+
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_lines_intersection);
     }
 
     public final Point getP1D1() {

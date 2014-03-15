@@ -167,6 +167,11 @@ public class PolarSurvey extends Calculation {
         return PolarSurveyActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_polar_survey);
+    }
+
     public ArrayList<Measure> getDeterminations() {
         return this.determinations;
     }

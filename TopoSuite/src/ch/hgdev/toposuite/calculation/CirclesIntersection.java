@@ -217,6 +217,11 @@ public class CirclesIntersection extends Calculation {
         return CirclesIntersectionActivity.class;
     }
 
+    @Override
+    public String getCalculationName() {
+        return App.getContext().getString(R.string.title_activity_circles_intersection);
+    }
+
     public Point getFirstIntersection() {
         return this.firstIntersection;
     }
