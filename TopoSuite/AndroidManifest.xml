@@ -151,6 +151,14 @@
             android:name="ch.hgdev.toposuite.settings.AboutActivity"
             android:label="@string/title_activity_about" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.limdispl.LimitDisplacementActivity"
+            android:label="@string/title_activity_limit_displacement" >
+        </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.limdispl.LimitDisplacementResultsActivity"
+            android:label="@string/title_activity_limit_displacement_results" >
+        </activity>
     </application>
 
 </manifest>
