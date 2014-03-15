@@ -31,6 +31,7 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LinesIntersectionActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
@@ -459,48 +460,41 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
             Point p1D1 = this.adapter.getItem(this.point1D1SelectedPosition);
             Point p2D1 = null;
-            double gisementD1 = 0.0;
+            double gisementD1 = MathUtils.IGNORE_DOUBLE;
             if (this.d1Mode == Mode.GISEMENT) {
-                gisementD1 = Double.parseDouble(
-                        this.gisementD1EditText.getText().toString());
+                gisementD1 = ViewUtils.readDouble(this.gisementD1EditText);
             } else {
                 p2D1 = this.adapter.getItem(this.point2D1SelectedPosition);
             }
-            double displacementD1 = 0.0;
+            double displacementD1 = MathUtils.IGNORE_DOUBLE;
             if (this.displacementD1EditText.length() > 0) {
-                displacementD1 = Double.parseDouble(
-                        this.displacementD1EditText.getText().toString());
+                displacementD1 = ViewUtils.readDouble(this.displacementD1EditText);
             }
-            double distP1D1 = 0.0;
+            double distP1D1 = MathUtils.IGNORE_DOUBLE;
             if ((this.distP1D1EditText.length() > 0) && this.isD1Perpendicular) {
-                distP1D1 = Double.parseDouble(
-                        this.distP1D1EditText.getText().toString());
+                distP1D1 = ViewUtils.readDouble(this.distP1D1EditText);
             }
 
             Point p1D2 = this.adapter.getItem(this.point1D2SelectedPosition);
             Point p2D2 = null;
-            double gisementD2 = 0.0;
+            double gisementD2 = MathUtils.IGNORE_DOUBLE;
             if (this.d2Mode == Mode.GISEMENT) {
-                gisementD2 = Double.parseDouble(
-                        this.gisementD2EditText.getText().toString());
+                gisementD2 = ViewUtils.readDouble(this.gisementD2EditText);
             } else {
                 p2D2 = this.adapter.getItem(this.point2D2SelectedPosition);
             }
-            double displacementD2 = 0.0;
+            double displacementD2 = MathUtils.IGNORE_DOUBLE;
             if (this.displacementD2EditText.length() > 0) {
-                displacementD2 = Double.parseDouble(
-                        this.displacementD2EditText.getText().toString());
+                displacementD2 = ViewUtils.readDouble(this.displacementD2EditText);
             }
-            double distP1D2 = 0.0;
+            double distP1D2 = MathUtils.IGNORE_DOUBLE;
             if ((this.distP1D2EditText.length() > 0) && this.isD2Perpendicular) {
-                distP1D2 = Double.parseDouble(
-                        this.distP1D2EditText.getText().toString());
+                distP1D2 = ViewUtils.readDouble(this.distP1D2EditText);
             }
 
             int pointNumber = 0;
             if (this.pointNumberEditText.length() > 0) {
-                pointNumber = Integer.parseInt(
-                        this.pointNumberEditText.getText().toString());
+                pointNumber = ViewUtils.readInt(this.pointNumberEditText);
             }
 
             if (this.lineIntersec == null) {
