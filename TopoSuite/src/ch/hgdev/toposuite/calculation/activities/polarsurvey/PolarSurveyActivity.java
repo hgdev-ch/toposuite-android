@@ -413,17 +413,11 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
      * Perform actions required when the calculation button is clicked.
      */
     private void showPolarSurveyResultActivity() {
-        if (this.iEditText.length() > 0) {
-            this.instrumentHeight = Double.parseDouble(this.iEditText.getText().toString());
-        }
-        if (this.unknownOrientEditText.length() > 0) {
-            this.z0 = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+        this.instrumentHeight = ViewUtils.readDouble(this.iEditText);
+        if (!ViewUtils.isEmpty(this.unknownOrientEditText)) {
+            this.z0 = ViewUtils.readDouble(this.unknownOrientEditText);
         } else {
-            Toast errorToast = Toast.makeText(this,
-                    this.getText(R.string.error_choose_unknown_orientation),
-                    Toast.LENGTH_SHORT);
-            errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            errorToast.show();
+            ViewUtils.showErrorToast(this, this.getText(R.string.error_choose_unknown_orientation));
             return;
         }
 

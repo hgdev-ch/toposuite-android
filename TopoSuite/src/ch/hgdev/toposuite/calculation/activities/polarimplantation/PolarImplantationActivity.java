@@ -367,14 +367,10 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
      * Start the activity that shows the results of the calculation.
      */
     private void showPolarImplantationResultActivity() {
-        double i = 0.0;
         double unknownOrient;
-
-        if (this.iEditText.length() > 0) {
-            i = Double.parseDouble(this.iEditText.getText().toString());
-        }
-        if (this.unknownOrientEditText.length() > 0) {
-            unknownOrient = Double.parseDouble(this.unknownOrientEditText.getText().toString());
+        double i = ViewUtils.readDouble(this.iEditText);
+        if (!ViewUtils.isEmpty(this.unknownOrientEditText)) {
+            unknownOrient = ViewUtils.readDouble(this.unknownOrientEditText);
         } else {
             Toast errorToast = Toast.makeText(this,
                     this.getText(R.string.error_choose_unknown_orientation),

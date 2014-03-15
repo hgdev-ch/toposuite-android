@@ -3,10 +3,13 @@ package ch.hgdev.toposuite.utils;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.view.Gravity;
 import android.widget.EditText;
+import android.widget.Toast;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
@@ -60,6 +63,31 @@ public class ViewUtils {
                     : MathUtils.IGNORE_INT;
         }
         return MathUtils.IGNORE_INT;
+    }
+
+    /**
+     * Check if an EditText is empty or not.
+     * 
+     * @param editText
+     *            The EditText to check.
+     * @return True if empty, false otherwise.
+     */
+    public static boolean isEmpty(EditText editText) {
+        return editText.length() == 0;
+    }
+
+    /**
+     * Show an error toast.
+     * 
+     * @param context
+     *            Calling context.
+     * @param errorMessage
+     *            Error message to display in the toast.
+     */
+    public static void showErrorToast(Context context, CharSequence errorMessage) {
+        Toast errorToast = Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT);
+        errorToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        errorToast.show();
     }
 
     /**

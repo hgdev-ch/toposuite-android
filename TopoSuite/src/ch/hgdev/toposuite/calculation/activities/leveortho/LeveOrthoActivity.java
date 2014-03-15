@@ -366,10 +366,8 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         if ((p1.getNumber() != 0) && (p2.getNumber() != 0)
                 && (this.leveOrtho != null)) {
 
-            String inputText = this.measuredDistEditText.getText().toString();
-
-            if (!inputText.isEmpty()) {
-                this.measuredDist = Double.parseDouble(inputText);
+            if (this.measuredDistEditText.length() > 0) {
+                this.measuredDist = ViewUtils.readDouble(this.measuredDistEditText);
                 this.leveOrtho.getOrthogonalBase().setMeasuredDistance(this.measuredDist);
 
                 double scaleFactor = this.leveOrtho.getOrthogonalBase().getScaleFactor();
