@@ -69,6 +69,34 @@ public class TestFreeStation extends TestCase {
     }
 
     public void testFreeStation2() {
+        Point p1 = new Point(1, 600.0, 200.0, 0.0, true, false);
+        Point p2 = new Point(2, 620.0, 215.0, 416.3, true, false);
+        Point p3 = new Point(3, 610.0, 185.0, 417.17, true, false);
+        Point p104 = new Point(104, 635.0, 180.0, 0.0, true, false);
+        Point p105 = new Point(105, 595.0, 170.0, 0.0, true, false);
+
+        Measure m1 = new Measure(p1, 252.0, 100, 18.015);
+        Measure m2 = new Measure(p2, 309.91, 100, 31.61);
+        Measure m3 = new Measure(p3, 0.0, 100, 0.0);
+        Measure m4 = new Measure(p104, 2.0, 100, 25.5);
+        Measure m5 = new Measure(p105, 139.43, 100, 21.22);
+
+        FreeStation fs = new FreeStation(9001, 1.650, false);
+        fs.getMeasures().add(m1);
+        fs.getMeasures().add(m2);
+        fs.getMeasures().add(m3);
+        fs.getMeasures().add(m4);
+        fs.getMeasures().add(m5);
+        fs.compute();
+
+        Assert.assertEquals("609.999", this.df3.format(fs.getStationResult().getEast()));
+        Assert.assertEquals("185.004", this.df3.format(fs.getStationResult().getNorth()));
+
+        Assert.assertEquals("110.565", this.df3.format(fs.getUnknownOrientation()));
+        Assert.assertEquals("0.3", this.df1.format(fs.getsE()));
+    }
+
+    public void testFreeStation3() {
         Point p6 = new Point(6, 622.475, 210.990, 100.400, true, false);
         Point p7 = new Point(7, 636.236, 145.773, 99.964, true, false);
         Point p8 = new Point(8, 635.417, 177.289, 99.144, true, false);
@@ -102,8 +130,8 @@ public class TestFreeStation extends TestCase {
         Assert.assertEquals("1.01", this.df2.format(fs.getResults().get(3).getvA()));
         Assert.assertEquals("-1.78", this.df2.format(fs.getResults().get(4).getvA()));
 
-        Assert.assertEquals("0.1", this.df1.format(fs.getsE()));
-        Assert.assertEquals("0.1", this.df1.format(fs.getsN()));
+        Assert.assertEquals("0.6", this.df1.format(fs.getsE()));
+        Assert.assertEquals("0.6", this.df1.format(fs.getsN()));
         Assert.assertEquals("0.7", this.df1.format(fs.getsA()));
 
         Assert.assertEquals("60.443", this.df3.format(fs.getUnknownOrientation()));

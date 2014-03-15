@@ -208,6 +208,15 @@ public class FreeStation extends Calculation {
 
         double diffAlt = 0.0;
 
+        /*double a = meanConstants * Math.cos(MathUtils.gradToRad(meanRotations));
+        double b = meanConstants * Math.sin(MathUtils.gradToRad(meanRotations));
+
+        double paramTranslatY = centroidYCadast - (a * centroidYFict) - (b * centroidXFict);
+        double paramTranslatX = (centroidXCadast - (a * centroidXFict)) + (b * centroidYFict);*/
+
+        double u = 0.0;
+        double v = 0.0;
+
         for (int i = 0; i < this.results.size(); i++) {
             double newGis = MathUtils.modulo400(
                     meanRotations + this.measures.get(i).getHorizDir());
@@ -217,12 +226,20 @@ public class FreeStation extends Calculation {
             double newE = MathUtils.pointLanceEast(
                     this.stationResult.getEast(), newGis, newDist);
             double vE = (newE - this.measures.get(i).getPoint().getEast()) * 100;
+            /*double vE = (paramTranslatY + (a * this.results.get(i).getPoint().getEast()) +
+                    (b * this.results.get(i).getPoint().getNorth()))
+                    - this.measures.get(i).getPoint().getEast();
+            vE *= 100;*/
             this.results.get(i).setvE(vE);
 
             // vN [cm]
             double newN = MathUtils.pointLanceNorth(
                     this.stationResult.getNorth(), newGis, newDist);
             double vN = (newN - this.measures.get(i).getPoint().getNorth()) * 100;
+            /*double vN = (paramTranslatX + (a * this.results.get(i).getPoint().getNorth()) +
+                    (b * this.results.get(i).getPoint().getEast()))
+                    - this.measures.get(i).getPoint().getNorth();
+            vN *= 100;*/
             this.results.get(i).setvN(vN);
 
             // vA [cm]
@@ -233,14 +250,21 @@ public class FreeStation extends Calculation {
             double fS = Math.sqrt(Math.pow(vE, 2) + Math.pow(vN, 2));
             this.results.get(i).setfS(fS);
 
-            this.sE += vE;
-            this.sN += vN;
+            this.sE += vE * vE;
+            this.sN += vN * vN;
             diffAlt += this.results.get(i).getWeight() * Math.pow(vA, 2);
             this.meanFS += fS;
+
+            u += Math.pow(this.results.get(i).getPoint().getEast() - centroidYFict, 2);
+            v += Math.pow(this.results.get(i).getPoint().getNorth() - centroidXFict, 2);
         }
 
-        this.sE /= this.results.size();
-        this.sN /= this.results.size();
+        this.sE = Math.sqrt((this.sE + this.sN) / ((2 * this.results.size()) - 4));
+        this.sE = this.sE * Math.sqrt(
+                (1 / this.results.size()) + ((
+                        Math.pow(centroidYFict, 2) + Math.pow(centroidXFict, 2)) / (u + v)));
+        this.sN = this.sE;
+
         this.sA = Math.sqrt(diffAlt / ((nbAltitudes - 1) * totalWeights));
         this.meanFS /= this.results.size();
 
