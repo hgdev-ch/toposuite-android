@@ -13,6 +13,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStation extends Calculation {
@@ -287,6 +288,9 @@ public class FreeStation extends Calculation {
         }
 
         this.updateLastModification();
+        this.setDescription(this.getCalculationName()
+                + " - " + App.getContext().getString(R.string.station_label)
+                + ": " + DisplayUtils.toStringForTextView(this.getStationNumber()));
         this.notifyUpdate(this);
     }
 
