@@ -64,12 +64,12 @@ public class LimitDisplacement extends Calculation {
 
         double distD = (2 * this.surface) / (distA + distB);
 
-        LinesIntersection li = new LinesIntersection(this.pointA, this.pointD, 0.0,
-                -distD, this.pointA, this.pointB, 0.0, 0, this.pointXNumber, false);
+        LinesIntersection li = new LinesIntersection(this.pointA, this.pointD, -distD,
+                0.0, this.pointA, this.pointB, 0.0, 0, this.pointXNumber, false);
         li.compute();
         this.newPointX = li.getIntersectionPoint();
 
-        li = new LinesIntersection(this.pointA, this.pointD, 0.0, -distD,
+        li = new LinesIntersection(this.pointA, this.pointD, -distD, 0.0,
                 this.pointD, this.pointC, 0.0, 0, this.pointYNumber, false);
         li.compute();
         this.newPointY = li.getIntersectionPoint();
