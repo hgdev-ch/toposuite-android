@@ -574,11 +574,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             p2 = this.adapter.getItem(this.point2SelectedPosition);
         }
         double distP1 = 0.0;
-        if ((this.distP1EditText.length() > 0) && this.isLinePerpendicular) {
+        if (!ViewUtils.isEmpty(this.distP1EditText) && this.isLinePerpendicular) {
             distP1 = ViewUtils.readDouble(this.displacementEditText);
         }
         double displacement = 0.0;
-        if (this.displacementEditText.length() > 0) {
+        if (!ViewUtils.isEmpty(this.displacementEditText)) {
             displacement = ViewUtils.readDouble(this.displacementEditText);
         }
 
