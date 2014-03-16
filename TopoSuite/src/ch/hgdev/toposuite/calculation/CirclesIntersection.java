@@ -158,6 +158,13 @@ public class CirclesIntersection extends Calculation {
                         + (this.radiusFirst * Math.cos(gisement - alpha)));
 
         this.updateLastModification();
+        this.setDescription(this.getCalculationName() + " - "
+                + App.getContext().getString(R.string.circle_one_label) + " "
+                + App.getContext().getString(R.string.center_label) + ": "
+                + this.centerFirst.toString()
+                + " / " + App.getContext().getString(R.string.circle_two_label) + " "
+                + App.getContext().getString(R.string.center_label) + ": "
+                + this.centerSecond.toString());
         this.notifyUpdate(this);
     }
 
