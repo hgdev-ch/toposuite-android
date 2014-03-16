@@ -124,10 +124,10 @@ public class LinesIntersection extends Calculation {
     @Override
     public void compute() {
         // TODO raise an exception
-        /*
-         * if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
-         * || (this.p2D2 == null)) { return; }
-         */
+        /*if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
+                || (this.p2D2 == null)) {
+            return;
+        }*/
 
         double alphaAngle, gammaAngle, pAngle, displGis;
 

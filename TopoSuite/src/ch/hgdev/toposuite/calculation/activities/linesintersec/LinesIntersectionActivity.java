@@ -318,17 +318,21 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                     this.lineIntersec.getP1D1().getNumber());
             this.point1D1SelectedPosition = this.adapter.getPosition(tmpPoint);
 
-            tmpPoint = SharedResources.getSetOfPoints().find(
-                    this.lineIntersec.getP2D1().getNumber());
-            this.point2D1SelectedPosition = this.adapter.getPosition(tmpPoint);
+            if (this.lineIntersec.getP2D1() != null) {
+                tmpPoint = SharedResources.getSetOfPoints().find(
+                        this.lineIntersec.getP2D1().getNumber());
+                this.point2D1SelectedPosition = this.adapter.getPosition(tmpPoint);
+            }
 
             tmpPoint = SharedResources.getSetOfPoints().find(
                     this.lineIntersec.getP1D2().getNumber());
             this.point1D2SelectedPosition = this.adapter.getPosition(tmpPoint);
 
-            tmpPoint = SharedResources.getSetOfPoints().find(
-                    this.lineIntersec.getP2D2().getNumber());
-            this.point2D2SelectedPosition = this.adapter.getPosition(tmpPoint);
+            if (this.lineIntersec.getP2D2() != null) {
+                tmpPoint = SharedResources.getSetOfPoints().find(
+                        this.lineIntersec.getP2D2().getNumber());
+                this.point2D2SelectedPosition = this.adapter.getPosition(tmpPoint);
+            }
 
             if (!MathUtils.isZero(this.lineIntersec.getGisementD1())) {
                 this.gisementD1EditText.setText(DisplayUtils.toStringForEditText(
@@ -478,6 +482,23 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 return true;
             }
 
+            // ensure that the computation is possible in order to avoid weird
+            //(and wrong!) results
+            if (((this.d1Mode == Mode.GISEMENT)
+                    && MathUtils.isZero(ViewUtils.readDouble(this.gisementD1EditText)))
+                    || ((this.d2Mode == Mode.GISEMENT) && MathUtils.isZero(
+                            ViewUtils.readDouble(this.gisementD2EditText)))
+                    || (this.point1D1SelectedPosition == this.point2D1SelectedPosition)
+                    || (this.point1D2SelectedPosition == this.point2D2SelectedPosition)
+                    || (this.point1D1SelectedPosition == this.point1D2SelectedPosition)
+                    || (this.point2D1SelectedPosition == this.point2D2SelectedPosition)
+                    || (this.point1D1SelectedPosition == this.point2D2SelectedPosition)
+                    || (this.point2D1SelectedPosition == this.point1D2SelectedPosition)) {
+                ViewUtils.showToast(this, this.getString(
+                        R.string.error_impossible_calculation));
+                return true;
+            }
+
             Point p1D1 = this.adapter.getItem(this.point1D1SelectedPosition);
 
             Point p2D1 = null;
@@ -544,7 +565,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             }
 
             if ((this.lineIntersec.getP2D2() == null) || (this.lineIntersec.getP2D1() == null)) {
-                ViewUtils.showToast(this, "Calculation impossible!");
+                ViewUtils.showToast(this, this.getString(
+                        R.string.error_impossible_calculation));
                 return true;
             }
 
