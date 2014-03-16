@@ -184,9 +184,22 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             PointProjectionOnALine ppoal = (PointProjectionOnALine)
                     SharedResources.getCalculationsHistory().get(position);
 
-            this.point1SelectedPosition = a.getPosition(ppoal.getP1());
-            this.point2SelectedPosition = a.getPosition(ppoal.getP2());
+            //this.point1SelectedPosition = a.getPosition(ppoal.getP1());
+            //this.point2SelectedPosition = a.getPosition(ppoal.getP2());
             this.pointSelectedPosition = a.getPosition(ppoal.getPtToProj());
+
+            // TODO find a more "elegant" solution
+            for (int i = 1; i < a.getCount(); i++) {
+                if (a.getItem(i).getNumber() == ppoal.getP1().getNumber()) {
+                    this.point1SelectedPosition = i;
+                    continue;
+                }
+
+                if (a.getItem(i).getNumber() == ppoal.getP2().getNumber()) {
+                    this.point2SelectedPosition = i;
+                    continue;
+                }
+            }
 
             this.gisementEditText.setText(DisplayUtils.toStringForEditText(
                     ppoal.getGisement()));
