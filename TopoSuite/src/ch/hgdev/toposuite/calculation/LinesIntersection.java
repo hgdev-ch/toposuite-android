@@ -131,24 +131,18 @@ public class LinesIntersection extends Calculation {
 
         double alphaAngle, gammaAngle, pAngle, displGis;
 
-        // clone the input points for safety reasons
-        Point p1D1clone = this.p1D1.clone();
-        Point p2D1clone = this.p2D1.clone();
-        Point p1D2clone = this.p1D2.clone();
-        Point p2D2clone = this.p2D2.clone();
-
         if (!MathUtils.isZero(this.displacementD1)) {
             displGis = new Gisement(this.p1D1, this.p2D1, false).getGisement();
             displGis += (MathUtils.isNegative(this.displacementD1)) ? -100 : 100;
 
-            p1D1clone.setEast(MathUtils.pointLanceEast(p1D1clone.getEast(),
+            this.p1D1.setEast(MathUtils.pointLanceEast(this.p1D1.getEast(),
                     displGis, Math.abs(this.displacementD1)));
-            p1D1clone.setNorth(MathUtils.pointLanceNorth(p1D1clone.getNorth(),
+            this.p1D1.setNorth(MathUtils.pointLanceNorth(this.p1D1.getNorth(),
                     displGis, Math.abs(this.displacementD1)));
 
-            p2D1clone.setEast(MathUtils.pointLanceEast(p2D1clone.getEast(),
+            this.p2D1.setEast(MathUtils.pointLanceEast(this.p2D1.getEast(),
                     displGis, Math.abs(this.displacementD1)));
-            p2D1clone.setNorth(MathUtils.pointLanceNorth(p2D1clone.getNorth(),
+            this.p2D1.setNorth(MathUtils.pointLanceNorth(this.p2D1.getNorth(),
                     displGis, Math.abs(this.displacementD1)));
         }
 
@@ -156,14 +150,14 @@ public class LinesIntersection extends Calculation {
             displGis = new Gisement(this.p1D2, this.p2D2, false).getGisement();
             displGis += (MathUtils.isNegative(this.displacementD2)) ? -100 : 100;
 
-            p1D2clone.setEast(MathUtils.pointLanceEast(p1D2clone.getEast(),
+            this.p1D2.setEast(MathUtils.pointLanceEast(this.p1D2.getEast(),
                     displGis, Math.abs(this.displacementD2)));
-            p1D2clone.setNorth(MathUtils.pointLanceNorth(p1D2clone.getNorth(),
+            this.p1D2.setNorth(MathUtils.pointLanceNorth(this.p1D2.getNorth(),
                     displGis, Math.abs(this.displacementD2)));
 
-            p2D2clone.setEast(MathUtils.pointLanceEast(p2D2clone.getEast(),
+            this.p2D2.setEast(MathUtils.pointLanceEast(this.p2D2.getEast(),
                     displGis, Math.abs(this.displacementD2)));
-            p2D2clone.setNorth(MathUtils.pointLanceNorth(p2D2clone.getNorth(),
+            this.p2D2.setNorth(MathUtils.pointLanceNorth(this.p2D2.getNorth(),
                     displGis, Math.abs(this.displacementD2)));
         }
 
@@ -188,19 +182,19 @@ public class LinesIntersection extends Calculation {
         // Let <gamma be the angle CD-CA and
         // Let <P be the angle AB-DC, which is 200 - <alpha - <gamma
 
-        alphaAngle = new Gisement(p1D1clone, p1D2clone, false).getGisement() -
-                new Gisement(p1D1clone, p2D1clone, false).getGisement();
+        alphaAngle = new Gisement(this.p1D1, this.p1D2, false).getGisement() -
+                new Gisement(this.p1D1, this.p2D1, false).getGisement();
 
-        gammaAngle = new Gisement(p1D2clone, p2D2clone, false).getGisement() -
-                new Gisement(p1D2clone, p1D1clone, false).getGisement();
+        gammaAngle = new Gisement(this.p1D2, this.p2D2, false).getGisement() -
+                new Gisement(this.p1D2, this.p1D1, false).getGisement();
 
         pAngle = 200 - alphaAngle - gammaAngle;
 
-        double stPtIntersecDist = (MathUtils.euclideanDistance(p1D1clone, p1D2clone) *
+        double stPtIntersecDist = (MathUtils.euclideanDistance(this.p1D1, this.p1D2) *
                 Math.sin(MathUtils.gradToRad(gammaAngle))) /
                 Math.sin(MathUtils.gradToRad(pAngle));
 
-        double stPtIntersecGis = new Gisement(p1D1clone, p2D1clone, false)
+        double stPtIntersecGis = new Gisement(this.p1D1, this.p2D1, false)
                 .getGisement();
 
         // safe check
@@ -209,9 +203,9 @@ public class LinesIntersection extends Calculation {
          * MathUtils.isZero(stPtIntersecDist)) { return; }
          */
 
-        double east = MathUtils.pointLanceEast(p1D1clone.getEast(),
+        double east = MathUtils.pointLanceEast(this.p1D1.getEast(),
                 stPtIntersecGis, stPtIntersecDist);
-        double north = MathUtils.pointLanceNorth(p1D1clone.getNorth(),
+        double north = MathUtils.pointLanceNorth(this.p1D1.getNorth(),
                 stPtIntersecGis, stPtIntersecDist);
 
         this.intersectionPoint = new Point(this.pointNumber, east, north, 0.0,
@@ -286,7 +280,7 @@ public class LinesIntersection extends Calculation {
     }
 
     public final void setP1D1(Point _p1d1) {
-        this.p1D1 = _p1d1;
+        this.p1D1 = _p1d1.clone();
     }
 
     public final Point getP2D1() {
@@ -294,7 +288,7 @@ public class LinesIntersection extends Calculation {
     }
 
     public final void setP2D1(Point _p2d1) {
-        this.p2D1 = _p2d1;
+        this.p2D1 = _p2d1.clone();
     }
 
     public final void setP2D1(double gisement) {
@@ -365,7 +359,7 @@ public class LinesIntersection extends Calculation {
     }
 
     public final void setP1D2(Point _p1d2) {
-        this.p1D2 = _p1d2;
+        this.p1D2 = _p1d2.clone();
     }
 
     public final Point getP2D2() {
@@ -373,7 +367,7 @@ public class LinesIntersection extends Calculation {
     }
 
     public final void setP2D2(Point _p2d2) {
-        this.p2D2 = _p2d2;
+        this.p2D2 = _p2d2.clone();
     }
 
     public final void setP2D2(double gisement) {

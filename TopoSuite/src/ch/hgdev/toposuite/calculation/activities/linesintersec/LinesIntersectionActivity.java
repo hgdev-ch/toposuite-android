@@ -457,6 +457,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             }
 
             Point p1D1 = this.adapter.getItem(this.point1D1SelectedPosition);
+
             Point p2D1 = null;
             double gisementD1 = MathUtils.IGNORE_DOUBLE;
             if (this.d1Mode == Mode.GISEMENT) {
@@ -464,16 +465,19 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             } else {
                 p2D1 = this.adapter.getItem(this.point2D1SelectedPosition);
             }
+
             double displacementD1 = MathUtils.IGNORE_DOUBLE;
             if (this.displacementD1EditText.length() > 0) {
                 displacementD1 = ViewUtils.readDouble(this.displacementD1EditText);
             }
+
             double distP1D1 = MathUtils.IGNORE_DOUBLE;
             if ((this.distP1D1EditText.length() > 0) && this.isD1Perpendicular) {
                 distP1D1 = ViewUtils.readDouble(this.distP1D1EditText);
             }
 
             Point p1D2 = this.adapter.getItem(this.point1D2SelectedPosition);
+
             Point p2D2 = null;
             double gisementD2 = MathUtils.IGNORE_DOUBLE;
             if (this.d2Mode == Mode.GISEMENT) {
@@ -481,10 +485,12 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             } else {
                 p2D2 = this.adapter.getItem(this.point2D2SelectedPosition);
             }
+
             double displacementD2 = MathUtils.IGNORE_DOUBLE;
             if (this.displacementD2EditText.length() > 0) {
                 displacementD2 = ViewUtils.readDouble(this.displacementD2EditText);
             }
+
             double distP1D2 = MathUtils.IGNORE_DOUBLE;
             if ((this.distP1D2EditText.length() > 0) && this.isD2Perpendicular) {
                 distP1D2 = ViewUtils.readDouble(this.distP1D2EditText);
@@ -502,14 +508,16 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             } else {
                 this.lineIntersec.setP1D1(p1D1);
                 this.lineIntersec.setP2D1(p2D1);
-                this.lineIntersec.setDisplacementD1(displacementD1);
                 this.lineIntersec.setGisementD1(gisementD1);
+                this.lineIntersec.setDisplacementD1(displacementD1);
                 this.lineIntersec.setDistanceP1D1(distP1D1);
+
                 this.lineIntersec.setP1D2(p1D2);
                 this.lineIntersec.setP2D2(p2D2);
-                this.lineIntersec.setDisplacementD2(displacementD2);
                 this.lineIntersec.setGisementD2(gisementD2);
+                this.lineIntersec.setDisplacementD2(displacementD2);
                 this.lineIntersec.setDistanceP1D2(distP1D2);
+
                 this.lineIntersec.setPointNumber(pointNumber);
             }
 
