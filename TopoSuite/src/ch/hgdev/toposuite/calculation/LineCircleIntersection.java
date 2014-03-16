@@ -125,7 +125,7 @@ public class LineCircleIntersection extends Calculation {
             double _distance, Point _centerC, double _radiusC) throws IllegalArgumentException {
         Preconditions.checkNotNull(_p1L, "The first point must not be null");
 
-        this.p1L = _p1L;
+        this.p1L = _p1L.clone();
         if (_p2L == null) {
             this.p2L = new Point(
                     0,
@@ -134,7 +134,7 @@ public class LineCircleIntersection extends Calculation {
                     MathUtils.IGNORE_DOUBLE,
                     false);
         } else {
-            this.p2L = _p2L;
+            this.p2L = _p2L.clone();
         }
         this.displacementL = _displacementL;
         this.gisementL = _gisement;
@@ -161,27 +161,24 @@ public class LineCircleIntersection extends Calculation {
 
     @Override
     public void compute() {
-        Point p1LClone = this.p1L.clone();
-        Point p2LClone = this.p2L.clone();
-
         if (!MathUtils.isZero(this.displacementL)) {
-            double displGis = new Gisement(p1LClone, p2LClone, false).getGisement();
+            double displGis = new Gisement(this.p1L, this.p2L, false).getGisement();
             displGis += MathUtils.isNegative(this.displacementL) ? -100 : 100;
-            p1LClone.setEast(MathUtils.pointLanceEast(
-                    p1LClone.getEast(), displGis, Math.abs(this.displacementL)));
-            p1LClone.setNorth(MathUtils.pointLanceNorth(
-                    p1LClone.getNorth(), displGis, Math.abs(this.displacementL)));
-            p2LClone.setEast(MathUtils.pointLanceEast(
-                    p2LClone.getEast(), displGis, Math.abs(this.displacementL)));
-            p2LClone.setNorth(MathUtils.pointLanceNorth(
-                    p2LClone.getNorth(), displGis, Math.abs(this.displacementL)));
+            this.p1L.setEast(MathUtils.pointLanceEast(
+                    this.p1L.getEast(), displGis, Math.abs(this.displacementL)));
+            this.p1L.setNorth(MathUtils.pointLanceNorth(
+                    this.p1L.getNorth(), displGis, Math.abs(this.displacementL)));
+            this.p2L.setEast(MathUtils.pointLanceEast(
+                    this.p2L.getEast(), displGis, Math.abs(this.displacementL)));
+            this.p2L.setNorth(MathUtils.pointLanceNorth(
+                    this.p2L.getNorth(), displGis, Math.abs(this.displacementL)));
         }
 
-        double alpha = new Gisement(p1LClone, p2LClone, false).getGisement() -
-                new Gisement(p1LClone, this.centerC, false).getGisement();
+        double alpha = new Gisement(this.p1L, this.p2L, false).getGisement() -
+                new Gisement(this.p1L, this.centerC, false).getGisement();
 
         double minRadius = MathUtils.euclideanDistance(
-                p1LClone, this.centerC) * Math.sin(MathUtils.gradToRad(alpha));
+                this.p1L, this.centerC) * Math.sin(MathUtils.gradToRad(alpha));
         double proj = minRadius / this.radiusC;
         double beta = 0.0;
 
@@ -190,7 +187,7 @@ public class LineCircleIntersection extends Calculation {
             beta = MathUtils.radToGrad(Math.atan(proj / Math.sqrt((-proj * proj) + 1)));
         } else {
             Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
-                    LINE_CIRCLE_INTERSECTION
+                    LineCircleIntersection.LINE_CIRCLE_INTERSECTION
                             + "No line-circle crossing. The radius should be longer than "
                             + DisplayUtils.toStringForTextView(minRadius)
                             + " (" + DisplayUtils.toStringForTextView(this.radiusC) + " given).");
@@ -198,26 +195,26 @@ public class LineCircleIntersection extends Calculation {
             return;
         }
 
-        double stPtIntersecGis1 = new Gisement(p1LClone, p2LClone, false).getGisement();
+        double stPtIntersecGis1 = new Gisement(this.p1L, this.p2L, false).getGisement();
         double stPtIntersecGis2 = stPtIntersecGis1;
         double distAP1, distAP2;
 
         // center of the circle on first point of the line
-        if (MathUtils.equals(this.centerC.getEast(), p1LClone.getEast())
-                && MathUtils.equals(this.centerC.getNorth(), p1LClone.getNorth())) {
+        if (MathUtils.equals(this.centerC.getEast(), this.p1L.getEast())
+                && MathUtils.equals(this.centerC.getNorth(), this.p1L.getNorth())) {
             distAP1 = this.radiusC;
             distAP2 = this.radiusC;
             stPtIntersecGis2 = stPtIntersecGis2 - 200;
 
             // center of the circle on the second point of the line
-        } else if (MathUtils.equals(this.centerC.getEast(), p2LClone.getEast())
-                && MathUtils.equals(this.centerC.getNorth(), p2LClone.getNorth())) {
-            distAP1 = MathUtils.euclideanDistance(p1LClone, this.centerC) + this.radiusC;
-            distAP2 = MathUtils.euclideanDistance(p2LClone, p1LClone) - this.radiusC;
+        } else if (MathUtils.equals(this.centerC.getEast(), this.p2L.getEast())
+                && MathUtils.equals(this.centerC.getNorth(), this.p2L.getNorth())) {
+            distAP1 = MathUtils.euclideanDistance(this.p1L, this.centerC) + this.radiusC;
+            distAP2 = MathUtils.euclideanDistance(this.p2L, this.p1L) - this.radiusC;
 
             // center of the circle aligned with the two points of the line
         } else if (MathUtils.isZero(Math.sin(MathUtils.gradToRad(alpha)))) {
-            double dist = MathUtils.euclideanDistance(p1LClone, this.centerC);
+            double dist = MathUtils.euclideanDistance(this.p1L, this.centerC);
             distAP1 = dist + this.radiusC;
             distAP2 = dist - this.radiusC;
 
@@ -230,13 +227,13 @@ public class LineCircleIntersection extends Calculation {
         }
 
         this.firstIntersection.setEast(
-                MathUtils.pointLanceEast(p1LClone.getEast(), stPtIntersecGis1, distAP1));
+                MathUtils.pointLanceEast(this.p1L.getEast(), stPtIntersecGis1, distAP1));
         this.firstIntersection.setNorth(
-                MathUtils.pointLanceNorth(p1LClone.getNorth(), stPtIntersecGis1, distAP1));
+                MathUtils.pointLanceNorth(this.p1L.getNorth(), stPtIntersecGis1, distAP1));
         this.secondIntersection.setEast(
-                MathUtils.pointLanceEast(p1LClone.getEast(), stPtIntersecGis2, distAP2));
+                MathUtils.pointLanceEast(this.p1L.getEast(), stPtIntersecGis2, distAP2));
         this.secondIntersection.setNorth(
-                MathUtils.pointLanceNorth(p1LClone.getNorth(), stPtIntersecGis2, distAP2));
+                MathUtils.pointLanceNorth(this.p1L.getNorth(), stPtIntersecGis2, distAP2));
 
         this.updateLastModification();
         this.setDescription(this.getCalculationName() + " - "
@@ -264,13 +261,13 @@ public class LineCircleIntersection extends Calculation {
     public String exportToJSON() throws JSONException {
         JSONObject json = new JSONObject();
 
-        json.put(LINE_POINT_ONE_NUMBER, this.p1L.getNumber());
-        json.put(LINE_POINT_TWO_NUMBER, this.p2L.getNumber());
-        json.put(LINE_DISPLACEMENT, this.displacementL);
-        json.put(LINE_GISEMENT, this.gisementL);
-        json.put(LINE_DISTANCE, this.distanceL);
-        json.put(CIRCLE_POINT_CENTER_NUMBER, this.centerC.getNumber());
-        json.put(CIRCLE_RADIUS, this.radiusC);
+        json.put(LineCircleIntersection.LINE_POINT_ONE_NUMBER, this.p1L.getNumber());
+        json.put(LineCircleIntersection.LINE_POINT_TWO_NUMBER, this.p2L.getNumber());
+        json.put(LineCircleIntersection.LINE_DISPLACEMENT, this.displacementL);
+        json.put(LineCircleIntersection.LINE_GISEMENT, this.gisementL);
+        json.put(LineCircleIntersection.LINE_DISTANCE, this.distanceL);
+        json.put(LineCircleIntersection.CIRCLE_POINT_CENTER_NUMBER, this.centerC.getNumber());
+        json.put(LineCircleIntersection.CIRCLE_RADIUS, this.radiusC);
 
         return json.toString();
     }
@@ -280,16 +277,16 @@ public class LineCircleIntersection extends Calculation {
         JSONObject json = new JSONObject(jsonInputArgs);
 
         Point p1L = SharedResources.getSetOfPoints().find(
-                json.getInt(LINE_POINT_ONE_NUMBER));
+                json.getInt(LineCircleIntersection.LINE_POINT_ONE_NUMBER));
         Point p2L = SharedResources.getSetOfPoints().find(
-                json.getInt(LINE_POINT_TWO_NUMBER));
-        double displacement = json.getDouble(LINE_DISPLACEMENT);
-        double gisement = json.getDouble(LINE_GISEMENT);
-        double distance = json.getDouble(LINE_DISTANCE);
+                json.getInt(LineCircleIntersection.LINE_POINT_TWO_NUMBER));
+        double displacement = json.getDouble(LineCircleIntersection.LINE_DISPLACEMENT);
+        double gisement = json.getDouble(LineCircleIntersection.LINE_GISEMENT);
+        double distance = json.getDouble(LineCircleIntersection.LINE_DISTANCE);
 
         Point centerC = SharedResources.getSetOfPoints().find(
-                json.getInt(CIRCLE_POINT_CENTER_NUMBER));
-        double radiusC = json.getDouble(CIRCLE_RADIUS);
+                json.getInt(LineCircleIntersection.CIRCLE_POINT_CENTER_NUMBER));
+        double radiusC = json.getDouble(LineCircleIntersection.CIRCLE_RADIUS);
 
         this.initAttributes(p1L, p2L, displacement, gisement, distance, centerC, radiusC);
     }
