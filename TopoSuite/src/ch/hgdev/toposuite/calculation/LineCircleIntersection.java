@@ -126,6 +126,7 @@ public class LineCircleIntersection extends Calculation {
         Preconditions.checkNotNull(_p1L, "The first point must not be null");
 
         this.p1L = _p1L.clone();
+        this.p1L.setNumber(_p1L.getNumber());
         if (_p2L == null) {
             this.p2L = new Point(
                     0,
@@ -135,6 +136,7 @@ public class LineCircleIntersection extends Calculation {
                     false);
         } else {
             this.p2L = _p2L.clone();
+            this.p2L.setNumber(_p2L.getNumber());
         }
         this.displacementL = _displacementL;
         this.gisementL = _gisement;
