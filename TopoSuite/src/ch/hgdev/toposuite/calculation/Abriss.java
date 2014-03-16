@@ -12,7 +12,6 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.points.Point;
-import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Abriss extends Calculation {
@@ -128,7 +127,7 @@ public class Abriss extends Calculation {
         this.updateLastModification();
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.station_label) + ": "
-                + DisplayUtils.toStringForTextView(this.getStation().getNumber()));
+                + this.getStation().toString());
         this.notifyUpdate(this);
     }
 
