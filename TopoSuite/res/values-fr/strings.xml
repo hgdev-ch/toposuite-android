@@ -204,8 +204,8 @@
     <string name="number_of_points_label">Le fichier contient: <xliff:g>%d</xliff:g> points</string>
     <string name="new_label">Nouveau</string>
     <string name="optional_prths">(optionnel)</string>
-    <string name="ordinate">Ordonnées</string>
-    <string name="ordinate_label">Ordonnées [m]</string>
+    <string name="ordinate">Ordonnée</string>
+    <string name="ordinate_label">Ordonnée [m]</string>
     <string name="ordinate_3dots">Ordonnée&#8230;</string>
     <string name="orientation_label">Orientation</string>
     <string name="oriented_direction_label">Dir. Orient. [g]</string>
