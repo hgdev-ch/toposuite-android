@@ -43,8 +43,8 @@ public class Surface extends Calculation {
         super(CalculationType.SURFACE,
                 App.getContext().getString(R.string.title_activity_surface),
                 hasDAO);
-        this.surfaceName = _surfaceName;
-        this.surfaceDescription = _surfaceDescription;
+        this.setSurfaceName(_surfaceName);
+        this.setSurfaceDescription(_surfaceDescription);
         this.points = new ArrayList<Surface.PointWithRadius>();
         this.surface = 0.0;
         this.perimeter = 0.0;
@@ -114,6 +114,8 @@ public class Surface extends Calculation {
         this.surface = Math.abs(this.surface);
 
         this.updateLastModification();
+        this.setDescription(this.getCalculationName()
+                + (this.surfaceName.isEmpty() ? "" : " - " + this.surfaceName));
         this.notifyUpdate(this);
     }
 
@@ -161,7 +163,7 @@ public class Surface extends Calculation {
     }
 
     public void setSurfaceName(String _name) {
-        this.surfaceName = _name;
+        this.surfaceName = _name != null ? _name : "";
     }
 
     public String getSurfaceDescription() {
@@ -169,7 +171,7 @@ public class Surface extends Calculation {
     }
 
     public void setSurfaceDescription(String _description) {
-        this.surfaceDescription = _description;
+        this.surfaceDescription = _description != null ? _description : "";
     }
 
     public double getSurface() {
