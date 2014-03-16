@@ -239,8 +239,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
             // save first point
             if (this.intersectionOneEditText.length() > 0) {
-                this.intersectionOne.setNumber(
-                        Integer.parseInt(this.intersectionOneEditText.getText().toString()));
+                this.intersectionOne.setNumber(ViewUtils.readInt(this.intersectionOneEditText));
                 if (SharedResources.getSetOfPoints().find(
                         this.intersectionOne.getNumber()) == null) {
                     SharedResources.getSetOfPoints().add(this.intersectionOne);
@@ -272,8 +271,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
             // save second point
             if (this.intersectionTwoEditText.length() > 0) {
-                this.intersectionTwo.setNumber(
-                        Integer.parseInt(this.intersectionTwoEditText.getText().toString()));
+                this.intersectionTwo.setNumber(ViewUtils.readInt(this.intersectionTwoEditText));
 
                 if (SharedResources.getSetOfPoints().find(
                         this.intersectionTwo.getNumber()) == null) {

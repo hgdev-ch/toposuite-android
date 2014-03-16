@@ -300,8 +300,7 @@ public class CircleActivity extends TopoSuiteActivity implements
         if (this.pointNumberEditText.length() > 0) {
             args.putInt(
                     MergePointsDialog.POINT_NUMBER,
-                    Integer.parseInt(
-                            this.pointNumberEditText.getText().toString()));
+                    ViewUtils.readInt(this.pointNumberEditText));
         } else {
             args.putInt(MergePointsDialog.POINT_NUMBER, 0);
         }
@@ -324,8 +323,7 @@ public class CircleActivity extends TopoSuiteActivity implements
 
             int num = 0;
             if (this.pointNumberEditText.length() > 0) {
-                num = Integer.parseInt(
-                        this.pointNumberEditText.getText().toString());
+                num = ViewUtils.readInt(this.pointNumberEditText);
             }
 
             Point a = (Point) this.pointASpinner.getSelectedItem();

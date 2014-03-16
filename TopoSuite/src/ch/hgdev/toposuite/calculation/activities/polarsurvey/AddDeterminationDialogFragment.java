@@ -115,9 +115,8 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                                                 .getText().toString());
                             }
 
-                            AddDeterminationDialogFragment.this.determinationNo = Integer.parseInt(
-                                    AddDeterminationDialogFragment.this.determinationNoEditText
-                                            .getText().toString());
+                            AddDeterminationDialogFragment.this.determinationNo = ViewUtils
+                                    .readInt(AddDeterminationDialogFragment.this.determinationNoEditText);
                             AddDeterminationDialogFragment.this.horizDir = Double
                                     .parseDouble(AddDeterminationDialogFragment.this.horizDirEditText
                                             .getText().toString());

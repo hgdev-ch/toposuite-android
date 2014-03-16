@@ -543,8 +543,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 return true;
             }
 
-            this.lineIntersec.setPointNumber(Integer.parseInt(
-                    this.pointNumberEditText.getText().toString()));
+            this.lineIntersec.setPointNumber(ViewUtils.readInt(this.pointNumberEditText));
             this.lineIntersec.notifyUpdate(this.lineIntersec);
 
             if (SharedResources.getSetOfPoints().find(
