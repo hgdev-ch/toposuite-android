@@ -38,6 +38,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
     private static final String            P2D1_SELECTED_POSITION  = "p2d1_selected_position";
     private static final String            P1D2_SELECTED_POSITION  = "p1d2_selected_position";
     private static final String            P2D2_SELECTED_POSITION  = "p2d2_selected_position";
+    private static final String            D1_IS_PERPENDICULAR     = "d1_is_perpendicular";
+    private static final String            D2_IS_PERPENDICULAR     = "d2_is_perpendicular";
 
     private Spinner                        point1D1Spinner;
     private Spinner                        point2D1Spinner;
@@ -366,6 +368,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 this.perpendicularD1CheckBox.setChecked(true);
                 this.distP1D1EditText.setEnabled(true);
                 this.distP1D1TexView.setEnabled(true);
+                this.isD1Perpendicular = true;
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D2())) {
@@ -374,6 +377,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 this.perpendicularD2CheckBox.setChecked(true);
                 this.distP1D2EditText.setEnabled(true);
                 this.distP1D2TexView.setEnabled(true);
+                this.isD2Perpendicular = true;
             }
 
             if (this.lineIntersec.getPointNumber() != 0) {
@@ -422,6 +426,10 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 this.point1D2SelectedPosition);
         outState.putInt(LinesIntersectionActivity.P2D2_SELECTED_POSITION,
                 this.point2D2SelectedPosition);
+        outState.putBoolean(LinesIntersectionActivity.D1_IS_PERPENDICULAR,
+                this.isD1Perpendicular);
+        outState.putBoolean(LinesIntersectionActivity.D2_IS_PERPENDICULAR,
+                this.isD2Perpendicular);
     }
 
     @Override
@@ -434,8 +442,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             if (position != -1) {
                 this.lineIntersec = (LinesIntersection) SharedResources
                         .getCalculationsHistory().get(position);
-                this.lineIntersec.compute();
-                this.displayResult();
+                this.resultLayout.setVisibility(View.VISIBLE);
             }
 
             this.point1D1SelectedPosition = savedInstanceState.getInt(
@@ -446,6 +453,10 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                     LinesIntersectionActivity.P1D2_SELECTED_POSITION);
             this.point2D2SelectedPosition = savedInstanceState.getInt(
                     LinesIntersectionActivity.P2D2_SELECTED_POSITION);
+            this.isD1Perpendicular = savedInstanceState.getBoolean(
+                    LinesIntersectionActivity.D1_IS_PERPENDICULAR);
+            this.isD2Perpendicular = savedInstanceState.getBoolean(
+                    LinesIntersectionActivity.D2_IS_PERPENDICULAR);
         }
     }
 
