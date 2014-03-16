@@ -97,18 +97,15 @@ public class EditPointDialogFragment extends DialogFragment {
                         if (EditPointDialogFragment.this.checkDialogInputs()) {
                             // altitude is not mandatory
                             if (EditPointDialogFragment.this.altitudeEditText.length() > 0) {
-                                EditPointDialogFragment.this.altitude = Double
-                                        .parseDouble(EditPointDialogFragment.this.altitudeEditText
-                                                .getText().toString());
+                                EditPointDialogFragment.this.altitude = ViewUtils
+                                        .readDouble(EditPointDialogFragment.this.altitudeEditText);
                             }
                             EditPointDialogFragment.this.number = ViewUtils
                                     .readInt(EditPointDialogFragment.this.numberEditText);
-                            EditPointDialogFragment.this.east = Double
-                                    .parseDouble(EditPointDialogFragment.this.eastEditText
-                                            .getText().toString());
-                            EditPointDialogFragment.this.north = Double
-                                    .parseDouble(EditPointDialogFragment.this.northEditText
-                                            .getText().toString());
+                            EditPointDialogFragment.this.east = ViewUtils
+                                    .readDouble(EditPointDialogFragment.this.eastEditText);
+                            EditPointDialogFragment.this.north = ViewUtils
+                                    .readDouble(EditPointDialogFragment.this.northEditText);
                             EditPointDialogFragment.this.listener
                                     .onDialogEdit(EditPointDialogFragment.this);
                             dialog.dismiss();

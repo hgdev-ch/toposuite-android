@@ -145,35 +145,29 @@ public class MeasureDialogFragment extends DialogFragment {
                             // TODO check that if S is set, I is set too and
                             // pop-up an error
                             if (MeasureDialogFragment.this.zenAngleEditText.length() > 0) {
-                                MeasureDialogFragment.this.zenAngle = Double
-                                        .parseDouble(MeasureDialogFragment.this.zenAngleEditText
-                                                .getText().toString());
+                                MeasureDialogFragment.this.zenAngle = ViewUtils
+                                        .readDouble(MeasureDialogFragment.this.zenAngleEditText);
                             }
                             if (MeasureDialogFragment.this.sEditText.length() > 0) {
-                                MeasureDialogFragment.this.s = Double
-                                        .parseDouble(MeasureDialogFragment.this.sEditText
-                                                .getText().toString());
+                                MeasureDialogFragment.this.s = ViewUtils
+                                        .readDouble(MeasureDialogFragment.this.sEditText);
                             }
                             if (MeasureDialogFragment.this.latDeplEditText.length() > 0) {
-                                MeasureDialogFragment.this.latDepl = Double
-                                        .parseDouble(MeasureDialogFragment.this.latDeplEditText
-                                                .getText().toString());
+                                MeasureDialogFragment.this.latDepl = ViewUtils
+                                        .readDouble(MeasureDialogFragment.this.latDeplEditText);
                             }
                             if (MeasureDialogFragment.this.lonDeplEditText.length() > 0) {
-                                MeasureDialogFragment.this.lonDepl = Double
-                                        .parseDouble(MeasureDialogFragment.this.lonDeplEditText
-                                                .getText().toString());
+                                MeasureDialogFragment.this.lonDepl = ViewUtils
+                                        .readDouble(MeasureDialogFragment.this.lonDeplEditText);
                             }
 
                             MeasureDialogFragment.this.point =
                                     (Point) MeasureDialogFragment.this.pointSpinner
                                             .getSelectedItem();
-                            MeasureDialogFragment.this.horizDir = Double
-                                    .parseDouble(MeasureDialogFragment.this.horizDirEditText
-                                            .getText().toString());
-                            MeasureDialogFragment.this.distance = Double
-                                    .parseDouble(MeasureDialogFragment.this.distanceEditText
-                                            .getText().toString());
+                            MeasureDialogFragment.this.horizDir = ViewUtils
+                                    .readDouble(MeasureDialogFragment.this.horizDirEditText);
+                            MeasureDialogFragment.this.distance = ViewUtils
+                                    .readDouble(MeasureDialogFragment.this.distanceEditText);
 
                             if (MeasureDialogFragment.this.isEdition) {
                                 MeasureDialogFragment.this.listener

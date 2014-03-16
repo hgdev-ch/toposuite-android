@@ -87,13 +87,10 @@ public class AddMeasureDialogFragment extends DialogFragment {
                         if (AddMeasureDialogFragment.this.checkDialogInputs()) {
                             AddMeasureDialogFragment.this.number = ViewUtils
                                     .readInt(AddMeasureDialogFragment.this.numberEditText);
-                            AddMeasureDialogFragment.this.abscissa = Double
-                                    .parseDouble(AddMeasureDialogFragment.this.abscissaEditText
-                                            .getText()
-                                            .toString());
-                            AddMeasureDialogFragment.this.ordinate = Double
-                                    .parseDouble(AddMeasureDialogFragment.this.ordinateEditText
-                                            .getText().toString());
+                            AddMeasureDialogFragment.this.abscissa = ViewUtils
+                                    .readDouble(AddMeasureDialogFragment.this.abscissaEditText);
+                            AddMeasureDialogFragment.this.ordinate = ViewUtils
+                                    .readDouble(AddMeasureDialogFragment.this.ordinateEditText);
                             AddMeasureDialogFragment.this.listener
                                     .onDialogAdd(AddMeasureDialogFragment.this);
                             dialog.dismiss();

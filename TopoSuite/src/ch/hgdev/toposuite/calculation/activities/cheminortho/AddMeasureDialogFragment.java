@@ -85,10 +85,8 @@ public class AddMeasureDialogFragment extends DialogFragment {
                         if (AddMeasureDialogFragment.this.checkDialogInputs()) {
                             AddMeasureDialogFragment.this.number = ViewUtils.readInt(
                                     AddMeasureDialogFragment.this.numberEditText);
-                            AddMeasureDialogFragment.this.distance = Double
-                                    .parseDouble(AddMeasureDialogFragment.this.distanceEditText
-                                            .getText()
-                                            .toString());
+                            AddMeasureDialogFragment.this.distance = ViewUtils
+                                    .readDouble(AddMeasureDialogFragment.this.distanceEditText);
                             AddMeasureDialogFragment.this.listener
                                     .onDialogAdd(AddMeasureDialogFragment.this);
                             dialog.dismiss();
