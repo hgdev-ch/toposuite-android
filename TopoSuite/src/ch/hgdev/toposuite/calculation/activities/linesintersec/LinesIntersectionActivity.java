@@ -493,7 +493,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                     || (this.point1D1SelectedPosition == this.point1D2SelectedPosition)
                     || (this.point2D1SelectedPosition == this.point2D2SelectedPosition)
                     || (this.point1D1SelectedPosition == this.point2D2SelectedPosition)
-                    || (this.point2D1SelectedPosition == this.point1D2SelectedPosition)) {
+                    || (this.point2D1SelectedPosition == this.point1D2SelectedPosition)
+                    || (this.isD1Perpendicular && (this.displacementD1EditText.length() > 0))
+                    || (this.isD2Perpendicular && (this.displacementD2EditText.length() > 0))) {
                 ViewUtils.showToast(this, this.getString(
                         R.string.error_impossible_calculation));
                 return true;
