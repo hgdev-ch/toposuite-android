@@ -7,12 +7,14 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.LineCircleIntersection;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestLineCircleIntersection extends TestCase {
 
     private DecimalFormat df1;
     private DecimalFormat df2;
     private DecimalFormat df3;
+    private DecimalFormat df4;
 
     @Override
     protected void setUp() throws Exception {
@@ -23,6 +25,8 @@ public class TestLineCircleIntersection extends TestCase {
         this.df2.setRoundingMode(RoundingMode.HALF_UP);
         this.df3 = new DecimalFormat("#.###");
         this.df3.setRoundingMode(RoundingMode.HALF_UP);
+        this.df4 = new DecimalFormat("#.####");
+        this.df4.setRoundingMode(RoundingMode.HALF_UP);
     }
 
     public void testCorrectSolution() {
@@ -84,5 +88,26 @@ public class TestLineCircleIntersection extends TestCase {
                 this.df3.format(lci.getSecondIntersection().getEast()));
         Assert.assertEquals("35.002",
                 this.df3.format(lci.getSecondIntersection().getNorth()));
+    }
+
+    /**
+     * Test for bug report #434
+     */
+    public void testRealCase1() {
+        Point p1 = new Point(1, 600, 200, MathUtils.IGNORE_DOUBLE, false, false);
+        Point p4 = new Point(4, 638.9498, 198.0212, MathUtils.IGNORE_DOUBLE, false, false);
+        Point p5 = new Point(5, 604, 203.8019, MathUtils.IGNORE_DOUBLE, false, false);
+        double displacement = -4.0;
+        double radius = 11.0;
+
+        LineCircleIntersection lci = new LineCircleIntersection();
+        lci.initAttributes(p1, p4, displacement, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
+                p5, radius);
+        lci.compute();
+        Assert.assertEquals("614.986", this.df3.format(lci.getFirstIntersection().getEast()));
+        Assert.assertEquals("203.244", this.df3.format(lci.getFirstIntersection().getNorth()));
+        Assert.assertEquals("593.0142", this.df4.format(lci.getSecondIntersection().getEast()));
+        Assert.assertEquals("204.3601", this.df4.format(lci.getSecondIntersection().getNorth()));
+
     }
 }

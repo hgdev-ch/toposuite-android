@@ -95,34 +95,28 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                     public void onClick(View v) {
                         if (AddDeterminationDialogFragment.this.checkDialogInputs()) {
                             if (AddDeterminationDialogFragment.this.zenAngleEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.zenAngle = Double
-                                        .parseDouble(AddDeterminationDialogFragment.this.zenAngleEditText
-                                                .getText().toString());
+                                AddDeterminationDialogFragment.this.zenAngle = ViewUtils
+                                        .readDouble(AddDeterminationDialogFragment.this.zenAngleEditText);
                             }
                             if (AddDeterminationDialogFragment.this.sEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.s = Double
-                                        .parseDouble(AddDeterminationDialogFragment.this.sEditText
-                                                .getText().toString());
+                                AddDeterminationDialogFragment.this.s = ViewUtils
+                                        .readDouble(AddDeterminationDialogFragment.this.sEditText);
                             }
                             if (AddDeterminationDialogFragment.this.latDeplEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.latDepl = Double
-                                        .parseDouble(AddDeterminationDialogFragment.this.latDeplEditText
-                                                .getText().toString());
+                                AddDeterminationDialogFragment.this.latDepl = ViewUtils
+                                        .readDouble(AddDeterminationDialogFragment.this.latDeplEditText);
                             }
                             if (AddDeterminationDialogFragment.this.lonDeplEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.lonDepl = Double
-                                        .parseDouble(AddDeterminationDialogFragment.this.lonDeplEditText
-                                                .getText().toString());
+                                AddDeterminationDialogFragment.this.lonDepl = ViewUtils
+                                        .readDouble(AddDeterminationDialogFragment.this.lonDeplEditText);
                             }
 
                             AddDeterminationDialogFragment.this.determinationNo = ViewUtils
                                     .readInt(AddDeterminationDialogFragment.this.determinationNoEditText);
-                            AddDeterminationDialogFragment.this.horizDir = Double
-                                    .parseDouble(AddDeterminationDialogFragment.this.horizDirEditText
-                                            .getText().toString());
-                            AddDeterminationDialogFragment.this.distance = Double
-                                    .parseDouble(AddDeterminationDialogFragment.this.distanceEditText
-                                            .getText().toString());
+                            AddDeterminationDialogFragment.this.horizDir = ViewUtils
+                                    .readDouble(AddDeterminationDialogFragment.this.horizDirEditText);
+                            AddDeterminationDialogFragment.this.distance = ViewUtils
+                                    .readDouble(AddDeterminationDialogFragment.this.distanceEditText);
                             AddDeterminationDialogFragment.this.listener
                                     .onDialogAdd(AddDeterminationDialogFragment.this);
                             dialog.dismiss();

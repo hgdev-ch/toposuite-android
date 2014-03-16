@@ -96,44 +96,36 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                     public void onClick(View v) {
                         if (EditDeterminationDialogFragment.this.checkDialogInputs()) {
                             if (EditDeterminationDialogFragment.this.zenAngleEditText.length() > 0) {
-                                EditDeterminationDialogFragment.this.zenAngle = Double
-                                        .parseDouble(EditDeterminationDialogFragment.this.zenAngleEditText
-                                                .getText().toString());
+                                EditDeterminationDialogFragment.this.zenAngle = ViewUtils
+                                        .readDouble(EditDeterminationDialogFragment.this.zenAngleEditText);
                             } else {
                                 EditDeterminationDialogFragment.this.zenAngle = MathUtils.IGNORE_DOUBLE;
                             }
                             if (EditDeterminationDialogFragment.this.sEditText.length() > 0) {
-                                EditDeterminationDialogFragment.this.s = Double
-                                        .parseDouble(EditDeterminationDialogFragment.this.sEditText
-                                                .getText().toString());
+                                EditDeterminationDialogFragment.this.s = ViewUtils
+                                        .readDouble(EditDeterminationDialogFragment.this.sEditText);
                             } else {
                                 EditDeterminationDialogFragment.this.s = MathUtils.IGNORE_DOUBLE;
                             }
                             if (EditDeterminationDialogFragment.this.latDeplEditText.length() > 0) {
-                                EditDeterminationDialogFragment.this.latDepl = Double
-                                        .parseDouble(EditDeterminationDialogFragment.this.latDeplEditText
-                                                .getText().toString());
+                                EditDeterminationDialogFragment.this.latDepl = ViewUtils
+                                        .readDouble(EditDeterminationDialogFragment.this.latDeplEditText);
                             } else {
                                 EditDeterminationDialogFragment.this.latDepl = MathUtils.IGNORE_DOUBLE;
                             }
                             if (EditDeterminationDialogFragment.this.lonDeplEditText.length() > 0) {
-                                EditDeterminationDialogFragment.this.lonDepl = Double
-                                        .parseDouble(EditDeterminationDialogFragment.this.lonDeplEditText
-                                                .getText().toString());
+                                EditDeterminationDialogFragment.this.lonDepl = ViewUtils
+                                        .readDouble(EditDeterminationDialogFragment.this.lonDeplEditText);
                             } else {
                                 EditDeterminationDialogFragment.this.lonDepl = MathUtils.IGNORE_DOUBLE;
                             }
 
-                            EditDeterminationDialogFragment.this.determinationNo = Integer
-                                    .parseInt(
-                                    EditDeterminationDialogFragment.this.determinationNoEditText
-                                            .getText().toString());
-                            EditDeterminationDialogFragment.this.horizDir = Double
-                                    .parseDouble(EditDeterminationDialogFragment.this.horizDirEditText
-                                            .getText().toString());
-                            EditDeterminationDialogFragment.this.distance = Double
-                                    .parseDouble(EditDeterminationDialogFragment.this.distanceEditText
-                                            .getText().toString());
+                            EditDeterminationDialogFragment.this.determinationNo = ViewUtils
+                                    .readInt(EditDeterminationDialogFragment.this.determinationNoEditText);
+                            EditDeterminationDialogFragment.this.horizDir = ViewUtils
+                                    .readDouble(EditDeterminationDialogFragment.this.horizDirEditText);
+                            EditDeterminationDialogFragment.this.distance = ViewUtils
+                                    .readDouble(EditDeterminationDialogFragment.this.distanceEditText);
                             EditDeterminationDialogFragment.this.listener
                                     .onDialogEdit(EditDeterminationDialogFragment.this);
                             dialog.dismiss();

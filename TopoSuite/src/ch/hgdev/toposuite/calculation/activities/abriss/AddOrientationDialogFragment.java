@@ -105,18 +105,15 @@ public class AddOrientationDialogFragment extends DialogFragment {
                         if (AddOrientationDialogFragment.this.checkDialogInputs()) {
                             if (AddOrientationDialogFragment.this.horizontalDistanceEditText
                                     .length() > 0) {
-                                AddOrientationDialogFragment.this.horizontalDistance = Double
-                                        .parseDouble(AddOrientationDialogFragment.this.horizontalDistanceEditText
-                                                .getText().toString());
+                                AddOrientationDialogFragment.this.horizontalDistance = ViewUtils
+                                        .readDouble(AddOrientationDialogFragment.this.horizontalDistanceEditText);
                             }
                             if (AddOrientationDialogFragment.this.zenithalAngleEditText.length() > 0) {
-                                AddOrientationDialogFragment.this.zenithalAngle = Double
-                                        .parseDouble(AddOrientationDialogFragment.this.zenithalAngleEditText
-                                                .getText().toString());
+                                AddOrientationDialogFragment.this.zenithalAngle = ViewUtils
+                                        .readDouble(AddOrientationDialogFragment.this.zenithalAngleEditText);
                             }
-                            AddOrientationDialogFragment.this.horizontalDirection = Double
-                                    .parseDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText
-                                            .getText().toString());
+                            AddOrientationDialogFragment.this.horizontalDirection = ViewUtils
+                                    .readDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText);
                             AddOrientationDialogFragment.this.listener
                                     .onDialogAdd(AddOrientationDialogFragment.this);
                             dialog.dismiss();

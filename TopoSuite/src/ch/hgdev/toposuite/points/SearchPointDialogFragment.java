@@ -57,9 +57,8 @@ public class SearchPointDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (SearchPointDialogFragment.this.checkDialogInputs()) {
-                                    SearchPointDialogFragment.this.pointNumber = Integer
-                                            .parseInt(SearchPointDialogFragment.this.pointNumberEditText
-                                                    .getText().toString());
+                                    SearchPointDialogFragment.this.pointNumber = ViewUtils
+                                            .readInt(SearchPointDialogFragment.this.pointNumberEditText);
                                     SearchPointDialogFragment.this.listener
                                             .onDialogSearch(SearchPointDialogFragment.this);
                                 } else {

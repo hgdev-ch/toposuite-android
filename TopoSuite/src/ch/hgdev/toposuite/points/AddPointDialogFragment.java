@@ -93,19 +93,15 @@ public class AddPointDialogFragment extends DialogFragment {
                         if (AddPointDialogFragment.this.checkDialogInputs()) {
                             // altitude is not mandatory
                             if (AddPointDialogFragment.this.altitudeEditText.length() > 0) {
-                                AddPointDialogFragment.this.altitude = Double
-                                        .parseDouble(AddPointDialogFragment.this.altitudeEditText
-                                                .getText().toString());
+                                AddPointDialogFragment.this.altitude = ViewUtils
+                                        .readDouble(AddPointDialogFragment.this.altitudeEditText);
                             }
-                            AddPointDialogFragment.this.number = Integer
-                                    .parseInt(AddPointDialogFragment.this.numberEditText.getText()
-                                            .toString());
-                            AddPointDialogFragment.this.east = Double
-                                    .parseDouble(AddPointDialogFragment.this.eastEditText.getText()
-                                            .toString());
-                            AddPointDialogFragment.this.north = Double
-                                    .parseDouble(AddPointDialogFragment.this.northEditText
-                                            .getText().toString());
+                            AddPointDialogFragment.this.number = ViewUtils.
+                                    readInt(AddPointDialogFragment.this.numberEditText);
+                            AddPointDialogFragment.this.east = ViewUtils
+                                    .readDouble(AddPointDialogFragment.this.eastEditText);
+                            AddPointDialogFragment.this.north = ViewUtils
+                                    .readDouble(AddPointDialogFragment.this.northEditText);
                             AddPointDialogFragment.this.listener
                                     .onDialogAdd(AddPointDialogFragment.this);
                             dialog.dismiss();
