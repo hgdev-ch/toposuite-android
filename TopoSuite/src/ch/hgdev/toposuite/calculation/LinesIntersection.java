@@ -245,22 +245,22 @@ public class LinesIntersection extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject jo = new JSONObject(jsonInputArgs);
 
-        this.p1D1 = SharedResources.getSetOfPoints().find(
-                jo.getInt(LinesIntersection.P1D1_NUMBER));
+        this.setP1D1(this.p1D1 = SharedResources.getSetOfPoints().find(
+                jo.getInt(LinesIntersection.P1D1_NUMBER)));
 
         int p2D1Position = jo.getInt(LinesIntersection.P2D1_NUMBER);
         if (p2D1Position != 0) {
-            this.p2D1 = SharedResources.getSetOfPoints().find(p2D1Position);
+            this.setP2D1(SharedResources.getSetOfPoints().find(p2D1Position));
         } else {
             this.setGisementD1(jo.getDouble(LinesIntersection.GIS_D1));
         }
 
-        this.p1D2 = SharedResources.getSetOfPoints().find(
-                jo.getInt(LinesIntersection.P1D2_NUMBER));
+        this.setP1D2(SharedResources.getSetOfPoints().find(
+                jo.getInt(LinesIntersection.P1D2_NUMBER)));
 
         int p2D2Position = jo.getInt(LinesIntersection.P2D2_NUMBER);
         if (p2D2Position != 0) {
-            this.p2D2 = SharedResources.getSetOfPoints().find(p2D2Position);
+            this.setP2D2(SharedResources.getSetOfPoints().find(p2D2Position));
         } else {
             this.setGisementD2(jo.getDouble(LinesIntersection.GIS_D2));
         }
@@ -287,6 +287,11 @@ public class LinesIntersection extends Calculation {
     }
 
     public final void setP1D1(Point _p1d1) {
+        if (_p1d1 == null) {
+            this.p1D1 = null;
+            return;
+        }
+
         this.p1D1 = _p1d1.clone();
         this.p1D1.setNumber(_p1d1.getNumber());
     }
@@ -296,6 +301,11 @@ public class LinesIntersection extends Calculation {
     }
 
     public final void setP2D1(Point _p2d1) {
+        if (_p2d1 == null) {
+            this.p2D1 = null;
+            return;
+        }
+
         this.p2D1 = _p2d1.clone();
         this.p2D1.setNumber(_p2d1.getNumber());
     }
@@ -368,6 +378,11 @@ public class LinesIntersection extends Calculation {
     }
 
     public final void setP1D2(Point _p1d2) {
+        if (_p1d2 == null) {
+            this.p1D2 = null;
+            return;
+        }
+
         this.p1D2 = _p1d2.clone();
         this.p1D2.setNumber(_p1d2.getNumber());
     }
@@ -377,6 +392,11 @@ public class LinesIntersection extends Calculation {
     }
 
     public final void setP2D2(Point _p2d2) {
+        if (_p2d2 == null) {
+            this.p2D2 = null;
+            return;
+        }
+
         this.p2D2 = _p2d2.clone();
         this.p2D2.setNumber(_p2d2.getNumber());
     }
