@@ -132,6 +132,11 @@ public class Gisement extends Calculation {
 
         // update the calculation last modification date
         this.updateLastModification();
+        this.setDescription(this.getCalculationName()
+                + " - " + App.getContext().getString(R.string.origin_label) + ": "
+                + this.origin.toString()
+                + " / " + App.getContext().getString(R.string.orientation_label) + ": "
+                + this.orientation.toString());
         this.notifyUpdate(this);
     }
 
