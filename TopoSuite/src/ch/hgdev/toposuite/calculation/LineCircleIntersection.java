@@ -239,6 +239,13 @@ public class LineCircleIntersection extends Calculation {
                 MathUtils.pointLanceNorth(p1LClone.getNorth(), stPtIntersecGis2, distAP2));
 
         this.updateLastModification();
+        this.setDescription(this.getCalculationName() + " - "
+                + App.getContext().getString(R.string.line) + " "
+                + App.getContext().getString(R.string.origin_label) + ": "
+                + this.p1L.toString()
+                + " / " + App.getContext().getString(R.string.circle_label) + " "
+                + App.getContext().getString(R.string.center_label) + ": "
+                + this.centerC.toString());
         this.notifyUpdate(this);
     }
 
