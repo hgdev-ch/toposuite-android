@@ -288,6 +288,7 @@ public class LinesIntersection extends Calculation {
 
     public final void setP1D1(Point _p1d1) {
         this.p1D1 = _p1d1.clone();
+        this.p1D1.setNumber(_p1d1.getNumber());
     }
 
     public final Point getP2D1() {
@@ -296,6 +297,7 @@ public class LinesIntersection extends Calculation {
 
     public final void setP2D1(Point _p2d1) {
         this.p2D1 = _p2d1.clone();
+        this.p2D1.setNumber(_p2d1.getNumber());
     }
 
     public final void setP2D1(double gisement) {
@@ -367,6 +369,7 @@ public class LinesIntersection extends Calculation {
 
     public final void setP1D2(Point _p1d2) {
         this.p1D2 = _p1d2.clone();
+        this.p1D2.setNumber(_p1d2.getNumber());
     }
 
     public final Point getP2D2() {
@@ -375,6 +378,7 @@ public class LinesIntersection extends Calculation {
 
     public final void setP2D2(Point _p2d2) {
         this.p2D2 = _p2d2.clone();
+        this.p2D2.setNumber(_p2d2.getNumber());
     }
 
     public final void setP2D2(double gisement) {
@@ -415,7 +419,7 @@ public class LinesIntersection extends Calculation {
 
     public final void setDistanceP1D2(double _distanceP1D2) {
         this.distanceP1D2 = _distanceP1D2;
-        if (!MathUtils.isZero(this.distanceP1D1)) {
+        if (!MathUtils.isZero(this.distanceP1D2)) {
             if ((this.p1D2 == null) || (this.p2D2 == null)) {
                 return;
             }

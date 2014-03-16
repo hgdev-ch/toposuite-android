@@ -140,13 +140,38 @@ public class TestLinesIntersection extends TestCase {
                 this.p40, 0.0, -1.569, 42, false);
         li.compute();
 
-        /*Assert.assertEquals("69.386", this.df.format(
-                li.getIntersectionPoint().getEast()));*/
         Assert.assertEquals("70.373", this.df.format(
                 li.getIntersectionPoint().getEast()));
-        /*Assert.assertEquals("304.297", this.df.format(
-                li.getIntersectionPoint().getNorth()));*/
         Assert.assertEquals("307.533", this.df.format(
+                li.getIntersectionPoint().getNorth()));
+    }
+
+    public void testCompute10() {
+        LinesIntersection li = new LinesIntersection(
+                this.p10, this.p20, 0.0, 1.697, this.p30,
+                this.p40, 0.0, 0.0, 42, false);
+        li.compute();
+
+        Assert.assertEquals("39.14", this.df.format(
+                li.getIntersectionPoint().getEast()));
+        Assert.assertEquals("124.041", this.df.format(
+                li.getIntersectionPoint().getNorth()));
+    }
+
+    public void testCompute11() {
+        Point localP1 = new Point(1, 600, 200, 0.0, true, false);
+        Point localP2 = new Point(2, 620, 215, 0.0, true, false);
+        Point localP3 = new Point(3, 610, 185, 0.0, true, false);
+        Point localP104 = new Point(104, 635, 180, 0.0, true, false);
+
+        LinesIntersection li = new LinesIntersection(
+                localP1, localP2, 0, 5.0, localP3, localP104, -5.0,
+                0.0, 42, false);
+        li.compute();
+
+        Assert.assertEquals("614.324", this.df.format(
+                li.getIntersectionPoint().getEast()));
+        Assert.assertEquals("189.234", this.df.format(
                 li.getIntersectionPoint().getNorth()));
     }
 }
