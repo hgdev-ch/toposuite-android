@@ -125,8 +125,11 @@ public class LineCircleIntersection extends Calculation {
             double _distance, Point _centerC, double _radiusC) throws IllegalArgumentException {
         Preconditions.checkNotNull(_p1L, "The first point must not be null");
 
-        this.p1L = _p1L.clone();
-        this.p1L.setNumber(_p1L.getNumber());
+        if (this.p1L != null) {
+            this.p1L = _p1L.clone();
+            this.p1L.setNumber(_p1L.getNumber());
+        }
+
         if (_p2L == null) {
             this.p2L = new Point(
                     0,
