@@ -192,6 +192,11 @@ public class PointProjectionOnALine extends Calculation {
         this.distPtToP2 = MathUtils.euclideanDistance(this.projPt, this.p2);
 
         this.updateLastModification();
+        this.setDescription(this.getCalculationName() + " - "
+                + App.getContext().getString(R.string.point_1) + ": "
+                + this.p1.toString() + " / "
+                + App.getContext().getString(R.string.point_to_project) + ": "
+                + this.ptToProj.toString());
         this.notifyUpdate(this);
     }
 

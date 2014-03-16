@@ -96,6 +96,11 @@ public class OrthogonalImplantation extends Calculation {
         }
 
         this.updateLastModification();
+        this.setDescription(this.getCalculationName()
+                + " - " + App.getContext().getString(R.string.origin_label) + ": "
+                + this.orthogonalBase.getOrigin().toString()
+                + " / " + App.getContext().getString(R.string.extremity_label) + ": "
+                + this.orthogonalBase.getExtremity().toString());
         this.notifyUpdate(this);
     }
 
