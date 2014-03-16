@@ -543,6 +543,11 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 this.lineIntersec.setPointNumber(pointNumber);
             }
 
+            if ((this.lineIntersec.getP2D2() == null) || (this.lineIntersec.getP2D1() == null)) {
+                ViewUtils.showToast(this, "Calculation impossible!");
+                return true;
+            }
+
             this.lineIntersec.compute();
             this.displayResult();
 
