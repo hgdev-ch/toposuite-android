@@ -75,7 +75,7 @@ public class OrthogonalImplantation extends Calculation {
             PointProjectionOnALine ppoal = new PointProjectionOnALine(
                     4242,
                     this.orthogonalBase.getOrigin(),
-                    this.orthogonalBase.getExtemity(),
+                    this.orthogonalBase.getExtremity(),
                     p,
                     0.0,
                     false);
@@ -86,7 +86,7 @@ public class OrthogonalImplantation extends Calculation {
                     projPt);
             double ordinate = MathUtils.euclideanDistance(p, projPt);
 
-            double angle = MathUtils.angle3Pts(this.orthogonalBase.getExtemity(),
+            double angle = MathUtils.angle3Pts(this.orthogonalBase.getExtremity(),
                     this.orthogonalBase.getOrigin(), p);
 
             abscissa = ((angle > 100) && (angle < 300)) ? -abscissa : abscissa;

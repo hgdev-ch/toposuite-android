@@ -64,7 +64,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
             StringBuilder builder = new StringBuilder();
             builder.append(this.cheminOrtho.getOrthogonalBase().getOrigin());
             builder.append("-");
-            builder.append(this.cheminOrtho.getOrthogonalBase().getExtemity());
+            builder.append(this.cheminOrtho.getOrthogonalBase().getExtremity());
 
             this.baseTextView.setText(builder.toString());
             this.scaleTextView.setText(DisplayUtils.toStringForTextView(

@@ -77,7 +77,7 @@ public class LeveOrthogonal extends Calculation {
         this.results.clear();
 
         Gisement g = new Gisement(this.orthogonalBase.getOrigin(),
-                this.orthogonalBase.getExtemity(), false);
+                this.orthogonalBase.getExtremity(), false);
         g.compute();
 
         double giseCalc = MathUtils.gradToRad(g.getGisement());
@@ -108,7 +108,7 @@ public class LeveOrthogonal extends Calculation {
                 + " - " + App.getContext().getString(R.string.origin_label) + ": "
                 + this.orthogonalBase.getOrigin().toString()
                 + " / " + App.getContext().getString(R.string.extremity_label) + ": "
-                + this.orthogonalBase.getExtemity().toString());
+                + this.orthogonalBase.getExtremity().toString());
         super.notifyUpdate(this);
     }
 

@@ -179,7 +179,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
             this.originSpinner.setSelection(
                     a.getPosition(this.leveOrtho.getOrthogonalBase().getOrigin()));
             this.extremitySpinner.setSelection(
-                    a.getPosition(this.leveOrtho.getOrthogonalBase().getExtemity()));
+                    a.getPosition(this.leveOrtho.getOrthogonalBase().getExtremity()));
         } else {
             if (this.originSelectedPosition > 0) {
                 this.originSpinner.setSelection(
@@ -335,7 +335,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
             } else {
                 if (this.leveOrtho.getOrthogonalBase() != null) {
                     this.leveOrtho.getOrthogonalBase().setOrigin(p1);
-                    this.leveOrtho.getOrthogonalBase().setExtemity(p2);
+                    this.leveOrtho.getOrthogonalBase().setExtremity(p2);
                 } else {
                     this.leveOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2));
                 }

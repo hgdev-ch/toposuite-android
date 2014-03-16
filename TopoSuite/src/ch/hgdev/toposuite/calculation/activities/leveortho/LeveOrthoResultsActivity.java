@@ -52,7 +52,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
             StringBuilder builder = new StringBuilder();
             builder.append(this.leveOrtho.getOrthogonalBase().getOrigin());
             builder.append("-");
-            builder.append(this.leveOrtho.getOrthogonalBase().getExtemity());
+            builder.append(this.leveOrtho.getOrthogonalBase().getExtremity());
 
             this.baseTextView.setText(builder.toString());
             this.registerForContextMenu(this.resultsListView);

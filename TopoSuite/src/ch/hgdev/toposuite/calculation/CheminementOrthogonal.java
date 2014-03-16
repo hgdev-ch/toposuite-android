@@ -111,9 +111,9 @@ public class CheminementOrthogonal extends Calculation {
         // diff
         double eastExt = currEast;
         double northExt = currNorth;
-        double deltaCalcEast = this.orthogonalBase.getExtemity().getEast() -
+        double deltaCalcEast = this.orthogonalBase.getExtremity().getEast() -
                 this.orthogonalBase.getOrigin().getEast();
-        double deltaCalcNorth = this.orthogonalBase.getExtemity().getNorth() -
+        double deltaCalcNorth = this.orthogonalBase.getExtremity().getNorth() -
                 this.orthogonalBase.getOrigin().getNorth();
 
         // rotation of the temporary calculation
@@ -126,7 +126,7 @@ public class CheminementOrthogonal extends Calculation {
 
         // gisement of the calculated base
         g = new Gisement(this.orthogonalBase.getOrigin(),
-                this.orthogonalBase.getExtemity(), false);
+                this.orthogonalBase.getExtremity(), false);
         double calcGis = g.getGisement();
 
         // rotation to apply
@@ -152,7 +152,7 @@ public class CheminementOrthogonal extends Calculation {
         if (MathUtils.isZero(this.scale)) {
             // automatic scale factor determination
             this.scale = MathUtils.euclideanDistance(this.orthogonalBase.getOrigin(),
-                    this.orthogonalBase.getExtemity()) / dist;
+                    this.orthogonalBase.getExtremity()) / dist;
         }
 
         // calculation of the final coordinates

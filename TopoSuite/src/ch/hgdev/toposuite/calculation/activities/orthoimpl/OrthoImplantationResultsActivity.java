@@ -35,7 +35,7 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
             StringBuilder builder = new StringBuilder();
             builder.append(this.orthImpl.getOrthogonalBase().getOrigin());
             builder.append("-");
-            builder.append(this.orthImpl.getOrthogonalBase().getExtemity());
+            builder.append(this.orthImpl.getOrthogonalBase().getExtremity());
 
             this.baseTextView.setText(builder.toString());
             this.drawList();

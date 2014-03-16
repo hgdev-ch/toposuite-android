@@ -148,7 +148,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             this.originSpinner.setSelection(
                     a.getPosition(this.orthoImpl.getOrthogonalBase().getOrigin()));
             this.extremitySpinner.setSelection(
-                    a.getPosition(this.orthoImpl.getOrthogonalBase().getExtemity()));
+                    a.getPosition(this.orthoImpl.getOrthogonalBase().getExtremity()));
         } else {
             if (this.originSelectedPosition > 0) {
                 this.originSpinner.setSelection(
@@ -292,7 +292,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             } else {
                 if (this.orthoImpl.getOrthogonalBase() != null) {
                     this.orthoImpl.getOrthogonalBase().setOrigin(p1);
-                    this.orthoImpl.getOrthogonalBase().setExtemity(p2);
+                    this.orthoImpl.getOrthogonalBase().setExtremity(p2);
                 } else {
                     this.orthoImpl.setOrthogonalBase(new OrthogonalBase(p1, p2));
                 }

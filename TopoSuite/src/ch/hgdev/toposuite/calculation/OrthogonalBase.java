@@ -100,12 +100,12 @@ public class OrthogonalBase {
         this.updateCalcDistAndScaleFactor();
     }
 
-    public Point getExtemity() {
+    public Point getExtremity() {
         return this.extremity;
     }
 
-    public void setExtemity(Point _extemity) {
-        this.extremity = _extemity;
+    public void setExtremity(Point _extremity) {
+        this.extremity = _extremity;
         this.updateCalcDistAndScaleFactor();
     }
 

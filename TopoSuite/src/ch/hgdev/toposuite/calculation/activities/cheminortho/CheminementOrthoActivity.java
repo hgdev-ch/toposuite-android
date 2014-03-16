@@ -145,7 +145,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             this.originSpinner.setSelection(
                     a.getPosition(this.cheminOrtho.getOrthogonalBase().getOrigin()));
             this.extremitySpinner.setSelection(
-                    a.getPosition(this.cheminOrtho.getOrthogonalBase().getExtemity()));
+                    a.getPosition(this.cheminOrtho.getOrthogonalBase().getExtremity()));
         } else {
             if (this.originSelectedPosition > 0) {
                 this.originSpinner.setSelection(
@@ -295,7 +295,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             } else {
                 if (this.cheminOrtho.getOrthogonalBase() != null) {
                     this.cheminOrtho.getOrthogonalBase().setOrigin(p1);
-                    this.cheminOrtho.getOrthogonalBase().setExtemity(p2);
+                    this.cheminOrtho.getOrthogonalBase().setExtremity(p2);
                 } else {
                     this.cheminOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2));
                 }
