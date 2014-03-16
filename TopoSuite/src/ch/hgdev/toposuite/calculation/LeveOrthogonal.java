@@ -104,6 +104,11 @@ public class LeveOrthogonal extends Calculation {
         }
 
         super.updateLastModification();
+        this.setDescription(this.getCalculationName()
+                + " - " + App.getContext().getString(R.string.origin_label) + ": "
+                + this.orthogonalBase.getOrigin().toString()
+                + " / " + App.getContext().getString(R.string.extremity_label) + ": "
+                + this.orthogonalBase.getExtemity().toString());
         super.notifyUpdate(this);
     }
 
