@@ -85,10 +85,8 @@ public class AddMeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (AddMeasureDialogFragment.this.checkDialogInputs()) {
-                            AddMeasureDialogFragment.this.number = Integer
-                                    .parseInt(AddMeasureDialogFragment.this.numberEditText
-                                            .getText()
-                                            .toString());
+                            AddMeasureDialogFragment.this.number = ViewUtils
+                                    .readInt(AddMeasureDialogFragment.this.numberEditText);
                             AddMeasureDialogFragment.this.abscissa = Double
                                     .parseDouble(AddMeasureDialogFragment.this.abscissaEditText
                                             .getText()

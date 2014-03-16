@@ -124,10 +124,8 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                                 EditDeterminationDialogFragment.this.lonDepl = MathUtils.IGNORE_DOUBLE;
                             }
 
-                            EditDeterminationDialogFragment.this.determinationNo = Integer
-                                    .parseInt(
-                                    EditDeterminationDialogFragment.this.determinationNoEditText
-                                            .getText().toString());
+                            EditDeterminationDialogFragment.this.determinationNo = ViewUtils
+                                    .readInt(EditDeterminationDialogFragment.this.determinationNoEditText);
                             EditDeterminationDialogFragment.this.horizDir = Double
                                     .parseDouble(EditDeterminationDialogFragment.this.horizDirEditText
                                             .getText().toString());

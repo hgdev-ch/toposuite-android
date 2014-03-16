@@ -88,10 +88,8 @@ public class EditMeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (EditMeasureDialogFragment.this.checkDialogInputs()) {
-                            EditMeasureDialogFragment.this.number = Integer
-                                    .parseInt(EditMeasureDialogFragment.this.numberEditText
-                                            .getText()
-                                            .toString());
+                            EditMeasureDialogFragment.this.number = ViewUtils
+                                    .readInt(EditMeasureDialogFragment.this.numberEditText);
                             EditMeasureDialogFragment.this.abscissa = Double
                                     .parseDouble(EditMeasureDialogFragment.this.abscissaEditText
                                             .getText().toString());

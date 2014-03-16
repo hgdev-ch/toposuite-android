@@ -97,9 +97,8 @@ public class AddPointDialogFragment extends DialogFragment {
                                         .parseDouble(AddPointDialogFragment.this.altitudeEditText
                                                 .getText().toString());
                             }
-                            AddPointDialogFragment.this.number = Integer
-                                    .parseInt(AddPointDialogFragment.this.numberEditText.getText()
-                                            .toString());
+                            AddPointDialogFragment.this.number = ViewUtils.
+                                    readInt(AddPointDialogFragment.this.numberEditText);
                             AddPointDialogFragment.this.east = Double
                                     .parseDouble(AddPointDialogFragment.this.eastEditText.getText()
                                             .toString());
