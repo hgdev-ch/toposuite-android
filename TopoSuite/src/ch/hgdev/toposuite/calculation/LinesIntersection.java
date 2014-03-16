@@ -218,6 +218,13 @@ public class LinesIntersection extends Calculation {
                 false, false);
 
         this.updateLastModification();
+        this.setDescription(this.getCalculationName() + " - "
+                + App.getContext().getString(R.string.line_1) + " "
+                + App.getContext().getString(R.string.origin_label) + ": "
+                + this.p1D1.toString()
+                + " / " + App.getContext().getString(R.string.line_2) + " "
+                + App.getContext().getString(R.string.origin_label) + ": "
+                + this.p1D2.toString());
         this.notifyUpdate(this);
     }
 
