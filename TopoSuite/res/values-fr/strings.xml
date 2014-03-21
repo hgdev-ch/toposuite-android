@@ -84,6 +84,9 @@
 	<string name="dist_pt_1">Dist. pt. A</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
+    <string name="distance_lon_east_label">Distance long. limite est (D-Y) [m]</string>
+    <string name="distance_lon_west_label">Distance long. limite ouest (D-Y) [m]</string>
+    <string name="distance_para_south_label">Distance // à la limit ouest (A-D) [m]</string>
     <string name="distance_projpoint_line_label">Distance du point projeté à la droite (X) [m]:</string>
     <string name="distance_projpoint_point_1_label">Distance du point projeté au point A (Y) [m]:</string>
     <string name="distance_projpoint_point_2_label">Distance du point projeté au point B (Z) [m]:</string>
@@ -162,6 +165,7 @@
     <string name="letter_beta_unit">&#946; [g]</string>
     <string name="letter_gamma_unit">&#947; [g]</string>
     <string name="licenses">Licences</string>
+    <string name="limit_displ_results_label">Dépl. // de limite (corr. surface <xliff:g>%s</xliff:g> [m²])</string>
     <string name="limit_point_east_number">Numéro de point-limite est</string>
     <string name="limit_point_west_number">Numéro de point-limite ouest</string>
     <string name="line">Droite</string>
@@ -195,6 +199,8 @@
     <string name="mode_line_label">Droite</string>
     <string name="mode_gisement_label">Gisement</string>
     <string name="name">Nom</string>
+    <string name="new_limit_point_east">Nouv. point-limite est (Y)</string>
+    <string name="new_limit_point_west">Nouv. point-limit ouest (X)</string>
     <string name="no">Non</string>
     <string name="no_files">Aucun fichier</string>
     <string name="no_value">-</string>

@@ -82,6 +82,9 @@
     <string name="dist_pt_1">Pt. A dist.</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
+    <string name="distance_lon_east_label">Long. distance east limit (D-Y) [m]</string>
+    <string name="distance_lon_west_label">Long. distance west limit (A-X) [m]</string>
+    <string name="distance_para_south_label">// distance to the south limit (A-D) [m]</string>
     <string name="distance_projpoint_line_label">Projected point to line distance (X) [m]:</string>
     <string name="distance_projpoint_point_1_label">Projected point to point A distance (Y) [m]:</string>
     <string name="distance_projpoint_point_2_label">Projected point to point B distance (Z) [m]:</string>
@@ -160,6 +163,7 @@
     <string name="letter_beta_unit">&#946; [g]</string>
     <string name="letter_gamma_unit">&#947; [g]</string>
     <string name="licenses">Licenses</string>
+    <string name="limit_displ_results_label">// limit displ. (surface corr. <xliff:g>%s</xliff:g> [m²])</string>
     <string name="limit_point_east_number">Limit-point east number</string>
     <string name="limit_point_west_number">Limit-point west number</string>
     <string name="line">Line</string>
@@ -193,6 +197,8 @@
     <string name="mode_line_label">Line</string>
     <string name="mode_gisement_label">Gisement</string>
     <string name="name">Name</string>
+    <string name="new_limit_point_east">New limit-point east (Y)</string>
+    <string name="new_limit_point_west">New limit-point west (X)</string>
     <string name="no">No</string>
     <string name="no_files">No files</string>
     <string name="no_value">-</string>
