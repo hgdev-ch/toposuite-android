@@ -27,21 +27,13 @@ public class TestLimitDisplacement extends TestCase {
                 surface, 5, 6, false);
         ld.compute();
 
-        /*Assert.assertEquals("96320.0074",
-                this.df4.format(ld.getNewPointX().getEast()));*/
         Assert.assertEquals("96319.0953",
                 this.df4.format(ld.getNewPointX().getEast()));
-        /*Assert.assertEquals("71468.8637",
-                this.df4.format(ld.getNewPointX().getNorth()));*/
         Assert.assertEquals("71471.1257",
                 this.df4.format(ld.getNewPointX().getNorth()));
 
-        /*Assert.assertEquals("96323.2745",
-                this.df4.format(ld.getNewPointY().getEast()));*/
         Assert.assertEquals("96326.1508",
                 this.df4.format(ld.getNewPointY().getEast()));
-        /*Assert.assertEquals("71469.9341",
-                this.df4.format(ld.getNewPointY().getNorth()));*/
         Assert.assertEquals("71481.4466",
                 this.df4.format(ld.getNewPointY().getNorth()));
     }
