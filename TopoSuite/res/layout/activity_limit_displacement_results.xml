@@ -1,11 +1,162 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".LimitDisplacementResultsActivity" >
-
-</RelativeLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+	
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal" >
+		    
+		    <TextView
+		        android:id="@+id/limit_displ_results_label"
+		        android:layout_width="0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.86"
+		        android:gravity="left|center_vertical"
+		        android:paddingLeft="@dimen/activity_horizontal_margin"
+		        android:text=""
+		        android:textStyle="bold" />
+		</LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal" >
+		    
+		    <TextView
+		        android:layout_width="0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.86"
+		        android:gravity="left|center_vertical"
+		        android:paddingLeft="@dimen/activity_horizontal_margin"
+		        android:text="@string/new_limit_point_west"
+		        android:textStyle="bold" />
+		</LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal" >
+		    
+		    <TextView
+		        android:id="@+id/point_west"
+		        android:layout_width="0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.86"
+		        android:gravity="left|center_vertical"
+		        android:paddingLeft="@dimen/activity_horizontal_margin"
+		        android:textStyle="bold" />
+		</LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal" >
+		    
+		    <TextView
+		        android:layout_width="0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.86"
+		        android:gravity="left|center_vertical"
+		        android:paddingLeft="@dimen/activity_horizontal_margin"
+		        android:text="@string/new_limit_point_east"
+		        android:textStyle="bold" />
+		</LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal" >
+		    
+		    <TextView
+		        android:id="@+id/point_east"
+		        android:layout_width="0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.86"
+		        android:gravity="left|center_vertical"
+		        android:paddingLeft="@dimen/activity_horizontal_margin"
+		        android:textStyle="bold" />
+		</LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.86"
+	            android:gravity="left|center_vertical"
+	            android:paddingLeft="@dimen/activity_horizontal_margin"
+	            android:text="@string/distance_para_south_label"
+	            android:textStyle="bold" />
+	        
+	        <TextView
+	            android:id="@+id/distance_para_south"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.86"
+	            android:gravity="left|center_vertical"
+	            android:paddingLeft="@dimen/activity_horizontal_margin"
+	            android:text="@string/no_value" />
+	
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.86"
+	            android:gravity="left|center_vertical"
+	            android:paddingLeft="@dimen/activity_horizontal_margin"
+	            android:text="@string/distance_lon_west_label"
+	            android:textStyle="bold" />
+	        
+	        <TextView
+	            android:id="@+id/distance_lon_west"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.86"
+	            android:gravity="left|center_vertical"
+	            android:paddingLeft="@dimen/activity_horizontal_margin"
+	            android:text="@string/no_value" />
+	
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:id="@+id/slope_label"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.86"
+	            android:gravity="left|center_vertical"
+	            android:paddingLeft="@dimen/activity_horizontal_margin"
+	            android:text="@string/distance_lon_east_label"
+	            android:textStyle="bold" />
+	        
+	        <TextView
+	            android:id="@+id/distance_long_east"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.86"
+	            android:gravity="left|center_vertical"
+	            android:paddingLeft="@dimen/activity_horizontal_margin"
+	            android:text="@string/no_value" />
+	    </LinearLayout>
+	    
+	</LinearLayout>
+</ScrollView>
