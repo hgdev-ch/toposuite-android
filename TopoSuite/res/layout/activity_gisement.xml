@@ -186,8 +186,6 @@
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:text="@string/no_value" />
-	
 	    </LinearLayout>
-    
 	</LinearLayout>
 </ScrollView>
