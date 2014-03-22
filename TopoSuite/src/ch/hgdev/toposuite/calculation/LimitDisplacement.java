@@ -147,6 +147,22 @@ public class LimitDisplacement extends Calculation {
         this.surface = surface;
     }
 
+    public final int getPointXNumber() {
+        return this.pointXNumber;
+    }
+
+    public final void setPointXNumber(int pointXNumber) {
+        this.pointXNumber = pointXNumber;
+    }
+
+    public final int getPointYNumber() {
+        return this.pointYNumber;
+    }
+
+    public final void setPointYNumber(int pointYNumber) {
+        this.pointYNumber = pointYNumber;
+    }
+
     public final Point getNewPointX() {
         return this.newPointX;
     }
