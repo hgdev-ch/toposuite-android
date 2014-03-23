@@ -116,6 +116,8 @@ public class LinesIntersection extends Calculation {
         this.setDisplacementD2(_displacementD2);
         this.setDistanceP1D2(_distanceP1D2);
 
+        this.pointNumber = _pointNumber;
+
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
         }
