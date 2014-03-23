@@ -21,7 +21,7 @@ public class LimitDisplacement extends Calculation {
     private Point  newPointY;
     private double distanceToSouthLimitAD;
     private double distanceToWestLimitAX;
-    private double distanceToEstLimitDY;
+    private double distanceToEastLimitDY;
 
     public LimitDisplacement(Point _pointA, Point _pointB, Point _pointC,
             Point _pointD, double _surface, int _pointXNumber,
@@ -77,7 +77,7 @@ public class LimitDisplacement extends Calculation {
         this.distanceToSouthLimitAD = distD;
         this.distanceToWestLimitAX = MathUtils.euclideanDistance(
                 this.pointA, this.newPointX);
-        this.distanceToEstLimitDY = MathUtils.euclideanDistance(
+        this.distanceToEastLimitDY = MathUtils.euclideanDistance(
                 this.pointD, this.newPointY);
 
         this.updateLastModification();
@@ -179,7 +179,7 @@ public class LimitDisplacement extends Calculation {
         return this.distanceToWestLimitAX;
     }
 
-    public final double getDistanceToEstLimitDY() {
-        return this.distanceToEstLimitDY;
+    public final double getDistanceToEastLimitDY() {
+        return this.distanceToEastLimitDY;
     }
 }

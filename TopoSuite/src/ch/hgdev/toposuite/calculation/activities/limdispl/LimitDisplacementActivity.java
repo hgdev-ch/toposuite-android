@@ -27,7 +27,7 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LimitDisplacementActivity extends TopoSuiteActivity {
-    private final static String LIMIT_DISPLACEMENT_POSITION = "limit_displacement_position";
+    public final static String  LIMIT_DISPLACEMENT_POSITION = "limit_displacement_position";
     private final static String POINT_A_SELECTED_POSITION   = "point_a_selected_position";
     private final static String POINT_B_SELECTED_POSITION   = "point_b_selected_position";
     private final static String POINT_C_SELECTED_POSITION   = "point_c_selected_position";
