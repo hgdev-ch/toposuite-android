@@ -2,14 +2,19 @@ package ch.hgdev.toposuite.calculation.activities.limdispl;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.LimitDisplacement;
+import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
+import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class LimitDisplacementResultsActivity extends TopoSuiteActivity {
+public class LimitDisplacementResultsActivity extends TopoSuiteActivity implements
+        MergePointsDialog.MergePointsDialogListener {
     private TextView          limitDisplacementLabelTextView;
     private TextView          pointWestTextView;
     private TextView          pointEastTextView;
@@ -63,13 +68,63 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.limit_displacement_results, menu);
+        this.getMenuInflater().inflate(R.menu.limit_displacement_results, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.save_points:
+            this.savePoint(this.limDispl.getNewPointX());
+            this.savePoint(this.limDispl.getNewPointY());
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
     protected String getActivityTitle() {
         return this.getString(
                 R.string.title_activity_limit_displacement_results);
+    }
+
+    private boolean savePoint(Point pt) {
+        if (SharedResources.getSetOfPoints().find(pt.getNumber()) == null) {
+            SharedResources.getSetOfPoints().add(pt);
+            ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+            return true;
+        } else {
+            // this point already exists
+            MergePointsDialog dialog = new MergePointsDialog();
+
+            Bundle args = new Bundle();
+            args.putInt(
+                    MergePointsDialog.POINT_NUMBER,
+                    pt.getNumber());
+            args.putDouble(MergePointsDialog.NEW_EAST,
+                    pt.getEast());
+            args.putDouble(MergePointsDialog.NEW_NORTH,
+                    pt.getNorth());
+            args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                    pt.getAltitude());
+
+            dialog.setArguments(args);
+            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+
+            return false;
+        }
+    }
+
+    @Override
+    public void onMergePointsDialogSuccess(String message) {
+        ViewUtils.showToast(this, message);
+    }
+
+    @Override
+    public void onMergePointsDialogError(String message) {
+        ViewUtils.showToast(this, message);
     }
 }
