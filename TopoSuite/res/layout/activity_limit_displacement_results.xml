@@ -92,9 +92,8 @@
 	        android:orientation="horizontal" >
 	        
 	        <TextView
-	            android:layout_width="0dip"
+	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:text="@string/distance_para_south_label"
@@ -102,9 +101,8 @@
 	        
 	        <TextView
 	            android:id="@+id/distance_para_south"
-	            android:layout_width="0dip"
+	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:freezesText="true"
@@ -118,9 +116,8 @@
 	        android:orientation="horizontal" >
 	        
 	        <TextView
-	            android:layout_width="0dip"
+	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:text="@string/distance_lon_west_label"
@@ -128,9 +125,8 @@
 	        
 	        <TextView
 	            android:id="@+id/distance_lon_west"
-	            android:layout_width="0dip"
+	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:freezesText="true"
@@ -144,9 +140,8 @@
 	        android:orientation="horizontal" >
 	        
 	        <TextView
-	            android:layout_width="0dip"
+	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:text="@string/distance_lon_east_label"
@@ -154,9 +149,8 @@
 	        
 	        <TextView
 	            android:id="@+id/distance_lon_east"
-	            android:layout_width="0dip"
+	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.86"
 	            android:gravity="left|center_vertical"
 	            android:paddingLeft="@dimen/activity_horizontal_margin"
 	            android:freezesText="true"
