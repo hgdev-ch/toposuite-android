@@ -161,13 +161,14 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
 
         this.imposedSurfaceEditText = (EditText) this.findViewById(
                 R.id.imposed_surface);
-        this.pointWestNumberEditText = (EditText) this.findViewById(R.id.point_west);
-        this.pointEastNumberEditText = (EditText) this.findViewById(R.id.point_east);
+        this.pointWestNumberEditText = (EditText) this.findViewById(R.id.point_number_west);
+        this.pointEastNumberEditText = (EditText) this.findViewById(R.id.point_number_east);
 
-        this.imposedSurfaceEditText.setInputType(InputType.TYPE_CLASS_NUMBER
+        this.imposedSurfaceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.pointWestNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_VARIATION_NORMAL);
-        this.pointWestNumberEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-        this.pointEastNumberEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.pointEastNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
+                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
@@ -219,6 +220,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.getMenuInflater().inflate(R.menu.limit_displacement, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -263,7 +265,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
                 this.limDispl.setPointYNumber(pointYNumber);
             }
 
-            this.limDispl.compute();
+            //this.limDispl.compute();
             this.startLimitDisplacementResultsActivity();
 
             return true;
