@@ -350,7 +350,7 @@ public class LinesIntersection extends Calculation {
 
     public final void setDistanceP1D1(double _distanceP1D1) {
         this.distanceP1D1 = _distanceP1D1;
-        if (!MathUtils.isZero(this.distanceP1D1)) {
+        if (!MathUtils.isIgnorable(this.distanceP1D1)) {
             if ((this.p1D1 == null) || (this.p2D1 == null)) {
                 return;
             }
@@ -441,7 +441,7 @@ public class LinesIntersection extends Calculation {
 
     public final void setDistanceP1D2(double _distanceP1D2) {
         this.distanceP1D2 = _distanceP1D2;
-        if (!MathUtils.isZero(this.distanceP1D2)) {
+        if (!MathUtils.isIgnorable(this.distanceP1D2)) {
             if ((this.p1D2 == null) || (this.p2D2 == null)) {
                 return;
             }
