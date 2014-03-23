@@ -3,30 +3,46 @@ package ch.hgdev.toposuite.calculation;
 import java.util.Date;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.limdispl.LimitDisplacementActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LimitDisplacement extends Calculation {
-    private Point  pointA;
-    private Point  pointB;
-    private Point  pointC;
-    private Point  pointD;
-    private double surface;
-    private int    pointXNumber;
-    private int    pointYNumber;
+    private final static String POINT_A        = "point_a";
+    private final static String POINT_B        = "point_b";
+    private final static String POINT_C        = "point_c";
+    private final static String POINT_D        = "point_d";
+    private final static String SURFACE        = "surface";
+    private final static String POINT_X_NUMBER = "point_x_number";
+    private final static String POINT_Y_NUMBER = "point_y_number";
 
-    private Point  newPointX;
-    private Point  newPointY;
-    private double distanceToSouthLimitAD;
-    private double distanceToWestLimitAX;
-    private double distanceToEastLimitDY;
+    private Point               pointA;
+    private Point               pointB;
+    private Point               pointC;
+    private Point               pointD;
+    private double              surface;
+    private int                 pointXNumber;
+    private int                 pointYNumber;
+
+    private Point               newPointX;
+    private Point               newPointY;
+    private double              distanceToSouthLimitAD;
+    private double              distanceToWestLimitAX;
+    private double              distanceToEastLimitDY;
 
     public LimitDisplacement(Point _pointA, Point _pointB, Point _pointC,
             Point _pointD, double _surface, int _pointXNumber,
             int _pointYNumber, boolean hasDAO) {
-        super(CalculationType.LIMITDISPL, "TODO", hasDAO);
+        super(
+                CalculationType.LIMITDISPL,
+                App.getContext().getString(
+                        R.string.title_activity_limit_displacement),
+                hasDAO);
 
         this.pointA = _pointA;
         this.pointB = _pointB;
@@ -42,8 +58,13 @@ public class LimitDisplacement extends Calculation {
     }
 
     public LimitDisplacement(long id, Date lastModification) {
-        super(id, CalculationType.LIMITDISPL, "TODO",
-                lastModification, true);
+        super(
+                id,
+                CalculationType.LIMITDISPL,
+                App.getContext().getString(
+                        R.string.title_activity_limit_displacement),
+                lastModification,
+                true);
     }
 
     @Override
@@ -86,25 +107,43 @@ public class LimitDisplacement extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO
-        return null;
+        JSONObject jo = new JSONObject();
+        jo.put(LimitDisplacement.POINT_A, this.pointA.getNumber());
+        jo.put(LimitDisplacement.POINT_B, this.pointB.getNumber());
+        jo.put(LimitDisplacement.POINT_C, this.pointC.getNumber());
+        jo.put(LimitDisplacement.POINT_D, this.pointD.getNumber());
+        jo.put(LimitDisplacement.SURFACE, this.surface);
+        jo.put(LimitDisplacement.POINT_X_NUMBER, this.pointXNumber);
+        jo.put(LimitDisplacement.POINT_Y_NUMBER, this.pointYNumber);
+
+        return jo.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO
+        JSONObject jo = new JSONObject(jsonInputArgs);
+        this.pointA = SharedResources.getSetOfPoints().find(
+                jo.getInt(LimitDisplacement.POINT_A));
+        this.pointB = SharedResources.getSetOfPoints().find(
+                jo.getInt(LimitDisplacement.POINT_B));
+        this.pointC = SharedResources.getSetOfPoints().find(
+                jo.getInt(LimitDisplacement.POINT_C));
+        this.pointD = SharedResources.getSetOfPoints().find(
+                jo.getInt(LimitDisplacement.POINT_D));
+        this.surface = jo.getDouble(LimitDisplacement.SURFACE);
+        this.pointXNumber = jo.getInt(LimitDisplacement.POINT_X_NUMBER);
+        this.pointYNumber = jo.getInt(LimitDisplacement.POINT_Y_NUMBER);
     }
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO
-        return null;
+        return LimitDisplacementActivity.class;
     }
 
     @Override
     public String getCalculationName() {
-        // TODO
-        return "TODO";
+        return App.getContext().getString(
+                R.string.title_activity_limit_displacement);
     }
 
     public final Point getPointA() {
