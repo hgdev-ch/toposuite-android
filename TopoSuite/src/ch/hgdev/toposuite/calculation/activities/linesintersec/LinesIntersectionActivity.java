@@ -470,14 +470,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
         switch (id) {
         case R.id.run_calculation_button:
-            if ((this.point1D1SelectedPosition == 0)
-                    || (this.point1D2SelectedPosition == 0)
-                    || ((this.d1Mode == Mode.GISEMENT) && (this.gisementD1EditText.length() == 0))
-                    || ((this.d1Mode == Mode.LINE) && (this.point2D1SelectedPosition == 0))
-                    || ((this.d2Mode == Mode.GISEMENT) && (this.gisementD2EditText.length() == 0))
-                    || ((this.d2Mode == Mode.LINE) && (this.point2D2SelectedPosition == 0))
-                    || (this.isD1Perpendicular && (this.distP1D1EditText.length() == 0))
-                    || (this.isD2Perpendicular && (this.distP1D2EditText.length() == 0))) {
+            if (!this.isComputable()) {
                 ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
             }
@@ -699,5 +692,41 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
     @Override
     public void onMergePointsDialogError(String message) {
         ViewUtils.showToast(this, message);
+    }
+
+    private boolean isComputable() {
+        if (this.point1D1SelectedPosition == 0) {
+            return false;
+        }
+
+        if (this.point1D2SelectedPosition == 0) {
+            return false;
+        }
+
+        if ((this.d1Mode == Mode.GISEMENT) && (this.gisementD1EditText.length() == 0)) {
+            return false;
+        }
+
+        if ((this.d1Mode == Mode.LINE) && (this.point2D1SelectedPosition == 0)) {
+            return false;
+        }
+
+        if ((this.d2Mode == Mode.GISEMENT) && (this.gisementD2EditText.length() == 0)) {
+            return false;
+        }
+
+        if ((this.d2Mode == Mode.LINE) && (this.point2D2SelectedPosition == 0)) {
+            return false;
+        }
+
+        if (this.isD1Perpendicular && (this.distP1D1EditText.length() == 0)) {
+            return false;
+        }
+
+        if (this.isD2Perpendicular && (this.distP1D2EditText.length() == 0)) {
+            return false;
+        }
+
+        return true;
     }
 }
