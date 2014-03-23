@@ -471,7 +471,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         switch (id) {
         case R.id.run_calculation_button:
             if (!this.isComputable()) {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                ViewUtils.showToast(this, this.getString(R.string.error_impossible_calculation));
                 return true;
             }
 
@@ -724,6 +724,14 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         }
 
         if (this.isD2Perpendicular && (this.distP1D2EditText.length() == 0)) {
+            return false;
+        }
+
+        // check that the two "gisements" are different, in other
+        double g1 = ViewUtils.readDouble(this.gisementD1EditText);
+        double g2 = ViewUtils.readDouble(this.gisementD2EditText);
+        if ((this.d1Mode == Mode.GISEMENT) && (this.d2Mode == Mode.GISEMENT)
+                && MathUtils.isZero(g1 - g2)) {
             return false;
         }
 
