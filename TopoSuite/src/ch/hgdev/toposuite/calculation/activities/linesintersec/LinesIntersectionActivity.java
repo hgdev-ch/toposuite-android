@@ -475,19 +475,6 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 return true;
             }
 
-            // ensure that the computation is possible in order to avoid weird
-            //(and wrong!) results
-            if (((this.d1Mode == Mode.GISEMENT)
-                    && MathUtils.isZero(ViewUtils.readDouble(this.gisementD1EditText)))
-                    || ((this.d2Mode == Mode.GISEMENT) && MathUtils.isZero(
-                            ViewUtils.readDouble(this.gisementD2EditText)))
-                    || (this.isD1Perpendicular && (this.displacementD1EditText.length() > 0))
-                    || (this.isD2Perpendicular && (this.displacementD2EditText.length() > 0))) {
-                ViewUtils.showToast(this, this.getString(
-                        R.string.error_impossible_calculation));
-                return true;
-            }
-
             Point p1D1 = this.adapter.getItem(this.point1D1SelectedPosition);
 
             Point p2D1 = null;
@@ -732,6 +719,14 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         double g2 = ViewUtils.readDouble(this.gisementD2EditText);
         if ((this.d1Mode == Mode.GISEMENT) && (this.d2Mode == Mode.GISEMENT)
                 && MathUtils.isZero(g1 - g2)) {
+            return false;
+        }
+
+        if (this.isD1Perpendicular && (this.displacementD1EditText.length() > 0)) {
+            return false;
+        }
+
+        if (this.isD2Perpendicular && (this.displacementD2EditText.length() > 0)) {
             return false;
         }
 
