@@ -8,10 +8,12 @@ import ch.hgdev.toposuite.calculation.LimitDisplacement;
 import ch.hgdev.toposuite.points.Point;
 
 public class TestLimitDisplacement extends TestCase {
+    private DecimalFormat df3;
     private DecimalFormat df4;
 
     @Override
     protected void setUp() throws Exception {
+        this.df3 = new DecimalFormat("#.###");
         this.df4 = new DecimalFormat("#.####");
         super.setUp();
     }
@@ -36,6 +38,13 @@ public class TestLimitDisplacement extends TestCase {
                 this.df4.format(ld.getNewPointY().getEast()));
         Assert.assertEquals("71481.4466",
                 this.df4.format(ld.getNewPointY().getNorth()));
+
+        Assert.assertEquals("2.029", this.df3.format(
+                ld.getDistanceToSouthLimitAD()));
+        Assert.assertEquals("2.139", this.df3.format(
+                ld.getDistanceToWestLimitAX()));
+        Assert.assertEquals("2.053", this.df3.format(
+                ld.getDistanceToEastLimitDY()));
     }
 
     public void testLimitDisplacement2() {
