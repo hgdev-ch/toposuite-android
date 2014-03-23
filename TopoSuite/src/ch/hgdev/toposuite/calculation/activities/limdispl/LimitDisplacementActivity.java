@@ -265,7 +265,6 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
                 this.limDispl.setPointYNumber(pointYNumber);
             }
 
-            //this.limDispl.compute();
             this.startLimitDisplacementResultsActivity();
 
             return true;

@@ -51,8 +51,7 @@
 		        android:layout_weight="0.86"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
-		        android:freezesText="true"
-		        android:textStyle="bold" />
+		        android:freezesText="true"/>
 		</LinearLayout>
 	    
 	    <LinearLayout
@@ -82,8 +81,7 @@
 		        android:layout_weight="0.86"
 		        android:gravity="left|center_vertical"
 		        android:paddingLeft="@dimen/activity_horizontal_margin"
-		        android:freezesText="true"
-		        android:textStyle="bold" />
+		        android:freezesText="true"/>
 		</LinearLayout>
 	    
 	    <LinearLayout
