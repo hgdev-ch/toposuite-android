@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ import ch.hgdev.toposuite.export.ImportDialog;
 import ch.hgdev.toposuite.export.SupportedFileTypes;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
+
+import com.google.common.io.LineReader;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
@@ -64,6 +67,38 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         Uri dataUri = this.getIntent().getData();
         if (dataUri != null) {
             String mime = this.getIntent().getType();
+
+            // minor hack to handle LTOP format
+            if (mime.equals("application/octet-stream")) {
+                // We need to check if the file is a LTOP file or not.
+                // This verification can only be achieved by reading the
+                // first line of the file.
+                try {
+                    ContentResolver cr = this.getContentResolver();
+                    InputStreamReader in = new InputStreamReader(
+                            cr.openInputStream(dataUri));
+                    LineReader lr = new LineReader(in);
+                    String firstLine = lr.readLine();
+
+                    if ((firstLine == null)
+                            || (firstLine.length() < 4)
+                            || !firstLine.substring(0, 4).equals("$$PK")) {
+                        ViewUtils.showToast(this, this.getString(
+                                R.string.error_unsupported_format));
+                        return;
+                    }
+
+                    // fix the MIME type
+                    mime = "text/ltop";
+                } catch (FileNotFoundException e) {
+                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, e.getMessage());
+                } catch (IOException e) {
+                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, e.getMessage());
+                }
+            }
+
             this.importFromExternalFile(dataUri, mime);
         }
     }

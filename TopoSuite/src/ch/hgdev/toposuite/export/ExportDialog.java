@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.export;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -90,8 +91,14 @@ public class ExportDialog extends DialogFragment {
         });
 
         this.formatSpinner = (Spinner) view.findViewById(R.id.format_spinner);
-        List<String> list = SupportedFileTypes.toList();
+
+        // XXX since we only support export to CSV for now, we must keep only the
+        // first element of the supported file types list.
+        //List<String> list = SupportedFileTypes.toList();
+        List<String> list = new ArrayList<String>();
+        list.add(SupportedFileTypes.toList().get(0));
         list.add(0, this.getActivity().getString(R.string.format_3dots));
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this.getActivity(), android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

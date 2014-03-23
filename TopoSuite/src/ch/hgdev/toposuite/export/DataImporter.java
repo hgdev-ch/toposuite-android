@@ -8,11 +8,20 @@ package ch.hgdev.toposuite.export;
  */
 public interface DataImporter {
     /**
-     * Initialize Point's attributes from CSV.
+     * Initialize Point attributes from CSV.
      * 
      * @param csvLine
-     *            A CSV line that contains the values of the Point's attributes.
+     *            A CSV line that contains the values of the Point attributes.
      * @throws InvalidFormatException
      */
     void createPointFromCSV(String csvLine) throws InvalidFormatException;
+
+    /**
+     * Initialize Point attributes from LTOP.
+     * 
+     * @param ltopLine
+     *            A LTOP line that contains the values of the Point attributes.
+     * @throws InvalidFormatException
+     */
+    void createPointFromLTOP(String ltopLine) throws InvalidFormatException;
 }

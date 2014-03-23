@@ -53,6 +53,14 @@ public class PointsImporter {
                 case CSV:
                     newPt.createPointFromCSV(line);
                     break;
+                case COO:
+                case KOO:
+                case LTOP:
+                    if (nbLines == 1) {
+                        continue;
+                    }
+                    newPt.createPointFromLTOP(line);
+                    break;
                 }
             } catch (InvalidFormatException e) {
                 errors.add(new Pair<Integer, String>(nbLines, e.getMessage()));

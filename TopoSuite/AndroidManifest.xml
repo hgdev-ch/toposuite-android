@@ -37,6 +37,7 @@
 
                 <data android:mimeType="text/csv" />
                 <data android:mimeType="text/comma-separated-values" />
+                <data android:mimeType="application/octet-stream" />
             </intent-filter>
         </activity>
         <activity

@@ -201,7 +201,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
                 int number = Integer.parseInt(tmp[0]);
                 double east = Double.parseDouble(tmp[1]);
                 double north = Double.parseDouble(tmp[2]);
-                double altitude = 0.0;
+                double altitude = MathUtils.IGNORE_DOUBLE;
 
                 if (tmp.length == 4) {
                     altitude = Double.parseDouble(tmp[3]);
@@ -220,6 +220,36 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         } else {
             throw new InvalidFormatException(App.getContext().getString(
                     R.string.exception_invalid_format_values_number));
+        }
+    }
+
+    @Override
+    public void createPointFromLTOP(String ltopLine) throws InvalidFormatException {
+        if (ltopLine.length() < 56) {
+            throw new InvalidFormatException(App.getContext().getString(
+                    R.string.exception_invalid_format_values_number));
+        }
+
+        // 1-10 => PUNKT + 11-14 => TY
+        String punkt = ltopLine.substring(0, 14);
+
+        // 33-44 => Y
+        String y = ltopLine.substring(32, 44);
+
+        // 45-56 => X
+        String x = ltopLine.substring(44, 56);
+
+        // 61-70 => H (optional)
+        String h = (ltopLine.length() >= 70) ? ltopLine.substring(60, 70) : null;
+
+        try {
+            this.number = Integer.parseInt(punkt.replace(" ", ""));
+            this.east = Double.parseDouble(y);
+            this.north = Double.parseDouble(x);
+            this.altitude = (h != null) ? Double.parseDouble(h) : MathUtils.IGNORE_DOUBLE;
+        } catch (NumberFormatException e) {
+            throw new InvalidFormatException(App.getContext().getString(
+                    R.string.exception_invalid_format_values));
         }
     }
 
