@@ -82,9 +82,9 @@
     <string name="dist_pt_1">Pt. A dist.</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
-    <string name="distance_lon_east_label">Long. distance east limit (D-Y) [m]</string>
-    <string name="distance_lon_west_label">Long. distance west limit (A-X) [m]</string>
-    <string name="distance_para_south_label">// distance to the south limit (A-D) [m]</string>
+    <string name="distance_lon_east_label">Lon. dist. east limit (D-Y)[m]</string>
+    <string name="distance_lon_west_label">Lon. dist. west limit (A-X)[m]</string>
+    <string name="distance_para_south_label">// dist. to south limit (A-D)[m]</string>
     <string name="distance_projpoint_line_label">Projected point to line distance (X) [m]:</string>
     <string name="distance_projpoint_point_1_label">Projected point to point A distance (Y) [m]:</string>
     <string name="distance_projpoint_point_2_label">Projected point to point B distance (Z) [m]:</string>
