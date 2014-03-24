@@ -106,7 +106,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
     /**
      * Method that actually performs the calculation.
      */
-    public abstract void compute();
+    public abstract void compute() throws CalculationException;
 
     /**
      * Getter for the ID.
