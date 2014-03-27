@@ -1,8 +1,8 @@
 package ch.hgdev.toposuite.calculation;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
 
 import org.json.JSONException;
 
@@ -41,7 +41,7 @@ public class CircularSegmentation extends Calculation {
      * Number of segments in which to partition the circle. This is used of the
      * length of an arc is not set.
      */
-    private long                numberOfSegments;
+    private int                 numberOfSegments;
     /**
      * Length of an arc. This is used if the number of segments is not set.
      */
@@ -50,7 +50,7 @@ public class CircularSegmentation extends Calculation {
     /**
      * Resulting points.
      */
-    private Set<Point>          points;
+    private List<Point>         points;
 
     public CircularSegmentation(long id, Date lastModification) {
         super(id,
@@ -80,7 +80,7 @@ public class CircularSegmentation extends Calculation {
         this.arcLength = MathUtils.IGNORE_DOUBLE;
         this.circleRadius = MathUtils.IGNORE_DOUBLE;
 
-        this.points = new TreeSet<Point>();
+        this.points = new ArrayList<Point>();
     }
 
     /**
@@ -102,7 +102,7 @@ public class CircularSegmentation extends Calculation {
      *             Raised when some given arguments are not consistent.
      */
     public void initAttributes(Point center, Point start, Point end,
-            long numberOfSegments, double arcLength) throws IllegalArgumentException {
+            int numberOfSegments, double arcLength) throws IllegalArgumentException {
         Preconditions.checkNotNull(center);
         Preconditions.checkNotNull(start);
         Preconditions.checkNotNull(end);
@@ -137,10 +137,14 @@ public class CircularSegmentation extends Calculation {
             throw new IllegalArgumentException(msg);
         }
 
-        if (!(DoubleMath.fuzzyEquals(MathUtils.euclideanDistance(start, center),
-                MathUtils.euclideanDistance(end, center), CircularSegmentation.TOLERANCE))) {
-            String msg = CircularSegmentation.CIRCULAR_SEGMENTATION
-                    + "the two points must be at the same distance from the center each.";
+        double radiusStart = MathUtils.euclideanDistance(start, center);
+        double radiusEnd = MathUtils.euclideanDistance(end, center);
+        if (!(DoubleMath.fuzzyEquals(radiusStart, radiusEnd, CircularSegmentation.TOLERANCE))) {
+            String msg = String.format(CircularSegmentation.CIRCULAR_SEGMENTATION
+                    + "the two points must be at the same distance from the center each."
+                    + "Radius according to the starting point is %d.\n"
+                    + "Radius according to the ending point is %d.\n",
+                    radiusStart, radiusEnd);
             Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
         }
@@ -152,14 +156,12 @@ public class CircularSegmentation extends Calculation {
         // more accurate than taking arbitrary the radius from one or the other.
         // Remember that the radius have been checked to be equal within a
         // tolerance.
-        this.circleRadius = DoubleMath.mean(
-                MathUtils.euclideanDistance(this.circleCenter, this.circleStartPoint),
-                MathUtils.euclideanDistance(this.circleCenter, this.circleEndPoint));
+        this.circleRadius = DoubleMath.mean(radiusStart, radiusEnd);
 
         this.numberOfSegments = numberOfSegments;
         this.arcLength = arcLength;
 
-        this.points = new TreeSet<Point>();
+        this.points = new ArrayList<Point>();
     }
 
     @Override
@@ -172,8 +174,8 @@ public class CircularSegmentation extends Calculation {
             // it is not necessary to compute the last point
             this.numberOfSegments--;
         } else if (!MathUtils.isIgnorable(this.arcLength)) {
-            double alpha = MathUtils.gradToRad(this.arcLength / this.circleRadius);
-            this.numberOfSegments = (long) Math.floor(angle / alpha);
+            double alpha = this.arcLength / this.circleRadius;
+            this.numberOfSegments = (int) Math.floor(angle / alpha);
             angle = alpha;
         } else {
             String msg = CircularSegmentation.CIRCULAR_SEGMENTATION
@@ -182,6 +184,8 @@ public class CircularSegmentation extends Calculation {
             throw new CalculationException(msg);
         }
 
+        // clear results
+        this.points.clear();
         double gis = new Gisement(this.circleCenter, this.circleStartPoint).getGisement();
         for (int i = 1; i < (this.numberOfSegments + 1); i++) {
             gis += angle;
@@ -189,10 +193,8 @@ public class CircularSegmentation extends Calculation {
                     this.circleCenter.getEast(), gis, this.circleRadius);
             double north = MathUtils.pointLanceNorth(
                     this.circleCenter.getNorth(), gis, this.circleRadius);
-            // TODO decide how to name the resulting points
-            // Point p = new Point(number, east, north, MathUtils.IGNORE_DOUBLE,
-            // false);
-            // this.points.add(p);
+            Point p = new Point(0, east, north, MathUtils.IGNORE_DOUBLE, false);
+            this.points.add(p);
         }
     }
 
@@ -218,4 +220,9 @@ public class CircularSegmentation extends Calculation {
         // TODO Implement
         return null;
     }
+
+    public List<Point> getPoints() {
+        return this.points;
+    }
+
 }
