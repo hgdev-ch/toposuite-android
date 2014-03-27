@@ -31,7 +31,7 @@ public class LeveOrthogonal extends Calculation {
                 App.getContext().getString(R.string.title_activity_leve_ortho),
                 hasDAO);
 
-        this.orthogonalBase = new OrthogonalBase(origin, extremity, measuredDistance);
+        this.orthogonalBase = new OrthogonalBase(origin, extremity, measuredDistance, 1.0);
         this.measures = new ArrayList<LeveOrthogonal.Measure>();
         this.results = new ArrayList<LeveOrthogonal.Measure>();
 

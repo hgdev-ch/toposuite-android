@@ -20,7 +20,11 @@ public class OrthogonalBase {
     private double             measuredDistance;
     private double             scaleFactor;
 
-    public OrthogonalBase(Point _origin, Point _extremity, double _measuredDistance) {
+    private final double       DEFAULT_SCALE_FACTOR;
+
+    public OrthogonalBase(Point _origin, Point _extremity, double _measuredDistance,
+            double defaultScaleFactor) {
+        this.DEFAULT_SCALE_FACTOR = defaultScaleFactor;
         this.origin = _origin;
         this.extremity = _extremity;
         this.measuredDistance = _measuredDistance;
@@ -28,12 +32,16 @@ public class OrthogonalBase {
         this.updateCalcDistAndScaleFactor();
     }
 
+    public OrthogonalBase(Point _origin, Point _extremity, double _measuredDistance) {
+        this(_origin, _extremity, _measuredDistance, 0.0);
+    }
+
     public OrthogonalBase(Point _origin, Point _extremity) {
         this(_origin, _extremity, 0.0);
     }
 
     public OrthogonalBase() {
-        // empty constructor
+        this.DEFAULT_SCALE_FACTOR = 0.0;
     }
 
     private void updateCalcDistAndScaleFactor() {
@@ -47,7 +55,7 @@ public class OrthogonalBase {
         if (!MathUtils.isZero(this.measuredDistance)) {
             this.scaleFactor = this.calculatedDistance / this.measuredDistance;
         } else {
-            this.scaleFactor = 0.0;
+            this.scaleFactor = this.DEFAULT_SCALE_FACTOR;
         }
     }
 
