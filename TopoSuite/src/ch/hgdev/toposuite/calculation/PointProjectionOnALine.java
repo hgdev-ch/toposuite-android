@@ -18,15 +18,16 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class PointProjectionOnALine extends Calculation {
-    public static final String  NUMBER            = "number";
-    public static final String  P1_NUMBER         = "p1_number";
-    public static final String  P2_NUMBER         = "p2_number";
-    public static final String  PT_TO_PROJ_NUMBER = "pt_to_proj_number";
-    public static final String  DISPLACEMENT      = "displacement";
-    public static final String  GISEMENT          = "gisement";
-    public static final String  MODE              = "mode";
+    public static final String  NUMBER             = "number";
+    public static final String  P1_NUMBER          = "p1_number";
+    public static final String  P2_NUMBER          = "p2_number";
+    public static final String  PT_TO_PROJ_NUMBER  = "pt_to_proj_number";
+    public static final String  DISPLACEMENT       = "displacement";
+    public static final String  GISEMENT           = "gisement";
+    public static final String  MODE               = "mode";
+    public static final int     DUMMY_POINT_NUMBER = Integer.MAX_VALUE;
 
-    private static final double DISTANCE          = 20.0;
+    private static final double DISTANCE           = 20.0;
 
     private int                 number;
     private Point               p1;
@@ -264,7 +265,8 @@ public class PointProjectionOnALine extends Calculation {
                 PointProjectionOnALine.DISTANCE);
         double north = MathUtils.pointLanceNorth(p1.getNorth(), gisement,
                 PointProjectionOnALine.DISTANCE);
-        return new Point(4242, east, north, MathUtils.IGNORE_DOUBLE, false, false);
+        return new Point(PointProjectionOnALine.DUMMY_POINT_NUMBER, east, north,
+                MathUtils.IGNORE_DOUBLE, false, false);
     }
 
     public Point getP1() {
