@@ -144,14 +144,14 @@ public class LineCircleIntersection extends Calculation {
             this.distanceL = _distance;
             double gis = new Gisement(this.p1L, this.p2L, false).getGisement();
             this.p1L.setEast(
-                    MathUtils.pointLanceEast(this.p1L.getEast(), gis, _distance));
+                    MathUtils.pointLanceEast(this.p1L.getEast(), gis, this.distanceL));
             this.p1L.setNorth(
-                    MathUtils.pointLanceNorth(this.p1L.getNorth(), gis, _distance));
+                    MathUtils.pointLanceNorth(this.p1L.getNorth(), gis, this.distanceL));
             gis += 100;
             this.p2L.setEast(
-                    MathUtils.pointLanceEast(this.p2L.getEast(), gis, 100));
+                    MathUtils.pointLanceEast(this.p1L.getEast(), gis, 100));
             this.p2L.setNorth(
-                    MathUtils.pointLanceNorth(this.p2L.getNorth(), gis, 100));
+                    MathUtils.pointLanceNorth(this.p1L.getNorth(), gis, 100));
         }
 
         this.centerC = _centerC;

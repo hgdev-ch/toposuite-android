@@ -110,4 +110,23 @@ public class TestLineCircleIntersection extends TestCase {
         Assert.assertEquals("204.3601", this.df4.format(lci.getSecondIntersection().getNorth()));
 
     }
+
+    /**
+     * Test for bug report #476
+     */
+    public void testRealCase2() {
+        Point pA = new Point(1, 14.4172, 7.8539, MathUtils.IGNORE_DOUBLE, false, false);
+        Point pB = new Point(4, 19.627, 12.659, MathUtils.IGNORE_DOUBLE, false, false);
+        double distToPtL = 1.978;
+        double radius = 3.9317;
+
+        LineCircleIntersection lci = new LineCircleIntersection();
+        lci.initAttributes(pA, pB, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
+                distToPtL, pA, radius);
+        lci.compute();
+        Assert.assertEquals("13.5675", this.df4.format(lci.getSecondIntersection().getEast()));
+        Assert.assertEquals("11.6927", this.df4.format(lci.getSecondIntersection().getNorth()));
+        Assert.assertEquals("18.1749", this.df4.format(lci.getFirstIntersection().getEast()));
+        Assert.assertEquals("6.6972", this.df4.format(lci.getFirstIntersection().getNorth()));
+    }
 }
