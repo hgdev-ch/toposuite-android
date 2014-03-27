@@ -89,4 +89,20 @@ public class TestPointProjectionOnALine extends TestCase {
         Assert.assertEquals("105.305", this.df.format(pp.getDistPtToP1()));
         Assert.assertEquals("146.279", this.df.format(pp.getDistPtToP2()));
     }
+
+    public void testPointProjectionOnALine3() {
+        Point p1 = new Point(101, 600, 200, MathUtils.IGNORE_DOUBLE, false, false);
+        Point p2 = new Point(102, 630, 200, MathUtils.IGNORE_DOUBLE, false, false);
+
+        Point ptToProj = new Point(10, 615, 210, MathUtils.IGNORE_DOUBLE, false, false);
+
+        double dist = -2;
+        PointProjectionOnALine pp = new PointProjectionOnALine(42, p1, p2, ptToProj, dist, false);
+        pp.compute();
+        Assert.assertEquals("615", this.df.format(pp.getProjPt().getEast()));
+        Assert.assertEquals("202", this.df.format(pp.getProjPt().getNorth()));
+        Assert.assertEquals("8", this.df.format(pp.getDistPtToLine()));
+        Assert.assertEquals("15", this.df.format(pp.getDistPtToP1()));
+        Assert.assertEquals("15", this.df.format(pp.getDistPtToP2()));
+    }
 }
