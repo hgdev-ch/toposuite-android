@@ -54,6 +54,9 @@
     <string name="circle_surface_label">Surface cercle [m&#178;]</string>
     <string name="circumference_label">Circonférence cercle [m]</string>
     <string name="clear_3dots">Effacer&#8230;</string>
+    <string name="cpln">Centre professionnel du Littoral neuchâtelois (CPLN)</string>
+    <string name="cpln_webpage_url">http://www.cpln.ch/</string>
+    <string name="cpln_webpage_url_short">www.cpln.ch</string>
     <string name="crag">CRAG (Commission paritaire romande d\'apprentissage de géomaticien&#47;ne)</string>
     <string name="delete">Supprimer</string>
     <string name="delete_3dots">Supprimer&#8230;</string>

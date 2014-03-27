@@ -72,14 +72,22 @@ public class MainActivity extends TopoSuiteActivity {
                 .append(" - " + "<a href='"
                         + App.getContext().getString(R.string.cfgeo_webpage_url) + "'>"
                         + App.getContext().getString(R.string.cfgeo_webpage_url_short) + "</a>")
-                .append("<tr><td></td><td>" + App.getContext().getString(R.string.cepm))
+                .append("</td><tr><td></td><td>" + App.getContext().getString(R.string.cepm))
                 .append(" - " + "<a href='"
                         + App.getContext().getString(R.string.cepm_webpage_url) + "'>"
                         + App.getContext().getString(R.string.cepm_webpage_url_short) + "</a>")
                 .append("</td></tr>")
-                .append("</td></tr></table></div>");
-
-        html.append("<p>")
+                .append("<tr><td>")
+                .append("<img src='file:///android_asset/cpln_logo.png' alt='")
+                .append(App.getContext().getString(R.string.cfgeo))
+                .append("'/></td><td>")
+                .append(App.getContext().getString(R.string.cpln))
+                .append(" - " + "<a href='"
+                        + App.getContext().getString(R.string.cpln_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.cpln_webpage_url_short) + "</a>")
+                .append("</td></tr>")
+                .append("</table></div>")
+                .append("<p>")
                 .append(this.getString(R.string.disclaimer) + ":<br/>")
                 .append(this.getString(R.string.disclaimer_notice) + "<br/><br/>")
                 .append(this.getString(R.string.disclaimer_text))
