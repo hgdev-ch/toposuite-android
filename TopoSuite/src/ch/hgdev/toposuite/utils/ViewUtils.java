@@ -40,7 +40,11 @@ public class ViewUtils {
      */
     public static double readDouble(EditText editText) {
         if ((editText != null) && (editText.length() > 0)) {
-            String val = editText.getText().toString();
+            String input = editText.getText().toString();
+            // FIXME ugly workaround for when a comma is used a the decimal
+            // separator instead of a dot. This is a locale issue that deserves
+            // a proper fix...
+            String val = input.replace(',', '.');
             return (doublePattern.matcher(val).matches()) ?
                     Double.parseDouble(val)
                     : MathUtils.IGNORE_DOUBLE;
