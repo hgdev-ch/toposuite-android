@@ -350,7 +350,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
     private void resetResults() {
         this.calcDistTextView.setText("");
-        this.scaleTextView.setText("");
+        this.scaleTextView.setText(DisplayUtils.toStringForTextView(1.0000) + " (0ppm)");
     }
 
     private void updateScaleFactor() {
