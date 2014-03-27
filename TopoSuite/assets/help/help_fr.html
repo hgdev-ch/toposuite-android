@@ -128,7 +128,9 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <h3 id="points">Gestion des points</h3>
   <p> 
     Il est possible soit d'ajouter les points manuellement, 
-    soit d'importer directement tous les points, à l'aide d'un fichier CSV.    <br>
+    soit d'importer directement tous les points, à l'aide d'un fichier CSV ou LTOP.    <br>
+    Pour tous les fichiers : <br>
+    <b>Les points ne doivent pas comporter de lettre ou de "."</b><br>
     Depuis l'appareil (sans connexion):<br>
     Il faut placer le fichier CSV dans le dossier de 
     l'application (/TopoSuite) pour être importé depuis le menu du programme.
@@ -138,10 +140,15 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
     dont "TopoSuite". 
     En choisissant TopoSuite dans la liste, l'application va s'ouvrir et importer
     la liste des points en demandant une confirmation au travers d'une popup.
-  <br>
+  	<br><br>
+    Pour le fichier CSV : <br>
     Le fichier doit être structuré de la manière suivante:<br>
     N° Point ; Coordonnée Est  ; Coordonnée Nord ; Altitude<br>
-  <b>Les points ne doivent pas comporter de lettre ou de "."</b>
+    Pour le fichier LTOP : <br> 
+	Les colonnes 1 à 14 sont consacrées au numéro; si le numéro de point comporte un point ou un caractère non valable, le point n'est pas importé.<br> 
+	Les colonnes 33 à 44 correspondent à la coordonnée Est,<br>
+	Les colonnes 45 à 56 correspondent à la coordonnée Nord,<br>
+	Les colonnes 61 à 70 contiennent l'altitude.<br>
   <br>
     Il est également possible d'exporter le fichier de point avec le bouton "Partager", ou le bouton "Exporter". 
     Ce dernier permet d'exporter le ficher dans le dossier interne de TopoSuite et peut être récupéré dans le logiciel 
@@ -353,7 +360,7 @@ vZo = Erreur moyenne d'une direction compensée <br>
      Il faut ensuite choisir le point à projeter dans la liste des points connus.<br>
      Le N° de point demandé est celui de la projection du point sur la ligne. <br>
    <img src="file:///android_asset/help/img/point_project_line.png" alt="Projection d'un point sur une droite"/><br>  -->
-     x = Distance du point à projeté (P) à la droite     <br>
+     x = Distance du point à projeter (P) à la droite     <br>
      y = Distance du point projeté au point A   <br>
      z = Distance du point projeté au point B   <br>        
     
