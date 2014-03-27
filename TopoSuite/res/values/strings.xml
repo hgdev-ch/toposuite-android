@@ -88,7 +88,7 @@
     <string name="distance_lon_east_label">Lon. dist. east limit (D-Y)[m]</string>
     <string name="distance_lon_west_label">Lon. dist. west limit (A-X)[m]</string>
     <string name="distance_para_south_label">// dist. to south limit (A-D)[m]</string>
-    <string name="distance_projpoint_line_label">Projected point to line distance (X) [m]:</string>
+    <string name="distance_projpoint_line_label">Point to project to line distance (X) [m]:</string>
     <string name="distance_projpoint_point_1_label">Projected point to point A distance (Y) [m]:</string>
     <string name="distance_projpoint_point_2_label">Projected point to point B distance (Z) [m]:</string>
     <string name="drawer_close">Close navigation drawer</string>
