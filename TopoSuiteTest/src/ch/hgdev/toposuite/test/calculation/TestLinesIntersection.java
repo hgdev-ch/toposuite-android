@@ -7,6 +7,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestLinesIntersection extends TestCase {
     private Point         p1;
@@ -40,8 +41,8 @@ public class TestLinesIntersection extends TestCase {
 
     public void testCompute1() {
         LinesIntersection li = new LinesIntersection(
-                this.p1, 50.876, 0.0, 0.0, this.p3, 350.35,
-                0.0, 0.0, 42, false);
+                this.p1, 50.876, 0.0, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
+                0.0, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("60.484", this.df.format(
@@ -52,8 +53,8 @@ public class TestLinesIntersection extends TestCase {
 
     public void testCompute2() {
         LinesIntersection li = new LinesIntersection(
-                this.p1, 50.876, 0.763, 0.0, this.p3, 350.35,
-                21.87, 0.0, 42, false);
+                this.p1, 50.876, 0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
+                21.87, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("76.697", this.df.format(
@@ -64,8 +65,8 @@ public class TestLinesIntersection extends TestCase {
 
     public void testCompute3() {
         LinesIntersection li = new LinesIntersection(
-                this.p1, 50.876, -0.763, 0.0, this.p3, 350.35,
-                -21.87, 0.0, 42, false);
+                this.p1, 50.876, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
+                -21.87, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("44.271", this.df.format(
@@ -76,8 +77,8 @@ public class TestLinesIntersection extends TestCase {
 
     public void testCompute4() {
         LinesIntersection li = new LinesIntersection(
-                this.p1, 50.876, 0.763, 0.0, this.p3, 350.35,
-                -21.87, 0.0, 42, false);
+                this.p1, 50.876, 0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
+                -21.87, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("45.344", this.df.format(
@@ -88,8 +89,8 @@ public class TestLinesIntersection extends TestCase {
 
     public void testCompute5() {
         LinesIntersection li = new LinesIntersection(
-                this.p1, 50.876, -0.763, 0.0, this.p3, 350.35,
-                21.87, 0.0, 42, false);
+                this.p1, 50.876, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
+                21.87, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("75.623", this.df.format(
@@ -100,8 +101,8 @@ public class TestLinesIntersection extends TestCase {
 
     public void testCompute6() {
         LinesIntersection li = new LinesIntersection(
-                this.p1, this.p4, -0.763, 0.0, this.p3, 250.35,
-                21.87, 0.0, 42, false);
+                this.p1, this.p4, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 250.35,
+                21.87, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("-0.306", this.df.format(
@@ -112,8 +113,8 @@ public class TestLinesIntersection extends TestCase {
 
     public void testCompute7() {
         LinesIntersection li = new LinesIntersection(
-                this.p1, this.p5, 0.0, 0.0, this.p3, this.p4,
-                0.0, 0.0, 42, false);
+                this.p1, this.p5, 0.0, MathUtils.IGNORE_DOUBLE, this.p3, this.p4,
+                0.0, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("60.354", this.df.format(
@@ -124,8 +125,8 @@ public class TestLinesIntersection extends TestCase {
 
     public void testCompute8() {
         LinesIntersection li = new LinesIntersection(
-                this.p1, this.p5, -0.65, 0.0, this.p3, this.p4,
-                -13.872, 0.0, 42, false);
+                this.p1, this.p5, -0.65, MathUtils.IGNORE_DOUBLE, this.p3, this.p4,
+                -13.872, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("74.929", this.df.format(
@@ -149,7 +150,7 @@ public class TestLinesIntersection extends TestCase {
     public void testCompute10() {
         LinesIntersection li = new LinesIntersection(
                 this.p10, this.p20, 0.0, 1.697, this.p30,
-                this.p40, 0.0, 0.0, 42, false);
+                this.p40, 0.0, MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("39.14", this.df.format(
@@ -166,7 +167,7 @@ public class TestLinesIntersection extends TestCase {
 
         LinesIntersection li = new LinesIntersection(
                 localP1, localP2, 0, 5.0, localP3, localP104, -5.0,
-                0.0, 42, false);
+                MathUtils.IGNORE_DOUBLE, 42, false);
         li.compute();
 
         Assert.assertEquals("614.324", this.df.format(
