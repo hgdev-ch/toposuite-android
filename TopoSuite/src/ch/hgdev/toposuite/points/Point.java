@@ -240,7 +240,8 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         String x = ltopLine.substring(44, 56);
 
         // 61-70 => H (optional)
-        String h = (ltopLine.length() >= 70) ? ltopLine.substring(60, 70) : null;
+        int hPosLimit = ltopLine.length() < 70 ? ltopLine.length() : 70;
+        String h = (ltopLine.length() >= 60) ? ltopLine.substring(60, hPosLimit) : null;
 
         try {
             this.number = Integer.parseInt(punkt.replace(" ", ""));
