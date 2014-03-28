@@ -24,4 +24,13 @@ public interface DataImporter {
      * @throws InvalidFormatException
      */
     void createPointFromLTOP(String ltopLine) throws InvalidFormatException;
+
+    /**
+     * Initialize Point attributes from PTP.
+     * 
+     * @param ltopLine
+     *            A PTP line that contains the values of the Point attributes.
+     * @throws InvalidFormatException
+     */
+    void createPointFromPTP(String ptpLine) throws InvalidFormatException;
 }

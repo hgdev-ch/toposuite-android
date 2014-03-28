@@ -59,7 +59,15 @@ public class PointsImporter {
                     if (nbLines == 1) {
                         continue;
                     }
+
+                    /*if (line.matches("^\\*\\*")) {
+                        continue;
+                    }*/
+
                     newPt.createPointFromLTOP(line);
+                    break;
+                case PTP:
+                    newPt.createPointFromPTP(line);
                     break;
                 }
             } catch (InvalidFormatException e) {

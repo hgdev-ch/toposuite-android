@@ -93,7 +93,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                         // way to detect them
                         mime = "text/ptp";
                     }
-                    ViewUtils.showToast(this, "MIME => " + mime);
                 } catch (FileNotFoundException e) {
                     Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
                     ViewUtils.showToast(this, e.getMessage());

@@ -255,6 +255,37 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     }
 
     @Override
+    public void createPointFromPTP(String ptpLine) throws InvalidFormatException {
+        if (ptpLine.length() < 55) {
+            throw new InvalidFormatException(App.getContext().getString(
+                    R.string.exception_invalid_format_values_number));
+        }
+
+        // 11-22 => POINT
+        String point = ptpLine.substring(10, 22);
+
+        // 33-43 => COORD Y
+        String coordY = ptpLine.substring(32, 43);
+
+        // 45-55 => COORD X
+        String coordX = ptpLine.substring(44, 55);
+
+        // 57-64 => altitude (optional)
+        String alti = (ptpLine.length() >= 64) ? ptpLine.substring(56, 64) : null;
+
+        try {
+            this.number = Integer.parseInt(point.replace(" ", ""));
+            this.east = Double.parseDouble(coordY);
+            this.north = Double.parseDouble(coordX);
+            this.altitude = ((alti != null) && !alti.trim().isEmpty()) ?
+                    Double.parseDouble(alti) : MathUtils.IGNORE_DOUBLE;
+        } catch (NumberFormatException e) {
+            throw new InvalidFormatException(App.getContext().getString(
+                    R.string.exception_invalid_format_values));
+        }
+    }
+
+    @Override
     public String toString() {
         // the 0 number is used to put an empty item into the spinner
         if (this.number == 0) {
