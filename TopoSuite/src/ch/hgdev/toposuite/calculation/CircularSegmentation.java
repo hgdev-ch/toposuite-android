@@ -180,7 +180,7 @@ public class CircularSegmentation extends Calculation {
             // it is not necessary to compute the last point
             this.numberOfSegments--;
         } else if (!MathUtils.isIgnorable(this.arcLength)) {
-            double alpha = this.arcLength / this.circleRadius;
+            double alpha = MathUtils.radToGrad(this.arcLength / this.circleRadius);
             this.numberOfSegments = (int) Math.floor(angle / alpha);
             angle = alpha;
         } else {
@@ -193,7 +193,7 @@ public class CircularSegmentation extends Calculation {
         // clear results
         this.points.clear();
         double gis = new Gisement(this.circleCenter, this.circleStartPoint, false).getGisement();
-        for (int i = 1; i < (this.numberOfSegments + 1); i++) {
+        for (int i = 0; i < this.numberOfSegments; i++) {
             gis += angle;
             double east = MathUtils.pointLanceEast(
                     this.circleCenter.getEast(), gis, this.circleRadius);

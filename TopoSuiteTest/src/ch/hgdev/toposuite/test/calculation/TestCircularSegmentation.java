@@ -44,6 +44,8 @@ public class TestCircularSegmentation extends TestCase {
         }
 
         List<Point> points = cs.getPoints();
+        Assert.assertEquals(4, points.size());
+
         Assert.assertEquals("948.7889", this.df4.format(points.get(0).getEast()));
         Assert.assertEquals("-590.8014", this.df4.format(points.get(0).getNorth()));
         Assert.assertEquals("778.2173", this.df4.format(points.get(1).getEast()));
@@ -55,12 +57,12 @@ public class TestCircularSegmentation extends TestCase {
     }
 
     public void testCircularSegmentation2() {
-        Point circleCenter = new Point(1, 12839.4334, 7930.9425, MathUtils.IGNORE_DOUBLE, true,
-                false);
-        Point startPoint = new Point(2, 11200.7028, 11200.7028, MathUtils.IGNORE_DOUBLE, true,
-                false);
-        Point endPoint = new Point(3, 13729.4924, 9487.1929, MathUtils.IGNORE_DOUBLE, true, false);
-        double arcLength = 600.0;
+        Point circleCenter = new Point(
+                1, 352.9166, 288.3151, MathUtils.IGNORE_DOUBLE, true, false);
+        Point startPoint = new Point(
+                2, 283.7735, 299.7822, MathUtils.IGNORE_DOUBLE, true, false);
+        Point endPoint = new Point(3, 416.2355, 318.3647, MathUtils.IGNORE_DOUBLE, true, false);
+        double arcLength = 50.0;
 
         CircularSegmentation cs = new CircularSegmentation(false);
         try {
@@ -73,14 +75,14 @@ public class TestCircularSegmentation extends TestCase {
         }
 
         List<Point> points = cs.getPoints();
-        Assert.assertEquals("11530.4482", this.df4.format(points.get(0).getEast()));
-        Assert.assertEquals("9155.9643", this.df4.format(points.get(0).getNorth()));
-        Assert.assertEquals("12005.4441", this.df4.format(points.get(1).getEast()));
-        Assert.assertEquals("9517.9467", this.df4.format(points.get(1).getNorth()));
-        Assert.assertEquals("12572.9829", this.df4.format(points.get(2).getEast()));
-        Assert.assertEquals("9703.8285", this.df4.format(points.get(2).getNorth()));
-        Assert.assertEquals("13170.0882", this.df4.format(points.get(3).getEast()));
-        Assert.assertEquals("9692.9834", this.df4.format(points.get(3).getNorth()));
+        Assert.assertEquals(3, points.size());
+
+        Assert.assertEquals("308.1385", this.df4.format(points.get(0).getEast()));
+        Assert.assertEquals("342.2334", this.df4.format(points.get(0).getNorth()));
+        Assert.assertEquals("354.3421", this.df4.format(points.get(1).getEast()));
+        Assert.assertEquals("358.3881", this.df4.format(points.get(1).getNorth()));
+        Assert.assertEquals("399.8506", this.df4.format(points.get(2).getEast()));
+        Assert.assertEquals("340.3676", this.df4.format(points.get(2).getNorth()));
 
     }
 
@@ -103,6 +105,8 @@ public class TestCircularSegmentation extends TestCase {
         }
 
         List<Point> points = cs.getPoints();
+        Assert.assertEquals(2, points.size());
+
         Assert.assertEquals("18390.571", this.df3.format(points.get(0).getEast()));
         Assert.assertEquals("3916.1658", this.df4.format(points.get(0).getNorth()));
         Assert.assertEquals("19888.3852", this.df4.format(points.get(1).getEast()));
