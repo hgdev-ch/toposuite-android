@@ -121,9 +121,9 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.cheminOrtho = (CheminementOrthogonal) SharedResources.getCalculationsHistory()
                     .get(position);
+        } else {
+            this.cheminOrtho = new CheminementOrthogonal(true);
         }
-
-        this.drawList();
 
         this.registerForContextMenu(this.measuresListView);
     }
@@ -131,6 +131,10 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+
+        this.adapter = new ArrayListOfMeasuresAdapter(this,
+                R.layout.determinations_list_item, this.cheminOrtho.getMeasures());
+        this.drawList();
 
         List<Point> points = new ArrayList<Point>();
         points.add(new Point(0, 0.0, 0.0, 0.0, true));
@@ -267,16 +271,6 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
     }
 
     private void drawList() {
-        if (this.cheminOrtho != null) {
-            this.adapter = new ArrayListOfMeasuresAdapter(
-                    this,
-                    R.layout.cheminement_ortho_measures_list_item,
-                    this.cheminOrtho.getMeasures());
-        } else {
-            this.adapter = new ArrayListOfMeasuresAdapter(this,
-                    R.layout.cheminement_ortho_measures_list_item,
-                    new ArrayList<CheminementOrthogonal.Measure>());
-        }
         this.measuresListView.setAdapter(this.adapter);
     }
 
@@ -290,15 +284,11 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             this.resetResults();
             ViewUtils.showToast(this, this.getString(R.string.error_same_points));
         } else {
-            if (this.cheminOrtho == null) {
-                this.cheminOrtho = new CheminementOrthogonal(p1, p2, true);
+            if (this.cheminOrtho.getOrthogonalBase() != null) {
+                this.cheminOrtho.getOrthogonalBase().setOrigin(p1);
+                this.cheminOrtho.getOrthogonalBase().setExtremity(p2);
             } else {
-                if (this.cheminOrtho.getOrthogonalBase() != null) {
-                    this.cheminOrtho.getOrthogonalBase().setOrigin(p1);
-                    this.cheminOrtho.getOrthogonalBase().setExtremity(p2);
-                } else {
-                    this.cheminOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2));
-                }
+                this.cheminOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2));
             }
 
             this.calcDistTextView.setText(DisplayUtils.toStringForTextView(
@@ -339,11 +329,6 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
         CheminementOrthogonal.Measure m = new CheminementOrthogonal.Measure(number, distance);
 
-        if (this.cheminOrtho == null) {
-            this.cheminOrtho = new CheminementOrthogonal(true);
-        }
-
-        this.cheminOrtho.getMeasures().add(m);
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
 
