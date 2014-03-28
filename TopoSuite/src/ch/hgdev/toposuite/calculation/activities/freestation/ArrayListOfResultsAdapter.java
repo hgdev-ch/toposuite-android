@@ -38,8 +38,8 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
             TextView numberTextView = (TextView) view.findViewById(R.id.number_item);
             TextView vETextView = (TextView) view.findViewById(R.id.ve_item);
             TextView vNTextView = (TextView) view.findViewById(R.id.vn_item);
-            TextView vATextView = (TextView) view.findViewById(R.id.va_item);
             TextView fSTextView = (TextView) view.findViewById(R.id.fs_item);
+            TextView vATextView = (TextView) view.findViewById(R.id.va_item);
 
             if (numberTextView != null) {
                 numberTextView.setText(
@@ -54,6 +54,10 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
                 vNTextView.setText(DisplayUtils.toStringForTextView(result.getvN()));
             }
 
+            if (fSTextView != null) {
+                fSTextView.setText(DisplayUtils.toStringForTextView(result.getfS()));
+            }
+
             if (vATextView != null) {
                 if (this.hasAltimetry) {
                     vATextView.setText(DisplayUtils.toStringForTextView(result.getvA()));
@@ -61,10 +65,6 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
                     vATextView.setText(
                             App.getContext().getString(R.string.no_value));
                 }
-            }
-
-            if (fSTextView != null) {
-                fSTextView.setText(DisplayUtils.toStringForTextView(result.getfS()));
             }
         }
 

@@ -176,7 +176,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/va_label"
+            android:text="@string/fs_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
         
         <TextView
@@ -185,7 +185,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/fs_label"
+            android:text="@string/va_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
     </LinearLayout>
 
