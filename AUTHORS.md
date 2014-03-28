@@ -5,4 +5,5 @@
 
 ## CONTRIBUTORS
 
+  * Manon Vuilleumier - toposuite logo
   * Rachel Bullinger -  calculations verification (provided values for tests), bug reporting, application help author
