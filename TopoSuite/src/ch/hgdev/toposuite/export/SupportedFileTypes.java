@@ -13,8 +13,9 @@ import ch.hgdev.toposuite.App;
 public enum SupportedFileTypes {
     CSV,
     LTOP, // LTOP custom MIME-type
-    COO, // LTOP with a *.coo extension
-    KOO; // LTOP with a *.koo extension
+    COO, // LTOP with a *.coo/*.COO extension
+    KOO, // LTOP with a *.koo/*.KOO extension
+    PTP;
 
     /**
      * Return the enum values as a list of strings.
