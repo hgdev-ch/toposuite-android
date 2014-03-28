@@ -158,6 +158,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     fs.compute();
                     this.z0 = fs.getUnknownOrientation();
                     this.z0Station = fs.getStationResult();
+                    this.instrumentHeight = fs.getI();
+                    this.iEditText.setText(DisplayUtils.toStringForEditText(this.instrumentHeight));
                 } else {
                     Log.e(Logger.TOPOSUITE_CALCULATION_INVALID_TYPE,
                             PolarSurveyActivity.POLAR_SURVEY_ACTIVITY
@@ -201,6 +203,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 this.z0 = fs.getUnknownOrientation();
                 this.z0Station = fs.getStationResult();
                 this.z0Id = c.getId();
+                this.instrumentHeight = fs.getI();
                 break;
             }
         }
@@ -328,12 +331,19 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     this.stationSpinner.setSelection(
                             this.stationAdapter.getPosition(this.z0Station));
                     this.stationSpinner.setEnabled(false);
+                    if (!MathUtils.isIgnorable(this.instrumentHeight)) {
+                        this.iEditText.setText(
+                                DisplayUtils.toStringForEditText(this.instrumentHeight));
+                        this.iEditText.setEnabled(false);
+                    }
                 }
             } else {
                 this.unknownOrientEditText.setText("");
                 this.unknownOrientEditText.setEnabled(true);
                 this.stationSpinner.setSelection(0);
                 this.stationSpinner.setEnabled(true);
+                this.iEditText.setText("");
+                this.iEditText.setEnabled(true);
             }
             break;
         }
