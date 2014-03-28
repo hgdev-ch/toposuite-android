@@ -321,7 +321,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
             if (checked) {
                 if (MathUtils.isIgnorable(this.z0)) {
                     ViewUtils.showToast(this,
-                            this.getString(R.string.error_no_abriss_calculation_found));
+                            this.getString(R.string.error_no_suitable_calculation_found));
                 } else {
                     this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
                     this.unknownOrientEditText.setEnabled(false);
