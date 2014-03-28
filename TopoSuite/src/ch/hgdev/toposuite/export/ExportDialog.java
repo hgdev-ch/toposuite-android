@@ -94,6 +94,7 @@ public class ExportDialog extends DialogFragment {
 
         // XXX since we only support export to CSV for now, we must keep only the
         // first element of the supported file types list.
+        // TODO make a new SupportedFileTypes for export only.
         //List<String> list = SupportedFileTypes.toList();
         List<String> list = new ArrayList<String>();
         list.add(SupportedFileTypes.toList().get(0));
