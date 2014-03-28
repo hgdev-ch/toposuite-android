@@ -557,6 +557,12 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 return true;
             }
 
+            if (MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getEast())
+                    || MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getNorth())) {
+                ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                return true;
+            }
+
             this.lineIntersec.setPointNumber(ViewUtils.readInt(this.pointNumberEditText));
             this.lineIntersec.notifyUpdate(this.lineIntersec);
 

@@ -189,11 +189,15 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(LINE_POINT_ONE_SELECTED_POSITION, this.point1SelectedPosition);
-        outState.putInt(LINE_POINT_TWO_SELECTED_POSITION, this.point2SelectedPosition);
+        outState.putInt(LineCircleIntersectionActivity.LINE_POINT_ONE_SELECTED_POSITION,
+                this.point1SelectedPosition);
+        outState.putInt(LineCircleIntersectionActivity.LINE_POINT_TWO_SELECTED_POSITION,
+                this.point2SelectedPosition);
 
-        outState.putInt(CIRCLE_CENTER_SELECTED_POSITION, this.centerCSelectedPosition);
-        outState.putInt(CIRCLE_BY_POINT_SELECTED_POSITION, this.byPointSelectedPosition);
+        outState.putInt(LineCircleIntersectionActivity.CIRCLE_CENTER_SELECTED_POSITION,
+                this.centerCSelectedPosition);
+        outState.putInt(LineCircleIntersectionActivity.CIRCLE_BY_POINT_SELECTED_POSITION,
+                this.byPointSelectedPosition);
     }
 
     @Override
@@ -202,14 +206,14 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
         if (savedInstanceState != null) {
             this.point1SelectedPosition = savedInstanceState.getInt(
-                    LINE_POINT_ONE_SELECTED_POSITION);
+                    LineCircleIntersectionActivity.LINE_POINT_ONE_SELECTED_POSITION);
             this.point2SelectedPosition = savedInstanceState.getInt(
-                    LINE_POINT_TWO_SELECTED_POSITION);
+                    LineCircleIntersectionActivity.LINE_POINT_TWO_SELECTED_POSITION);
 
             this.centerCSelectedPosition = savedInstanceState.getInt(
-                    CIRCLE_CENTER_SELECTED_POSITION);
+                    LineCircleIntersectionActivity.CIRCLE_CENTER_SELECTED_POSITION);
             this.byPointSelectedPosition = savedInstanceState.getInt(
-                    CIRCLE_BY_POINT_SELECTED_POSITION);
+                    LineCircleIntersectionActivity.CIRCLE_BY_POINT_SELECTED_POSITION);
         }
     }
 
@@ -240,7 +244,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             // save first point
             if (this.intersectionOneEditText.length() > 0) {
                 this.intersectionOne.setNumber(ViewUtils.readInt(this.intersectionOneEditText));
-                if (SharedResources.getSetOfPoints().find(
+
+                if (MathUtils.isZero(this.intersectionOne.getEast())
+                        && MathUtils.isZero(this.intersectionOne.getNorth())) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                } else if (SharedResources.getSetOfPoints().find(
                         this.intersectionOne.getNumber()) == null) {
                     SharedResources.getSetOfPoints().add(this.intersectionOne);
                     this.intersectionOne.registerDAO(PointsDataSource.getInstance());
@@ -273,7 +281,10 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             if (this.intersectionTwoEditText.length() > 0) {
                 this.intersectionTwo.setNumber(ViewUtils.readInt(this.intersectionTwoEditText));
 
-                if (SharedResources.getSetOfPoints().find(
+                if (MathUtils.isZero(this.intersectionTwo.getEast())
+                        && MathUtils.isZero(this.intersectionTwo.getNorth())) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                } else if (SharedResources.getSetOfPoints().find(
                         this.intersectionTwo.getNumber()) == null) {
                     SharedResources.getSetOfPoints().add(this.intersectionTwo);
                     this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
