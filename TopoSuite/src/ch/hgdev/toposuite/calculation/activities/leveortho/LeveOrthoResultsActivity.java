@@ -32,6 +32,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
     private LeveOrthogonal            leveOrtho;
 
     private int                       saveCounter;
+    private int                       mergeDialogCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +128,19 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
      * already exists in the database, it is simply skipped.
      */
     private void savePoints() {
+        // reset the merge dialog counter
+        this.mergeDialogCounter = 0;
+
         for (int position = 0; position < this.adapter.getCount(); position++) {
             this.savePoint(position);
+        }
+
+        // If the mergeDialogCounter is still 0, it means that no merge dialog
+        // has been popped-up so far. And since the merge dialog callback handles
+        // the redirection to the points manager itself, it is needed to do it
+        // here.
+        if (this.mergeDialogCounter == 0) {
+            ViewUtils.redirectToPointsManagerActivity(this);
         }
     }
 
@@ -152,6 +164,8 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
             return true;
         } else {
             // this point already exists
+            ++this.mergeDialogCounter;
+
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
