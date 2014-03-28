@@ -60,9 +60,9 @@ public class PointsImporter {
                         continue;
                     }
 
-                    /*if (line.matches("^\\*\\*")) {
+                    if (line.matches("^\\*\\*.*")) {
                         continue;
-                    }*/
+                    }
 
                     newPt.createPointFromLTOP(line);
                     break;
