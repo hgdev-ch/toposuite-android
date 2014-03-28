@@ -109,8 +109,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.determinationsListView = (ListView) this.findViewById(R.id.determinations_list);
 
-        this.iEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-        this.unknownOrientEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.iEditText.setInputType(App.getInputTypeCoordinate());
+        this.unknownOrientEditText.setInputType(App.getInputTypeCoordinate());
 
         this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override

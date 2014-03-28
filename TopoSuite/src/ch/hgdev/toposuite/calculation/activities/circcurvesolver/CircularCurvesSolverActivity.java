@@ -40,19 +40,19 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
         this.setContentView(R.layout.activity_circular_curves_solver);
 
         this.radiusEditText = (EditText) this.findViewById(R.id.radius);
-        this.radiusEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.radiusEditText.setInputType(App.getInputTypeCoordinate());
 
         this.alphaAngleEditText = (EditText) this.findViewById(R.id.alpha_angle);
-        this.alphaAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.alphaAngleEditText.setInputType(App.getInputTypeCoordinate());
 
         this.chordOFEditText = (EditText) this.findViewById(R.id.chord_of);
-        this.chordOFEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.chordOFEditText.setInputType(App.getInputTypeCoordinate());
 
         this.tangentEditText = (EditText) this.findViewById(R.id.tangent);
-        this.tangentEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.tangentEditText.setInputType(App.getInputTypeCoordinate());
 
         this.arrowEditText = (EditText) this.findViewById(R.id.arrow);
-        this.arrowEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.arrowEditText.setInputType(App.getInputTypeCoordinate());
 
         this.bisectorTextView = (TextView) this.findViewById(R.id.bisector);
         this.arcTextView = (TextView) this.findViewById(R.id.arc);

@@ -349,9 +349,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             this.distP1EditText.setEnabled(true);
             this.distP1TexView.setEnabled(true);
         }
-        this.distP1EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-        this.displacementEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-        this.gisementEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.distP1EditText.setInputType(App.getInputTypeCoordinate());
+        this.displacementEditText.setInputType(App.getInputTypeCoordinate());
+        this.gisementEditText.setInputType(App.getInputTypeCoordinate());
         this.point1Spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -438,11 +438,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 // actually nothing
             }
         });
-        this.radiusCEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.radiusCEditText.setInputType(App.getInputTypeCoordinate());
 
         // results
-        this.intersectionOneEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-        this.intersectionTwoEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.intersectionOneEditText.setInputType(App.getInputTypeCoordinate());
+        this.intersectionTwoEditText.setInputType(App.getInputTypeCoordinate());
     }
 
     /**

@@ -5,8 +5,10 @@ import java.util.Locale;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.util.Log;
 import ch.hgdev.toposuite.calculation.Calculation;
@@ -16,6 +18,7 @@ import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.collections.DAOMapperArrayList;
 import ch.hgdev.toposuite.dao.collections.DAOMapperTreeSet;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.settings.SettingsActivity;
 import ch.hgdev.toposuite.utils.Logger;
 
 /**
@@ -28,17 +31,17 @@ public class App extends Application {
     /**
      * App (public) directory.
      */
-    public static final String PUBLIC_DIR                       = "Toposuite";
+    public static final String PUBLIC_DIR                   = "Toposuite";
 
     /**
      * Database file name.
      */
-    public static final String DATABASE                         = "topo_suite.db";
+    public static final String DATABASE                     = "topo_suite.db";
 
     /**
      * The file name used by the points sharing function.
      */
-    public static final String FILENAME_FOR_POINTS_SHARING      = "toposuite-points.csv";
+    public static final String FILENAME_FOR_POINTS_SHARING  = "toposuite-points.csv";
 
     /**
      * Database version. This number must be increased whenever the database
@@ -46,41 +49,33 @@ public class App extends Application {
      * {@link SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)}
      * method.
      */
-    public static final int    DATABASE_VERSION                 = 5;
-
-    /**
-     * Determine an input type of type coordinate, that is a decimal signed
-     * number.
-     */
-    public static final int    INPUTTYPE_TYPE_NUMBER_COORDINATE = InputType.TYPE_CLASS_NUMBER
-                                                                        | InputType.TYPE_NUMBER_FLAG_DECIMAL
-                                                                        | InputType.TYPE_NUMBER_FLAG_SIGNED;
+    public static final int    DATABASE_VERSION             = 5;
 
     /**
      * CSV separator.
      */
-    public static final String CSV_SEPARATOR                    = ";";
+    public static final String CSV_SEPARATOR                = ";";
 
     /**
      * Number of decimal to display with dealing with numbers.
      */
-    public static String       numberOfDecimals                 = "%.4f";
+    public static String       numberOfDecimals             = "%.4f";
 
     /**
      * A smaller number of decimals than {@link App}. It is used to format
      * numbers that are not meant to be very precise.
      */
-    public static String       smallNumberOfDecimals            = "%.2f";
+    public static String       smallNumberOfDecimals        = "%.2f";
 
     /**
      * Date format.
      */
-    public static final String dateFormat                       = "MM-dd-yyyy HH:mm";
+    public static final String dateFormat                   = "MM-dd-yyyy HH:mm";
 
     /**
      * Default locale (language).
      */
-    public static final Locale locale                           = Locale.getDefault();
+    public static final Locale locale                       = Locale.getDefault();
 
     /**
      * This variable contains the path to the publicly accessible data directory
@@ -97,7 +92,7 @@ public class App extends Application {
     /**
      * Flag for verifying if the points have been exported or not.
      */
-    public static boolean      arePointsExported                = false;
+    public static boolean      arePointsExported            = false;
 
     /**
      * Database helper.
@@ -108,6 +103,23 @@ public class App extends Application {
      * Application context.
      */
     private static Context     context;
+
+    /**
+     * Determine an input type of type coordinate, that is a decimal signed
+     * number.
+     */
+    private static int         inputTypeCoordinate;
+
+    /**
+     * Standard type for coordinates.
+     */
+    private static final int   coordinatesTypeStandard      = InputType.TYPE_CLASS_NUMBER
+                                                                    | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+    /**
+     * Type of coordinate that allows values to be negative.
+     */
+    private static final int   coordinatesTypeAllowNegative = coordinatesTypeStandard
+                                                                    | InputType.TYPE_NUMBER_FLAG_SIGNED;
 
     @Override
     public void onCreate() {
@@ -142,6 +154,15 @@ public class App extends Application {
                         "Failed to create the temporary directoy!");
             }
         }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean allowNegativeCoordinate = prefs.getBoolean(
+                SettingsActivity.SettingsFragment.KEY_PREF_NEGATIVE_COORDINATES, true);
+        if (allowNegativeCoordinate) {
+            App.inputTypeCoordinate = App.coordinatesTypeAllowNegative;
+        } else {
+            App.inputTypeCoordinate = App.coordinatesTypeStandard;
+        }
     }
 
     @Override
@@ -156,4 +177,26 @@ public class App extends Application {
     public static Context getContext() {
         return App.context;
     }
+
+    /*
+     * Toggle the allowed input coordinates.
+     */
+    public static void toggleNegativeCoordinates() {
+        switch (App.inputTypeCoordinate) {
+        case App.coordinatesTypeStandard:
+            App.inputTypeCoordinate = coordinatesTypeAllowNegative;
+            break;
+        case App.coordinatesTypeAllowNegative:
+            App.inputTypeCoordinate = coordinatesTypeStandard;
+            break;
+        default:
+            Log.e(Logger.TOPOSUITE_SETTINGS_ERROR,
+                    "The type of allowed input coordinate is non valid");
+        }
+    }
+
+    public static int getInputTypeCoordinate() {
+        return App.inputTypeCoordinate;
+    }
+
 }

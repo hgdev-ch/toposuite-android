@@ -87,8 +87,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.pointsListView = (ListView) this.findViewById(R.id.list_of_points);
 
-        this.iEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
-        this.unknownOrientEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.iEditText.setInputType(App.getInputTypeCoordinate());
+        this.unknownOrientEditText.setInputType(App.getInputTypeCoordinate());
 
         this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override

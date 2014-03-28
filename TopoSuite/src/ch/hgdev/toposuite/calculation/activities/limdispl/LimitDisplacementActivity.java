@@ -164,7 +164,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
         this.pointWestNumberEditText = (EditText) this.findViewById(R.id.point_number_west);
         this.pointEastNumberEditText = (EditText) this.findViewById(R.id.point_number_east);
 
-        this.imposedSurfaceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.imposedSurfaceEditText.setInputType(App.getInputTypeCoordinate());
         this.pointWestNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_VARIATION_NORMAL);
         this.pointEastNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER

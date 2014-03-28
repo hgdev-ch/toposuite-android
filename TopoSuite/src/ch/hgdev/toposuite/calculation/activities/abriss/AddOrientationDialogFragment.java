@@ -183,21 +183,21 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.horizontalDirectionEditText.setHint(
                 this.getActivity().getString(R.string.horiz_direction_3dots)
                         + this.getActivity().getString(R.string.unit_gradian));
-        this.horizontalDirectionEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.horizontalDirectionEditText.setInputType(App.getInputTypeCoordinate());
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
         this.horizontalDistanceEditText.setHint(this.getActivity().getString(
                 R.string.distance_3dots)
                 + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
-        this.horizontalDistanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.horizontalDistanceEditText.setInputType(App.getInputTypeCoordinate());
 
         this.zenithalAngleEditText = new EditText(this.getActivity());
         this.zenithalAngleEditText.setHint(this.getActivity().getString(
                 R.string.zenithal_angle_3dots)
                 + this.getActivity().getString(R.string.unit_gradian)
                 + this.getActivity().getString(R.string.optional_prths));
-        this.zenithalAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.zenithalAngleEditText.setInputType(App.getInputTypeCoordinate());
 
         this.horizontalDirection = 0.0;
         this.horizontalDistance = 0.0;

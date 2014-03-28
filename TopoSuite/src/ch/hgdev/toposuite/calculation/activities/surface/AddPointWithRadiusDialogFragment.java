@@ -142,7 +142,7 @@ public class AddPointWithRadiusDialogFragment extends DialogFragment {
                 this.getActivity().getString(R.string.radius_3dots)
                         + this.getActivity().getString(R.string.unit_meter)
                         + this.getActivity().getString(R.string.optional_prths));
-        this.radiusEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.radiusEditText.setInputType(App.getInputTypeCoordinate());
 
         this.pointSpinner = new Spinner(this.getActivity());
         this.pointSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {

@@ -51,7 +51,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
         this.measuresListView = (ListView) this.findViewById(
                 R.id.determinations_list);
 
-        this.iEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.iEditText.setInputType(App.getInputTypeCoordinate());
         this.stationEditText.setInputType(InputType.TYPE_CLASS_NUMBER
                 | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 

@@ -80,10 +80,10 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         this.pointTextView = (TextView) this.findViewById(R.id.point);
 
         this.gisementEditText = (EditText) this.findViewById(R.id.gisement);
-        this.gisementEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.gisementEditText.setInputType(App.getInputTypeCoordinate());
 
         this.displacementEditText = (EditText) this.findViewById(R.id.displacement);
-        this.displacementEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.displacementEditText.setInputType(App.getInputTypeCoordinate());
 
         this.pointNumberEditText = (EditText) this.findViewById(R.id.point_number);
         this.pointNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
@@ -184,8 +184,8 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             PointProjectionOnALine ppoal = (PointProjectionOnALine)
                     SharedResources.getCalculationsHistory().get(position);
 
-            //this.point1SelectedPosition = a.getPosition(ppoal.getP1());
-            //this.point2SelectedPosition = a.getPosition(ppoal.getP2());
+            // this.point1SelectedPosition = a.getPosition(ppoal.getP1());
+            // this.point2SelectedPosition = a.getPosition(ppoal.getP2());
             this.pointSelectedPosition = a.getPosition(ppoal.getPtToProj());
 
             // TODO find a more "elegant" solution

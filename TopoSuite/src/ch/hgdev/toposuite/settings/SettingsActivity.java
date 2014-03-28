@@ -1,10 +1,13 @@
 package ch.hgdev.toposuite.settings;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 
@@ -40,7 +43,9 @@ public class SettingsActivity extends TopoSuiteActivity {
      * @author HGdev
      * 
      */
-    public static class SettingsFragment extends PreferenceFragment {
+    public static class SettingsFragment extends PreferenceFragment
+            implements OnSharedPreferenceChangeListener {
+        public static final String KEY_PREF_NEGATIVE_COORDINATES = "switch_negative_coordinates";
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,27 @@ public class SettingsActivity extends TopoSuiteActivity {
                     return true;
                 }
             });
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            this.getPreferenceScreen().getSharedPreferences()
+                    .registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            this.getPreferenceScreen().getSharedPreferences()
+                    .unregisterOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if (key.equals(KEY_PREF_NEGATIVE_COORDINATES)) {
+                App.toggleNegativeCoordinates();
+            }
         }
 
         /**

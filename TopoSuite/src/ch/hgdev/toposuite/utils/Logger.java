@@ -25,6 +25,8 @@ public class Logger {
 
     public final static String TOPOSUITE_SQL_SUCCESS                 = "TOPOSUITE SQL SUCCESS";
 
+    public final static String TOPOSUITE_SETTINGS_ERROR              = "TOPOSUITE SETTINGS ERROR";
+
     /**
      * Format point for logging.
      * 

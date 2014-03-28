@@ -183,14 +183,14 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 this.getActivity().getString(R.string.horiz_direction_3dots)
                         + this.getActivity().getString(R.string.unit_gradian));
         this.horizDirEditText.setText(DisplayUtils.toStringForEditText(this.horizDir));
-        this.horizDirEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.horizDirEditText.setInputType(App.getInputTypeCoordinate());
 
         this.distanceEditText = new EditText(this.getActivity());
         this.distanceEditText.setHint(this.getActivity().getString(
                 R.string.distance_3dots)
                 + this.getActivity().getString(R.string.unit_meter));
         this.distanceEditText.setText(DisplayUtils.toStringForEditText(this.distance));
-        this.distanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.distanceEditText.setInputType(App.getInputTypeCoordinate());
 
         this.zenAngleEditText = new EditText(this.getActivity());
         this.zenAngleEditText.setHint(this.getActivity().getString(
@@ -198,7 +198,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.unit_gradian)
                 + this.getActivity().getString(R.string.optional_prths));
         this.zenAngleEditText.setText(DisplayUtils.toStringForEditText(this.zenAngle));
-        this.zenAngleEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.zenAngleEditText.setInputType(App.getInputTypeCoordinate());
 
         this.sEditText = new EditText(this.getActivity());
         this.sEditText.setHint(this.getActivity().getString(
@@ -206,7 +206,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
         this.sEditText.setText(DisplayUtils.toStringForEditText(this.s));
-        this.sEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.sEditText.setInputType(App.getInputTypeCoordinate());
 
         this.latDeplEditText = new EditText(this.getActivity());
         this.latDeplEditText.setHint(this.getActivity().getString(
@@ -214,7 +214,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
         this.latDeplEditText.setText(DisplayUtils.toStringForEditText(this.latDepl));
-        this.latDeplEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.latDeplEditText.setInputType(App.getInputTypeCoordinate());
 
         this.lonDeplEditText = new EditText(this.getActivity());
         this.lonDeplEditText.setHint(this.getActivity().getString(
@@ -222,7 +222,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.unit_meter)
                 + this.getActivity().getString(R.string.optional_prths));
         this.lonDeplEditText.setText(DisplayUtils.toStringForEditText(this.lonDepl));
-        this.lonDeplEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.lonDeplEditText.setInputType(App.getInputTypeCoordinate());
     }
 
     /**

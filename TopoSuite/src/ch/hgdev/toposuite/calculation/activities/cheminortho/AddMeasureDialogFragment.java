@@ -130,7 +130,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
         this.distanceEditText = new EditText(this.getActivity());
         this.distanceEditText.setHint(this.getActivity().getString(R.string.distance_3dots)
                 + this.getActivity().getString(R.string.unit_meter));
-        this.distanceEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.distanceEditText.setInputType(App.getInputTypeCoordinate());
 
         this.number = 0;
         this.distance = 0.0;

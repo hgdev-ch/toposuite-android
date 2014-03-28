@@ -82,7 +82,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         this.scaleTextView = (TextView) this.findViewById(R.id.scale_factor);
 
         this.measuredDistEditText = (EditText) this.findViewById(R.id.measured_distance);
-        this.measuredDistEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.measuredDistEditText.setInputType(App.getInputTypeCoordinate());
 
         this.measuresListView = (ListView) this.findViewById(R.id.points_list);
 

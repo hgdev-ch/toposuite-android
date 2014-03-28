@@ -140,26 +140,26 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         }
 
         this.gisementD1EditText = (EditText) this.findViewById(R.id.gisement_d1);
-        this.gisementD1EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.gisementD1EditText.setInputType(App.getInputTypeCoordinate());
 
         this.gisementD2EditText = (EditText) this.findViewById(R.id.gisement_d2);
-        this.gisementD2EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.gisementD2EditText.setInputType(App.getInputTypeCoordinate());
 
         this.displacementD1EditText = (EditText) this.findViewById(R.id.displacement_d1);
-        this.displacementD1EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.displacementD1EditText.setInputType(App.getInputTypeCoordinate());
 
         this.displacementD2EditText = (EditText) this.findViewById(R.id.displacement_d2);
-        this.displacementD2EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.displacementD2EditText.setInputType(App.getInputTypeCoordinate());
 
         this.pointNumberEditText = (EditText) this.findViewById(R.id.point_number);
-        this.pointNumberEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.pointNumberEditText.setInputType(App.getInputTypeCoordinate());
 
         this.distP1D1EditText = (EditText) this.findViewById(R.id.dist_p1_d1);
-        this.distP1D1EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.distP1D1EditText.setInputType(App.getInputTypeCoordinate());
         this.distP1D1EditText.setText("0.0");
 
         this.distP1D2EditText = (EditText) this.findViewById(R.id.dist_p1_d2);
-        this.distP1D2EditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.distP1D2EditText.setInputType(App.getInputTypeCoordinate());
         this.distP1D2EditText.setText("0.0");
 
         this.point2D1SpinnerLayout = (LinearLayout) this

@@ -134,13 +134,13 @@ public class AddMeasureDialogFragment extends DialogFragment {
         this.abscissaEditText = new EditText(this.getActivity());
         this.abscissaEditText.setHint(this.getActivity().getString(R.string.abscissa_3dots)
                 + this.getActivity().getString(R.string.unit_meter));
-        this.abscissaEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.abscissaEditText.setInputType(App.getInputTypeCoordinate());
 
         this.ordinateEditText = new EditText(this.getActivity());
         this.ordinateEditText.setHint(this.getActivity().getString(R.string.ordinate_3dots)
                 + this.getActivity().getString(R.string.unit_meter));
 
-        this.ordinateEditText.setInputType(App.INPUTTYPE_TYPE_NUMBER_COORDINATE);
+        this.ordinateEditText.setInputType(App.getInputTypeCoordinate());
 
         this.number = 0;
         this.abscissa = 0.0;
