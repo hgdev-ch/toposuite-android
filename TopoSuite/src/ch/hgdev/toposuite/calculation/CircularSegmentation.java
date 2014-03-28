@@ -225,4 +225,7 @@ public class CircularSegmentation extends Calculation {
         return this.points;
     }
 
+    public double getCircleRadius() {
+        return this.circleRadius;
+    }
 }
