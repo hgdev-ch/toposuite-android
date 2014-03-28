@@ -167,7 +167,7 @@ public class CircularSegmentation extends Calculation {
     @Override
     public void compute() throws CalculationException {
         double angle = MathUtils.angle3Pts(
-                this.circleCenter, this.circleStartPoint, this.circleEndPoint);
+                this.circleStartPoint, this.circleCenter, this.circleEndPoint);
 
         if (!MathUtils.isIgnorable(this.numberOfSegments)) {
             angle /= this.numberOfSegments;
