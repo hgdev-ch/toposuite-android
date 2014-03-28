@@ -60,12 +60,18 @@ public class CircularSegmentation extends Calculation {
                 true);
     }
 
-    public CircularSegmentation() {
+    public CircularSegmentation(boolean hasDAO) {
         super(CalculationType.CIRCULARSEGMENTATION,
                 "Circular segmentation",
                 true);
         this.initAttributes();
-        SharedResources.getCalculationsHistory().add(0, this);
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
+    }
+
+    public CircularSegmentation() {
+        this(true);
     }
 
     /**
@@ -142,8 +148,8 @@ public class CircularSegmentation extends Calculation {
         if (!(DoubleMath.fuzzyEquals(radiusStart, radiusEnd, CircularSegmentation.TOLERANCE))) {
             String msg = String.format(CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "the two points must be at the same distance from the center each."
-                    + "Radius according to the starting point is %d.\n"
-                    + "Radius according to the ending point is %d.\n",
+                    + "Radius according to the starting point is %f.\n"
+                    + "Radius according to the ending point is %f.\n",
                     radiusStart, radiusEnd);
             Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
@@ -167,7 +173,7 @@ public class CircularSegmentation extends Calculation {
     @Override
     public void compute() throws CalculationException {
         double angle = MathUtils.angle3Pts(
-                this.circleCenter, this.circleStartPoint, this.circleEndPoint);
+                this.circleStartPoint, this.circleCenter, this.circleEndPoint);
 
         if (!MathUtils.isIgnorable(this.numberOfSegments)) {
             angle /= this.numberOfSegments;
@@ -186,7 +192,7 @@ public class CircularSegmentation extends Calculation {
 
         // clear results
         this.points.clear();
-        double gis = new Gisement(this.circleCenter, this.circleStartPoint).getGisement();
+        double gis = new Gisement(this.circleCenter, this.circleStartPoint, false).getGisement();
         for (int i = 1; i < (this.numberOfSegments + 1); i++) {
             gis += angle;
             double east = MathUtils.pointLanceEast(

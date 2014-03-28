@@ -53,25 +53,10 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
      *            Determine if this point is a base point. A base point is a
      *            point that has been added as is and NOT computed.
      */
-    public Point(int number, double east, double north, double altitude, boolean basePoint) {
-        Preconditions.checkArgument(number >= 0, "A point number must be a positive integer: %s",
-                number);
-
-        this.number = number;
-        this.east = east;
-        this.north = north;
-        this.altitude = altitude;
-        this.basePoint = basePoint;
-
-        this.daoList = new ArrayList<DAO>();
-        this.registerDAO(PointsDataSource.getInstance());
-    }
-
-    /**
-     * See {@link Point#Point(int, double, double, double, boolean)}.
-     */
     public Point(int number, double east, double north, double altitude, boolean basePoint,
             boolean hasDAO) {
+        Preconditions.checkArgument(number >= 0, "A point number must be a positive integer: %s",
+                number);
         this.number = number;
         this.east = east;
         this.north = north;
@@ -83,6 +68,10 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         if (hasDAO) {
             this.registerDAO(PointsDataSource.getInstance());
         }
+    }
+
+    public Point(int number, double east, double north, double altitude, boolean basePoint) {
+        this(number, east, north, altitude, basePoint, true);
     }
 
     public Point(boolean hasDAO) {

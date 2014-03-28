@@ -87,7 +87,7 @@ public class LineCircleIntersection extends Calculation {
     public LineCircleIntersection(boolean hasDAO) {
         super(CalculationType.LINECIRCINTERSEC,
                 App.getContext().getString(R.string.title_activity_line_circle_intersection),
-                true);
+                hasDAO);
 
         this.p1L = new Point(false);
         this.p2L = new Point(false);

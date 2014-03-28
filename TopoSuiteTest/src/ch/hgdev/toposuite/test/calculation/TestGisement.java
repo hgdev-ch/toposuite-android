@@ -13,7 +13,7 @@ public class TestGisement extends TestCase {
         Point p2 = new Point(2, 634.087, 257.975, 134.876, true);
 
         // Test 1 - just a useless comment to make this test more readable
-        Gisement g = new Gisement(p1, p2);
+        Gisement g = new Gisement(p1, p2, false);
         g.removeDAO(CalculationsDataSource.getInstance());
 
         Assert.assertEquals("33.98913148", String.format("%.8f", g.getGisement()));
