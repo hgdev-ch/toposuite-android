@@ -284,6 +284,7 @@
     <string name="title_activity_circle">Cercle par 3 points</string>
     <string name="title_activity_circles_intersection">Intersection de cercles</string>
     <string name="title_activity_circular_curve_solver">Résolution de courbes circulaires</string>
+    <string name="title_activity_circular_segmentation">Segmentation d\'un arc de cercle</string>
     <string name="title_activity_free_station">Station libre</string>
     <string name="title_activity_free_station_results">Station libre - résultats</string>
     <string name="title_activity_gisement">Gisement / Distance</string>

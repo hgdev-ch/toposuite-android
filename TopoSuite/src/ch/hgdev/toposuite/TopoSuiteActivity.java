@@ -23,6 +23,7 @@ import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoAct
 import ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesSolverActivity;
 import ch.hgdev.toposuite.calculation.activities.circle.CircleActivity;
 import ch.hgdev.toposuite.calculation.activities.circlesintersection.CirclesIntersectionActivity;
+import ch.hgdev.toposuite.calculation.activities.circularsegmentation.CircularSegmentationActivity;
 import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.calculation.activities.leveortho.LeveOrthoActivity;
@@ -236,6 +237,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         various.getChildren().add(
                 new ActivityItem(this.getString(R.string.title_activity_point_projection),
                         PointProjectionActivity.class));
+        various.getChildren().add(
+                new ActivityItem(this.getString(R.string.title_activity_circular_segmentation),
+                        CircularSegmentationActivity.class));
         groups.append(4, various);
 
         CalculationGroup mathematics = new CalculationGroup(

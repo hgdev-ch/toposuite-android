@@ -7,7 +7,10 @@ import java.util.List;
 import org.json.JSONException;
 
 import android.util.Log;
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.circularsegmentation.CircularSegmentationActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -55,15 +58,15 @@ public class CircularSegmentation extends Calculation {
     public CircularSegmentation(long id, Date lastModification) {
         super(id,
                 CalculationType.CIRCULARSEGMENTATION,
-                "Circular segmentation",
+                App.getContext().getString(R.string.title_activity_circular_segmentation),
                 lastModification,
                 true);
     }
 
     public CircularSegmentation(boolean hasDAO) {
         super(CalculationType.CIRCULARSEGMENTATION,
-                "Circular segmentation",
-                true);
+                App.getContext().getString(R.string.title_activity_circular_segmentation),
+                hasDAO);
         this.initAttributes();
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
@@ -217,14 +220,12 @@ public class CircularSegmentation extends Calculation {
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Implement
-        return null;
+        return CircularSegmentationActivity.class;
     }
 
     @Override
     public String getCalculationName() {
-        // TODO Implement
-        return null;
+        return App.getContext().getString(R.string.title_activity_circular_segmentation);
     }
 
     public List<Point> getPoints() {

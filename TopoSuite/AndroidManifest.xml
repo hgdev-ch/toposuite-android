@@ -35,22 +35,27 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <!-- Dirty workaround for the LTOP and PTP files support. Indeed,
+                <!--
+                Dirty workaround for the LTOP and PTP files support. Indeed,
                 if we put a pathPattern for the *.KOO, *.COO and *.ptp files, it becomes
-                impossible to import anything from GMail to TopoSuite... -->
-                <data android:scheme="file"
-                      android:mimeType="*/*"
-                      android:pathPattern=".*"
-                      android:host="*"/>
-                
-                <data android:scheme="content"
-                      android:mimeType="*/*"
-                      android:pathPattern=".*"
-                      android:host="*"/>
-                
-                <!--<data android:mimeType="text/csv" />
+                impossible to import anything from GMail to TopoSuite...
+                -->
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*"
+                    android:scheme="content" />
+
+                <!--
+                <data android:mimeType="text/csv" />
                 <data android:mimeType="text/comma-separated-values" />
-                <data android:mimeType="application/octet-stream" />-->
+                <data android:mimeType="application/octet-stream" />
+                -->
             </intent-filter>
         </activity>
         <activity
@@ -172,6 +177,10 @@
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.limdispl.LimitDisplacementResultsActivity"
             android:label="@string/title_activity_limit_displacement_results" >
+        </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.circularsegmentation.CircularSegmentationActivity"
+            android:label="@string/title_activity_circular_segmentation" >
         </activity>
     </application>
 
