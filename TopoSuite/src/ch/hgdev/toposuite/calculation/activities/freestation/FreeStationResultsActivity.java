@@ -111,6 +111,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
     private boolean savePoint(Point st) {
         if (SharedResources.getSetOfPoints().find(st.getNumber()) == null) {
             SharedResources.getSetOfPoints().add(st);
+            ViewUtils.redirectToPointsManagerActivity(this);
             ViewUtils.showToast(this, this.getString(R.string.point_add_success));
             return true;
         } else {
@@ -138,6 +139,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
     @Override
     public void onMergePointsDialogSuccess(String message) {
         ViewUtils.showToast(this, message);
+        ViewUtils.redirectToPointsManagerActivity(this);
     }
 
     @Override
