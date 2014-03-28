@@ -1,14 +1,21 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <!-- TODO uncomment once settings are supported
-    <PreferenceScreen
-        android:key="screen_general_settings"
-        android:title="@string/general_settings" >
-    </PreferenceScreen>
-    -->
-    <PreferenceScreen
-        android:key="screen_about_toposuite"
-        android:title="@string/about_toposuite" >
-    </PreferenceScreen>
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="@string/pref_general_title" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="switch_negative_coordinates"
+            android:title="@string/pref_negative_coordinates" >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="@string/pref_about_title" >
+        <PreferenceScreen
+            android:key="screen_about_toposuite"
+            android:title="@string/about_toposuite" >
+        </PreferenceScreen>
+    </PreferenceCategory>
 
 </PreferenceScreen>
