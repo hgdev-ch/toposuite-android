@@ -186,7 +186,7 @@ public class CircularSegmentation extends Calculation {
 
         // clear results
         this.points.clear();
-        double gis = new Gisement(this.circleCenter, this.circleStartPoint).getGisement();
+        double gis = new Gisement(this.circleCenter, this.circleStartPoint, false).getGisement();
         for (int i = 1; i < (this.numberOfSegments + 1); i++) {
             gis += angle;
             double east = MathUtils.pointLanceEast(
