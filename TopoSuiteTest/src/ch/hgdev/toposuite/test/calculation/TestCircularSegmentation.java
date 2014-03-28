@@ -35,10 +35,8 @@ public class TestCircularSegmentation extends TestCase {
                     circleCenter, startPoint, endPoint, nbOfSegments, MathUtils.IGNORE_DOUBLE);
             cs.compute();
         } catch (CalculationException e) {
-            e.printStackTrace();
             Assert.fail("A calculation exception should not be thrown here");
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
             Assert.fail("An illegal argument exception should not be thrown here");
         }
 
@@ -94,5 +92,30 @@ public class TestCircularSegmentation extends TestCase {
         Assert.assertEquals("13225.4403", this.df4.format(points.get(10).getNorth()));
         Assert.assertEquals("19579.2588", this.df4.format(points.get(11).getEast()));
         Assert.assertEquals("12994.6514", this.df4.format(points.get(11).getNorth()));
+    }
+
+    public void testCircularSegmentation3() {
+        Point circleCenter = new Point(
+                1, 19863.9616, 1890.3261, MathUtils.IGNORE_DOUBLE, true, false);
+        Point startPoint = new Point(2, 17473.4117, 2638.7761, MathUtils.IGNORE_DOUBLE, true, false);
+        Point endPoint = new Point(3, 21376.5743, 3887.0507, MathUtils.IGNORE_DOUBLE, true, false);
+        int nbOfSegments = 3;
+
+        CircularSegmentation cs = new CircularSegmentation();
+        try {
+            cs.initAttributes(
+                    circleCenter, startPoint, endPoint, nbOfSegments, MathUtils.IGNORE_DOUBLE);
+            cs.compute();
+        } catch (CalculationException e) {
+            Assert.fail("A calculation exception should not be thrown here");
+        } catch (IllegalArgumentException e) {
+            Assert.fail("An illegal argument exception should not be thrown here");
+        }
+
+        List<Point> points = cs.getPoints();
+        Assert.assertEquals("18390.5709", this.df4.format(points.get(0).getEast()));
+        Assert.assertEquals("3916.1658", this.df4.format(points.get(0).getNorth()));
+        Assert.assertEquals("19888.3852", this.df4.format(points.get(1).getEast()));
+        Assert.assertEquals("4395.1833", this.df4.format(points.get(1).getNorth()));
     }
 }
