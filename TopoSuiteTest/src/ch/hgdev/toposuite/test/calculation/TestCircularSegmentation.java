@@ -32,7 +32,7 @@ public class TestCircularSegmentation extends TestCase {
         Point endPoint = new Point(3, 192.8039, -259.4042, MathUtils.IGNORE_DOUBLE, true, false);
         int nbOfSegments = 5;
 
-        CircularSegmentation cs = new CircularSegmentation();
+        CircularSegmentation cs = new CircularSegmentation(false);
         try {
             cs.initAttributes(
                     circleCenter, startPoint, endPoint, nbOfSegments, MathUtils.IGNORE_DOUBLE);
@@ -62,7 +62,7 @@ public class TestCircularSegmentation extends TestCase {
         Point endPoint = new Point(3, 13729.4924, 9487.1929, MathUtils.IGNORE_DOUBLE, true, false);
         double arcLength = 600.0;
 
-        CircularSegmentation cs = new CircularSegmentation();
+        CircularSegmentation cs = new CircularSegmentation(false);
         try {
             cs.initAttributes(circleCenter, startPoint, endPoint, MathUtils.IGNORE_INT, arcLength);
             cs.compute();
@@ -91,7 +91,7 @@ public class TestCircularSegmentation extends TestCase {
         Point endPoint = new Point(3, 21376.5743, 3887.0507, MathUtils.IGNORE_DOUBLE, true, false);
         int nbOfSegments = 3;
 
-        CircularSegmentation cs = new CircularSegmentation();
+        CircularSegmentation cs = new CircularSegmentation(false);
         try {
             cs.initAttributes(
                     circleCenter, startPoint, endPoint, nbOfSegments, MathUtils.IGNORE_DOUBLE);

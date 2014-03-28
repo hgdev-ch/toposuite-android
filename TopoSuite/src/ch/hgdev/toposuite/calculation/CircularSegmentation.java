@@ -60,12 +60,18 @@ public class CircularSegmentation extends Calculation {
                 true);
     }
 
-    public CircularSegmentation() {
+    public CircularSegmentation(boolean hasDAO) {
         super(CalculationType.CIRCULARSEGMENTATION,
                 "Circular segmentation",
                 true);
         this.initAttributes();
-        SharedResources.getCalculationsHistory().add(0, this);
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
+    }
+
+    public CircularSegmentation() {
+        this(true);
     }
 
     /**
