@@ -148,8 +148,8 @@ public class CircularSegmentation extends Calculation {
         if (!(DoubleMath.fuzzyEquals(radiusStart, radiusEnd, CircularSegmentation.TOLERANCE))) {
             String msg = String.format(CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "the two points must be at the same distance from the center each."
-                    + "Radius according to the starting point is %d.\n"
-                    + "Radius according to the ending point is %d.\n",
+                    + "Radius according to the starting point is %f.\n"
+                    + "Radius according to the ending point is %f.\n",
                     radiusStart, radiusEnd);
             Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
