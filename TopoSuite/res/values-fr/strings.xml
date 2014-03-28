@@ -239,6 +239,9 @@
     <string name="point_search">Rechercher un point</string>
     <string name="point_one_not_saved">Le premier point n\'a pas été sauvegardé!</string>
     <string name="point_two_not_saved">Le second point n\'a pas été sauvegardé!</string>
+    <string name="pref_about_title">À propos</string>
+	<string name="pref_general_title">Paramètres généraux</string>
+    <string name="pref_negative_coordinates">Autoriser les coordonées négatives</string>
     <string name="prism_height">Hauteur du prisme (S)</string>
     <string name="prism_height_3dots">Hauteur du prisme&#8230;</string>
     <string name="radius">Rayon [m]</string>
