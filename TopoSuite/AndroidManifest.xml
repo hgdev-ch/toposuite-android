@@ -35,21 +35,22 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:scheme="file" />
+                <!-- Dirty workaround for the LTOP and PTP files support. Indeed,
+                if we put a pathPattern for the *.KOO, *.COO and *.ptp files, it becomes
+                impossible to import anything from GMail to TopoSuite... -->
+                <data android:scheme="file"
+                      android:mimeType="*/*"
+                      android:pathPattern=".*"
+                      android:host="*"/>
                 
-                <data android:mimeType="*/*" /> <!-- workaround for the LTOP and PTP files -->
-                <data android:mimeType="text/csv" />
+                <data android:scheme="content"
+                      android:mimeType="*/*"
+                      android:pathPattern=".*"
+                      android:host="*"/>
+                
+                <!--<data android:mimeType="text/csv" />
                 <data android:mimeType="text/comma-separated-values" />
-                <data android:mimeType="application/octet-stream" />
-                
-                <data android:pathPattern=".*\\.KOO" />
-                <data android:pathPattern=".*\\.COO" />
-                <data android:pathPattern=".*\\.PTP" />
-                <data android:pathPattern=".*\\.koo" />
-                <data android:pathPattern=".*\\.coo" />
-                <data android:pathPattern=".*\\.ptp" />
-                
-                <data android:host="*" />
+                <data android:mimeType="application/octet-stream" />-->
             </intent-filter>
         </activity>
         <activity

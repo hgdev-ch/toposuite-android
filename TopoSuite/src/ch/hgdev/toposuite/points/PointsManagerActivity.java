@@ -80,16 +80,20 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                     LineReader lr = new LineReader(in);
                     String firstLine = lr.readLine();
 
-                    if ((firstLine == null)
-                            || (firstLine.length() < 4)
-                            || !firstLine.substring(0, 4).equals("$$PK")) {
+                    if (firstLine == null) {
                         ViewUtils.showToast(this, this.getString(
                                 R.string.error_unsupported_format));
                         return;
+                    } else if ((firstLine.length() >= 4)
+                            && firstLine.substring(0, 4).equals("$$PK")) {
+                        // fix the MIME type
+                        mime = "text/ltop";
+                    } else {
+                        // small hack for handling PTP files because there is no proper
+                        // way to detect them
+                        mime = "text/ptp";
                     }
-
-                    // fix the MIME type
-                    mime = "text/ltop";
+                    ViewUtils.showToast(this, "MIME => " + mime);
                 } catch (FileNotFoundException e) {
                     Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
                     ViewUtils.showToast(this, e.getMessage());
