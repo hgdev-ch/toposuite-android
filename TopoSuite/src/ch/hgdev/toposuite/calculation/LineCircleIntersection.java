@@ -84,7 +84,7 @@ public class LineCircleIntersection extends Calculation {
         this(_p1L, _p2L, _displacementL, 0.0, _centerC, _radiusC);
     }
 
-    public LineCircleIntersection() {
+    public LineCircleIntersection(boolean hasDAO) {
         super(CalculationType.LINECIRCINTERSEC,
                 App.getContext().getString(R.string.title_activity_line_circle_intersection),
                 true);
@@ -101,7 +101,13 @@ public class LineCircleIntersection extends Calculation {
         this.firstIntersection = new Point(false);
         this.secondIntersection = new Point(false);
 
-        SharedResources.getCalculationsHistory().add(0, this);
+        if (hasDAO) {
+            SharedResources.getCalculationsHistory().add(0, this);
+        }
+    }
+
+    public LineCircleIntersection() {
+        this(true);
     }
 
     /**

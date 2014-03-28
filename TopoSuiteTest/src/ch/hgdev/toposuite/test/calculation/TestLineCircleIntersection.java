@@ -30,10 +30,10 @@ public class TestLineCircleIntersection extends TestCase {
     }
 
     public void testCorrectSolution() {
-        Point p1 = new Point(1, 25.0, 55.0, 0.0, false);
-        Point p3 = new Point(3, 50.177, 99.941, 0.0, false);
-        Point p4 = new Point(4, 67.0, 14.0, 0.0, false);
-        Point p5 = new Point(5, 113.204, 37.411, 0.0, false);
+        Point p1 = new Point(1, 25.0, 55.0, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p3 = new Point(3, 50.177, 99.941, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p4 = new Point(4, 67.0, 14.0, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p5 = new Point(5, 113.204, 37.411, MathUtils.IGNORE_DOUBLE, true, false);
         double displacement = 0.0;
         double radius = 87.572;
 
@@ -94,13 +94,13 @@ public class TestLineCircleIntersection extends TestCase {
      * Test for bug report #434
      */
     public void testRealCase1() {
-        Point p1 = new Point(1, 600, 200, MathUtils.IGNORE_DOUBLE, false, false);
-        Point p4 = new Point(4, 638.9498, 198.0212, MathUtils.IGNORE_DOUBLE, false, false);
-        Point p5 = new Point(5, 604, 203.8019, MathUtils.IGNORE_DOUBLE, false, false);
+        Point p1 = new Point(1, 600, 200, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p4 = new Point(4, 638.9498, 198.0212, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p5 = new Point(5, 604, 203.8019, MathUtils.IGNORE_DOUBLE, true, false);
         double displacement = -4.0;
         double radius = 11.0;
 
-        LineCircleIntersection lci = new LineCircleIntersection();
+        LineCircleIntersection lci = new LineCircleIntersection(false);
         lci.initAttributes(p1, p4, displacement, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
                 p5, radius);
         lci.compute();
@@ -115,12 +115,12 @@ public class TestLineCircleIntersection extends TestCase {
      * Test for bug report #476
      */
     public void testRealCase2() {
-        Point pA = new Point(1, 14.4172, 7.8539, MathUtils.IGNORE_DOUBLE, false, false);
-        Point pB = new Point(4, 19.627, 12.659, MathUtils.IGNORE_DOUBLE, false, false);
+        Point pA = new Point(1, 14.4172, 7.8539, MathUtils.IGNORE_DOUBLE, true, false);
+        Point pB = new Point(4, 19.627, 12.659, MathUtils.IGNORE_DOUBLE, true, false);
         double distToPtL = 1.978;
         double radius = 3.9317;
 
-        LineCircleIntersection lci = new LineCircleIntersection();
+        LineCircleIntersection lci = new LineCircleIntersection(false);
         lci.initAttributes(pA, pB, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
                 distToPtL, pA, radius);
         lci.compute();
