@@ -97,7 +97,7 @@
                     <a href="#seg_arc">Segmentation d'un arc de cercle</a>
                 </li>
                 <li>
-                    <a href="#helmert">Transformaation de Helmert (transformation conforme à 4 paramètres)</a>
+                    <a href="#helmert">Transformation de Helmert (transformation conforme à 4 paramètres)</a>
                 </li>
             </ol>
         </li>
@@ -120,11 +120,11 @@
 Tous les angles à introduire doivent être en "Grades" ou en "Gons"      <br>
 Toutes les distances à introduire doivent être en "Mètres".
 Les distances que le programme attend sont toutes des distances inclinées. <br>
-Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une distance horizontale.
+Si l'angle zénithal n'est pas indiqué, le programme considère que c'est une distance horizontale.
  <br>
  ATTENTION de valider vos dernières valeurs dans les masques de saisies pour que le programme prenne en compte cette valeur.
  Pour cela, il faut placer le curseur sur la case du numéro de point à sauvegarder ou valider votre dernière valeur 
- avec "NEXT" ou "Done" ou "Enter".
+ avec "Suiv." ou "OK" ou "Enter".
 
 
 </p>
@@ -152,7 +152,7 @@ Si l'angle zénhital n'est pas indiqué, le programme considère que c'est une d
 <p>	Les colonnes 1 à 14 sont consacrées au numéro; si le numéro de point comporte un point ou un caractère non valable, le point n'est pas importé.<br> 
 	Les colonnes 33 à 44 correspondent à la coordonnée Est,<br>
 	Les colonnes 45 à 56 correspondent à la coordonnée Nord,<br>
-	Les colonnes 61 à 70 contiennent l'altitude (optionel).<br>
+	Les colonnes 61 à 70 contiennent l'altitude (optionnel).<br>
   <br></p>
 	<h5> PTP </h5> 
 <p> 
@@ -160,7 +160,7 @@ Le fichier PTP ne doit pas comporter de lignes autres que celles contenant les p
 Les colonnes  11 à 22 sont pour le numéro de point<br>
 Les colonnes 33 à 43 correspondent à la coordonnée Est,<br>
 	Les colonnes 45 à 55 correspondent à la coordonnée Nord,<br>
-	Les colonnes 57 à 64 contiennent l'altitude (optionel).<br>
+	Les colonnes 57 à 64 contiennent l'altitude (optionnel).<br>
 </p>
 <h4>Exportation</h4>
 <p>
@@ -211,14 +211,14 @@ L'option des coordonnées négatives, n'affecte pas l'import de points ou les po
       - Mesurer les angles et distances sur chaque point de rattachement ;  <br>
       - Bien répartir les points de rattachement de manière à envelopper la zone de
           travail ;                                         <br>
-      - La station libre doit si possible se situer à l’intérieur du polygone décrit par les
+      - La station libre doit si possible se situer à l'intérieur du polygone décrit par les
           points de rattachement ;                    <br>
       - Choisir les points de rattachement représentatifs de la qualité de la zone de
         travail (règles de voisinage). Par exemple, il est inutile de prendre des PFP2
             pour s’intégrer dans une zone de mensuration graphique numérisée. Dans
             une zone de mensuration numérique de bonne qualité, il faut privilégier la prise
              de PFP3 ;     <br>
-      - Ne pas prendre deux points de rattachement trop proches l’un de l’autre. Cela
+      - Ne pas prendre deux points de rattachement trop proches l'un de l'autre. Cela
           peut donner des valeurs peu favorables pour le facteur d’échelle et pour
           l’angle de rotation ;               <br>
       - Privilégier la prise de points stables dont la matérialisation n’est pas
@@ -226,7 +226,7 @@ L'option des coordonnées négatives, n'affecte pas l'import de points ou les po
     La méthode utilisée pour la station libre est un calcul d'Helmert.<br><br>
 
 sE = sN = Erreur moyenne de la coordonnée Est et Nord de la station<br>
-sH = Erreue moyenne de l'altimétrie sur la coordonnée de la station libre<br>
+sH = Erreur moyenne de l'altimétrie sur la coordonnée de la station libre<br>
 vE = Erreur résiduelle Est sur le point concerné <br>
 vN = Erreur résiduelle Nord sur le point concerné <br>
 vH = Erreur résiduelle en altimétrie sur le point concerné <br>
@@ -274,7 +274,7 @@ vZo = Erreur moyenne d'une direction compensée <br>
 <h3 id="orthogonaux">Calculs orthogonaux</h3>
 <h4 id="levo_ortho">Levé orthogonal</h4>
   <p>
-    La valeur mesurée de la base du levé orthogonal (A-B) doit être rentrée afin de calculer le facteur d'echelle.
+    La valeur mesurée de la base du levé orthogonal (A-B) doit être rentrée afin de calculer le facteur d'échelle.
   <br><br>
     Les valeurs d'abscisses (x) et d'ordonnées (y) doivent être introduites selon l'image ci-dessous:<br>
   <img src="file:///android_asset/help/img/orthogonal_implantation.png" alt="levé orthogonal"/> <br>   <br>
@@ -313,7 +313,7 @@ vZo = Erreur moyenne d'une direction compensée <br>
     
     La droite peut être soit décalée, soit perpendiculaire à la droite définie.   <br>
     Pour le décalage (valeur X), un signe positif décale la droite sur la droite et un signe négatif la décale sur la gauche.<br>   
-    Si la droite est à la perpendicualaire de celle donnée, une distance du point A (valeur Y) peut-être rentrée.    <br>
+    Si la droite est à la perpendiculaire de celle donnée, une distance du point A (valeur Y) peut-être rentrée.    <br>
     Voir image ci-dessous:     <br> <br>
     <img src="file:///android_asset/help/img/lines_intersection.png" alt="Intersection de lignes"/>
     <br>
@@ -338,7 +338,7 @@ vZo = Erreur moyenne d'une direction compensée <br>
        - Soit par un point et un angle  (G)       <br> <br>
        La définition du cercle peut être donnée  :      <br>
       - Soit en rentrant manuellement la grandeur des rayons                                       <br>
-      - Soit en choisisant un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br>
+      - Soit en choisissant un point sur le cercle, la grandeur du rayon est calculée automatiquement.   <br>
     La droite peut être décalée (signe positif = à droite ; signe négatif = à gauche).  <br> <br>
     <img src="file:///android_asset/help/img/line_circle_intersection.png" alt="Intersection d'un cercle et d'une droite"/>      <br>
     Les deux points calculés sont I1 et I2.
@@ -405,7 +405,7 @@ vZo = Erreur moyenne d'une direction compensée <br>
 <h4 id="helmert">Transformation d'Helmert (transformation conforme à 4 paramètres)</h4>
    La transformation d'Helmert est utilisée afin de faire une intégration des points localement.
    Pour faire le calcul, il faut choisir le fichier de points en coordonnées locales ainsi que le fichier de points en coordonnées globales. <br>
-   Il est possible d'avoir, en plus des 4 paramètres, une translation en altimètrie.   <br>
+   Il est possible d'avoir, en plus des 4 paramètres, une translation en altimétrie.   <br>
    
 <h3 id="math">Mathématiques</h3>
 <h4 id="triangle">Résolutions de triangles</h4>
