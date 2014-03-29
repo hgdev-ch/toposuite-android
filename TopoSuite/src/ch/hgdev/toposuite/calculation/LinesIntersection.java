@@ -12,6 +12,8 @@ import ch.hgdev.toposuite.calculation.activities.linesintersec.LinesIntersection
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
+import com.google.common.math.DoubleMath;
+
 public class LinesIntersection extends Calculation {
     private static final String P1D1_NUMBER  = "p1d1_number";
     private static final String P2D1_NUMBER  = "p2d1_number";
@@ -24,6 +26,9 @@ public class LinesIntersection extends Calculation {
     private static final String GIS_D1       = "gis_d1";
     private static final String GIS_D2       = "gis_d2";
     private static final String POINT_NUMBER = "point_number";
+
+    /** Tolerance used to compare the points */
+    private static final double TOLERANCE    = 0.000001;
 
     private Point               p1D1;
     private Point               p2D1;
@@ -124,12 +129,21 @@ public class LinesIntersection extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         // TODO raise an exception
         /*if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
                 || (this.p2D2 == null)) {
             return;
         }*/
+
+        // check for points equality
+        if ((MathUtils.equals(this.p1D1, this.p1D2, LinesIntersection.TOLERANCE)
+                && MathUtils.equals(this.p2D1, this.p2D2, LinesIntersection.TOLERANCE))
+                || (MathUtils.equals(this.p1D1, this.p2D2, LinesIntersection.TOLERANCE)
+                && MathUtils.equals(this.p2D1, this.p1D2, LinesIntersection.TOLERANCE))) {
+            throw new CalculationException(App.getContext().getString(
+                    R.string.error_impossible_calculation));
+        }
 
         double alphaAngle, gammaAngle, pAngle, displGis;
 
@@ -199,11 +213,12 @@ public class LinesIntersection extends Calculation {
         double stPtIntersecGis = new Gisement(this.p1D1, this.p2D1, false)
                 .getGisement();
 
-        // safe check
-        /*
-         * if (MathUtils.equals(alphaAngle, -gammaAngle) &&
-         * MathUtils.isZero(stPtIntersecDist)) { return; }
-         */
+        // check if the lines are coincident
+        if (DoubleMath.fuzzyEquals(alphaAngle, -gammaAngle, LinesIntersection.TOLERANCE) &&
+                MathUtils.isZero(stPtIntersecDist)) {
+            throw new CalculationException(
+                    App.getContext().getString(R.string.error_impossible_calculation));
+        }
 
         double east = MathUtils.pointLanceEast(this.p1D1.getEast(),
                 stPtIntersecGis, stPtIntersecDist);

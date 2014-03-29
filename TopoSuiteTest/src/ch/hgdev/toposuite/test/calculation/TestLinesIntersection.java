@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -43,7 +44,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.0, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 0.0, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("60.484", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -55,7 +60,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 21.87, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("76.697", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -67,7 +76,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 -21.87, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("44.271", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -79,7 +92,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 -21.87, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("45.344", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -91,7 +108,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 21.87, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("75.623", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -103,7 +124,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p4, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 250.35,
                 21.87, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("-0.306", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -115,7 +140,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p5, 0.0, MathUtils.IGNORE_DOUBLE, this.p3, this.p4,
                 0.0, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("60.354", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -127,7 +156,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p5, -0.65, MathUtils.IGNORE_DOUBLE, this.p3, this.p4,
                 -13.872, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("74.929", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -139,7 +172,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p10, this.p20, 0.0, -21.954, this.p30,
                 this.p40, 0.0, -1.569, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("70.373", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -151,7 +188,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 this.p10, this.p20, 0.0, 1.697, this.p30,
                 this.p40, 0.0, MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("39.14", this.df.format(
                 li.getIntersectionPoint().getEast()));
@@ -168,7 +209,11 @@ public class TestLinesIntersection extends TestCase {
         LinesIntersection li = new LinesIntersection(
                 localP1, localP2, 0, 5.0, localP3, localP104, -5.0,
                 MathUtils.IGNORE_DOUBLE, 42, false);
-        li.compute();
+        try {
+            li.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("614.324", this.df.format(
                 li.getIntersectionPoint().getEast()));

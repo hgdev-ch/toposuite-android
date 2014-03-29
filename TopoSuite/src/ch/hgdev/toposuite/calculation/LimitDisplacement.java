@@ -68,7 +68,7 @@ public class LimitDisplacement extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         double distA = MathUtils.euclideanDistance(this.pointA, this.pointD);
 
         double alphaAngle = new Gisement(this.pointA, this.pointD, false).getGisement() -

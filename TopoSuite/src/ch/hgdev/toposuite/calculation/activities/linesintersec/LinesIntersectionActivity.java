@@ -22,6 +22,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.dao.PointsDataSource;
@@ -546,7 +547,14 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 return true;
             }
 
-            this.lineIntersec.compute();
+            try {
+                this.lineIntersec.compute();
+            } catch (CalculationException e) {
+                ViewUtils.showToast(this, e.getMessage());
+
+                // avoid to display the results
+                return true;
+            }
             this.displayResult();
 
             return true;

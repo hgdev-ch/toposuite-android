@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LimitDisplacement;
 import ch.hgdev.toposuite.points.Point;
 
@@ -27,7 +28,11 @@ public class TestLimitDisplacement extends TestCase {
 
         LimitDisplacement ld = new LimitDisplacement(ptA, ptB, ptC, ptD,
                 surface, 5, 6, false);
-        ld.compute();
+        try {
+            ld.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
 
         Assert.assertEquals("96319.0953",
                 this.df4.format(ld.getNewPointX().getEast()));

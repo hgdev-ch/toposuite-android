@@ -7,6 +7,7 @@ import android.widget.TextView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LimitDisplacement;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
@@ -46,7 +47,11 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
                     LimitDisplacementActivity.LIMIT_DISPLACEMENT_POSITION);
             this.limDispl = (LimitDisplacement) SharedResources.getCalculationsHistory()
                     .get(position);
-            this.limDispl.compute();
+            try {
+                this.limDispl.compute();
+            } catch (CalculationException e) {
+                ViewUtils.showToast(this, e.getMessage());
+            }
 
             this.limitDisplacementLabelTextView.setText(
                     String.format(this.getString(
