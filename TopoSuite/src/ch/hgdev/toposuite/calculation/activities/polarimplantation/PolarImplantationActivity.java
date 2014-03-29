@@ -66,6 +66,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
     private double                z0;
     private Point                 z0Station;
+    private double                instrumentHeight;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
@@ -80,6 +81,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
         this.position = -1;
         this.z0 = MathUtils.IGNORE_DOUBLE;
+        this.instrumentHeight = MathUtils.IGNORE_DOUBLE;
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
@@ -159,6 +161,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                 fs.compute();
                 this.z0 = fs.getUnknownOrientation();
                 this.z0Station = fs.getStationResult();
+                this.instrumentHeight = fs.getI();
                 break;
             }
         }
@@ -288,12 +291,19 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                     this.stationSpinner.setSelection(
                             this.stationAdapter.getPosition(this.z0Station));
                     this.stationSpinner.setEnabled(false);
+                    if (!MathUtils.isIgnorable(this.instrumentHeight)) {
+                        this.iEditText.setText(
+                                DisplayUtils.toStringForEditText(this.instrumentHeight));
+                        this.iEditText.setEnabled(false);
+                    }
                 }
             } else {
                 this.unknownOrientEditText.setText("");
                 this.unknownOrientEditText.setEnabled(true);
                 this.stationSpinner.setSelection(0);
                 this.stationSpinner.setEnabled(true);
+                this.iEditText.setText("");
+                this.iEditText.setEnabled(true);
             }
             break;
         }
@@ -359,10 +369,9 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
      * Start the activity that shows the results of the calculation.
      */
     private void showPolarImplantationResultActivity() {
-        double unknownOrient;
-        double i = ViewUtils.readDouble(this.iEditText);
+        this.instrumentHeight = ViewUtils.readDouble(this.iEditText);
         if (!ViewUtils.isEmpty(this.unknownOrientEditText)) {
-            unknownOrient = ViewUtils.readDouble(this.unknownOrientEditText);
+            this.z0 = ViewUtils.readDouble(this.unknownOrientEditText);
         } else {
             ViewUtils.showToast(this,
                     this.getString(R.string.error_choose_unknown_orientation));
@@ -375,8 +384,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         JSONArray json = new JSONArray();
         for (int j = 0; j < this.adapter.getCount(); j++) {
             Measure m = this.adapter.getItem(j);
-            m.setI(i);
-            m.setUnknownOrientation(unknownOrient);
+            m.setI(this.instrumentHeight);
+            m.setUnknownOrientation(this.z0);
             json.put(m.toJSONObject());
         }
 
