@@ -314,6 +314,7 @@
     <string name="title_activity_surface">Surface</string>
     <string name="title_activity_about">About TopoSuite</string>
     <string name="title_activity_triangle_solver">Triangle solver</string>
+    <string name="toggle_measure">Toggle measure</string>
     <string name="toggle_right_menu_button">Calculations</string>
     <string name="unit_centimeter">[cm]</string>
     <string name="unit_gradian">[g]</string>
