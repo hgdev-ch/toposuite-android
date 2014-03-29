@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -53,6 +54,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     private double                 lonDepl;
 
     private LinearLayout           layout;
+    private ScrollView             scrollView;
     private EditText               determinationNoEditText;
     private EditText               horizDirEditText;
     private EditText               distanceEditText;
@@ -67,7 +69,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         this.genAddDeterminationView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(this.getActivity().getString(R.string.measure_add))
-                .setView(this.layout)
+                .setView(this.scrollView)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -217,6 +219,9 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         this.layout.addView(this.sEditText);
         this.layout.addView(this.latDeplEditText);
         this.layout.addView(this.lonDeplEditText);
+
+        this.scrollView = new ScrollView(this.getActivity());
+        this.scrollView.addView(this.layout);
     }
 
     /**
