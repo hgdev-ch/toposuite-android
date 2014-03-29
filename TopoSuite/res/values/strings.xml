@@ -28,6 +28,7 @@
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
     <string name="application_settings">Application settings</string>
     <string name="arc_label">Arc [m]</string>
+    <string name="arc_length_label">Arc length</string>
     <string name="arrow_label">Arrow [m]</string>
     <string name="base_label">Orthogonal survey from the base</string>
     <string name="bisector_label">Bisector [m]</string>
@@ -49,6 +50,9 @@
     <string name="circle_label">Circle</string>
     <string name="circle_one_label">Circle A</string>
     <string name="circle_two_label">Circle B</string>
+    <string name="circle_point_center">Circle center</string>
+    <string name="circle_point_start">Starting point on the edge</string>
+    <string name="circle_point_end">End point on the edge</string>
     <string name="circle_result_center_label">Center of the circle</string>
     <string name="circle_result_radius_label">Radius of the circle</string>
     <string name="circle_surface_label">Circle surface [m&#178;]</string>
@@ -211,6 +215,7 @@
     <string name="north_3dots">North&#8230;</string>
     <string name="north_label">North [m]</string>
     <string name="number_of_points_label">The file contains: <xliff:g>%d</xliff:g> points</string>
+    <string name="number_of_segments_label">Number of segments</string>
     <string name="new_label">New</string>
     <string name="optional_prths">(optional)</string>
     <string name="ordinate">Ordinate</string>

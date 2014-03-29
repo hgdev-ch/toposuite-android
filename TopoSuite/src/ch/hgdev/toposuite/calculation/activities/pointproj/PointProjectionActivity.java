@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import ch.hgdev.toposuite.calculation.PointProjectionOnALine.Mode;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -215,11 +217,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         this.point2Spinner.setSelection(this.point2SelectedPosition);
         this.pointSpinner.setSelection(this.pointSelectedPosition);
 
-        if (this.selectedMode == Mode.GISEMENT) {
-            this.modeGisementRadio.callOnClick();
-        } else {
-            this.modeGisementRadio.callOnClick();
-        }
+        this.modeGisementRadio.callOnClick();
     }
 
     @Override
@@ -337,16 +335,18 @@ public class PointProjectionActivity extends TopoSuiteActivity {
                 this.point2Layout.setVisibility(View.GONE);
                 this.gisementLayout.setVisibility(View.VISIBLE);
                 this.selectedMode = PointProjectionOnALine.Mode.GISEMENT;
-                break;
             }
+            break;
         case R.id.mode_line:
             if (checked) {
                 this.point2SpinnerLayout.setVisibility(View.VISIBLE);
                 this.point2Layout.setVisibility(View.VISIBLE);
                 this.gisementLayout.setVisibility(View.GONE);
                 this.selectedMode = PointProjectionOnALine.Mode.LINE;
-                break;
             }
+            break;
+        default:
+            Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Unknown mode selected");
         }
     }
 }
