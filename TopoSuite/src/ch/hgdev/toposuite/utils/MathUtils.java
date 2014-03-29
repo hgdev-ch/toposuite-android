@@ -121,22 +121,35 @@ public class MathUtils {
             return false;
         }
 
-        if (!DoubleMath.fuzzyEquals(p1.getEast(), p2.getEast(), tolerance)) {
-            return false;
-        }
-
-        if (!DoubleMath.fuzzyEquals(p1.getNorth(), p2.getNorth(), tolerance)) {
-            return false;
-        }
-
-        if (!MathUtils.isIgnorable(p1.getAltitude())
-                && !MathUtils.isIgnorable(p2.getAltitude())) {
-            if (!DoubleMath.fuzzyEquals(p1.getAltitude(), p2.getAltitude(), tolerance)) {
-                return false;
+        if (DoubleMath.fuzzyEquals(p1.getEast(), p2.getEast(), tolerance)
+                && DoubleMath.fuzzyEquals(p1.getNorth(), p2.getNorth(), tolerance)) {
+            if (!MathUtils.isIgnorable(p1.getAltitude())
+                    && !MathUtils.isIgnorable(p2.getAltitude())) {
+                if (!DoubleMath.fuzzyEquals(p1.getAltitude(), p2.getAltitude(), tolerance)) {
+                    return false;
+                }
             }
+
+            return true;
         }
 
-        return true;
+        return false;
+    }
+
+    /**
+     * Check the two input points for equality. This method does not take the
+     * point number into account.
+     * 
+     * {@link MathUtils.EPSILON} is used as tolerance.
+     * 
+     * @param p1
+     *            First point to compare
+     * @param p2
+     *            Second point to compare
+     * @return True if they are the same, false otherwise.
+     */
+    public static boolean equals(Point p1, Point p2) {
+        return MathUtils.equals(p1, p2, MathUtils.EPSILON);
     }
 
     /**
