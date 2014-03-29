@@ -215,11 +215,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         this.point2Spinner.setSelection(this.point2SelectedPosition);
         this.pointSpinner.setSelection(this.pointSelectedPosition);
 
-        if (this.selectedMode == Mode.GISEMENT) {
-            this.modeGisementRadio.callOnClick();
-        } else {
-            this.modeGisementRadio.callOnClick();
-        }
+        this.modeGisementRadio.callOnClick();
     }
 
     @Override
