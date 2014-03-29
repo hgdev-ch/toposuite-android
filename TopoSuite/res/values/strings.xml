@@ -196,9 +196,11 @@
     <string name="measured_distance_hint">Meas. dist.</string>
     <string name="merge_points_label">Merge the points</string>
     <string name="merge_type_label">If mean/replace:</string>
+    <string name="mode_arc_length_label">Arc length</string>
     <string name="mode_label">Mode</string>
     <string name="mode_line_label">Line</string>
     <string name="mode_gisement_label">Gisement</string>
+    <string name="mode_segment_label">Segment</string>
     <string name="name">Name</string>
     <string name="new_limit_point_east">New limit-point east (Y)</string>
     <string name="new_limit_point_west">New limit-point west (X)</string>
