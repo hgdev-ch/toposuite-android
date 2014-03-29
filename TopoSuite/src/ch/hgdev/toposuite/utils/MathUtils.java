@@ -3,6 +3,8 @@ package ch.hgdev.toposuite.utils;
 import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
 
+import com.google.common.math.DoubleMath;
+
 /**
  * MathUtils provides static helpers for mathematical operation/conversion.
  * 
@@ -103,6 +105,41 @@ public class MathUtils {
     }
 
     /**
+     * Check the two input points for equality. This method does not take the
+     * point number into account.
+     * 
+     * @param p1
+     *            First point to compare
+     * @param p2
+     *            Second point to compare
+     * @param tolerance
+     *            The tolerance used for the comparison
+     * @return True if they are the same, false otherwise.
+     */
+    public static boolean equals(Point p1, Point p2, double tolerance) {
+        if ((p1 == null) || (p2 == null)) {
+            return false;
+        }
+
+        if (!DoubleMath.fuzzyEquals(p1.getEast(), p2.getEast(), tolerance)) {
+            return false;
+        }
+
+        if (!DoubleMath.fuzzyEquals(p1.getNorth(), p2.getNorth(), tolerance)) {
+            return false;
+        }
+
+        if (!MathUtils.isIgnorable(p1.getAltitude())
+                && !MathUtils.isIgnorable(p2.getAltitude())) {
+            if (!DoubleMath.fuzzyEquals(p1.getAltitude(), p2.getAltitude(), tolerance)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Determine if the given value could be ignored or not. This is useful in
      * some calculations. For instance, some value may be optional and in this
      * case, it should be ignored. In order to be ignored, a value of type
@@ -113,9 +150,9 @@ public class MathUtils {
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(double d) {
-        if ((d == IGNORE_DOUBLE)
-                || isMax(d)
-                || isMin(d)
+        if ((d == MathUtils.IGNORE_DOUBLE)
+                || MathUtils.isMax(d)
+                || MathUtils.isMin(d)
                 || Double.isInfinite(d)
                 || Double.isNaN(d)) {
             return true;
@@ -156,9 +193,9 @@ public class MathUtils {
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(int value) {
-        if ((value == IGNORE_INT)
-                || isMax(value)
-                || isMin(value)) {
+        if ((value == MathUtils.IGNORE_INT)
+                || MathUtils.isMax(value)
+                || MathUtils.isMin(value)) {
             return true;
         }
         return false;
