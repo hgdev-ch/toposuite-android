@@ -137,22 +137,6 @@ public class MathUtils {
     }
 
     /**
-     * Check the two input points for equality. This method does not take the
-     * point number into account.
-     * 
-     * {@link MathUtils.EPSILON} is used as tolerance.
-     * 
-     * @param p1
-     *            First point to compare
-     * @param p2
-     *            Second point to compare
-     * @return True if they are the same, false otherwise.
-     */
-    public static boolean equals(Point p1, Point p2) {
-        return MathUtils.equals(p1, p2, MathUtils.EPSILON);
-    }
-
-    /**
      * Determine if the given value could be ignored or not. This is useful in
      * some calculations. For instance, some value may be optional and in this
      * case, it should be ignored. In order to be ignored, a value of type

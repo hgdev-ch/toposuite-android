@@ -80,12 +80,14 @@ public class TestMathUtils extends TestCase {
     }
 
     public void testEqualsForPointsWithTolerance() {
-        final double TOLERANCE = 0.0000000001;
+        final double TOLERANCE = 0.00000001;
+        final double TOLERANCE_2 = 0.0000000001;
         Point p1 = new Point(421, 42.123456789, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
         Point p2 = new Point(422, 42.123456788, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
         Point p3 = new Point(423, 42.123456789, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
 
-        Assert.assertFalse(MathUtils.equals(p1, p2, TOLERANCE));
+        Assert.assertTrue(MathUtils.equals(p1, p2, TOLERANCE));
+        Assert.assertFalse(MathUtils.equals(p1, p2, TOLERANCE_2));
         Assert.assertTrue(MathUtils.equals(p1, p3, TOLERANCE));
 
         Assert.assertFalse(MathUtils.equals(null, null, TOLERANCE));
