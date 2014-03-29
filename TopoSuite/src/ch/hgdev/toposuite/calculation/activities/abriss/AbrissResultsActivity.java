@@ -8,7 +8,13 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -76,6 +82,8 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         this.abriss.compute();
 
         this.displayResults();
+
+        this.registerForContextMenu(this.resultsListView);
     }
 
     @Override
@@ -87,6 +95,48 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.abriss_results, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.abriss_results_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.toggle_measure:
+            this.abriss.getResults().get(info.position).toggle();
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+        case R.id.run_calculation_button:
+            /*for (int i = 0; i < this.abriss.getResults().size(); i++) {
+                if (this.abriss.getResults().get(i).isDeactivated()) {
+                    this.abriss.getMeasures().get(i).deactivate();
+                } else {
+                    this.abriss.getMeasures().get(i).reactivate();
+                }
+            }
+            this.abriss.compute();
+            this.displayResults();*/
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     public void displayResults() {

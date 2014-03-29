@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,18 +19,20 @@ import ch.hgdev.toposuite.points.PointsManagerActivity;
  * @author HGdev
  */
 public class ViewUtils {
+    /** Color used for deactivated fields */
+    public static final int DEACTIVATED_COLOR = Color.GRAY;
 
     /**
      * Regular expression pattern to check if a string can be transformed to a
      * double.
      */
-    private static Pattern doublePattern = Pattern.compile("^-?\\d+(\\.\\d+)?$");
+    private static Pattern  doublePattern     = Pattern.compile("^-?\\d+(\\.\\d+)?$");
 
     /**
      * Regular expression pattern to check if a string can be transformed to an
      * integer.
      */
-    private static Pattern intPattern    = Pattern.compile("^-?\\d+$");
+    private static Pattern  intPattern        = Pattern.compile("^-?\\d+$");
 
     /**
      * Convenient function for easily reading a double value from an EditText.
@@ -45,7 +48,7 @@ public class ViewUtils {
             // separator instead of a dot. This is a locale issue that deserves
             // a proper fix...
             String val = input.replace(',', '.');
-            return (doublePattern.matcher(val).matches()) ?
+            return (ViewUtils.doublePattern.matcher(val).matches()) ?
                     Double.parseDouble(val)
                     : MathUtils.IGNORE_DOUBLE;
         }
@@ -62,7 +65,7 @@ public class ViewUtils {
     public static int readInt(EditText editText) {
         if ((editText != null) && (editText.length() > 0)) {
             String val = editText.getText().toString();
-            return (intPattern.matcher(val).matches()) ?
+            return (ViewUtils.intPattern.matcher(val).matches()) ?
                     Integer.parseInt(val)
                     : MathUtils.IGNORE_INT;
         }

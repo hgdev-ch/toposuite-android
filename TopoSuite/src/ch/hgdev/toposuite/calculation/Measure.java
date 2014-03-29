@@ -78,6 +78,12 @@ public class Measure {
      */
     private double              ordinate;
 
+    /**
+     * True if the measure is deactivated, false otherwise. This flag must not
+     * be serialized because it must not be persistent.
+     */
+    private boolean             deactivated;
+
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
             int _measureNumber, double _abscissa, double _ordinate) {
@@ -93,6 +99,7 @@ public class Measure {
         this.measureNumber = _measureNumber;
         this.abscissa = _abscissa;
         this.ordinate = _ordinate;
+        this.deactivated = false;
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
@@ -247,6 +254,18 @@ public class Measure {
 
     public void setOrdinate(double ordinate) {
         this.ordinate = ordinate;
+    }
+
+    public final boolean isDeactivated() {
+        return this.deactivated;
+    }
+
+    public final void deactivate() {
+        this.deactivated = true;
+    }
+
+    public final void reactivate() {
+        this.deactivated = false;
     }
 
     public JSONObject toJSONObject() {

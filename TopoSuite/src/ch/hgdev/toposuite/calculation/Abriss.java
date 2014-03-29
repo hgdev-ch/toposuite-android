@@ -75,6 +75,11 @@ public class Abriss extends Calculation {
         this.mean = 0.0;
 
         for (Measure m : this.orientations) {
+            // skip deactivated orientations
+            if (m.isDeactivated()) {
+                continue;
+            }
+
             Gisement g = new Gisement(this.station, m.getPoint(), false);
 
             double z0 = MathUtils.modulo400(g.getGisement() - m.getHorizDir());
@@ -91,6 +96,11 @@ public class Abriss extends Calculation {
 
         int index = 0;
         for (Measure m : this.orientations) {
+            // skip deactivated orientations
+            if (m.isDeactivated()) {
+                continue;
+            }
+
             double orientDir = MathUtils.modulo400(this.mean + m.getHorizDir());
             this.results.get(index).setOrientedDirection(orientDir);
 
@@ -224,6 +234,7 @@ public class Abriss extends Calculation {
         private double       errAngle;
         private double       errTrans;
         private double       errLong;
+        private boolean      deactivated;
 
         public Result(Point _orientation, double _distance, double _unknownOrientation,
                 double _orientationDirection, double _gisement, double _calculatedDistance,
@@ -237,6 +248,7 @@ public class Abriss extends Calculation {
             this.errAngle = _errAngle;
             this.errTrans = _errTrans;
             this.errLong = _errLong;
+            this.deactivated = false;
         }
 
         public Point getOrientation() {
@@ -289,6 +301,14 @@ public class Abriss extends Calculation {
 
         public void setErrLong(double _errLong) {
             this.errLong = _errLong;
+        }
+
+        public final boolean isDeactivated() {
+            return this.deactivated;
+        }
+
+        public final void toggle() {
+            this.deactivated = !this.deactivated;
         }
     }
 }
