@@ -87,6 +87,18 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // reset deactivated measures
+        for (Measure m : this.abriss.getMeasures()) {
+            m.reactivate();
+        }
+
+        this.abriss.getResults().clear();
+    }
+
+    @Override
     protected String getActivityTitle() {
         return this.getString(R.string.title_activity_abriss_results);
     }
@@ -124,7 +136,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
 
         switch (id) {
         case R.id.run_calculation_button:
-            /*for (int i = 0; i < this.abriss.getResults().size(); i++) {
+            for (int i = 0; i < this.abriss.getResults().size(); i++) {
                 if (this.abriss.getResults().get(i).isDeactivated()) {
                     this.abriss.getMeasures().get(i).deactivate();
                 } else {
@@ -132,7 +144,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
                 }
             }
             this.abriss.compute();
-            this.displayResults();*/
+            this.displayResults();
             return true;
         default:
             return super.onOptionsItemSelected(item);

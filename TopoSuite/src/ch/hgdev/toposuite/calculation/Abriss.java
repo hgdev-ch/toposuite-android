@@ -71,12 +71,25 @@ public class Abriss extends Calculation {
             return;
         }
 
-        this.results.clear();
+        // if some measures have been deactivated, then we have to keep them
+        // and avoid to clear the previous results list
+        if (!this.hasDeactivatedMeasure()) {
+            this.results.clear();
+        }
         this.mean = 0.0;
+        this.mse = 0.0;
+
+        // Small trick to take the deactivated measures into account during some
+        // of the computations.
+        int numberOfDeactivatedOrientations = 0;
+        int index = -1;
 
         for (Measure m : this.orientations) {
+            index++;
+
             // skip deactivated orientations
             if (m.isDeactivated()) {
+                numberOfDeactivatedOrientations++;
                 continue;
             }
 
@@ -88,16 +101,27 @@ public class Abriss extends Calculation {
             Result r = new Result(m.getPoint(), g.getHorizDist(),
                     z0, 0.0, g.getGisement(), calcDist, 0.0, 0.0, 0.0);
 
-            this.results.add(r);
+            if (!this.hasDeactivatedMeasure()) {
+                this.results.add(r);
+            } else {
+                // just used as tmp variable for modifying the pointed value of the
+                // current result
+                @SuppressWarnings("unused")
+                Result oldResult = this.results.get(index);
+                oldResult = r;
+            }
+
             this.mean += z0;
         }
 
-        this.mean = MathUtils.modulo400(this.mean / this.orientations.size());
+        this.mean = MathUtils.modulo400(this.mean / (
+                this.orientations.size() - numberOfDeactivatedOrientations));
 
-        int index = 0;
+        index = 0;
         for (Measure m : this.orientations) {
             // skip deactivated orientations
             if (m.isDeactivated()) {
+                index++;
                 continue;
             }
 
@@ -130,8 +154,8 @@ public class Abriss extends Calculation {
             index++;
         }
 
-        this.mse = Math.sqrt(this.mse / (index - 1));
-        this.meanErrComp = this.mse / Math.sqrt(index);
+        this.mse = Math.sqrt(this.mse / (index - numberOfDeactivatedOrientations - 1));
+        this.meanErrComp = this.mse / Math.sqrt(index - numberOfDeactivatedOrientations);
 
         // update the calculation last modification date
         this.updateLastModification();
@@ -222,6 +246,15 @@ public class Abriss extends Calculation {
 
     public double getMeanErrComp() {
         return this.meanErrComp;
+    }
+
+    private boolean hasDeactivatedMeasure() {
+        for (Measure m : this.orientations) {
+            if (m.isDeactivated()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public class Result {
