@@ -207,6 +207,9 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         if (this.firstPointNumberEditText.length() == 0) {
             return false;
         }
+        if (ViewUtils.readInt(this.firstPointNumberEditText) < 1) {
+            return false;
+        }
         return true;
     }
 
