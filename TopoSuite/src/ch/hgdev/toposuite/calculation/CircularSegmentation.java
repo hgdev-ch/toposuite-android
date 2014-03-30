@@ -212,6 +212,9 @@ public class CircularSegmentation extends Calculation {
             Point p = new Point(0, east, north, MathUtils.IGNORE_DOUBLE, false);
             this.points.add(p);
         }
+
+        this.updateLastModification();
+        this.notifyUpdate(this);
     }
 
     @Override
@@ -236,6 +239,7 @@ public class CircularSegmentation extends Calculation {
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
+        Log.d("TOPOSUITE FOOBAR JSON", jsonInputArgs);
 
         this.circleCenter = SharedResources.getSetOfPoints().find(
                 json.getInt(CircularSegmentation.CIRCLE_CENTER));
