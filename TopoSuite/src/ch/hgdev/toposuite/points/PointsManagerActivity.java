@@ -67,9 +67,11 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         Uri dataUri = this.getIntent().getData();
         if (dataUri != null) {
             String mime = this.getIntent().getType();
+            ViewUtils.showToast(this, "MIME => " + mime);
 
             // minor hack to handle LTOP format
-            if (mime.equals("application/octet-stream") || mime.isEmpty()) {
+            if (mime.equals("application/octet-stream") || mime.equals("text/plain")
+                    || mime.isEmpty()) {
                 // We need to check if the file is a LTOP file or not.
                 // This verification can only be achieved by reading the
                 // first line of the file.
