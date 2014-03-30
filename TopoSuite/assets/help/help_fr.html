@@ -148,8 +148,10 @@ Si l'angle zénithal n'est pas indiqué, le programme considère que c'est une d
     <h5>CSV  </h5><p><br>
     Le fichier doit être structuré de la manière suivante:<br>
     N° Point ; Coordonnée Est  ; Coordonnée Nord ; Altitude<br><br></p>
-    <h5> LTOP </h5> <br> 
-<p>	Les colonnes 1 à 14 sont consacrées au numéro; si le numéro de point comporte un point ou un caractère non valable, le point n'est pas importé.<br> 
+    <h5> LTOP </h5>  
+<p>	Le fichier LTOP ne doit pas être modifié. Il doit bien commencer avec $$PK!
+<br>La seule chose à faire attention, c'est de n'avoir que des caractères numérique dans le numéro de point.<br>
+Les colonnes 1 à 14 sont consacrées au numéro; si le numéro de point comporte un point ou un caractère non valable, le point n'est pas importé.<br> 
 	Les colonnes 33 à 44 correspondent à la coordonnée Est,<br>
 	Les colonnes 45 à 56 correspondent à la coordonnée Nord,<br>
 	Les colonnes 61 à 70 contiennent l'altitude (optionnel).<br>
