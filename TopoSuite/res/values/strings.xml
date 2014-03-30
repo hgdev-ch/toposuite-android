@@ -132,6 +132,7 @@
     <string name="extremity_label">Extremity</string>
     <string name="fh_label">FH</string>
     <string name="filename">File name</string>
+    <string name="first_point_number">First resulting point\'s number</string>
     <string name="flat_label">fLat [cm]</string>
     <string name="flon_label">fLon [cm]</string>
     <string name="format_3dots">Format&#8230;</string>

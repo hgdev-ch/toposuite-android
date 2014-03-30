@@ -215,6 +215,32 @@
                 android:inputType=""
                 android:paddingLeft="@dimen/activity_horizontal_margin" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.12"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/first_point_number"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/first_point_number"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.40"
+                android:gravity="left|center_vertical"
+                android:inputType=""
+                android:paddingLeft="@dimen/activity_horizontal_margin" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

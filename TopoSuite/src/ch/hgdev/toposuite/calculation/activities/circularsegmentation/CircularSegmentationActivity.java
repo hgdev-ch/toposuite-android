@@ -52,6 +52,8 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
     private Mode                selectedMode;
 
+    private EditText            firstPointNumberEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,6 +176,8 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         this.arcLengthLayout = (LinearLayout) this.findViewById(R.id.arc_length_layout);
         this.arcLengthEditText = (EditText) this.findViewById(R.id.arc_length);
         this.arcLengthRadio = (RadioButton) this.findViewById(R.id.mode_arc_length);
+
+        this.firstPointNumberEditText = (EditText) this.findViewById(R.id.first_point_number);
     }
 
     /**
@@ -191,6 +195,8 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         this.arcLengthEditText.setInputType(
                 InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         this.segmentEditText.setInputType(
+                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        this.firstPointNumberEditText.setInputType(
                 InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.circleCenterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
