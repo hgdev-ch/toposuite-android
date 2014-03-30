@@ -3,7 +3,6 @@ package ch.hgdev.toposuite.calculation.activities.circularsegmentation;
 import java.util.ArrayList;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.ListView;
 import ch.hgdev.toposuite.R;
@@ -41,9 +40,6 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity {
 
         int resultPointNumber = bundle.getInt(
                 CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER);
-
-        Log.e("ARC", String.format("%f", arcLength));
-        Log.e("SEGMENT", String.format("%d", numberOfSegments));
 
         CircularSegmentation circularSegmentation = new CircularSegmentation();
         try {
