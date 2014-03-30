@@ -291,6 +291,7 @@
     <string name="title_activity_circles_intersection">Circles intersection</string>
     <string name="title_activity_circular_curve_solver">Circular curves solver</string>
     <string name="title_activity_circular_segmentation">Circular segmentation</string>
+    <string name="title_activity_circular_segmentation_results">Circular segmentation results</string>
     <string name="title_activity_free_station">Free station</string>
     <string name="title_activity_free_station_results">Free station results</string>
     <string name="title_activity_gisement">Gisement / Distance</string>

@@ -3,10 +3,12 @@ package ch.hgdev.toposuite.calculation.activities.circularsegmentation;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -23,6 +25,7 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularSegmentationActivity extends TopoSuiteActivity {
 
@@ -125,6 +128,22 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.run_calculation_button:
+            if (this.checkInputs()) {
+                this.showCircularSegmentationResultActivity();
+            } else {
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+            }
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     protected String getActivityTitle() {
         return this.getString(R.string.title_activity_circular_segmentation);
     }
@@ -155,6 +174,46 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         default:
             Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Unknown mode selected");
         }
+    }
+
+    /**
+     * Check that all input have been filled correctly.
+     * 
+     * @return True if inputs are OK, false otherwise.
+     */
+    private boolean checkInputs() {
+        if ((this.circleCenterSelectedPosition < 1) || (this.circleStartSelectedPosition < 1)
+                || (this.circleEndSelectedPosition < 1)) {
+            return false;
+        }
+        if (this.selectedMode == Mode.ARCLENGTH) {
+            if (this.arcLengthEditText.length() == 0) {
+                return false;
+            }
+        } else if (this.selectedMode == Mode.SEGMENT) {
+            if (this.segmentEditText.length() == 0) {
+                return false;
+            }
+        } else {
+            // this state should never be reached
+            return false;
+        }
+        if (this.firstPointNumberEditText.length() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Show the results activity.
+     */
+    private void showCircularSegmentationResultActivity() {
+        Bundle bundle = new Bundle();
+
+        Intent resultsActivityIntent = new Intent(this, CircularSegmentationResultsActivity.class);
+        resultsActivityIntent.putExtras(bundle);
+        this.startActivity(resultsActivityIntent);
+
     }
 
     /**

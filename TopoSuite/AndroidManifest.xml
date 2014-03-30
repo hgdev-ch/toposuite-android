@@ -182,6 +182,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.circularsegmentation.CircularSegmentationActivity"
             android:label="@string/title_activity_circular_segmentation" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.circularsegmentation.CircularSegmentationResultsActivity"
+            android:label="@string/title_activity_circular_segmentation_results" >
+        </activity>
     </application>
 
 </manifest>
