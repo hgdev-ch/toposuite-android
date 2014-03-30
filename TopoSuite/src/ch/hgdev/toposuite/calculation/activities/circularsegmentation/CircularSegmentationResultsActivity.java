@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -15,11 +16,11 @@ import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CircularSegmentation;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularSegmentationResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
-    private double                   circleRadius;
     private ArrayList<Point>         points;
 
     private ListView                 resultsListView;
@@ -33,6 +34,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_circular_segmentation_results);
 
+        TextView circleRadiusTextView = (TextView) this.findViewById(R.id.circle_radius);
         this.resultsListView = (ListView) this.findViewById(R.id.list_of_points);
 
         Bundle bundle = this.getIntent().getExtras();
@@ -59,7 +61,9 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
             ViewUtils.showToast(this, e.toString());
         }
 
-        this.circleRadius = circularSegmentation.getCircleRadius();
+        circleRadiusTextView.setText(
+                DisplayUtils.toStringForTextView(circularSegmentation.getCircleRadius()));
+
         this.points = (ArrayList<Point>) circularSegmentation.getPoints();
 
         // set points numbers
