@@ -28,6 +28,12 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularSegmentationActivity extends TopoSuiteActivity {
+    public static final String  CIRCLE_CENTER_POINT_NUMBER      = "circle_center_point_number";
+    public static final String  CIRCLE_START_POINT_NUMBER       = "circle_start_point_number";
+    public static final String  CIRCLE_END_POINT_NUMBER         = "circle_end_point_number";
+    public static final String  NUMBER_OF_SEGMENTS              = "number_of_segments";
+    public static final String  ARC_LENGTH                      = "arc_length";
+    public static final String  FIRST_RESULT_POINT_NUMBER       = "first_result_point_number";
 
     private static final String CIRCLE_CENTER_SELECTED_POSITION = "circle_center_selected_position";
     private static final String CIRCLE_START_SELECTED_POSITION  = "circle_start_selected_position";
@@ -209,6 +215,25 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
      */
     private void showCircularSegmentationResultActivity() {
         Bundle bundle = new Bundle();
+
+        Point circleCenter = (Point) this.circleCenterSpinner
+                .getItemAtPosition(this.circleCenterSelectedPosition);
+        Point circleStart = (Point) this.circleStartSpinner
+                .getItemAtPosition(this.circleStartSelectedPosition);
+        Point circleEnd = (Point) this.circleEndSpinner
+                .getItemAtPosition(this.circleEndSelectedPosition);
+
+        int numberOfSegments = ViewUtils.readInt(this.segmentEditText);
+        double arcLength = ViewUtils.readDouble(this.arcLengthEditText);
+        int firstResultPointNumber = ViewUtils.readInt(this.firstPointNumberEditText);
+
+        bundle.putInt(CIRCLE_CENTER_POINT_NUMBER, circleCenter.getNumber());
+        bundle.putInt(CIRCLE_START_POINT_NUMBER, circleStart.getNumber());
+        bundle.putInt(CIRCLE_END_POINT_NUMBER, circleEnd.getNumber());
+
+        bundle.putInt(NUMBER_OF_SEGMENTS, numberOfSegments);
+        bundle.putDouble(ARC_LENGTH, arcLength);
+        bundle.putInt(FIRST_RESULT_POINT_NUMBER, firstResultPointNumber);
 
         Intent resultsActivityIntent = new Intent(this, CircularSegmentationResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);
