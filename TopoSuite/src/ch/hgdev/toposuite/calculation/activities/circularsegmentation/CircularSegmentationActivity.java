@@ -16,11 +16,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CircularSegmentation;
+import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
@@ -57,7 +60,10 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
     private LinearLayout        arcLengthLayout;
     private EditText            arcLengthEditText;
-    private RadioButton         arcLengthRadio;
+
+    private RadioGroup          modeRadioGroup;
+    private RadioButton         arcLengthRadioButton;
+    private RadioButton         numberOfSegmentsRadioButton;
 
     private Mode                selectedMode;
 
@@ -88,27 +94,55 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         this.circleStartSpinner.setAdapter(a);
         this.circleEndSpinner.setAdapter(a);
 
-        // TODO handle bundle
+        // check if we create a new circular segmentation calculation or if we
+        // modify an existing one.
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            CircularSegmentation circularSegmentation = (CircularSegmentation) SharedResources
+                    .getCalculationsHistory().get(position);
 
+            this.circleCenterSelectedPosition = a.getPosition(
+                    circularSegmentation.getCircleCenter());
+            this.circleStartSelectedPosition = a.getPosition(
+                    circularSegmentation.getCircleStartPoint());
+            this.circleEndSelectedPosition = a.getPosition(
+                    circularSegmentation.getCircleEndPoint());
+
+            double arcLength = circularSegmentation.getArcLength();
+            int numberOfSegments = circularSegmentation.getNumberOfSegments();
+            if (MathUtils.isIgnorable(numberOfSegments)) {
+                this.arcLengthEditText.setText(
+                        DisplayUtils.toStringForEditText(arcLength));
+                this.selectedMode = Mode.ARCLENGTH;
+                this.arcLengthRadioButton.callOnClick();
+                this.modeRadioGroup.check(this.arcLengthRadioButton.getId());
+            } else {
+                this.segmentEditText.setText(
+                        DisplayUtils.toStringForEditText(numberOfSegments));
+                this.selectedMode = Mode.SEGMENT;
+                this.numberOfSegmentsRadioButton.callOnClick();
+                this.modeRadioGroup.check(this.numberOfSegmentsRadioButton.getId());
+            }
         }
 
         this.circleCenterSpinner.setSelection(this.circleCenterSelectedPosition);
         this.circleStartSpinner.setSelection(this.circleStartSelectedPosition);
         this.circleEndSpinner.setSelection(this.circleEndSelectedPosition);
-
-        this.arcLengthRadio.callOnClick();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(CIRCLE_CENTER_SELECTED_POSITION, this.circleCenterSelectedPosition);
-        outState.putInt(CIRCLE_START_SELECTED_POSITION, this.circleStartSelectedPosition);
-        outState.putInt(CIRCLE_END_SELECTED_POSITION, this.circleEndSelectedPosition);
-        outState.putBoolean(IS_MODE_ARC_LENGTH, this.selectedMode == Mode.ARCLENGTH);
+        outState.putInt(CircularSegmentationActivity.CIRCLE_CENTER_SELECTED_POSITION,
+                this.circleCenterSelectedPosition);
+        outState.putInt(CircularSegmentationActivity.CIRCLE_START_SELECTED_POSITION,
+                this.circleStartSelectedPosition);
+        outState.putInt(CircularSegmentationActivity.CIRCLE_END_SELECTED_POSITION,
+                this.circleEndSelectedPosition);
+        outState.putBoolean(CircularSegmentationActivity.IS_MODE_ARC_LENGTH,
+                this.selectedMode == Mode.ARCLENGTH);
     }
 
     @Override
@@ -117,13 +151,14 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
         if (savedInstanceState != null) {
             this.circleCenterSelectedPosition = savedInstanceState.getInt(
-                    CIRCLE_CENTER_SELECTED_POSITION);
+                    CircularSegmentationActivity.CIRCLE_CENTER_SELECTED_POSITION);
             this.circleStartSelectedPosition = savedInstanceState.getInt(
-                    CIRCLE_START_SELECTED_POSITION);
+                    CircularSegmentationActivity.CIRCLE_START_SELECTED_POSITION);
             this.circleEndSelectedPosition = savedInstanceState.getInt(
-                    CIRCLE_END_SELECTED_POSITION);
+                    CircularSegmentationActivity.CIRCLE_END_SELECTED_POSITION);
             this.selectedMode = savedInstanceState.getBoolean(
-                    IS_MODE_ARC_LENGTH) ? Mode.ARCLENGTH : Mode.SEGMENT;
+                    CircularSegmentationActivity.IS_MODE_ARC_LENGTH) ? Mode.ARCLENGTH
+                    : Mode.SEGMENT;
         }
     }
 
@@ -165,6 +200,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         switch (view.getId()) {
         case R.id.mode_segment:
             if (checked) {
+                this.arcLengthEditText.setText("");
                 this.arcLengthLayout.setVisibility(View.GONE);
                 this.segmentLayout.setVisibility(View.VISIBLE);
                 this.selectedMode = Mode.SEGMENT;
@@ -173,6 +209,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         case R.id.mode_arc_length:
             if (checked) {
                 this.arcLengthLayout.setVisibility(View.VISIBLE);
+                this.segmentEditText.setText("");
                 this.segmentLayout.setVisibility(View.GONE);
                 this.selectedMode = Mode.ARCLENGTH;
             }
@@ -230,13 +267,16 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         double arcLength = ViewUtils.readDouble(this.arcLengthEditText);
         int firstResultPointNumber = ViewUtils.readInt(this.firstPointNumberEditText);
 
-        bundle.putInt(CIRCLE_CENTER_POINT_NUMBER, circleCenter.getNumber());
-        bundle.putInt(CIRCLE_START_POINT_NUMBER, circleStart.getNumber());
-        bundle.putInt(CIRCLE_END_POINT_NUMBER, circleEnd.getNumber());
+        bundle.putInt(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER,
+                circleCenter.getNumber());
+        bundle.putInt(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER,
+                circleStart.getNumber());
+        bundle.putInt(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER, circleEnd.getNumber());
 
-        bundle.putInt(NUMBER_OF_SEGMENTS, numberOfSegments);
-        bundle.putDouble(ARC_LENGTH, arcLength);
-        bundle.putInt(FIRST_RESULT_POINT_NUMBER, firstResultPointNumber);
+        bundle.putInt(CircularSegmentationActivity.NUMBER_OF_SEGMENTS, numberOfSegments);
+        bundle.putDouble(CircularSegmentationActivity.ARC_LENGTH, arcLength);
+        bundle.putInt(CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER,
+                firstResultPointNumber);
 
         Intent resultsActivityIntent = new Intent(this, CircularSegmentationResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);
@@ -262,7 +302,10 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
         this.arcLengthLayout = (LinearLayout) this.findViewById(R.id.arc_length_layout);
         this.arcLengthEditText = (EditText) this.findViewById(R.id.arc_length);
-        this.arcLengthRadio = (RadioButton) this.findViewById(R.id.mode_arc_length);
+
+        this.modeRadioGroup = (RadioGroup) this.findViewById(R.id.mode);
+        this.numberOfSegmentsRadioButton = (RadioButton) this.findViewById(R.id.mode_segment);
+        this.arcLengthRadioButton = (RadioButton) this.findViewById(R.id.mode_arc_length);
 
         this.firstPointNumberEditText = (EditText) this.findViewById(R.id.first_point_number);
     }

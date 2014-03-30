@@ -265,4 +265,24 @@ public class CircularSegmentation extends Calculation {
     public double getCircleRadius() {
         return this.circleRadius;
     }
+
+    public Point getCircleCenter() {
+        return this.circleCenter;
+    }
+
+    public Point getCircleStartPoint() {
+        return this.circleStartPoint;
+    }
+
+    public Point getCircleEndPoint() {
+        return this.circleEndPoint;
+    }
+
+    public int getNumberOfSegments() {
+        return this.numberOfSegments;
+    }
+
+    public double getArcLength() {
+        return this.arcLength;
+    }
 }
