@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.util.Log;
 import ch.hgdev.toposuite.App;
@@ -25,6 +26,12 @@ import com.google.common.math.DoubleMath;
  * 
  */
 public class CircularSegmentation extends Calculation {
+
+    public static final String  CIRCLE_CENTER         = "circle_center";
+    public static final String  CIRCLE_START_POINT    = "circle_start_point";
+    public static final String  CIRCLE_END_POINT      = "circle_end_point";
+    public static final String  ARC_LENGTH            = "arc_length";
+    public static final String  NUMBER_OF_SEGMENTS    = "number_of_segments";
 
     private static final String CIRCULAR_SEGMENTATION = "Circular segmentation: ";
 
@@ -209,13 +216,36 @@ public class CircularSegmentation extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Implement
-        return null;
+        JSONObject json = new JSONObject();
+
+        if (this.circleCenter != null) {
+            json.put(CircularSegmentation.CIRCLE_CENTER, this.circleCenter.getNumber());
+        }
+        if (this.circleStartPoint != null) {
+            json.put(CircularSegmentation.CIRCLE_START_POINT, this.circleStartPoint.getNumber());
+        }
+        if (this.circleEndPoint != null) {
+            json.put(CircularSegmentation.CIRCLE_END_POINT, this.circleEndPoint.getNumber());
+        }
+        json.put(CircularSegmentation.ARC_LENGTH, this.arcLength);
+        json.put(CircularSegmentation.NUMBER_OF_SEGMENTS, this.numberOfSegments);
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Implement
+        JSONObject json = new JSONObject(jsonInputArgs);
+
+        this.circleCenter = SharedResources.getSetOfPoints().find(
+                json.getInt(CircularSegmentation.CIRCLE_CENTER));
+        this.circleStartPoint = SharedResources.getSetOfPoints().find(
+                json.getInt(CircularSegmentation.CIRCLE_START_POINT));
+        this.circleEndPoint = SharedResources.getSetOfPoints().find(
+                json.getInt(CircularSegmentation.CIRCLE_END_POINT));
+
+        this.arcLength = json.getDouble(CircularSegmentation.ARC_LENGTH);
+        this.numberOfSegments = json.getInt(CircularSegmentation.NUMBER_OF_SEGMENTS);
     }
 
     @Override
