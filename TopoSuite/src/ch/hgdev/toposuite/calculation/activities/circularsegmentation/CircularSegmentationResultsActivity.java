@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 import ch.hgdev.toposuite.R;
@@ -75,6 +80,8 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
         this.saveCounter = this.points.size();
 
         this.displayResults();
+
+        this.registerForContextMenu(this.resultsListView);
     }
 
     @Override
@@ -92,6 +99,26 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
             return true;
         default:
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.circular_segmentation_results_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.save_point:
+            this.savePoint(info.position);
+            return true;
+        default:
+            return super.onContextItemSelected(item);
         }
     }
 
