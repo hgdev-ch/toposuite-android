@@ -44,6 +44,10 @@ public class OrthogonalBase {
         this.DEFAULT_SCALE_FACTOR = 0.0;
     }
 
+    public OrthogonalBase(double defaultScaleFactor) {
+        this.DEFAULT_SCALE_FACTOR = defaultScaleFactor;
+    }
+
     private void updateCalcDistAndScaleFactor() {
         if ((this.origin == null) || (this.extremity == null)) {
             return;

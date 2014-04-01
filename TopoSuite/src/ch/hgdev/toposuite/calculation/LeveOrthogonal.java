@@ -49,7 +49,7 @@ public class LeveOrthogonal extends Calculation {
                 App.getContext().getString(R.string.title_activity_leve_ortho),
                 hasDAO);
 
-        this.orthogonalBase = new OrthogonalBase();
+        this.orthogonalBase = new OrthogonalBase(1.0);
         this.measures = new ArrayList<LeveOrthogonal.Measure>();
         this.results = new ArrayList<LeveOrthogonal.Measure>();
 
@@ -63,7 +63,7 @@ public class LeveOrthogonal extends Calculation {
                 App.getContext().getString(R.string.title_activity_leve_ortho),
                 lastModification,
                 true);
-        this.orthogonalBase = new OrthogonalBase();
+        this.orthogonalBase = new OrthogonalBase(1.0);
         this.measures = new ArrayList<LeveOrthogonal.Measure>();
         this.results = new ArrayList<LeveOrthogonal.Measure>();
     }
