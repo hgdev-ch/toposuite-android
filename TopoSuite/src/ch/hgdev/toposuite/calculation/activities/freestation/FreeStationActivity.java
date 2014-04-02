@@ -69,8 +69,6 @@ public class FreeStationActivity extends TopoSuiteActivity implements
             if (MathUtils.isPositive(this.freeStation.getI())) {
                 this.iEditText.setText(String.valueOf(this.freeStation.getI()));
             }
-        } else {
-            this.freeStation = new FreeStation(true);
         }
 
         this.registerForContextMenu(this.measuresListView);
@@ -79,6 +77,11 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (this.freeStation == null) {
+            this.freeStation = new FreeStation(true);
+        }
+
         this.adapter = new ArrayListOfMeasuresAdapter(this,
                 R.layout.determinations_list_item, this.freeStation.getMeasures());
         this.drawList();
