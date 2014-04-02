@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -17,11 +18,11 @@ import android.widget.TextView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CircularSegmentation;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularSegmentationResultsActivity extends TopoSuiteActivity implements
@@ -60,10 +61,9 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
         try {
             circularSegmentation.initAttributes(center, start, end, numberOfSegments, arcLength);
             circularSegmentation.compute();
-        } catch (IllegalArgumentException e) {
-            ViewUtils.showToast(this, e.toString());
-        } catch (CalculationException e) {
-            ViewUtils.showToast(this, e.toString());
+        } catch (Exception e) { // illegal argument or calculation exception
+            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_impossible_calculation));
         }
 
         circleRadiusTextView.setText(
