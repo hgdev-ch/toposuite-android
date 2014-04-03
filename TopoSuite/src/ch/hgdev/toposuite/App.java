@@ -31,17 +31,17 @@ public class App extends Application {
     /**
      * App (public) directory.
      */
-    public static final String PUBLIC_DIR                   = "Toposuite";
+    public static final String PUBLIC_DIR                    = "Toposuite";
 
     /**
      * Database file name.
      */
-    public static final String DATABASE                     = "topo_suite.db";
+    public static final String DATABASE                      = "topo_suite.db";
 
     /**
      * The file name used by the points sharing function.
      */
-    public static final String FILENAME_FOR_POINTS_SHARING  = "toposuite-points.csv";
+    public static final String FILENAME_FOR_POINTS_SHARING   = "toposuite-points.csv";
 
     /**
      * Database version. This number must be increased whenever the database
@@ -49,33 +49,33 @@ public class App extends Application {
      * {@link SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)}
      * method.
      */
-    public static final int    DATABASE_VERSION             = 5;
+    public static final int    DATABASE_VERSION              = 5;
 
     /**
      * CSV separator.
      */
-    public static final String CSV_SEPARATOR                = ";";
+    public static final String CSV_SEPARATOR                 = ";";
 
     /**
      * Number of decimal to display with dealing with numbers.
      */
-    public static String       numberOfDecimals             = "%.4f";
+    public static String       numberOfDecimals              = "%.4f";
 
     /**
      * A smaller number of decimals than {@link App}. It is used to format
      * numbers that are not meant to be very precise.
      */
-    public static String       smallNumberOfDecimals        = "%.2f";
+    public static String       smallNumberOfDecimals         = "%.2f";
 
     /**
      * Date format.
      */
-    public static final String dateFormat                   = "MM-dd-yyyy HH:mm";
+    public static final String dateFormat                    = "MM-dd-yyyy HH:mm";
 
     /**
      * Default locale (language).
      */
-    public static final Locale locale                       = Locale.getDefault();
+    public static final Locale locale                        = Locale.getDefault();
 
     /**
      * This variable contains the path to the publicly accessible data directory
@@ -92,7 +92,7 @@ public class App extends Application {
     /**
      * Flag for verifying if the points have been exported or not.
      */
-    public static boolean      arePointsExported            = false;
+    public static boolean      arePointsExported             = false;
 
     /**
      * Database helper.
@@ -105,6 +105,41 @@ public class App extends Application {
     private static Context     context;
 
     /**
+     * Number of decimal used for value of type coordinate.
+     */
+    private static int         decimalPrecisionForCoordinate = 3;
+
+    /**
+     * Number of decimal used for value of type angle.
+     */
+    private static int         decimalPrecisionForAngle      = 4;
+
+    /**
+     * Number of decimal used for value of type distance.
+     */
+    private static int         decimalPrecisionForDistance   = 3;
+
+    /**
+     * Number of decimal used for value of type average.
+     */
+    private static int         decimalPrecisionForAverage    = 3;
+
+    /**
+     * Number of decimal used for value of type gap.
+     */
+    private static int         decimalPrecisionForGap        = 1;
+
+    /**
+     * Number of decimal used for value of type surface.
+     */
+    private static int         decimalPrecisionForSurface    = 4;
+
+    /**
+     * Number of decimal used for value of type CC.
+     */
+    private static int         decimalPrecisionForCC         = 0;
+
+    /**
      * Determine an input type of type coordinate, that is a decimal signed
      * number.
      */
@@ -113,13 +148,13 @@ public class App extends Application {
     /**
      * Standard type for coordinates.
      */
-    private static final int   coordinatesTypeStandard      = InputType.TYPE_CLASS_NUMBER
-                                                                    | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+    private static final int   coordinatesTypeStandard       = InputType.TYPE_CLASS_NUMBER
+                                                                     | InputType.TYPE_NUMBER_FLAG_DECIMAL;
     /**
      * Type of coordinate that allows values to be negative.
      */
-    private static final int   coordinatesTypeAllowNegative = coordinatesTypeStandard
-                                                                    | InputType.TYPE_NUMBER_FLAG_SIGNED;
+    private static final int   coordinatesTypeAllowNegative  = coordinatesTypeStandard
+                                                                     | InputType.TYPE_NUMBER_FLAG_SIGNED;
 
     @Override
     public void onCreate() {
@@ -199,4 +234,31 @@ public class App extends Application {
         return App.inputTypeCoordinate;
     }
 
+    public static int getDecimalPrecisionForCoordinate() {
+        return decimalPrecisionForCoordinate;
+    }
+
+    public static int getDecimalPrecisionForAngle() {
+        return decimalPrecisionForAngle;
+    }
+
+    public static int getDecimalPrecisionForDistance() {
+        return decimalPrecisionForDistance;
+    }
+
+    public static int getDecimalPrecisionForAverage() {
+        return decimalPrecisionForAverage;
+    }
+
+    public static int getDecimalPrecisionForGap() {
+        return decimalPrecisionForGap;
+    }
+
+    public static int getDecimalPrecisionForSurface() {
+        return decimalPrecisionForSurface;
+    }
+
+    public static int getDecimalPrecisionForCC() {
+        return decimalPrecisionForCC;
+    }
 }

@@ -6,9 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Context;
+import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.points.Point;
+
+import com.google.common.base.Strings;
 
 /**
  * Utility functions to format things to display.
@@ -19,6 +22,24 @@ import ch.hgdev.toposuite.points.Point;
 public class DisplayUtils {
 
     /**
+     * Double values may represent different type of data. They are enumerated
+     * here and for each of them, the number of decimal to show may be
+     * different.
+     * 
+     * @author HGdev
+     * 
+     */
+    private enum valueType {
+        COORDINATE,
+        ANGLE,
+        DISTANCE,
+        AVERAGE,
+        GAP,
+        SURFACE,
+        CC
+    }
+
+    /**
      * Convert a value of type int to a String. This method is meant to be used
      * to set values in TextView views.
      * 
@@ -26,6 +47,7 @@ public class DisplayUtils {
      *            The value to convert to a String.
      * @return Value as a String.
      */
+    @Deprecated
     public static String toStringForTextView(int value) {
         if (MathUtils.isIgnorable(value)) {
             return "-";
@@ -41,6 +63,7 @@ public class DisplayUtils {
      *            The value to convert to a String.
      * @return Value as a String.
      */
+    @Deprecated
     public static String toStringForEditText(int value) {
         if (MathUtils.isIgnorable(value)) {
             return "";
@@ -61,6 +84,7 @@ public class DisplayUtils {
      *            The number of decimal. (eg. "%.1f")
      * @return Value as a String.
      */
+    @Deprecated
     public static String toStringForTextView(double value, String precision) {
         if (MathUtils.isIgnorable(value)) {
             return "-";
@@ -73,12 +97,11 @@ public class DisplayUtils {
      * decimals to display which are set in the application settings. This
      * method is meant to be used to set values in EditText views.
      * 
-     * TODO check rounding mode of String.format
-     * 
      * @param value
      *            The value to convert to a String.
      * @return Value as a String.
      */
+    @Deprecated
     public static String toStringForEditText(double value) {
         if (MathUtils.isIgnorable(value)) {
             return "";
@@ -90,17 +113,132 @@ public class DisplayUtils {
      * Convert a value of type double to a String according to the number of
      * decimals to display which are set in the application settings.
      * 
-     * TODO check rounding mode of String.format
-     * 
      * @param value
      *            The value to convert to a String.
      * @return Value as a String.
      */
+    @Deprecated
     public static String toStringForTextView(double value) {
         if (MathUtils.isIgnorable(value)) {
             return "-";
         }
         return String.format(App.numberOfDecimals, value);
+    }
+
+    /**
+     * Utility to format a string to be displayed.
+     * 
+     * @param value
+     *            The value to format.
+     * @param type
+     *            The type of the value.
+     * @return Value formatted according to type.
+     */
+    private static String format(double value, DisplayUtils.valueType type) {
+        int precision;
+
+        if (MathUtils.isIgnorable(value)) {
+            return "-";
+        } else {
+            switch (type) {
+            case COORDINATE:
+                precision = App.getDecimalPrecisionForCoordinate();
+                break;
+            case ANGLE:
+                precision = App.getDecimalPrecisionForAngle();
+                break;
+            case DISTANCE:
+                precision = App.getDecimalPrecisionForDistance();
+                break;
+            case AVERAGE:
+                precision = App.getDecimalPrecisionForAverage();
+                break;
+            case GAP:
+                precision = App.getDecimalPrecisionForGap();
+                break;
+            case SURFACE:
+                precision = App.getDecimalPrecisionForSurface();
+                break;
+            case CC:
+                precision = App.getDecimalPrecisionForCC();
+                break;
+            default:
+                Log.w(Logger.TOPOSUITE_SETTINGS_ERROR, "unknown value type");
+                return "-";
+            }
+            String format = precision < 1 ? "#" : "#.";
+            String decimalCount = Strings.repeat("#", precision);
+            format += decimalCount;
+            DecimalFormat df = new DecimalFormat(format);
+            df.setRoundingMode(RoundingMode.HALF_UP);
+            return df.format(value);
+        }
+    }
+
+    /**
+     * Format a value of type coordinate.
+     * 
+     * @param value
+     *            Coordinate to format.
+     * @return Formatted coordinate.
+     */
+    public static String formatCoordinate(double value) {
+        return format(value, valueType.COORDINATE);
+    }
+
+    /**
+     * Format a value of type angle.
+     * 
+     * @param value
+     *            Angle to format.
+     * @return Formatted angle.
+     */
+    public static String formatAngle(double value) {
+        return format(value, valueType.ANGLE);
+    }
+
+    /**
+     * Format a value of type distance.
+     * 
+     * @param value
+     *            Distance to format.
+     * @return Formatted distance.
+     */
+    public static String formatDistance(double value) {
+        return format(value, valueType.DISTANCE);
+    }
+
+    /**
+     * Format a value of type average.
+     * 
+     * @param value
+     *            Average value to format.
+     * @return Formatted average value.
+     */
+    public static String formatAverage(double value) {
+        return format(value, valueType.AVERAGE);
+    }
+
+    /**
+     * Format a value of type gap.
+     * 
+     * @param value
+     *            Gap value to format.
+     * @return Formatted gap value.
+     */
+    public static String formatGap(double value) {
+        return format(value, valueType.GAP);
+    }
+
+    /**
+     * Format a value of type surface.
+     * 
+     * @param value
+     *            Surface value to format.
+     * @return Formatted surface value.
+     */
+    public static String formatSurface(double value) {
+        return format(value, valueType.SURFACE);
     }
 
     /**
@@ -113,13 +251,7 @@ public class DisplayUtils {
      * @return Formatted CC value.
      */
     public static String formatCC(double value) {
-        if (MathUtils.isIgnorable(value)) {
-            return "-";
-        } else {
-            DecimalFormat df = new DecimalFormat("#");
-            df.setRoundingMode(RoundingMode.HALF_UP);
-            return df.format(value);
-        }
+        return format(value, valueType.CC);
     }
 
     /**
