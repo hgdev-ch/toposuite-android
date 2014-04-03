@@ -173,17 +173,8 @@ public class TestFreeStation extends TestCase {
         Assert.assertEquals("147753.711", this.df3.format(
                 fs.getStationResult().getNorth()));
 
-        Assert.assertEquals("4.5", this.df2.format(fs.getResults().get(0).getvA()));
-        Assert.assertEquals("50.9", this.df2.format(fs.getResults().get(1).getvA()));
-        Assert.assertEquals("13.7", this.df2.format(fs.getResults().get(2).getvA()));
-        Assert.assertEquals("12.6", this.df2.format(fs.getResults().get(3).getvA()));
-        Assert.assertEquals("24.1", this.df2.format(fs.getResults().get(4).getvA()));
-        Assert.assertEquals("19.3", this.df2.format(fs.getResults().get(5).getvA()));
-        Assert.assertEquals("9.0", this.df2.format(fs.getResults().get(6).getvA()));
-        Assert.assertEquals("12.8", this.df2.format(fs.getResults().get(7).getvA()));
-
-        Assert.assertEquals("7.6", this.df1.format(fs.getsE()));
-        Assert.assertEquals("6.5", this.df1.format(fs.getsN()));
+        Assert.assertEquals("10", this.df1.format(fs.getsE()));
+        Assert.assertEquals("10", this.df1.format(fs.getsN()));
 
         Assert.assertEquals("0.2054", this.df3.format(fs.getUnknownOrientation()));
     }
