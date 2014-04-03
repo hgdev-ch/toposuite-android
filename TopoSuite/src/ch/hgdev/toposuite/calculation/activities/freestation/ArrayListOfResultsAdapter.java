@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.calculation.activities.freestation;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> {
     private final ArrayList<FreeStation.Result> results;
@@ -44,18 +46,22 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
             if (numberTextView != null) {
                 numberTextView.setText(
                         DisplayUtils.toStringForTextView(result.getPoint().getNumber()));
+                this.colorizeTextView(numberTextView, result);
             }
 
             if (vETextView != null) {
                 vETextView.setText(DisplayUtils.toStringForTextView(result.getvE()));
+                this.colorizeTextView(vETextView, result);
             }
 
             if (vNTextView != null) {
                 vNTextView.setText(DisplayUtils.toStringForTextView(result.getvN()));
+                this.colorizeTextView(vNTextView, result);
             }
 
             if (fSTextView != null) {
                 fSTextView.setText(DisplayUtils.toStringForTextView(result.getfS()));
+                this.colorizeTextView(fSTextView, result);
             }
 
             if (vATextView != null) {
@@ -65,9 +71,26 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
                     vATextView.setText(
                             App.getContext().getString(R.string.no_value));
                 }
+                this.colorizeTextView(vATextView, result);
             }
         }
 
         return view;
+    }
+
+    /**
+     * Colorize the TextView according to the FreeStation.Result state.
+     * 
+     * @param tv
+     *            A TextView
+     * @param r
+     *            A FreeStation.Result
+     */
+    private void colorizeTextView(TextView tv, FreeStation.Result r) {
+        if (r.isDeactivated()) {
+            tv.setTextColor(ViewUtils.DEACTIVATED_COLOR);
+        } else {
+            tv.setTextColor(Color.BLACK);
+        }
     }
 }

@@ -186,6 +186,8 @@ public class FreeStation extends Calculation {
 
         for (int i = 0; i < this.results.size(); i++) {
             if (this.measures.get(i).isDeactivated()) {
+                // dummy intermediate results in order to avoid indexes problems
+                intermRes.add(new IntermediateResults(0.0, 0.0, 0.0, 0.0));
                 continue;
             }
 

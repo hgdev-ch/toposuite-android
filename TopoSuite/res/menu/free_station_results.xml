@@ -4,4 +4,9 @@
         android:icon="@drawable/ic_action_save"
         android:showAsAction="ifRoom|withText"
         android:title="@string/save_3dots"/>
+    <item
+        android:id="@+id/run_calculation_button"
+        android:icon="@drawable/ic_action_play"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/calculate_3dots"/>
 </menu>

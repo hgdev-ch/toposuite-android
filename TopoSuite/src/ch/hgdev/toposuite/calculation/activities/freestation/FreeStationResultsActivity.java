@@ -1,8 +1,13 @@
 package ch.hgdev.toposuite.calculation.activities.freestation;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 import ch.hgdev.toposuite.R;
@@ -52,31 +57,11 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
             this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
                     position);
             this.freeStation.compute();
-
-            this.freeStationTextView.setText(String.valueOf(
-                    this.freeStation.getStationNumber()));
-
-            this.freeStationPointTextView.setText(
-                    DisplayUtils.formatPoint(
-                            this, this.freeStation.getStationResult()));
-
-            this.sETextView.setText(
-                    DisplayUtils.formatDifferences(this.freeStation.getsE()));
-            this.sNTextView.setText(
-                    DisplayUtils.formatDifferences(this.freeStation.getsN()));
-
-            if (!MathUtils.isIgnorable(this.freeStation.getI())) {
-                this.sATextView.setText(
-                        DisplayUtils.formatDifferences(this.freeStation.getsA()));
-            } else {
-                this.sATextView.setText(this.getString(R.string.no_value));
-            }
-
-            this.unknownOrientationTextView.setText(
-                    DisplayUtils.toStringForTextView(this.freeStation.getUnknownOrientation()));
-
             this.drawList();
+            this.refreshResults();
         }
+
+        this.registerForContextMenu(this.resultsListView);
     }
 
     @Override
@@ -86,14 +71,46 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.abriss_results_context_menu, menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
         case R.id.save_points:
             this.savePoint(this.freeStation.getStationResult());
             return true;
+        case R.id.run_calculation_button:
+            for (int i = 0; i < this.freeStation.getResults().size(); i++) {
+                if (this.freeStation.getResults().get(i).isDeactivated()) {
+                    this.freeStation.getMeasures().get(i).deactivate();
+                } else {
+                    this.freeStation.getMeasures().get(i).reactivate();
+                }
+            }
+            this.freeStation.compute();
+            this.refreshResults();
+            return true;
         default:
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.toggle_measure:
+            this.freeStation.getResults().get(info.position).toggle();
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
         }
     }
 
@@ -145,5 +162,31 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
     @Override
     public void onMergePointsDialogError(String message) {
         ViewUtils.showToast(this, message);
+    }
+
+    private void refreshResults() {
+        this.freeStationTextView.setText(String.valueOf(
+                this.freeStation.getStationNumber()));
+
+        this.freeStationPointTextView.setText(
+                DisplayUtils.formatPoint(
+                        this, this.freeStation.getStationResult()));
+
+        this.sETextView.setText(
+                DisplayUtils.formatDifferences(this.freeStation.getsE()));
+        this.sNTextView.setText(
+                DisplayUtils.formatDifferences(this.freeStation.getsN()));
+
+        if (!MathUtils.isIgnorable(this.freeStation.getI())) {
+            this.sATextView.setText(
+                    DisplayUtils.formatDifferences(this.freeStation.getsA()));
+        } else {
+            this.sATextView.setText(this.getString(R.string.no_value));
+        }
+
+        this.unknownOrientationTextView.setText(
+                DisplayUtils.toStringForTextView(this.freeStation.getUnknownOrientation()));
+
+        this.adapter.notifyDataSetChanged();
     }
 }
