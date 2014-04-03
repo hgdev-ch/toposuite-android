@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CirclesIntersection;
 import ch.hgdev.toposuite.points.Point;
 
@@ -39,6 +40,8 @@ public class TestCirclesIntersection extends TestCase {
                     this.df3.format(c.getSecondIntersection().getNorth()));
         } catch (IllegalArgumentException e) {
             Assert.fail("An illegal argument exception should not be thrown here.");
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
         }
     }
 }

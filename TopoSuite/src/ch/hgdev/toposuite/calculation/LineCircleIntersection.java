@@ -168,7 +168,7 @@ public class LineCircleIntersection extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (!MathUtils.isZero(this.displacementL)) {
             double displGis = new Gisement(this.p1L, this.p2L, false).getGisement();
             displGis += MathUtils.isNegative(this.displacementL) ? -100 : 100;
@@ -200,7 +200,8 @@ public class LineCircleIntersection extends Calculation {
                             + DisplayUtils.toStringForTextView(minRadius)
                             + " (" + DisplayUtils.toStringForTextView(this.radiusC) + " given).");
             this.setIgnorableResults();
-            return;
+            throw new CalculationException(App.getContext().getString(
+                    R.string.error_impossible_calculation));
         }
 
         double stPtIntersecGis1 = new Gisement(this.p1L, this.p2L, false).getGisement();
