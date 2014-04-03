@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestFreeStation extends TestCase {
     private DecimalFormat df3;
@@ -135,5 +136,55 @@ public class TestFreeStation extends TestCase {
         Assert.assertEquals("0.7", this.df1.format(fs.getsA()));
 
         Assert.assertEquals("60.443", this.df3.format(fs.getUnknownOrientation()));
+    }
+
+    public void testFreeStation4() {
+        Point p182 = new Point(182, 559729.53, 147799.62, 0.00, true, false);
+        Point p188 = new Point(188, 559750.21, 147772.29, 0.00, true, false);
+        Point p189 = new Point(189, 559748.07, 147775.80, 0.00, true, false);
+        Point p190 = new Point(190, 559750.55, 147777.23, 0.00, true, false);
+        Point p284 = new Point(284, 559701.24, 147751.08, 0.00, true, false);
+        Point p969 = new Point(969, 559772.81, 147851.25, 0.00, true, false);
+        Point p970 = new Point(970, 559727.00, 147754.64, 0.00, true, false);
+        Point p8001 = new Point(8001, 559694.50, 147719.23, 0.00, true, false);
+
+        Measure m1 = new Measure(p182, 6.5060, 100, 46.120);
+        Measure m2 = new Measure(p188, 58.8310, 100, 31.801);
+        Measure m3 = new Measure(p189, 51.7400, 100, 32.051);
+        Measure m4 = new Measure(p190, 52.9910, 100, 34.877);
+        Measure m5 = new Measure(p284, 292.6390, 100, 23.343);
+        Measure m6 = new Measure(p969, 29.0700, 100, 108.656);
+        Measure m7 = new Measure(p970, 77.7880, 100, 2.476);
+        Measure m8 = new Measure(p8001, 254.5710, 100, 45.949);
+
+        FreeStation fs = new FreeStation(42, MathUtils.IGNORE_DOUBLE, false);
+        fs.getMeasures().add(m1);
+        fs.getMeasures().add(m2);
+        fs.getMeasures().add(m3);
+        fs.getMeasures().add(m4);
+        fs.getMeasures().add(m5);
+        fs.getMeasures().add(m6);
+        fs.getMeasures().add(m7);
+        fs.getMeasures().add(m8);
+        fs.compute();
+
+        Assert.assertEquals("559724.677", this.df3.format(
+                fs.getStationResult().getEast()));
+        Assert.assertEquals("147753.711", this.df3.format(
+                fs.getStationResult().getNorth()));
+
+        Assert.assertEquals("4.5", this.df2.format(fs.getResults().get(0).getvA()));
+        Assert.assertEquals("50.9", this.df2.format(fs.getResults().get(1).getvA()));
+        Assert.assertEquals("13.7", this.df2.format(fs.getResults().get(2).getvA()));
+        Assert.assertEquals("12.6", this.df2.format(fs.getResults().get(3).getvA()));
+        Assert.assertEquals("24.1", this.df2.format(fs.getResults().get(4).getvA()));
+        Assert.assertEquals("19.3", this.df2.format(fs.getResults().get(5).getvA()));
+        Assert.assertEquals("9.0", this.df2.format(fs.getResults().get(6).getvA()));
+        Assert.assertEquals("12.8", this.df2.format(fs.getResults().get(7).getvA()));
+
+        Assert.assertEquals("7.6", this.df1.format(fs.getsE()));
+        Assert.assertEquals("6.5", this.df1.format(fs.getsN()));
+
+        Assert.assertEquals("0.2054", this.df3.format(fs.getUnknownOrientation()));
     }
 }
