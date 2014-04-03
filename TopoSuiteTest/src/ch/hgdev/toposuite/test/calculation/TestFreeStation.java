@@ -155,7 +155,7 @@ public class TestFreeStation extends TestCase {
         Measure m5 = new Measure(p284, 292.6390, 100, 23.343);
         Measure m6 = new Measure(p969, 29.0700, 100, 108.656);
         Measure m7 = new Measure(p970, 77.7880, 100, 2.476);
-        Measure m8 = new Measure(p8001, 254.5710, 100, 45.949);
+        Measure m8 = new Measure(p8001, 245.5710, 100, 45.949);
 
         FreeStation fs = new FreeStation(42, MathUtils.IGNORE_DOUBLE, false);
         fs.getMeasures().add(m1);
