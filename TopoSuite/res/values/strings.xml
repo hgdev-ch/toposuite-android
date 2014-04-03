@@ -45,6 +45,7 @@
     <string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
     <string name="cfgeo_webpage_url_short">www.cf-geo.ch</string>
     <string name="chemin_ortho_base_label">Cheminement orthogonal from the base</string>
+    <string name="choose_value">Choose a value</string>
     <string name="chord_of_label">Chord (OF) [m]</string>
     <string name="chord_om_label">Chord (OM) [m]</string>
     <string name="circle_label">Circle</string>
@@ -246,6 +247,7 @@
     <string name="point_one_not_saved">First point was NOT saved!</string>
     <string name="point_two_not_saved">Second point was NOT saved!</string>
     <string name="pref_about_title">About</string>
+    <string name="pref_coordinates_decimal_precision">Decimal precision for coordinates</string>
     <string name="pref_general_title">General settings</string>
     <string name="pref_negative_coordinates">Allow negative coordinates</string>
     <string name="prism_height">Prism height (S)</string>
