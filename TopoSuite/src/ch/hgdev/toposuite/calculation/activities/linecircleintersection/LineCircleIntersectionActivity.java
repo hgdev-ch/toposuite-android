@@ -20,6 +20,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LineCircleIntersection;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.dao.PointsDataSource;
@@ -598,7 +599,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1,
                 this.centerCPoint, this.radiusC);
 
-        this.lineCircleIntersection.compute();
+        try {
+            this.lineCircleIntersection.compute();
+        } catch (CalculationException e) {
+            ViewUtils.showToast(this, e.getMessage());
+        }
 
         this.intersectionOne = this.lineCircleIntersection.getFirstIntersection();
         this.intersectionTwo = this.lineCircleIntersection.getSecondIntersection();
