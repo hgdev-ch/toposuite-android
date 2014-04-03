@@ -198,6 +198,19 @@ public class App extends Application {
         } else {
             App.inputTypeCoordinate = App.coordinatesTypeStandard;
         }
+
+        App.decimalPrecisionForCoordinate = prefs.getInt(
+                SettingsActivity.SettingsFragment.KEY_PREF_COORDINATES_DISPLAY_PRECISION, 3);
+        App.decimalPrecisionForAngle = prefs.getInt(
+                SettingsActivity.SettingsFragment.KEY_PREF_ANGLES_DISPLAY_PRECISION, 4);
+        App.decimalPrecisionForDistance = prefs.getInt(
+                SettingsActivity.SettingsFragment.KEY_PREF_DISTANCES_DISPLAY_PRECISION, 3);
+        App.decimalPrecisionForAverage = prefs.getInt(
+                SettingsActivity.SettingsFragment.KEY_PREF_AVERAGES_DISPLAY_PRECISION, 3);
+        App.decimalPrecisionForGap = prefs.getInt(
+                SettingsActivity.SettingsFragment.KEY_PREF_GAPS_DISPLAY_PRECISION, 1);
+        App.decimalPrecisionForSurface = prefs.getInt(
+                SettingsActivity.SettingsFragment.KEY_PREF_SURFACES_DISPLAY_PRECISION, 4);
     }
 
     @Override

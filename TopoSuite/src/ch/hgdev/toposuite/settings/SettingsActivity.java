@@ -45,7 +45,14 @@ public class SettingsActivity extends TopoSuiteActivity {
      */
     public static class SettingsFragment extends PreferenceFragment
             implements OnSharedPreferenceChangeListener {
-        public static final String KEY_PREF_NEGATIVE_COORDINATES = "switch_negative_coordinates";
+        public static final String KEY_PREF_NEGATIVE_COORDINATES          = "switch_negative_coordinates";
+        public static final String KEY_PREF_COORDINATES_DECIMAL_PRECISION = "coordinates_decimal_precision";
+        public static final String KEY_PREF_COORDINATES_DISPLAY_PRECISION = "coordinates_display_precision";
+        public static final String KEY_PREF_ANGLES_DISPLAY_PRECISION      = "angles_display_precision";
+        public static final String KEY_PREF_DISTANCES_DISPLAY_PRECISION   = "distances_display_precision";
+        public static final String KEY_PREF_AVERAGES_DISPLAY_PRECISION    = "averages_display_precision";
+        public static final String KEY_PREF_GAPS_DISPLAY_PRECISION        = "gaps_display_precision";
+        public static final String KEY_PREF_SURFACES_DISPLAY_PRECISION    = "surfaces_display_precision";
 
         @Override
         public void onCreate(Bundle savedInstanceState) {

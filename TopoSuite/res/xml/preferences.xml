@@ -27,35 +27,35 @@
         <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
             android:defaultValue="4"
             android:dialogMessage="@string/choose_value"
-            android:key="angle_display_precision"
+            android:key="angles_display_precision"
             android:max="5"
             android:title="@string/pref_angles_display_precision"
             custom:min="1" />
         <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
             android:defaultValue="3"
             android:dialogMessage="@string/choose_value"
-            android:key="distances_precision_precision"
+            android:key="distances_display_precision"
             android:max="5"
             android:title="@string/pref_distances_display_precision"
             custom:min="1" />
         <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
             android:defaultValue="3"
             android:dialogMessage="@string/choose_value"
-            android:key="averages_precision_precision"
+            android:key="averages_display_precision"
             android:max="5"
             android:title="@string/pref_averages_display_precision"
             custom:min="1" />
         <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
             android:defaultValue="1"
             android:dialogMessage="@string/choose_value"
-            android:key="gaps_precision_precision"
+            android:key="gaps_display_precision"
             android:max="5"
             android:title="@string/pref_gaps_display_precision"
             custom:min="1" />
         <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
             android:defaultValue="4"
             android:dialogMessage="@string/choose_value"
-            android:key="surfaces_precision_precision"
+            android:key="surfaces_display_precision"
             android:max="5"
             android:title="@string/pref_surfaces_display_precision"
             custom:min="1" />
