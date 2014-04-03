@@ -95,8 +95,6 @@ public class FreeStation extends Calculation {
         this.sA = 0.0;
         this.meanFS = 0.0;
 
-        double unknOrient = 0.0;
-
         // fictive coordinates centroid
         double centroidYFict = 0.0;
         double centroidXFict = 0.0;
@@ -129,7 +127,7 @@ public class FreeStation extends Calculation {
 
             double horizDist = m.getDistance() * Math.sin(
                     MathUtils.gradToRad(m.getZenAngle()));
-            double gis = MathUtils.modulo400(unknOrient + m.getHorizDir());
+            double gis = MathUtils.modulo400(m.getHorizDir());
 
             if (!MathUtils.isZero(m.getLatDepl())) {
                 double angle = Math.asin(Math.abs(m.getLatDepl() / horizDist));
