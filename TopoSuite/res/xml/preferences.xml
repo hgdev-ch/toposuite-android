@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto" >
 
     <PreferenceCategory
         android:key="pref_key_storage_settings"
@@ -8,6 +9,14 @@
             android:key="switch_negative_coordinates"
             android:title="@string/pref_negative_coordinates" >
         </CheckBoxPreference>
+
+        <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
+            android:defaultValue="3"
+            android:dialogMessage="@string/choose_value"
+            android:key="coordinates_decimal_precision"
+            android:max="5"
+            android:title="@string/pref_coordinates_decimal_precision"
+            custom:min="1" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_key_storage_settings"
