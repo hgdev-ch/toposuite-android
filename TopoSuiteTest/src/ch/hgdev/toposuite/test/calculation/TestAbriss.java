@@ -27,7 +27,7 @@ public class TestAbriss extends TestCase {
         this.df4.setRoundingMode(RoundingMode.HALF_UP);
     }
 
-    /*public void testRandom() {
+    public void testRandom() {
         Point p1 = new Point(1, 600.245, 200.729, 0.0, true);
         Point p2 = new Point(2, 623.487, 528.371, 0.0, true);
         Point p3 = new Point(3, 476.331, 534.228, 0.0, true);
@@ -182,7 +182,7 @@ public class TestAbriss extends TestCase {
 
         // test final results
         Assert.assertEquals("233.2466", this.df4.format(a.getMean()));
-    }*/
+    }
 
     public void testMeasureDeactivation2() {
         Point p34 = new Point(34, 556506.667, 172513.91, 620.34, true);

@@ -86,7 +86,10 @@ public class FreeStation extends Calculation {
             return;
         }
 
-        this.results.clear();
+        if (!this.hasDeactivatedMeasure()) {
+            this.results.clear();
+        }
+
         this.sE = 0.0;
         this.sN = 0.0;
         this.sA = 0.0;
@@ -109,7 +112,17 @@ public class FreeStation extends Calculation {
         double meanAltitude = 0.0;
         int nbAltitudes = 0;
 
+        int numberOfDeactivatedOrientations = 0;
+        int index = -1;
+
         for (Measure m : this.measures) {
+            index++;
+
+            if (m.isDeactivated()) {
+                numberOfDeactivatedOrientations++;
+                continue;
+            }
+
             Point res = new Point(m.getPoint().getNumber(), m.getPoint().getEast(),
                     m.getPoint().getNorth(), m.getPoint().getAltitude(),
                     false, false);
@@ -143,7 +156,15 @@ public class FreeStation extends Calculation {
                 nbAltitudes++;
             }
 
-            this.results.add(new Result(res, weight));
+            if (!this.hasDeactivatedMeasure()) {
+                this.results.add(new Result(res, weight));
+            } else {
+                // just used as tmp variable for modifying the pointed value of the
+                // current result
+                @SuppressWarnings("unused")
+                Result oldResult = this.results.get(index);
+                oldResult = new Result(res, weight);
+            }
 
             // centroid calculation
             centroidYFict += res.getEast();
@@ -153,7 +174,7 @@ public class FreeStation extends Calculation {
             centroidXCadast += m.getPoint().getNorth();
         }
 
-        int n = this.results.size();
+        int n = this.results.size() - numberOfDeactivatedOrientations;
         centroidFict = new Point(0, centroidYFict / n, centroidXFict / n,
                 0.0, false, false);
         centroidCadast = new Point(0, centroidYCadast / n, centroidXCadast / n,
@@ -164,6 +185,10 @@ public class FreeStation extends Calculation {
         double meanConstants = 0.0;
 
         for (int i = 0; i < this.results.size(); i++) {
+            if (this.measures.get(i).isDeactivated()) {
+                continue;
+            }
+
             Gisement g1 = new Gisement(
                     centroidFict, this.results.get(i).getPoint(), false);
             Gisement g2 = new Gisement(
@@ -225,6 +250,10 @@ public class FreeStation extends Calculation {
         double v = 0.0;
 
         for (int i = 0; i < this.results.size(); i++) {
+            if (this.measures.get(i).isDeactivated()) {
+                continue;
+            }
+
             double newGis = MathUtils.modulo400(
                     meanRotations + this.measures.get(i).getHorizDir());
             double newDist = meanConstants * this.measures.get(i).getDistance();
@@ -270,14 +299,15 @@ public class FreeStation extends Calculation {
             v += Math.pow(this.results.get(i).getPoint().getNorth() - centroidXFict, 2);
         }
 
-        this.sE = Math.sqrt((this.sE + this.sN) / ((2 * this.results.size()) - 4));
+        this.sE = Math.sqrt((this.sE + this.sN) / ((2 * (
+                this.results.size() - numberOfDeactivatedOrientations)) - 4));
         this.sE = this.sE * Math.sqrt(
-                (1 / this.results.size()) + ((
+                (1 / (this.results.size() - numberOfDeactivatedOrientations)) + ((
                         Math.pow(centroidYFict, 2) + Math.pow(centroidXFict, 2)) / (u + v)));
         this.sN = this.sE;
 
         this.sA = Math.sqrt(diffAlt / ((nbAltitudes - 1) * totalWeights));
-        this.meanFS /= this.results.size();
+        this.meanFS /= (this.results.size() - numberOfDeactivatedOrientations);
 
         this.unknownOrientation = meanRotations;
 
@@ -406,37 +436,48 @@ public class FreeStation extends Calculation {
         return this.results;
     }
 
+    private boolean hasDeactivatedMeasure() {
+        for (Measure m : this.measures) {
+            if (m.isDeactivated()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static class Result {
         /** The target point. */
-        private Point  point;
+        private Point   point;
+
+        private boolean deactivated;
 
         /**
          * Difference between the east coordinate of the original point and the
          * new one.
          */
-        private double vE;
+        private double  vE;
 
         /**
          * Difference between the north coordinate of the original point and the
          * new one.
          */
-        private double vN;
+        private double  vN;
 
         /**
          * Difference between the altitude of the original point and the new
          * one.
          */
-        private double vA;
+        private double  vA;
 
         /**
          * FS.
          */
-        private double fS;
+        private double  fS;
 
         /**
          * Weight.
          */
-        private double weight;
+        private double  weight;
 
         public Result(Point _point, double _vE, double _vN, double _vA,
                 double _weight) {
@@ -445,6 +486,7 @@ public class FreeStation extends Calculation {
             this.vN = _vN;
             this.vA = _vA;
             this.weight = _weight;
+            this.deactivated = false;
         }
 
         public Result(Point _point) {
@@ -501,6 +543,14 @@ public class FreeStation extends Calculation {
 
         public final void setWeight(double weight) {
             this.weight = weight;
+        }
+
+        public final boolean isDeactivated() {
+            return this.deactivated;
+        }
+
+        public final void toggle() {
+            this.deactivated = !this.deactivated;
         }
     }
 

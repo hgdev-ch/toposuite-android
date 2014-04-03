@@ -187,4 +187,50 @@ public class TestFreeStation extends TestCase {
 
         Assert.assertEquals("0.2054", this.df3.format(fs.getUnknownOrientation()));
     }
+
+    public void testFreeStationDeactivation1() {
+        Point p1 = new Point(1, 542430.11, 151989.66, 0.0, true, false);
+        Point p2 = new Point(2, 542610.79, 151979.94, 0.0, true, false);
+        Point p3 = new Point(3, 542624.36, 151873.24, 0.0, true, false);
+        Point p4 = new Point(4, 542495.94, 151847.05, 0.0, true, false);
+        Point p5 = new Point(970, 559727.00, 147754.64, 0.00, true, false);
+
+        Measure m1 = new Measure(p1, 271.234, 100, 162.154);
+        Measure m2 = new Measure(p2, 356.627, 100, 125.149);
+        Measure m3 = new Measure(p3, 21.493, 100, 80.431);
+        Measure m4 = new Measure(p4, 188.014, 100, 55.128);
+        Measure m5 = new Measure(p5, 292.6390, 100, 23.343);
+
+        FreeStation fs = new FreeStation(42, false);
+        fs.getMeasures().add(m1);
+        fs.getMeasures().add(m2);
+        fs.getMeasures().add(m3);
+        fs.getMeasures().add(m4);
+        fs.getMeasures().add(m5);
+        fs.compute();
+        m5.deactivate();
+        fs.compute();
+
+        Assert.assertEquals("542543.93", this.df2.format(
+                fs.getStationResult().getEast()));
+        Assert.assertEquals("151874.16", this.df2.format(
+                fs.getStationResult().getNorth()));
+
+        Assert.assertEquals("2.6", this.df1.format(fs.getResults().get(0).getvE()));
+        Assert.assertEquals("0.9", this.df1.format(fs.getResults().get(0).getvN()));
+        Assert.assertEquals("2.8", this.df1.format(fs.getResults().get(0).getfS()));
+
+        Assert.assertEquals("-1.8", this.df1.format(fs.getResults().get(1).getvE()));
+        Assert.assertEquals("1.7", this.df1.format(fs.getResults().get(1).getvN()));
+        Assert.assertEquals("2.5", this.df1.format(fs.getResults().get(1).getfS()));
+
+        Assert.assertEquals("-0.5", this.df1.format(fs.getResults().get(2).getvE()));
+        Assert.assertEquals("-1.4", this.df1.format(fs.getResults().get(2).getvN()));
+        Assert.assertEquals("1.4", this.df1.format(fs.getResults().get(2).getfS()));
+
+        Assert.assertEquals("-0.3", this.df1.format(fs.getResults().get(3).getvE()));
+        Assert.assertEquals("-1.3", this.df1.format(fs.getResults().get(3).getvN()));
+        Assert.assertEquals("1.3", this.df1.format(fs.getResults().get(3).getfS()));
+    }
+
 }
