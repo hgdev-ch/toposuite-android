@@ -17,6 +17,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CirclesIntersection;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.dao.PointsDataSource;
@@ -476,7 +477,11 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
         this.circlesIntersection.setCenterSecond(this.centerTwoPoint);
         this.circlesIntersection.setRadiusSecond(this.radiusTwo);
 
-        this.circlesIntersection.compute();
+        try {
+            this.circlesIntersection.compute();
+        } catch (CalculationException e) {
+            ViewUtils.showToast(this, e.getMessage());
+        }
 
         this.intersectionOne = this.circlesIntersection.getFirstIntersection();
         this.intersectionTwo = this.circlesIntersection.getSecondIntersection();

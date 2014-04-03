@@ -120,7 +120,7 @@ public class CirclesIntersection extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         double distCenters = MathUtils.euclideanDistance(this.centerFirst, this.centerSecond);
         double alpha = ((Math.pow(distCenters, 2) + Math.pow(this.radiusFirst, 2)) - Math.pow(
                 this.radiusSecond, 2)) / (2 * this.radiusFirst * distCenters);
@@ -137,7 +137,8 @@ public class CirclesIntersection extends Calculation {
                                 + "one of the circle is included in the other one (no intersection).");
             }
             this.setIgnorableResults();
-            return;
+            throw new CalculationException(App.getContext().getString(
+                    R.string.error_impossible_calculation));
         }
         alpha = Math.atan(-alpha / Math.sqrt((-alpha * alpha) + 1)) + (2 * Math.atan(1));
 
