@@ -130,12 +130,6 @@ public class LinesIntersection extends Calculation {
 
     @Override
     public void compute() throws CalculationException {
-        // TODO raise an exception
-        /*if ((this.p1D1 == null) || (this.p2D1 == null) || (this.p1D2 == null)
-                || (this.p2D2 == null)) {
-            return;
-        }*/
-
         // check for points equality
         if ((MathUtils.equals(this.p1D1, this.p1D2, LinesIntersection.TOLERANCE)
                 && MathUtils.equals(this.p2D1, this.p2D2, LinesIntersection.TOLERANCE))
