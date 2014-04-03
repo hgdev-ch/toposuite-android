@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import ch.hgdev.toposuite.R;
@@ -77,6 +78,9 @@ public class NumberPickerDialogPreference extends DialogPreference {
         this.mNumberPicker.setMinValue(this.mMinValue);
         this.mNumberPicker.setMaxValue(this.mMaxValue);
         this.mNumberPicker.setValue(this.mValue);
+
+        // prevent keyboard from showing up
+        this.mNumberPicker.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
     }
 
     public int getMinValue() {
