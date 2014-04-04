@@ -50,23 +50,23 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
             }
 
             if (vETextView != null) {
-                vETextView.setText(DisplayUtils.toStringForTextView(result.getvE()));
+                vETextView.setText(DisplayUtils.formatGap(result.getvE()));
                 this.colorizeTextView(vETextView, result);
             }
 
             if (vNTextView != null) {
-                vNTextView.setText(DisplayUtils.toStringForTextView(result.getvN()));
+                vNTextView.setText(DisplayUtils.formatGap(result.getvN()));
                 this.colorizeTextView(vNTextView, result);
             }
 
             if (fSTextView != null) {
-                fSTextView.setText(DisplayUtils.toStringForTextView(result.getfS()));
+                fSTextView.setText(DisplayUtils.formatGap(result.getfS()));
                 this.colorizeTextView(fSTextView, result);
             }
 
             if (vATextView != null) {
                 if (this.hasAltimetry) {
-                    vATextView.setText(DisplayUtils.toStringForTextView(result.getvA()));
+                    vATextView.setText(DisplayUtils.formatGap(result.getvA()));
                 } else {
                     vATextView.setText(
                             App.getContext().getString(R.string.no_value));

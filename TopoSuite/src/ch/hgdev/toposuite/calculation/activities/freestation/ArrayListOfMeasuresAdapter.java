@@ -36,7 +36,8 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<Measure> {
             TextView horizOrientTextView = (TextView) view.findViewById(R.id.horiz_orient_item);
             TextView horizDistTextView = (TextView) view.findViewById(R.id.horiz_dist_item);
 
-            // FIXME R.id.altitude MUST be called R.id.zen_angle, it must be fixed in
+            // FIXME R.id.altitude MUST be called R.id.zen_angle, it must be
+            // fixed in
             // the R.layout.determinations_list_item
             TextView zenAngleTextView = (TextView) view.findViewById(R.id.altitude_item);
 
@@ -45,25 +46,28 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<Measure> {
             TextView lonDeplTextView = (TextView) view.findViewById(R.id.lon_depl_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(determination.getPoint().getNumber()));
+                numberTextView.setText(DisplayUtils.toStringForTextView(determination.getPoint()
+                        .getNumber()));
             }
             if (horizOrientTextView != null) {
-                horizOrientTextView.setText(DisplayUtils.toStringForTextView(determination.getHorizDir()));
+                horizOrientTextView.setText(DisplayUtils.formatAngle(determination.getHorizDir()));
             }
             if (horizDistTextView != null) {
-                horizDistTextView.setText(DisplayUtils.toStringForTextView(determination.getDistance()));
+                horizDistTextView.setText(DisplayUtils.formatDistance(determination.getDistance()));
             }
             if (zenAngleTextView != null) {
-                zenAngleTextView.setText(DisplayUtils.toStringForTextView(determination.getZenAngle()));
+                zenAngleTextView.setText(DisplayUtils.formatAngle(determination.getZenAngle()));
             }
             if (sTextView != null) {
-                sTextView.setText(DisplayUtils.toStringForTextView(determination.getS()));
+                sTextView.setText(DisplayUtils.formatDistance(determination.getS()));
             }
             if (latDeplTextView != null) {
-                latDeplTextView.setText(DisplayUtils.toStringForTextView(determination.getLatDepl()));
+                latDeplTextView
+                        .setText(DisplayUtils.formatDistance(determination.getLatDepl()));
             }
             if (lonDeplTextView != null) {
-                lonDeplTextView.setText(DisplayUtils.toStringForTextView(determination.getLonDepl()));
+                lonDeplTextView
+                        .setText(DisplayUtils.formatDistance(determination.getLonDepl()));
             }
         }
 
