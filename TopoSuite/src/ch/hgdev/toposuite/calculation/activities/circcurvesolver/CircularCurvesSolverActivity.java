@@ -153,19 +153,19 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
         this.tangentEditText.setText(DisplayUtils.toStringForEditText(this.ccs.getTangent()));
         this.arrowEditText.setText(DisplayUtils.toStringForEditText(this.ccs.getArrow()));
 
-        this.bisectorTextView.setText(DisplayUtils.toStringForEditText(this.ccs.getBisector()));
-        this.arcTextView.setText(DisplayUtils.toStringForEditText(this.ccs.getArc()));
-        this.circumferenceTextView.setText(DisplayUtils.toStringForEditText(this.ccs
-                .getCircumference()));
-        this.chordOMTextView.setText(DisplayUtils.toStringForEditText(this.ccs.getChordOM()));
+        this.bisectorTextView.setText(DisplayUtils.formatDistance(this.ccs.getBisector()));
+        this.arcTextView.setText(DisplayUtils.formatDistance(this.ccs.getArc()));
+        this.circumferenceTextView.setText(DisplayUtils.formatDistance(
+                this.ccs.getCircumference()));
+        this.chordOMTextView.setText(DisplayUtils.formatDistance(this.ccs.getChordOM()));
 
-        this.betaAngleTextView.setText(DisplayUtils.toStringForEditText(this.ccs.getBetaAngle()));
-        this.circleSurfaceTextView.setText(DisplayUtils.toStringForEditText(this.ccs
-                .getCircleSurface()));
-        this.sectorSurfaceTextView.setText(DisplayUtils.toStringForEditText(this.ccs
-                .getSectorSurface()));
-        this.segmentSurfaceTextView.setText(DisplayUtils.toStringForEditText(this.ccs
-                .getSegmentSurface()));
+        this.betaAngleTextView.setText(DisplayUtils.formatAngle(this.ccs.getBetaAngle()));
+        this.circleSurfaceTextView.setText(DisplayUtils.formatSurface(
+                this.ccs.getCircleSurface()));
+        this.sectorSurfaceTextView.setText(DisplayUtils.formatSurface(
+                this.ccs.getSectorSurface()));
+        this.segmentSurfaceTextView.setText(DisplayUtils.formatSurface(
+                this.ccs.getSegmentSurface()));
     }
 
     /**
