@@ -168,12 +168,12 @@ public class TriangleSolver extends Calculation {
                             "%s%s (a = %s; b = %s; c = %s; alpha = %s; beta = %s; gamma = %s)",
                             TriangleSolver.TRIANGLE_SOLVER,
                             "less than 3 inputs were provided.",
-                            DisplayUtils.toStringForTextView(this.a.first),
-                            DisplayUtils.toStringForTextView(this.b.first),
-                            DisplayUtils.toStringForTextView(this.c.first),
-                            DisplayUtils.toStringForTextView(this.alpha.first),
-                            DisplayUtils.toStringForTextView(this.beta.first),
-                            DisplayUtils.toStringForTextView(this.gamma.first)));
+                            DisplayUtils.formatDistance(this.a.first),
+                            DisplayUtils.formatDistance(this.b.first),
+                            DisplayUtils.formatDistance(this.c.first),
+                            DisplayUtils.formatAngle(this.alpha.first),
+                            DisplayUtils.formatAngle(this.beta.first),
+                            DisplayUtils.formatAngle(this.gamma.first)));
             return false;
         }
     }
