@@ -153,7 +153,7 @@ public class App extends Application {
     /**
      * Type of coordinate that allows values to be negative.
      */
-    private static final int   coordinatesTypeAllowNegative  = coordinatesTypeStandard
+    private static final int   coordinatesTypeAllowNegative  = App.coordinatesTypeStandard
                                                                      | InputType.TYPE_NUMBER_FLAG_SIGNED;
 
     @Override
@@ -232,10 +232,10 @@ public class App extends Application {
     public static void toggleNegativeCoordinates() {
         switch (App.inputTypeCoordinate) {
         case App.coordinatesTypeStandard:
-            App.inputTypeCoordinate = coordinatesTypeAllowNegative;
+            App.inputTypeCoordinate = App.coordinatesTypeAllowNegative;
             break;
         case App.coordinatesTypeAllowNegative:
-            App.inputTypeCoordinate = coordinatesTypeStandard;
+            App.inputTypeCoordinate = App.coordinatesTypeStandard;
             break;
         default:
             Log.e(Logger.TOPOSUITE_SETTINGS_ERROR,
@@ -248,30 +248,54 @@ public class App extends Application {
     }
 
     public static int getDecimalPrecisionForCoordinate() {
-        return decimalPrecisionForCoordinate;
+        return App.decimalPrecisionForCoordinate;
+    }
+
+    public static void setDecimalPrecisionForCoordinate(int decimalPrecisionForCoordinate) {
+        App.decimalPrecisionForCoordinate = decimalPrecisionForCoordinate;
     }
 
     public static int getDecimalPrecisionForAngle() {
-        return decimalPrecisionForAngle;
+        return App.decimalPrecisionForAngle;
+    }
+
+    public static void setDecimalPrecisionForAngle(int decimalPrecisionForAngle) {
+        App.decimalPrecisionForAngle = decimalPrecisionForAngle;
     }
 
     public static int getDecimalPrecisionForDistance() {
-        return decimalPrecisionForDistance;
+        return App.decimalPrecisionForDistance;
+    }
+
+    public static void setDecimalPrecisionForDistance(int decimalPrecisionForDistance) {
+        App.decimalPrecisionForDistance = decimalPrecisionForDistance;
     }
 
     public static int getDecimalPrecisionForAverage() {
-        return decimalPrecisionForAverage;
+        return App.decimalPrecisionForAverage;
+    }
+
+    public static void setDecimalPrecisionForAverage(int decimalPrecisionForAverage) {
+        App.decimalPrecisionForAverage = decimalPrecisionForAverage;
     }
 
     public static int getDecimalPrecisionForGap() {
-        return decimalPrecisionForGap;
+        return App.decimalPrecisionForGap;
+    }
+
+    public static void setDecimalPrecisionForGap(int decimalPrecisionForGap) {
+        App.decimalPrecisionForGap = decimalPrecisionForGap;
     }
 
     public static int getDecimalPrecisionForSurface() {
-        return decimalPrecisionForSurface;
+        return App.decimalPrecisionForSurface;
+    }
+
+    public static void setDecimalPrecisionForSurface(int decimalPrecisionForSurface) {
+        App.decimalPrecisionForSurface = decimalPrecisionForSurface;
     }
 
     public static int getDecimalPrecisionForCC() {
-        return decimalPrecisionForCC;
+        return App.decimalPrecisionForCC;
     }
 }

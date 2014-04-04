@@ -84,9 +84,33 @@ public class SettingsActivity extends TopoSuiteActivity {
         }
 
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if (key.equals(KEY_PREF_NEGATIVE_COORDINATES)) {
+        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            if (key.equals(SettingsFragment.KEY_PREF_NEGATIVE_COORDINATES)) {
                 App.toggleNegativeCoordinates();
+            }
+            if (key.equals(SettingsFragment.KEY_PREF_COORDINATES_DISPLAY_PRECISION)) {
+                App.setDecimalPrecisionForCoordinate(prefs.getInt(
+                        SettingsFragment.KEY_PREF_COORDINATES_DISPLAY_PRECISION, 3));
+            }
+            if (key.equals(SettingsFragment.KEY_PREF_ANGLES_DISPLAY_PRECISION)) {
+                App.setDecimalPrecisionForAngle(prefs.getInt(
+                        SettingsFragment.KEY_PREF_ANGLES_DISPLAY_PRECISION, 4));
+            }
+            if (key.equals(SettingsFragment.KEY_PREF_DISTANCES_DISPLAY_PRECISION)) {
+                App.setDecimalPrecisionForDistance(prefs.getInt(
+                        SettingsFragment.KEY_PREF_DISTANCES_DISPLAY_PRECISION, 3));
+            }
+            if (key.equals(SettingsFragment.KEY_PREF_AVERAGES_DISPLAY_PRECISION)) {
+                App.setDecimalPrecisionForAverage(prefs.getInt(
+                        SettingsFragment.KEY_PREF_AVERAGES_DISPLAY_PRECISION, 3));
+            }
+            if (key.equals(SettingsFragment.KEY_PREF_GAPS_DISPLAY_PRECISION)) {
+                App.setDecimalPrecisionForGap(prefs.getInt(
+                        SettingsFragment.KEY_PREF_GAPS_DISPLAY_PRECISION, 1));
+            }
+            if (key.equals(SettingsFragment.KEY_PREF_SURFACES_DISPLAY_PRECISION)) {
+                App.setDecimalPrecisionForSurface(prefs.getInt(
+                        SettingsFragment.KEY_PREF_SURFACES_DISPLAY_PRECISION, 4));
             }
         }
 
