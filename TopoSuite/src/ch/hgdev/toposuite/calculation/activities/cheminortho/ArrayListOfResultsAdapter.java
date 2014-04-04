@@ -50,19 +50,19 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<CheminementOrthogona
             }
 
             if (abscissaTextView != null) {
-                abscissaTextView.setText(DisplayUtils.toStringForTextView(result.getEast()));
+                abscissaTextView.setText(DisplayUtils.formatCoordinate(result.getEast()));
             }
 
             if (ordinateTextView != null) {
-                ordinateTextView.setText(DisplayUtils.toStringForTextView(result.getNorth()));
+                ordinateTextView.setText(DisplayUtils.formatCoordinate(result.getNorth()));
             }
 
             if (vETextView != null) {
-                vETextView.setText(DisplayUtils.toStringForTextView(result.getvE()));
+                vETextView.setText(DisplayUtils.formatGap(result.getvE()));
             }
 
             if (ordinateTextView != null) {
-                vNTextView.setText(DisplayUtils.toStringForTextView(result.getvN()));
+                vNTextView.setText(DisplayUtils.formatGap(result.getvN()));
             }
         }
 

@@ -291,7 +291,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
                 this.cheminOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2));
             }
 
-            this.calcDistTextView.setText(DisplayUtils.toStringForTextView(
+            this.calcDistTextView.setText(DisplayUtils.formatDistance(
                     this.cheminOrtho.getOrthogonalBase().getCalculatedDistance()));
         }
     }
