@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -56,14 +55,14 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             }
 
             if (calcDistTextView != null) {
-                calcDistTextView.setText(DisplayUtils.toStringForTextView(result
-                        .getCalculatedDistance()));
+                calcDistTextView.setText(
+                        DisplayUtils.formatDistance(result.getCalculatedDistance()));
                 this.colorizeTextView(calcDistTextView, result);
             }
 
             if (unknOrientTextView != null) {
-                unknOrientTextView.setText(DisplayUtils.toStringForTextView(result
-                        .getUnknownOrientation()));
+                unknOrientTextView.setText(
+                        DisplayUtils.formatDistance(result.getUnknownOrientation()));
                 this.colorizeTextView(unknOrientTextView, result);
             }
 
@@ -73,14 +72,14 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             }
 
             if (errTransTextView != null) {
-                errTransTextView.setText(DisplayUtils.toStringForTextView(
-                        result.getErrTrans(), App.smallNumberOfDecimals));
+                errTransTextView.setText(
+                        DisplayUtils.formatGap(result.getErrTrans()));
                 this.colorizeTextView(errTransTextView, result);
             }
 
             if ((errLonTextView != null) && !MathUtils.isZero(result.getDistance())) {
-                errLonTextView.setText(DisplayUtils.toStringForTextView(
-                        result.getErrLong(), App.smallNumberOfDecimals));
+                errLonTextView.setText(
+                        DisplayUtils.formatGap(result.getErrLong()));
                 this.colorizeTextView(errLonTextView, result);
             }
         }

@@ -43,15 +43,15 @@ public class ArrayListOfOrientationsAdapter extends ArrayAdapter<Measure> {
             }
 
             if (horizOrientTextView != null) {
-                horizOrientTextView.setText(DisplayUtils.toStringForTextView(orientation.getHorizDir()));
+                horizOrientTextView.setText(DisplayUtils.formatAngle(orientation.getHorizDir()));
             }
 
             if (horizDistTextView != null) {
-                horizDistTextView.setText(DisplayUtils.toStringForTextView(orientation.getDistance()));
+                horizDistTextView.setText(DisplayUtils.formatDistance(orientation.getDistance()));
             }
 
             if (zenAngleTextView != null) {
-                zenAngleTextView.setText(DisplayUtils.toStringForTextView(orientation.getZenAngle()));
+                zenAngleTextView.setText(DisplayUtils.formatAngle(orientation.getZenAngle()));
             }
         }
 
