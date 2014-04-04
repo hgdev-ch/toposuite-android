@@ -193,11 +193,11 @@ public class GisementActivity extends TopoSuiteActivity {
             }
 
             this.gisementValue
-                    .setText(DisplayUtils.toStringForTextView(this.gisement.getGisement()));
-            this.distValue.setText(DisplayUtils.toStringForTextView(this.gisement.getHorizDist()));
+                    .setText(DisplayUtils.formatAngle(this.gisement.getGisement()));
+            this.distValue.setText(DisplayUtils.formatDistance(this.gisement.getHorizDist()));
             this.altitudeValue
-                    .setText(DisplayUtils.toStringForTextView(this.gisement.getAltitude()));
-            this.slopeValue.setText(DisplayUtils.toStringForTextView(this.gisement.getSlope()));
+                    .setText(DisplayUtils.formatCoordinate(this.gisement.getAltitude()));
+            this.slopeValue.setText(DisplayUtils.formatAngle(this.gisement.getSlope()));
         }
     }
 
