@@ -298,7 +298,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
                 }
             }
 
-            this.calcDistTextView.setText(DisplayUtils.toStringForTextView(
+            this.calcDistTextView.setText(DisplayUtils.formatGap(
                     MathUtils.euclideanDistance(p1, p2)));
         }
     }

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -40,25 +39,24 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<OrthogonalImplantati
             TextView ordinateTextView = (TextView) view.findViewById(R.id.ordinate_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(result.getPoint().getNumber()));
+                numberTextView.setText(DisplayUtils.toStringForTextView(result.getPoint()
+                        .getNumber()));
             }
 
             if (eastTextView != null) {
-                eastTextView.setText(DisplayUtils.toStringForTextView(result.getPoint().getEast(),
-                        App.smallNumberOfDecimals));
+                eastTextView.setText(DisplayUtils.formatCoordinate(result.getPoint().getEast()));
             }
 
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toStringForTextView(result.getPoint().getNorth(),
-                        App.smallNumberOfDecimals));
+                northTextView.setText(DisplayUtils.formatCoordinate(result.getPoint().getNorth()));
             }
 
             if (abscissaTextView != null) {
-                abscissaTextView.setText(DisplayUtils.toStringForTextView(result.getAbscissa()));
+                abscissaTextView.setText(DisplayUtils.formatCoordinate(result.getAbscissa()));
             }
 
             if (ordinateTextView != null) {
-                ordinateTextView.setText(DisplayUtils.toStringForTextView(result.getOrdinate()));
+                ordinateTextView.setText(DisplayUtils.formatCoordinate(result.getOrdinate()));
             }
         }
 
