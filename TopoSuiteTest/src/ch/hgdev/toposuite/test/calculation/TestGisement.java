@@ -1,12 +1,11 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
 
-public class TestGisement extends TestCase {
+public class TestGisement extends CalculationTest {
 
     public void testCompute() {
         Point p1 = new Point(1, 600.245, 200.729, 100.776, true);

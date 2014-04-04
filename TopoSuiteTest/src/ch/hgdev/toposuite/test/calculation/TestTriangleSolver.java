@@ -1,39 +1,16 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.TriangleSolver;
 
-public class TestTriangleSolver extends TestCase {
+public class TestTriangleSolver extends CalculationTest {
 
-    private DecimalFormat df1;
-    private DecimalFormat df2;
-    private DecimalFormat df3;
-    private DecimalFormat df4;
-
-    private final double  a     = 3.4560;
-    private final double  b     = 1.3500;
-    private final double  c     = 2.6540;
-    private final double  alpha = 128.2621;
-    private final double  beta  = 22.9514;
-    private final double  gamma = 48.7865;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.df1 = new DecimalFormat("#.#");
-        this.df1.setRoundingMode(RoundingMode.HALF_UP);
-        this.df2 = new DecimalFormat("#.##");
-        this.df2.setRoundingMode(RoundingMode.HALF_UP);
-        this.df3 = new DecimalFormat("#.###");
-        this.df3.setRoundingMode(RoundingMode.HALF_UP);
-        this.df4 = new DecimalFormat("#.####");
-        this.df4.setRoundingMode(RoundingMode.HALF_UP);
-
-    }
+    private final double a     = 3.4560;
+    private final double b     = 1.3500;
+    private final double c     = 2.6540;
+    private final double alpha = 128.2621;
+    private final double beta  = 22.9514;
+    private final double gamma = 48.7865;
 
     public void testTriangleValidInput() {
         try {

@@ -1,25 +1,9 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.CircularCurvesSolver;
 
-public class TestCircularCurvesSolver extends TestCase {
-    private DecimalFormat df4;
-    private DecimalFormat df3;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        this.df4 = new DecimalFormat("#.####");
-        this.df4.setRoundingMode(RoundingMode.HALF_UP);
-        this.df3 = new DecimalFormat("#.###");
-        this.df3.setRoundingMode(RoundingMode.HALF_UP);
-    }
+public class TestCircularCurvesSolver extends CalculationTest {
 
     public void testRadiusAlpha() {
         // radius / alpha (central angle)

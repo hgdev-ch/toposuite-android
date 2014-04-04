@@ -1,30 +1,14 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CircularSegmentation;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestCircularSegmentation extends TestCase {
-
-    private DecimalFormat df3;
-    private DecimalFormat df4;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.df3 = new DecimalFormat("#.###");
-        this.df3.setRoundingMode(RoundingMode.HALF_UP);
-        this.df4 = new DecimalFormat("#.####");
-        this.df4.setRoundingMode(RoundingMode.HALF_UP);
-
-    }
+public class TestCircularSegmentation extends CalculationTest {
 
     public void testCircularSegmentation1() {
         Point circleCenter = new Point(1, 444.1609, -713.9844, MathUtils.IGNORE_DOUBLE, true, false);

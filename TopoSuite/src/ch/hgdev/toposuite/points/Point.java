@@ -133,7 +133,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     }
 
     public void setEast(double _east) {
-        this.east = _east;
+        this.east = MathUtils.roundCoordinate(_east);
         this.notifyUpdate(this);
     }
 
@@ -142,7 +142,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     }
 
     public void setNorth(double _north) {
-        this.north = _north;
+        this.north = MathUtils.roundCoordinate(_north);
         this.notifyUpdate(this);
     }
 
@@ -151,7 +151,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     }
 
     public void setAltitude(double _altitude) {
-        this.altitude = _altitude;
+        this.altitude = MathUtils.roundCoordinate(_altitude);
         this.notifyUpdate(this);
     }
 

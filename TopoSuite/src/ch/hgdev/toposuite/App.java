@@ -105,6 +105,12 @@ public class App extends Application {
     private static Context     context;
 
     /**
+     * Set number of decimal to which a coordinate value should be rounded to
+     * (not only display).
+     */
+    private static int         coordinateDecimalRounding     = 3;
+
+    /**
      * Number of decimal used for value of type coordinate.
      */
     private static int         decimalPrecisionForCoordinate = 3;
@@ -297,5 +303,13 @@ public class App extends Application {
 
     public static int getDecimalPrecisionForCC() {
         return App.decimalPrecisionForCC;
+    }
+
+    public static int getCoordinateDecimalRounding() {
+        return coordinateDecimalRounding;
+    }
+
+    public static void setCoordinateDecimalRounding(int coordinateDecimalRounding) {
+        App.coordinateDecimalRounding = coordinateDecimalRounding;
     }
 }

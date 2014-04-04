@@ -1,10 +1,6 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarSurvey;
 import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
@@ -17,18 +13,7 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  * 
  */
-public class TestPolarSurvey extends TestCase {
-    private DecimalFormat df2;
-    private DecimalFormat df3;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.df2 = new DecimalFormat("#.##");
-        this.df2.setRoundingMode(RoundingMode.HALF_UP);
-        this.df3 = new DecimalFormat("#.###");
-        this.df3.setRoundingMode(RoundingMode.HALF_UP);
-    }
+public class TestPolarSurvey extends CalculationTest {
 
     public void test1() {
         Point station = new Point(34, 556506.667, 172513.91, 620.34, true);
@@ -36,11 +21,14 @@ public class TestPolarSurvey extends TestCase {
         double z0 = 233.2435;
 
         Measure m2 = new Measure(
-                null, 288.833, 96.1645, 12.621, 1.40, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+                null, 288.833, 96.1645, 12.621, 1.40, MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE);
         Measure m3 = new Measure(
-                null, 317.0352, 95.2922, 30.996, 1.63, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+                null, 317.0352, 95.2922, 30.996, 1.63, MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE);
         Measure m5 = new Measure(
-                null, 5.9274, 107.3266, 32.265, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, 1.1);
+                null, 5.9274, 107.3266, 32.265, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
+                1.1);
         Measure m6 = new Measure(
                 null, 45.9760, 96.9650, 15.864, MathUtils.IGNORE_DOUBLE, 0.5, 1.5);
 
@@ -81,15 +69,20 @@ public class TestPolarSurvey extends TestCase {
         double z0 = 371.2579;
 
         Measure m1 = new Measure(
-                null, 353.0032, 102.6626, 27.032, 1.60, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+                null, 353.0032, 102.6626, 27.032, 1.60, MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE);
         Measure m2 = new Measure(
-                null, 32.205, 109.2742, 18.393, 1.70, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+                null, 32.205, 109.2742, 18.393, 1.70, MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE);
         Measure m3 = new Measure(
-                null, 126.0412, 108.9541, 11.056, 1.58, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+                null, 126.0412, 108.9541, 11.056, 1.58, MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE);
         Measure m4 = new Measure(
-                null, 278.5222, 91.7697, 14.117, 1.60, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+                null, 278.5222, 91.7697, 14.117, 1.60, MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE);
         Measure m5 = new Measure(
-                null, 321.489, 115.1289, 31.219, MathUtils.IGNORE_DOUBLE, -1.2, MathUtils.IGNORE_DOUBLE);
+                null, 321.489, 115.1289, 31.219, MathUtils.IGNORE_DOUBLE, -1.2,
+                MathUtils.IGNORE_DOUBLE);
 
         PolarSurvey lp = new PolarSurvey(station, z0, i, false);
 

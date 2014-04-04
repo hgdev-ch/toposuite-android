@@ -1,31 +1,12 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
 
-public class TestAbriss extends TestCase {
-
-    private DecimalFormat df1;
-    private DecimalFormat df3;
-    private DecimalFormat df4;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.df1 = new DecimalFormat("#.#");
-        this.df1.setRoundingMode(RoundingMode.HALF_UP);
-        this.df3 = new DecimalFormat("#.###");
-        this.df3.setRoundingMode(RoundingMode.HALF_UP);
-        this.df4 = new DecimalFormat("#.####");
-        this.df4.setRoundingMode(RoundingMode.HALF_UP);
-    }
+public class TestAbriss extends CalculationTest {
 
     public void testRandom() {
         Point p1 = new Point(1, 600.245, 200.729, 0.0, true);

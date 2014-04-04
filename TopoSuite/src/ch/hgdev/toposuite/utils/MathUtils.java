@@ -1,8 +1,13 @@
 package ch.hgdev.toposuite.utils;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
 
+import com.google.common.base.Strings;
 import com.google.common.math.DoubleMath;
 
 /**
@@ -409,5 +414,23 @@ public class MathUtils {
      */
     public static int scaleToPPM(double scaleFactor) {
         return (int) (1000000 * scaleFactor) - 1000000;
+    }
+
+    /**
+     * Round a value of type coordinate to the number of decimals set in the
+     * settings (3 by default).
+     * 
+     * @param coordinate
+     *            Coordinate to round.
+     * @return Coordinate rounded.
+     */
+    public static double roundCoordinate(double coordinate) {
+        int precision = App.getCoordinateDecimalRounding();
+        String format = precision < 1 ? "#" : "#.";
+        String decimalCount = Strings.repeat("#", precision);
+        format += decimalCount;
+        DecimalFormat df = new DecimalFormat(format);
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        return Double.valueOf(df.format(coordinate));
     }
 }

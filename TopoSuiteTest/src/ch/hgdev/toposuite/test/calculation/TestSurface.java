@@ -1,22 +1,9 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.Surface;
 
-public class TestSurface extends TestCase {
-
-    private DecimalFormat df4;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.df4 = new DecimalFormat("#.####");
-        this.df4.setRoundingMode(RoundingMode.HALF_UP);
-    }
+public class TestSurface extends CalculationTest {
 
     public void testSurfaceWithCurve() {
 

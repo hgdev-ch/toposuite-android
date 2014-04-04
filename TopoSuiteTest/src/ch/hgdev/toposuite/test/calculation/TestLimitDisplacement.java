@@ -1,23 +1,11 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LimitDisplacement;
 import ch.hgdev.toposuite.points.Point;
 
-public class TestLimitDisplacement extends TestCase {
-    private DecimalFormat df3;
-    private DecimalFormat df4;
-
-    @Override
-    protected void setUp() throws Exception {
-        this.df3 = new DecimalFormat("#.###");
-        this.df4 = new DecimalFormat("#.####");
-        super.setUp();
-    }
+public class TestLimitDisplacement extends CalculationTest {
 
     public void testLimitDisplacement1() {
         Point ptA = new Point(1, 96321.1527, 71470.5391, 0.0, true, false);

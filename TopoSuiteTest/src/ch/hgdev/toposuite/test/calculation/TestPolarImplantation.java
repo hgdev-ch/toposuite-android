@@ -1,28 +1,13 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarImplantation;
 import ch.hgdev.toposuite.calculation.PolarImplantation.Result;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestPolarImplantation extends TestCase {
-    private DecimalFormat df3;
-    private DecimalFormat df4;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.df3 = new DecimalFormat("#.###");
-        this.df3.setRoundingMode(RoundingMode.HALF_UP);
-        this.df4 = new DecimalFormat("#.####");
-        this.df4.setRoundingMode(RoundingMode.HALF_UP);
-    }
+public class TestPolarImplantation extends CalculationTest {
 
     public void testRealCase() {
         Point station = new Point(1, 0.0, 0.0, 323.45, false);

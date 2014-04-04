@@ -1,34 +1,12 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LineCircleIntersection;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestLineCircleIntersection extends TestCase {
-
-    private DecimalFormat df1;
-    private DecimalFormat df2;
-    private DecimalFormat df3;
-    private DecimalFormat df4;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        this.df1 = new DecimalFormat("#.#");
-        this.df1.setRoundingMode(RoundingMode.HALF_UP);
-        this.df2 = new DecimalFormat("#.##");
-        this.df2.setRoundingMode(RoundingMode.HALF_UP);
-        this.df3 = new DecimalFormat("#.###");
-        this.df3.setRoundingMode(RoundingMode.HALF_UP);
-        this.df4 = new DecimalFormat("#.####");
-        this.df4.setRoundingMode(RoundingMode.HALF_UP);
-    }
+public class TestLineCircleIntersection extends CalculationTest {
 
     public void testCorrectSolution() {
         Point p1 = new Point(1, 25.0, 55.0, MathUtils.IGNORE_DOUBLE, true, false);

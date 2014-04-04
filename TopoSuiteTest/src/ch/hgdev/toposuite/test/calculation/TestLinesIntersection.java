@@ -1,26 +1,20 @@
 package ch.hgdev.toposuite.test.calculation;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestLinesIntersection extends TestCase {
-    private Point         p1;
-    private Point         p3;
-    private Point         p4;
-    private Point         p5;
-    private Point         p10;
-    private Point         p20;
-    private Point         p30;
-    private Point         p40;
-
-    private DecimalFormat df;
+public class TestLinesIntersection extends CalculationTest {
+    private Point p1;
+    private Point p3;
+    private Point p4;
+    private Point p5;
+    private Point p10;
+    private Point p20;
+    private Point p30;
+    private Point p40;
 
     @Override
     protected void setUp() throws Exception {
@@ -35,9 +29,6 @@ public class TestLinesIntersection extends TestCase {
         this.p20 = new Point(20, 357.7832, 48.6002, 0.0, true, false);
         this.p30 = new Point(30, 140.1251, 249.2679, 0.0, true, false);
         this.p40 = new Point(40, -29.2174, 39.2745, 0.0, true, false);
-
-        this.df = new DecimalFormat("#.###");
-        this.df.setRoundingMode(RoundingMode.HALF_UP);
     }
 
     public void testCompute1() {
@@ -50,9 +41,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("60.484", this.df.format(
+        Assert.assertEquals("60.484", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("89.52", this.df.format(
+        Assert.assertEquals("89.52", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -66,9 +57,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("76.697", this.df.format(
+        Assert.assertEquals("76.697", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("104.229", this.df.format(
+        Assert.assertEquals("104.229", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -82,9 +73,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("44.271", this.df.format(
+        Assert.assertEquals("44.271", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("74.812", this.df.format(
+        Assert.assertEquals("74.812", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -98,9 +89,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("45.344", this.df.format(
+        Assert.assertEquals("45.344", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("73.727", this.df.format(
+        Assert.assertEquals("73.727", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -114,9 +105,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("75.623", this.df.format(
+        Assert.assertEquals("75.623", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("105.314", this.df.format(
+        Assert.assertEquals("105.314", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -130,9 +121,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("-0.306", this.df.format(
+        Assert.assertEquals("-0.306", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("80.77", this.df.format(
+        Assert.assertEquals("80.77", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -146,9 +137,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("60.354", this.df.format(
+        Assert.assertEquals("60.354", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("47.95", this.df.format(
+        Assert.assertEquals("47.95", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -162,9 +153,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("74.929", this.df.format(
+        Assert.assertEquals("74.929", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("45.706", this.df.format(
+        Assert.assertEquals("45.706", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -178,9 +169,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("70.373", this.df.format(
+        Assert.assertEquals("70.373", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("307.533", this.df.format(
+        Assert.assertEquals("307.533", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -194,9 +185,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("39.14", this.df.format(
+        Assert.assertEquals("39.14", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("124.041", this.df.format(
+        Assert.assertEquals("124.041", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -215,9 +206,9 @@ public class TestLinesIntersection extends TestCase {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("614.324", this.df.format(
+        Assert.assertEquals("614.324", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("189.234", this.df.format(
+        Assert.assertEquals("189.234", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 }

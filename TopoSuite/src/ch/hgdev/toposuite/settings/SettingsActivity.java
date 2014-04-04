@@ -88,6 +88,10 @@ public class SettingsActivity extends TopoSuiteActivity {
             if (key.equals(SettingsFragment.KEY_PREF_NEGATIVE_COORDINATES)) {
                 App.toggleNegativeCoordinates();
             }
+            if (key.equals(SettingsFragment.KEY_PREF_COORDINATES_DECIMAL_PRECISION)) {
+                App.setCoordinateDecimalRounding(
+                        prefs.getInt(SettingsFragment.KEY_PREF_COORDINATES_DECIMAL_PRECISION, 3));
+            }
             if (key.equals(SettingsFragment.KEY_PREF_COORDINATES_DISPLAY_PRECISION)) {
                 App.setDecimalPrecisionForCoordinate(prefs.getInt(
                         SettingsFragment.KEY_PREF_COORDINATES_DISPLAY_PRECISION, 3));
