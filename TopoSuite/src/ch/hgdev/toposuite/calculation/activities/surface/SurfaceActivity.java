@@ -292,7 +292,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
      *            Position of the point in the list of points.
      */
     private void showEditPointDialog(int position) {
-        EditPointWithRadiusDialogFragment dialog = new EditPointWithRadiusDialogFragment();
+        EditPointWithRadiusDialogFragment dialog = new EditPointWithRadiusDialogFragment(
+                this.surfaceCalculation);
 
         this.position = position;
         Surface.PointWithRadius p = this.adapter.getItem(position);

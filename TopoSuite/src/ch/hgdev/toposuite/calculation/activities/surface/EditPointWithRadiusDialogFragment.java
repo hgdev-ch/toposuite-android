@@ -21,6 +21,7 @@ import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.Surface;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -60,6 +61,14 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
     private TextView                  pointTextView;
     private double                    radius;
     private EditText                  radiusEditText;
+
+    private Spinner                   positionSpinner;
+    private Surface                   surfaceCalculation;
+    private int                       positionAfter;
+
+    public EditPointWithRadiusDialogFragment(Surface _surfaceCalculation) {
+        this.surfaceCalculation = _surfaceCalculation;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -182,6 +191,34 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
         int pointNumber = bundle.getInt(SurfaceActivity.POINT_WITH_RADIUS_NUMBER_LABEL);
         this.pointSpinner.setSelection(a.getPosition(
                 SharedResources.getSetOfPoints().find(pointNumber)));
+
+        this.positionSpinner = new Spinner(this.getActivity());
+        final ArrayAdapter<String> positionAdapter = new ArrayAdapter<String>(
+                this.getActivity(), R.layout.spinner_list_item,
+                new ArrayList<String>());
+        this.positionSpinner.setAdapter(positionAdapter);
+        positionAdapter.add(this.getActivity().getString(R.string.displace_after));
+        for (Surface.PointWithRadius pt : this.surfaceCalculation.getPoints()) {
+            if (pt.getNumber() != pointNumber) {
+                positionAdapter.add(pt.toString());
+            }
+        }
+        this.positionSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if (pos == 0) {
+                    return;
+                }
+
+                EditPointWithRadiusDialogFragment.this.positionAfter = Integer.valueOf(
+                        positionAdapter.getItem(pos));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // do nothing
+            }
+        });
     }
 
     /**
@@ -190,6 +227,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
      * 
      */
     private void genAddMeasureView() {
+        this.layout.addView(this.positionSpinner);
         this.layout.addView(this.pointSpinner);
         this.layout.addView(this.pointTextView);
         this.layout.addView(this.radiusEditText);
