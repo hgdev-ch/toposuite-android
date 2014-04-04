@@ -47,7 +47,6 @@ public class DisplayUtils {
      *            The value to convert to a String.
      * @return Value as a String.
      */
-    @Deprecated
     public static String toStringForTextView(int value) {
         if (MathUtils.isIgnorable(value)) {
             return "-";
@@ -63,7 +62,6 @@ public class DisplayUtils {
      *            The value to convert to a String.
      * @return Value as a String.
      */
-    @Deprecated
     public static String toStringForEditText(int value) {
         if (MathUtils.isIgnorable(value)) {
             return "";
@@ -101,7 +99,6 @@ public class DisplayUtils {
      *            The value to convert to a String.
      * @return Value as a String.
      */
-    @Deprecated
     public static String toStringForEditText(double value) {
         if (MathUtils.isIgnorable(value)) {
             return "";
@@ -183,7 +180,7 @@ public class DisplayUtils {
      * @return Formatted coordinate.
      */
     public static String formatCoordinate(double value) {
-        return format(value, valueType.COORDINATE);
+        return DisplayUtils.format(value, valueType.COORDINATE);
     }
 
     /**
@@ -194,7 +191,7 @@ public class DisplayUtils {
      * @return Formatted angle.
      */
     public static String formatAngle(double value) {
-        return format(value, valueType.ANGLE);
+        return DisplayUtils.format(value, valueType.ANGLE);
     }
 
     /**
@@ -205,7 +202,7 @@ public class DisplayUtils {
      * @return Formatted distance.
      */
     public static String formatDistance(double value) {
-        return format(value, valueType.DISTANCE);
+        return DisplayUtils.format(value, valueType.DISTANCE);
     }
 
     /**
@@ -216,7 +213,7 @@ public class DisplayUtils {
      * @return Formatted average value.
      */
     public static String formatAverage(double value) {
-        return format(value, valueType.AVERAGE);
+        return DisplayUtils.format(value, valueType.AVERAGE);
     }
 
     /**
@@ -227,7 +224,7 @@ public class DisplayUtils {
      * @return Formatted gap value.
      */
     public static String formatGap(double value) {
-        return format(value, valueType.GAP);
+        return DisplayUtils.format(value, valueType.GAP);
     }
 
     /**
@@ -238,7 +235,7 @@ public class DisplayUtils {
      * @return Formatted surface value.
      */
     public static String formatSurface(double value) {
-        return format(value, valueType.SURFACE);
+        return DisplayUtils.format(value, valueType.SURFACE);
     }
 
     /**
@@ -251,7 +248,20 @@ public class DisplayUtils {
      * @return Formatted CC value.
      */
     public static String formatCC(double value) {
-        return format(value, valueType.CC);
+        return DisplayUtils.format(value, valueType.CC);
+    }
+
+    /**
+     * Format given centimeters in order to display them in a TextView.
+     * 
+     * FIXME: use DisplayUtils.format
+     * 
+     * @param cm
+     *            centimeters.
+     * @return formatted centimeters.
+     */
+    public static String formatDifferences(double cm) {
+        return String.format(App.locale, "%.1f", cm);
     }
 
     /**
@@ -324,17 +334,6 @@ public class DisplayUtils {
         return String.format("%s: %s, %s: %s", context.getString(R.string.east),
                 DisplayUtils.toStringForTextView(pt.getEast()), context.getString(R.string.north),
                 DisplayUtils.toStringForTextView(pt.getNorth()));
-    }
-
-    /**
-     * Format given centimeters in order to display them in a TextView.
-     * 
-     * @param cm
-     *            centimeters.
-     * @return formatted centimeters.
-     */
-    public static String formatDifferences(double cm) {
-        return String.format(App.locale, "%.1f", cm);
     }
 
     /**
