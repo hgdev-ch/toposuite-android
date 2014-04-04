@@ -42,17 +42,17 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
 
         pointNumberTextView.setText(DisplayUtils.toStringForTextView(
                 this.ppoal.getNumber()));
-        eastTextView.setText(DisplayUtils.toStringForTextView(
+        eastTextView.setText(DisplayUtils.formatCoordinate(
                 this.ppoal.getProjPt().getEast()));
-        northTextView.setText(DisplayUtils.toStringForTextView(
+        northTextView.setText(DisplayUtils.formatCoordinate(
                 this.ppoal.getProjPt().getNorth()));
 
-        projPointLineDistTextView.setText(DisplayUtils.toStringForTextView(
+        projPointLineDistTextView.setText(DisplayUtils.formatDistance(
                 this.ppoal.getDistPtToLine()));
-        projPointP1DistTextView.setText(DisplayUtils.toStringForTextView(
+        projPointP1DistTextView.setText(DisplayUtils.formatDistance(
                 this.ppoal.getDistPtToP1()));
         if (this.ppoal.getP2().getNumber() != PointProjectionOnALine.DUMMY_POINT_NUMBER) {
-            projPointP2DistTextView.setText(DisplayUtils.toStringForTextView(
+            projPointP2DistTextView.setText(DisplayUtils.formatDistance(
                     this.ppoal.getDistPtToP2()));
         } else {
             projPointP2DistTextView.setText(R.string.no_value);
