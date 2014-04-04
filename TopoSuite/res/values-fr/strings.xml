@@ -88,7 +88,7 @@
         COMMERCIALISATION ou D\'ADAPTATION À UN USAGE PARTICULIER. Lisez la licence
         GNU General Public License version 2 (dans le menu à propos dans les préférences) pour plus de détails.
     </string>
-    <string name="displaceme_after">Déplacer après le point:</string>
+    <string name="displace_after">Déplacer après le point:</string>
 	<string name="displacement_label">Déplacement</string>
 	<string name="dist_pt_1">Dist. pt. A</string>
     <string name="distance_label">Distance [m]</string>

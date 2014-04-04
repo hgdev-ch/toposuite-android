@@ -86,7 +86,7 @@
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
         GNU General Public License version 2 (in about menu under settings) for more details.</string>
-    <string name="displaceme_after">Displace after the point:</string>
+    <string name="displace_after">Displace after the point:</string>
     <string name="displacement_label">Displacement</string>
     <string name="dist_pt_1">Pt. A dist.</string>
     <string name="distance_label">Distance [m]</string>
