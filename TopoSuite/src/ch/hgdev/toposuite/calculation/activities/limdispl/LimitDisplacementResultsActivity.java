@@ -51,6 +51,7 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
                 this.limDispl.compute();
             } catch (CalculationException e) {
                 ViewUtils.showToast(this, e.getMessage());
+                return;
             }
 
             this.limitDisplacementLabelTextView.setText(
