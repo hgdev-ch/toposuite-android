@@ -48,13 +48,13 @@ public class ArrayListOfPointsAdapter extends ArrayAdapter<Point> {
                 numberTextView.setText(DisplayUtils.toStringForTextView(point.getNumber()));
             }
             if (eastTextView != null) {
-                eastTextView.setText(DisplayUtils.toStringForTextView(point.getEast()));
+                eastTextView.setText(DisplayUtils.formatCoordinate(point.getEast()));
             }
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toStringForTextView(point.getNorth()));
+                northTextView.setText(DisplayUtils.formatCoordinate(point.getNorth()));
             }
             if (altitudeTextView != null) {
-                altitudeTextView.setText(DisplayUtils.toStringForTextView(point.getAltitude()));
+                altitudeTextView.setText(DisplayUtils.formatCoordinate(point.getAltitude()));
             }
             if (basePointTextView != null) {
                 basePointTextView.setText(point.getBasePointAsString(this.context));
