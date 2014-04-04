@@ -67,7 +67,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
         }
 
         circleRadiusTextView.setText(
-                DisplayUtils.toStringForTextView(circularSegmentation.getCircleRadius()));
+                DisplayUtils.formatDistance(circularSegmentation.getCircleRadius()));
 
         this.points = (ArrayList<Point>) circularSegmentation.getPoints();
 

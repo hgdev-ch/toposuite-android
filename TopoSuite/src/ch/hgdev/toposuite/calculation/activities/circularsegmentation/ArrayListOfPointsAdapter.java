@@ -46,10 +46,10 @@ public class ArrayListOfPointsAdapter extends ArrayAdapter<Point> {
                 numberTextView.setText(DisplayUtils.toStringForTextView(point.getNumber()));
             }
             if (eastTextView != null) {
-                eastTextView.setText(DisplayUtils.toStringForTextView(point.getEast()));
+                eastTextView.setText(DisplayUtils.formatCoordinate(point.getEast()));
             }
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toStringForTextView(point.getNorth()));
+                northTextView.setText(DisplayUtils.formatCoordinate(point.getNorth()));
             }
         }
 
