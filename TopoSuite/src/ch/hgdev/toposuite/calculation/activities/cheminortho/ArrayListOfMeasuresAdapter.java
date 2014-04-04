@@ -40,7 +40,7 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<CheminementOrthogon
             }
 
             if (distanceTextView != null) {
-                distanceTextView.setText(DisplayUtils.toStringForTextView(measure.getDistance()));
+                distanceTextView.setText(DisplayUtils.formatDistance(measure.getDistance()));
             }
         }
 
