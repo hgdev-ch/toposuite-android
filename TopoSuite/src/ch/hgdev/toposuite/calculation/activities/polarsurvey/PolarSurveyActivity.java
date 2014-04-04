@@ -77,6 +77,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     private EditText              unknownOrientEditText;
     private ListView              determinationsListView;
     private ArrayAdapter<Measure> adapter;
+    private CheckBox              z0CheckBox;
 
     private Point                 station;
     private double                z0;
@@ -108,6 +109,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         this.unknownOrientEditText = (EditText) this.findViewById(R.id.unknown_orientation);
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.determinationsListView = (ListView) this.findViewById(R.id.determinations_list);
+        this.z0CheckBox = (CheckBox) this.findViewById(R.id.checkbox_z0);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
         this.unknownOrientEditText.setInputType(App.getInputTypeCoordinate());
@@ -146,13 +148,15 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
 
             this.z0Id = this.polarSurvey.getZ0CalculationId();
             // the user has retrieved his z0 from last calculation previously
-            if (this.z0Id != -1) {
+            if (this.z0Id > 0) {
+                Log.d("TOPOSUITE FOOBAR", "z0Id => " + this.z0Id);
                 Calculation c = SharedResources.getCalculationsHistory().find(this.z0Id);
                 if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                     Abriss a = (Abriss) c;
                     a.compute();
                     this.z0 = a.getMean();
                     this.z0Station = a.getStation();
+                    Log.d("TOPOSUITE FOOBAR", "ABRISS ID => " + a.getId());
                 } else if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
                     FreeStation fs = (FreeStation) c;
                     fs.compute();
@@ -160,12 +164,15 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     this.z0Station = fs.getStationResult();
                     this.instrumentHeight = fs.getI();
                     this.iEditText.setText(DisplayUtils.toStringForEditText(this.instrumentHeight));
+                    Log.d("TOPOSUITE FOOBAR", "FREE STATION ID => " + fs.getId());
                 } else {
                     Log.e(Logger.TOPOSUITE_CALCULATION_INVALID_TYPE,
                             PolarSurveyActivity.POLAR_SURVEY_ACTIVITY
                                     + "trying to get Z0 from a calculation that does not compute one");
                 }
                 this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
+                this.z0CheckBox.setChecked(true);
+                this.unknownOrientEditText.setEnabled(false);
             }
         }
 
@@ -187,26 +194,6 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         this.stationAdapter = new ArrayAdapter<Point>(
                 this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(this.stationAdapter);
-
-        for (Calculation c : SharedResources.getCalculationsHistory()) {
-            if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
-                Abriss a = (Abriss) c;
-                a.compute();
-                this.z0 = a.getMean();
-                this.z0Station = a.getStation();
-                this.z0Id = c.getId();
-                break;
-            }
-            if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
-                FreeStation fs = (FreeStation) c;
-                fs.compute();
-                this.z0 = fs.getUnknownOrientation();
-                this.z0Station = fs.getStationResult();
-                this.z0Id = c.getId();
-                this.instrumentHeight = fs.getI();
-                break;
-            }
-        }
 
         if (this.polarSurvey != null) {
             this.stationSpinner.setSelection(
@@ -319,9 +306,11 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
 
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
+
         switch (view.getId()) {
         case R.id.checkbox_z0:
             if (checked) {
+                this.fetchLastFreeStationOrAbriss();
                 if (MathUtils.isIgnorable(this.z0)) {
                     ViewUtils.showToast(this,
                             this.getString(R.string.error_no_suitable_calculation_found));
@@ -500,5 +489,27 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     @Override
     public void onDialogCancel(EditDeterminationDialogFragment dialog) {
         ViewUtils.unlockScreenOrientation(this);
+    }
+
+    private void fetchLastFreeStationOrAbriss() {
+        for (Calculation c : SharedResources.getCalculationsHistory()) {
+            if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
+                Abriss a = (Abriss) c;
+                a.compute();
+                this.z0 = a.getMean();
+                this.z0Station = a.getStation();
+                this.z0Id = c.getId();
+                break;
+            }
+            if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
+                FreeStation fs = (FreeStation) c;
+                fs.compute();
+                this.z0 = fs.getUnknownOrientation();
+                this.z0Station = fs.getStationResult();
+                this.z0Id = c.getId();
+                this.instrumentHeight = fs.getI();
+                break;
+            }
+        }
     }
 }

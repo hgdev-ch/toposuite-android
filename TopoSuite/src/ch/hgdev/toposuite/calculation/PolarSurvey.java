@@ -25,6 +25,7 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class PolarSurvey extends Calculation {
     public static final String       STATION_NUMBER      = "station_number";
     public static final String       DETERMINATIONS_LIST = "determinations_list";
+    public static final String       Z0_CALCULATION_ID   = "z0_calculation_id";
 
     private Point                    station;
     private double                   unknownOrientation;
@@ -128,6 +129,8 @@ public class PolarSurvey extends Calculation {
             json.put(PolarSurvey.STATION_NUMBER, this.station.getNumber());
         }
 
+        json.put(PolarSurvey.Z0_CALCULATION_ID, this.z0CalculationId);
+
         if (this.determinations.size() > 0) {
             JSONArray determinationsArray = new JSONArray();
             for (Measure m : this.determinations) {
@@ -145,6 +148,8 @@ public class PolarSurvey extends Calculation {
         JSONObject json = new JSONObject(jsonInputArgs);
         this.station = SharedResources.getSetOfPoints().find(
                 json.getInt(PolarSurvey.STATION_NUMBER));
+
+        this.z0CalculationId = json.getLong(PolarSurvey.Z0_CALCULATION_ID);
 
         JSONArray determinationsArray = json.getJSONArray(PolarSurvey.DETERMINATIONS_LIST);
 
