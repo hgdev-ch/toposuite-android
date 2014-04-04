@@ -36,7 +36,7 @@ public class Logger {
      */
     public static String formatPoint(Point point) {
         return String.format(App.locale,
-                "Point: {No: %d,  E: %f, N: %f, A: %f, BP: %b}",
+                "Point: {No: %s,  E: %f, N: %f, A: %f, BP: %b}",
                 point.getNumber(), point.getEast(), point.getNorth(),
                 point.getAltitude(), point.isBasePoint());
     }

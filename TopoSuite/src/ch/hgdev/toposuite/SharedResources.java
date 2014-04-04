@@ -63,7 +63,7 @@ public class SharedResources {
             }, new Searcher<Point>() {
                 @Override
                 public boolean isFound(Point currentElement, Object expectedElement) {
-                    Integer expectedNumber = (Integer) expectedElement;
+                    String expectedNumber = (String) expectedElement;
                     return currentElement.getNumber().equals(expectedNumber);
                 }
             });

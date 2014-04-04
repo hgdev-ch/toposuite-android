@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -139,8 +138,6 @@ public class AddPointDialogFragment extends DialogFragment {
 
         this.numberEditText = new EditText(this.getActivity());
         this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
-        this.numberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.eastEditText = new EditText(this.getActivity());
         this.eastEditText.setHint(this.getActivity().getString(R.string.east_3dots)

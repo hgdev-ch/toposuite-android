@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -165,10 +164,6 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
         this.pointEastNumberEditText = (EditText) this.findViewById(R.id.point_number_east);
 
         this.imposedSurfaceEditText.setInputType(App.getInputTypeCoordinate());
-        this.pointWestNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
-        this.pointEastNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
