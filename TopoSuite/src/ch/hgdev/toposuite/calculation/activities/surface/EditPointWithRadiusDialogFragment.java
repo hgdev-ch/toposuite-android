@@ -64,7 +64,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
 
     private Spinner                   positionSpinner;
     private Surface                   surfaceCalculation;
-    private int                       positionAfter;
+    private String                    positionAfter;
 
     public EditPointWithRadiusDialogFragment(Surface _surfaceCalculation) {
         this.surfaceCalculation = _surfaceCalculation;
@@ -166,7 +166,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 EditPointWithRadiusDialogFragment.this.point = (Point) EditPointWithRadiusDialogFragment
                         .this.pointSpinner.getItemAtPosition(pos);
-                if (EditPointWithRadiusDialogFragment.this.point.getNumber() > 0) {
+                if (!EditPointWithRadiusDialogFragment.this.point.getNumber().isEmpty()) {
                     EditPointWithRadiusDialogFragment.this.pointTextView.setText(DisplayUtils
                             .formatPoint(EditPointWithRadiusDialogFragment.this.getActivity(),
                                     EditPointWithRadiusDialogFragment.this.point));
@@ -182,13 +182,13 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
         });
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
 
-        int pointNumber = bundle.getInt(SurfaceActivity.POINT_WITH_RADIUS_NUMBER_LABEL);
+        String pointNumber = bundle.getString(SurfaceActivity.POINT_WITH_RADIUS_NUMBER_LABEL);
         this.pointSpinner.setSelection(a.getPosition(
                 SharedResources.getSetOfPoints().find(pointNumber)));
 
@@ -199,7 +199,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
         this.positionSpinner.setAdapter(positionAdapter);
         positionAdapter.add(this.getActivity().getString(R.string.displace_after));
         for (Surface.PointWithRadius pt : this.surfaceCalculation.getPoints()) {
-            if (pt.getNumber() != pointNumber) {
+            if (!pt.getNumber().equals(pointNumber)) {
                 positionAdapter.add(pt.toString());
             }
         }
@@ -209,8 +209,8 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
                 if (pos == 0) {
                     return;
                 }
-                EditPointWithRadiusDialogFragment.this.positionAfter = Integer.valueOf(
-                        positionAdapter.getItem(pos));
+                EditPointWithRadiusDialogFragment.this.positionAfter =
+                        positionAdapter.getItem(pos);
             }
 
             @Override
@@ -254,7 +254,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
         return this.radius;
     }
 
-    public final int getPositionAfter() {
+    public final String getPositionAfter() {
         return this.positionAfter;
     }
 }

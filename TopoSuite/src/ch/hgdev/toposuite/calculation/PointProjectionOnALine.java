@@ -25,11 +25,11 @@ public class PointProjectionOnALine extends Calculation {
     public static final String  DISPLACEMENT       = "displacement";
     public static final String  GISEMENT           = "gisement";
     public static final String  MODE               = "mode";
-    public static final int     DUMMY_POINT_NUMBER = Integer.MAX_VALUE;
+    public static final String  DUMMY_POINT_NUMBER = String.valueOf(Integer.MAX_VALUE);
 
     private static final double DISTANCE           = 20.0;
 
-    private int                 number;
+    private String              number;
     private Point               p1;
     private Point               p2;
     private Point               ptToProj;
@@ -42,7 +42,7 @@ public class PointProjectionOnALine extends Calculation {
     private double              distPtToP1;
     private double              distPtToP2;
 
-    public PointProjectionOnALine(int _number, Point _p1, Point _p2, Point _ptToProj,
+    public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj,
             double _displacement,
             PointProjectionOnALine.Mode _mode, boolean hasDAO) {
         super(CalculationType.PROJPT,
@@ -61,7 +61,7 @@ public class PointProjectionOnALine extends Calculation {
         }
     }
 
-    public PointProjectionOnALine(int _number, Point _p1, double gisement, Point _ptToProj,
+    public PointProjectionOnALine(String _number, Point _p1, double gisement, Point _ptToProj,
             double _displacement, boolean hasDAO) {
         this(
                 _number,
@@ -73,7 +73,7 @@ public class PointProjectionOnALine extends Calculation {
                 hasDAO);
     }
 
-    public PointProjectionOnALine(int _number, Point _p1, Point _p2, Point _ptToProj,
+    public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj,
             double _displacement, boolean hasDAO) {
         this(
                 _number,
@@ -84,7 +84,7 @@ public class PointProjectionOnALine extends Calculation {
                 PointProjectionOnALine.Mode.LINE, hasDAO);
     }
 
-    public PointProjectionOnALine(int _number, Point _p1, Point _p2, Point _ptToProj,
+    public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj,
             boolean hasDAO) {
         this(_number, _p1, _p2, _ptToProj, MathUtils.IGNORE_DOUBLE, hasDAO);
     }
@@ -135,7 +135,7 @@ public class PointProjectionOnALine extends Calculation {
         displGis = g.getGisement() + 100;
 
         Point tmpPt = new Point(
-                42,
+                PointProjectionOnALine.DUMMY_POINT_NUMBER,
                 MathUtils.pointLanceEast(this.ptToProj.getEast(), displGis,
                         PointProjectionOnALine.DISTANCE),
                 MathUtils.pointLanceNorth(this.ptToProj.getNorth(), displGis,
@@ -219,7 +219,7 @@ public class PointProjectionOnALine extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject jo = new JSONObject(jsonInputArgs);
 
-        this.number = jo.getInt(PointProjectionOnALine.NUMBER);
+        this.number = jo.getString(PointProjectionOnALine.NUMBER);
         this.p1 = SharedResources.getSetOfPoints().find(
                 jo.getInt(PointProjectionOnALine.P1_NUMBER));
         this.displacement = jo.getDouble(PointProjectionOnALine.DISPLACEMENT);
@@ -301,11 +301,11 @@ public class PointProjectionOnALine extends Calculation {
         this.mode = _mode;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 
-    public void setNumber(int _number) {
+    public void setNumber(String _number) {
         this.number = _number;
     }
 

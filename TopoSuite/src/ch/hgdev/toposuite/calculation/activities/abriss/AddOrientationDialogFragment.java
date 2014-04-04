@@ -157,7 +157,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Point point = (Point) AddOrientationDialogFragment.this.orientationSpinner
                         .getItemAtPosition(pos);
-                if (point.getNumber() > 0) {
+                if (!point.getNumber().isEmpty()) {
                     AddOrientationDialogFragment.this.orientationView.setText(DisplayUtils
                             .formatPoint(
                                     AddOrientationDialogFragment.this.getActivity(), point));
@@ -173,7 +173,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
             }
         });
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);
@@ -231,7 +231,8 @@ public class AddOrientationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.horizontalDirectionEditText.length() == 0) || (this.orientation.getNumber() < 1)) {
+        if ((this.horizontalDirectionEditText.length() == 0)
+                || (this.orientation.getNumber().isEmpty())) {
             return false;
         }
         return true;

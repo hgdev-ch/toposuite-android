@@ -44,7 +44,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
 
     AddMeasureDialogListener listener;
 
-    private int              number;
+    private String           number;
     private double           abscissa;
     private double           ordinate;
 
@@ -85,8 +85,9 @@ public class AddMeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (AddMeasureDialogFragment.this.checkDialogInputs()) {
-                            AddMeasureDialogFragment.this.number = ViewUtils
-                                    .readInt(AddMeasureDialogFragment.this.numberEditText);
+                            AddMeasureDialogFragment.this.number =
+                                    AddMeasureDialogFragment.this.numberEditText.getText()
+                                            .toString();
                             AddMeasureDialogFragment.this.abscissa = ViewUtils
                                     .readDouble(AddMeasureDialogFragment.this.abscissaEditText);
                             AddMeasureDialogFragment.this.ordinate = ViewUtils
@@ -142,7 +143,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
 
         this.ordinateEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.number = 0;
+        this.number = "";
         this.abscissa = 0.0;
         this.ordinate = 0.0;
     }
@@ -173,7 +174,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
         return true;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 

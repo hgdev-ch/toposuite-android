@@ -38,7 +38,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<PolarSurvey.Result> 
             TextView altitudeTextView = (TextView) view.findViewById(R.id.altitude_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(result.getDeterminationNumber()));
+                numberTextView.setText(result.getDeterminationNumber());
             }
             if (eastTextView != null) {
                 eastTextView.setText(DisplayUtils.toStringForTextView(result.getEast()));

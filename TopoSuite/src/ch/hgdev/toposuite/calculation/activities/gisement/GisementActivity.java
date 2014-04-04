@@ -67,7 +67,7 @@ public class GisementActivity extends TopoSuiteActivity {
                 GisementActivity.this.originSelectedPosition = pos;
 
                 Point pt = (Point) GisementActivity.this.originSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     GisementActivity.this.originPoint.setText(DisplayUtils.formatPoint(
                             GisementActivity.this, pt));
                 } else {
@@ -88,7 +88,7 @@ public class GisementActivity extends TopoSuiteActivity {
                 GisementActivity.this.orientationSelectedPosition = pos;
 
                 Point pt = (Point) GisementActivity.this.orientationSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     GisementActivity.this.orientationPoint.setText(DisplayUtils.formatPoint(
                             GisementActivity.this, pt));
                 } else {
@@ -118,7 +118,8 @@ public class GisementActivity extends TopoSuiteActivity {
 
         List<Point> points = new ArrayList<Point>();
         points.add(new Point(
-                0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+                "", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -179,7 +180,7 @@ public class GisementActivity extends TopoSuiteActivity {
         Point p1 = (Point) this.originSpinner.getSelectedItem();
         Point p2 = (Point) this.orientationSpinner.getSelectedItem();
 
-        if ((p1.getNumber() == 0) || (p2.getNumber() == 0)) {
+        if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty())) {
             this.resetResults();
         } else if (p1.getNumber() == p2.getNumber()) {
             this.resetResults();

@@ -97,7 +97,7 @@ public class MergePointsDialog extends DialogFragment {
         int pointNumber = this.getArguments().getInt(MergePointsDialog.POINT_NUMBER);
         this.oldPt = SharedResources.getSetOfPoints().find(pointNumber);
         this.newPt = new Point(
-                0,
+                "",
                 this.getArguments().getDouble(MergePointsDialog.NEW_EAST),
                 this.getArguments().getDouble(MergePointsDialog.NEW_NORTH),
                 this.getArguments().getDouble(MergePointsDialog.NEW_ALTITUDE),

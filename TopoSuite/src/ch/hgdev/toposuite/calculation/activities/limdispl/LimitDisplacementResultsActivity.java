@@ -107,7 +107,7 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putInt(
+            args.putString(
                     MergePointsDialog.POINT_NUMBER,
                     pt.getNumber());
             args.putDouble(MergePointsDialog.NEW_EAST,

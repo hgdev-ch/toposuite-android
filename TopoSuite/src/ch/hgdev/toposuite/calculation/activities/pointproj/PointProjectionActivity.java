@@ -108,7 +108,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) PointProjectionActivity.this.point1Spinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     PointProjectionActivity.this.point1TextView.setText(DisplayUtils.formatPoint(
                             PointProjectionActivity.this, pt));
                 } else {
@@ -129,7 +129,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) PointProjectionActivity.this.point2Spinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     PointProjectionActivity.this.point2TextView.setText(DisplayUtils.formatPoint(
                             PointProjectionActivity.this, pt));
                 } else {
@@ -150,7 +150,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) PointProjectionActivity.this.point1Spinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     PointProjectionActivity.this.pointTextView.setText(DisplayUtils.formatPoint(
                             PointProjectionActivity.this, pt));
                 } else {
@@ -171,7 +171,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
 
         List<Point> points = new ArrayList<Point>();
         points.add(new Point(
-                0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+                "", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -209,8 +209,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             this.displacementEditText.setText(DisplayUtils.toStringForEditText(
                     ppoal.getDisplacement()));
 
-            this.pointNumberEditText.setText(DisplayUtils.toStringForEditText(
-                    ppoal.getNumber()));
+            this.pointNumberEditText.setText(ppoal.getNumber());
         }
 
         this.point1Spinner.setSelection(this.point1SelectedPosition);
@@ -295,7 +294,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
                     this.point1SelectedPosition);
 
             double displ = ViewUtils.readDouble(this.displacementEditText);
-            int ptNumber = ViewUtils.readInt(this.pointNumberEditText);
+            String ptNumber = this.pointNumberEditText.getText().toString();
 
             Point p = (Point) this.pointSpinner.getItemAtPosition(
                     this.pointSelectedPosition);

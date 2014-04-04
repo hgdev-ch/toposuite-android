@@ -30,17 +30,17 @@ public class TestFreeStation extends TestCase {
     }
 
     public void testFreeStation1() {
-        Point p1 = new Point(1, 542430.11, 151989.66, 0.0, true, false);
-        Point p2 = new Point(2, 542610.79, 151979.94, 0.0, true, false);
-        Point p3 = new Point(3, 542624.36, 151873.24, 0.0, true, false);
-        Point p4 = new Point(4, 542495.94, 151847.05, 0.0, true, false);
+        Point p1 = new Point("1", 542430.11, 151989.66, 0.0, true, false);
+        Point p2 = new Point("2", 542610.79, 151979.94, 0.0, true, false);
+        Point p3 = new Point("3", 542624.36, 151873.24, 0.0, true, false);
+        Point p4 = new Point("4", 542495.94, 151847.05, 0.0, true, false);
 
         Measure m1 = new Measure(p1, 271.234, 100, 162.154);
         Measure m2 = new Measure(p2, 356.627, 100, 125.149);
         Measure m3 = new Measure(p3, 21.493, 100, 80.431);
         Measure m4 = new Measure(p4, 188.014, 100, 55.128);
 
-        FreeStation fs = new FreeStation(42, false);
+        FreeStation fs = new FreeStation("42", false);
         fs.getMeasures().add(m1);
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
@@ -70,11 +70,11 @@ public class TestFreeStation extends TestCase {
     }
 
     public void testFreeStation2() {
-        Point p1 = new Point(1, 600.0, 200.0, 0.0, true, false);
-        Point p2 = new Point(2, 620.0, 215.0, 416.3, true, false);
-        Point p3 = new Point(3, 610.0, 185.0, 417.17, true, false);
-        Point p104 = new Point(104, 635.0, 180.0, 0.0, true, false);
-        Point p105 = new Point(105, 595.0, 170.0, 0.0, true, false);
+        Point p1 = new Point("1", 600.0, 200.0, 0.0, true, false);
+        Point p2 = new Point("2", 620.0, 215.0, 416.3, true, false);
+        Point p3 = new Point("3", 610.0, 185.0, 417.17, true, false);
+        Point p104 = new Point("104", 635.0, 180.0, 0.0, true, false);
+        Point p105 = new Point("105", 595.0, 170.0, 0.0, true, false);
 
         Measure m1 = new Measure(p1, 252.0, 100, 18.015);
         Measure m2 = new Measure(p2, 309.91, 100, 31.61);
@@ -82,7 +82,7 @@ public class TestFreeStation extends TestCase {
         Measure m4 = new Measure(p104, 2.0, 100, 25.5);
         Measure m5 = new Measure(p105, 139.43, 100, 21.22);
 
-        FreeStation fs = new FreeStation(9001, 1.650, false);
+        FreeStation fs = new FreeStation("9001", 1.650, false);
         fs.getMeasures().add(m1);
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
@@ -98,11 +98,11 @@ public class TestFreeStation extends TestCase {
     }
 
     public void testFreeStation3() {
-        Point p6 = new Point(6, 622.475, 210.990, 100.400, true, false);
-        Point p7 = new Point(7, 636.236, 145.773, 99.964, true, false);
-        Point p8 = new Point(8, 635.417, 177.289, 99.144, true, false);
-        Point p9 = new Point(9, 595.012, 210.991, 100.068, true, false);
-        Point p10 = new Point(10, 598.055, 218.982, 100.189, true, false);
+        Point p6 = new Point("6", 622.475, 210.990, 100.400, true, false);
+        Point p7 = new Point("7", 636.236, 145.773, 99.964, true, false);
+        Point p8 = new Point("8", 635.417, 177.289, 99.144, true, false);
+        Point p9 = new Point("9", 595.012, 210.991, 100.068, true, false);
+        Point p10 = new Point("10", 598.055, 218.982, 100.189, true, false);
 
         Measure m1 = new Measure(p6, 10.562, 99.124, 25.030, 1.570);
         Measure m2 = new Measure(p7, 102.070, 100.068, 65.200, 1.620);
@@ -110,7 +110,7 @@ public class TestFreeStation extends TestCase {
         Measure m4 = new Measure(p9, 312.411, 99.724, 12.070, 1.600);
         Measure m5 = new Measure(p10, 333.020, 98.180, 19.080, 2.000);
 
-        FreeStation fs = new FreeStation(42, 1.6, false);
+        FreeStation fs = new FreeStation("42", 1.6, false);
         fs.getMeasures().add(m1);
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
@@ -139,14 +139,14 @@ public class TestFreeStation extends TestCase {
     }
 
     public void testFreeStation4() {
-        Point p182 = new Point(182, 559729.53, 147799.62, 0.00, true, false);
-        Point p188 = new Point(188, 559750.21, 147772.29, 0.00, true, false);
-        Point p189 = new Point(189, 559748.07, 147775.80, 0.00, true, false);
-        Point p190 = new Point(190, 559750.55, 147777.23, 0.00, true, false);
-        Point p284 = new Point(284, 559701.24, 147751.08, 0.00, true, false);
-        Point p969 = new Point(969, 559772.81, 147851.25, 0.00, true, false);
-        Point p970 = new Point(970, 559727.00, 147754.64, 0.00, true, false);
-        Point p8001 = new Point(8001, 559694.50, 147719.23, 0.00, true, false);
+        Point p182 = new Point("182", 559729.53, 147799.62, 0.00, true, false);
+        Point p188 = new Point("188", 559750.21, 147772.29, 0.00, true, false);
+        Point p189 = new Point("189", 559748.07, 147775.80, 0.00, true, false);
+        Point p190 = new Point("190", 559750.55, 147777.23, 0.00, true, false);
+        Point p284 = new Point("284", 559701.24, 147751.08, 0.00, true, false);
+        Point p969 = new Point("969", 559772.81, 147851.25, 0.00, true, false);
+        Point p970 = new Point("970", 559727.00, 147754.64, 0.00, true, false);
+        Point p8001 = new Point("8001", 559694.50, 147719.23, 0.00, true, false);
 
         Measure m1 = new Measure(p182, 6.5060, 100, 46.120);
         Measure m2 = new Measure(p188, 58.8310, 100, 31.801);
@@ -157,7 +157,7 @@ public class TestFreeStation extends TestCase {
         Measure m7 = new Measure(p970, 77.7880, 100, 2.476);
         Measure m8 = new Measure(p8001, 245.5710, 100, 45.949);
 
-        FreeStation fs = new FreeStation(42, MathUtils.IGNORE_DOUBLE, false);
+        FreeStation fs = new FreeStation("42", MathUtils.IGNORE_DOUBLE, false);
         fs.getMeasures().add(m1);
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
@@ -180,11 +180,11 @@ public class TestFreeStation extends TestCase {
     }
 
     public void testFreeStationDeactivation1() {
-        Point p1 = new Point(1, 542430.11, 151989.66, 0.0, true, false);
-        Point p2 = new Point(2, 542610.79, 151979.94, 0.0, true, false);
-        Point p3 = new Point(3, 542624.36, 151873.24, 0.0, true, false);
-        Point p4 = new Point(4, 542495.94, 151847.05, 0.0, true, false);
-        Point p5 = new Point(970, 559727.00, 147754.64, 0.00, true, false);
+        Point p1 = new Point("1", 542430.11, 151989.66, 0.0, true, false);
+        Point p2 = new Point("2", 542610.79, 151979.94, 0.0, true, false);
+        Point p3 = new Point("3", 542624.36, 151873.24, 0.0, true, false);
+        Point p4 = new Point("4", 542495.94, 151847.05, 0.0, true, false);
+        Point p5 = new Point("970", 559727.00, 147754.64, 0.00, true, false);
 
         Measure m1 = new Measure(p1, 271.234, 100, 162.154);
         Measure m2 = new Measure(p2, 356.627, 100, 125.149);
@@ -192,7 +192,7 @@ public class TestFreeStation extends TestCase {
         Measure m4 = new Measure(p4, 188.014, 100, 55.128);
         Measure m5 = new Measure(p5, 292.6390, 100, 23.343);
 
-        FreeStation fs = new FreeStation(42, false);
+        FreeStation fs = new FreeStation("42", false);
         fs.getMeasures().add(m1);
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);

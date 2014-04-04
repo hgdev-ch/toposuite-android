@@ -48,9 +48,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             TextView errLonTextView = (TextView) view.findViewById(R.id.err_lon_item);
 
             if (targetPointTextView != null) {
-                targetPointTextView.setText(DisplayUtils.toStringForTextView(result
-                        .getOrientation()
-                        .getNumber()));
+                targetPointTextView.setText(result.getOrientation().getNumber());
                 this.colorizeTextView(targetPointTextView, result);
             }
 

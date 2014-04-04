@@ -196,7 +196,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point) LinesIntersectionActivity.this.point1D1Spinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LinesIntersectionActivity.this.point1D1TextView.setText(DisplayUtils
                             .formatPoint(
                                     LinesIntersectionActivity.this, pt));
@@ -218,7 +218,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point) LinesIntersectionActivity.this.point2D1Spinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LinesIntersectionActivity.this.point2D1TextView.setText(DisplayUtils
                             .formatPoint(
                                     LinesIntersectionActivity.this, pt));
@@ -240,7 +240,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point) LinesIntersectionActivity.this.point1D2Spinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LinesIntersectionActivity.this.point1D2TextView.setText(DisplayUtils
                             .formatPoint(
                                     LinesIntersectionActivity.this, pt));
@@ -262,7 +262,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point) LinesIntersectionActivity.this.point2D2Spinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LinesIntersectionActivity.this.point2D2TextView.setText(DisplayUtils
                             .formatPoint(
                                     LinesIntersectionActivity.this, pt));
@@ -299,7 +299,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         this.adapter = new ArrayAdapter<Point>(
@@ -385,9 +385,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 this.isD2Perpendicular = true;
             }
 
-            if (this.lineIntersec.getPointNumber() != 0) {
-                this.pointNumberEditText.setText(DisplayUtils.toStringForEditText(
-                        this.lineIntersec.getPointNumber()));
+            if (!this.lineIntersec.getPointNumber().isEmpty()) {
+                this.pointNumberEditText.setText(
+                        this.lineIntersec.getPointNumber());
             }
         }
 
@@ -516,10 +516,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 distP1D2 = ViewUtils.readDouble(this.distP1D2EditText);
             }
 
-            int pointNumber = 0;
-            if (this.pointNumberEditText.length() > 0) {
-                pointNumber = ViewUtils.readInt(this.pointNumberEditText);
-            }
+            String pointNumber = this.pointNumberEditText.getText().toString();
 
             if (this.lineIntersec == null) {
                 this.lineIntersec = new LinesIntersection(p1D1, p2D1, displacementD1, gisementD1,
@@ -571,7 +568,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 return true;
             }
 
-            this.lineIntersec.setPointNumber(ViewUtils.readInt(this.pointNumberEditText));
+            this.lineIntersec.setPointNumber(this.pointNumberEditText.getText().toString());
             this.lineIntersec.notifyUpdate(this.lineIntersec);
 
             if (SharedResources.getSetOfPoints().find(
@@ -587,7 +584,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 MergePointsDialog dialog = new MergePointsDialog();
 
                 Bundle args = new Bundle();
-                args.putInt(
+                args.putString(
                         MergePointsDialog.POINT_NUMBER,
                         this.lineIntersec.getPointNumber());
 

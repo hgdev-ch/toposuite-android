@@ -148,7 +148,7 @@ class AddPointWithSDialogFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 AddPointWithSDialogFragment.this.point = (Point) AddPointWithSDialogFragment.this.pointSpinner
                         .getItemAtPosition(pos);
-                if (AddPointWithSDialogFragment.this.point.getNumber() > 0) {
+                if (!AddPointWithSDialogFragment.this.point.getNumber().isEmpty()) {
                     AddPointWithSDialogFragment.this.pointTextView.setText(DisplayUtils
                             .formatPoint(AddPointWithSDialogFragment.this.getActivity(),
                                     AddPointWithSDialogFragment.this.point));
@@ -164,7 +164,7 @@ class AddPointWithSDialogFragment extends DialogFragment {
         });
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);

@@ -46,7 +46,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<CheminementOrthogona
             TextView vNTextView = (TextView) view.findViewById(R.id.vn_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(result.getNumber()));
+                numberTextView.setText(result.getNumber());
             }
 
             if (abscissaTextView != null) {

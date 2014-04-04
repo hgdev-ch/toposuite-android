@@ -135,7 +135,7 @@ public class LineCircleIntersection extends Calculation {
         this.p1L.setNumber(_p1L.getNumber());
         if (_p2L == null) {
             this.p2L = new Point(
-                    0,
+                    "",
                     MathUtils.pointLanceEast(_p1L.getEast(), _gisement, 100),
                     MathUtils.pointLanceNorth(_p1L.getNorth(), _gisement, 100.0),
                     MathUtils.IGNORE_DOUBLE,

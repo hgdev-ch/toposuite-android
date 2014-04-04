@@ -82,7 +82,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) LimitDisplacementActivity.this.pointASpinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LimitDisplacementActivity.this.pointATextView.setText(
                             DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
                 } else {
@@ -103,7 +103,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) LimitDisplacementActivity.this.pointBSpinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LimitDisplacementActivity.this.pointBTextView.setText(
                             DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
                 } else {
@@ -124,7 +124,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) LimitDisplacementActivity.this.pointCSpinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LimitDisplacementActivity.this.pointCTextView.setText(
                             DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
                 } else {
@@ -145,7 +145,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) LimitDisplacementActivity.this.pointDSpinner
                         .getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LimitDisplacementActivity.this.pointDTextView.setText(
                             DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
                 } else {
@@ -191,7 +191,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
 
         List<Point> points = new ArrayList<Point>();
         points.add(new Point(
-                0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+                "", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         this.adapter = new ArrayAdapter<Point>(
@@ -249,8 +249,8 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
             Point pointC = this.adapter.getItem(this.pointCSelectedPosition);
             Point pointD = this.adapter.getItem(this.pointDSelectedPosition);
             double surface = ViewUtils.readDouble(this.imposedSurfaceEditText);
-            int pointXNumber = ViewUtils.readInt(this.pointWestNumberEditText);
-            int pointYNumber = ViewUtils.readInt(this.pointEastNumberEditText);
+            String pointXNumber = this.pointWestNumberEditText.getText().toString();
+            String pointYNumber = this.pointEastNumberEditText.getText().toString();
 
             if (this.limDispl == null) {
                 this.limDispl = new LimitDisplacement(

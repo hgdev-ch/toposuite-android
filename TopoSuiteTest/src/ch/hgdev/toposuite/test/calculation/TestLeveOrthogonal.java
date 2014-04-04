@@ -13,14 +13,14 @@ public class TestLeveOrthogonal extends TestCase {
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.HALF_UP);
 
-        Point origin = new Point(45, 556495.160, 172493.912, 623.37, true);
-        Point extremity = new Point(46, 556517.541, 172491.482, 624.14, true);
+        Point origin = new Point("45", 556495.160, 172493.912, 623.37, true);
+        Point extremity = new Point("46", 556517.541, 172491.482, 624.14, true);
         double measuredDistance = 22.58;
 
         LeveOrthogonal lo = new LeveOrthogonal(origin, extremity, measuredDistance, false);
 
-        lo.getMeasures().add(new LeveOrthogonal.Measure(1, -3.5, -7.3));
-        lo.getMeasures().add(new LeveOrthogonal.Measure(4, 13.82, 10.97));
+        lo.getMeasures().add(new LeveOrthogonal.Measure("1", -3.5, -7.3));
+        lo.getMeasures().add(new LeveOrthogonal.Measure("4", 13.82, 10.97));
 
         lo.compute();
 

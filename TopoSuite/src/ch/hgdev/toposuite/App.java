@@ -49,7 +49,7 @@ public class App extends Application {
      * {@link SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)}
      * method.
      */
-    public static final int    DATABASE_VERSION              = 5;
+    public static final int    DATABASE_VERSION              = 6;
 
     /**
      * CSV separator.

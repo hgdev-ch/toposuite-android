@@ -138,7 +138,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Point point = (Point) EditMeasureDialogFragment.this.pointSpinner
                         .getItemAtPosition(pos);
-                if (point.getNumber() > 0) {
+                if (!point.getNumber().isEmpty()) {
                     EditMeasureDialogFragment.this.pointTextView.setText(DisplayUtils
                             .formatPoint(EditMeasureDialogFragment.this.getActivity(), point));
                 } else {
@@ -153,7 +153,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
         });
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);

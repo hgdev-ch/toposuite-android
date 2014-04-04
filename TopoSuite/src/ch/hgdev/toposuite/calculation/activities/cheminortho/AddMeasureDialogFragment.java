@@ -44,7 +44,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
 
     AddMeasureDialogListener listener;
 
-    private int              number;
+    private String           number;
     private double           distance;
 
     private LinearLayout     layout;
@@ -83,8 +83,9 @@ public class AddMeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (AddMeasureDialogFragment.this.checkDialogInputs()) {
-                            AddMeasureDialogFragment.this.number = ViewUtils.readInt(
-                                    AddMeasureDialogFragment.this.numberEditText);
+                            AddMeasureDialogFragment.this.number =
+                                    AddMeasureDialogFragment.this.numberEditText.getText()
+                                            .toString();
                             AddMeasureDialogFragment.this.distance = ViewUtils
                                     .readDouble(AddMeasureDialogFragment.this.distanceEditText);
                             AddMeasureDialogFragment.this.listener
@@ -132,7 +133,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.unit_meter));
         this.distanceEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.number = 0;
+        this.number = "";
         this.distance = 0.0;
     }
 
@@ -161,7 +162,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
         return true;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 

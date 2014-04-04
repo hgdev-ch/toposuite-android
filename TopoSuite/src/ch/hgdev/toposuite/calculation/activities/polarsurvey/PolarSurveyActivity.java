@@ -121,7 +121,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
 
                 PolarSurveyActivity.this.station = (Point) PolarSurveyActivity.this.stationSpinner
                         .getItemAtPosition(pos);
-                if (PolarSurveyActivity.this.station.getNumber() > 0) {
+                if (!PolarSurveyActivity.this.station.getNumber().isEmpty()) {
                     PolarSurveyActivity.this.stationPointTextView.setText(DisplayUtils
                             .formatPoint(PolarSurveyActivity.this, PolarSurveyActivity.this.station));
                 } else {
@@ -188,7 +188,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, false));
+        points.add(new Point("", 0.0, 0.0, 0.0, false));
         points.addAll(SharedResources.getSetOfPoints());
 
         this.stationAdapter = new ArrayAdapter<Point>(
@@ -361,7 +361,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         this.position = position;
         Measure d = this.adapter.getItem(position);
         Bundle args = new Bundle();
-        args.putInt(PolarSurveyActivity.DETERMINATION_NUMBER, d.getMeasureNumber());
+        args.putString(PolarSurveyActivity.DETERMINATION_NUMBER, d.getMeasureNumber());
         args.putDouble(PolarSurveyActivity.HORIZ_DIR, d.getHorizDir());
         args.putDouble(PolarSurveyActivity.DISTANCE, d.getDistance());
         args.putDouble(PolarSurveyActivity.ZEN_ANGLE, d.getZenAngle());
@@ -387,7 +387,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
      * @return True if inputs are OK, false otherwise.
      */
     private boolean checkInputs() {
-        if ((this.station == null) || (this.station.getNumber() < 1)) {
+        if ((this.station == null) || (this.station.getNumber().isEmpty())) {
             return false;
         }
         if (this.unknownOrientEditText.length() == 0) {
@@ -420,7 +420,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                             this.polarSurvey));
         } else {
             bundle.putInt(PolarSurveyActivity.POLAR_SURVEY_POSITION, -1);
-            bundle.putInt(PolarSurveyActivity.STATION_NUMBER_LABEL, this.station.getNumber());
+            bundle.putString(PolarSurveyActivity.STATION_NUMBER_LABEL, this.station.getNumber());
             bundle.putDouble(PolarSurveyActivity.UNKNOWN_ORIENTATION_LABEL, this.z0);
             bundle.putLong(PolarSurveyActivity.UNKNOWN_ORIENTATION_CALCULATION_ID_LABEL_, this.z0Id);
             bundle.putDouble(PolarSurveyActivity.INSTRUMENT_HEIGHT_LABEL, this.instrumentHeight);

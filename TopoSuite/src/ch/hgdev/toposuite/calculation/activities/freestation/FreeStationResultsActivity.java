@@ -136,7 +136,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putInt(
+            args.putString(
                     MergePointsDialog.POINT_NUMBER,
                     st.getNumber());
             args.putDouble(MergePointsDialog.NEW_EAST,

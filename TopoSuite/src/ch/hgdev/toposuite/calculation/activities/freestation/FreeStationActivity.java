@@ -61,7 +61,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
             this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
                     this.position);
 
-            if (this.freeStation.getStationNumber() != 0) {
+            if (!this.freeStation.getStationNumber().isEmpty()) {
                 this.stationEditText.setText(String.valueOf(
                         this.freeStation.getStationNumber()));
             }
@@ -153,7 +153,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                     this.freeStation.setI(MathUtils.IGNORE_DOUBLE);
                 }
                 this.freeStation.setStationNumber(
-                        ViewUtils.readInt(this.stationEditText));
+                        this.stationEditText.getText().toString());
 
                 this.startFreeStationResultsActivity();
             } else {

@@ -14,17 +14,17 @@ public class TestCircle extends TestCase {
         DecimalFormat df = new DecimalFormat("#.###");
         df.setRoundingMode(RoundingMode.HALF_UP);
 
-        Point p1 = new Point(1, 25.0000, 55.0000, 0.0, true, false);
-        Point p2 = new Point(2, 89.1570, 82.4730, 0.0, true, false);
-        Point p3 = new Point(5, 113.2040, 37.4110, 0.0, true, false);
+        Point p1 = new Point("1", 25.0000, 55.0000, 0.0, true, false);
+        Point p2 = new Point("2", 89.1570, 82.4730, 0.0, true, false);
+        Point p3 = new Point("5", 113.2040, 37.4110, 0.0, true, false);
 
-        Circle c = new Circle(p1, p2, p3, 42, false);
+        Circle c = new Circle(p1, p2, p3, "42", false);
         c.compute();
 
         // center
         Assert.assertEquals("68.347", df.format(c.getCenter().getEast()));
         Assert.assertEquals("42.421", df.format(c.getCenter().getNorth()));
-        Assert.assertEquals(42, c.getCenter().getNumber());
+        Assert.assertEquals("42", c.getCenter().getNumber());
 
         // radius
         Assert.assertEquals("45.136", df.format(c.getRadius()));

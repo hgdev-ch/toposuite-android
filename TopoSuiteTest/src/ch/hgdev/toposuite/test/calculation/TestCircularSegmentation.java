@@ -27,9 +27,10 @@ public class TestCircularSegmentation extends TestCase {
     }
 
     public void testCircularSegmentation1() {
-        Point circleCenter = new Point(1, 444.1609, -713.9844, MathUtils.IGNORE_DOUBLE, true, false);
-        Point startPoint = new Point(2, 557.3641, -207.0243, MathUtils.IGNORE_DOUBLE, true, false);
-        Point endPoint = new Point(3, 192.8039, -259.4042, MathUtils.IGNORE_DOUBLE, true, false);
+        Point circleCenter = new Point("1", 444.1609, -713.9844, MathUtils.IGNORE_DOUBLE, true,
+                false);
+        Point startPoint = new Point("2", 557.3641, -207.0243, MathUtils.IGNORE_DOUBLE, true, false);
+        Point endPoint = new Point("3", 192.8039, -259.4042, MathUtils.IGNORE_DOUBLE, true, false);
         int nbOfSegments = 5;
 
         CircularSegmentation cs = new CircularSegmentation(false);
@@ -58,10 +59,10 @@ public class TestCircularSegmentation extends TestCase {
 
     public void testCircularSegmentation2() {
         Point circleCenter = new Point(
-                1, 352.9166, 288.3151, MathUtils.IGNORE_DOUBLE, true, false);
+                "1", 352.9166, 288.3151, MathUtils.IGNORE_DOUBLE, true, false);
         Point startPoint = new Point(
-                2, 283.7735, 299.7822, MathUtils.IGNORE_DOUBLE, true, false);
-        Point endPoint = new Point(3, 416.2355, 318.3647, MathUtils.IGNORE_DOUBLE, true, false);
+                "2", 283.7735, 299.7822, MathUtils.IGNORE_DOUBLE, true, false);
+        Point endPoint = new Point("3", 416.2355, 318.3647, MathUtils.IGNORE_DOUBLE, true, false);
         double arcLength = 50.0;
 
         CircularSegmentation cs = new CircularSegmentation(false);
@@ -88,9 +89,10 @@ public class TestCircularSegmentation extends TestCase {
 
     public void testCircularSegmentation3() {
         Point circleCenter = new Point(
-                1, 19863.9616, 1890.3261, MathUtils.IGNORE_DOUBLE, true, false);
-        Point startPoint = new Point(2, 17473.4117, 2638.7761, MathUtils.IGNORE_DOUBLE, true, false);
-        Point endPoint = new Point(3, 21376.5743, 3887.0507, MathUtils.IGNORE_DOUBLE, true, false);
+                "1", 19863.9616, 1890.3261, MathUtils.IGNORE_DOUBLE, true, false);
+        Point startPoint = new Point("2", 17473.4117, 2638.7761, MathUtils.IGNORE_DOUBLE, true,
+                false);
+        Point endPoint = new Point("3", 21376.5743, 3887.0507, MathUtils.IGNORE_DOUBLE, true, false);
         int nbOfSegments = 3;
 
         CircularSegmentation cs = new CircularSegmentation(false);

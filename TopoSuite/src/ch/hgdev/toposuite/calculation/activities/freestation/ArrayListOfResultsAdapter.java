@@ -45,7 +45,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
 
             if (numberTextView != null) {
                 numberTextView.setText(
-                        DisplayUtils.toStringForTextView(result.getPoint().getNumber()));
+                        result.getPoint().getNumber());
                 this.colorizeTextView(numberTextView, result);
             }
 

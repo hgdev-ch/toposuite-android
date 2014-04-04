@@ -26,8 +26,8 @@ public class LimitDisplacement extends Calculation {
     private Point               pointC;
     private Point               pointD;
     private double              surface;
-    private int                 pointXNumber;
-    private int                 pointYNumber;
+    private String              pointXNumber;
+    private String              pointYNumber;
 
     private Point               newPointX;
     private Point               newPointY;
@@ -36,8 +36,8 @@ public class LimitDisplacement extends Calculation {
     private double              distanceToEastLimitDY;
 
     public LimitDisplacement(Point _pointA, Point _pointB, Point _pointC,
-            Point _pointD, double _surface, int _pointXNumber,
-            int _pointYNumber, boolean hasDAO) {
+            Point _pointD, double _surface, String _pointXNumber,
+            String _pointYNumber, boolean hasDAO) {
         super(
                 CalculationType.LIMITDISPL,
                 App.getContext().getString(
@@ -133,8 +133,8 @@ public class LimitDisplacement extends Calculation {
         this.pointD = SharedResources.getSetOfPoints().find(
                 jo.getInt(LimitDisplacement.POINT_D));
         this.surface = jo.getDouble(LimitDisplacement.SURFACE);
-        this.pointXNumber = jo.getInt(LimitDisplacement.POINT_X_NUMBER);
-        this.pointYNumber = jo.getInt(LimitDisplacement.POINT_Y_NUMBER);
+        this.pointXNumber = jo.getString(LimitDisplacement.POINT_X_NUMBER);
+        this.pointYNumber = jo.getString(LimitDisplacement.POINT_Y_NUMBER);
     }
 
     @Override
@@ -188,19 +188,19 @@ public class LimitDisplacement extends Calculation {
         this.surface = surface;
     }
 
-    public final int getPointXNumber() {
+    public final String getPointXNumber() {
         return this.pointXNumber;
     }
 
-    public final void setPointXNumber(int pointXNumber) {
+    public final void setPointXNumber(String pointXNumber) {
         this.pointXNumber = pointXNumber;
     }
 
-    public final int getPointYNumber() {
+    public final String getPointYNumber() {
         return this.pointYNumber;
     }
 
-    public final void setPointYNumber(int pointYNumber) {
+    public final void setPointYNumber(String pointYNumber) {
         this.pointYNumber = pointYNumber;
     }
 

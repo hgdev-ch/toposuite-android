@@ -21,8 +21,8 @@ public class TestCirclesIntersection extends TestCase {
     }
 
     public void testCorrectSolutionTwoPoints() {
-        Point p1 = new Point(1, 25.0, 55.0, 0.0, false);
-        Point p3 = new Point(3, 50.177, 99.941, 0.0, false);
+        Point p1 = new Point("1", 25.0, 55.0, 0.0, false);
+        Point p3 = new Point("3", 50.177, 99.941, 0.0, false);
         double radius3 = 87.752;
         double radius1 = 50.0;
 

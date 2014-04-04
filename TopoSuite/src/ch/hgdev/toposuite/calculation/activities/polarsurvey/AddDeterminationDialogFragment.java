@@ -45,7 +45,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     }
 
     AddDeterminationDialogListener listener;
-    private int                    determinationNo;
+    private String                 determinationNo;
     private double                 horizDir;
     private double                 distance;
     private double                 zenAngle;
@@ -113,8 +113,9 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                                         .readDouble(AddDeterminationDialogFragment.this.lonDeplEditText);
                             }
 
-                            AddDeterminationDialogFragment.this.determinationNo = ViewUtils
-                                    .readInt(AddDeterminationDialogFragment.this.determinationNoEditText);
+                            AddDeterminationDialogFragment.this.determinationNo =
+                                    AddDeterminationDialogFragment.this.determinationNoEditText
+                                            .getText().toString();
                             AddDeterminationDialogFragment.this.horizDir = ViewUtils
                                     .readDouble(AddDeterminationDialogFragment.this.horizDirEditText);
                             AddDeterminationDialogFragment.this.distance = ViewUtils
@@ -199,7 +200,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.lonDeplEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.determinationNo = MathUtils.IGNORE_INT;
+        this.determinationNo = "";
         this.horizDir = MathUtils.IGNORE_DOUBLE;
         this.distance = MathUtils.IGNORE_DOUBLE;
         this.zenAngle = 100.0;
@@ -237,7 +238,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         return true;
     }
 
-    public int getDeterminationNo() {
+    public String getDeterminationNo() {
         return this.determinationNo;
     }
 

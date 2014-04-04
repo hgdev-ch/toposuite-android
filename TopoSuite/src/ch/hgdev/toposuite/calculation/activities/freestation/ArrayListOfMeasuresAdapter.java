@@ -45,25 +45,30 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<Measure> {
             TextView lonDeplTextView = (TextView) view.findViewById(R.id.lon_depl_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(determination.getPoint().getNumber()));
+                numberTextView.setText(determination.getPoint().getNumber());
             }
             if (horizOrientTextView != null) {
-                horizOrientTextView.setText(DisplayUtils.toStringForTextView(determination.getHorizDir()));
+                horizOrientTextView.setText(DisplayUtils.toStringForTextView(determination
+                        .getHorizDir()));
             }
             if (horizDistTextView != null) {
-                horizDistTextView.setText(DisplayUtils.toStringForTextView(determination.getDistance()));
+                horizDistTextView.setText(DisplayUtils.toStringForTextView(determination
+                        .getDistance()));
             }
             if (zenAngleTextView != null) {
-                zenAngleTextView.setText(DisplayUtils.toStringForTextView(determination.getZenAngle()));
+                zenAngleTextView.setText(DisplayUtils.toStringForTextView(determination
+                        .getZenAngle()));
             }
             if (sTextView != null) {
                 sTextView.setText(DisplayUtils.toStringForTextView(determination.getS()));
             }
             if (latDeplTextView != null) {
-                latDeplTextView.setText(DisplayUtils.toStringForTextView(determination.getLatDepl()));
+                latDeplTextView
+                        .setText(DisplayUtils.toStringForTextView(determination.getLatDepl()));
             }
             if (lonDeplTextView != null) {
-                lonDeplTextView.setText(DisplayUtils.toStringForTextView(determination.getLonDepl()));
+                lonDeplTextView
+                        .setText(DisplayUtils.toStringForTextView(determination.getLonDepl()));
             }
         }
 

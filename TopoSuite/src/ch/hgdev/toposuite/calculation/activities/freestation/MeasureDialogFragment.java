@@ -217,7 +217,7 @@ public class MeasureDialogFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Point point = (Point) MeasureDialogFragment.this.pointSpinner
                         .getItemAtPosition(pos);
-                if (point.getNumber() > 0) {
+                if (!point.getNumber().isEmpty()) {
                     MeasureDialogFragment.this.pointTextView.setText(DisplayUtils
                             .formatPoint(MeasureDialogFragment.this.getActivity(), point));
                 } else {
@@ -232,7 +232,7 @@ public class MeasureDialogFragment extends DialogFragment {
         });
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
         this.adapter = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);

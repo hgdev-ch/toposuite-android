@@ -50,7 +50,7 @@ public class AddPointDialogFragment extends DialogFragment {
     }
 
     AddPointDialogListener listener;
-    private int            number;
+    private String         number;
     private double         altitude;
     private double         east;
     private double         north;
@@ -96,8 +96,8 @@ public class AddPointDialogFragment extends DialogFragment {
                                 AddPointDialogFragment.this.altitude = ViewUtils
                                         .readDouble(AddPointDialogFragment.this.altitudeEditText);
                             }
-                            AddPointDialogFragment.this.number = ViewUtils.
-                                    readInt(AddPointDialogFragment.this.numberEditText);
+                            AddPointDialogFragment.this.number =
+                                    AddPointDialogFragment.this.numberEditText.getText().toString();
                             AddPointDialogFragment.this.east = ViewUtils
                                     .readDouble(AddPointDialogFragment.this.eastEditText);
                             AddPointDialogFragment.this.north = ViewUtils
@@ -159,7 +159,7 @@ public class AddPointDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.number = MathUtils.IGNORE_INT;
+        this.number = "";
         this.east = MathUtils.IGNORE_DOUBLE;
         this.north = MathUtils.IGNORE_DOUBLE;
         this.altitude = MathUtils.IGNORE_DOUBLE;
@@ -204,7 +204,7 @@ public class AddPointDialogFragment extends DialogFragment {
         return this.north;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 }

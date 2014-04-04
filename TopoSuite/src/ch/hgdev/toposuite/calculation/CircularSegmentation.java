@@ -209,7 +209,7 @@ public class CircularSegmentation extends Calculation {
                     this.circleCenter.getEast(), gis, this.circleRadius);
             double north = MathUtils.pointLanceNorth(
                     this.circleCenter.getNorth(), gis, this.circleRadius);
-            Point p = new Point(0, east, north, MathUtils.IGNORE_DOUBLE, false);
+            Point p = new Point("", east, north, MathUtils.IGNORE_DOUBLE, false);
             this.points.add(p);
         }
 

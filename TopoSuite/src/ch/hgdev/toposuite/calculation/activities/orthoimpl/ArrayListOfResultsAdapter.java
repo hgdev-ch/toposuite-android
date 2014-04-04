@@ -40,7 +40,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<OrthogonalImplantati
             TextView ordinateTextView = (TextView) view.findViewById(R.id.ordinate_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(result.getPoint().getNumber()));
+                numberTextView.setText(result.getPoint().getNumber());
             }
 
             if (eastTextView != null) {
@@ -49,7 +49,8 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<OrthogonalImplantati
             }
 
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toStringForTextView(result.getPoint().getNorth(),
+                northTextView.setText(DisplayUtils.toStringForTextView(
+                        result.getPoint().getNorth(),
                         App.smallNumberOfDecimals));
             }
 

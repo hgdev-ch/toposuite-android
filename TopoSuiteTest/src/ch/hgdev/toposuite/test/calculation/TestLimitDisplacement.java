@@ -20,14 +20,14 @@ public class TestLimitDisplacement extends TestCase {
     }
 
     public void testLimitDisplacement1() {
-        Point ptA = new Point(1, 96321.1527, 71470.5391, 0.0, true, false);
-        Point ptB = new Point(2, 96331.2818, 71467.6509, 0.0, true, false);
-        Point ptC = new Point(3, 96334.9793, 71477.2001, 0.0, true, false);
-        Point ptD = new Point(4, 96328.0009, 71480.5567, 0.0, true, false);
+        Point ptA = new Point("1", 96321.1527, 71470.5391, 0.0, true, false);
+        Point ptB = new Point("2", 96331.2818, 71467.6509, 0.0, true, false);
+        Point ptC = new Point("3", 96334.9793, 71477.2001, 0.0, true, false);
+        Point ptD = new Point("4", 96328.0009, 71480.5567, 0.0, true, false);
         double surface = 25.0;
 
         LimitDisplacement ld = new LimitDisplacement(ptA, ptB, ptC, ptD,
-                surface, 5, 6, false);
+                surface, "5", "6", false);
         try {
             ld.compute();
         } catch (CalculationException e) {

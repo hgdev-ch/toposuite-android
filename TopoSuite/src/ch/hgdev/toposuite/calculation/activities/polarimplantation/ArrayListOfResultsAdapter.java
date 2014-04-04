@@ -41,7 +41,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<PolarImplantation.Re
             TextView gisementTextView = (TextView) view.findViewById(R.id.gisement_item);
 
             if (pointNumberTextView != null) {
-                pointNumberTextView.setText(DisplayUtils.toStringForTextView(result.getPointNumber()));
+                pointNumberTextView.setText(result.getPointNumber());
             }
             if (horizDirTextView != null) {
                 horizDirTextView.setText(DisplayUtils.toStringForTextView(result.getHorizDir()));

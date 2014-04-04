@@ -183,7 +183,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Point point = (Point) EditOrientationDialogFragment.this.orientationSpinner
                         .getItemAtPosition(pos);
-                if (point.getNumber() > 0) {
+                if (!point.getNumber().isEmpty()) {
                     EditOrientationDialogFragment.this.orientationView.setText(DisplayUtils
                             .formatPoint(
                                     EditOrientationDialogFragment.this.getActivity(), point));
@@ -252,7 +252,8 @@ public class EditOrientationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.horizontalDirectionEditText.length() == 0) || (this.orientation.getNumber() < 1)) {
+        if ((this.horizontalDirectionEditText.length() == 0)
+                || (this.orientation.getNumber().isEmpty())) {
             return false;
         }
         return true;

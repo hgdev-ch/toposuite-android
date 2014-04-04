@@ -23,6 +23,7 @@ import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.StringUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularSegmentationResultsActivity extends TopoSuiteActivity implements
@@ -54,7 +55,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
         int numberOfSegments = bundle.getInt(CircularSegmentationActivity.NUMBER_OF_SEGMENTS);
         double arcLength = bundle.getDouble(CircularSegmentationActivity.ARC_LENGTH);
 
-        int resultPointNumber = bundle.getInt(
+        String resultPointNumber = bundle.getString(
                 CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER);
 
         CircularSegmentation circularSegmentation = new CircularSegmentation();
@@ -74,7 +75,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
         // set points numbers
         for (Point p : this.points) {
             p.setNumber(resultPointNumber);
-            resultPointNumber++;
+            resultPointNumber = StringUtils.incrementAsNumber(resultPointNumber);
         }
 
         this.saveCounter = this.points.size();
@@ -181,7 +182,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putInt(
+            args.putString(
                     MergePointsDialog.POINT_NUMBER,
                     r.getNumber());
 

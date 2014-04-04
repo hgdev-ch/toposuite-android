@@ -79,7 +79,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
         List<Point> points = new ArrayList<Point>();
         points.add(new Point(
-                0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+                "", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -255,11 +255,12 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
         int firstResultPointNumber = ViewUtils.readInt(this.firstPointNumberEditText);
 
-        bundle.putInt(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER,
+        bundle.putString(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER,
                 circleCenter.getNumber());
-        bundle.putInt(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER,
+        bundle.putString(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER,
                 circleStart.getNumber());
-        bundle.putInt(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER, circleEnd.getNumber());
+        bundle.putString(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER,
+                circleEnd.getNumber());
 
         bundle.putInt(CircularSegmentationActivity.NUMBER_OF_SEGMENTS, numberOfSegments);
         bundle.putDouble(CircularSegmentationActivity.ARC_LENGTH, arcLength);
@@ -320,7 +321,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 CircularSegmentationActivity.this.circleCenterSelectedPosition = pos;
                 Point p = (Point) CircularSegmentationActivity.this.circleCenterSpinner
                         .getItemAtPosition(pos);
-                if (p.getNumber() > 0) {
+                if (!p.getNumber().isEmpty()) {
                     CircularSegmentationActivity.this.circleCenterTextView.setText(
                             DisplayUtils.formatPoint(CircularSegmentationActivity.this, p));
                 } else {
@@ -341,7 +342,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 CircularSegmentationActivity.this.circleStartSelectedPosition = pos;
                 Point p = (Point) CircularSegmentationActivity.this.circleStartSpinner
                         .getItemAtPosition(pos);
-                if (p.getNumber() > 0) {
+                if (!p.getNumber().isEmpty()) {
                     CircularSegmentationActivity.this.circleStartTextView.setText(
                             DisplayUtils.formatPoint(CircularSegmentationActivity.this, p));
                 } else {
@@ -362,7 +363,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 CircularSegmentationActivity.this.circleEndSelectedPosition = pos;
                 Point p = (Point) CircularSegmentationActivity.this.circleEndSpinner
                         .getItemAtPosition(pos);
-                if (p.getNumber() > 0) {
+                if (!p.getNumber().isEmpty()) {
                     CircularSegmentationActivity.this.circleEndTextView.setText(
                             DisplayUtils.formatPoint(CircularSegmentationActivity.this, p));
                 } else {

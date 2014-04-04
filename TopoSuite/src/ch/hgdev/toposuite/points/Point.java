@@ -12,10 +12,7 @@ import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
 import ch.hgdev.toposuite.export.DataExporter;
 import ch.hgdev.toposuite.export.DataImporter;
 import ch.hgdev.toposuite.export.InvalidFormatException;
-import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
-
-import com.google.common.base.Preconditions;
 
 /**
  * A point is defined by a number, its distance to the east and the north and
@@ -25,8 +22,12 @@ import com.google.common.base.Preconditions;
  * 
  */
 public class Point implements DAOUpdater, DataExporter, DataImporter {
+    public static final String[] NUMBER_ALPHABET = {
+                                                 "a", "b", "c", "d", "e", "f", "g",
+                                                 "h", "i", "j"
+                                                 };
 
-    private int                  number;
+    private String               number;
     private double               east;
     private double               north;
     private double               altitude;
@@ -53,10 +54,11 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
      *            Determine if this point is a base point. A base point is a
      *            point that has been added as is and NOT computed.
      */
-    public Point(int number, double east, double north, double altitude, boolean basePoint,
+    public Point(String number, double east, double north, double altitude, boolean basePoint,
             boolean hasDAO) {
-        Preconditions.checkArgument(number >= 0, "A point number must be a positive integer: %s",
-                number);
+        // FIXME adapt the check according to the new point number format
+        //Preconditions.checkArgument(number >= 0, "A point number must be a positive integer: %s",
+        //        number);
         this.number = number;
         this.east = east;
         this.north = north;
@@ -70,7 +72,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         }
     }
 
-    public Point(int number, double east, double north, double altitude, boolean basePoint) {
+    public Point(String number, double east, double north, double altitude, boolean basePoint) {
         this(number, east, north, altitude, basePoint, true);
     }
 
@@ -78,7 +80,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         this.daoList = new ArrayList<DAO>();
         this.basePoint = false;
 
-        this.number = 0;
+        this.number = "";
         this.east = MathUtils.IGNORE_DOUBLE;
         this.north = MathUtils.IGNORE_DOUBLE;
         this.altitude = MathUtils.IGNORE_DOUBLE;
@@ -120,11 +122,11 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         return false;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 
-    public void setNumber(int _number) {
+    public void setNumber(String _number) {
         this.number = _number;
     }
 
@@ -187,7 +189,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
 
         if (tmp.length >= 3) {
             try {
-                int number = Integer.parseInt(tmp[0]);
+                String number = tmp[0].replace("\"", "");
                 double east = Double.parseDouble(tmp[1]);
                 double north = Double.parseDouble(tmp[2]);
                 double altitude = MathUtils.IGNORE_DOUBLE;
@@ -233,7 +235,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         String h = (ltopLine.length() >= 60) ? ltopLine.substring(60, hPosLimit) : null;
 
         try {
-            this.number = Integer.parseInt(punkt.replace(" ", ""));
+            this.number = punkt;
             this.east = Double.parseDouble(y);
             this.north = Double.parseDouble(x);
             this.altitude = (h != null) ? Double.parseDouble(h) : MathUtils.IGNORE_DOUBLE;
@@ -263,7 +265,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         String alti = (ptpLine.length() >= 64) ? ptpLine.substring(56, 64) : null;
 
         try {
-            this.number = Integer.parseInt(point.replace(" ", ""));
+            this.number = point;
             this.east = Double.parseDouble(coordY);
             this.north = Double.parseDouble(coordX);
             this.altitude = ((alti != null) && !alti.trim().isEmpty()) ?
@@ -276,11 +278,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
 
     @Override
     public String toString() {
-        // the 0 number is used to put an empty item into the spinner
-        if (this.number == 0) {
-            return "";
-        }
-        return DisplayUtils.toStringForEditText(this.number);
+        return this.number;
     }
 
     @Override
@@ -314,7 +312,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
      */
     @Override
     public Point clone() {
-        return new Point(0, this.east, this.north, this.altitude,
+        return new Point("", this.east, this.north, this.altitude,
                 this.basePoint, false);
     }
 }

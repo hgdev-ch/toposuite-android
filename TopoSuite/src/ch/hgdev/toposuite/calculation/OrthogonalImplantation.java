@@ -15,9 +15,11 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class OrthogonalImplantation extends Calculation {
-    public static final String                       ORTHOGONAL_BASE = "orthogonal_base";
-    public static final String                       MEASURES        = "measures";
-    public static final String                       POINT_NUMBER    = "point_number";
+    public static final String                       ORTHOGONAL_BASE    = "orthogonal_base";
+    public static final String                       MEASURES           = "measures";
+    public static final String                       POINT_NUMBER       = "point_number";
+
+    private static final String                      DUMMY_POINT_NUMBER = "42";
 
     private OrthogonalBase                           orthogonalBase;
     private ArrayList<Point>                         measures;
@@ -73,7 +75,7 @@ public class OrthogonalImplantation extends Calculation {
 
         for (Point p : this.measures) {
             PointProjectionOnALine ppoal = new PointProjectionOnALine(
-                    4242,
+                    OrthogonalImplantation.DUMMY_POINT_NUMBER,
                     this.orthogonalBase.getOrigin(),
                     this.orthogonalBase.getExtremity(),
                     p,
