@@ -240,7 +240,8 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
                     || (ViewUtils.readDouble(
                             this.imposedSurfaceEditText) == MathUtils.IGNORE_DOUBLE)) {
                 ViewUtils.showToast(this,
-                        this.getText(R.string.error_impossible_calculation));
+                        this.getText(R.string.error_fill_data));
+                return true;
             }
 
             Point pointA = this.adapter.getItem(this.pointASelectedPosition);
