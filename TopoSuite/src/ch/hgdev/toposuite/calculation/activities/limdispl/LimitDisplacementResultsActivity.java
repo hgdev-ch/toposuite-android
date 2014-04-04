@@ -57,17 +57,17 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
             this.limitDisplacementLabelTextView.setText(
                     String.format(this.getString(
                             R.string.limit_displ_results_label),
-                            DisplayUtils.toStringForTextView(
+                            DisplayUtils.formatSurface(
                                     this.limDispl.getSurface())));
             this.pointWestTextView.setText(
                     DisplayUtils.formatPoint(this, this.limDispl.getNewPointX()));
             this.pointEastTextView.setText(
                     DisplayUtils.formatPoint(this, this.limDispl.getNewPointY()));
-            this.distParaSouthTextView.setText(DisplayUtils.toStringForTextView(
+            this.distParaSouthTextView.setText(DisplayUtils.formatDistance(
                     this.limDispl.getDistanceToSouthLimitAD()));
-            this.distLonWestTextView.setText(DisplayUtils.toStringForTextView(
+            this.distLonWestTextView.setText(DisplayUtils.formatDistance(
                     this.limDispl.getDistanceToWestLimitAX()));
-            this.distLonEastTextView.setText(DisplayUtils.toStringForTextView(
+            this.distLonEastTextView.setText(DisplayUtils.formatDistance(
                     this.limDispl.getDistanceToEastLimitDY()));
         }
     }
