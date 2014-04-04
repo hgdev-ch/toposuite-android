@@ -41,11 +41,11 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<LeveOrthogonal.Meas
             }
 
             if (abscissaTextView != null) {
-                abscissaTextView.setText(DisplayUtils.toStringForTextView(measure.getAbscissa()));
+                abscissaTextView.setText(DisplayUtils.formatCoordinate(measure.getAbscissa()));
             }
 
             if (ordinateTextView != null) {
-                ordinateTextView.setText(DisplayUtils.toStringForTextView(measure.getOrdinate()));
+                ordinateTextView.setText(DisplayUtils.formatCoordinate(measure.getOrdinate()));
             }
         }
 

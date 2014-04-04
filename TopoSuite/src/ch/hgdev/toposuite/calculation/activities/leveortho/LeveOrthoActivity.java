@@ -338,7 +338,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 this.leveOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2));
             }
 
-            this.calcDistTextView.setText(DisplayUtils.toStringForTextView(
+            this.calcDistTextView.setText(DisplayUtils.formatDistance(
                     this.leveOrtho.getOrthogonalBase().getCalculatedDistance()));
 
             this.updateScaleFactor();
@@ -347,7 +347,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
     private void resetResults() {
         this.calcDistTextView.setText("");
-        this.scaleTextView.setText(DisplayUtils.toStringForTextView(1.0000) + " (0ppm)");
+        this.scaleTextView.setText(DisplayUtils.formatDistance(1.0000) + " (0ppm)");
     }
 
     private void updateScaleFactor() {
@@ -366,7 +366,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 double scaleFactor = this.leveOrtho.getOrthogonalBase().getScaleFactor();
 
                 StringBuilder builder = new StringBuilder();
-                builder.append(DisplayUtils.toStringForTextView(scaleFactor));
+                builder.append(DisplayUtils.formatDistance(scaleFactor));
                 builder.append(" (");
                 builder.append(MathUtils.scaleToPPM(scaleFactor));
                 builder.append("ppm)");

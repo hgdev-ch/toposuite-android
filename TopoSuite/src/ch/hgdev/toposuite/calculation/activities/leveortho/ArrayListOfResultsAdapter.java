@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -44,21 +43,19 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<LeveOrthogonal.Measu
             }
 
             if (abscissaTextView != null) {
-                abscissaTextView.setText(DisplayUtils.toStringForTextView(result.getAbscissa()));
+                abscissaTextView.setText(DisplayUtils.formatCoordinate(result.getAbscissa()));
             }
 
             if (ordinateTextView != null) {
-                ordinateTextView.setText(DisplayUtils.toStringForTextView(result.getOrdinate()));
+                ordinateTextView.setText(DisplayUtils.formatCoordinate(result.getOrdinate()));
             }
 
             if (vETextView != null) {
-                vETextView.setText(DisplayUtils.toStringForTextView(result.getvE(),
-                        App.smallNumberOfDecimals));
+                vETextView.setText(DisplayUtils.formatGap(result.getvE()));
             }
 
             if (ordinateTextView != null) {
-                vNTextView.setText(DisplayUtils.toStringForTextView(result.getvN(),
-                        App.smallNumberOfDecimals));
+                vNTextView.setText(DisplayUtils.formatGap(result.getvN()));
             }
         }
 
