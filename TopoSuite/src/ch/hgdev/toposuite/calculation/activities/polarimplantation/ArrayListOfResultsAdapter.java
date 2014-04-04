@@ -41,25 +41,26 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<PolarImplantation.Re
             TextView gisementTextView = (TextView) view.findViewById(R.id.gisement_item);
 
             if (pointNumberTextView != null) {
-                pointNumberTextView.setText(DisplayUtils.toStringForTextView(result.getPointNumber()));
+                pointNumberTextView.setText(DisplayUtils.toStringForTextView(result
+                        .getPointNumber()));
             }
             if (horizDirTextView != null) {
-                horizDirTextView.setText(DisplayUtils.toStringForTextView(result.getHorizDir()));
+                horizDirTextView.setText(DisplayUtils.formatAngle(result.getHorizDir()));
             }
             if (horizDistTextView != null) {
-                horizDistTextView.setText(DisplayUtils.toStringForTextView(result.getHorizDist()));
+                horizDistTextView.setText(DisplayUtils.formatDistance(result.getHorizDist()));
             }
             if (distanceTextView != null) {
-                distanceTextView.setText(DisplayUtils.toStringForTextView(result.getDistance()));
+                distanceTextView.setText(DisplayUtils.formatDistance(result.getDistance()));
             }
             if (zenAngleTextView != null) {
-                zenAngleTextView.setText(DisplayUtils.toStringForTextView(result.getZenAngle()));
+                zenAngleTextView.setText(DisplayUtils.formatAngle(result.getZenAngle()));
             }
             if (sTextView != null) {
-                sTextView.setText(DisplayUtils.toStringForTextView(result.getS()));
+                sTextView.setText(DisplayUtils.formatDistance(result.getS()));
             }
             if (gisementTextView != null) {
-                gisementTextView.setText(DisplayUtils.toStringForTextView(result.getGisement()));
+                gisementTextView.setText(DisplayUtils.formatAngle(result.getGisement()));
             }
         }
 
