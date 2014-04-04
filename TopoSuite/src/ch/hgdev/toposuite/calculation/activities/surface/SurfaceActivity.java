@@ -1,7 +1,6 @@
 package ch.hgdev.toposuite.calculation.activities.surface;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -331,14 +330,32 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         p.setNorth(dialog.getPoint().getNorth());
         p.setRadius(dialog.getRadius());
 
-        this.adapter.remove(p);
-        this.adapter.add(p);
-        this.adapter.sort(new Comparator<Surface.PointWithRadius>() {
-            @Override
-            public int compare(Surface.PointWithRadius lhs, Surface.PointWithRadius rhs) {
-                return (lhs.getVertexNumber() > rhs.getVertexNumber()) ? 1 : -1;
+        if (dialog.getPositionAfter() > 0) {
+            ArrayList<Surface.PointWithRadius> newPoints =
+                    new ArrayList<Surface.PointWithRadius>();
+
+            int vertexNumber = 1;
+            for (int i = 0; i < this.adapter.getCount(); i++) {
+                Surface.PointWithRadius currPt = this.adapter.getItem(i);
+                if (currPt == p) {
+                    continue;
+                }
+
+                newPoints.add(currPt);
+                currPt.setVertexNumber(vertexNumber);
+
+                if (currPt.getNumber() == dialog.getPositionAfter()) {
+                    newPoints.add(p);
+                    vertexNumber++;
+                    p.setVertexNumber(vertexNumber);
+                }
+
+                vertexNumber++;
             }
-        });
+
+            this.surfaceCalculation.setPoints(newPoints);
+        }
+
         this.adapter.notifyDataSetChanged();
     }
 

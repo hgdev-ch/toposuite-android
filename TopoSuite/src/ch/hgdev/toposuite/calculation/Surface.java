@@ -18,17 +18,17 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Surface extends Calculation {
-    private static final String                 SURFACE             = "Surface: ";
+    private static final String           SURFACE             = "Surface: ";
 
-    private static final String                 POINTS_LIST         = "points_list";
-    private static final String                 SURFACE_NAME        = "surface_name";
-    private static final String                 SURFACE_DESCRIPTION = "surface_description";
+    private static final String           POINTS_LIST         = "points_list";
+    private static final String           SURFACE_NAME        = "surface_name";
+    private static final String           SURFACE_DESCRIPTION = "surface_description";
 
-    private String                              surfaceName;
-    private String                              surfaceDescription;
-    private double                              surface;
-    private double                              perimeter;
-    private final List<Surface.PointWithRadius> points;
+    private String                        surfaceName;
+    private String                        surfaceDescription;
+    private double                        surface;
+    private double                        perimeter;
+    private List<Surface.PointWithRadius> points;
 
     public Surface(long id, Date lastModification) {
         super(id,
@@ -184,6 +184,12 @@ public class Surface extends Calculation {
 
     public List<Surface.PointWithRadius> getPoints() {
         return this.points;
+    }
+
+    public void setPoints(List<Surface.PointWithRadius> _points) {
+        //this.points = _points;
+        this.points.clear();
+        this.points.addAll(_points);
     }
 
     /**

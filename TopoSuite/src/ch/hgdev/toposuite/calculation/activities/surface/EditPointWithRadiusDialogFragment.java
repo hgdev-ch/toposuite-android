@@ -209,7 +209,6 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
                 if (pos == 0) {
                     return;
                 }
-
                 EditPointWithRadiusDialogFragment.this.positionAfter = Integer.valueOf(
                         positionAdapter.getItem(pos));
             }
@@ -247,11 +246,15 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
         return true;
     }
 
-    public Point getPoint() {
+    public final Point getPoint() {
         return this.point;
     }
 
-    public double getRadius() {
+    public final double getRadius() {
         return this.radius;
+    }
+
+    public final int getPositionAfter() {
+        return this.positionAfter;
     }
 }
