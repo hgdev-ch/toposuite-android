@@ -102,7 +102,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         }
 
         Point point = (Point) o;
-        if (this.getNumber() == point.getNumber()) {
+        if (this.getNumber().equals(point.getNumber())) {
             if (!MathUtils.equals(this.getEast(), point.getEast())) {
                 return false;
             }

@@ -182,7 +182,7 @@ public class GisementActivity extends TopoSuiteActivity {
 
         if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty())) {
             this.resetResults();
-        } else if (p1.getNumber() == p2.getNumber()) {
+        } else if (p1.getNumber().equals(p2.getNumber())) {
             this.resetResults();
             ViewUtils.showToast(this, this.getString(R.string.error_same_points));
         } else {
