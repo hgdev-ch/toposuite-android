@@ -147,7 +147,7 @@ public class PolarSurvey extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
         this.station = SharedResources.getSetOfPoints().find(
-                json.getInt(PolarSurvey.STATION_NUMBER));
+                json.getString(PolarSurvey.STATION_NUMBER));
 
         this.z0CalculationId = json.getLong(PolarSurvey.Z0_CALCULATION_ID);
 

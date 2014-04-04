@@ -188,7 +188,7 @@ public class Abriss extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
         this.station = SharedResources.getSetOfPoints().find(
-                json.getInt(Abriss.STATION_NUMBER));
+                json.getString(Abriss.STATION_NUMBER));
 
         JSONArray orientationsArray = json.getJSONArray(Abriss.ORIENTATIONS_LIST);
 

@@ -286,15 +286,15 @@ public class LineCircleIntersection extends Calculation {
         JSONObject json = new JSONObject(jsonInputArgs);
 
         Point p1L = SharedResources.getSetOfPoints().find(
-                json.getInt(LineCircleIntersection.LINE_POINT_ONE_NUMBER));
+                json.getString(LineCircleIntersection.LINE_POINT_ONE_NUMBER));
         Point p2L = SharedResources.getSetOfPoints().find(
-                json.getInt(LineCircleIntersection.LINE_POINT_TWO_NUMBER));
+                json.getString(LineCircleIntersection.LINE_POINT_TWO_NUMBER));
         double displacement = json.getDouble(LineCircleIntersection.LINE_DISPLACEMENT);
         double gisement = json.getDouble(LineCircleIntersection.LINE_GISEMENT);
         double distance = json.getDouble(LineCircleIntersection.LINE_DISTANCE);
 
         Point centerC = SharedResources.getSetOfPoints().find(
-                json.getInt(LineCircleIntersection.CIRCLE_POINT_CENTER_NUMBER));
+                json.getString(LineCircleIntersection.CIRCLE_POINT_CENTER_NUMBER));
         double radiusC = json.getDouble(LineCircleIntersection.CIRCLE_RADIUS);
 
         this.initAttributes(p1L, p2L, displacement, gisement, distance, centerC, radiusC);

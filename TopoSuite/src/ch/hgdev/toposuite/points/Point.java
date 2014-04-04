@@ -164,7 +164,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     @Override
     public String toCSV() {
         StringBuilder builder = new StringBuilder();
-        builder.append(this.getNumber());
+        builder.append("\"" + this.getNumber() + "\"");
         builder.append(App.CSV_SEPARATOR);
         builder.append(this.getEast());
         builder.append(App.CSV_SEPARATOR);
@@ -273,7 +273,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
 
     @Override
     public String toString() {
-        return this.number;
+        return (this.number == null) ? "" : this.number;
     }
 
     @Override

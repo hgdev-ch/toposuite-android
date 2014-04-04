@@ -311,8 +311,6 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         this.segmentEditText.setInputType(
                 InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
-        this.firstPointNumberEditText.setInputType(
-                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.circleCenterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 

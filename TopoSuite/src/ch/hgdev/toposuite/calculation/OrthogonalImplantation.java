@@ -138,8 +138,8 @@ public class OrthogonalImplantation extends Calculation {
         JSONArray measuresArray = json.getJSONArray(OrthogonalImplantation.MEASURES);
 
         for (int i = 0; i < measuresArray.length(); i++) {
-            Integer pos = (Integer) measuresArray.get(i);
-            Point p = SharedResources.getSetOfPoints().find((int) pos);
+            String number = (String) measuresArray.get(i);
+            Point p = SharedResources.getSetOfPoints().find(number);
             this.measures.add(p);
         }
     }

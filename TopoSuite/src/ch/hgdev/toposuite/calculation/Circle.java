@@ -101,11 +101,11 @@ public class Circle extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject jo = new JSONObject(jsonInputArgs);
         this.pointA = SharedResources.getSetOfPoints().find(
-                jo.getInt(Circle.POINT_A));
+                jo.getString(Circle.POINT_A));
         this.pointB = SharedResources.getSetOfPoints().find(
-                jo.getInt(Circle.POINT_B));
+                jo.getString(Circle.POINT_B));
         this.pointC = SharedResources.getSetOfPoints().find(
-                jo.getInt(Circle.POINT_C));
+                jo.getString(Circle.POINT_C));
         this.pointNumber = jo.getString(Circle.POINT_NUMBER);
     }
 

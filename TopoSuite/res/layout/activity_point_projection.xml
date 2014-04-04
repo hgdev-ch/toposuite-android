@@ -244,7 +244,6 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="0.28"
 	            android:gravity="left|center_vertical"
-	            android:inputType="numberSigned"
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
 		</LinearLayout>
 	</LinearLayout>

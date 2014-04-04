@@ -326,7 +326,7 @@ public class FreeStation extends Calculation {
                     FreeStation.MEASURES).get(i);
 
             Point st = SharedResources.getSetOfPoints().find(
-                    measureObject.getInt(Measure.ORIENTATION_NUMBER));
+                    measureObject.getString(Measure.ORIENTATION_NUMBER));
 
             Measure m = new Measure(
                     st,

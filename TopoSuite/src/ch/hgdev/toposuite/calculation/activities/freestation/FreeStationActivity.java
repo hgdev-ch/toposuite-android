@@ -2,7 +2,6 @@ package ch.hgdev.toposuite.calculation.activities.freestation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -52,8 +51,6 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                 R.id.determinations_list);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
-        this.stationEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {

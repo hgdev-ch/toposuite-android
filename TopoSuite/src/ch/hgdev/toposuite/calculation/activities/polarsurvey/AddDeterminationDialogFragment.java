@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -157,8 +156,6 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         this.determinationNoEditText = new EditText(this.getActivity());
         this.determinationNoEditText.setHint(
                 this.getActivity().getString(R.string.determination_sight_3dots));
-        this.determinationNoEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.horizDirEditText = new EditText(this.getActivity());
         this.horizDirEditText.setHint(

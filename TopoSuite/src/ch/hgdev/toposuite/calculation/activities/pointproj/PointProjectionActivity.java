@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,8 +87,6 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         this.displacementEditText.setInputType(App.getInputTypeCoordinate());
 
         this.pointNumberEditText = (EditText) this.findViewById(R.id.point_number);
-        this.pointNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.point2SpinnerLayout = (LinearLayout) this.findViewById(R.id.point2_spinner_layout);
         this.point2Layout = (LinearLayout) this.findViewById(R.id.point2_layout);
@@ -192,12 +189,14 @@ public class PointProjectionActivity extends TopoSuiteActivity {
 
             // TODO find a more "elegant" solution
             for (int i = 1; i < a.getCount(); i++) {
-                if (a.getItem(i).getNumber() == ppoal.getP1().getNumber()) {
+                if ((ppoal.getP1() != null) && a.getItem(i).getNumber().equals(
+                        ppoal.getP1().getNumber())) {
                     this.point1SelectedPosition = i;
                     continue;
                 }
 
-                if (a.getItem(i).getNumber() == ppoal.getP2().getNumber()) {
+                if ((ppoal.getP2() != null) && a.getItem(i).getNumber().equals(
+                        ppoal.getP2().getNumber())) {
                     this.point2SelectedPosition = i;
                     continue;
                 }

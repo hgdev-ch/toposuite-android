@@ -125,13 +125,13 @@ public class LimitDisplacement extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject jo = new JSONObject(jsonInputArgs);
         this.pointA = SharedResources.getSetOfPoints().find(
-                jo.getInt(LimitDisplacement.POINT_A));
+                jo.getString(LimitDisplacement.POINT_A));
         this.pointB = SharedResources.getSetOfPoints().find(
-                jo.getInt(LimitDisplacement.POINT_B));
+                jo.getString(LimitDisplacement.POINT_B));
         this.pointC = SharedResources.getSetOfPoints().find(
-                jo.getInt(LimitDisplacement.POINT_C));
+                jo.getString(LimitDisplacement.POINT_C));
         this.pointD = SharedResources.getSetOfPoints().find(
-                jo.getInt(LimitDisplacement.POINT_D));
+                jo.getString(LimitDisplacement.POINT_D));
         this.surface = jo.getDouble(LimitDisplacement.SURFACE);
         this.pointXNumber = jo.getString(LimitDisplacement.POINT_X_NUMBER);
         this.pointYNumber = jo.getString(LimitDisplacement.POINT_Y_NUMBER);

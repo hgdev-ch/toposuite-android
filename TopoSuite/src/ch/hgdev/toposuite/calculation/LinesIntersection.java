@@ -257,20 +257,20 @@ public class LinesIntersection extends Calculation {
         JSONObject jo = new JSONObject(jsonInputArgs);
 
         this.setP1D1(this.p1D1 = SharedResources.getSetOfPoints().find(
-                jo.getInt(LinesIntersection.P1D1_NUMBER)));
+                jo.getString(LinesIntersection.P1D1_NUMBER)));
 
-        int p2D1Position = jo.getInt(LinesIntersection.P2D1_NUMBER);
-        if (p2D1Position != 0) {
+        String p2D1Position = jo.getString(LinesIntersection.P2D1_NUMBER);
+        if (!p2D1Position.isEmpty()) {
             this.setP2D1(SharedResources.getSetOfPoints().find(p2D1Position));
         } else {
             this.setGisementD1(jo.getDouble(LinesIntersection.GIS_D1));
         }
 
         this.setP1D2(SharedResources.getSetOfPoints().find(
-                jo.getInt(LinesIntersection.P1D2_NUMBER)));
+                jo.getString(LinesIntersection.P1D2_NUMBER)));
 
-        int p2D2Position = jo.getInt(LinesIntersection.P2D2_NUMBER);
-        if (p2D2Position != 0) {
+        String p2D2Position = jo.getString(LinesIntersection.P2D2_NUMBER);
+        if (!p2D2Position.isEmpty()) {
             this.setP2D2(SharedResources.getSetOfPoints().find(p2D2Position));
         } else {
             this.setGisementD2(jo.getDouble(LinesIntersection.GIS_D2));

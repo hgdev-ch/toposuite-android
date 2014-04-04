@@ -129,9 +129,9 @@ public class PolarImplantation extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
         this.station = SharedResources.getSetOfPoints().find(
-                json.getInt(PolarImplantation.STATION_NUMBER));
+                json.getString(PolarImplantation.STATION_NUMBER));
         this.point = SharedResources.getSetOfPoints().find(
-                json.getInt(PolarImplantation.POINT_NUMBER));
+                json.getString(PolarImplantation.POINT_NUMBER));
 
         JSONArray measuresArray = json.getJSONArray(PolarImplantation.POINT_WITH_S_LIST);
 

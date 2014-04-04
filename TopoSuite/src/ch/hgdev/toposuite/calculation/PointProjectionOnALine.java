@@ -221,11 +221,11 @@ public class PointProjectionOnALine extends Calculation {
 
         this.number = jo.getString(PointProjectionOnALine.NUMBER);
         this.p1 = SharedResources.getSetOfPoints().find(
-                jo.getInt(PointProjectionOnALine.P1_NUMBER));
+                jo.getString(PointProjectionOnALine.P1_NUMBER));
         this.displacement = jo.getDouble(PointProjectionOnALine.DISPLACEMENT);
         this.gisement = jo.getDouble(PointProjectionOnALine.GISEMENT);
         this.ptToProj = SharedResources.getSetOfPoints().find(
-                jo.getInt(PointProjectionOnALine.PT_TO_PROJ_NUMBER));
+                jo.getString(PointProjectionOnALine.PT_TO_PROJ_NUMBER));
 
         this.mode = Mode.valueOf(jo.getString(PointProjectionOnALine.MODE));
 
@@ -234,7 +234,7 @@ public class PointProjectionOnALine extends Calculation {
                     this.p1, this.gisement);
         } else {
             this.p2 = SharedResources.getSetOfPoints().find(
-                    jo.getInt(PointProjectionOnALine.P2_NUMBER));
+                    jo.getString(PointProjectionOnALine.P2_NUMBER));
         }
     }
 

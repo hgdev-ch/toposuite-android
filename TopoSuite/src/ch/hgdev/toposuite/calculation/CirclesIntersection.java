@@ -198,13 +198,13 @@ public class CirclesIntersection extends Calculation {
         JSONObject json = new JSONObject(jsonInputArgs);
 
         Point centerFirst = SharedResources.getSetOfPoints().find(
-                json.getInt(CirclesIntersection.CENTER_FIRST_NUMBER));
+                json.getString(CirclesIntersection.CENTER_FIRST_NUMBER));
         if (centerFirst != null) {
             this.setCenterFirst(centerFirst);
         }
 
         Point centerSecond = SharedResources.getSetOfPoints().find(
-                json.getInt(CirclesIntersection.CENTER_SECOND_NUMBER));
+                json.getString(CirclesIntersection.CENTER_SECOND_NUMBER));
         if (centerSecond != null) {
             this.setCenterSecond(centerSecond);
         }

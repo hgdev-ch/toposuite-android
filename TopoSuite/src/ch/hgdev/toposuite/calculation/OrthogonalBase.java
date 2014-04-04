@@ -90,9 +90,9 @@ public class OrthogonalBase {
             JSONObject jo = new JSONObject(json);
 
             Point origin = SharedResources.getSetOfPoints().find(
-                    jo.getInt(OrthogonalBase.ORIGIN));
+                    jo.getString(OrthogonalBase.ORIGIN));
             Point extremity = SharedResources.getSetOfPoints().find(
-                    jo.getInt(OrthogonalBase.EXTREMITY));
+                    jo.getString(OrthogonalBase.EXTREMITY));
             double measureDist = jo.getDouble(OrthogonalBase.MEASURED_DISTANCE);
 
             ob = new OrthogonalBase(origin, extremity, measureDist);

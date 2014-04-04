@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.widget.EditText;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -44,7 +43,7 @@ public class SearchPointDialogFragment extends DialogFragment {
 
     SearchPointDialogListener listener;
     private EditText          pointNumberEditText;
-    private int               pointNumber;
+    private String            pointNumber;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -57,8 +56,9 @@ public class SearchPointDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (SearchPointDialogFragment.this.checkDialogInputs()) {
-                                    SearchPointDialogFragment.this.pointNumber = ViewUtils
-                                            .readInt(SearchPointDialogFragment.this.pointNumberEditText);
+                                    SearchPointDialogFragment.this.pointNumber =
+                                            SearchPointDialogFragment.this.pointNumberEditText
+                                                    .getText().toString();
                                     SearchPointDialogFragment.this.listener
                                             .onDialogSearch(SearchPointDialogFragment.this);
                                 } else {
@@ -109,13 +109,10 @@ public class SearchPointDialogFragment extends DialogFragment {
     private void initAttributes() {
         this.pointNumberEditText = new EditText(this.getActivity());
         this.pointNumberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
-        this.pointNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
-        this.pointNumber = 0;
-
+        this.pointNumber = "";
     }
 
-    public int getPointNumber() {
+    public String getPointNumber() {
         return this.pointNumber;
     }
 }

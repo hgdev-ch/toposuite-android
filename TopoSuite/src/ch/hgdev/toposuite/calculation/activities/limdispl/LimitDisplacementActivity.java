@@ -228,10 +228,8 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
                     || (this.pointBSelectedPosition == 0)
                     || (this.pointCSelectedPosition == 0)
                     || (this.pointDSelectedPosition == 0)
-                    || (ViewUtils.readInt(
-                            this.pointWestNumberEditText) == MathUtils.IGNORE_INT)
-                    || (ViewUtils.readInt(
-                            this.pointEastNumberEditText) == MathUtils.IGNORE_INT)
+                    || (this.pointWestNumberEditText.getText().toString().isEmpty())
+                    || (this.pointEastNumberEditText.getText().toString().isEmpty())
                     || (ViewUtils.readDouble(
                             this.imposedSurfaceEditText) == MathUtils.IGNORE_DOUBLE)) {
                 ViewUtils.showToast(this,
