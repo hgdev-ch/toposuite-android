@@ -253,8 +253,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
      * Update the surface and perimeter text view.
      */
     private void updateResults() {
-        this.surfaceTextView.setText(DisplayUtils.toStringForTextView(this.surface));
-        this.perimeterTextView.setText(DisplayUtils.toStringForTextView(this.perimeter));
+        this.surfaceTextView.setText(DisplayUtils.formatSurface(this.surface));
+        this.perimeterTextView.setText(DisplayUtils.formatDistance(this.perimeter));
     }
 
     /**

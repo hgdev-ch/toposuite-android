@@ -43,16 +43,16 @@ public class ArrayListOfPointsWithRadiusAdapter extends ArrayAdapter<Surface.Poi
                 vertexTextView.setText(DisplayUtils.toStringForTextView(p.getVertexNumber()));
             }
             if (radiusTextView != null) {
-                radiusTextView.setText(DisplayUtils.toStringForTextView(p.getRadius()));
+                radiusTextView.setText(DisplayUtils.formatDistance(p.getRadius()));
             }
             if (numberTextView != null) {
                 numberTextView.setText(DisplayUtils.toStringForTextView(p.getNumber()));
             }
             if (eastTextView != null) {
-                eastTextView.setText(DisplayUtils.toStringForTextView(p.getEast()));
+                eastTextView.setText(DisplayUtils.formatCoordinate(p.getEast()));
             }
             if (northTextView != null) {
-                northTextView.setText(DisplayUtils.toStringForTextView(p.getNorth()));
+                northTextView.setText(DisplayUtils.formatCoordinate(p.getNorth()));
             }
         }
         return view;
