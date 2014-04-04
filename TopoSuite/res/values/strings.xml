@@ -90,6 +90,7 @@
     <string name="displacement_label">Displacement</string>
     <string name="dist_pt_1">Pt. A dist.</string>
     <string name="distance_label">Distance [m]</string>
+    <string name="distance_angled_label">Dist. ang. [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
     <string name="distance_lon_east_label">Length DY [m]</string>
     <string name="distance_lon_west_label">Length AX [m]</string>

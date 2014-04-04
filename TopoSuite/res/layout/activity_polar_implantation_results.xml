@@ -33,7 +33,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/distance_label"
+            android:text="@string/distance_angled_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <TextView

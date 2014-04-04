@@ -92,6 +92,7 @@
 	<string name="displacement_label">Déplacement</string>
 	<string name="dist_pt_1">Dist. pt. A</string>
     <string name="distance_label">Distance [m]</string>
+    <string name="distance_angled_label">Dist. incl. [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
     <string name="distance_lon_east_label">Longueur DY [m]</string>
     <string name="distance_lon_west_label">Longueur AX [m]</string>
@@ -197,7 +198,7 @@
     <string name="measure_header_distance">Distance [m]</string>
     <string name="measure_header_pt_nbr">N&#176; pt</string>
     <string name="measure_header_hz">Hz [g]</string>
-    <string name="measure_header_hdist">Dist. H. [m]</string>
+    <string name="measure_header_hdist">Dist. Hz. [m]</string>
     <string name="measure_header_s">S [m]</string>
     <string name="measure_header_zenithal">Vz [g]</string>
     <string name="measure_header_lat_depl">Depl. Lat. [m]</string>
