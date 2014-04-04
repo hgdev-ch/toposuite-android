@@ -197,8 +197,8 @@ public class LineCircleIntersection extends Calculation {
             Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
                     LineCircleIntersection.LINE_CIRCLE_INTERSECTION
                             + "No line-circle crossing. The radius should be longer than "
-                            + DisplayUtils.toStringForTextView(minRadius)
-                            + " (" + DisplayUtils.toStringForTextView(this.radiusC) + " given).");
+                            + DisplayUtils.formatDistance(minRadius)
+                            + " (" + DisplayUtils.formatDistance(this.radiusC) + " given).");
             this.setIgnorableResults();
             throw new CalculationException(App.getContext().getString(
                     R.string.error_impossible_calculation));
