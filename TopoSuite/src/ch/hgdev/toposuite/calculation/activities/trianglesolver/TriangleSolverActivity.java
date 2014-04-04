@@ -265,33 +265,33 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * @param t
      */
     private void updateResults() {
-        this.aBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getABis()));
-        this.bBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getBBis()));
-        this.cBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getCBis()));
-        this.alphaBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getAlphaBis()));
-        this.betaBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getBetaBis()));
-        this.gammaBisTextView.setText(DisplayUtils.toStringForTextView(this.tS.getGammaBis()));
+        this.aBisTextView.setText(DisplayUtils.formatDistance(this.tS.getABis()));
+        this.bBisTextView.setText(DisplayUtils.formatDistance(this.tS.getBBis()));
+        this.cBisTextView.setText(DisplayUtils.formatDistance(this.tS.getCBis()));
+        this.alphaBisTextView.setText(DisplayUtils.formatDistance(this.tS.getAlphaBis()));
+        this.betaBisTextView.setText(DisplayUtils.formatDistance(this.tS.getBetaBis()));
+        this.gammaBisTextView.setText(DisplayUtils.formatDistance(this.tS.getGammaBis()));
 
         this.perimeterTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getPerimeter().first));
+                DisplayUtils.formatDistance(this.tS.getPerimeter().first));
         this.perimeterBisTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getPerimeter().second));
+                DisplayUtils.formatDistance(this.tS.getPerimeter().second));
         this.heightTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getHeight().first));
+                DisplayUtils.formatDistance(this.tS.getHeight().first));
         this.heightBisTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getHeight().second));
+                DisplayUtils.formatDistance(this.tS.getHeight().second));
         this.surfaceTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getSurface().first));
+                DisplayUtils.formatSurface(this.tS.getSurface().first));
         this.surfaceBisTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getSurface().second));
+                DisplayUtils.formatSurface(this.tS.getSurface().second));
         this.incircleRadiusTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getIncircleRadius().first));
+                DisplayUtils.formatDistance(this.tS.getIncircleRadius().first));
         this.incircleRadiusBisTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getIncircleRadius().second));
+                DisplayUtils.formatDistance(this.tS.getIncircleRadius().second));
         this.excircleRadiusTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getExcircleRadius().first));
+                DisplayUtils.formatDistance(this.tS.getExcircleRadius().first));
         this.excircleRadiusBisTextView.setText(
-                DisplayUtils.toStringForTextView(this.tS.getExcircleRadius().second));
+                DisplayUtils.formatDistance(this.tS.getExcircleRadius().second));
 
         this.updateAnglesAndSides();
     }
