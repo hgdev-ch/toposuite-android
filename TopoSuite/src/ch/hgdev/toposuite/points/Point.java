@@ -22,11 +22,6 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * 
  */
 public class Point implements DAOUpdater, DataExporter, DataImporter {
-    public static final String[] NUMBER_ALPHABET = {
-                                                 "a", "b", "c", "d", "e", "f", "g",
-                                                 "h", "i", "j"
-                                                 };
-
     private String               number;
     private double               east;
     private double               north;
