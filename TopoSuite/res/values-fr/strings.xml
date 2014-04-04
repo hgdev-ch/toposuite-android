@@ -93,9 +93,9 @@
 	<string name="dist_pt_1">Dist. pt. A</string>
     <string name="distance_label">Distance [m]</string>
     <string name="distance_3dots">Distance&#8230;</string>
-    <string name="distance_lon_east_label">Dist. lon. limite est (D-Y)[m]</string>
-    <string name="distance_lon_west_label">Dist. lon. limite ouest (D-Y)[m]</string>
-    <string name="distance_para_south_label">Dist. // à la limit ouest (A-D)[m]</string>
+    <string name="distance_lon_east_label">Longueur DY [m]</string>
+    <string name="distance_lon_west_label">Longueur AX [m]</string>
+    <string name="distance_para_south_label">Distance d [m]</string>
     <string name="distance_projpoint_line_label">Distance du point à projeter à la droite (X) [m]:</string>
     <string name="distance_projpoint_point_1_label">Distance du point projeté au point A (Y) [m]:</string>
     <string name="distance_projpoint_point_2_label">Distance du point projeté au point B (Z) [m]:</string>
