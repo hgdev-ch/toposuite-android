@@ -50,7 +50,7 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
                 this.ppoal.getDistPtToLine()));
         projPointP1DistTextView.setText(DisplayUtils.toStringForTextView(
                 this.ppoal.getDistPtToP1()));
-        if (this.ppoal.getP2().getNumber() != PointProjectionOnALine.DUMMY_POINT_NUMBER) {
+        if (!this.ppoal.getP2().getNumber().equals(PointProjectionOnALine.DUMMY_POINT_NUMBER)) {
             projPointP2DistTextView.setText(DisplayUtils.toStringForTextView(
                     this.ppoal.getDistPtToP2()));
         } else {
