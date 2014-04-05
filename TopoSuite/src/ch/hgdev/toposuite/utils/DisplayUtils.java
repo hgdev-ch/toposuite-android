@@ -315,10 +315,10 @@ public class DisplayUtils {
      */
     public static String formatPoint(Context context, Point pt) {
         return String.format("%s: %s, %s: %s, %s: %s", context.getString(R.string.east),
-                DisplayUtils.toStringForTextView(pt.getEast()), context.getString(R.string.north),
-                DisplayUtils.toStringForTextView(pt.getNorth()),
+                DisplayUtils.formatCoordinate(pt.getEast()), context.getString(R.string.north),
+                DisplayUtils.formatCoordinate(pt.getNorth()),
                 context.getString(R.string.altitude),
-                DisplayUtils.toStringForTextView(pt.getAltitude()));
+                DisplayUtils.formatCoordinate(pt.getAltitude()));
     }
 
     /**
@@ -332,8 +332,8 @@ public class DisplayUtils {
      */
     public static String format2DPoint(Context context, Point pt) {
         return String.format("%s: %s, %s: %s", context.getString(R.string.east),
-                DisplayUtils.toStringForTextView(pt.getEast()), context.getString(R.string.north),
-                DisplayUtils.toStringForTextView(pt.getNorth()));
+                DisplayUtils.formatCoordinate(pt.getEast()), context.getString(R.string.north),
+                DisplayUtils.formatCoordinate(pt.getNorth()));
     }
 
     /**
