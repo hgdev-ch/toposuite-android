@@ -134,7 +134,7 @@ public class PointsDataSource implements DAO {
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
 
         long rowID = db.delete(PointsTable.TABLE_NAME_POINTS,
-                PointsTable.COLUMN_NAME_NUMBER + "=" + point.getNumber(), null);
+                PointsTable.COLUMN_NAME_NUMBER + " = '" + point.getNumber() + "'", null);
         if (rowID == -1) {
             Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_DELETE + " => " +
                     Logger.formatPoint(point));

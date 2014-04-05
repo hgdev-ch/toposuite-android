@@ -153,7 +153,6 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         this.displacementD2EditText.setInputType(App.getInputTypeCoordinate());
 
         this.pointNumberEditText = (EditText) this.findViewById(R.id.point_number);
-        this.pointNumberEditText.setInputType(App.getInputTypeCoordinate());
 
         this.distP1D1EditText = (EditText) this.findViewById(R.id.dist_p1_d1);
         this.distP1D1EditText.setInputType(App.getInputTypeCoordinate());

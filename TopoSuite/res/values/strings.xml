@@ -128,7 +128,7 @@
     <string name="exception_invalid_format_values">This line contains invalid values!</string>
     <string name="exception_invalid_format_values_number">This line contains an invalid number of values!</string>
     <string name="excircle_label">Excircle radius [m]</string>
-    <string name="existing_point_number">The point number is: <xliff:g>%d</xliff:g></string>
+    <string name="existing_point_number">The point number is: <xliff:g>%s</xliff:g></string>
     <string name="export">Export</string>
     <string name="export_3dots">Export&#8230;</string>
     <string name="extremity_label">Extremity</string>
