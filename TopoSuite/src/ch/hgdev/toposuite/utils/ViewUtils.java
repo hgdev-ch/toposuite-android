@@ -26,7 +26,7 @@ public class ViewUtils {
      * Regular expression pattern to check if a string can be transformed to a
      * double.
      */
-    private static Pattern  doublePattern     = Pattern.compile("^-?\\d+(\\.\\d+)?$");
+    private static Pattern  doublePattern     = Pattern.compile("^-?\\d+(\\.\\d*)?$");
 
     /**
      * Regular expression pattern to check if a string can be transformed to an
