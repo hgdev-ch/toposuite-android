@@ -163,8 +163,8 @@ public class DisplayUtils {
                 Log.w(Logger.TOPOSUITE_SETTINGS_ERROR, "unknown value type");
                 return "-";
             }
-            String format = precision < 1 ? "#" : "#.";
-            String decimalCount = Strings.repeat("#", precision);
+            String format = precision < 1 ? "0" : "0.";
+            String decimalCount = Strings.repeat("0", precision);
             format += decimalCount;
             DecimalFormat df = new DecimalFormat(format);
             df.setRoundingMode(RoundingMode.HALF_UP);
