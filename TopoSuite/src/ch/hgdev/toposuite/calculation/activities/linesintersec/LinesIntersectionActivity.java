@@ -384,10 +384,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 this.isD2Perpendicular = true;
             }
 
-            if (!this.lineIntersec.getPointNumber().isEmpty()) {
-                this.pointNumberEditText.setText(
-                        this.lineIntersec.getPointNumber());
-            }
+            this.pointNumberEditText.setText(
+                    this.lineIntersec.getPointNumber());
+
         }
 
         this.point1D1Spinner.setSelection(this.point1D1SelectedPosition);

@@ -481,7 +481,7 @@ public class LinesIntersection extends Calculation {
 
     public void setPointNumber(String _pointNumber) {
         // also update the intersection point
-        if ((this.intersectionPoint != null) && (this.pointNumber != _pointNumber)) {
+        if ((this.intersectionPoint != null) && (!this.pointNumber.equals(_pointNumber))) {
             this.intersectionPoint = new Point(false);
             this.intersectionPoint.setNumber(_pointNumber);
         }
