@@ -315,7 +315,8 @@ public class Measure {
         try {
             json = new JSONObject(jsonString);
             Point orient = json.has(Measure.ORIENTATION_NUMBER) ?
-                    SharedResources.getSetOfPoints().find(json.getInt(Measure.ORIENTATION_NUMBER))
+                    SharedResources.getSetOfPoints().find(
+                            json.getString(Measure.ORIENTATION_NUMBER))
                     : null;
             m = new Measure(
                     orient,

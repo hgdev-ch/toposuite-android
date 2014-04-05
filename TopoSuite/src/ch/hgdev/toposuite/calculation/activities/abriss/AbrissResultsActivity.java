@@ -53,7 +53,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
 
         Bundle bundle = this.getIntent().getExtras();
         Point station = SharedResources.getSetOfPoints().find(
-                bundle.getInt(AbrissActivity.STATION_NUMBER_LABEL));
+                bundle.getString(AbrissActivity.STATION_NUMBER_LABEL));
         int position = bundle.getInt(AbrissActivity.CALCULATION_POSITION_LABEL);
 
         if (position != -1) {
