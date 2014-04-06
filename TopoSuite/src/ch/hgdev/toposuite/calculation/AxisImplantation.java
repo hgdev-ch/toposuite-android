@@ -90,8 +90,8 @@ public class AxisImplantation extends Calculation {
             p.setEast(east);
             p.setNorth(north);
             PointProjectionOnALine projection = new PointProjectionOnALine("",
-                    this.orthogonalBase.getExtremity(),
                     this.orthogonalBase.getOrigin(),
+                    this.orthogonalBase.getExtremity(),
                     p,
                     false);
             projection.compute();
