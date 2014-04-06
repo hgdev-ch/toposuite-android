@@ -33,7 +33,6 @@ import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.activities.axisimpl.MeasureDialogFragment.MeasureDialogListener;
 import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
-import ch.hgdev.toposuite.calculation.activities.polarsurvey.PolarSurveyActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -160,12 +159,12 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.axisImpl = (AxisImplantation) SharedResources
                     .getCalculationsHistory().get(position);
-            
+
             // the user has retrieved his z0 from last calculation previously
             if (this.axisImpl.getUnknownOrientation() > 0) {
                 Calculation c = SharedResources.getCalculationsHistory().find(
                         this.axisImpl.getUnknownOrientation());
-                
+
                 if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                     Abriss a = (Abriss) c;
                     a.compute();
@@ -185,6 +184,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                         this.axisImpl.getUnknownOrientation()));
                 this.checkboxZ0.setChecked(true);
                 this.unknownOrientationEditText.setEnabled(false);
+            }
         } else {
             this.axisImpl = new AxisImplantation(null, 0.0, null, null, true);
         }
@@ -460,7 +460,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                         this.axisImpl));
 
         Intent resultsActivityIntent = new Intent(
-                this, AxisImplantationActivity.class);
+                this, AxisImplantationResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);
         this.startActivity(resultsActivityIntent);
     }

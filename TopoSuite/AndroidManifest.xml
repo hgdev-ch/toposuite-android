@@ -190,6 +190,10 @@
             android:name="ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationActivity"
             android:label="@string/title_activity_axis_implantation" >
         </activity>
+        <activity
+            android:name="ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationResultsActivity"
+            android:label="@string/title_activity_axis_implantation_results" >
+        </activity>
     </application>
 
 </manifest>
