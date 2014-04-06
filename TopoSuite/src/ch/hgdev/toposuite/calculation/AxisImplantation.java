@@ -118,6 +118,13 @@ public class AxisImplantation extends Calculation {
             this.results.add(r);
 
             this.updateLastModification();
+            this.setDescription(this.getCalculationName()
+                    + " - " + App.getContext().getString(R.string.station_label) + ": "
+                    + this.station.toString() + " / "
+                    + App.getContext().getString(R.string.origin_label) + ": "
+                    + this.orthogonalBase.getOrigin() + " / "
+                    + App.getContext().getString(R.string.extremity_label) + ": "
+                    + this.orthogonalBase.getExtremity());
             this.notifyUpdate(this);
         }
     }
