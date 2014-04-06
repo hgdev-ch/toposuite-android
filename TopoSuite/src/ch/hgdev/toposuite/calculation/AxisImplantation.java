@@ -6,10 +6,18 @@ import java.util.List;
 
 import org.json.JSONException;
 
+import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplementationActivity;
 import ch.hgdev.toposuite.points.Point;
 
-// TODO implement
+/**
+ * This class implements the axis implantation calculation.
+ * 
+ * @author HGdev
+ * 
+ */
 public class AxisImplantation extends Calculation {
     private OrthogonalBase                      orthogonalBase;
     private Point                               station;
@@ -70,14 +78,12 @@ public class AxisImplantation extends Calculation {
 
     @Override
     public Class<?> getActivityClass() {
-        // TODO Implement
-        return null;
+        return AxisImplementationActivity.class;
     }
 
     @Override
     public String getCalculationName() {
-        // TODO Implement
-        return null;
+        return App.getContext().getString(R.string.title_activity_axis_implementation);
     }
 
     public OrthogonalBase getOrthogonalBase() {
