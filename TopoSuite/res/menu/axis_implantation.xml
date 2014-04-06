@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/add_measure_button"
+        android:icon="@drawable/ic_action_new"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/add_3dots"/>
+	<item
+        android:id="@+id/run_calculation_button"
+        android:icon="@drawable/ic_action_play"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/calculate_3dots"/>
+</menu>
