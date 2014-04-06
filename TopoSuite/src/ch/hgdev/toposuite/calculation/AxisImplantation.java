@@ -9,7 +9,7 @@ import org.json.JSONException;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
-import ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplementationActivity;
+import ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationActivity;
 import ch.hgdev.toposuite.points.Point;
 
 /**
@@ -78,7 +78,7 @@ public class AxisImplantation extends Calculation {
 
     @Override
     public Class<?> getActivityClass() {
-        return AxisImplementationActivity.class;
+        return AxisImplantationActivity.class;
     }
 
     @Override
