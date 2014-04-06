@@ -125,6 +125,8 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                 } else {
                     AxisImplantationActivity.this.originTextView.setText("");
                 }
+
+                AxisImplantationActivity.this.orthogonalBasePointsSelected();
             }
 
             @Override
@@ -146,6 +148,8 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                 } else {
                     AxisImplantationActivity.this.extremityTextView.setText("");
                 }
+
+                AxisImplantationActivity.this.orthogonalBasePointsSelected();
             }
 
             @Override
@@ -471,5 +475,15 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                 && (this.extremitySelectedPosition > 0)
                 && (this.unknownOrientationEditText.length() > 0)
                 && (this.axisImpl.getMeasures().size() >= 1));
+    }
+
+    private void orthogonalBasePointsSelected() {
+        if ((this.originSelectedPosition > 0) && (this.extremitySelectedPosition > 0)) {
+            this.calculatedDistanceTextView.setText(
+                    DisplayUtils.formatDistance(
+                            MathUtils.euclideanDistance(
+                                    this.pointsAdapter.getItem(this.originSelectedPosition),
+                                    this.pointsAdapter.getItem(this.extremitySelectedPosition))));
+        }
     }
 }
