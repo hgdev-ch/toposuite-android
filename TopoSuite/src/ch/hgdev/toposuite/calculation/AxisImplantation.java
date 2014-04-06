@@ -11,6 +11,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationActivity;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * This class implements the axis implantation calculation.
@@ -19,6 +20,7 @@ import ch.hgdev.toposuite.points.Point;
  * 
  */
 public class AxisImplantation extends Calculation {
+    private static double                       TOLERANCE = 0.0001;
     private OrthogonalBase                      orthogonalBase;
     private Point                               station;
     private double                              unknownOrientation;
@@ -30,38 +32,88 @@ public class AxisImplantation extends Calculation {
     public AxisImplantation(long id, Date lastModification) {
         super(id,
                 CalculationType.AXISIMPLANTATION,
-                "Axis implantation",
+                App.getContext().getString(R.string.title_activity_axis_implantation),
                 lastModification,
                 true);
         this.measures = new ArrayList<Measure>();
         this.results = new ArrayList<AxisImplantation.Result>();
     }
 
+    public AxisImplantation(boolean hasDAO) {
+        this(null, MathUtils.IGNORE_DOUBLE, null, null, hasDAO);
+    }
+
     public AxisImplantation(Point station, double unknownOrientation,
             Point origin, Point extremity, boolean hasDAO) {
         super(CalculationType.AXISIMPLANTATION,
-                "Axis implantation",
+                App.getContext().getString(R.string.title_activity_axis_implantation),
                 hasDAO);
-        this.orthogonalBase = new OrthogonalBase(origin, extremity);
-        this.station = station;
-        this.unknownOrientation = unknownOrientation;
-
         this.measures = new ArrayList<Measure>();
         this.results = new ArrayList<AxisImplantation.Result>();
+        this.initAttributes(station, unknownOrientation, origin, extremity);
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
+    /**
+     * Initialize class attributes.
+     * 
+     * @param station
+     * @param unknownOrientation
+     * @param origin
+     * @param extremity
+     */
     public void initAttributes(Point station, double unknownOrientation,
             Point origin, Point extremity) {
-        // TODO implement
+        this.orthogonalBase = new OrthogonalBase(origin, extremity);
+        this.station = station;
+        this.unknownOrientation = unknownOrientation;
     }
 
     @Override
     public void compute() {
-        // TODO Implement
+        // clear old results
+        this.results.clear();
+        int resultNumber = 0;
+
+        for (Measure m : this.measures) {
+            resultNumber++;
+            double gis = MathUtils.modulo400(this.unknownOrientation + m.getHorizDir());
+
+            double east = MathUtils.pointLanceEast(this.station.getEast(), gis, m.getDistance());
+            double north = MathUtils.pointLanceNorth(this.station.getNorth(), gis, m.getDistance());
+
+            Point p = new Point(false);
+            p.setEast(east);
+            p.setNorth(north);
+            PointProjectionOnALine projection = new PointProjectionOnALine("",
+                    this.orthogonalBase.getExtremity(),
+                    this.orthogonalBase.getOrigin(),
+                    p,
+                    false);
+            projection.compute();
+            Point projPoint = projection.getProjPt();
+            double abscissa = MathUtils.euclideanDistance(
+                    this.orthogonalBase.getOrigin(), projPoint);
+            double ordinate = MathUtils.euclideanDistance(p, projPoint);
+
+            double angle = MathUtils.angle3Pts(
+                    this.orthogonalBase.getExtremity(),
+                    this.orthogonalBase.getOrigin(),
+                    p);
+
+            if (MathUtils.isBetween(angle, 100.0, 300.0, AxisImplantation.TOLERANCE)) {
+                abscissa = -abscissa;
+            }
+            if (MathUtils.isBetween(angle, 200.0, 400.0, AxisImplantation.TOLERANCE)) {
+                ordinate = -ordinate;
+            }
+
+            Result r = new Result(resultNumber, p.getEast(), p.getNorth(), abscissa, ordinate);
+            this.results.add(r);
+        }
     }
 
     @Override
