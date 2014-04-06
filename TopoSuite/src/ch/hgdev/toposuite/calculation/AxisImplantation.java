@@ -79,10 +79,8 @@ public class AxisImplantation extends Calculation {
     public void compute() {
         // clear old results
         this.results.clear();
-        int resultNumber = 0;
 
         for (Measure m : this.measures) {
-            resultNumber++;
             double gis = MathUtils.modulo400(this.unknownOrientation + m.getHorizDir());
 
             double east = MathUtils.pointLanceEast(this.station.getEast(), gis, m.getDistance());
@@ -114,7 +112,8 @@ public class AxisImplantation extends Calculation {
                 ordinate = -ordinate;
             }
 
-            Result r = new Result(resultNumber, p.getEast(), p.getNorth(), abscissa, ordinate);
+            Result r = new Result(
+                    m.getMeasureNumber(), p.getEast(), p.getNorth(), abscissa, ordinate);
             this.results.add(r);
 
             this.updateLastModification();
@@ -188,13 +187,13 @@ public class AxisImplantation extends Calculation {
     }
 
     public static class Result {
-        private int    number;
+        private String number;
         private double east;
         private double north;
         private double abscissa;
         private double ordinate;
 
-        public Result(int _number, double _east, double _north, double _abscissa,
+        public Result(String _number, double _east, double _north, double _abscissa,
                 double _ordinate) {
             this.number = _number;
             this.east = _east;
@@ -203,11 +202,11 @@ public class AxisImplantation extends Calculation {
             this.ordinate = _ordinate;
         }
 
-        public int getNumber() {
+        public String getNumber() {
             return this.number;
         }
 
-        public void setNumber(int number) {
+        public void setNumber(String number) {
             this.number = number;
         }
 
