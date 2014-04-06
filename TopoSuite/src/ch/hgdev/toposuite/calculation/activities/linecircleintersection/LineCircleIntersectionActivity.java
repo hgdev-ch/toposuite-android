@@ -451,10 +451,6 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             }
         });
         this.radiusCEditText.setInputType(App.getInputTypeCoordinate());
-
-        // results
-        this.intersectionOneEditText.setInputType(App.getInputTypeCoordinate());
-        this.intersectionTwoEditText.setInputType(App.getInputTypeCoordinate());
     }
 
     /**

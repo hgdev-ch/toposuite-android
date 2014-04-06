@@ -405,9 +405,6 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
 
         this.radiusOneEditText.setInputType(App.getInputTypeCoordinate());
         this.radiusTwoEditText.setInputType(App.getInputTypeCoordinate());
-
-        this.intersectionOneEditText.setInputType(App.getInputTypeCoordinate());
-        this.intersectionTwoEditText.setInputType(App.getInputTypeCoordinate());
     }
 
     /**

@@ -211,6 +211,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 || (this.circleEndSelectedPosition < 1)) {
             return false;
         }
+
         if (this.selectedMode == Mode.ARCLENGTH) {
             if (this.arcLengthEditText.length() == 0) {
                 return false;
@@ -223,12 +224,11 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
             // this state should never be reached
             return false;
         }
+
         if (this.firstPointNumberEditText.length() == 0) {
             return false;
         }
-        if (ViewUtils.readInt(this.firstPointNumberEditText) < 1) {
-            return false;
-        }
+
         return true;
     }
 
@@ -253,7 +253,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
             arcLength = ViewUtils.readDouble(this.arcLengthEditText);
         }
 
-        int firstResultPointNumber = ViewUtils.readInt(this.firstPointNumberEditText);
+        String firstResultPointNumber = this.firstPointNumberEditText.getText().toString();
 
         bundle.putString(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER,
                 circleCenter.getNumber());
@@ -264,7 +264,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
         bundle.putInt(CircularSegmentationActivity.NUMBER_OF_SEGMENTS, numberOfSegments);
         bundle.putDouble(CircularSegmentationActivity.ARC_LENGTH, arcLength);
-        bundle.putInt(CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER,
+        bundle.putString(CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER,
                 firstResultPointNumber);
 
         Intent resultsActivityIntent = new Intent(this, CircularSegmentationResultsActivity.class);

@@ -292,11 +292,11 @@ public class CircleActivity extends TopoSuiteActivity implements
 
         Bundle args = new Bundle();
         if (this.pointNumberEditText.length() > 0) {
-            args.putInt(
+            args.putString(
                     MergePointsDialog.POINT_NUMBER,
-                    ViewUtils.readInt(this.pointNumberEditText));
+                    this.pointNumberEditText.getText().toString());
         } else {
-            args.putInt(MergePointsDialog.POINT_NUMBER, 0);
+            args.putString(MergePointsDialog.POINT_NUMBER, "");
         }
 
         args.putDouble(MergePointsDialog.NEW_EAST,

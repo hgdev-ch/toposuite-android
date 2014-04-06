@@ -47,11 +47,11 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
         Bundle bundle = this.getIntent().getExtras();
 
         Point center = SharedResources.getSetOfPoints().find(
-                bundle.getInt(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER));
+                bundle.getString(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER));
         Point start = SharedResources.getSetOfPoints().find(
-                bundle.getInt(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER));
+                bundle.getString(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER));
         Point end = SharedResources.getSetOfPoints().find(
-                bundle.getInt(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER));
+                bundle.getString(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER));
         int numberOfSegments = bundle.getInt(CircularSegmentationActivity.NUMBER_OF_SEGMENTS);
         double arcLength = bundle.getDouble(CircularSegmentationActivity.ARC_LENGTH);
 
