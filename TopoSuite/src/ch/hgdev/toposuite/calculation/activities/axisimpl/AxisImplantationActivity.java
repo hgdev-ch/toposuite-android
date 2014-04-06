@@ -3,7 +3,9 @@ package ch.hgdev.toposuite.calculation.activities.axisimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -31,14 +33,18 @@ import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.activities.axisimpl.MeasureDialogFragment.MeasureDialogListener;
 import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
+import ch.hgdev.toposuite.calculation.activities.polarsurvey.PolarSurveyActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class AxisImplantationActivity extends TopoSuiteActivity implements
         MeasureDialogListener {
+    private static final String        AXIS_IMPL_ACTIVITY          = "AxisImplantationActivity: ";
+
     private static final String        AXIS_IMPL_POSITION          = "axis_impl_position";
     private static final String        STATION_SELECTED_POSITION   = "station_selected_position";
     private static final String        ORIGIN_SELECTED_POSITION    = "origin_selected_position";
@@ -154,6 +160,31 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.axisImpl = (AxisImplantation) SharedResources
                     .getCalculationsHistory().get(position);
+            
+            // the user has retrieved his z0 from last calculation previously
+            if (this.axisImpl.getUnknownOrientation() > 0) {
+                Calculation c = SharedResources.getCalculationsHistory().find(
+                        this.axisImpl.getUnknownOrientation());
+                
+                if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
+                    Abriss a = (Abriss) c;
+                    a.compute();
+                    this.axisImpl.setUnknownOrientation(a.getMean());
+                    this.axisImpl.setStation(a.getStation());
+                } else if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
+                    FreeStation fs = (FreeStation) c;
+                    fs.compute();
+                    this.axisImpl.setUnknownOrientation(fs.getUnknownOrientation());
+                    this.axisImpl.setStation(fs.getStationResult());
+                } else {
+                    Log.e(Logger.TOPOSUITE_CALCULATION_INVALID_TYPE,
+                            AxisImplantationActivity.AXIS_IMPL_ACTIVITY
+                                    + "trying to get Z0 from a calculation that does not compute one");
+                }
+                this.unknownOrientationEditText.setText(DisplayUtils.toStringForEditText(
+                        this.axisImpl.getUnknownOrientation()));
+                this.checkboxZ0.setChecked(true);
+                this.unknownOrientationEditText.setEnabled(false);
         } else {
             this.axisImpl = new AxisImplantation(null, 0.0, null, null, true);
         }
@@ -275,22 +306,24 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
             this.showAddMeasureDialog();
             return true;
         case R.id.run_calculation_button:
-            /*if (this.checkInputs()) {
+            if (this.checkInputs()) {
                 // update I and station number
-                if (this.iEditText.length() > 0) {
-                    this.freeStation.setI(
-                            ViewUtils.readDouble(this.iEditText));
-                } else {
-                    this.freeStation.setI(MathUtils.IGNORE_DOUBLE);
-                }
-                this.freeStation.setStationNumber(
-                        this.stationEditText.getText().toString());
+                this.axisImpl.setStation(
+                        this.pointsAdapter.getItem(this.stationSelectedPosition));
+                this.axisImpl.getOrthogonalBase().setOrigin(
+                        this.pointsAdapter.getItem(this.originSelectedPosition));
+                this.axisImpl.getOrthogonalBase().setExtremity(
+                        this.pointsAdapter.getItem(this.extremitySelectedPosition));
 
-                this.startFreeStationResultsActivity();
+                this.axisImpl.setUnknownOrientation(
+                        ViewUtils.readDouble(
+                                this.unknownOrientationEditText));
+
+                this.startAxisImplantationResultsActivity();
             } else {
                 ViewUtils.showToast(
                         this, this.getString(R.string.error_fill_data));
-            }*/
+            }
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -396,19 +429,47 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
             if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                 Abriss a = (Abriss) c;
                 a.compute();
-                /*this.axisImpl.setUnknownOrientation(a.getMean());
+                this.axisImpl.setUnknownOrientation(a.getMean());
                 this.axisImpl.setStation(a.getStation());
-                this.axisImpl.setZ0CalculationId(c.getId());*/
+                this.axisImpl.setZ0CalculationId(c.getId());
                 break;
             }
             if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
                 FreeStation fs = (FreeStation) c;
                 fs.compute();
-                /*this.axisImpl.setUnknownOrientation(fs.getUnknownOrientation());
+                this.axisImpl.setUnknownOrientation(fs.getUnknownOrientation());
                 this.axisImpl.setStation(fs.getStationResult());
-                this.axisImpl.setZ0CalculationId(c.getId());*/
+                this.axisImpl.setZ0CalculationId(c.getId());
                 break;
             }
         }
+    }
+
+    /**
+     * Start the free station results activity. This action in only performed
+     * when the user run the calculation.
+     */
+    private void startAxisImplantationResultsActivity() {
+        Bundle bundle = new Bundle();
+
+        // At this point we are sure that the axis implantation calculation
+        // has been instantiated.
+        bundle.putInt(
+                AxisImplantationActivity.AXIS_IMPL_POSITION,
+                SharedResources.getCalculationsHistory().indexOf(
+                        this.axisImpl));
+
+        Intent resultsActivityIntent = new Intent(
+                this, AxisImplantationActivity.class);
+        resultsActivityIntent.putExtras(bundle);
+        this.startActivity(resultsActivityIntent);
+    }
+
+    private boolean checkInputs() {
+        return ((this.stationSelectedPosition > 0)
+                && (this.originSelectedPosition > 0)
+                && (this.extremitySelectedPosition > 0)
+                && (this.unknownOrientationEditText.length() > 0)
+                && (this.axisImpl.getMeasures().size() >= 1));
     }
 }
