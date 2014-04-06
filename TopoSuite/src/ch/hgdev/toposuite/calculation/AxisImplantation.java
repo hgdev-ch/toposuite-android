@@ -21,6 +21,8 @@ import ch.hgdev.toposuite.utils.MathUtils;
  */
 public class AxisImplantation extends Calculation {
     private static double                       TOLERANCE = 0.0001;
+    private long                                z0CalculationId;
+
     private OrthogonalBase                      orthogonalBase;
     private Point                               station;
     private double                              unknownOrientation;
@@ -70,6 +72,7 @@ public class AxisImplantation extends Calculation {
         this.orthogonalBase = new OrthogonalBase(origin, extremity);
         this.station = station;
         this.unknownOrientation = unknownOrientation;
+        this.z0CalculationId = -1;
     }
 
     @Override
@@ -152,6 +155,14 @@ public class AxisImplantation extends Calculation {
 
     public List<Measure> getMeasures() {
         return this.measures;
+    }
+
+    public long getZ0CalculationId() {
+        return this.z0CalculationId;
+    }
+
+    public void setZ0CalculationId(long z0CalculationId) {
+        this.z0CalculationId = z0CalculationId;
     }
 
     public List<AxisImplantation.Result> getResults() {
