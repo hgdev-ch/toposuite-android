@@ -374,6 +374,9 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 // actually nothing
             }
         });
+
+        this.firstPointNumberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
+                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     }
 
     private enum Mode {
