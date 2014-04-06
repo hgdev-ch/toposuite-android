@@ -149,14 +149,12 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
             this.z0Id = this.polarSurvey.getZ0CalculationId();
             // the user has retrieved his z0 from last calculation previously
             if (this.z0Id > 0) {
-                Log.d("TOPOSUITE FOOBAR", "z0Id => " + this.z0Id);
                 Calculation c = SharedResources.getCalculationsHistory().find(this.z0Id);
                 if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                     Abriss a = (Abriss) c;
                     a.compute();
                     this.z0 = a.getMean();
                     this.z0Station = a.getStation();
-                    Log.d("TOPOSUITE FOOBAR", "ABRISS ID => " + a.getId());
                 } else if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
                     FreeStation fs = (FreeStation) c;
                     fs.compute();
@@ -164,7 +162,6 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     this.z0Station = fs.getStationResult();
                     this.instrumentHeight = fs.getI();
                     this.iEditText.setText(DisplayUtils.toStringForEditText(this.instrumentHeight));
-                    Log.d("TOPOSUITE FOOBAR", "FREE STATION ID => " + fs.getId());
                 } else {
                     Log.e(Logger.TOPOSUITE_CALCULATION_INVALID_TYPE,
                             PolarSurveyActivity.POLAR_SURVEY_ACTIVITY
@@ -491,6 +488,9 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         ViewUtils.unlockScreenOrientation(this);
     }
 
+    /**
+     * FIXME put this method in a util class of in the super class!
+     */
     private void fetchLastFreeStationOrAbriss() {
         for (Calculation c : SharedResources.getCalculationsHistory()) {
             if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
