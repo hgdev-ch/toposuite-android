@@ -188,7 +188,7 @@
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationActivity"
-            android:label="@string/title_activity_axis_implementation" >
+            android:label="@string/title_activity_axis_implantation" >
         </activity>
     </application>
 
