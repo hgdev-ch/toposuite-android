@@ -97,6 +97,32 @@ public class MathUtils {
     }
 
     /**
+     * Check that a double is between the given interval.
+     * 
+     * @param d
+     *            A double.
+     * @param min
+     *            The lowest value of the interval.
+     * @param max
+     *            The highest value of the interval.
+     * @param tolerance
+     *            The minimal accepted tolerance.
+     * @return True if d is in the interval, false otherwise.
+     */
+    public static boolean isBetween(double d, double min, double max, double tolerance) {
+        if (DoubleMath.fuzzyCompare(min, max, tolerance) >= 0) {
+            return false;
+        }
+        if (DoubleMath.fuzzyCompare(d, min, tolerance) < 0) {
+            return false;
+        }
+        if (DoubleMath.fuzzyCompare(d, max, tolerance) > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Check the two inputs for equality.
      * 
      * @param a
