@@ -167,6 +167,9 @@ class MeasureDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.measureNumberEditText = new EditText(this.getActivity());
+        this.measureNumberEditText.setHint(
+                this.getActivity().getString(
+                        R.string.determination_sight_label));
 
         this.horizDirEditText = new EditText(this.getActivity());
         this.horizDirEditText.setHint(

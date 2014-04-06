@@ -1,0 +1,199 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_z0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="@string/retrieve_z0"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/station_label"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/station_spinner"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="right|center_vertical" />
+        
+        <TextView
+            android:id="@+id/station_point"
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:layout_gravity="center"
+            android:layout_weight="0.86"
+            android:gravity="center"
+            android:text="" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/unknown_orientation_label"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/unknown_orientation"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="right|center_vertical"
+            android:inputType=""
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:textSize="12sp" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/origin_only_label" />
+        
+        <Spinner
+            android:id="@+id/origin_spinner"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18" />
+        
+        <TextView
+	            android:id="@+id/origin_point"
+	            android:layout_width="0dip"
+	            android:layout_height="30dp"
+	            android:layout_gravity="center"
+	            android:layout_weight="0.86"
+	            android:gravity="center"
+	            android:text="" />	
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.86"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/extremity_label" />
+        
+        <Spinner
+            android:id="@+id/extremity_spinner"
+            android:layout_width="74dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15" />
+        
+        <TextView
+	            android:id="@+id/extremity_point"
+	            android:layout_width="0dip"
+	            android:layout_height="30dp"
+	            android:layout_gravity="center"
+	            android:layout_weight="0.86"
+	            android:gravity="center"
+	            android:text="" />	
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/calculated_distance_label" />
+        
+        <TextView
+            android:id="@+id/calculated_distance"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.59"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin" />
+   </LinearLayout>
+   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/measure_header_pt_nbr"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/measure_header_hz"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/measure_header_distance"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/measures_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp" >
+    </ListView>
+</LinearLayout>
