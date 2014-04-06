@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -23,6 +28,8 @@ import ch.hgdev.toposuite.calculation.AxisImplantation;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.FreeStation;
+import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.calculation.activities.axisimpl.MeasureDialogFragment.MeasureDialogListener;
 import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -30,7 +37,8 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class AxisImplantationActivity extends TopoSuiteActivity {
+public class AxisImplantationActivity extends TopoSuiteActivity implements
+        MeasureDialogListener {
     private static final String        AXIS_IMPL_POSITION          = "axis_impl_position";
     private static final String        STATION_SELECTED_POSITION   = "station_selected_position";
     private static final String        ORIGIN_SELECTED_POSITION    = "origin_selected_position";
@@ -187,8 +195,15 @@ public class AxisImplantationActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.axis_implementation, menu);
+        this.getMenuInflater().inflate(R.menu.axis_implantation, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.leve_ortho_measures_list_context_menu, menu);
     }
 
     @Override
@@ -200,7 +215,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(AxisImplantationActivity.ORIGIN_SELECTED_POSITION,
+        outState.putInt(AxisImplantationActivity.STATION_SELECTED_POSITION,
                 this.stationSelectedPosition);
         outState.putInt(AxisImplantationActivity.ORIGIN_SELECTED_POSITION,
                 this.originSelectedPosition);
@@ -233,6 +248,106 @@ public class AxisImplantationActivity extends TopoSuiteActivity {
             this.extremitySelectedPosition = savedInstanceState
                     .getInt(AxisImplantationActivity.EXTREMITY_SELECTED_POSITION);
         }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.edit_measure:
+            this.showEditMeasureDialog(info.position);
+            return true;
+        case R.id.delete_measure:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+        case R.id.add_measure_button:
+            this.showAddMeasureDialog();
+            return true;
+        case R.id.run_calculation_button:
+            /*if (this.checkInputs()) {
+                // update I and station number
+                if (this.iEditText.length() > 0) {
+                    this.freeStation.setI(
+                            ViewUtils.readDouble(this.iEditText));
+                } else {
+                    this.freeStation.setI(MathUtils.IGNORE_DOUBLE);
+                }
+                this.freeStation.setStationNumber(
+                        this.stationEditText.getText().toString());
+
+                this.startFreeStationResultsActivity();
+            } else {
+                ViewUtils.showToast(
+                        this, this.getString(R.string.error_fill_data));
+            }*/
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Display a dialog to allow the user to insert a new measure.
+     */
+    private void showAddMeasureDialog() {
+        ViewUtils.lockScreenOrientation(this);
+
+        MeasureDialogFragment dialog = new MeasureDialogFragment();
+        dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
+    }
+
+    /**
+     * Display a dialog to allow the user to edit an existing measure.
+     */
+    private void showEditMeasureDialog(int position) {
+        ViewUtils.lockScreenOrientation(this);
+
+        Measure m = this.axisImpl.getMeasures().get(position);
+        MeasureDialogFragment dialog = new MeasureDialogFragment(m);
+        dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
+    }
+
+    @Override
+    public void onDialogAdd(MeasureDialogFragment dialog) {
+        Measure m = new Measure(
+                null,
+                dialog.getHorizDir(),
+                100,
+                dialog.getDistance());
+        m.setMeasureNumber(dialog.getMeasureNumber());
+        this.adapter.add(m);
+        this.adapter.notifyDataSetChanged();
+        this.showAddMeasureDialog();
+    }
+
+    @Override
+    public void onDialogEdit(MeasureDialogFragment dialog) {
+        int position = this.axisImpl.getMeasures().indexOf(dialog.getMeasure());
+
+        Measure m = this.axisImpl.getMeasures().get(position);
+        m.setMeasureNumber(dialog.getMeasureNumber());
+        m.setHorizDir(dialog.getHorizDir());
+        m.setDistance(dialog.getDistance());
+
+        this.adapter.notifyDataSetChanged();
+
+        ViewUtils.unlockScreenOrientation(this);
+    }
+
+    @Override
+    public void onDialogCancel() {
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     /**
