@@ -11,9 +11,13 @@ import ch.hgdev.toposuite.points.Point;
 
 // TODO implement
 public class AxisImplantation extends Calculation {
-    private OrthogonalBase      orthogonalBase;
+    private OrthogonalBase                      orthogonalBase;
+    private Point                               station;
+    private double                              unknownOrientation;
 
-    private final List<Measure> measures;
+    private final List<Measure>                 measures;
+
+    private final List<AxisImplantation.Result> results;
 
     public AxisImplantation(long id, Date lastModification) {
         super(id,
@@ -22,6 +26,7 @@ public class AxisImplantation extends Calculation {
                 lastModification,
                 true);
         this.measures = new ArrayList<Measure>();
+        this.results = new ArrayList<AxisImplantation.Result>();
     }
 
     public AxisImplantation(Point station, double unknownOrientation,
@@ -30,11 +35,20 @@ public class AxisImplantation extends Calculation {
                 "Axis implantation",
                 hasDAO);
         this.orthogonalBase = new OrthogonalBase(origin, extremity);
+        this.station = station;
+        this.unknownOrientation = unknownOrientation;
+
         this.measures = new ArrayList<Measure>();
+        this.results = new ArrayList<AxisImplantation.Result>();
 
         if (hasDAO) {
             SharedResources.getCalculationsHistory().add(0, this);
         }
+    }
+
+    public void initAttributes(Point station, double unknownOrientation,
+            Point origin, Point extremity) {
+        // TODO implement
     }
 
     @Override
@@ -66,7 +80,27 @@ public class AxisImplantation extends Calculation {
         return null;
     }
 
-    public class Result {
+    public OrthogonalBase getOrthogonalBase() {
+        return this.orthogonalBase;
+    }
+
+    public Point getStation() {
+        return this.station;
+    }
+
+    public double getUnknownOrientation() {
+        return this.unknownOrientation;
+    }
+
+    public List<Measure> getMeasures() {
+        return this.measures;
+    }
+
+    public List<AxisImplantation.Result> getResults() {
+        return this.results;
+    }
+
+    public static class Result {
         private int    number;
         private double east;
         private double north;
@@ -121,6 +155,5 @@ public class AxisImplantation extends Calculation {
         public void setOrdinate(double ordinate) {
             this.ordinate = ordinate;
         }
-
     }
 }
