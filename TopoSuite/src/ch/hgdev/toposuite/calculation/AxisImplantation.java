@@ -116,6 +116,9 @@ public class AxisImplantation extends Calculation {
 
             Result r = new Result(resultNumber, p.getEast(), p.getNorth(), abscissa, ordinate);
             this.results.add(r);
+
+            this.updateLastModification();
+            this.notifyUpdate(this);
         }
     }
 
