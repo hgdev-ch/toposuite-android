@@ -30,6 +30,7 @@
     <string name="arc_label">Arc [m]</string>
     <string name="arc_length_label">Longueur d\'un arc</string>
     <string name="arrow_label">Flèche [m]</string>
+    <string name="axis_implantation_label">Implantation d\'un axe depuis la station</string>
     <string name="base_label">Levé orthogonal depuis la base</string>
     <string name="bisector_label">Bissectrice [m]</string>
     <string name="by_point_label">Selon point</string>
