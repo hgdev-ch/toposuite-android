@@ -28,8 +28,6 @@ public class TestViewUtils extends AndroidTestCase {
         assertEquals(MathUtils.IGNORE_DOUBLE, ViewUtils.readDouble(this.eT));
         this.eT.setText("-1-");
         assertEquals(MathUtils.IGNORE_DOUBLE, ViewUtils.readDouble(this.eT));
-        this.eT.setText("12.");
-        assertEquals(MathUtils.IGNORE_DOUBLE, ViewUtils.readDouble(this.eT));
         this.eT.setText("12.123.321");
         assertEquals(MathUtils.IGNORE_DOUBLE, ViewUtils.readDouble(this.eT));
         this.eT.setText("321.32-");
@@ -50,6 +48,8 @@ public class TestViewUtils extends AndroidTestCase {
         assertEquals(123.221, ViewUtils.readDouble(this.eT));
         this.eT.setText("-12.653");
         assertEquals(-12.653, ViewUtils.readDouble(this.eT));
+        this.eT.setText("12.");
+        assertEquals(12.0, ViewUtils.readDouble(this.eT));
     }
 
     public void testReadInt() {
