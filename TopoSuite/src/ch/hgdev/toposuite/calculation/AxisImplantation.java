@@ -149,8 +149,16 @@ public class AxisImplantation extends Calculation {
         return this.station;
     }
 
+    public void setStation(Point station) {
+        this.station = station;
+    }
+
     public double getUnknownOrientation() {
         return this.unknownOrientation;
+    }
+
+    public void setUnknownOrientation(double unknownOrientation) {
+        this.unknownOrientation = unknownOrientation;
     }
 
     public List<Measure> getMeasures() {
