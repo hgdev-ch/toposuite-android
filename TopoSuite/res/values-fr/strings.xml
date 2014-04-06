@@ -298,6 +298,7 @@
     <string name="target_point">Point visé</string>
     <string name="title_activity_abriss">Orient. à la station</string>
     <string name="title_activity_abriss_results">Orient. à la station - résultats</string>
+    <string name="title_activity_axis_implementation">Implementation d\'un axe</string>
     <string name="title_activity_cheminement_ortho">Cheminement orthogonal</string>
     <string name="title_activity_cheminement_ortho_results">Cheminement orthogonal - résultats</string>
     <string name="title_activity_circle">Cercle par 3 points</string>
