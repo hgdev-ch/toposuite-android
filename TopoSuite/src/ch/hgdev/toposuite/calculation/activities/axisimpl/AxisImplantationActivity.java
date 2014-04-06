@@ -193,7 +193,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity {
 
     @Override
     protected String getActivityTitle() {
-        return this.getString(R.string.title_activity_axis_implementation);
+        return this.getString(R.string.title_activity_axis_implantation);
     }
 
     @Override

@@ -83,7 +83,7 @@ public class AxisImplantation extends Calculation {
 
     @Override
     public String getCalculationName() {
-        return App.getContext().getString(R.string.title_activity_axis_implementation);
+        return App.getContext().getString(R.string.title_activity_axis_implantation);
     }
 
     public OrthogonalBase getOrthogonalBase() {
