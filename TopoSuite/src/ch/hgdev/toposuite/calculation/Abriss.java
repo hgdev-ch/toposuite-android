@@ -188,7 +188,7 @@ public class Abriss extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
         this.station = SharedResources.getSetOfPoints().find(
-                json.getInt(Abriss.STATION_NUMBER));
+                json.getString(Abriss.STATION_NUMBER));
 
         JSONArray orientationsArray = json.getJSONArray(Abriss.ORIENTATIONS_LIST);
 
@@ -196,7 +196,7 @@ public class Abriss extends Calculation {
             JSONObject jo = (JSONObject) orientationsArray.get(i);
             Measure m = new Measure(
                     SharedResources.getSetOfPoints().find(
-                            jo.getInt(Measure.ORIENTATION_NUMBER)),
+                            jo.getString(Measure.ORIENTATION_NUMBER)),
                     jo.getDouble(Measure.HORIZ_DIR),
                     jo.getDouble(Measure.ZEN_ANGLE),
                     jo.getDouble(Measure.DISTANCE),

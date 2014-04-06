@@ -20,7 +20,7 @@ public class PointsTable {
      */
     public static void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + PointsTable.TABLE_NAME_POINTS + "(" +
-                PointsTable.COLUMN_NAME_NUMBER + " INTEGER PRIMARY KEY," +
+                PointsTable.COLUMN_NAME_NUMBER + " TEXT PRIMARY KEY," +
                 PointsTable.COLUMN_NAME_EAST + " REAL," +
                 PointsTable.COLUMN_NAME_NORTH + " REAL," +
                 PointsTable.COLUMN_NAME_ALTITUDE + " REAL," +

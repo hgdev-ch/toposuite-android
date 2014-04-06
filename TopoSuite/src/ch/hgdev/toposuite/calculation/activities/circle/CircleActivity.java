@@ -85,7 +85,7 @@ public class CircleActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point)
                         CircleActivity.this.pointASpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     CircleActivity.this.pointATextView.setText
                             (DisplayUtils.formatPoint(CircleActivity.this, pt));
                 }
@@ -108,7 +108,7 @@ public class CircleActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point)
                         CircleActivity.this.pointBSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     CircleActivity.this.pointBTextView.setText
                             (DisplayUtils.formatPoint(CircleActivity.this, pt));
                 }
@@ -131,7 +131,7 @@ public class CircleActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point)
                         CircleActivity.this.pointCSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     CircleActivity.this.pointCTextView.setText
                             (DisplayUtils.formatPoint(CircleActivity.this, pt));
                 }
@@ -152,7 +152,7 @@ public class CircleActivity extends TopoSuiteActivity implements
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.circle = (Circle) SharedResources.getCalculationsHistory()
                     .get(position);
-            if (this.circle.getPointNumber() != 0) {
+            if (!this.circle.getPointNumber().isEmpty()) {
                 this.pointNumberEditText.setText(String.valueOf(
                         this.circle.getPointNumber()));
             }
@@ -209,12 +209,9 @@ public class CircleActivity extends TopoSuiteActivity implements
         outState.putInt(CircleActivity.POINT_B, this.pointBSelectedPosition);
         outState.putInt(CircleActivity.POINT_C, this.pointCSelectedPosition);
 
-        int num = 0;
-        if (this.pointNumberEditText.length() > 0) {
-            num = Integer.valueOf(this.pointNumberEditText.getText().toString());
-        }
+        String num = this.pointNumberEditText.getText().toString();
 
-        outState.putInt(CircleActivity.POINT_NUMBER, num);
+        outState.putString(CircleActivity.POINT_NUMBER, num);
     }
 
     @Override
@@ -231,10 +228,8 @@ public class CircleActivity extends TopoSuiteActivity implements
                         CircleActivity.POINT_C);
             }
 
-            int num = savedInstanceState.getInt(CircleActivity.POINT_NUMBER);
-            if (num != 0) {
-                this.pointNumberEditText.setText(String.valueOf(num));
-            }
+            this.pointNumberEditText.setText(
+                    savedInstanceState.getString(CircleActivity.POINT_NUMBER));
         }
     }
 
@@ -254,9 +249,8 @@ public class CircleActivity extends TopoSuiteActivity implements
                 return true;
             }
 
-            int num = Integer.valueOf(
-                    this.pointNumberEditText.getText().toString());
-            if (num == 0) {
+            String num = this.pointNumberEditText.getText().toString();
+            if (num.isEmpty()) {
                 ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
             }
@@ -281,7 +275,7 @@ public class CircleActivity extends TopoSuiteActivity implements
 
     private final ArrayAdapter<Point> initSpinners() {
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -298,11 +292,11 @@ public class CircleActivity extends TopoSuiteActivity implements
 
         Bundle args = new Bundle();
         if (this.pointNumberEditText.length() > 0) {
-            args.putInt(
+            args.putString(
                     MergePointsDialog.POINT_NUMBER,
-                    ViewUtils.readInt(this.pointNumberEditText));
+                    this.pointNumberEditText.getText().toString());
         } else {
-            args.putInt(MergePointsDialog.POINT_NUMBER, 0);
+            args.putString(MergePointsDialog.POINT_NUMBER, "");
         }
 
         args.putDouble(MergePointsDialog.NEW_EAST,
@@ -321,9 +315,9 @@ public class CircleActivity extends TopoSuiteActivity implements
                 && (this.pointBSelectedPosition != 0)
                 && (this.pointCSelectedPosition != 0)) {
 
-            int num = 0;
+            String num = "";
             if (this.pointNumberEditText.length() > 0) {
-                num = ViewUtils.readInt(this.pointNumberEditText);
+                num = this.pointNumberEditText.getText().toString();
             }
 
             Point a = (Point) this.pointASpinner.getSelectedItem();

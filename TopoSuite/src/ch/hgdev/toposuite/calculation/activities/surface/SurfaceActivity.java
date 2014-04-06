@@ -297,7 +297,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         this.position = position;
         Surface.PointWithRadius p = this.adapter.getItem(position);
         Bundle args = new Bundle();
-        args.putInt(SurfaceActivity.POINT_WITH_RADIUS_NUMBER_LABEL, p.getNumber());
+        args.putString(SurfaceActivity.POINT_WITH_RADIUS_NUMBER_LABEL, p.getNumber());
         args.putDouble(SurfaceActivity.RADIUS_LABEL, p.getRadius());
 
         dialog.setArguments(args);
@@ -330,7 +330,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         p.setNorth(dialog.getPoint().getNorth());
         p.setRadius(dialog.getRadius());
 
-        if (dialog.getPositionAfter() > 0) {
+        if (!dialog.getPositionAfter().isEmpty()) {
             ArrayList<Surface.PointWithRadius> newPoints =
                     new ArrayList<Surface.PointWithRadius>();
 
@@ -344,7 +344,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 newPoints.add(currPt);
                 currPt.setVertexNumber(vertexNumber);
 
-                if (currPt.getNumber() == dialog.getPositionAfter()) {
+                if (currPt.getNumber().equals(dialog.getPositionAfter())) {
                     newPoints.add(p);
                     vertexNumber++;
                     p.setVertexNumber(vertexNumber);

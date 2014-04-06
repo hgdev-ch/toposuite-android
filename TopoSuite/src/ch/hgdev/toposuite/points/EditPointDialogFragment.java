@@ -54,7 +54,7 @@ public class EditPointDialogFragment extends DialogFragment {
     public static final String POINT_POSITION = "Point position";
     private Bundle             bundle;
     EditPointDialogListener    listener;
-    private int                number;
+    private String             number;
     private double             altitude;
     private double             east;
     private double             north;
@@ -100,8 +100,9 @@ public class EditPointDialogFragment extends DialogFragment {
                                 EditPointDialogFragment.this.altitude = ViewUtils
                                         .readDouble(EditPointDialogFragment.this.altitudeEditText);
                             }
-                            EditPointDialogFragment.this.number = ViewUtils
-                                    .readInt(EditPointDialogFragment.this.numberEditText);
+                            EditPointDialogFragment.this.number =
+                                    EditPointDialogFragment.this.numberEditText.getText()
+                                            .toString();
                             EditPointDialogFragment.this.east = ViewUtils
                                     .readDouble(EditPointDialogFragment.this.eastEditText);
                             EditPointDialogFragment.this.north = ViewUtils
@@ -152,7 +153,7 @@ public class EditPointDialogFragment extends DialogFragment {
 
         this.numberEditText = new EditText(this.getActivity());
         this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
-        this.numberEditText.setText(DisplayUtils.toStringForEditText(this.number));
+        this.numberEditText.setText(this.number);
         this.numberEditText.setEnabled(false);
 
         this.eastEditText = new EditText(this.getActivity());
@@ -214,7 +215,7 @@ public class EditPointDialogFragment extends DialogFragment {
         return this.north;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 }

@@ -10,10 +10,10 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class TestPolarImplantation extends CalculationTest {
 
     public void testRealCase() {
-        Point station = new Point(1, 0.0, 0.0, 323.45, false);
-        Point p2 = new Point(2, 20.498, 21.703, 322.986, false);
-        Point p3 = new Point(3, 62.853, 21.235, 324.831, false);
-        Point p4 = new Point(4, 44.248, -8.891, 322.876, false);
+        Point station = new Point("1", 0.0, 0.0, 323.45, false);
+        Point p2 = new Point("2", 20.498, 21.703, 322.986, false);
+        Point p3 = new Point("3", 62.853, 21.235, 324.831, false);
+        Point p4 = new Point("4", 44.248, -8.891, 322.876, false);
         double z0 = 48.8732;
         double i = 1.58;
 
@@ -60,14 +60,14 @@ public class TestPolarImplantation extends CalculationTest {
         Result r3 = pi.getResults().get(1);
         Result r4 = pi.getResults().get(2);
 
-        Assert.assertEquals(3, r3.getPointNumber());
+        Assert.assertEquals("3", r3.getPointNumber());
         Assert.assertEquals("30.385", this.df3.format(r3.getHorizDir()));
         Assert.assertEquals("66.343", this.df3.format(r3.getHorizDist()));
         Assert.assertEquals("98.464", this.df3.format(r3.getZenAngle()));
         Assert.assertEquals("66.366", this.df3.format(r3.getDistance()));
         Assert.assertEquals("79.258", this.df3.format(r3.getGisement()));
 
-        Assert.assertEquals(4, r4.getPointNumber());
+        Assert.assertEquals("4", r4.getPointNumber());
         Assert.assertEquals("63.7507", this.df4.format(r4.getHorizDir()));
         Assert.assertEquals("45.132", this.df3.format(r4.getHorizDist()));
         Assert.assertEquals("100.9224", this.df4.format(r4.getZenAngle()));

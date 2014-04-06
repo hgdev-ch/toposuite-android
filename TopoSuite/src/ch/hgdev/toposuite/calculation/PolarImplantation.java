@@ -129,9 +129,9 @@ public class PolarImplantation extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
         this.station = SharedResources.getSetOfPoints().find(
-                json.getInt(PolarImplantation.STATION_NUMBER));
+                json.getString(PolarImplantation.STATION_NUMBER));
         this.point = SharedResources.getSetOfPoints().find(
-                json.getInt(PolarImplantation.POINT_NUMBER));
+                json.getString(PolarImplantation.POINT_NUMBER));
 
         JSONArray measuresArray = json.getJSONArray(PolarImplantation.POINT_WITH_S_LIST);
 
@@ -181,7 +181,7 @@ public class PolarImplantation extends Calculation {
      * 
      */
     public class Result {
-        private final int    pointNumber;
+        private final String pointNumber;
         private final double horizDir;
         private final double horizDist;
         private final double distance;
@@ -189,7 +189,7 @@ public class PolarImplantation extends Calculation {
         private final double gisement;
         private final double s;
 
-        public Result(int _pointNumber, double _horizDir, double _horizDist, double _distance,
+        public Result(String _pointNumber, double _horizDir, double _horizDist, double _distance,
                 double _zenAngle, double _gisement, double _s) {
             this.pointNumber = _pointNumber;
             this.horizDist = _horizDist;
@@ -200,7 +200,7 @@ public class PolarImplantation extends Calculation {
             this.s = _s;
         }
 
-        public int getPointNumber() {
+        public String getPointNumber() {
             return this.pointNumber;
         }
 

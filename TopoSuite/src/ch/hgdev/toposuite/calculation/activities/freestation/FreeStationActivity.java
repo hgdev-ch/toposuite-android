@@ -2,7 +2,6 @@ package ch.hgdev.toposuite.calculation.activities.freestation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -52,8 +51,6 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                 R.id.determinations_list);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
-        this.stationEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
@@ -61,7 +58,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
             this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
                     this.position);
 
-            if (this.freeStation.getStationNumber() != 0) {
+            if (!this.freeStation.getStationNumber().isEmpty()) {
                 this.stationEditText.setText(String.valueOf(
                         this.freeStation.getStationNumber()));
             }
@@ -153,7 +150,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                     this.freeStation.setI(MathUtils.IGNORE_DOUBLE);
                 }
                 this.freeStation.setStationNumber(
-                        ViewUtils.readInt(this.stationEditText));
+                        this.stationEditText.getText().toString());
 
                 this.startFreeStationResultsActivity();
             } else {

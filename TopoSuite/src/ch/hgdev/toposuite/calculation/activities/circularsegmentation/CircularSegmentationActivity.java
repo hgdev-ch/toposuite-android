@@ -79,7 +79,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
         List<Point> points = new ArrayList<Point>();
         points.add(new Point(
-                0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+                "", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -211,6 +211,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 || (this.circleEndSelectedPosition < 1)) {
             return false;
         }
+
         if (this.selectedMode == Mode.ARCLENGTH) {
             if (this.arcLengthEditText.length() == 0) {
                 return false;
@@ -223,12 +224,11 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
             // this state should never be reached
             return false;
         }
+
         if (this.firstPointNumberEditText.length() == 0) {
             return false;
         }
-        if (ViewUtils.readInt(this.firstPointNumberEditText) < 1) {
-            return false;
-        }
+
         return true;
     }
 
@@ -253,17 +253,18 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
             arcLength = ViewUtils.readDouble(this.arcLengthEditText);
         }
 
-        int firstResultPointNumber = ViewUtils.readInt(this.firstPointNumberEditText);
+        String firstResultPointNumber = this.firstPointNumberEditText.getText().toString();
 
-        bundle.putInt(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER,
+        bundle.putString(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER,
                 circleCenter.getNumber());
-        bundle.putInt(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER,
+        bundle.putString(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER,
                 circleStart.getNumber());
-        bundle.putInt(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER, circleEnd.getNumber());
+        bundle.putString(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER,
+                circleEnd.getNumber());
 
         bundle.putInt(CircularSegmentationActivity.NUMBER_OF_SEGMENTS, numberOfSegments);
         bundle.putDouble(CircularSegmentationActivity.ARC_LENGTH, arcLength);
-        bundle.putInt(CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER,
+        bundle.putString(CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER,
                 firstResultPointNumber);
 
         Intent resultsActivityIntent = new Intent(this, CircularSegmentationResultsActivity.class);
@@ -310,8 +311,6 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         this.segmentEditText.setInputType(
                 InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
-        this.firstPointNumberEditText.setInputType(
-                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.circleCenterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -320,7 +319,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 CircularSegmentationActivity.this.circleCenterSelectedPosition = pos;
                 Point p = (Point) CircularSegmentationActivity.this.circleCenterSpinner
                         .getItemAtPosition(pos);
-                if (p.getNumber() > 0) {
+                if (!p.getNumber().isEmpty()) {
                     CircularSegmentationActivity.this.circleCenterTextView.setText(
                             DisplayUtils.formatPoint(CircularSegmentationActivity.this, p));
                 } else {
@@ -341,7 +340,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 CircularSegmentationActivity.this.circleStartSelectedPosition = pos;
                 Point p = (Point) CircularSegmentationActivity.this.circleStartSpinner
                         .getItemAtPosition(pos);
-                if (p.getNumber() > 0) {
+                if (!p.getNumber().isEmpty()) {
                     CircularSegmentationActivity.this.circleStartTextView.setText(
                             DisplayUtils.formatPoint(CircularSegmentationActivity.this, p));
                 } else {
@@ -362,7 +361,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
                 CircularSegmentationActivity.this.circleEndSelectedPosition = pos;
                 Point p = (Point) CircularSegmentationActivity.this.circleEndSpinner
                         .getItemAtPosition(pos);
-                if (p.getNumber() > 0) {
+                if (!p.getNumber().isEmpty()) {
                     CircularSegmentationActivity.this.circleEndTextView.setText(
                             DisplayUtils.formatPoint(CircularSegmentationActivity.this, p));
                 } else {

@@ -169,7 +169,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putInt(
+            args.putString(
                     MergePointsDialog.POINT_NUMBER,
                     m.getNumber());
 

@@ -21,12 +21,12 @@ public class Circle extends Calculation {
     private Point               pointA;
     private Point               pointB;
     private Point               pointC;
-    private int                 pointNumber;
+    private String              pointNumber;
 
     private Point               center;
     private double              radius;
 
-    public Circle(Point _pointA, Point _pointB, Point _pointC, int _pointNumber,
+    public Circle(Point _pointA, Point _pointB, Point _pointC, String _pointNumber,
             boolean hasDAO) {
         super(CalculationType.CIRCLE,
                 App.getContext().getString(R.string.title_activity_circle),
@@ -101,12 +101,12 @@ public class Circle extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject jo = new JSONObject(jsonInputArgs);
         this.pointA = SharedResources.getSetOfPoints().find(
-                jo.getInt(Circle.POINT_A));
+                jo.getString(Circle.POINT_A));
         this.pointB = SharedResources.getSetOfPoints().find(
-                jo.getInt(Circle.POINT_B));
+                jo.getString(Circle.POINT_B));
         this.pointC = SharedResources.getSetOfPoints().find(
-                jo.getInt(Circle.POINT_C));
-        this.pointNumber = jo.getInt(Circle.POINT_NUMBER);
+                jo.getString(Circle.POINT_C));
+        this.pointNumber = jo.getString(Circle.POINT_NUMBER);
     }
 
     @Override
@@ -151,11 +151,11 @@ public class Circle extends Calculation {
         return this.radius;
     }
 
-    public int getPointNumber() {
+    public String getPointNumber() {
         return this.pointNumber;
     }
 
-    public void setPointNumber(int pointNumber) {
+    public void setPointNumber(String pointNumber) {
         this.pointNumber = pointNumber;
     }
 }

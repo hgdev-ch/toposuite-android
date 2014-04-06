@@ -154,7 +154,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 EditPointWithSDialogFragment.this.point = (Point) EditPointWithSDialogFragment.this.pointSpinner
                         .getItemAtPosition(pos);
-                if (EditPointWithSDialogFragment.this.point.getNumber() > 0) {
+                if (!EditPointWithSDialogFragment.this.point.getNumber().isEmpty()) {
                     EditPointWithSDialogFragment.this.pointTextView.setText(DisplayUtils
                             .formatPoint(EditPointWithSDialogFragment.this.getActivity(),
                                     EditPointWithSDialogFragment.this.point));
@@ -170,7 +170,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
         });
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);

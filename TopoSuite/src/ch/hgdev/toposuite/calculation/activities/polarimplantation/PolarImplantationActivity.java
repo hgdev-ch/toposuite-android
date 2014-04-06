@@ -99,7 +99,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
                 PolarImplantationActivity.this.station = (Point) PolarImplantationActivity.this.stationSpinner
                         .getItemAtPosition(pos);
-                if (PolarImplantationActivity.this.station.getNumber() > 0) {
+                if (!PolarImplantationActivity.this.station.getNumber().isEmpty()) {
                     PolarImplantationActivity.this.stationPointTextView.setText(DisplayUtils
                             .formatPoint(PolarImplantationActivity.this,
                                     PolarImplantationActivity.this.station));
@@ -141,7 +141,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, false));
+        points.add(new Point("", 0.0, 0.0, 0.0, false));
         points.addAll(SharedResources.getSetOfPoints());
 
         this.stationAdapter = new ArrayAdapter<Point>(
@@ -332,7 +332,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.position = position;
         Measure m = this.adapter.getItem(position);
         Bundle args = new Bundle();
-        args.putInt(PolarImplantationActivity.POINTS_WITH_S_NUMBER_LABEL, m.getPoint().getNumber());
+        args.putString(PolarImplantationActivity.POINTS_WITH_S_NUMBER_LABEL, m.getPoint()
+                .getNumber());
         args.putDouble(PolarImplantationActivity.S, m.getS());
 
         dialog.setArguments(args);
@@ -353,7 +354,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
      * @return True if inputs are OK, false otherwise.
      */
     private boolean checkInputs() {
-        if ((this.station == null) || (this.station.getNumber() < 1)) {
+        if ((this.station == null) || (this.station.getNumber().isEmpty())) {
             return false;
         }
         if (this.unknownOrientEditText.length() == 0) {
@@ -379,7 +380,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         }
 
         Bundle bundle = new Bundle();
-        bundle.putInt(PolarImplantationActivity.STATION_NUMBER_LABEL, this.station.getNumber());
+        bundle.putString(PolarImplantationActivity.STATION_NUMBER_LABEL, this.station.getNumber());
 
         JSONArray json = new JSONArray();
         for (int j = 0; j < this.adapter.getCount(); j++) {

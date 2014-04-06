@@ -66,7 +66,7 @@ public class Measure {
     /**
      * Determine a number for the measure.
      */
-    private int                 measureNumber;
+    private String              measureNumber;
 
     /**
      * Abscissa.
@@ -86,7 +86,7 @@ public class Measure {
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
-            int _measureNumber, double _abscissa, double _ordinate) {
+            String _measureNumber, double _abscissa, double _ordinate) {
         this.point = _point;
         this.horizDir = _horizDir;
         this.zenAngle = _zenAngle;
@@ -104,14 +104,14 @@ public class Measure {
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
-            int _measureNumber, double _abscissa) {
+            String _measureNumber, double _abscissa) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
                 _unknownOrientation, _measureNumber, _abscissa, MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
-            int _measureNumber) {
+            String _measureNumber) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
                 _unknownOrientation, _measureNumber, MathUtils.IGNORE_INT);
     }
@@ -119,7 +119,7 @@ public class Measure {
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
             double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
-                _unknownOrientation, MathUtils.IGNORE_INT);
+                _unknownOrientation, "");
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
@@ -232,11 +232,11 @@ public class Measure {
         this.unknownOrientation = _unknownOrientation;
     }
 
-    public int getMeasureNumber() {
+    public String getMeasureNumber() {
         return this.measureNumber;
     }
 
-    public void setMeasureNumber(int measureNumber) {
+    public void setMeasureNumber(String measureNumber) {
         this.measureNumber = measureNumber;
     }
 
@@ -295,7 +295,7 @@ public class Measure {
     public Bundle toBundle() {
         Bundle bundle = new Bundle();
         if (this.point != null) {
-            bundle.putInt(Measure.ORIENTATION_NUMBER, this.point.getNumber());
+            bundle.putString(Measure.ORIENTATION_NUMBER, this.point.getNumber());
         }
         bundle.putDouble(Measure.HORIZ_DIR, this.horizDir);
         bundle.putDouble(Measure.ZEN_ANGLE, this.zenAngle);
@@ -305,7 +305,7 @@ public class Measure {
         bundle.putDouble(Measure.LON_DEPL, this.lonDepl);
         bundle.putDouble(Measure.I, this.i);
         bundle.putDouble(Measure.UNKNOWN_ORIENTATION, this.unknownOrientation);
-        bundle.putInt(Measure.MEASURE_NUMBER, this.measureNumber);
+        bundle.putString(Measure.MEASURE_NUMBER, this.measureNumber);
         return bundle;
     }
 
@@ -315,7 +315,8 @@ public class Measure {
         try {
             json = new JSONObject(jsonString);
             Point orient = json.has(Measure.ORIENTATION_NUMBER) ?
-                    SharedResources.getSetOfPoints().find(json.getInt(Measure.ORIENTATION_NUMBER))
+                    SharedResources.getSetOfPoints().find(
+                            json.getString(Measure.ORIENTATION_NUMBER))
                     : null;
             m = new Measure(
                     orient,
@@ -327,7 +328,7 @@ public class Measure {
                     json.getDouble(Measure.LON_DEPL),
                     json.getDouble(Measure.I),
                     json.getDouble(Measure.UNKNOWN_ORIENTATION),
-                    json.getInt(Measure.MEASURE_NUMBER));
+                    json.getString(Measure.MEASURE_NUMBER));
         } catch (JSONException e) {
             Log.e(Logger.TOPOSUITE_PARSE_ERROR, Measure.JSON_UNSERIALIZE_ERROR);
         }

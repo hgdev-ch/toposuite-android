@@ -40,8 +40,7 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
         TextView projPointP2DistTextView = (TextView) this.findViewById(
                 R.id.distance_projpoint_point_2);
 
-        pointNumberTextView.setText(DisplayUtils.toStringForTextView(
-                this.ppoal.getNumber()));
+        pointNumberTextView.setText(this.ppoal.getNumber());
         eastTextView.setText(DisplayUtils.formatCoordinate(
                 this.ppoal.getProjPt().getEast()));
         northTextView.setText(DisplayUtils.formatCoordinate(
@@ -51,7 +50,7 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
                 this.ppoal.getDistPtToLine()));
         projPointP1DistTextView.setText(DisplayUtils.formatDistance(
                 this.ppoal.getDistPtToP1()));
-        if (this.ppoal.getP2().getNumber() != PointProjectionOnALine.DUMMY_POINT_NUMBER) {
+        if (!this.ppoal.getP2().getNumber().equals(PointProjectionOnALine.DUMMY_POINT_NUMBER)) {
             projPointP2DistTextView.setText(DisplayUtils.formatDistance(
                     this.ppoal.getDistPtToP2()));
         } else {
@@ -87,7 +86,7 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
                 MergePointsDialog dialog = new MergePointsDialog();
 
                 Bundle args = new Bundle();
-                args.putInt(
+                args.putString(
                         MergePointsDialog.POINT_NUMBER,
                         this.ppoal.getNumber());
 

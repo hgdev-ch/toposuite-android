@@ -7,15 +7,15 @@ import ch.hgdev.toposuite.points.Point;
 public class TestCheminementOrthogonal extends CalculationTest {
     public void testCheminementOrthogonal() {
 
-        Point origin = new Point(1, 600.0, 200.0, 0.0, true, false);
-        Point extremity = new Point(2, 620.0, 215.0, 0.0, true, false);
+        Point origin = new Point("1", 600.0, 200.0, 0.0, true, false);
+        Point extremity = new Point("2", 620.0, 215.0, 0.0, true, false);
 
         CheminementOrthogonal co = new CheminementOrthogonal(origin, extremity, false);
-        co.getMeasures().add(new CheminementOrthogonal.Measure(11, 10.0));
-        co.getMeasures().add(new CheminementOrthogonal.Measure(12, 3.0));
-        co.getMeasures().add(new CheminementOrthogonal.Measure(13, -5.02));
-        co.getMeasures().add(new CheminementOrthogonal.Measure(14, 3.02));
-        co.getMeasures().add(new CheminementOrthogonal.Measure(2, 10.01));
+        co.getMeasures().add(new CheminementOrthogonal.Measure("11", 10.0));
+        co.getMeasures().add(new CheminementOrthogonal.Measure("12", 3.0));
+        co.getMeasures().add(new CheminementOrthogonal.Measure("13", -5.02));
+        co.getMeasures().add(new CheminementOrthogonal.Measure("14", 3.02));
+        co.getMeasures().add(new CheminementOrthogonal.Measure("2", 10.01));
 
         co.compute();
 

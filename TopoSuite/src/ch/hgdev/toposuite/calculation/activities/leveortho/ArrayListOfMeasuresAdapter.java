@@ -37,7 +37,7 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<LeveOrthogonal.Meas
             TextView ordinateTextView = (TextView) view.findViewById(R.id.ordinate_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(measure.getNumber()));
+                numberTextView.setText(measure.getNumber());
             }
 
             if (abscissaTextView != null) {

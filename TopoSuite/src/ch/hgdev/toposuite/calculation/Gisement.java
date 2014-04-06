@@ -363,8 +363,8 @@ public class Gisement extends Calculation {
         }
 
         JSONObject json = new JSONObject(jsonInputArgs);
-        int originPointNumber = json.getInt(Gisement.ORIGIN_POINT_NUMBER);
-        int orientationPointNumber = json.getInt(Gisement.ORIENTATION_POINT_NUMBER);
+        String originPointNumber = json.getString(Gisement.ORIGIN_POINT_NUMBER);
+        String orientationPointNumber = json.getString(Gisement.ORIENTATION_POINT_NUMBER);
 
         this.origin = SharedResources.getSetOfPoints().find(originPointNumber);
         this.orientation = SharedResources.getSetOfPoints().find(orientationPointNumber);

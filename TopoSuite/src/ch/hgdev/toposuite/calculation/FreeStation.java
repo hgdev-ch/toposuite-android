@@ -13,7 +13,6 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity;
 import ch.hgdev.toposuite.points.Point;
-import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStation extends Calculation {
@@ -21,7 +20,7 @@ public class FreeStation extends Calculation {
     private static final String     MEASURES       = "measures";
     private static final String     INSTRUMENT     = "instrument";
 
-    private int                     stationNumber;
+    private String                  stationNumber;
     private ArrayList<Measure>      measures;
     /** Height of the instrument (I). */
     private double                  i;
@@ -49,7 +48,7 @@ public class FreeStation extends Calculation {
      */
     private double                  meanFS;
 
-    public FreeStation(int _stationNumber, double _i, boolean hasDAO) {
+    public FreeStation(String _stationNumber, double _i, boolean hasDAO) {
         super(CalculationType.FREESTATION, App.getContext().getString(
                 R.string.title_activity_free_station), hasDAO);
 
@@ -63,12 +62,12 @@ public class FreeStation extends Calculation {
         }
     }
 
-    public FreeStation(int _stationNumber, boolean hasDAO) {
+    public FreeStation(String _stationNumber, boolean hasDAO) {
         this(_stationNumber, 0.0, hasDAO);
     }
 
     public FreeStation(boolean hasDAO) {
-        this(0, hasDAO);
+        this("", hasDAO);
     }
 
     public FreeStation(long id, Date lastModification) {
@@ -173,9 +172,9 @@ public class FreeStation extends Calculation {
         }
 
         int n = this.results.size() - numberOfDeactivatedOrientations;
-        centroidFict = new Point(0, centroidYFict / n, centroidXFict / n,
+        centroidFict = new Point("", centroidYFict / n, centroidXFict / n,
                 0.0, false, false);
-        centroidCadast = new Point(0, centroidYCadast / n, centroidXCadast / n,
+        centroidCadast = new Point("", centroidYCadast / n, centroidXCadast / n,
                 0.0, false, false);
 
         List<IntermediateResults> intermRes = new ArrayList<IntermediateResults>();
@@ -297,7 +296,7 @@ public class FreeStation extends Calculation {
         this.updateLastModification();
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.station_label)
-                + ": " + DisplayUtils.toStringForTextView(this.getStationNumber()));
+                + ": " + this.getStationNumber());
         this.notifyUpdate(this);
     }
 
@@ -319,7 +318,7 @@ public class FreeStation extends Calculation {
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject jo = new JSONObject(jsonInputArgs);
-        this.stationNumber = jo.getInt(FreeStation.STATION_NUMBER);
+        this.stationNumber = jo.getString(FreeStation.STATION_NUMBER);
         this.i = jo.getDouble(FreeStation.INSTRUMENT);
 
         for (int i = 0; i < jo.getJSONArray(FreeStation.MEASURES).length(); i++) {
@@ -327,7 +326,7 @@ public class FreeStation extends Calculation {
                     FreeStation.MEASURES).get(i);
 
             Point st = SharedResources.getSetOfPoints().find(
-                    measureObject.getInt(Measure.ORIENTATION_NUMBER));
+                    measureObject.getString(Measure.ORIENTATION_NUMBER));
 
             Measure m = new Measure(
                     st,
@@ -353,11 +352,11 @@ public class FreeStation extends Calculation {
         return App.getContext().getString(R.string.title_activity_free_station);
     }
 
-    public final int getStationNumber() {
+    public final String getStationNumber() {
         return this.stationNumber;
     }
 
-    public final void setStationNumber(int _stationNumber) {
+    public final void setStationNumber(String _stationNumber) {
         this.stationNumber = _stationNumber;
     }
 

@@ -41,28 +41,35 @@ public class ArrayListOfDeterminationsAdapter extends ArrayAdapter<Measure> {
             TextView lonDeplTextView = (TextView) view.findViewById(R.id.lon_depl_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(determination
-                        .getMeasureNumber()));
+                numberTextView.setText(determination.getMeasureNumber());
             }
+
             if (horizOrientTextView != null) {
                 horizOrientTextView.setText(DisplayUtils.formatAngle(determination.getHorizDir()));
             }
+
             if (horizDistTextView != null) {
                 horizDistTextView.setText(DisplayUtils.formatDistance(determination.getDistance()));
             }
+
             if (altitudeTextView != null) {
                 altitudeTextView.setText(DisplayUtils.formatAngle(determination.getZenAngle()));
             }
+
             if (sTextView != null) {
                 sTextView.setText(DisplayUtils.formatDistance(determination.getS()));
             }
+
             if (latDeplTextView != null) {
-                latDeplTextView
-                        .setText(DisplayUtils.formatDistance(determination.getLatDepl()));
+                latDeplTextView.setText(
+						DisplayUtils.formatDistance(
+							determination.getLatDepl()));
             }
+
             if (lonDeplTextView != null) {
-                lonDeplTextView
-                        .setText(DisplayUtils.formatDistance(determination.getLonDepl()));
+                lonDeplTextView.setText(
+						DisplayUtils.formatDistance(
+							determination.getLonDepl()));
             }
         }
 

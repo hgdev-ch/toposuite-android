@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +45,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
     }
 
     EditDeterminationDialogListener listener;
-    private int                     determinationNo;
+    private String                  determinationNo;
     private double                  horizDir;
     private double                  distance;
     private double                  zenAngle;
@@ -122,8 +121,9 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                                 EditDeterminationDialogFragment.this.lonDepl = MathUtils.IGNORE_DOUBLE;
                             }
 
-                            EditDeterminationDialogFragment.this.determinationNo = ViewUtils
-                                    .readInt(EditDeterminationDialogFragment.this.determinationNoEditText);
+                            EditDeterminationDialogFragment.this.determinationNo =
+                                    EditDeterminationDialogFragment.this.determinationNoEditText
+                                            .getText().toString();
                             EditDeterminationDialogFragment.this.horizDir = ViewUtils
                                     .readDouble(EditDeterminationDialogFragment.this.horizDirEditText);
                             EditDeterminationDialogFragment.this.distance = ViewUtils
@@ -161,7 +161,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
     private void initAttributes() {
         Bundle bundle = this.getArguments();
 
-        this.determinationNo = bundle.getInt(PolarSurveyActivity.DETERMINATION_NUMBER);
+        this.determinationNo = bundle.getString(PolarSurveyActivity.DETERMINATION_NUMBER);
         this.horizDir = bundle.getDouble(PolarSurveyActivity.HORIZ_DIR);
         this.distance = bundle.getDouble(PolarSurveyActivity.DISTANCE);
         this.zenAngle = bundle.getDouble(PolarSurveyActivity.ZEN_ANGLE);
@@ -175,10 +175,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
         this.determinationNoEditText = new EditText(this.getActivity());
         this.determinationNoEditText.setHint(
                 this.getActivity().getString(R.string.determination_sight_3dots));
-        this.determinationNoEditText
-                .setText(DisplayUtils.toStringForEditText(this.determinationNo));
-        this.determinationNoEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        this.determinationNoEditText.setText(this.determinationNo);
 
         this.horizDirEditText = new EditText(this.getActivity());
         this.horizDirEditText.setHint(
@@ -256,7 +253,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
         return true;
     }
 
-    public int getDeterminationNo() {
+    public String getDeterminationNo() {
         return this.determinationNo;
     }
 

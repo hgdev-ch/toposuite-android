@@ -54,7 +54,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
                     .getCalculationsHistory().get(pos);
         } else {
             Point station = SharedResources.getSetOfPoints().find(
-                    bundle.getInt(PolarSurveyActivity.STATION_NUMBER_LABEL));
+                    bundle.getString(PolarSurveyActivity.STATION_NUMBER_LABEL));
             double z0 = bundle.getDouble(PolarSurveyActivity.UNKNOWN_ORIENTATION_LABEL);
             double instrumentHeight = bundle.getDouble(PolarSurveyActivity.INSTRUMENT_HEIGHT_LABEL);
             long z0CalculationId = bundle.getLong(
@@ -192,7 +192,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putInt(
+            args.putString(
                     MergePointsDialog.POINT_NUMBER,
                     r.getDeterminationNumber());
 

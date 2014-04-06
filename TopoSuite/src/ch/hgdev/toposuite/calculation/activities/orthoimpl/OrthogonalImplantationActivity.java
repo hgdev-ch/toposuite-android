@@ -74,7 +74,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
 
                 Point pt = (Point)
                         OrthogonalImplantationActivity.this.originSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     OrthogonalImplantationActivity.this.originPointTextView.setText
                             (DisplayUtils.formatPoint(OrthogonalImplantationActivity.this, pt));
                 }
@@ -97,7 +97,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
 
                 Point pt = (Point)
                         OrthogonalImplantationActivity.this.extremitySpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     OrthogonalImplantationActivity.this.extremityPointTextView.setText
                             (DisplayUtils.formatPoint(OrthogonalImplantationActivity.this, pt));
                 }
@@ -136,7 +136,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -281,9 +281,9 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         Point p1 = (Point) this.originSpinner.getSelectedItem();
         Point p2 = (Point) this.extremitySpinner.getSelectedItem();
 
-        if ((p1.getNumber() == 0) || (p2.getNumber() == 0)) {
+        if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty())) {
             this.resetResults();
-        } else if (p1.getNumber() == p2.getNumber()) {
+        } else if (p1.getNumber().equals(p2.getNumber())) {
             this.resetResults();
             ViewUtils.showToast(this, this.getString(R.string.error_same_points));
         } else {

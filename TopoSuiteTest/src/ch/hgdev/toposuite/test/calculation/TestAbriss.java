@@ -9,10 +9,10 @@ import ch.hgdev.toposuite.points.Point;
 public class TestAbriss extends CalculationTest {
 
     public void testRandom() {
-        Point p1 = new Point(1, 600.245, 200.729, 0.0, true);
-        Point p2 = new Point(2, 623.487, 528.371, 0.0, true);
-        Point p3 = new Point(3, 476.331, 534.228, 0.0, true);
-        Point p4 = new Point(4, 372.472, 257.326, 0.0, true);
+        Point p1 = new Point("1", 600.245, 200.729, 0.0, true);
+        Point p2 = new Point("2", 623.487, 528.371, 0.0, true);
+        Point p3 = new Point("3", 476.331, 534.228, 0.0, true);
+        Point p4 = new Point("4", 372.472, 257.326, 0.0, true);
 
         Abriss a = new Abriss(p1, false);
         a.removeDAO(CalculationsDataSource.getInstance());
@@ -65,9 +65,9 @@ public class TestAbriss extends CalculationTest {
     }
 
     public void testRealCase() {
-        Point p34 = new Point(34, 556506.667, 172513.91, 620.34, true);
-        Point p45 = new Point(45, 556495.16, 172493.912, 623.37, true);
-        Point p47 = new Point(47, 556612.21, 172489.274, 0.0, true);
+        Point p34 = new Point("34", 556506.667, 172513.91, 620.34, true);
+        Point p45 = new Point("45", 556495.16, 172493.912, 623.37, true);
+        Point p47 = new Point("47", 556612.21, 172489.274, 0.0, true);
         Abriss a = new Abriss(p34, false);
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p45, 0.0, 91.6892, 23.277, 1.63));
@@ -98,9 +98,9 @@ public class TestAbriss extends CalculationTest {
     }
 
     public void testRealCaseNegative() {
-        Point p34 = new Point(34, -43493.333, -27486.090, 620.34, true);
-        Point p45 = new Point(45, -43504.840, -27506.088, 623.37, true);
-        Point p47 = new Point(47, -43387.790, -27510.726, 0.0, true);
+        Point p34 = new Point("34", -43493.333, -27486.090, 620.34, true);
+        Point p45 = new Point("45", -43504.840, -27506.088, 623.37, true);
+        Point p47 = new Point("47", -43387.790, -27510.726, 0.0, true);
         Abriss a = new Abriss(p34, false);
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p45, 0.0, 91.6892, 23.277, 1.63));
@@ -134,9 +134,9 @@ public class TestAbriss extends CalculationTest {
     }
 
     public void testMeasureDeactivation() {
-        Point p34 = new Point(34, 556506.667, 172513.91, 620.34, true);
-        Point p45 = new Point(45, 556495.16, 172493.912, 623.37, true);
-        Point p47 = new Point(47, 556612.21, 172489.274, 0.0, true);
+        Point p34 = new Point("34", 556506.667, 172513.91, 620.34, true);
+        Point p45 = new Point("45", 556495.16, 172493.912, 623.37, true);
+        Point p47 = new Point("47", 556612.21, 172489.274, 0.0, true);
         Abriss a = new Abriss(p34, false);
         a.removeDAO(CalculationsDataSource.getInstance());
         Measure m1 = new Measure(p45, 0.0, 91.6892, 23.277, 1.63);
@@ -166,10 +166,10 @@ public class TestAbriss extends CalculationTest {
     }
 
     public void testMeasureDeactivation2() {
-        Point p34 = new Point(34, 556506.667, 172513.91, 620.34, true);
-        Point p45 = new Point(45, 556495.16, 172493.912, 623.37, true);
-        Point p46 = new Point(46, 556517.541, 172491.482, 624.14, true);
-        Point p47 = new Point(47, 556612.21, 172489.274, 0.0, true);
+        Point p34 = new Point("34", 556506.667, 172513.91, 620.34, true);
+        Point p45 = new Point("45", 556495.16, 172493.912, 623.37, true);
+        Point p46 = new Point("46", 556517.541, 172491.482, 624.14, true);
+        Point p47 = new Point("47", 556612.21, 172489.274, 0.0, true);
         Abriss a = new Abriss(p34, false);
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p45, 0.0, 91.6892, 23.277, 1.63));

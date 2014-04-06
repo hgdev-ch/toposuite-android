@@ -20,21 +20,21 @@ public class TestLinesIntersection extends CalculationTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        this.p1 = new Point(1, 25.0, 55.0, 0.0, true, false);
-        this.p3 = new Point(3, 50.177, 99.941, 0.0, true, false);
-        this.p4 = new Point(4, 67.0, 14.0, 0.0, true, false);
-        this.p5 = new Point(5, 113.204, 37.411, 0.0, true, false);
+        this.p1 = new Point("1", 25.0, 55.0, 0.0, true, false);
+        this.p3 = new Point("3", 50.177, 99.941, 0.0, true, false);
+        this.p4 = new Point("4", 67.0, 14.0, 0.0, true, false);
+        this.p5 = new Point("5", 113.204, 37.411, 0.0, true, false);
 
-        this.p10 = new Point(10, 43.5816, 144.4225, 0.0, true, false);
-        this.p20 = new Point(20, 357.7832, 48.6002, 0.0, true, false);
-        this.p30 = new Point(30, 140.1251, 249.2679, 0.0, true, false);
-        this.p40 = new Point(40, -29.2174, 39.2745, 0.0, true, false);
+        this.p10 = new Point("10", 43.5816, 144.4225, 0.0, true, false);
+        this.p20 = new Point("20", 357.7832, 48.6002, 0.0, true, false);
+        this.p30 = new Point("30", 140.1251, 249.2679, 0.0, true, false);
+        this.p40 = new Point("40", -29.2174, 39.2745, 0.0, true, false);
     }
 
     public void testCompute1() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.0, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
-                0.0, MathUtils.IGNORE_DOUBLE, 42, false);
+                0.0, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -50,7 +50,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute2() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
-                21.87, MathUtils.IGNORE_DOUBLE, 42, false);
+                21.87, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -66,7 +66,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute3() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
-                -21.87, MathUtils.IGNORE_DOUBLE, 42, false);
+                -21.87, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -82,7 +82,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute4() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
-                -21.87, MathUtils.IGNORE_DOUBLE, 42, false);
+                -21.87, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -98,7 +98,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute5() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
-                21.87, MathUtils.IGNORE_DOUBLE, 42, false);
+                21.87, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -114,7 +114,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute6() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p4, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 250.35,
-                21.87, MathUtils.IGNORE_DOUBLE, 42, false);
+                21.87, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -130,7 +130,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute7() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p5, 0.0, MathUtils.IGNORE_DOUBLE, this.p3, this.p4,
-                0.0, MathUtils.IGNORE_DOUBLE, 42, false);
+                0.0, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -146,7 +146,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute8() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p5, -0.65, MathUtils.IGNORE_DOUBLE, this.p3, this.p4,
-                -13.872, MathUtils.IGNORE_DOUBLE, 42, false);
+                -13.872, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -162,7 +162,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute9() {
         LinesIntersection li = new LinesIntersection(
                 this.p10, this.p20, 0.0, -21.954, this.p30,
-                this.p40, 0.0, -1.569, 42, false);
+                this.p40, 0.0, -1.569, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -178,7 +178,7 @@ public class TestLinesIntersection extends CalculationTest {
     public void testCompute10() {
         LinesIntersection li = new LinesIntersection(
                 this.p10, this.p20, 0.0, 1.697, this.p30,
-                this.p40, 0.0, MathUtils.IGNORE_DOUBLE, 42, false);
+                this.p40, 0.0, MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {
@@ -192,14 +192,14 @@ public class TestLinesIntersection extends CalculationTest {
     }
 
     public void testCompute11() {
-        Point localP1 = new Point(1, 600, 200, 0.0, true, false);
-        Point localP2 = new Point(2, 620, 215, 0.0, true, false);
-        Point localP3 = new Point(3, 610, 185, 0.0, true, false);
-        Point localP104 = new Point(104, 635, 180, 0.0, true, false);
+        Point localP1 = new Point("1", 600, 200, 0.0, true, false);
+        Point localP2 = new Point("2", 620, 215, 0.0, true, false);
+        Point localP3 = new Point("3", 610, 185, 0.0, true, false);
+        Point localP104 = new Point("104", 635, 180, 0.0, true, false);
 
         LinesIntersection li = new LinesIntersection(
                 localP1, localP2, 0, 5.0, localP3, localP104, -5.0,
-                MathUtils.IGNORE_DOUBLE, 42, false);
+                MathUtils.IGNORE_DOUBLE, "42", false);
         try {
             li.compute();
         } catch (CalculationException e) {

@@ -42,13 +42,13 @@ public class LinesIntersection extends Calculation {
     private double              gisementD2;
     private double              distanceP1D2;
 
-    private int                 pointNumber;
+    private String              pointNumber;
 
     private Point               intersectionPoint;
 
     public LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
             double _distanceP1D1, Point _p1D2, Point _p2D2, double _displacementD2,
-            double _distanceP1D2, int _pointNumber, boolean hasDAO) {
+            double _distanceP1D2, String _pointNumber, boolean hasDAO) {
 
         this(_p1D1, _p2D1, _displacementD1, 0.0, _distanceP1D1, _p1D2, _p2D2,
                 _displacementD2, 0.0, _distanceP1D2, _pointNumber, hasDAO);
@@ -56,7 +56,7 @@ public class LinesIntersection extends Calculation {
 
     public LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
             double _distanceP1D1, Point _p1D2, double _gisementD2, double _displacementD2,
-            double _distanceP1D2, int _pointNumber, boolean hasDAO) {
+            double _distanceP1D2, String _pointNumber, boolean hasDAO) {
 
         this(_p1D1, _p2D1, _displacementD1, 0.0, _distanceP1D1, _p1D2, null,
                 _displacementD2, _gisementD2, _distanceP1D2, _pointNumber, hasDAO);
@@ -64,7 +64,7 @@ public class LinesIntersection extends Calculation {
 
     public LinesIntersection(Point _p1D1, double _gisementD1, double _displacementD1,
             double _distanceP1D1, Point _p1D2, Point _p2D2, double _displacementD2,
-            double _distanceP1D2, int _pointNumber, boolean hasDAO) {
+            double _distanceP1D2, String _pointNumber, boolean hasDAO) {
 
         this(_p1D1, null, _displacementD1, _gisementD1, _distanceP1D1, _p1D2, _p2D2,
                 _displacementD2, 0.0, _distanceP1D2, _pointNumber, hasDAO);
@@ -72,7 +72,7 @@ public class LinesIntersection extends Calculation {
 
     public LinesIntersection(Point _p1D1, double _gisementD1, double _displacementD1,
             double _distanceP1D1, Point _p1D2, double _gisementD2, double _displacementD2,
-            double _distanceP1D2, int _pointNumber, boolean hasDAO) {
+            double _distanceP1D2, String _pointNumber, boolean hasDAO) {
 
         this(_p1D1, null, _displacementD1, _gisementD1, _distanceP1D1, _p1D2, null,
                 _displacementD2, _gisementD2, _distanceP1D2, _pointNumber, hasDAO);
@@ -90,7 +90,7 @@ public class LinesIntersection extends Calculation {
     public LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
             double _gisementD1, double _distanceP1D1, Point _p1D2, Point _p2D2,
             double _displacementD2, double _gisementD2, double _distanceP1D2,
-            int _pointNumber, boolean hasDAO) {
+            String _pointNumber, boolean hasDAO) {
 
         super(
                 CalculationType.LINEINTERSEC,
@@ -257,20 +257,20 @@ public class LinesIntersection extends Calculation {
         JSONObject jo = new JSONObject(jsonInputArgs);
 
         this.setP1D1(this.p1D1 = SharedResources.getSetOfPoints().find(
-                jo.getInt(LinesIntersection.P1D1_NUMBER)));
+                jo.getString(LinesIntersection.P1D1_NUMBER)));
 
-        int p2D1Position = jo.getInt(LinesIntersection.P2D1_NUMBER);
-        if (p2D1Position != 0) {
+        String p2D1Position = jo.getString(LinesIntersection.P2D1_NUMBER);
+        if (!p2D1Position.isEmpty()) {
             this.setP2D1(SharedResources.getSetOfPoints().find(p2D1Position));
         } else {
             this.setGisementD1(jo.getDouble(LinesIntersection.GIS_D1));
         }
 
         this.setP1D2(SharedResources.getSetOfPoints().find(
-                jo.getInt(LinesIntersection.P1D2_NUMBER)));
+                jo.getString(LinesIntersection.P1D2_NUMBER)));
 
-        int p2D2Position = jo.getInt(LinesIntersection.P2D2_NUMBER);
-        if (p2D2Position != 0) {
+        String p2D2Position = jo.getString(LinesIntersection.P2D2_NUMBER);
+        if (!p2D2Position.isEmpty()) {
             this.setP2D2(SharedResources.getSetOfPoints().find(p2D2Position));
         } else {
             this.setGisementD2(jo.getDouble(LinesIntersection.GIS_D2));
@@ -280,7 +280,7 @@ public class LinesIntersection extends Calculation {
         this.setDisplacementD2(jo.getDouble(LinesIntersection.DISPL_D2));
         this.setDistanceP1D1(jo.getDouble(LinesIntersection.DIST_D1));
         this.setDistanceP1D2(jo.getDouble(LinesIntersection.DIST_D2));
-        this.setPointNumber(jo.getInt(LinesIntersection.POINT_NUMBER));
+        this.setPointNumber(jo.getString(LinesIntersection.POINT_NUMBER));
     }
 
     @Override
@@ -331,7 +331,7 @@ public class LinesIntersection extends Calculation {
                 this.p1D1.getEast(), gisement, 100);
         double north = MathUtils.pointLanceNorth(
                 this.p1D1.getNorth(), gisement, 100);
-        this.p2D1 = new Point(0, east, north, 0.0, false, false);
+        this.p2D1 = new Point("", east, north, 0.0, false, false);
     }
 
     public final double getDisplacementD1() {
@@ -422,7 +422,7 @@ public class LinesIntersection extends Calculation {
                 this.p1D2.getEast(), gisement, 100);
         double north = MathUtils.pointLanceNorth(
                 this.p1D2.getNorth(), gisement, 100);
-        this.p2D2 = new Point(0, east, north, 0.0, false, false);
+        this.p2D2 = new Point("", east, north, 0.0, false, false);
     }
 
     public final double getDisplacementD2() {
@@ -475,13 +475,13 @@ public class LinesIntersection extends Calculation {
         }
     }
 
-    public int getPointNumber() {
+    public String getPointNumber() {
         return this.pointNumber;
     }
 
-    public void setPointNumber(int _pointNumber) {
+    public void setPointNumber(String _pointNumber) {
         // also update the intersection point
-        if ((this.intersectionPoint != null) && (this.pointNumber != _pointNumber)) {
+        if ((this.intersectionPoint != null) && (!this.pointNumber.equals(_pointNumber))) {
             this.intersectionPoint = new Point(false);
             this.intersectionPoint.setNumber(_pointNumber);
         }

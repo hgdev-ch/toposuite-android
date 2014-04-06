@@ -16,7 +16,7 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class TestPolarSurvey extends CalculationTest {
 
     public void test1() {
-        Point station = new Point(34, 556506.667, 172513.91, 620.34, true);
+        Point station = new Point("34", 556506.667, 172513.91, 620.34, true);
         double i = 1.63;
         double z0 = 233.2435;
 
@@ -64,7 +64,7 @@ public class TestPolarSurvey extends CalculationTest {
     }
 
     public void test2() {
-        Point station = new Point(46, 556517.541, 172491.482, 624.14, true);
+        Point station = new Point("46", 556517.541, 172491.482, 624.14, true);
         double i = 1.58;
         double z0 = 371.2579;
 

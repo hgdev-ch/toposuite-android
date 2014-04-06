@@ -9,7 +9,6 @@ import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.points.Point;
-import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 
 /**
@@ -49,7 +48,7 @@ public class PointsDataSource implements DAO {
 
         if (cursor.moveToFirst()) {
             while (cursor.isAfterLast() == false) {
-                int number = cursor.getInt(
+                String number = cursor.getString(
                         cursor.getColumnIndex(PointsTable.COLUMN_NAME_NUMBER));
                 double east = cursor.getDouble(
                         cursor.getColumnIndex(PointsTable.COLUMN_NAME_EAST));
@@ -112,7 +111,7 @@ public class PointsDataSource implements DAO {
                 PointsTable.TABLE_NAME_POINTS,
                 pointValues,
                 PointsTable.COLUMN_NAME_NUMBER + " = ?",
-                new String[] { DisplayUtils.toStringForTextView(point.getNumber()) });
+                new String[] { point.getNumber() });
         if (rowID == -1) {
             Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_UPDATE + " => " +
                     Logger.formatPoint(point));
@@ -135,7 +134,7 @@ public class PointsDataSource implements DAO {
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
 
         long rowID = db.delete(PointsTable.TABLE_NAME_POINTS,
-                PointsTable.COLUMN_NAME_NUMBER + "=" + point.getNumber(), null);
+                PointsTable.COLUMN_NAME_NUMBER + " = '" + point.getNumber() + "'", null);
         if (rowID == -1) {
             Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_DELETE + " => " +
                     Logger.formatPoint(point));

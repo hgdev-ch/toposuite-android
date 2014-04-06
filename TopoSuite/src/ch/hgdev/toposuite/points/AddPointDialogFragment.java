@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +49,7 @@ public class AddPointDialogFragment extends DialogFragment {
     }
 
     AddPointDialogListener listener;
-    private int            number;
+    private String         number;
     private double         altitude;
     private double         east;
     private double         north;
@@ -96,8 +95,8 @@ public class AddPointDialogFragment extends DialogFragment {
                                 AddPointDialogFragment.this.altitude = ViewUtils
                                         .readDouble(AddPointDialogFragment.this.altitudeEditText);
                             }
-                            AddPointDialogFragment.this.number = ViewUtils.
-                                    readInt(AddPointDialogFragment.this.numberEditText);
+                            AddPointDialogFragment.this.number =
+                                    AddPointDialogFragment.this.numberEditText.getText().toString();
                             AddPointDialogFragment.this.east = ViewUtils
                                     .readDouble(AddPointDialogFragment.this.eastEditText);
                             AddPointDialogFragment.this.north = ViewUtils
@@ -139,8 +138,6 @@ public class AddPointDialogFragment extends DialogFragment {
 
         this.numberEditText = new EditText(this.getActivity());
         this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
-        this.numberEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.eastEditText = new EditText(this.getActivity());
         this.eastEditText.setHint(this.getActivity().getString(R.string.east_3dots)
@@ -159,7 +156,7 @@ public class AddPointDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.altitudeEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.number = MathUtils.IGNORE_INT;
+        this.number = "";
         this.east = MathUtils.IGNORE_DOUBLE;
         this.north = MathUtils.IGNORE_DOUBLE;
         this.altitude = MathUtils.IGNORE_DOUBLE;
@@ -204,7 +201,7 @@ public class AddPointDialogFragment extends DialogFragment {
         return this.north;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 }

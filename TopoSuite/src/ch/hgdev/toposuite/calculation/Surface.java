@@ -210,14 +210,14 @@ public class Surface extends Calculation {
         private double              radius;
         private int                 vertexNumber;
 
-        public PointWithRadius(int number, double east, double north, double _radius,
+        public PointWithRadius(String number, double east, double north, double _radius,
                 int _vertexNumber) {
             super(number, east, north, 0.0, false);
             this.radius = _radius;
             this.vertexNumber = _vertexNumber;
         }
 
-        public PointWithRadius(int number, double east, double north, int _vertexNumber) {
+        public PointWithRadius(String number, double east, double north, int _vertexNumber) {
             super(number, east, north, 0.0, false);
             this.radius = 0.0;
             this.vertexNumber = _vertexNumber;
@@ -241,7 +241,7 @@ public class Surface extends Calculation {
             PointWithRadius p = null;
             try {
                 JSONObject jo = new JSONObject(json);
-                int number = jo.getInt(Surface.PointWithRadius.NUMBER);
+                String number = jo.getString(Surface.PointWithRadius.NUMBER);
                 double east = jo.getDouble(Surface.PointWithRadius.EAST);
                 double north = jo.getDouble(Surface.PointWithRadius.NORTH);
                 double radius = jo.getDouble(Surface.PointWithRadius.RADIUS);

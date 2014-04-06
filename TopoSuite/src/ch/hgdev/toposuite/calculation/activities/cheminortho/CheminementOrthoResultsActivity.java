@@ -189,7 +189,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putInt(
+            args.putString(
                     MergePointsDialog.POINT_NUMBER,
                     r.getNumber());
 

@@ -47,7 +47,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
     private Bundle                    bundle;
     private EditMeasureDialogListener listener;
 
-    private int                       number;
+    private String                    number;
     private double                    distance;
     private int                       measurePosition;
 
@@ -86,8 +86,9 @@ public class EditMeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (EditMeasureDialogFragment.this.checkDialogInputs()) {
-                            EditMeasureDialogFragment.this.number = ViewUtils
-                                    .readInt(EditMeasureDialogFragment.this.numberEditText);
+                            EditMeasureDialogFragment.this.number =
+                                    EditMeasureDialogFragment.this.numberEditText.getText()
+                                            .toString();
                             EditMeasureDialogFragment.this.distance = ViewUtils
                                     .readDouble(EditMeasureDialogFragment.this.distanceEditText);
                             EditMeasureDialogFragment.this.listener
@@ -137,8 +138,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
-        this.numberEditText.setText(DisplayUtils.toStringForEditText(this.number));
-        this.numberEditText.setInputType(App.getInputTypeCoordinate());
+        this.numberEditText.setText(this.number);
 
         this.distanceEditText = new EditText(this.getActivity());
         this.distanceEditText.setText(DisplayUtils.toStringForEditText(this.distance));
@@ -170,7 +170,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
         return true;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 

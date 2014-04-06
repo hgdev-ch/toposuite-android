@@ -93,7 +93,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
                 Point pt = (Point)
                         LeveOrthoActivity.this.originSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LeveOrthoActivity.this.originPointTextView.setText
                             (DisplayUtils.formatPoint(LeveOrthoActivity.this, pt));
                 }
@@ -116,7 +116,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
                 Point pt = (Point)
                         LeveOrthoActivity.this.extremitySpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     LeveOrthoActivity.this.extremityPointTextView.setText
                             (DisplayUtils.formatPoint(LeveOrthoActivity.this, pt));
                 }
@@ -171,7 +171,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         this.drawList();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -325,9 +325,9 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         Point p1 = (Point) this.originSpinner.getSelectedItem();
         Point p2 = (Point) this.extremitySpinner.getSelectedItem();
 
-        if ((p1.getNumber() == 0) || (p2.getNumber() == 0)) {
+        if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty())) {
             this.resetResults();
-        } else if (p1.getNumber() == p2.getNumber()) {
+        } else if (p1.getNumber().equals(p2.getNumber())) {
             this.resetResults();
             ViewUtils.showToast(this, this.getString(R.string.error_same_points));
         } else {
@@ -358,7 +358,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
             return;
         }
 
-        if ((p1.getNumber() != 0) && (p2.getNumber() != 0)) {
+        if ((!p1.getNumber().isEmpty()) && (!p2.getNumber().isEmpty())) {
             if (this.measuredDistEditText.length() > 0) {
                 this.measuredDist = ViewUtils.readDouble(this.measuredDistEditText);
                 this.leveOrtho.getOrthogonalBase().setMeasuredDistance(this.measuredDist);
@@ -399,7 +399,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
     @Override
     public void onDialogAdd(AddMeasureDialogFragment dialog) {
-        int number = dialog.getNumber();
+        String number = dialog.getNumber();
         double abscissa = dialog.getAbscissa();
         double ordinate = dialog.getOrdinate();
 

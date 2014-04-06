@@ -70,7 +70,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 AbrissActivity.this.stationSelectedPosition = pos;
 
                 Point pt = (Point) AbrissActivity.this.stationSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     AbrissActivity.this.stationPointTextView.setText(DisplayUtils.formatPoint(
                             AbrissActivity.this, pt));
                 } else {
@@ -107,7 +107,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -165,7 +165,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         case R.id.run_calculation_button:
             Point station = (Point) this.stationSpinner.getSelectedItem();
 
-            if (station.getNumber() == 0) {
+            if (station.getNumber().isEmpty()) {
                 ViewUtils.showToast(this,
                         this.getString(R.string.error_no_station_selected));
                 return true;
@@ -181,7 +181,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
             bundle.putInt(AbrissActivity.CALCULATION_POSITION_LABEL,
                     this.position);
 
-            bundle.putInt(AbrissActivity.STATION_NUMBER_LABEL, station.getNumber());
+            bundle.putString(AbrissActivity.STATION_NUMBER_LABEL, station.getNumber());
 
             JSONArray json = new JSONArray();
             for (int i = 0; i < this.adapter.getCount(); i++) {
@@ -243,7 +243,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         EditOrientationDialogFragment dialog = new EditOrientationDialogFragment();
         Bundle args = new Bundle();
         Measure measure = this.adapter.getItem(position);
-        args.putInt(EditOrientationDialogFragment.ORIENTATION_NUMBER, measure.getPoint()
+        args.putString(EditOrientationDialogFragment.ORIENTATION_NUMBER, measure.getPoint()
                 .getNumber());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION, measure.getHorizDir());
         args.putDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE, measure.getDistance());

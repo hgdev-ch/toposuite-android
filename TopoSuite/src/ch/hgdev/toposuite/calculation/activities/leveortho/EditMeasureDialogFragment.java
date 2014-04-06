@@ -47,7 +47,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
     private Bundle                    bundle;
     private EditMeasureDialogListener listener;
 
-    private int                       number;
+    private String                    number;
     private double                    abscissa;
     private double                    ordinate;
     private int                       measurePosition;
@@ -88,8 +88,9 @@ public class EditMeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (EditMeasureDialogFragment.this.checkDialogInputs()) {
-                            EditMeasureDialogFragment.this.number = ViewUtils
-                                    .readInt(EditMeasureDialogFragment.this.numberEditText);
+                            EditMeasureDialogFragment.this.number =
+                                    EditMeasureDialogFragment.this.numberEditText.getText()
+                                            .toString();
                             EditMeasureDialogFragment.this.abscissa = ViewUtils
                                     .readDouble(EditMeasureDialogFragment.this.abscissaEditText);
                             EditMeasureDialogFragment.this.ordinate = ViewUtils
@@ -141,8 +142,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
-        this.numberEditText.setText(DisplayUtils.toStringForEditText(this.number));
-        this.numberEditText.setInputType(App.getInputTypeCoordinate());
+        this.numberEditText.setText(this.number);
 
         this.abscissaEditText = new EditText(this.getActivity());
         this.abscissaEditText.setText(DisplayUtils.toStringForEditText(this.abscissa));
@@ -179,7 +179,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
         return true;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return this.number;
     }
 

@@ -94,10 +94,10 @@ public class MergePointsDialog extends DialogFragment {
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_merge_points, container, false);
 
-        int pointNumber = this.getArguments().getInt(MergePointsDialog.POINT_NUMBER);
+        String pointNumber = this.getArguments().getString(MergePointsDialog.POINT_NUMBER);
         this.oldPt = SharedResources.getSetOfPoints().find(pointNumber);
         this.newPt = new Point(
-                0,
+                "",
                 this.getArguments().getDouble(MergePointsDialog.NEW_EAST),
                 this.getArguments().getDouble(MergePointsDialog.NEW_NORTH),
                 this.getArguments().getDouble(MergePointsDialog.NEW_ALTITUDE),

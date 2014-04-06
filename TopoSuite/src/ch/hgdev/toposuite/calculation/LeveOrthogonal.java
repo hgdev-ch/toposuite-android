@@ -181,7 +181,7 @@ public class LeveOrthogonal extends Calculation {
         public static final String ABSCISSA = "abscissa";
         public static final String ORDINATE = "ordinate";
 
-        private int                number;
+        private String             number;
         private double             abscissa;
         private double             ordinate;
 
@@ -197,7 +197,7 @@ public class LeveOrthogonal extends Calculation {
          */
         private double             vN;
 
-        public Measure(int _number, double _abscissa, double _ordinate, double _vE, double _vN) {
+        public Measure(String _number, double _abscissa, double _ordinate, double _vE, double _vN) {
             this.number = _number;
             this.abscissa = _abscissa;
             this.ordinate = _ordinate;
@@ -205,7 +205,7 @@ public class LeveOrthogonal extends Calculation {
             this.vN = _vN;
         }
 
-        public Measure(int _number, double _abscissa, double _ordinate) {
+        public Measure(String _number, double _abscissa, double _ordinate) {
             this(_number, _abscissa, _ordinate, 0.0, 0.0);
         }
 
@@ -229,7 +229,7 @@ public class LeveOrthogonal extends Calculation {
             try {
                 JSONObject jo = new JSONObject(json);
 
-                int number = jo.getInt(Measure.NUMBER);
+                String number = jo.getString(Measure.NUMBER);
                 double abscissa = jo.getDouble(Measure.ABSCISSA);
                 double ordinate = jo.getDouble(Measure.ORDINATE);
 
@@ -241,11 +241,11 @@ public class LeveOrthogonal extends Calculation {
             return m;
         }
 
-        public int getNumber() {
+        public String getNumber() {
             return this.number;
         }
 
-        public void setNumber(int number) {
+        public void setNumber(String number) {
             this.number = number;
         }
 

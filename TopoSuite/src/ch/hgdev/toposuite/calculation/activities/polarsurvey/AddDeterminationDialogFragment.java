@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +44,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
     }
 
     AddDeterminationDialogListener listener;
-    private int                    determinationNo;
+    private String                 determinationNo;
     private double                 horizDir;
     private double                 distance;
     private double                 zenAngle;
@@ -113,8 +112,9 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                                         .readDouble(AddDeterminationDialogFragment.this.lonDeplEditText);
                             }
 
-                            AddDeterminationDialogFragment.this.determinationNo = ViewUtils
-                                    .readInt(AddDeterminationDialogFragment.this.determinationNoEditText);
+                            AddDeterminationDialogFragment.this.determinationNo =
+                                    AddDeterminationDialogFragment.this.determinationNoEditText
+                                            .getText().toString();
                             AddDeterminationDialogFragment.this.horizDir = ViewUtils
                                     .readDouble(AddDeterminationDialogFragment.this.horizDirEditText);
                             AddDeterminationDialogFragment.this.distance = ViewUtils
@@ -156,8 +156,6 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         this.determinationNoEditText = new EditText(this.getActivity());
         this.determinationNoEditText.setHint(
                 this.getActivity().getString(R.string.determination_sight_3dots));
-        this.determinationNoEditText.setInputType(InputType.TYPE_CLASS_NUMBER
-                | InputType.TYPE_NUMBER_VARIATION_NORMAL);
 
         this.horizDirEditText = new EditText(this.getActivity());
         this.horizDirEditText.setHint(
@@ -199,7 +197,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.lonDeplEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.determinationNo = MathUtils.IGNORE_INT;
+        this.determinationNo = "";
         this.horizDir = MathUtils.IGNORE_DOUBLE;
         this.distance = MathUtils.IGNORE_DOUBLE;
         this.zenAngle = 100.0;
@@ -237,7 +235,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         return true;
     }
 
-    public int getDeterminationNo() {
+    public String getDeterminationNo() {
         return this.determinationNo;
     }
 

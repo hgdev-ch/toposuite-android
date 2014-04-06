@@ -77,7 +77,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point)
                         CheminementOrthoActivity.this.originSpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     CheminementOrthoActivity.this.originPointTextView.setText
                             (DisplayUtils.formatPoint(CheminementOrthoActivity.this, pt));
                 }
@@ -100,7 +100,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point)
                         CheminementOrthoActivity.this.extremitySpinner.getItemAtPosition(pos);
-                if (pt.getNumber() > 0) {
+                if (!pt.getNumber().isEmpty()) {
                     CheminementOrthoActivity.this.extremityPointTextView.setText
                             (DisplayUtils.formatPoint(CheminementOrthoActivity.this, pt));
                 }
@@ -137,7 +137,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         this.drawList();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point(0, 0.0, 0.0, 0.0, true));
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -223,7 +223,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             Point p1 = (Point) this.originSpinner.getSelectedItem();
             Point p2 = (Point) this.extremitySpinner.getSelectedItem();
 
-            if ((p1.getNumber() == 0) || (p2.getNumber() == 0) ||
+            if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty()) ||
                     (this.adapter.getCount() < 2)) {
                 ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
@@ -278,9 +278,9 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         Point p1 = (Point) this.originSpinner.getSelectedItem();
         Point p2 = (Point) this.extremitySpinner.getSelectedItem();
 
-        if ((p1.getNumber() == 0) || (p2.getNumber() == 0)) {
+        if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty())) {
             this.resetResults();
-        } else if (p1.getNumber() == p2.getNumber()) {
+        } else if (p1.getNumber().equals(p2.getNumber())) {
             this.resetResults();
             ViewUtils.showToast(this, this.getString(R.string.error_same_points));
         } else {
@@ -324,7 +324,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogAdd(AddMeasureDialogFragment dialog) {
-        int number = dialog.getNumber();
+        String number = dialog.getNumber();
         double distance = dialog.getDistance();
 
         CheminementOrthogonal.Measure m = new CheminementOrthogonal.Measure(number, distance);

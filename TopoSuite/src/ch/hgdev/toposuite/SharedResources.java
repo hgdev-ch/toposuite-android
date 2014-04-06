@@ -32,18 +32,18 @@ public class SharedResources {
      * @return the calculations history
      */
     public static DAOMapperArrayList<Calculation> getCalculationsHistory() {
-        if (calculationsHistory == null) {
-            calculationsHistory = new DAOMapperArrayList<Calculation>(
+        if (SharedResources.calculationsHistory == null) {
+            SharedResources.calculationsHistory = new DAOMapperArrayList<Calculation>(
                     new Searcher<Calculation>() {
                         @Override
                         public boolean isFound(Calculation currentElement, Object expectedElement) {
                             return ((Long) expectedElement).equals(currentElement.getId());
                         }
                     });
-            calculationsHistory.registerDAO(CalculationsDataSource.getInstance());
+            SharedResources.calculationsHistory.registerDAO(CalculationsDataSource.getInstance());
         }
 
-        return calculationsHistory;
+        return SharedResources.calculationsHistory;
     }
 
     /**
@@ -52,23 +52,23 @@ public class SharedResources {
      * @return The set of points.
      */
     public static DAOMapperTreeSet<Point> getSetOfPoints() {
-        if (setOfPoints == null) {
-            setOfPoints = new DAOMapperTreeSet<Point>(new Comparator<Point>() {
+        if (SharedResources.setOfPoints == null) {
+            SharedResources.setOfPoints = new DAOMapperTreeSet<Point>(new Comparator<Point>() {
                 @Override
                 public int compare(Point left, Point right) {
-                    int l = left.getNumber();
-                    int r = right.getNumber();
-                    return (r > l ? -1 : (r == l ? 0 : 1));
+                    String l = left.getNumber();
+                    String r = right.getNumber();
+                    return l.compareTo(r);
                 }
             }, new Searcher<Point>() {
                 @Override
                 public boolean isFound(Point currentElement, Object expectedElement) {
-                    Integer expectedNumber = (Integer) expectedElement;
-                    return currentElement.getNumber() == expectedNumber;
+                    String expectedNumber = (String) expectedElement;
+                    return currentElement.getNumber().equals(expectedNumber);
                 }
             });
-            setOfPoints.registerDAO(PointsDataSource.getInstance());
+            SharedResources.setOfPoints.registerDAO(PointsDataSource.getInstance());
         }
-        return setOfPoints;
+        return SharedResources.setOfPoints;
     }
 }

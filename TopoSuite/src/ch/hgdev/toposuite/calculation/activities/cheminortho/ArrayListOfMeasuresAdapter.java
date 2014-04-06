@@ -36,7 +36,7 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<CheminementOrthogon
             TextView distanceTextView = (TextView) view.findViewById(R.id.distance_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(DisplayUtils.toStringForTextView(measure.getNumber()));
+                numberTextView.setText(measure.getNumber());
             }
 
             if (distanceTextView != null) {

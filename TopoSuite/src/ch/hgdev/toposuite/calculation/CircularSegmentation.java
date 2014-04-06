@@ -209,7 +209,7 @@ public class CircularSegmentation extends Calculation {
                     this.circleCenter.getEast(), gis, this.circleRadius);
             double north = MathUtils.pointLanceNorth(
                     this.circleCenter.getNorth(), gis, this.circleRadius);
-            Point p = new Point(0, east, north, MathUtils.IGNORE_DOUBLE, false);
+            Point p = new Point("", east, north, MathUtils.IGNORE_DOUBLE, false);
             this.points.add(p);
         }
 
@@ -241,11 +241,11 @@ public class CircularSegmentation extends Calculation {
         JSONObject json = new JSONObject(jsonInputArgs);
 
         this.circleCenter = SharedResources.getSetOfPoints().find(
-                json.getInt(CircularSegmentation.CIRCLE_CENTER));
+                json.getString(CircularSegmentation.CIRCLE_CENTER));
         this.circleStartPoint = SharedResources.getSetOfPoints().find(
-                json.getInt(CircularSegmentation.CIRCLE_START_POINT));
+                json.getString(CircularSegmentation.CIRCLE_START_POINT));
         this.circleEndPoint = SharedResources.getSetOfPoints().find(
-                json.getInt(CircularSegmentation.CIRCLE_END_POINT));
+                json.getString(CircularSegmentation.CIRCLE_END_POINT));
 
         this.arcLength = json.getDouble(CircularSegmentation.ARC_LENGTH);
         this.numberOfSegments = json.getInt(CircularSegmentation.NUMBER_OF_SEGMENTS);

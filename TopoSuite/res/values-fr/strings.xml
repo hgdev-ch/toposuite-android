@@ -131,7 +131,7 @@
     <string name="exception_invalid_format_values">La ligne contient des valeurs non-valides!</string>
     <string name="exception_invalid_format_values_number">La ligne contient un nombre incorrect de valeurs!</string>
     <string name="excircle_label">Rayon du cercle circonscrit [m]</string>
-    <string name="existing_point_number">Le numéro de point est: <xliff:g>%d</xliff:g></string>
+    <string name="existing_point_number">Le numéro de point est: <xliff:g>%s</xliff:g></string>
     <string name="export">Exporter</string>
     <string name="export_3dots">Exporter&#8230;</string>
     <string name="extremity_label">Extrémité</string>

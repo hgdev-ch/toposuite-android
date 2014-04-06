@@ -17,8 +17,12 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CheminementOrthogonal extends Calculation {
-    public static final String                       ORTHOGONAL_BASE = "orthogonal_base";
-    public static final String                       MEASURES        = "measures";
+    public static final String                       ORTHOGONAL_BASE      = "orthogonal_base";
+    public static final String                       MEASURES             = "measures";
+
+    private static final String                      DUMMY_POINT_NUMBER_1 = "42";
+    private static final String                      DUMMY_POINT_NUMBER_2 = "22";
+    private static final String                      DUMMY_POINT_NUMBER_3 = "3232";
 
     private OrthogonalBase                           orthogonalBase;
     private ArrayList<CheminementOrthogonal.Measure> measures;
@@ -120,7 +124,7 @@ public class CheminementOrthogonal extends Calculation {
 
         // gisement of the temporary base
         Gisement g = new Gisement(this.orthogonalBase.getOrigin(),
-                new Point(42, eastExt, northExt, 0.0, false, false), false);
+                new Point("42", eastExt, northExt, 0.0, false, false), false);
         g.compute();
         gis = g.getGisement();
 
@@ -139,7 +143,8 @@ public class CheminementOrthogonal extends Calculation {
         gis += rot;
         dist = MathUtils.euclideanDistance(
                 this.orthogonalBase.getOrigin(),
-                new Point(3232, eastExt, northExt, 0.0, false, false));
+                new Point(CheminementOrthogonal.DUMMY_POINT_NUMBER_3, eastExt, northExt, 0.0,
+                        false, false));
 
         double deltaMeasEast = MathUtils.pointLanceEast(currEast, gis, dist) - currEast;
         double deltaMeasNorth = MathUtils.pointLanceNorth(currNorth, gis, dist) - currNorth;
@@ -157,8 +162,10 @@ public class CheminementOrthogonal extends Calculation {
 
         // calculation of the final coordinates
         for (CheminementOrthogonal.Result r : tmpResults) {
-            Point p1 = new Point(42, currEast, currNorth, 0.0, false, false);
-            Point p2 = new Point(24, r.getEast(), r.getNorth(), 0.0, false, false);
+            Point p1 = new Point(CheminementOrthogonal.DUMMY_POINT_NUMBER_1, currEast, currNorth,
+                    0.0, false, false);
+            Point p2 = new Point(CheminementOrthogonal.DUMMY_POINT_NUMBER_2, r.getEast(),
+                    r.getNorth(), 0.0, false, false);
 
             g = new Gisement(p1, p2, false);
             g.compute();
@@ -299,13 +306,13 @@ public class CheminementOrthogonal extends Calculation {
      * @author HGdev
      */
     public static class Result {
-        private int    number;
+        private String number;
         private double east;
         private double north;
         private double vE;
         private double vN;
 
-        public Result(int _number, double _east, double _north, double _vE, double _vN) {
+        public Result(String _number, double _east, double _north, double _vE, double _vN) {
             this.number = _number;
             this.east = _east;
             this.north = _north;
@@ -313,15 +320,15 @@ public class CheminementOrthogonal extends Calculation {
             this.vN = _vN;
         }
 
-        public Result(int _number, double _east, double _north) {
+        public Result(String _number, double _east, double _north) {
             this(_number, _east, _north, 0.0, 0.0);
         }
 
-        public int getNumber() {
+        public String getNumber() {
             return this.number;
         }
 
-        public void setNumber(int number) {
+        public void setNumber(String number) {
             this.number = number;
         }
 
@@ -367,10 +374,10 @@ public class CheminementOrthogonal extends Calculation {
         public static final String NUMBER   = "number";
         public static final String DISTANCE = "distance";
 
-        private int                number;
+        private String             number;
         private double             distance;
 
-        public Measure(int _number, double _distance) {
+        public Measure(String _number, double _distance) {
             this.number = _number;
             this.distance = _distance;
         }
@@ -394,7 +401,7 @@ public class CheminementOrthogonal extends Calculation {
             try {
                 JSONObject jo = new JSONObject(json);
 
-                int number = jo.getInt(Measure.NUMBER);
+                String number = jo.getString(Measure.NUMBER);
                 double distance = jo.getDouble(Measure.DISTANCE);
 
                 m = new Measure(number, distance);
@@ -405,11 +412,11 @@ public class CheminementOrthogonal extends Calculation {
             return m;
         }
 
-        public int getNumber() {
+        public String getNumber() {
             return this.number;
         }
 
-        public void setNumber(int number) {
+        public void setNumber(String number) {
             this.number = number;
         }
 

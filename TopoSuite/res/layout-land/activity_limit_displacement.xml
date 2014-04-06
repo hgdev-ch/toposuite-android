@@ -174,7 +174,6 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="0.40"
 	            android:gravity="left|center_vertical"
-	            android:inputType="numberSigned"
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
 	        
 	         <Space
@@ -204,7 +203,6 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="0.40"
 	            android:gravity="left|center_vertical"
-	            android:inputType="numberSigned"
 	            android:paddingLeft="@dimen/activity_horizontal_margin" />
 	        
 	         <Space

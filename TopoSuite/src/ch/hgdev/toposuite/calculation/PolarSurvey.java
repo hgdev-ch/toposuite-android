@@ -147,7 +147,7 @@ public class PolarSurvey extends Calculation {
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
         this.station = SharedResources.getSetOfPoints().find(
-                json.getInt(PolarSurvey.STATION_NUMBER));
+                json.getString(PolarSurvey.STATION_NUMBER));
 
         this.z0CalculationId = json.getLong(PolarSurvey.Z0_CALCULATION_ID);
 
@@ -165,7 +165,7 @@ public class PolarSurvey extends Calculation {
                     jo.getDouble(Measure.LON_DEPL),
                     jo.getDouble(Measure.I),
                     jo.getDouble(Measure.UNKNOWN_ORIENTATION),
-                    jo.getInt(Measure.MEASURE_NUMBER));
+                    jo.getString(Measure.MEASURE_NUMBER));
             this.determinations.add(m);
         }
     }
@@ -212,19 +212,19 @@ public class PolarSurvey extends Calculation {
      * 
      */
     public class Result {
-        private final int    determinationNumber;
+        private final String determinationNumber;
         private final double east;
         private final double north;
         private final double altitude;
 
-        public Result(int _determinationNumber, double _east, double _north, double _altitude) {
+        public Result(String _determinationNumber, double _east, double _north, double _altitude) {
             this.determinationNumber = _determinationNumber;
             this.east = _east;
             this.north = _north;
             this.altitude = _altitude;
         }
 
-        public int getDeterminationNumber() {
+        public String getDeterminationNumber() {
             return this.determinationNumber;
         }
 

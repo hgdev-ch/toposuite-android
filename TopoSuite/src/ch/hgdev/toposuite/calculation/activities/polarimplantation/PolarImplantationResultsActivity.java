@@ -32,7 +32,7 @@ public class PolarImplantationResultsActivity extends TopoSuiteActivity {
 
         Bundle bundle = this.getIntent().getExtras();
         Point station = SharedResources.getSetOfPoints().find(
-                bundle.getInt(PolarImplantationActivity.STATION_NUMBER_LABEL));
+                bundle.getString(PolarImplantationActivity.STATION_NUMBER_LABEL));
         if (this.polarImplantation == null) {
             this.polarImplantation = new PolarImplantation(station, true);
         }

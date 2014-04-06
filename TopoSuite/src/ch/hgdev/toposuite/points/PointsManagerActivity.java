@@ -298,8 +298,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
      * @param altitude
      *            Point's altitude attribute.
      */
-    private void addPoint(int number, double east, double north, double altitude) {
-        if (number < 1) {
+    private void addPoint(String number, double east, double north, double altitude) {
+        if (number.isEmpty()) {
             ViewUtils.showToast(this, this.getString(R.string.error_point_number));
         } else {
             // when created by a user and not computed, a point IS a basepoint

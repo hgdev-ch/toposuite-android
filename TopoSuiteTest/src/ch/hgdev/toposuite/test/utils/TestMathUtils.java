@@ -68,8 +68,8 @@ public class TestMathUtils extends TestCase {
         DecimalFormat df = new DecimalFormat("#.####");
         df.setRoundingMode(RoundingMode.HALF_UP);
 
-        Point p1 = new Point(1, 643.238, 437.271, 0.0, true);
-        Point p2 = new Point(2, 576.376, 285.267, 0.0, true);
+        Point p1 = new Point("1", 643.238, 437.271, 0.0, true);
+        Point p2 = new Point("2", 576.376, 285.267, 0.0, true);
 
         Assert.assertEquals("166.0595",
                 df.format(MathUtils.euclideanDistance(p1, p2)));
@@ -82,9 +82,9 @@ public class TestMathUtils extends TestCase {
     public void testEqualsForPointsWithTolerance() {
         final double TOLERANCE = 0.00000001;
         final double TOLERANCE_2 = 0.0000000001;
-        Point p1 = new Point(421, 42.123456789, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
-        Point p2 = new Point(422, 42.123456788, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
-        Point p3 = new Point(423, 42.123456789, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p1 = new Point("421", 42.123456789, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p2 = new Point("422", 42.123456788, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p3 = new Point("423", 42.123456789, 24.1234, MathUtils.IGNORE_DOUBLE, true, false);
 
         Assert.assertTrue(MathUtils.equals(p1, p2, TOLERANCE));
         Assert.assertFalse(MathUtils.equals(p1, p2, TOLERANCE_2));
