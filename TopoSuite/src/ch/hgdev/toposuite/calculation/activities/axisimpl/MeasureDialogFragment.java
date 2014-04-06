@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.axisimpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,17 +7,12 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -56,13 +48,12 @@ class MeasureDialogFragment extends DialogFragment {
     }
 
     MeasureDialogListener       listener;
-    private Point               point;
+    private String              measureNumber;
     private double              horizDir;
     private double              distance;
 
     private LinearLayout        layout;
-    private Spinner             pointSpinner;
-    private TextView            pointTextView;
+    private EditText            measureNumberEditText;
     private EditText            horizDirEditText;
     private EditText            distanceEditText;
 
@@ -128,9 +119,9 @@ class MeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         if (MeasureDialogFragment.this.checkDialogInputs()) {
-                            MeasureDialogFragment.this.point =
-                                    (Point) MeasureDialogFragment.this.pointSpinner
-                                            .getSelectedItem();
+                            MeasureDialogFragment.this.measureNumber =
+                                    MeasureDialogFragment.this.measureNumberEditText
+                                            .getText().toString();
                             MeasureDialogFragment.this.horizDir = ViewUtils
                                     .readDouble(MeasureDialogFragment.this.horizDirEditText);
                             MeasureDialogFragment.this.distance = ViewUtils
@@ -175,35 +166,7 @@ class MeasureDialogFragment extends DialogFragment {
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
-        this.pointTextView = new TextView(this.getActivity());
-        this.pointTextView.setText("");
-
-        this.pointSpinner = new Spinner(this.getActivity());
-        this.pointSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point point = (Point) MeasureDialogFragment.this.pointSpinner
-                        .getItemAtPosition(pos);
-                if (!point.getNumber().isEmpty()) {
-                    MeasureDialogFragment.this.pointTextView.setText(DisplayUtils
-                            .formatPoint(MeasureDialogFragment.this.getActivity(), point));
-                } else {
-                    MeasureDialogFragment.this.pointTextView.setText("");
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing
-            }
-        });
-
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
-        points.addAll(SharedResources.getSetOfPoints());
-        this.adapter = new ArrayAdapter<Point>(
-                this.getActivity(), R.layout.spinner_list_item, points);
-        this.pointSpinner.setAdapter(this.adapter);
+        this.measureNumberEditText = new EditText(this.getActivity());
 
         this.horizDirEditText = new EditText(this.getActivity());
         this.horizDirEditText.setHint(
@@ -225,13 +188,11 @@ class MeasureDialogFragment extends DialogFragment {
      * Fill views.
      */
     private void setAttributes() {
-        this.point = this.measure.getPoint();
+        this.measureNumber = this.measure.getMeasureNumber();
         this.horizDir = this.measure.getHorizDir();
         this.distance = this.measure.getDistance();
 
-        this.pointSpinner.setSelection(this.adapter.getPosition(this.point));
-        this.pointTextView.setText(DisplayUtils.formatPoint(
-                this.getActivity(), this.point));
+        this.measureNumberEditText.setText(this.measureNumber);
         this.horizDirEditText.setText(DisplayUtils.toStringForEditText(this.horizDir));
         this.distanceEditText.setText(DisplayUtils.toStringForEditText(this.distance));
     }
@@ -240,8 +201,7 @@ class MeasureDialogFragment extends DialogFragment {
      * Create a view to get information from the user.
      */
     private void genAddMeasureView() {
-        this.layout.addView(this.pointSpinner);
-        this.layout.addView(this.pointTextView);
+        this.layout.addView(this.measureNumberEditText);
         this.layout.addView(this.horizDirEditText);
         this.layout.addView(this.distanceEditText);
     }
@@ -252,7 +212,7 @@ class MeasureDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        return ((this.pointSpinner.getSelectedItemPosition() > 0)
+        return ((this.measureNumberEditText.length() > 0)
                 && (this.horizDirEditText.length() > 0)
                 && (this.distanceEditText.length() > 0));
     }
@@ -265,8 +225,8 @@ class MeasureDialogFragment extends DialogFragment {
         return this.distance;
     }
 
-    public final Point getPoint() {
-        return this.point;
+    public final String getMeasureNumber() {
+        return this.measureNumber;
     }
 
     public final Measure getMeasure() {

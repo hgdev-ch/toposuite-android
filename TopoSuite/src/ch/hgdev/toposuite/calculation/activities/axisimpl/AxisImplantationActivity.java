@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -196,6 +200,13 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.leve_ortho_measures_list_context_menu, menu);
+    }
+
+    @Override
     protected String getActivityTitle() {
         return this.getString(R.string.title_activity_axis_implantation);
     }
@@ -236,6 +247,23 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                     .getInt(AxisImplantationActivity.ORIGIN_SELECTED_POSITION);
             this.extremitySelectedPosition = savedInstanceState
                     .getInt(AxisImplantationActivity.EXTREMITY_SELECTED_POSITION);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+        case R.id.edit_measure:
+            this.showEditMeasureDialog(info.position);
+            return true;
+        case R.id.delete_measure:
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        default:
+            return super.onContextItemSelected(item);
         }
     }
 
@@ -293,10 +321,11 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
     @Override
     public void onDialogAdd(MeasureDialogFragment dialog) {
         Measure m = new Measure(
-                dialog.getPoint(),
+                null,
                 dialog.getHorizDir(),
                 100,
                 dialog.getDistance());
+        m.setMeasureNumber(dialog.getMeasureNumber());
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
         this.showAddMeasureDialog();
@@ -307,7 +336,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
         int position = this.axisImpl.getMeasures().indexOf(dialog.getMeasure());
 
         Measure m = this.axisImpl.getMeasures().get(position);
-        m.setPoint(dialog.getPoint());
+        m.setMeasureNumber(dialog.getMeasureNumber());
         m.setHorizDir(dialog.getHorizDir());
         m.setDistance(dialog.getDistance());
 
