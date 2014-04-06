@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
+import ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
 import ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesSolverActivity;
 import ch.hgdev.toposuite.calculation.activities.circle.CircleActivity;
@@ -188,6 +189,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         polarCalculation.getChildren().add(new ActivityItem(
                 this.getString(R.string.title_activity_free_station),
                 FreeStationActivity.class));
+        polarCalculation.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_axis_implantation),
+                AxisImplantationActivity.class));
         groups.append(0, polarCalculation);
 
         CalculationGroup orthoCalculation = new CalculationGroup(
