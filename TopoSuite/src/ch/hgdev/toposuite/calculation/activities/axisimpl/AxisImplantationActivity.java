@@ -165,9 +165,9 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                     .getCalculationsHistory().get(position);
 
             // the user has retrieved his z0 from last calculation previously
-            if (this.axisImpl.getUnknownOrientation() > 0) {
+            if (this.axisImpl.getZ0CalculationId() > 0) {
                 Calculation c = SharedResources.getCalculationsHistory().find(
-                        this.axisImpl.getUnknownOrientation());
+                        this.axisImpl.getZ0CalculationId());
 
                 if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                     Abriss a = (Abriss) c;
