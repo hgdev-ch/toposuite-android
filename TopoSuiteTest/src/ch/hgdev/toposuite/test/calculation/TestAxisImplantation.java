@@ -26,7 +26,7 @@ public class TestAxisImplantation extends CalculationTest {
         Assert.assertEquals("222", r.getNumber());
         Assert.assertEquals("556488.9", this.df1.format(r.getEast()));
         Assert.assertEquals("172523.1", this.df1.format(r.getNorth()));
-        Assert.assertEquals("41.098", this.df3.format(r.getAbscissa()));
-        Assert.assertEquals("11.445", this.df3.format(r.getOrdinate()));
+        Assert.assertEquals("-8.617", this.df3.format(r.getAbscissa()));
+        Assert.assertEquals("-11.445", this.df3.format(r.getOrdinate()));
     }
 }
