@@ -44,6 +44,9 @@ public class CalculationFactory {
         case ABRISS:
             calculation = new Abriss(id, lastModification);
             break;
+        case AXISIMPLANTATION:
+            calculation = new AxisImplantation(id, lastModification);
+            break;
         case CHEMINORTHO:
             calculation = new CheminementOrthogonal(id, lastModification);
             break;

@@ -158,16 +158,30 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
             }
         });
 
+        List<Point> points = new ArrayList<Point>();
+        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        points.addAll(SharedResources.getSetOfPoints());
+
+        this.pointsAdapter = new ArrayAdapter<Point>(
+                this, R.layout.spinner_list_item, points);
+
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.axisImpl = (AxisImplantation) SharedResources
                     .getCalculationsHistory().get(position);
 
+            this.stationSelectedPosition = this.pointsAdapter.getPosition(
+                    this.axisImpl.getStation());
+            this.originSelectedPosition = this.pointsAdapter.getPosition(
+                    this.axisImpl.getOrthogonalBase().getOrigin());
+            this.extremitySelectedPosition = this.pointsAdapter.getPosition(
+                    this.axisImpl.getOrthogonalBase().getExtremity());
+
             // the user has retrieved his z0 from last calculation previously
-            if (this.axisImpl.getUnknownOrientation() > 0) {
+            if (this.axisImpl.getZ0CalculationId() > 0) {
                 Calculation c = SharedResources.getCalculationsHistory().find(
-                        this.axisImpl.getUnknownOrientation());
+                        this.axisImpl.getZ0CalculationId());
 
                 if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                     Abriss a = (Abriss) c;
@@ -184,11 +198,12 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                             AxisImplantationActivity.AXIS_IMPL_ACTIVITY
                                     + "trying to get Z0 from a calculation that does not compute one");
                 }
-                this.unknownOrientationEditText.setText(DisplayUtils.toStringForEditText(
-                        this.axisImpl.getUnknownOrientation()));
                 this.checkboxZ0.setChecked(true);
                 this.unknownOrientationEditText.setEnabled(false);
             }
+
+            this.unknownOrientationEditText.setText(DisplayUtils.toStringForEditText(
+                    this.axisImpl.getUnknownOrientation()));
         } else {
             this.axisImpl = new AxisImplantation(null, 0.0, null, null, true);
         }
@@ -202,12 +217,6 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
     protected void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
-        points.addAll(SharedResources.getSetOfPoints());
-
-        this.pointsAdapter = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(this.pointsAdapter);
         this.originSpinner.setAdapter(this.pointsAdapter);
         this.extremitySpinner.setAdapter(this.pointsAdapter);
