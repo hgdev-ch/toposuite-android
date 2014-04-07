@@ -147,15 +147,15 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m8);
         fs.compute();
 
-        Assert.assertEquals("559724.677", this.df3.format(
+        Assert.assertEquals("559724.59", this.df2.format(
                 fs.getStationResult().getEast()));
-        Assert.assertEquals("147753.711", this.df3.format(
+        Assert.assertEquals("147753.696", this.df3.format(
                 fs.getStationResult().getNorth()));
 
-        Assert.assertEquals("10", this.df1.format(fs.getsE()));
-        Assert.assertEquals("10", this.df1.format(fs.getsN()));
+        Assert.assertEquals("8.4", this.df1.format(fs.getsE()));
+        Assert.assertEquals("8.4", this.df1.format(fs.getsN()));
 
-        Assert.assertEquals("0.2054", this.df3.format(fs.getUnknownOrientation()));
+        Assert.assertEquals("0.352", this.df3.format(fs.getUnknownOrientation()));
     }
 
     public void testFreeStationDeactivation1() {

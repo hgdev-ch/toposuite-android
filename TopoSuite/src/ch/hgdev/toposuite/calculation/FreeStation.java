@@ -15,10 +15,14 @@ import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
+import com.google.common.math.DoubleMath;
+
 public class FreeStation extends Calculation {
     private static final String     STATION_NUMBER = "station_number";
     private static final String     MEASURES       = "measures";
     private static final String     INSTRUMENT     = "instrument";
+
+    private static final double     TOLERANCE      = 0.0001;
 
     private String                  stationNumber;
     private ArrayList<Measure>      measures;
@@ -156,8 +160,8 @@ public class FreeStation extends Calculation {
             if (!this.hasDeactivatedMeasure()) {
                 this.results.add(new Result(res, weight));
             } else {
-                // just used as tmp variable for modifying the pointed value of the
-                // current result
+                // just used as tmp variable for modifying the pointed value of
+                // the current result
                 @SuppressWarnings("unused")
                 Result oldResult = this.results.get(index);
                 oldResult = new Result(res, weight);
@@ -199,10 +203,11 @@ public class FreeStation extends Calculation {
                             g2.getGisement(), g2.getHorizDist()));
 
             // calculation of the rotation between fictive and cadastral
-            // coordinates
-            // according to the following formula:
+            // coordinates according to the following formula:
             // mod400(gis_cadastral - gis_fictive)
-            double rotation = MathUtils.modulo400(g2.getGisement() - g1.getGisement());
+            double rotation = g2.getGisement() - g1.getGisement();
+            rotation += (DoubleMath.fuzzyCompare(
+                    g1.getGisement(), g2.getGisement(), FreeStation.TOLERANCE) > 0) ? 400 : 0;
             intermRes.get(i).rotation = rotation;
             meanRotations += rotation;
 
@@ -214,7 +219,7 @@ public class FreeStation extends Calculation {
             meanConstants += constant;
         }
 
-        meanRotations /= n;
+        meanRotations = MathUtils.modulo400(meanRotations) / n;
         meanConstants /= n;
 
         // calculation of the gisement/distance between the fictive centroid and
