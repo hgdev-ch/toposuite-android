@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -20,7 +22,13 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * 
  */
 public class AxisImplantation extends Calculation {
-    private static double                       TOLERANCE = 0.0001;
+    public static final String                  STATION_NUMBER    = "station_number";
+    public static final String                  ORIGIN_NUMBER     = "origin_number";
+    public static final String                  EXTREMITY_NUMBER  = "extremity_number";
+    public static final String                  Z0_CALCULATION_ID = "z0_calculation_id";
+    public static final String                  MEASURES_LIST     = "measures_list";
+
+    private static double                       TOLERANCE         = 0.0001;
     private long                                z0CalculationId;
 
     private OrthogonalBase                      orthogonalBase;
@@ -130,14 +138,59 @@ public class AxisImplantation extends Calculation {
 
     @Override
     public String exportToJSON() throws JSONException {
-        // TODO Implement
-        return null;
+        JSONObject json = new JSONObject();
+        if (this.station != null) {
+            json.put(AxisImplantation.STATION_NUMBER, this.station.getNumber());
+        }
+        if (this.getOrthogonalBase() != null) {
+            if (this.getOrthogonalBase().getOrigin() != null) {
+                json.put(AxisImplantation.ORIGIN_NUMBER, this.orthogonalBase.getOrigin());
+            }
+            if (this.getOrthogonalBase().getExtremity() != null) {
+                json.put(AxisImplantation.EXTREMITY_NUMBER, this.orthogonalBase.getExtremity());
+            }
+        }
+        json.put(AxisImplantation.Z0_CALCULATION_ID, this.z0CalculationId);
+
+        if (this.measures.size() > 0) {
+            JSONArray measuresArray = new JSONArray();
+            for (Measure m : this.measures) {
+                measuresArray.put(m.toJSONObject());
+            }
+            json.put(AxisImplantation.MEASURES_LIST, measuresArray);
+        }
+
+        return json.toString();
     }
 
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
-        // TODO Implement
+        JSONObject json = new JSONObject(jsonInputArgs);
+        this.station = SharedResources.getSetOfPoints().find(
+                json.getString(AxisImplantation.STATION_NUMBER));
+        Point origin = SharedResources.getSetOfPoints().find(
+                json.getString(AxisImplantation.ORIGIN_NUMBER));
+        Point extremity = SharedResources.getSetOfPoints().find(
+                json.getString(AxisImplantation.EXTREMITY_NUMBER));
+        this.orthogonalBase = new OrthogonalBase(origin, extremity);
+        this.z0CalculationId = json.getLong(AxisImplantation.Z0_CALCULATION_ID);
 
+        JSONArray measuresArray = json.getJSONArray(AxisImplantation.MEASURES_LIST);
+        for (int i = 0; i < measuresArray.length(); i++) {
+            JSONObject jo = (JSONObject) measuresArray.get(i);
+            Measure m = new Measure(
+                    null,
+                    jo.getDouble(Measure.HORIZ_DIR),
+                    jo.getDouble(Measure.ZEN_ANGLE),
+                    jo.getDouble(Measure.DISTANCE),
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE,
+                    MathUtils.IGNORE_DOUBLE,
+                    jo.getString(Measure.MEASURE_NUMBER));
+            this.measures.add(m);
+        }
     }
 
     @Override
