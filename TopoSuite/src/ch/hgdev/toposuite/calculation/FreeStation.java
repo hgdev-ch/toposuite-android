@@ -123,7 +123,6 @@ public class FreeStation extends Calculation {
                 numberOfDeactivatedOrientations++;
                 continue;
             }
-
             Point res = new Point(m.getPoint().getNumber(), m.getPoint().getEast(),
                     m.getPoint().getNorth(), m.getPoint().getAltitude(),
                     false, false);
@@ -188,15 +187,17 @@ public class FreeStation extends Calculation {
         for (int i = 0; i < this.results.size(); i++) {
             if (this.measures.get(i).isDeactivated()) {
                 // dummy intermediate results in order to avoid indexes problems
-                intermRes.add(new IntermediateResults(0.0, 0.0, 0.0, 0.0));
+                intermRes.add(new IntermediateResults(
+                        MathUtils.IGNORE_DOUBLE,
+                        MathUtils.IGNORE_DOUBLE,
+                        MathUtils.IGNORE_DOUBLE,
+                        MathUtils.IGNORE_DOUBLE));
                 continue;
             }
-
             Gisement g1 = new Gisement(
                     centroidFict, this.results.get(i).getPoint(), false);
             Gisement g2 = new Gisement(
                     centroidCadast, this.measures.get(i).getPoint(), false);
-
             intermRes.add(
                     new IntermediateResults(
                             g1.getGisement(), g1.getHorizDist(),
@@ -205,11 +206,8 @@ public class FreeStation extends Calculation {
             // calculation of the rotation between fictive and cadastral
             // coordinates according to the following formula:
             // mod400(gis_cadastral - gis_fictive)
-            double rotation = g2.getGisement() - g1.getGisement();
-            rotation += (DoubleMath.fuzzyCompare(
-                    g1.getGisement(), g2.getGisement(), FreeStation.TOLERANCE) > 0) ? 400 : 0;
+            double rotation = (g2.getGisement() - g1.getGisement()) + 400.0;
             intermRes.get(i).rotation = rotation;
-            meanRotations += rotation;
 
             // calculation of the multiplication constants between fictive and
             // cadastral coordinates according to the following formula:
@@ -218,8 +216,22 @@ public class FreeStation extends Calculation {
             intermRes.get(i).constant = constant;
             meanConstants += constant;
         }
+        double minRotation = this.getMinRotation(intermRes);
+        for (IntermediateResults res : intermRes) {
+            double rotation = res.rotation;
+            // skip values to ignore (deactivated measures)
+            if (MathUtils.isIgnorable(rotation)) {
+                continue;
+            }
+            if (DoubleMath.fuzzyCompare(rotation - minRotation, -15.0, FreeStation.TOLERANCE) < 0) {
+                rotation += 400.0;
+            } else if (DoubleMath.fuzzyCompare(rotation - minRotation, 15.0, FreeStation.TOLERANCE) > 0) {
+                rotation -= 400.0;
+            }
+            meanRotations += rotation;
+        }
 
-        meanRotations = MathUtils.modulo400(meanRotations) / n;
+        meanRotations = MathUtils.modulo400(meanRotations / n);
         meanConstants /= n;
 
         // calculation of the gisement/distance between the fictive centroid and
@@ -303,6 +315,25 @@ public class FreeStation extends Calculation {
                 + " - " + App.getContext().getString(R.string.station_label)
                 + ": " + this.getStationNumber());
         this.notifyUpdate(this);
+    }
+
+    /**
+     * Find the minimum rotation from the list of intermediate results.
+     * 
+     * @param results
+     * @return
+     */
+    private double getMinRotation(List<IntermediateResults> results) {
+        double minRotation = Double.MAX_VALUE;
+        for (IntermediateResults r : results) {
+            if (MathUtils.isIgnorable(r.rotation)) {
+                continue;
+            }
+            if (DoubleMath.fuzzyCompare(r.rotation, minRotation, FreeStation.TOLERANCE) < 0) {
+                minRotation = r.rotation;
+            }
+        }
+        return minRotation;
     }
 
     @Override
@@ -587,8 +618,8 @@ public class FreeStation extends Calculation {
             this.gisCadast = _gisCadast;
             this.distCadast = _distCadast;
 
-            this.rotation = 0.0;
-            this.constant = 0.0;
+            this.rotation = MathUtils.IGNORE_DOUBLE;
+            this.constant = MathUtils.IGNORE_DOUBLE;
         }
     }
 }
