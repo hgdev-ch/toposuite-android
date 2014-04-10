@@ -188,6 +188,7 @@ public class NumberPickerDialogPreference extends DialogPreference {
             dest.writeInt(this.value);
         }
 
+        @SuppressWarnings("unused")
         public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
                                                                        // @formatter:off 
             @Override
