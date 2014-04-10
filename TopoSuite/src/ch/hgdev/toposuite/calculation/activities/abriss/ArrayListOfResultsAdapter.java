@@ -60,7 +60,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
 
             if (unknOrientTextView != null) {
                 unknOrientTextView.setText(
-                        DisplayUtils.formatDistance(result.getUnknownOrientation()));
+                        DisplayUtils.formatAngle(result.getUnknownOrientation()));
                 this.colorizeTextView(unknOrientTextView, result);
             }
 
