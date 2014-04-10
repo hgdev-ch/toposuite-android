@@ -14,13 +14,11 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<AxisImplantation.Result> {
     private final List<AxisImplantation.Result> results;
-    private final int                           textViewResourceId;
 
     public ArrayListOfResultsAdapter(Context context, int textViewResourceId,
             List<AxisImplantation.Result> results) {
         super(context, textViewResourceId, results);
         this.results = results;
-        this.textViewResourceId = textViewResourceId;
     }
 
     @Override
