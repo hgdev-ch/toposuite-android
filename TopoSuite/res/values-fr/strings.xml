@@ -313,6 +313,7 @@
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_help">Aide</string>
     <string name="title_activity_history">Historique</string>
+    <string name="title_activity_jobs">Jobs</string>
     <string name="title_activity_leve_ortho">Levé orthogonal</string>
     <string name="title_activity_leve_ortho_results">Levé orthogonal - résultats</string>
     <string name="title_activity_limit_displacement">Déplacement de limite</string>

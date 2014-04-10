@@ -311,6 +311,7 @@
     <string name="title_activity_gisement">Gisement / Distance</string>
     <string name="title_activity_help">Help</string>
     <string name="title_activity_history">History</string>
+    <string name="title_activity_jobs">Jobs</string>
     <string name="title_activity_leve_ortho">Orthogonal survey</string>
     <string name="title_activity_leve_ortho_results">Orthogonal survey results</string>
     <string name="title_activity_limit_displacement">Limit displacement</string>
@@ -347,4 +348,5 @@
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
     <string name="zenithal_angle_3dots">Zenithal angle&#8230;</string>
+
 </resources>
