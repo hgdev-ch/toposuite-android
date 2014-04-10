@@ -22,6 +22,7 @@
             android:layout_width="145dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:inputType=""
             android:gravity="right|center_vertical" />
     </LinearLayout>
 

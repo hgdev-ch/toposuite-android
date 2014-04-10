@@ -86,6 +86,8 @@ public class FreeStationActivity extends TopoSuiteActivity implements
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
         outState.putInt(FreeStationActivity.FREE_STATION_POSITION,
                 SharedResources.getCalculationsHistory().indexOf(
                         this.freeStation));
@@ -93,9 +95,13 @@ public class FreeStationActivity extends TopoSuiteActivity implements
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
-                savedInstanceState.getInt(
-                        FreeStationActivity.FREE_STATION_POSITION));
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
+                    savedInstanceState.getInt(
+                            FreeStationActivity.FREE_STATION_POSITION));
+        }
     }
 
     @Override
