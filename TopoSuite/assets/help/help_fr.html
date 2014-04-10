@@ -152,7 +152,7 @@ Si l'angle zénithal n'est pas indiqué, le programme considère que c'est une d
     <h5> LTOP </h5>  
 <p>	Le fichier LTOP ne doit pas être modifié. Il doit bien commencer avec $$PK!
 <br>La seule chose à faire attention, c'est de n'avoir que des caractères numérique dans le numéro de point.<br>
-Les colonnes 1 à 14 sont consacrées au numéro; si le numéro de point comporte un point ou un caractère non valable, le point n'est pas importé.<br> 
+Les colonnes 1 à 14 sont consacrées au numéro; <br> 
 	Les colonnes 33 à 44 correspondent à la coordonnée Est,<br>
 	Les colonnes 45 à 56 correspondent à la coordonnée Nord,<br>
 	Les colonnes 61 à 70 contiennent l'altitude (optionnel).<br>
@@ -164,6 +164,9 @@ Les colonnes  11 à 22 sont pour le numéro de point<br>
 Les colonnes 33 à 43 correspondent à la coordonnée Est,<br>
 	Les colonnes 45 à 55 correspondent à la coordonnée Nord,<br>
 	Les colonnes 57 à 64 contiennent l'altitude (optionnel).<br>
+  Pour le numéro de point, le programme ne prend en compte que la colonne numéro sans gérer le plan, la commune, etc.    <br>
+  S'il y a deux fois le même numéro (sur deux plans différents par ex.), le programme ne prend que le premier point lu du fichier.   <br>
+  Attention aux eventuelles lignes de titre en début de fichier.      
 </p>
 <h4>Exportation</h4>
 <p>
