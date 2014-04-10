@@ -7,14 +7,12 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Measure;
-import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -47,28 +45,26 @@ class MeasureDialogFragment extends DialogFragment {
         void onDialogCancel();
     }
 
-    MeasureDialogListener       listener;
-    private String              measureNumber;
-    private double              horizDir;
-    private double              distance;
+    MeasureDialogListener listener;
+    private String        measureNumber;
+    private double        horizDir;
+    private double        distance;
 
-    private LinearLayout        layout;
-    private EditText            measureNumberEditText;
-    private EditText            horizDirEditText;
-    private EditText            distanceEditText;
-
-    private ArrayAdapter<Point> adapter;
+    private LinearLayout  layout;
+    private EditText      measureNumberEditText;
+    private EditText      horizDirEditText;
+    private EditText      distanceEditText;
 
     /**
      * True if the dialog is for edition, false otherwise.
      */
-    private final boolean       isEdition;
+    private final boolean isEdition;
 
     /**
      * TODO make something cleaner and only use measure instead of this huge
      * amount of attributes...
      */
-    private Measure             measure;
+    private Measure       measure;
 
     public MeasureDialogFragment() {
         this.isEdition = false;
