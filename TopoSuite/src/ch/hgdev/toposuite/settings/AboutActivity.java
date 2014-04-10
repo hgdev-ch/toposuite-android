@@ -72,7 +72,7 @@ public class AboutActivity extends TopoSuiteActivity {
                 .append(appName)
                 .append("</h1><p>")
                 .append(String.format(App.getContext().getString(R.string.app_version),
-                        AppUtils.getVersionNumber()))
+                        AppUtils.getVersionName()))
                 .append("</p><p>")
                 .append(String.format(App.getContext().getString(R.string.app_copyright),
                         AppUtils.getYear(),

@@ -36,18 +36,35 @@ public class AppUtils {
     }
 
     /**
-     * Get current application version number.
+     * Get current application version name.
      * 
      * @return String version of the application.
      */
-    public static String getVersionNumber() {
+    public static String getVersionName() {
         String version = "?";
         try {
             PackageInfo pi = App.getContext().getPackageManager()
                     .getPackageInfo(App.getContext().getPackageName(), 0);
             version = pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(Logger.TOPOSUITE_RESSOURCE_NOT_FOUND, "Application name", e);
+            Log.e(Logger.TOPOSUITE_RESSOURCE_NOT_FOUND, "Application name version", e);
+        }
+        return version;
+    }
+
+    /**
+     * Get current application version code.
+     * 
+     * @return String code version number of the application.
+     */
+    public static String getVersionCode() {
+        String version = "?";
+        try {
+            PackageInfo pi = App.getContext().getPackageManager()
+                    .getPackageInfo(App.getContext().getPackageName(), 0);
+            version = String.valueOf(pi.versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(Logger.TOPOSUITE_RESSOURCE_NOT_FOUND, "Application code version", e);
         }
         return version;
     }
