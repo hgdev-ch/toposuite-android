@@ -1,8 +1,13 @@
 package ch.hgdev.toposuite.calculation;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import ch.hgdev.toposuite.calculation.interfaces.Exportable;
 import ch.hgdev.toposuite.calculation.interfaces.Importable;
@@ -20,6 +25,12 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * @author HGdev
  */
 public abstract class Calculation implements Exportable, Importable, DAOUpdater {
+    public static final String    ID                = "id";
+    public static final String    TYPE              = "type";
+    public static final String    DESCRIPTION       = "description";
+    public static final String    LAST_MODIFICATION = "last_modification";
+    public static final String    INPUT_DATA        = "input_data";
+
     /**
      * The ID used by the database.
      */
@@ -168,6 +179,46 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
      */
     public void updateLastModification() {
         this.lastModification = Calendar.getInstance().getTime();
+    }
+
+    /**
+     * Serialize Calculation to JSON.
+     * 
+     * @return JSON representation of the calculation.
+     * @throws JSONException
+     */
+    public final JSONObject toJSON() throws JSONException {
+        JSONObject jo = new JSONObject();
+        jo.put(Calculation.ID, this.id);
+        jo.put(Calculation.DESCRIPTION, this.description);
+        jo.put(Calculation.TYPE, this.type.toString());
+        jo.put(Calculation.LAST_MODIFICATION, this.lastModification.toString());
+        jo.put(Calculation.INPUT_DATA, this.exportToJSON());
+
+        return jo;
+    }
+
+    /**
+     * Create a Calculation from a JSON string.
+     * 
+     * @param json
+     *            JSON string that represents a Calculation.
+     * @return A new Calculation.
+     */
+    public static Calculation createCalculationFromJSON(String json) throws JSONException,
+            ParseException {
+        JSONObject jo = new JSONObject(json);
+        long id = jo.getLong(Calculation.ID);
+        String description = jo.getString(Calculation.DESCRIPTION);
+        CalculationType type = CalculationType.valueOf(jo.getString(Calculation.TYPE));
+
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        Date lastModification = sdf.parse(jo.getString(Calculation.LAST_MODIFICATION));
+
+        String jsonInputArgs = jo.getString(Calculation.INPUT_DATA);
+
+        return CalculationFactory.createCalculation(type, id, description, lastModification,
+                jsonInputArgs);
     }
 
     @Override
