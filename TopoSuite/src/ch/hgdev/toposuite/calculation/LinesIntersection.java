@@ -219,7 +219,7 @@ public class LinesIntersection extends Calculation {
         double north = MathUtils.pointLanceNorth(this.p1D1.getNorth(),
                 stPtIntersecGis, stPtIntersecDist);
 
-        this.intersectionPoint = new Point(this.pointNumber, east, north, 0.0,
+        this.intersectionPoint = new Point(this.pointNumber, east, north, MathUtils.IGNORE_DOUBLE,
                 false, false);
 
         this.updateLastModification();
@@ -422,7 +422,7 @@ public class LinesIntersection extends Calculation {
                 this.p1D2.getEast(), gisement, 100);
         double north = MathUtils.pointLanceNorth(
                 this.p1D2.getNorth(), gisement, 100);
-        this.p2D2 = new Point("", east, north, 0.0, false, false);
+        this.p2D2 = new Point("", east, north, MathUtils.IGNORE_DOUBLE, false, false);
     }
 
     public final double getDisplacementD2() {
