@@ -2,6 +2,9 @@ package ch.hgdev.toposuite.points;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -22,6 +25,12 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * 
  */
 public class Point implements DAOUpdater, DataExporter, DataImporter {
+    public static final String   NUMBER     = "number";
+    public static final String   EAST       = "east";
+    public static final String   NORTH      = "north";
+    public static final String   ALTITUDE   = "altitude";
+    public static final String   BASE_POINT = "base_point";
+
     private String               number;
     private double               east;
     private double               north;
@@ -159,6 +168,42 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     public String getBasePointAsString(Context context) {
         return this.basePoint ? context.getString(R.string.point_provided) : context
                 .getString(R.string.point_computed);
+    }
+
+    /**
+     * Serialize Point to JSON.
+     * 
+     * @return A JSON representation of the point.
+     * @throws JSONException
+     */
+    public final JSONObject toJSON() throws JSONException {
+        JSONObject jo = new JSONObject();
+        jo.put(Point.NUMBER, this.number);
+        jo.put(Point.EAST, this.east);
+        jo.put(Point.NORTH, this.north);
+        jo.put(Point.ALTITUDE, this.altitude);
+        jo.put(Point.BASE_POINT, this.basePoint);
+
+        return jo;
+    }
+
+    /**
+     * Create a new Point object from a given JSON string.
+     * 
+     * @param json
+     *            JSON string that contains a serialized version of a Point.
+     * @return A new Point object mapped in the DB using the DAO.
+     * @throws JSONException
+     */
+    public static Point createPointFromJSON(String json) throws JSONException {
+        JSONObject jo = new JSONObject(json);
+        String number = jo.getString(Point.NUMBER);
+        double east = jo.getDouble(Point.EAST);
+        double north = jo.getDouble(Point.NORTH);
+        double altitude = jo.getDouble(Point.ALTITUDE);
+        boolean basePoint = jo.getBoolean(Point.BASE_POINT);
+
+        return new Point(number, east, north, altitude, basePoint, true);
     }
 
     @Override
