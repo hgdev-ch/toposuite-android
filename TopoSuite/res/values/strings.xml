@@ -176,8 +176,8 @@
     <string name="letter_gamma_unit">&#947; [g]</string>
     <string name="licenses">Licenses</string>
     <string name="limit_displ_results_label">// limit displ. (surface corr. <xliff:g>%s</xliff:g> [m²])</string>
-    <string name="limit_point_east_number">Limit-point east number</string>
-    <string name="limit_point_west_number">Limit-point west number</string>
+    <string name="limit_point_east_number">Limit-point number Y (right)</string>
+    <string name="limit_point_west_number">Limit-point number X (left)</string>
     <string name="line">Line</string>
     <string name="line_1">Line 1</string>
     <string name="line_2">Line 2</string>
