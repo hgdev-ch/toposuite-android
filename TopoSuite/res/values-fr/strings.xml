@@ -167,6 +167,9 @@
     <string name="intersection_point_label">Point d\'intersection:</string>
     <string name="intersection_one_label">Premier point d\'intersection:</string>
     <string name="intersection_two_label">Second point d\'intersection:</string>
+    <string name="job_clear">Effacer le job courant</string>
+    <string name="job_export">Exporter le job courant</string>
+    <string name="job_import">Importer un job</string>
     <string name="keep_button">Conserver</string>
     <string name="last_modification_label">Dernière modification: <xliff:g>%s</xliff:g></string>
     <string name="lateral_displacement_3dots">Déplacement latéral&#8230;</string>

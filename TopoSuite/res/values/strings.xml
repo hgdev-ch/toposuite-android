@@ -165,6 +165,9 @@
     <string name="intersection_point_label">Intersection point:</string>
     <string name="intersection_one_label">First intersection point:</string>
     <string name="intersection_two_label">Second intersection point:</string>
+    <string name="job_clear">Clear current job</string>
+    <string name="job_export">Export current job</string>
+    <string name="job_import">Import job</string>
     <string name="keep_button">Keep</string>
     <string name="last_modification_label">Last modification: <xliff:g>%s</xliff:g></string>
     <string name="lateral_displacement_3dots">Lateral displacement&#8230;</string>
