@@ -600,7 +600,6 @@ public class FreeStation extends Calculation {
          * Rotation between fictive and cadastral coordinates. (this attribute
          * is used from the outside)
          */
-        @SuppressWarnings("unused")
         private double       rotation;
 
         /**

@@ -67,7 +67,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         Uri dataUri = this.getIntent().getData();
         if (dataUri != null) {
             String mime = this.getIntent().getType();
-            ViewUtils.showToast(this, "MIME => " + mime);
 
             // minor hack to handle LTOP format
             if (mime.equals("application/octet-stream") || mime.equals("text/plain")
@@ -91,8 +90,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                         // fix the MIME type
                         mime = "text/ltop";
                     } else {
-                        // small hack for handling PTP files because there is no proper
-                        // way to detect them
+                        // small hack for handling PTP files because there is no
+                        // proper way to detect them
                         mime = "text/ptp";
                     }
                 } catch (FileNotFoundException e) {
@@ -382,9 +381,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                                 String ext = mime.substring(mime.lastIndexOf("/") + 1);
 
                                 // ugly hack to support ES File Explorer and
-                                // Samsung's file
-                                // explorer that set the MIME type of a CSV file
-                                // to
+                                // Samsung's file explorer that set the MIME
+                                // type of a CSV file to
                                 // "text/comma-separated-values" instead of
                                 // "text/csv"
                                 if (ext.equalsIgnoreCase("comma-separated-values")) {

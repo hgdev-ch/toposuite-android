@@ -1,250 +1,247 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="vertical" >
-		
-		<LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal"
-		    android:paddingBottom="8dp"
-		    android:paddingTop="8dp" >
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
-		    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:layout_weight="0.25"
-		        android:gravity="left|center_vertical"
-		        android:paddingLeft="@dimen/activity_horizontal_margin"
-		        android:text="@string/mode_label"
-		        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-		    <RadioGroup
-		        android:id="@+id/mode"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="0.21"
-		        android:orientation="horizontal" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp" >
 
-		        <RadioButton
-		            android:id="@+id/mode_line"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:checked="true"
-		            android:text="@string/mode_line_label"
-		            android:onClick="onRadioButtonClicked" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/mode_label"
+                android:textStyle="bold" />
 
-		        <RadioButton
-		            android:id="@+id/mode_gisement"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="@string/mode_gisement_label"
-		            android:onClick="onRadioButtonClicked" />
-		    </RadioGroup>
-		</LinearLayout>
-		
-		<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	        android:paddingBottom="8dp"
-		    android:paddingTop="8dp" >
-		    
-		    <TextView
-		        android:layout_width="0dip"
-		        android:layout_height="match_parent"
-		        android:layout_weight="0.28"
-		        android:gravity="left|center_vertical"
-		        android:paddingLeft="@dimen/activity_horizontal_margin"
-		        android:text="@string/point_1"
-		        android:textStyle="bold" />
-	        
-	        <Spinner
-	            android:id="@+id/point_1_spinner"
-	            android:layout_width="145dp"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.14" />
-	
-		</LinearLayout>
-		
-		<LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal" >
-		        
-		        <TextView
-		            android:id="@+id/point_1"
-		            android:layout_width="0dip"
-		            android:layout_height="30dp"
-		            android:layout_gravity="center"
-		            android:layout_weight="0.86"
-		            android:gravity="center"
-		            android:text="" />
-		
-		</LinearLayout>
-	        
-		<LinearLayout
-		    android:id="@+id/point2_spinner_layout"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	        android:paddingBottom="8dp"
-		    android:paddingTop="8dp" >
-		    
-		    <TextView
-		        android:layout_width="0dip"
-		        android:layout_height="match_parent"
-		        android:layout_weight="0.55"
-		        android:gravity="left|center_vertical"
-		        android:paddingLeft="@dimen/activity_horizontal_margin"
-		        android:text="@string/point_2"
-		        android:textStyle="bold" />
-	        
-	        <Spinner
-	            android:id="@+id/point_2_spinner"
-	            android:layout_width="145dp"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.30" />
-	
-		</LinearLayout>
-		
-		<LinearLayout
-		    android:id="@+id/point2_layout"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal" >
-		        
-		        <TextView
-		            android:id="@+id/point_2"
-		            android:layout_width="0dip"
-		            android:layout_height="30dp"
-		            android:layout_gravity="center"
-		            android:layout_weight="0.86"
-		            android:gravity="center"
-		            android:text="" />
-		
-		</LinearLayout>
-		
-		<LinearLayout
-		    android:id="@+id/gisement_layout"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	        android:paddingBottom="8dp"
-		    android:paddingTop="8dp"
-		    android:visibility="gone" >
-	        
-			<TextView
-			    android:layout_width="wrap_content"
-			    android:layout_height="match_parent"
-			    android:layout_weight="0.12"
-			    android:gravity="left|center_vertical"
-			    android:paddingLeft="@dimen/activity_horizontal_margin"
-			    android:text="@string/gisement_label"
-			    android:textStyle="bold" />
-	        
-	        <EditText
-	            android:id="@+id/gisement"
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.40"
-	            android:gravity="left|center_vertical"
-	            android:inputType=""
-	            android:paddingLeft="@dimen/activity_horizontal_margin" />
-		</LinearLayout>
-		
-		<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	        android:paddingBottom="8dp"
-		    android:paddingTop="8dp">
-	        
-			<TextView
-			    android:layout_width="wrap_content"
-			    android:layout_height="match_parent"
-			    android:layout_weight="0.05"
-			    android:gravity="left|center_vertical"
-			    android:paddingLeft="@dimen/activity_horizontal_margin"
-			    android:text="@string/displacement_label"
-			    android:textStyle="bold" />
-	        
-	        <EditText
-	            android:id="@+id/displacement"
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.31"
-	            android:gravity="left|center_vertical"
-	            android:inputType=""
-	            android:paddingLeft="@dimen/activity_horizontal_margin" />
-		</LinearLayout>
-		
-		<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	        android:paddingBottom="8dp"
-		    android:paddingTop="8dp" >
-		    
-		    <TextView
-		        android:layout_width="0dip"
-		        android:layout_height="match_parent"
-		        android:layout_weight="0.49"
-		        android:gravity="left|center_vertical"
-		        android:paddingLeft="@dimen/activity_horizontal_margin"
-		        android:text="@string/point_to_project"
-		        android:textStyle="bold" />
-	        
-	        <Spinner
-	            android:id="@+id/point_spinner"
-	            android:layout_width="145dp"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.26" />
-	
-		</LinearLayout>
-		
-		<LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="horizontal" >
-		        
-		        <TextView
-		            android:id="@+id/point"
-		            android:layout_width="0dip"
-		            android:layout_height="30dp"
-		            android:layout_gravity="center"
-		            android:layout_weight="0.86"
-		            android:gravity="center"
-		            android:text="" />
-		
-		</LinearLayout>
-		
-		<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	        android:paddingBottom="8dp"
-		    android:paddingTop="8dp">
-	        
-			<TextView
-			    android:layout_width="wrap_content"
-			    android:layout_height="match_parent"
-			    android:layout_weight="0.08"
-			    android:gravity="left|center_vertical"
-			    android:paddingLeft="@dimen/activity_horizontal_margin"
-			    android:text="@string/point_number"
-			    android:textStyle="bold" />
-	        
-	        <EditText
-	            android:id="@+id/point_number"
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.28"
-	            android:gravity="left|center_vertical"
-	            android:paddingLeft="@dimen/activity_horizontal_margin" />
-		</LinearLayout>
-	</LinearLayout>
+            <RadioGroup
+                android:id="@+id/mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.21"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/mode_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/mode_line_label" />
+
+                <RadioButton
+                    android:id="@+id/mode_gisement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/mode_gisement_label" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.28"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/point_1"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/point_1_spinner"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/point_1"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/point2_spinner_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.55"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/point_2"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/point_2_spinner"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/point2_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/point_2"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gisement_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.12"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/gisement_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/gisement"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.40"
+                android:gravity="left|center_vertical"
+                android:inputType=""
+                android:paddingLeft="@dimen/activity_horizontal_margin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/displacement_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/displacement"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.31"
+                android:gravity="left|center_vertical"
+                android:inputType=""
+                android:paddingLeft="@dimen/activity_horizontal_margin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.49"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/point_to_project"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/point_spinner"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.26" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/point"
+                android:layout_width="0dip"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.08"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/point_number"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/point_number"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.28"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:singleLine="true" />
+        </LinearLayout>
+    </LinearLayout>
+
 </ScrollView>

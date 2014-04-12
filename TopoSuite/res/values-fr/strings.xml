@@ -181,8 +181,8 @@
     <string name="letter_gamma_unit">&#947; [g]</string>
     <string name="licenses">Licences</string>
     <string name="limit_displ_results_label">Dépl. // de limite (corr. surface <xliff:g>%s</xliff:g> [m²])</string>
-    <string name="limit_point_east_number">Numéro de point-limite est</string>
-    <string name="limit_point_west_number">Numéro de point-limite ouest</string>
+    <string name="limit_point_east_number">Numéro de point-limite Y (doite)</string>
+    <string name="limit_point_west_number">Numéro de point-limite X (gauche)</string>
     <string name="line">Droite</string>
     <string name="line_1">Droite 1</string>
     <string name="line_2">Droite 2</string>
@@ -263,7 +263,7 @@
 	<string name="pref_general_title">Paramètres généraux</string>
 	<string name="pref_distances_display_precision">Décimales des distances</string>
 	<string name="pref_gaps_display_precision">Décimales des écarts</string>
-    <string name="pref_negative_coordinates">Autoriser les coordonées négatives</string>
+    <string name="pref_negative_coordinates">Autoriser les coordonnées négatives</string>
     <string name="pref_surfaces_display_precision">Décimales des surfaces</string>
     <string name="prism_height">Hauteur du prisme (S)</string>
     <string name="prism_height_3dots">Hauteur du prisme&#8230;</string>

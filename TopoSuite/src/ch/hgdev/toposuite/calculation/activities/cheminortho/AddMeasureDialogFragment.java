@@ -123,6 +123,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
+        this.numberEditText.setSingleLine();
         this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
 
         this.distanceEditText = new EditText(this.getActivity());

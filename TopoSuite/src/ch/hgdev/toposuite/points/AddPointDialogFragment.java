@@ -137,6 +137,7 @@ public class AddPointDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.numberEditText = new EditText(this.getActivity());
+        this.numberEditText.setSingleLine();
         this.numberEditText.setHint(this.getActivity().getString(R.string.point_number_3dots));
 
         this.eastEditText = new EditText(this.getActivity());

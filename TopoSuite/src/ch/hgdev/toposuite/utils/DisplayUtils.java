@@ -41,21 +41,6 @@ public class DisplayUtils {
 
     /**
      * Convert a value of type int to a String. This method is meant to be used
-     * to set values in TextView views.
-     * 
-     * @param value
-     *            The value to convert to a String.
-     * @return Value as a String.
-     */
-    public static String toStringForTextView(int value) {
-        if (MathUtils.isIgnorable(value)) {
-            return "-";
-        }
-        return Integer.toString(value);
-    }
-
-    /**
-     * Convert a value of type int to a String. This method is meant to be used
      * to set values in EditText views.
      * 
      * @param value
@@ -70,27 +55,6 @@ public class DisplayUtils {
     }
 
     /**
-     * Convert a value of type double to a String according to a given number of
-     * decimals. This method is meant to be used to set values in TextView
-     * views.
-     * 
-     * TODO check rounding mode of String.format
-     * 
-     * @param value
-     *            The value to convert to a String.
-     * @param precision
-     *            The number of decimal. (eg. "%.1f")
-     * @return Value as a String.
-     */
-    @Deprecated
-    public static String toStringForTextView(double value, String precision) {
-        if (MathUtils.isIgnorable(value)) {
-            return "-";
-        }
-        return String.format(precision, value);
-    }
-
-    /**
      * Convert a value of type double to a String according to the number of
      * decimals to display which are set in the application settings. This
      * method is meant to be used to set values in EditText views.
@@ -102,22 +66,6 @@ public class DisplayUtils {
     public static String toStringForEditText(double value) {
         if (MathUtils.isIgnorable(value)) {
             return "";
-        }
-        return String.format(App.numberOfDecimals, value);
-    }
-
-    /**
-     * Convert a value of type double to a String according to the number of
-     * decimals to display which are set in the application settings.
-     * 
-     * @param value
-     *            The value to convert to a String.
-     * @return Value as a String.
-     */
-    @Deprecated
-    public static String toStringForTextView(double value) {
-        if (MathUtils.isIgnorable(value)) {
-            return "-";
         }
         return String.format(App.numberOfDecimals, value);
     }

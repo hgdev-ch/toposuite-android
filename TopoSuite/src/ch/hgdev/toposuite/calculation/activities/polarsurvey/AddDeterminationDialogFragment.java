@@ -154,6 +154,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
         this.determinationNoEditText = new EditText(this.getActivity());
+        this.determinationNoEditText.setSingleLine();
         this.determinationNoEditText.setHint(
                 this.getActivity().getString(R.string.determination_sight_3dots));
 
