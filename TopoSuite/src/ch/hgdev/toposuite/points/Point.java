@@ -52,12 +52,12 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     public Point(String number, double east, double north, double altitude, boolean basePoint,
             boolean hasDAO) {
         // FIXME adapt the check according to the new point number format
-        //Preconditions.checkArgument(number >= 0, "A point number must be a positive integer: %s",
-        //        number);
+        // Preconditions.checkArgument(number >= 0,
+        // "A point number must be a positive integer: %s", number);
         this.number = number;
-        this.east = east;
-        this.north = north;
-        this.altitude = altitude;
+        this.east = MathUtils.roundCoordinate(east);
+        this.north = MathUtils.roundCoordinate(north);
+        this.altitude = MathUtils.roundCoordinate(altitude);
         this.basePoint = basePoint;
 
         this.daoList = new ArrayList<DAO>();
