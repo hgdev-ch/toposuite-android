@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+	    android:paddingTop="8dp"
+	    android:paddingLeft="16dp">
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/warning_import_job"
+            android:textColor="@color/warning" />
+
+	</LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+	    android:paddingTop="8dp" >
+
+        <Spinner
+            android:id="@+id/files_list_spinner"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+	    android:paddingTop="8dp"
+	    android:paddingLeft="16dp">
+        
+        <TextView
+            android:id="@+id/file_last_modification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+	</LinearLayout>
+	
+    <View
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dp"
+	    android:layout_marginBottom="0dp"
+	    android:background="?android:attr/dividerVertical" />
+    
+    <LinearLayout
+	   style="?android:attr/buttonBarStyle"
+	   android:layout_width="fill_parent"
+	   android:layout_height="wrap_content"
+	   android:measureWithLargestChild="true"
+	   android:orientation="horizontal"
+	   android:paddingTop="0dip" >
+        
+    <Button
+        android:id="@+id/cancel_button"
+	    style="?android:attr/buttonBarButtonStyle"
+	    android:layout_width="0dip"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:text= "@string/cancel" />
+
+    <Button
+        android:id="@+id/export_button"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/import_label" />
+	</LinearLayout>
+</LinearLayout>

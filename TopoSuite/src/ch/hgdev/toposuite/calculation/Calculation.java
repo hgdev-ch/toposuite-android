@@ -9,6 +9,7 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.interfaces.Exportable;
 import ch.hgdev.toposuite.calculation.interfaces.Importable;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
@@ -30,6 +31,8 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
     public static final String    DESCRIPTION       = "description";
     public static final String    LAST_MODIFICATION = "last_modification";
     public static final String    INPUT_DATA        = "input_data";
+
+    private static final String   DATE_FORMAT       = "dd-MM-yyyy H:m:s";
 
     /**
      * The ID used by the database.
@@ -192,8 +195,10 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
         jo.put(Calculation.ID, this.id);
         jo.put(Calculation.DESCRIPTION, this.description);
         jo.put(Calculation.TYPE, this.type.toString());
-        jo.put(Calculation.LAST_MODIFICATION, this.lastModification.toString());
         jo.put(Calculation.INPUT_DATA, this.exportToJSON());
+
+        SimpleDateFormat sdf = new SimpleDateFormat(Calculation.DATE_FORMAT);
+        jo.put(Calculation.LAST_MODIFICATION, sdf.format(this.lastModification));
 
         return jo;
     }
@@ -212,13 +217,16 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater 
         String description = jo.getString(Calculation.DESCRIPTION);
         CalculationType type = CalculationType.valueOf(jo.getString(Calculation.TYPE));
 
-        SimpleDateFormat sdf = new SimpleDateFormat();
+        SimpleDateFormat sdf = new SimpleDateFormat(Calculation.DATE_FORMAT);
         Date lastModification = sdf.parse(jo.getString(Calculation.LAST_MODIFICATION));
 
         String jsonInputArgs = jo.getString(Calculation.INPUT_DATA);
 
-        return CalculationFactory.createCalculation(type, id, description, lastModification,
-                jsonInputArgs);
+        Calculation c = CalculationFactory.createCalculation(type, id, description,
+                lastModification, jsonInputArgs);
+        SharedResources.getCalculationsHistory().add(c);
+
+        return c;
     }
 
     @Override

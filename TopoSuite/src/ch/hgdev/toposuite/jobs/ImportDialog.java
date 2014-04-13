@@ -1,17 +1,17 @@
 package ch.hgdev.toposuite.jobs;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.LineNumberReader;
+import java.nio.charset.Charset;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.json.JSONException;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -30,9 +30,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.dao.CalculationsDataSource;
+import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
+import com.google.common.base.Joiner;
 import com.google.common.io.Files;
 
 /**
@@ -48,7 +51,6 @@ class ImportDialog extends DialogFragment {
 
     private Spinner              filesListSpinner;
     private TextView             fileLastModificationTextView;
-    private TextView             fileNumberOfPointsTextView;
 
     private boolean              isConfirmationAsked = false;
 
@@ -92,8 +94,6 @@ class ImportDialog extends DialogFragment {
 
         this.fileLastModificationTextView = (TextView) view.findViewById(
                 R.id.file_last_modification);
-        this.fileNumberOfPointsTextView = (TextView) view.findViewById(
-                R.id.file_number_of_points);
 
         Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(new OnClickListener() {
@@ -160,21 +160,6 @@ class ImportDialog extends DialogFragment {
                         String.format(ImportDialog.this.getActivity().getString(
                                 R.string.last_modification_label),
                                 sdf.format(f.lastModified())));
-
-                try {
-                    // display the number of points contained in the file
-                    LineNumberReader lnr = new LineNumberReader(new FileReader(f));
-                    lnr.skip(Long.MAX_VALUE);
-                    ImportDialog.this.fileNumberOfPointsTextView.setText(
-                            String.format(ImportDialog.this.getActivity().getString(
-                                    R.string.number_of_points_label),
-                                    lnr.getLineNumber()));
-                    lnr.close();
-                } catch (FileNotFoundException e) {
-                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
-                } catch (IOException e) {
-                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
-                }
             }
 
             @Override
@@ -230,15 +215,22 @@ class ImportDialog extends DialogFragment {
         String filename = this.adapter.getItem(fileNamePosition);
         String ext = Files.getFileExtension(filename);
 
-        // TODO make sure the file format is supported
+        // make sure the file format is supported
+        if (ext.isEmpty() || !ext.equalsIgnoreCase(Job.EXTENSION)) {
+            this.closeOnError(this.getActivity().getString(
+                    R.string.error_unsupported_format));
+            return;
+        }
 
         try {
-            InputStream inputStream = new FileInputStream(
-                    new File(App.publicDataDirectory, filename));
+            List<String> lines = Files.readLines(new File(App.publicDataDirectory, filename),
+                    Charset.defaultCharset());
+            // remove previous points and calculations from the SQLite DB
+            PointsDataSource.getInstance().truncate();
+            CalculationsDataSource.getInstance().truncate();
 
-            if (inputStream != null) {
-                // TODO remove previous points and calculations from the SQLite DB
-            }
+            String json = Joiner.on('\n').join(lines);
+            Job.loadJobFromJSON(json);
         } catch (FileNotFoundException e) {
             Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
@@ -247,8 +239,16 @@ class ImportDialog extends DialogFragment {
             Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
+        } catch (JSONException e) {
+            Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            ViewUtils.showToast(this.getActivity(), e.getMessage());
+            return;
+        } catch (ParseException e) {
+            Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            ViewUtils.showToast(this.getActivity(), e.getMessage());
+            return;
         }
 
-        this.closeOnSuccess(this.getActivity().getString(R.string.success_import_dialog));
+        this.closeOnSuccess(this.getActivity().getString(R.string.success_import_job_dialog));
     }
 }

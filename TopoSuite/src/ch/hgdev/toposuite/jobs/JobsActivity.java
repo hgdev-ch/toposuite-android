@@ -7,7 +7,8 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class JobsActivity extends TopoSuiteActivity implements ExportDialog.ExportDialogListener {
+public class JobsActivity extends TopoSuiteActivity implements ExportDialog.ExportDialogListener,
+        ImportDialog.ImportDialogListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +30,12 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
 
     public void onExportButtonClicked(View view) {
         ExportDialog dialog = new ExportDialog();
-        dialog.show(this.getFragmentManager(), "ExportDialogFragments");
+        dialog.show(this.getFragmentManager(), "ExportDialogFragment");
     }
 
     public void onImportButtonClicked(View view) {
-
+        ImportDialog dialog = new ImportDialog();
+        dialog.show(this.getFragmentManager(), "ImportDialogFragment");
     }
 
     public void onClearButtonClicked(View view) {
@@ -47,6 +49,16 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
 
     @Override
     public void onExportDialogError(String message) {
+        ViewUtils.showToast(this, message);
+    }
+
+    @Override
+    public void onImportDialogSuccess(String message) {
+        ViewUtils.showToast(this, message);
+    }
+
+    @Override
+    public void onImportDialogError(String message) {
         ViewUtils.showToast(this, message);
     }
 }

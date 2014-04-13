@@ -203,7 +203,10 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         double altitude = jo.getDouble(Point.ALTITUDE);
         boolean basePoint = jo.getBoolean(Point.BASE_POINT);
 
-        return new Point(number, east, north, altitude, basePoint, true);
+        Point p = new Point(number, east, north, altitude, basePoint, true);
+        SharedResources.getSetOfPoints().add(p);
+
+        return p;
     }
 
     @Override
