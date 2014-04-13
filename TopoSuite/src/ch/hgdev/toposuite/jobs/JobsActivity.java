@@ -23,9 +23,7 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        this.getMenuInflater().inflate(R.menu.jobs, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
