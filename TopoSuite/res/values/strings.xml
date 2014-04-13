@@ -353,6 +353,7 @@
     <string name="warning_import_file">Warning: This action will erase all existing points and calculations.</string>
     <string name="warning_import_file_without_warning_label">This action will erase all existing points and calculations.</string>
     <string name="warning_import_job">Warning: This action will erase the current job and thus all the existing points and calculations.</string>
+    <string name="warning_import_job_without_warning_label">This action will erase the current job and thus all the existing points and calculations.</string>
     <string name="with_support_from">With support from</string>
     <string name="yes">Yes</string>
     <string name="zenithal_angle_3dots">Zenithal angle&#8230;</string>

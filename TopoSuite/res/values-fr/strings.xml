@@ -355,6 +355,7 @@
     <string name="warning_import_file">Attention: Cette action va affecter tous les points et calculs existants.</string>
     <string name="warning_import_file_without_warning_label">Cette action va affecter tous les points et calculs existants.</string>
     <string name="warning_import_job">Attention: Cette action va effacer le job courant, et par conséqent tous les points et les calculs existants.</string>
+    <string name="warning_import_job_without_warning_label">Cette action va effacer le job courant, et par conséqent tous les points et les calculs existants.</string>
     <string name="with_support_from">Avec le soutien de</string>
     <string name="yes">Oui</string>
     <string name="zenithal_angle_3dots">Angle zénithal&#8230;</string>
