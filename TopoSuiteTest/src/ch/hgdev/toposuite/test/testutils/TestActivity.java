@@ -15,7 +15,7 @@ import com.robotium.solo.Solo;
  * @param <T>
  *            The activity under test.
  */
-public class TestActivity<T extends Activity> extends
+public abstract class TestActivity<T extends Activity> extends
         ActivityInstrumentationTestCase2<T> {
 
     private Solo solo;
@@ -31,7 +31,7 @@ public class TestActivity<T extends Activity> extends
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        this.solo = new Solo(this.getInstrumentation());
+        this.solo = new Solo(this.getInstrumentation(), this.getActivity());
     }
 
     @Override
