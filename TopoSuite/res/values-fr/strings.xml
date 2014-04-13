@@ -293,6 +293,7 @@
     <string name="solution_two">Deuxième solution éventuelle</string>
     <string name="station_label">Station</string>
     <string name="success_export_dialog">Les <xliff:g>%d</xliff:g> points ont été exportés avec succès!</string>
+    <string name="success_export_job_dialog">Le job courrant a été exporté avec succès!</string>
     <string name="success_import_dialog">Les points ont été importés avec succès!</string>
     <string name="success_merge">Points fusionnés avec succès!</string>
     <string name="success_point_kept">Point conservé!</string>
