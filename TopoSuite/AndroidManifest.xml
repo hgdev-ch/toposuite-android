@@ -40,7 +40,7 @@
                 if we put a pathPattern for the *.KOO, *.COO and *.ptp files, it becomes
                 impossible to import anything from GMail to TopoSuite...
                 -->
-                <data
+                <!--<data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*"
@@ -49,13 +49,60 @@
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*"
-                    android:scheme="content" />
+                    android:scheme="content" />-->
 
-                <!--
+				<!-- TODO make something nicer... -->
+
+				<data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.coo"
+                    android:scheme="file" />
+                
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.COO"
+                    android:scheme="file" />
+                
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.koo"
+                    android:scheme="file" />
+                
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.KOO"
+                    android:scheme="file" />
+
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.ptp"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.PTP"
+                    android:scheme="file" />
+                
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.csv"
+                    android:scheme="file" />
+                
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.CSV"
+                    android:scheme="file" />
+                
                 <data android:mimeType="text/csv" />
                 <data android:mimeType="text/comma-separated-values" />
                 <data android:mimeType="application/octet-stream" />
-                -->
             </intent-filter>
         </activity>
         <activity
@@ -197,6 +244,27 @@
         <activity
             android:name="ch.hgdev.toposuite.jobs.JobsActivity"
             android:label="@string/title_activity_jobs" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <action android:name="android.intent.action.SENDTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.tpst"
+                    android:scheme="file" />
+                
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.TPST"
+                    android:scheme="file" />
+                
+                <data android:mimeType="application/json" />
+            </intent-filter>
         </activity>
     </application>
 
