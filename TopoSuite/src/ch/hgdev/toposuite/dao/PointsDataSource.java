@@ -153,4 +153,17 @@ public class PointsDataSource implements DAO {
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
         db.delete(PointsTable.TABLE_NAME_POINTS, null, null);
     }
+
+    /**
+     * Truncate table.
+     */
+    public void truncate() {
+        this.deleteAll();
+
+        SQLiteDatabase db = App.dbHelper.getWritableDatabase();
+        db.execSQL(
+                String.format(
+                        "DELETE FROM sqlite_sequence WHERE name = '%s'",
+                        PointsTable.TABLE_NAME_POINTS));
+    }
 }

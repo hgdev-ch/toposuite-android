@@ -108,6 +108,12 @@ public class CalculationsDataSource implements DAO {
         }
 
         ContentValues calculationValues = new ContentValues();
+
+        if (calculation.getId() > 0) {
+            calculationValues.put(
+                    CalculationsTable.COLUMN_NAME_ID, calculation.getId());
+        }
+
         calculationValues.put(CalculationsTable.COLUMN_NAME_TYPE,
                 calculation.getType().toString());
         calculationValues.put(CalculationsTable.COLUMN_NAME_DESCRIPTION,
@@ -198,5 +204,18 @@ public class CalculationsDataSource implements DAO {
     public void deleteAll() {
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
         db.delete(CalculationsTable.TABLE_NAME_CALCULATIONS, null, null);
+    }
+
+    /**
+     * Truncate table.
+     */
+    public void truncate() {
+        this.deleteAll();
+
+        SQLiteDatabase db = App.dbHelper.getWritableDatabase();
+        db.execSQL(
+                String.format(
+                        "DELETE FROM sqlite_sequence WHERE name = '%s'",
+                        CalculationsTable.TABLE_NAME_CALCULATIONS));
     }
 }
