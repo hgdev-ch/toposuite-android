@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.Logger;
@@ -228,6 +229,10 @@ class ImportDialog extends DialogFragment {
             // remove previous points and calculations from the SQLite DB
             PointsDataSource.getInstance().truncate();
             CalculationsDataSource.getInstance().truncate();
+
+            // clean in-memory residues 
+            SharedResources.getSetOfPoints().clear();
+            SharedResources.getCalculationsHistory().clear();
 
             String json = Joiner.on('\n').join(lines);
             Job.loadJobFromJSON(json);
