@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.points.Point;
@@ -37,12 +36,10 @@ class Job {
 
         JSONArray pointsArray = new JSONArray();
         for (Point p : SharedResources.getSetOfPoints()) {
-            Log.d("TOPOSUITE FOOBAR Point.json", p.toJSON().toString());
             pointsArray.put(p.toJSON());
         }
 
         jo.put(Job.POINTS_KEY, pointsArray);
-        Log.d("TOPOSUITE FOOBAR PointsList.json", pointsArray.toString());
 
         JSONArray calculationsArray = new JSONArray();
         for (Calculation c : SharedResources.getCalculationsHistory()) {
