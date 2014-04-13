@@ -40,6 +40,7 @@ import ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverAc
 import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.help.HelpActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
+import ch.hgdev.toposuite.jobs.JobsActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 import ch.hgdev.toposuite.settings.SettingsActivity;
 
@@ -88,6 +89,8 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
                                 PointsManagerActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_history),
                                 HistoryActivity.class),
+                        new ActivityItem(this.getString(R.string.title_activity_jobs),
+                                JobsActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_settings),
                                 SettingsActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_help),
