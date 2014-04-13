@@ -7,13 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.AppUtils;
-import ch.hgdev.toposuite.utils.DisplayUtils;
 
 class Job {
     public static final String  EXTENSION            = "tpst";
@@ -60,15 +57,13 @@ class Job {
         for (int i = 0; i < jo.getJSONArray(Job.POINTS_KEY).length(); i++) {
             JSONObject pointObject = (JSONObject) jo.getJSONArray(
                     Job.POINTS_KEY).get(i);
-            Point p = Point.createPointFromJSON(pointObject.toString());
-            Log.d("TOPOSUITE FOOBAR POINT", DisplayUtils.formatPoint(App.getContext(), p));
+            Point.createPointFromJSON(pointObject.toString());
         }
 
         for (int i = 0; i < jo.getJSONArray(Job.CALCULATIONS_KEY).length(); i++) {
             JSONObject calculationObject = (JSONObject) jo.getJSONArray(
                     Job.CALCULATIONS_KEY).get(i);
-            Calculation c = Calculation.createCalculationFromJSON(calculationObject.toString());
-            Log.d("TOPOSUITE FOOBAR CALC", c.getDescription());
+            Calculation.createCalculationFromJSON(calculationObject.toString());
         }
     }
 
