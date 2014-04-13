@@ -69,6 +69,7 @@
     <string name="delete_all">Delete all</string>
     <string name="delete_all_history">Clear history</string>
     <string name="delete_all_points">Delete all points?</string>
+    <string name="delete_job">Delete current job</string>
     <string name="description">Description</string>
     <string name="determination_sight_3dots">Determination sight No&#8230;</string>
     <string name="determination_sight_label">Determination sight No</string>
@@ -187,6 +188,7 @@
     <string name="longitudinal_displacement_3dots">Longitudinal displacement&#8230;</string>
     <string name="loose_calculations">Every associated calculations will be lost too!</string>
     <string name="loose_history">All entries in the history will be lost</string>
+    <string name="loose_job">All points and calculations of the current job will be lost</string>
     <string name="mean_button">Mean</string>
     <string name="mean_error_compensated_label">Compensated:</string>
     <string name="mean_error_compensated_label_short">Comp.:</string>
