@@ -293,6 +293,7 @@
     <string name="success_export_dialog">Successfully exported <xliff:g>%d</xliff:g> points!</string>
     <string name="success_export_job_dialog">The current job has been successfully exported!</string>
     <string name="success_import_dialog">Points successfully imported!</string>
+    <string name="success_import_job_dialog">Job successfully imported!</string>
     <string name="success_merge">Points successfully merged!</string>
     <string name="success_point_kept">Point kept!</string>
     <string name="success_replace">Point successfully replaced!</string>
