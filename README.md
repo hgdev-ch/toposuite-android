@@ -47,7 +47,6 @@ It is able to do the following calculations:
     * point projection on a line
     * circle computation using three points
     * arc of a circle segmentation
-    * Helmert transform
 * Mathematics
     * triangle solver
     * circular elements resolution
