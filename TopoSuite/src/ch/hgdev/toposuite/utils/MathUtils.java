@@ -444,13 +444,16 @@ public class MathUtils {
 
     /**
      * Round a value of type coordinate to the number of decimals set in the
-     * settings (3 by default).
+     * settings (3 by default). If values are "ignorable", they are not rounded.
      * 
      * @param coordinate
      *            Coordinate to round.
      * @return Coordinate rounded.
      */
     public static double roundCoordinate(double coordinate) {
+        if (MathUtils.isIgnorable(coordinate)) {
+            return MathUtils.IGNORE_DOUBLE;
+        }
         int precision = App.getCoordinateDecimalRounding();
         String format = precision < 1 ? "#" : "#.";
         String decimalCount = Strings.repeat("#", precision);
