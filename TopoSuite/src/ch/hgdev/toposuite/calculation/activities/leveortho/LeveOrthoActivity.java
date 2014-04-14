@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -276,6 +277,11 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 return true;
             }
 
+            Log.d("TOPOSUITE FOOBAR MEASURED DISTANCE", String.valueOf(
+                    this.leveOrtho.getOrthogonalBase().getMeasuredDistance()));
+            Log.d("TOPOSUITE FOOBAR SCALE FACTOR", String.valueOf(
+                    this.leveOrtho.getOrthogonalBase().getScaleFactor()));
+
             int position = SharedResources.getCalculationsHistory()
                     .indexOf(this.leveOrtho);
 
@@ -335,7 +341,8 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 this.leveOrtho.getOrthogonalBase().setOrigin(p1);
                 this.leveOrtho.getOrthogonalBase().setExtremity(p2);
             } else {
-                this.leveOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2));
+                this.leveOrtho.setOrthogonalBase(new OrthogonalBase(p1, p2,
+                        ViewUtils.readDouble(this.measuredDistEditText), 1.0));
             }
 
             this.calcDistTextView.setText(DisplayUtils.formatDistance(

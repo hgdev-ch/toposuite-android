@@ -10,9 +10,10 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class OrthogonalBase {
-    public static final String ORIGIN            = "origin";
-    public static final String EXTREMITY         = "extremity";
-    public static final String MEASURED_DISTANCE = "measured_distance";
+    public static final String ORIGIN             = "origin";
+    public static final String EXTREMITY          = "extremity";
+    public static final String MEASURED_DISTANCE  = "measured_distance";
+    public static final String SCALE_FACTOR_LABEL = "default_scale_factor";
 
     private Point              origin;
     private Point              extremity;
@@ -46,6 +47,7 @@ public class OrthogonalBase {
 
     public OrthogonalBase(double defaultScaleFactor) {
         this.DEFAULT_SCALE_FACTOR = defaultScaleFactor;
+        this.measuredDistance = MathUtils.IGNORE_DOUBLE;
     }
 
     private void updateCalcDistAndScaleFactor() {
@@ -76,6 +78,7 @@ public class OrthogonalBase {
             }
 
             jo.put(OrthogonalBase.MEASURED_DISTANCE, this.measuredDistance);
+            jo.put(OrthogonalBase.SCALE_FACTOR_LABEL, this.DEFAULT_SCALE_FACTOR);
         } catch (JSONException e) {
             Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
         }
@@ -94,8 +97,9 @@ public class OrthogonalBase {
             Point extremity = SharedResources.getSetOfPoints().find(
                     jo.getString(OrthogonalBase.EXTREMITY));
             double measureDist = jo.getDouble(OrthogonalBase.MEASURED_DISTANCE);
+            double defaultScaleFactor = jo.getDouble(OrthogonalBase.SCALE_FACTOR_LABEL);
 
-            ob = new OrthogonalBase(origin, extremity, measureDist);
+            ob = new OrthogonalBase(origin, extremity, measureDist, defaultScaleFactor);
         } catch (JSONException e) {
             Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
         }
