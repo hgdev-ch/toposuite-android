@@ -277,11 +277,6 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 return true;
             }
 
-            Log.d("TOPOSUITE FOOBAR MEASURED DISTANCE", String.valueOf(
-                    this.leveOrtho.getOrthogonalBase().getMeasuredDistance()));
-            Log.d("TOPOSUITE FOOBAR SCALE FACTOR", String.valueOf(
-                    this.leveOrtho.getOrthogonalBase().getScaleFactor()));
-
             int position = SharedResources.getCalculationsHistory()
                     .indexOf(this.leveOrtho);
 
