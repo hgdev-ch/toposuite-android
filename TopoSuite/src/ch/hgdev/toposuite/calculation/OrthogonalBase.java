@@ -37,7 +37,7 @@ public class OrthogonalBase {
     }
 
     public OrthogonalBase(Point _origin, Point _extremity) {
-        this(_origin, _extremity, 0.0);
+        this(_origin, _extremity, MathUtils.IGNORE_DOUBLE);
     }
 
     public OrthogonalBase() {

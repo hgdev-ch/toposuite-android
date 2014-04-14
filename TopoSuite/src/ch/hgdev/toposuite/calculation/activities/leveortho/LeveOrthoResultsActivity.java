@@ -19,6 +19,7 @@ import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal.Measure;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
@@ -136,9 +137,9 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
         }
 
         // If the mergeDialogCounter is still 0, it means that no merge dialog
-        // has been popped-up so far. And since the merge dialog callback handles
-        // the redirection to the points manager itself, it is needed to do it
-        // here.
+        // has been popped-up so far. And since the merge dialog callback
+        // handles the redirection to the points manager itself, it is needed to
+        // do it here.
         if (this.mergeDialogCounter == 0) {
             ViewUtils.redirectToPointsManagerActivity(this);
         }
@@ -158,7 +159,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
                     m.getNumber(),
                     m.getAbscissa(),
                     m.getOrdinate(),
-                    0.0,
+                    MathUtils.IGNORE_DOUBLE,
                     false);
             SharedResources.getSetOfPoints().add(point);
             return true;
@@ -178,7 +179,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
             args.putDouble(MergePointsDialog.NEW_NORTH,
                     m.getOrdinate());
             args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                    0.0);
+                    MathUtils.IGNORE_DOUBLE);
 
             dialog.setArguments(args);
             dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");

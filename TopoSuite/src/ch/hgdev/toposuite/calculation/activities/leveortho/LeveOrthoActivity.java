@@ -199,7 +199,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                     this.extremitySelectedPosition);
         }
 
-        if (this.measuredDist != Double.MIN_VALUE) {
+        if (!MathUtils.isZero(this.measuredDist)) {
             this.measuredDistEditText.setText(
                     DisplayUtils.toStringForEditText(this.measuredDist));
         }

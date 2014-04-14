@@ -41,7 +41,7 @@ public class LeveOrthogonal extends Calculation {
     }
 
     public LeveOrthogonal(Point origin, Point extremity, boolean hasDAO) {
-        this(origin, extremity, 0.0, hasDAO);
+        this(origin, extremity, MathUtils.IGNORE_DOUBLE, hasDAO);
     }
 
     public LeveOrthogonal(boolean hasDAO) {
