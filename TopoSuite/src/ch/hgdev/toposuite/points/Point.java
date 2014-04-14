@@ -271,7 +271,9 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
         String y = ltopLine.substring(32, 44);
 
         // 45-56 => X
-        String x = ltopLine.substring(44, 56);
+        String x = (ltopLine.length() < 56) ?
+                ltopLine.substring(44, ltopLine.length()) :
+                ltopLine.substring(44, 56);
 
         // 61-70 => H (optional)
         int hPosLimit = ltopLine.length() < 70 ? ltopLine.length() : 70;
