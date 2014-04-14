@@ -141,13 +141,39 @@ Si l'angle zénithal n'est pas indiqué, le programme considère que c'est une d
 	<b>il n'est pas possible de modifier un numéro de point. </b>
 	Le numéro de point servant à identifier un point, cela modifierait les calculs repris depuis l'historique.
 </p>
+<h4> Jobs</h4>
+<p>
+Toute action dans TopoSuite est enregistrée dans une base de données. Ainsi tous les calculs et points sont directement récupérés 
+lors d'une ouverture ultérieure de TopoSuite. <br>
+Il est possible via le menu "Job" (disponible depuis le volet gauche de TopoSuite) 
+d'exporter le job courant vers un fichier *.tpst, d'importer un job depuis un fichier *.tpst ou même d'effacer le job courant.<br>
+
+A l'instar de l'import de points, il est possible d'importer les fichiers *.tpst qui se trouvent dans le répertoire Toposuite/. 
+Tous les fichiers exportés se trouvent également dans ce même répertoire (qui est accessible depuis l'explorateur de fichier).
+<br>
+Il est possible d'ouvrir directement un fichier *.tpst depuis l'explorateur de fichier 
+(Voir section Importation pour les explorateurs supportés).
+</p>
 <h4> Importation</h4> 
 <p> 
     Il est possible soit d'ajouter les points manuellement, 
-    soit d'importer directement tous les points, à l'aide d'un fichier CSV ou LTOP ou PTP  <br>
+    soit d'importer directement tous les points, à l'aide d'un fichier CSV, LTOP ou PTP.  <br>
+	Depuis Gmail, il n'est pas possible d'ouvrir directement un fichier de point. Il faut d'abord le sauvegarder
+	sur le téléphone et ensuite l'ouvrir depuis l'explorateur de fichiers. <br>
+	Le programme Cyanogenmod file manager est à proscrire car il ne gère pas bien les fichiers autre que le CSV.
+	<br>Les programmes suivant sont bien supporté:<br>
+	- Celui par défaut sur les tablettes<br>
+	- ASTRO<br>
+	- ES File Explorer<br>
+	- Google Drive<br>
+	- Dropbox<br>
+	- Zarchiver<br>
+   <br>
+   À noter que cette liste n'est pas exhaustive et que ce n'est pas parce qu'un explorateur de fichier n'est pas mentionné ici
+   qu'il n'est pas pris en charge.
    <br>
     Depuis l'appareil (sans connexion):<br>
-    Il faut placer le fichier CSV dans le dossier de 
+    Il faut placer le fichier dans le dossier de 
     l'application (/TopoSuite) pour être importé depuis le menu du programme.
   <br>
     L'autre solution (avec connexion ou non):<br>
@@ -170,13 +196,13 @@ Les colonnes 1 à 14 sont consacrées au numéro; <br>
 	<h5> PTP </h5> 
 <p> 
 Le fichier PTP ne doit pas comporter de lignes autres que celles contenant les points à importer.<br>
-Les colonnes  11 à 22 sont pour le numéro de point<br>
+Les colonnes  11 à 22 sont pour le numéro de point<br> 
 Les colonnes 33 à 43 correspondent à la coordonnée Est,<br>
 	Les colonnes 45 à 55 correspondent à la coordonnée Nord,<br>
 	Les colonnes 57 à 64 contiennent l'altitude (optionnel).<br>
   Pour le numéro de point, le programme ne prend en compte que la colonne numéro sans gérer le plan, la commune, etc.    <br>
   S'il y a deux fois le même numéro (sur deux plans différents par ex.), le programme ne prend que le premier point lu du fichier.   <br>
-  Attention aux eventuelles lignes de titre en début de fichier.      
+  Attention aux éventuelles lignes de titre en début de fichier.      
 </p>
 <h4>Exportation</h4>
 <p>
