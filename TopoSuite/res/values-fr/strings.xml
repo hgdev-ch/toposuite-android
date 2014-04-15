@@ -240,6 +240,9 @@
     <string name="orthogonal_implantation_label">Implantation orthogonale depuis la base </string>
     <string name="perimeter_label">Perimètre [m]</string>
     <string name="perpendicular">Perpendiculaire</string>
+    <string name="pgs_webpage_url">http://www.pro-geo.ch/</string>
+    <string name="pgs_webpage_url_short">www.pro-geo.ch</string>
+    <string name="pgsso">Professionnels Géomatique Suisse - Section Suisse Orientale (PGS-SO)</string>
     <string name="point_already_exist">Le point que vous voulez enregistrer existe déjà!</string>
     <string name="point_to_project">Point à projeter</string>
     <string name="point_1">Point A</string>
