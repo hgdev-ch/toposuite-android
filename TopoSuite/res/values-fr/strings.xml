@@ -182,7 +182,7 @@
     <string name="letter_gamma_unit">&#947; [g]</string>
     <string name="licenses">Licences</string>
     <string name="limit_displ_results_label">Dépl. // de limite (corr. surface <xliff:g>%s</xliff:g> [m²])</string>
-    <string name="limit_point_east_number">Numéro de point-limite Y (doite)</string>
+    <string name="limit_point_east_number">Numéro de point-limite Y (droit)</string>
     <string name="limit_point_west_number">Numéro de point-limite X (gauche)</string>
     <string name="line">Droite</string>
     <string name="line_1">Droite 1</string>
@@ -218,8 +218,8 @@
     <string name="mode_gisement_label">Gisement</string>
     <string name="mode_segment_label">Segment</string>
     <string name="name">Nom</string>
-    <string name="new_limit_point_east">Nouv. point-limite droit (Y)</string>
-    <string name="new_limit_point_west">Nouv. point-limite gauche (X)</string>
+    <string name="new_limit_point_east">Nouv. point-limite Y (droit)</string>
+    <string name="new_limit_point_west">Nouv. point-limite X (gauche)</string>
     <string name="no">Non</string>
     <string name="no_files">Aucun fichier</string>
     <string name="no_value">-</string>
