@@ -218,8 +218,8 @@
     <string name="mode_gisement_label">Gisement</string>
     <string name="mode_segment_label">Segment</string>
     <string name="name">Nom</string>
-    <string name="new_limit_point_east">Nouv. point-limite droite (Y)</string>
-    <string name="new_limit_point_west">Nouv. point-limit gauche (X)</string>
+    <string name="new_limit_point_east">Nouv. point-limite droit (Y)</string>
+    <string name="new_limit_point_west">Nouv. point-limite gauche (X)</string>
     <string name="no">Non</string>
     <string name="no_files">Aucun fichier</string>
     <string name="no_value">-</string>
