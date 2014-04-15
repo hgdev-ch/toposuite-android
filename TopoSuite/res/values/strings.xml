@@ -238,6 +238,9 @@
     <string name="orthogonal_implantation_label">Orthogonal implantation from the base </string>
     <string name="perimeter_label">Perimeter [m]</string>
     <string name="perpendicular">Perpendicular</string>
+    <string name="pgs_webpage_url">http://www.pro-geo.ch/</string>
+    <string name="pgs_webpage_url_short">www.pro-geo.ch</string>
+    <string name="pgsso">Geomatics Professionals Switzerland - Eastern Switzerland section (GPS-ES)</string>
     <string name="point_already_exist">The point you want to save already exists!</string>
     <string name="point_to_project">Point to project</string>
     <string name="point_1">Point A</string>
