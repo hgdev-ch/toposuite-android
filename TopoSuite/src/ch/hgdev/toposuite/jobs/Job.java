@@ -7,10 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.settings.SettingsActivity;
 import ch.hgdev.toposuite.utils.AppUtils;
 
 class Job {
@@ -81,7 +84,7 @@ class Job {
     public static void loadJobFromJSON(String json) throws JSONException, ParseException {
         JSONObject jo = new JSONObject(json);
 
-        /*JSONObject settingsObject = jo.getJSONObject(Job.SETTINGS_KEY);
+        JSONObject settingsObject = jo.getJSONObject(Job.SETTINGS_KEY);
         App.setDecimalPrecisionForCoordinate(
                 settingsObject.getInt(Job.COORDINATE_PRECISION_KEY));
         App.setDecimalPrecisionForAngle(
@@ -97,11 +100,24 @@ class Job {
         App.setCoordinateDecimalRounding(
                 settingsObject.getInt(Job.COORDINATE_ROUNDING));
 
+        // update the shared preferences with the new settings values
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(
                 App.getContext()).edit();
-        editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_COORDINATES_DECIMAL_PRECISION,
+        editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_COORDINATES_DISPLAY_PRECISION,
                 App.getDecimalPrecisionForCoordinate());
-        editor.commit();*/
+        editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_ANGLES_DISPLAY_PRECISION,
+                App.getDecimalPrecisionForAngle());
+        editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_DISTANCES_DISPLAY_PRECISION,
+                App.getDecimalPrecisionForDistance());
+        editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_AVERAGES_DISPLAY_PRECISION,
+                App.getDecimalPrecisionForAverage());
+        editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_GAPS_DISPLAY_PRECISION,
+                App.getDecimalPrecisionForGap());
+        editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_SURFACES_DISPLAY_PRECISION,
+                App.getDecimalPrecisionForSurface());
+        editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_COORDINATES_DECIMAL_PRECISION,
+                App.getCoordinateDecimalRounding());
+        editor.commit();
 
         for (int i = 0; i < jo.getJSONArray(Job.POINTS_KEY).length(); i++) {
             JSONObject pointObject = (JSONObject) jo.getJSONArray(
