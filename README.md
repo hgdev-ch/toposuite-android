@@ -7,9 +7,10 @@ TopoSuite for Android is an application developed by
 [hgdev](http://www.hgdev.ch/) and commissioned by the CRAG (Commission paritaire
 Romande d'Apprentissage de  Géomaticien(ne)s).
 
-The application development is currently sponsored by the CRAG and
-[CF-Geo](http://www.cf-geo.ch/). If you are interested in seeing more features
-or improvements in this application, please,
+The application development is currently sponsored by the CRAG,
+[CF-Geo](http://www.cf-geo.ch/), [CEPM](http://www.cepm.ch/),
+[CPLN](http://www.cpln.ch/) and [Pro-Geo](http://www.pro-geo.ch/). If you are
+interested in seeing more features or improvements in this application, please,
 [contact us](http://www.hgdev.ch/contact.html).
 
 This application is free software licensed under the GPLv2 license (see
