@@ -149,6 +149,7 @@ Toute action dans TopoSuite est enregistrée dans une base de données. Ainsi to
 lors d'une ouverture ultérieure de TopoSuite. <br>
 Il est possible via le menu "Job" (disponible depuis le volet gauche de TopoSuite) 
 d'exporter le job courant vers un fichier *.tpst, d'importer un job depuis un fichier *.tpst ou même d'effacer le job courant.<br>
+L'exportation d'un job sauvegarde : les préférences, l'historique des calculs et les points. Lors de l'import de job, il est évident que Toposuite reprend les mêmes données que celles exportées.<br>
 
 A l'instar de l'import de points, il est possible d'importer les fichiers *.tpst qui se trouvent dans le répertoire Toposuite/. 
 Tous les fichiers exportés se trouvent également dans ce même répertoire (qui est accessible depuis l'explorateur de fichier).
@@ -444,9 +445,10 @@ vZo = Erreur moyenne d'une direction compensée <br>
 <h4 id="seg_arc">Segmentation d'un arc de cercle</h4>
   <p>
     Ce calcul permet d'obtenir des coordonnées réparties le long de l'arc de cercle.   <br>
-    La segmentation peut se faire à partir du nombre de segments que l'on veut ou d'une distance rentrée manuellement.  <br>
+    La segmentation peut se faire à partir du nombre de segments que l'on veut (Image A) ou d'une distance (a) rentrée manuellement (Image B).  <br>
     Il est clair, dans la deuxième solution, que la distance restante entre le dernier point calculé et 
-    l'extrémité de l'arc de cercle n'est pas égale aux autres distances.
+    l'extrémité de l'arc de cercle n'est pas égale aux autres distances (?) .     <br>
+     <img src="file:///android_asset/help/img/circular_segmentation.png" alt="Segmentation d'un arc de cercle"/>
   </p>
   <!--
 <h4 id="helmert">Transformation d'Helmert (transformation conforme à 4 paramètres)</h4>
