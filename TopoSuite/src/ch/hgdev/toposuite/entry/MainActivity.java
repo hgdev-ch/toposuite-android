@@ -47,6 +47,10 @@ public class MainActivity extends TopoSuiteActivity {
                 .append(appName)
                 .append("</h1>")
                 .append("<p>")
+                .append(App.getContext().getString(R.string.app_website))
+                .append("&nbsp;<a href='http://toposuite.hgdev.ch'>toposuite.hgdev.ch</a>")
+                .append("</p>")
+                .append("<p>")
                 .append(String.format(App.getContext().getString(R.string.app_copyright),
                         AppUtils.getYear(),
                         App.getContext().getString(R.string.crag)))
