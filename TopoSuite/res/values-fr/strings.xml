@@ -26,6 +26,7 @@
     <string name="app_developer_webpage_url_short">www.hgdev.ch</string>
     <string name="app_name">TopoSuite</string>
     <string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
+	<string name="app_website">Site officiel:</string>
     <string name="application_settings">Préférences de l\'application</string>
     <string name="arc_label">Arc [m]</string>
     <string name="arc_length_label">Longueur d\'un arc</string>
