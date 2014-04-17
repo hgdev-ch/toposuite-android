@@ -2,7 +2,10 @@ package ch.hgdev.toposuite.utils;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 
+import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
@@ -455,11 +458,18 @@ public class MathUtils {
             return MathUtils.IGNORE_DOUBLE;
         }
         int precision = App.getCoordinateDecimalRounding();
-        String format = precision < 1 ? "#" : "#.";
+        String pattern = precision < 1 ? "#" : "#.";
         String decimalCount = Strings.repeat("#", precision);
-        format += decimalCount;
-        DecimalFormat df = new DecimalFormat(format);
+        pattern += decimalCount;
+        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+        symbols.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat(pattern, symbols);
         df.setRoundingMode(RoundingMode.HALF_UP);
-        return Double.valueOf(df.format(coordinate));
+        try {
+            return df.parse(df.format(coordinate)).doubleValue();
+        } catch (ParseException e) {
+            Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.toString());
+            return MathUtils.IGNORE_DOUBLE;
+        }
     }
 }
