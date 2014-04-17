@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.utils;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -111,12 +112,15 @@ public class DisplayUtils {
                 Log.w(Logger.TOPOSUITE_SETTINGS_ERROR, "unknown value type");
                 return "-";
             }
-            String format = precision < 1 ? "0" : "0.";
+            String pattern = precision < 1 ? "#,##0" : "#,##0.";
             String decimalCount = Strings.repeat("0", precision);
-            format += decimalCount;
-            DecimalFormat df = new DecimalFormat(format);
+            pattern += decimalCount;
+            DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+            symbols.setDecimalSeparator('.');
+            symbols.setGroupingSeparator('\'');
+            DecimalFormat df = new DecimalFormat(pattern, symbols);
             df.setRoundingMode(RoundingMode.HALF_UP);
-            return df.format(value);
+            return df.format(value).toString();
         }
     }
 
