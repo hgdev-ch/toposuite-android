@@ -1,5 +1,9 @@
 package ch.hgdev.toposuite.utils;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
@@ -8,9 +12,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
+import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
@@ -43,14 +49,20 @@ public class ViewUtils {
      */
     public static double readDouble(EditText editText) {
         if ((editText != null) && (editText.length() > 0)) {
-            String input = editText.getText().toString();
-            // FIXME ugly workaround for when a comma is used a the decimal
-            // separator instead of a dot. This is a locale issue that deserves
-            // a proper fix...
-            String val = input.replace(',', '.');
-            return (ViewUtils.doublePattern.matcher(val).matches()) ?
-                    Double.parseDouble(val)
-                    : MathUtils.IGNORE_DOUBLE;
+            DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+            symbols.setDecimalSeparator('.');
+
+            DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(App.locale);
+            df.setDecimalFormatSymbols(symbols);
+
+            try {
+                String input = df.parse(editText.getText().toString()).toString();
+                return (ViewUtils.doublePattern.matcher(input).matches()) ?
+                        df.parse(input).doubleValue()
+                        : MathUtils.IGNORE_DOUBLE;
+            } catch (ParseException e) {
+                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.toString());
+            }
         }
         return MathUtils.IGNORE_DOUBLE;
     }
