@@ -70,3 +70,13 @@ instance).
 Contributions are welcome. However, if your changes add a major feature, contact
 us before because we might not want it into the application. Simple bug fixes or
 minor improvements should usually be easily accepted.
+
+## SPONSORING
+
+This application is free but developers have to eat nonetheless. If you think
+this piece of software is useful to you, feel free to contribute by making a
+donation. If you feel like a feature is missing and you would like to have it
+implemented, consider sponsoring the development of this feature. Several
+organizations have already contributed to the development of this application.
+Why not yours? Feel free to [contact us](http://www.hgdev.ch/contact.html)
+about this.
