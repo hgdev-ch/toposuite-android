@@ -469,89 +469,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
         switch (id) {
         case R.id.run_calculation_button:
-            if (!this.isComputable()) {
-                ViewUtils.showToast(this, this.getString(R.string.error_impossible_calculation));
-                return true;
-            }
-
-            Point p1D1 = this.adapter.getItem(this.point1D1SelectedPosition);
-
-            Point p2D1 = null;
-            double gisementD1 = MathUtils.IGNORE_DOUBLE;
-            if (this.d1Mode == Mode.GISEMENT) {
-                gisementD1 = ViewUtils.readDouble(this.gisementD1EditText);
-            } else {
-                p2D1 = this.adapter.getItem(this.point2D1SelectedPosition);
-            }
-
-            double displacementD1 = MathUtils.IGNORE_DOUBLE;
-            if (this.displacementD1EditText.length() > 0) {
-                displacementD1 = ViewUtils.readDouble(this.displacementD1EditText);
-            }
-
-            double distP1D1 = MathUtils.IGNORE_DOUBLE;
-            if ((this.distP1D1EditText.length() > 0) && this.isD1Perpendicular) {
-                distP1D1 = ViewUtils.readDouble(this.distP1D1EditText);
-            }
-
-            Point p1D2 = this.adapter.getItem(this.point1D2SelectedPosition);
-
-            Point p2D2 = null;
-            double gisementD2 = MathUtils.IGNORE_DOUBLE;
-            if (this.d2Mode == Mode.GISEMENT) {
-                gisementD2 = ViewUtils.readDouble(this.gisementD2EditText);
-            } else {
-                p2D2 = this.adapter.getItem(this.point2D2SelectedPosition);
-            }
-
-            double displacementD2 = MathUtils.IGNORE_DOUBLE;
-            if (this.displacementD2EditText.length() > 0) {
-                displacementD2 = ViewUtils.readDouble(this.displacementD2EditText);
-            }
-
-            double distP1D2 = MathUtils.IGNORE_DOUBLE;
-            if ((this.distP1D2EditText.length() > 0) && this.isD2Perpendicular) {
-                distP1D2 = ViewUtils.readDouble(this.distP1D2EditText);
-            }
-
-            String pointNumber = this.pointNumberEditText.getText().toString();
-
-            if (this.lineIntersec == null) {
-                this.lineIntersec = new LinesIntersection(p1D1, p2D1, displacementD1, gisementD1,
-                        distP1D1, p1D2, p2D2, displacementD2, gisementD2, distP1D2, pointNumber,
-                        true);
-            } else {
-                this.lineIntersec.setP1D1(p1D1);
-                this.lineIntersec.setP2D1(p2D1);
-                this.lineIntersec.setGisementD1(gisementD1);
-                this.lineIntersec.setDisplacementD1(displacementD1);
-                this.lineIntersec.setDistanceP1D1(distP1D1);
-
-                this.lineIntersec.setP1D2(p1D2);
-                this.lineIntersec.setP2D2(p2D2);
-                this.lineIntersec.setGisementD2(gisementD2);
-                this.lineIntersec.setDisplacementD2(displacementD2);
-                this.lineIntersec.setDistanceP1D2(distP1D2);
-
-                this.lineIntersec.setPointNumber(pointNumber);
-            }
-
-            if ((this.lineIntersec.getP2D2() == null) || (this.lineIntersec.getP2D1() == null)) {
-                ViewUtils.showToast(this, this.getString(
-                        R.string.error_impossible_calculation));
-                return true;
-            }
-
-            try {
-                this.lineIntersec.compute();
-            } catch (CalculationException e) {
-                ViewUtils.showToast(this, e.getMessage());
-
-                // avoid to display the results
-                return true;
-            }
-            this.displayResult();
-
+            this.runCalculation();
             return true;
         case R.id.save_point:
             // check if the user has supplied a point number
@@ -560,14 +478,14 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 return true;
             }
 
+            // make sure that the computation has been done before
+            this.runCalculation();
+
             if (MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getEast())
                     || MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getNorth())) {
                 ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
                 return true;
             }
-
-            this.lineIntersec.setPointNumber(this.pointNumberEditText.getText().toString());
-            this.lineIntersec.notifyUpdate(this.lineIntersec);
 
             if (SharedResources.getSetOfPoints().find(
                     this.lineIntersec.getPointNumber()) == null) {
@@ -740,5 +658,90 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         }
 
         return true;
+    }
+
+    private final void runCalculation() {
+        if (!this.isComputable()) {
+            ViewUtils.showToast(this, this.getString(R.string.error_impossible_calculation));
+            return;
+        }
+
+        Point p1D1 = this.adapter.getItem(this.point1D1SelectedPosition);
+
+        Point p2D1 = null;
+        double gisementD1 = MathUtils.IGNORE_DOUBLE;
+        if (this.d1Mode == Mode.GISEMENT) {
+            gisementD1 = ViewUtils.readDouble(this.gisementD1EditText);
+        } else {
+            p2D1 = this.adapter.getItem(this.point2D1SelectedPosition);
+        }
+
+        double displacementD1 = MathUtils.IGNORE_DOUBLE;
+        if (this.displacementD1EditText.length() > 0) {
+            displacementD1 = ViewUtils.readDouble(this.displacementD1EditText);
+        }
+
+        double distP1D1 = MathUtils.IGNORE_DOUBLE;
+        if ((this.distP1D1EditText.length() > 0) && this.isD1Perpendicular) {
+            distP1D1 = ViewUtils.readDouble(this.distP1D1EditText);
+        }
+
+        Point p1D2 = this.adapter.getItem(this.point1D2SelectedPosition);
+
+        Point p2D2 = null;
+        double gisementD2 = MathUtils.IGNORE_DOUBLE;
+        if (this.d2Mode == Mode.GISEMENT) {
+            gisementD2 = ViewUtils.readDouble(this.gisementD2EditText);
+        } else {
+            p2D2 = this.adapter.getItem(this.point2D2SelectedPosition);
+        }
+
+        double displacementD2 = MathUtils.IGNORE_DOUBLE;
+        if (this.displacementD2EditText.length() > 0) {
+            displacementD2 = ViewUtils.readDouble(this.displacementD2EditText);
+        }
+
+        double distP1D2 = MathUtils.IGNORE_DOUBLE;
+        if ((this.distP1D2EditText.length() > 0) && this.isD2Perpendicular) {
+            distP1D2 = ViewUtils.readDouble(this.distP1D2EditText);
+        }
+
+        String pointNumber = this.pointNumberEditText.getText().toString();
+
+        if (this.lineIntersec == null) {
+            this.lineIntersec = new LinesIntersection(p1D1, p2D1, displacementD1, gisementD1,
+                    distP1D1, p1D2, p2D2, displacementD2, gisementD2, distP1D2, pointNumber,
+                    true);
+        } else {
+            this.lineIntersec.setP1D1(p1D1);
+            this.lineIntersec.setP2D1(p2D1);
+            this.lineIntersec.setGisementD1(gisementD1);
+            this.lineIntersec.setDisplacementD1(displacementD1);
+            this.lineIntersec.setDistanceP1D1(distP1D1);
+
+            this.lineIntersec.setP1D2(p1D2);
+            this.lineIntersec.setP2D2(p2D2);
+            this.lineIntersec.setGisementD2(gisementD2);
+            this.lineIntersec.setDisplacementD2(displacementD2);
+            this.lineIntersec.setDistanceP1D2(distP1D2);
+
+            this.lineIntersec.setPointNumber(pointNumber);
+        }
+
+        if ((this.lineIntersec.getP2D2() == null) || (this.lineIntersec.getP2D1() == null)) {
+            ViewUtils.showToast(this, this.getString(
+                    R.string.error_impossible_calculation));
+            return;
+        }
+
+        try {
+            this.lineIntersec.compute();
+        } catch (CalculationException e) {
+            ViewUtils.showToast(this, e.getMessage());
+
+            // avoid to display the results
+            return;
+        }
+        this.displayResult();
     }
 }
