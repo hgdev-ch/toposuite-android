@@ -176,7 +176,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
 
         this.orientationSpinner.setAdapter(a);
         this.orientationSpinner.setSelection(a.getPosition(SharedResources.getSetOfPoints().find(
-                this.bundle.getInt(EditOrientationDialogFragment.ORIENTATION_NUMBER))));
+                this.bundle.getString(EditOrientationDialogFragment.ORIENTATION_NUMBER))));
 
         this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
