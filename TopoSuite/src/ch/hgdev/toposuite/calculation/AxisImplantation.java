@@ -28,7 +28,6 @@ public class AxisImplantation extends Calculation {
     public static final String                  Z0_CALCULATION_ID = "z0_calculation_id";
     public static final String                  MEASURES_LIST     = "measures_list";
 
-    private static double                       TOLERANCE         = 0.0001;
     private long                                z0CalculationId;
 
     private OrthogonalBase                      orthogonalBase;
@@ -113,10 +112,10 @@ public class AxisImplantation extends Calculation {
                     this.orthogonalBase.getOrigin(),
                     p);
 
-            if (MathUtils.isBetween(angle, 100.0, 300.0, AxisImplantation.TOLERANCE)) {
+            if (MathUtils.isBetween(angle, 100.0, 300.0, App.getAngleTolerance())) {
                 abscissa = -abscissa;
             }
-            if (MathUtils.isBetween(angle, 200.0, 400.0, AxisImplantation.TOLERANCE)) {
+            if (MathUtils.isBetween(angle, 200.0, 400.0, App.getAngleTolerance())) {
                 ordinate = -ordinate;
             }
 
