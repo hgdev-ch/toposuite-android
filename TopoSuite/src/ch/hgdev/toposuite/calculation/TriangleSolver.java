@@ -21,8 +21,6 @@ public class TriangleSolver extends Calculation {
 
     private static final String  TRIANGLE_SOLVER = "Triangle solver: ";
 
-    private static final double  TOLERANCE       = 0.0001;
-
     private static final String  A               = "a";
     private static final String  B               = "b";
     private static final String  C               = "c";
@@ -125,7 +123,7 @@ public class TriangleSolver extends Calculation {
                 && MathUtils.isPositive(this.beta.first)
                 && MathUtils.isPositive(this.gamma.first)
                 && (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first))
-                > TriangleSolver.TOLERANCE)) {
+                > App.getAngleTolerance())) {
             Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
                             + "three angles are given and their sum does not equal 200 [g] "
@@ -453,7 +451,8 @@ public class TriangleSolver extends Calculation {
      * @return True if no inconsistency has been found, false otherwise.
      */
     private boolean checkFoundValues() {
-        if (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first)) > TriangleSolver.TOLERANCE) {
+        if (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first)) > App
+                .getAngleTolerance()) {
             Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
                             + "the sum of the found angles does not meet the tolerance.");
