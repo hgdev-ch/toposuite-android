@@ -22,8 +22,6 @@ public class FreeStation extends Calculation {
     private static final String     MEASURES       = "measures";
     private static final String     INSTRUMENT     = "instrument";
 
-    private static final double     TOLERANCE      = 0.0001;
-
     private String                  stationNumber;
     private ArrayList<Measure>      measures;
     /** Height of the instrument (I). */
@@ -223,9 +221,10 @@ public class FreeStation extends Calculation {
             if (MathUtils.isIgnorable(rotation)) {
                 continue;
             }
-            if (DoubleMath.fuzzyCompare(rotation - minRotation, -15.0, FreeStation.TOLERANCE) < 0) {
+            if (DoubleMath.fuzzyCompare(rotation - minRotation, -15.0, App.getAngleTolerance()) < 0) {
                 rotation += 400.0;
-            } else if (DoubleMath.fuzzyCompare(rotation - minRotation, 15.0, FreeStation.TOLERANCE) > 0) {
+            } else if (DoubleMath.fuzzyCompare(rotation - minRotation, 15.0,
+                    App.getAngleTolerance()) > 0) {
                 rotation -= 400.0;
             }
             meanRotations += rotation;
@@ -329,7 +328,7 @@ public class FreeStation extends Calculation {
             if (MathUtils.isIgnorable(r.rotation)) {
                 continue;
             }
-            if (DoubleMath.fuzzyCompare(r.rotation, minRotation, FreeStation.TOLERANCE) < 0) {
+            if (DoubleMath.fuzzyCompare(r.rotation, minRotation, App.getAngleTolerance()) < 0) {
                 minRotation = r.rotation;
             }
         }
