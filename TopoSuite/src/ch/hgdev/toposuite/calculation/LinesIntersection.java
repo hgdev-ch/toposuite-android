@@ -27,9 +27,6 @@ public class LinesIntersection extends Calculation {
     private static final String GIS_D2       = "gis_d2";
     private static final String POINT_NUMBER = "point_number";
 
-    /** Tolerance used to compare the points */
-    private static final double TOLERANCE    = 0.000001;
-
     private Point               p1D1;
     private Point               p2D1;
     private double              displacementD1;
@@ -131,10 +128,10 @@ public class LinesIntersection extends Calculation {
     @Override
     public void compute() throws CalculationException {
         // check for points equality
-        if ((MathUtils.equals(this.p1D1, this.p1D2, LinesIntersection.TOLERANCE)
-                && MathUtils.equals(this.p2D1, this.p2D2, LinesIntersection.TOLERANCE))
-                || (MathUtils.equals(this.p1D1, this.p2D2, LinesIntersection.TOLERANCE)
-                && MathUtils.equals(this.p2D1, this.p1D2, LinesIntersection.TOLERANCE))) {
+        if ((MathUtils.equals(this.p1D1, this.p1D2, App.getCoordinateTolerance())
+                && MathUtils.equals(this.p2D1, this.p2D2, App.getCoordinateTolerance()))
+                || (MathUtils.equals(this.p1D1, this.p2D2, App.getCoordinateTolerance())
+                && MathUtils.equals(this.p2D1, this.p1D2, App.getCoordinateTolerance()))) {
             throw new CalculationException(App.getContext().getString(
                     R.string.error_impossible_calculation));
         }
@@ -208,7 +205,7 @@ public class LinesIntersection extends Calculation {
                 .getGisement();
 
         // check if the lines are coincident
-        if (DoubleMath.fuzzyEquals(alphaAngle, -gammaAngle, LinesIntersection.TOLERANCE) &&
+        if (DoubleMath.fuzzyEquals(alphaAngle, -gammaAngle, App.getAngleTolerance()) &&
                 MathUtils.isZero(stPtIntersecDist)) {
             throw new CalculationException(
                     App.getContext().getString(R.string.error_impossible_calculation));
