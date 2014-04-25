@@ -1,52 +1,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    
+    android:orientation="vertical" >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="15dp">
-        
+        android:paddingLeft="@dimen/activity_horizontal_margin" >
+
         <TextView
             android:id="@+id/station_label"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/station_label"
             android:textStyle="bold" />
-        
+
         <TextView
             android:id="@+id/station_number"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/mean_label"
             android:textStyle="bold" />
-        
+
         <TextView
             android:id="@+id/mean"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
-   </LinearLayout>
-   
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp">
-        
+        android:orientation="horizontal" >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -54,7 +58,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/mean_error_label"
             android:textStyle="bold" />
-        
+
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -62,7 +66,7 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/mean_error_direction_label" />
-        
+
         <TextView
             android:id="@+id/mean_error_direction"
             android:layout_width="0dip"
@@ -70,7 +74,7 @@
             android:layout_weight="0.55"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
-        
+
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -78,7 +82,7 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/mean_error_compensated_label" />
-        
+
         <TextView
             android:id="@+id/mean_error_compensated"
             android:layout_width="0dip"
@@ -86,13 +90,13 @@
             android:layout_weight="0.50"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
-   </LinearLayout>
-    
-   <LinearLayout
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="match_parent"
@@ -121,7 +125,6 @@
             android:text="@string/unknown_orientation_label"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-        
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -156,4 +159,5 @@
         android:layout_height="wrap_content"
         android:layout_margin="1dp" >
     </ListView>
+
 </LinearLayout>
