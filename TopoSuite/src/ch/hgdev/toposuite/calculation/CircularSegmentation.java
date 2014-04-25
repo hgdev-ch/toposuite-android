@@ -35,8 +35,6 @@ public class CircularSegmentation extends Calculation {
 
     private static final String CIRCULAR_SEGMENTATION = "Circular segmentation: ";
 
-    private static final double TOLERANCE             = 0.0001;
-
     /**
      * Center of the circle.
      */
@@ -155,7 +153,7 @@ public class CircularSegmentation extends Calculation {
 
         double radiusStart = MathUtils.euclideanDistance(start, center);
         double radiusEnd = MathUtils.euclideanDistance(end, center);
-        if (!(DoubleMath.fuzzyEquals(radiusStart, radiusEnd, CircularSegmentation.TOLERANCE))) {
+        if (!(DoubleMath.fuzzyEquals(radiusStart, radiusEnd, App.getCoordinateTolerance()))) {
             String msg = String.format(CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "the two points must be at the same distance from the center each."
                     + "Radius according to the starting point is %f.\n"
