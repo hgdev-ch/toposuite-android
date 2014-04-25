@@ -316,4 +316,8 @@ public class App extends Application {
     public static double getCoordinateTolerance() {
         return 1.0 / Math.pow(10, App.getCoordinateDecimalRounding());
     }
+
+    public static double getAngleTolerance() {
+        return 1.0 / Math.pow(10, App.getDecimalPrecisionForAngle());
+    }
 }
