@@ -306,10 +306,14 @@ public class App extends Application {
     }
 
     public static int getCoordinateDecimalRounding() {
-        return coordinateDecimalRounding;
+        return App.coordinateDecimalRounding;
     }
 
     public static void setCoordinateDecimalRounding(int coordinateDecimalRounding) {
         App.coordinateDecimalRounding = coordinateDecimalRounding;
+    }
+
+    public static double getCoordinateTolerance() {
+        return 1.0 / Math.pow(10, App.getCoordinateDecimalRounding());
     }
 }
