@@ -144,6 +144,8 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
     private void initAttributes() {
         Bundle bundle = this.getArguments();
 
+        this.positionAfter = "";
+
         this.radius = bundle.getDouble(SurfaceActivity.RADIUS_LABEL);
 
         this.layout = new LinearLayout(this.getActivity());
