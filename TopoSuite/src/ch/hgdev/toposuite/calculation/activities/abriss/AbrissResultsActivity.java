@@ -78,7 +78,6 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
             this.abriss.getMeasures().addAll(orientationsList);
         }
 
-        this.abriss.getResults().clear();
         this.abriss.compute();
 
         this.displayResults();
