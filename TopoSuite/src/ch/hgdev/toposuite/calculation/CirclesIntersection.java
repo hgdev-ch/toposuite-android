@@ -105,6 +105,12 @@ public class CirclesIntersection extends Calculation {
         this.setCenterSecond(_centerSecond);
         this.setRadiusSecond(_radiusSecond);
 
+        if (MathUtils.equals(this.centerFirst, this.centerSecond, App.getCoordinateTolerance(),
+                false)) {
+            throw new IllegalArgumentException(CirclesIntersection.CIRCLE_INTERSECTION
+                    + "The two circles must be different");
+        }
+
         this.firstIntersection = new Point(false);
         this.secondIntersection = new Point(false);
     }
