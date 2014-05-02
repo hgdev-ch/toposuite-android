@@ -148,16 +148,19 @@ public class MathUtils {
      *            Second point to compare
      * @param tolerance
      *            The tolerance used for the comparison
+     * @param altitude
+     *            Set to true if you want to consider the altitude for the
+     *            comparison
      * @return True if they are the same, false otherwise.
      */
-    public static boolean equals(Point p1, Point p2, double tolerance) {
+    public static boolean equals(Point p1, Point p2, double tolerance, boolean altitude) {
         if ((p1 == null) || (p2 == null)) {
             return false;
         }
 
         if (DoubleMath.fuzzyEquals(p1.getEast(), p2.getEast(), tolerance)
                 && DoubleMath.fuzzyEquals(p1.getNorth(), p2.getNorth(), tolerance)) {
-            if (!MathUtils.isIgnorable(p1.getAltitude())
+            if (altitude && !MathUtils.isIgnorable(p1.getAltitude())
                     && !MathUtils.isIgnorable(p2.getAltitude())) {
                 if (!DoubleMath.fuzzyEquals(p1.getAltitude(), p2.getAltitude(), tolerance)) {
                     return false;
@@ -168,6 +171,22 @@ public class MathUtils {
         }
 
         return false;
+    }
+
+    /**
+     * Check the two input points for equality. This method does not take the
+     * point number into account.
+     * 
+     * @param p1
+     *            First point to compare
+     * @param p2
+     *            Second point to compare
+     * @param tolerance
+     *            The tolerance used for the comparison
+     * @return True if they are the same, false otherwise.
+     */
+    public static boolean equals(Point p1, Point p2, double tolerance) {
+        return MathUtils.equals(p1, p2, tolerance, true);
     }
 
     /**
