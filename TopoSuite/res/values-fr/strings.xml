@@ -70,7 +70,7 @@
     <string name="delete_all">Tout supprimer</string>
     <string name="delete_all_history">Effacer l\'historique</string>
     <string name="delete_all_points">Effacer tous les points?</string>
-    <string name="delete_job">Effacer le job courrant</string>
+    <string name="delete_job">Effacer le job courant</string>
     <string name="description">Description</string>
     <string name="determination_sight_3dots">Visée de détermination No&#8230;</string>
     <string name="determination_sight_label">Visée de détermination No</string>
@@ -301,7 +301,7 @@
     <string name="success_export_dialog">Les <xliff:g>%d</xliff:g> points ont été exportés avec succès!</string>
     <string name="success_export_job_dialog">Le job courrant a été exporté avec succès!</string>
     <string name="success_import_dialog">Les points ont été importés avec succès!</string>
-    <string name="success_import_job_dialog">Le job a été importés avec succès!</string>
+    <string name="success_import_job_dialog">Le job a été importé avec succès!</string>
     <string name="success_merge">Points fusionnés avec succès!</string>
     <string name="success_point_kept">Point conservé!</string>
     <string name="success_replace">Point remplacé avec succès!</string>
