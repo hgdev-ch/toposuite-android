@@ -107,6 +107,9 @@
     <string name="east_3dots">East&#8230;</string>
     <string name="east_label">East [m]</string>
     <string name="edit">Edit</string>
+    <string name="epca">Ecole professionnelle commerciale et artisanale de Sion (EPCA)</string>
+    <string name="epca_webpage_url">http://www.epcasion.ch/</string>
+    <string name="epca_webpage_url_short">www.epcasion.ch</string>
     <string name="err_angle_label">Ang. Err. [cc]</string>
     <string name="err_trans_label">Trans. Err. [cm]</string>
     <string name="err_lon_label">Lon. Err. [cm]</string>

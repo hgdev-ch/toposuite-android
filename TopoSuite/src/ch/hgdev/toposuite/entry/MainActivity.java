@@ -104,8 +104,14 @@ public class MainActivity extends TopoSuiteActivity {
                         + App.getContext().getString(R.string.cpln_webpage_url_short) + "</a>")
                 .append("</td></tr>");
 
+        // EPCA
+        html.append("<tr><td></td><td>" + App.getContext().getString(R.string.epca))
+                .append(" - " + "<a href='"
+                        + App.getContext().getString(R.string.epca_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.epca_webpage_url_short) + "</a>")
+                .append("</td></tr>");
+
         // PGS-SO
-        // CPLN
         html.append("<tr><td>")
                 .append("<img src='file:///android_asset/pgs_logo.png' alt='")
                 .append(App.getContext().getString(R.string.pgsso))
