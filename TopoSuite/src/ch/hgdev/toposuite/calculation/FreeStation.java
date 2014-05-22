@@ -137,6 +137,8 @@ public class FreeStation extends Calculation {
                 gis += (MathUtils.isPositive(m.getLatDepl()))
                         ? MathUtils.radToGrad(angle) : -MathUtils.radToGrad(angle);
             }
+            // the distance, here horizontal distance, is used later on
+            m.setDistance(horizDist);
 
             res.setEast(MathUtils.pointLanceEast(0, gis, horizDist));
             res.setNorth(MathUtils.pointLanceNorth(0, gis, horizDist));

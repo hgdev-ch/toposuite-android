@@ -203,4 +203,51 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("1.3", this.df1.format(fs.getResults().get(3).getfS()));
     }
 
+    /**
+     * This test is a regression test for bug #628 (wrong computation of the
+     * horizontal distance).
+     */
+    public void testFreeStation5() {
+        Point p47 = new Point("47", 529076.015, 182644.074, 933.350, true, false);
+        Point p48 = new Point("48", 529133.008, 182679.620, 918.950, true, false);
+        Point p9001 = new Point("9001", 529137.864, 182649.391, 919.770, true, false);
+        Point p9002 = new Point("9002", 529112.403, 182631.705, 924.720, true, false);
+        Point p9005 = new Point("9005", 529120.829, 182647.374, 923.684, true, false);
+        Point p9010gps = new Point("9010gps", 529115.194, 182633.175, 923.785, true, false);
+
+        Measure m1 = new Measure(p47, 288.8624, 85.8420, 43.215, 2.0);
+        Measure m2 = new Measure(p48, 31.9616, 109.5593, 32.559, 2.0);
+        Measure m3 = new Measure(p9001, 106.3770, 112.4151, 20.890, 2.00);
+        Measure m4 = new Measure(p9002, 216.0699, 97.2887, 20.360, 2.000);
+        Measure m5 = new Measure(p9005, 155.9136, 101.5850, 5.250, 2.000);
+        Measure m6 = new Measure(p9010gps, 208.0706, 100.1894, 18.340, 2.000);
+
+        FreeStation fs = new FreeStation("42", 0.846, false);
+        fs.getMeasures().add(m1);
+        fs.getMeasures().add(m2);
+        fs.getMeasures().add(m3);
+        fs.getMeasures().add(m4);
+        fs.getMeasures().add(m5);
+        fs.getMeasures().add(m6);
+        fs.compute();
+
+        Assert.assertEquals("529117.495", this.df3.format(fs.getStationResult().getEast()));
+        Assert.assertEquals("182651.405", this.df3.format(fs.getStationResult().getNorth()));
+        Assert.assertEquals("924.973", this.df3.format(fs.getStationResult().getAltitude()));
+
+        Assert.assertEquals("-0.7", this.df1.format(fs.getResults().get(0).getvE()));
+        Assert.assertEquals("-4.1", this.df1.format(fs.getResults().get(1).getvE()));
+        Assert.assertEquals("1.5", this.df1.format(fs.getResults().get(2).getvE()));
+        Assert.assertEquals("2.3", this.df1.format(fs.getResults().get(3).getvE()));
+
+        Assert.assertEquals("-2.2", this.df1.format(fs.getResults().get(0).getvN()));
+        Assert.assertEquals("0", this.df1.format(fs.getResults().get(1).getvN()));
+        Assert.assertEquals("-2.5", this.df1.format(fs.getResults().get(2).getvN()));
+        Assert.assertEquals("0.9", this.df1.format(fs.getResults().get(3).getvN()));
+
+        Assert.assertEquals("0.8", this.df1.format(fs.getsE()));
+        Assert.assertEquals("0.8", this.df1.format(fs.getsN()));
+
+        Assert.assertEquals("399.9697", this.df4.format(fs.getUnknownOrientation()));
+    }
 }
