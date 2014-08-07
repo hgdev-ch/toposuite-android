@@ -1,5 +1,10 @@
 # TOPOSUITE FOR ANDROID
 
+<a href="https://scan.coverity.com/projects/2735">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/2735/badge.svg"/>
+</a>
+
 Copyright(C) 2014, CRAG (Commission paritaire  Romande d'Apprentissage de
 Géomaticien(ne)s)
 
