@@ -13,6 +13,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> {
@@ -66,7 +67,12 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
 
             if (vATextView != null) {
                 if (this.hasAltimetry) {
-                    vATextView.setText(DisplayUtils.formatGap(result.getvA()));
+                	if (MathUtils.isIgnorable(result.getPoint().getAltitude())) {
+                		vATextView.setText(
+                                App.getContext().getString(R.string.no_value));
+                	} else {
+                		vATextView.setText(DisplayUtils.formatGap(result.getvA()));
+                	}
                 } else {
                     vATextView.setText(
                             App.getContext().getString(R.string.no_value));
