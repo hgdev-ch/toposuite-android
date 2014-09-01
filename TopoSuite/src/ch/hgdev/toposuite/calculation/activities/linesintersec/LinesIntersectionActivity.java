@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.linesintersec;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CalculationException;
+import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.dao.PointsDataSource;
@@ -644,9 +646,23 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         // check that the two "gisements" are different, in other
         double g1 = ViewUtils.readDouble(this.gisementD1EditText);
         double g2 = ViewUtils.readDouble(this.gisementD2EditText);
-        if ((this.d1Mode == Mode.GISEMENT) && (this.d2Mode == Mode.GISEMENT)
-                && (MathUtils.roundWithTolerance(g1 - g2, Math.pow(10, -App.getDecimalPrecisionForAngle())) % 200) == 0) {
-            return false;
+        
+        if (this.d1Mode != Mode.GISEMENT) {
+        	g1 = new Gisement(
+        			this.adapter.getItem(point1D1SelectedPosition),
+        			this.adapter.getItem(point2D1SelectedPosition)
+        		).getGisement();
+        }
+        
+        if (this.d2Mode != Mode.GISEMENT) {
+        	g2 = new Gisement(
+        			this.adapter.getItem(point1D2SelectedPosition),
+        			this.adapter.getItem(point2D2SelectedPosition)
+        		).getGisement();
+        }
+        
+        if ((MathUtils.roundWithTolerance(g1 - g2, 0.001) % 200) == 0) {
+        	return false;
         }
 
         if (this.isD1Perpendicular && (this.displacementD1EditText.length() > 0)) {
