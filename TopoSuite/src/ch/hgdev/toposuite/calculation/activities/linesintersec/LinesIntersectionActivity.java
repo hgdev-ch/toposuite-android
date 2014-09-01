@@ -34,7 +34,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class LinesIntersectionActivity extends TopoSuiteActivity implements
+@SuppressLint("NewApi") public class LinesIntersectionActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
     private static final String            LINES_INTERSEC_POSITION = "lines_intersec_position";
     private static final String            P1D1_SELECTED_POSITION  = "p1d1_selected_position";
