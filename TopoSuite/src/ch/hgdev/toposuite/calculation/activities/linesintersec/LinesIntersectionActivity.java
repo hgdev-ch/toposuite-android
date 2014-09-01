@@ -2,7 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.linesintersec;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -96,7 +96,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
     private AnimationDrawable              blinkAnimation;
 
-    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi") @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -645,7 +645,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         double g1 = ViewUtils.readDouble(this.gisementD1EditText);
         double g2 = ViewUtils.readDouble(this.gisementD2EditText);
         if ((this.d1Mode == Mode.GISEMENT) && (this.d2Mode == Mode.GISEMENT)
-                && MathUtils.isZero(g1 - g2)) {
+                && (MathUtils.roundWithTolerance(g1 - g2, Math.pow(10, -App.getDecimalPrecisionForAngle())) % 200) == 0) {
             return false;
         }
 

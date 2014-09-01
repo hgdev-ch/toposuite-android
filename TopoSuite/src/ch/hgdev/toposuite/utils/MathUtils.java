@@ -491,4 +491,19 @@ public class MathUtils {
             return MathUtils.IGNORE_DOUBLE;
         }
     }
+    
+    /**
+     * Round up a given number only if it is close enough according to a given
+     * tolerance.
+     * 
+     * @param n
+     * 			a number
+     * @param tolerance
+     * 			a tolerance
+     * @return The number rounded up or not
+     */
+    public static double roundWithTolerance(double n, double tolerance) {
+    	double nSup = Math.ceil(n);
+    	return DoubleMath.fuzzyEquals(nSup-n, 0.0d, tolerance) ? nSup : n;
+    }
 }
