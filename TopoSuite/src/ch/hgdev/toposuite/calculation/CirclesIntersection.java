@@ -128,6 +128,13 @@ public class CirclesIntersection extends Calculation {
     @Override
     public void compute() throws CalculationException {
         double distCenters = MathUtils.euclideanDistance(this.centerFirst, this.centerSecond);
+        if (MathUtils.isZero(distCenters)) {
+        	Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                            "The two circles have the same center!");
+        	throw new CalculationException(App.getContext().getString(
+                    R.string.error_impossible_calculation));
+        }
+        
         double alpha = ((Math.pow(distCenters, 2) + Math.pow(this.radiusFirst, 2)) - Math.pow(
                 this.radiusSecond, 2)) / (2 * this.radiusFirst * distCenters);
         // make sure there is an intersection
