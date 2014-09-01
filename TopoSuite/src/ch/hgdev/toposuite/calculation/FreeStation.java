@@ -501,7 +501,7 @@ public class FreeStation extends Calculation {
             this.weight = _weight;
             this.deactivated = false;
         }
-
+        
         public Result(Point _point) {
             this(_point, 0.0, 0.0, 0.0, 0.0);
         }
@@ -562,7 +562,7 @@ public class FreeStation extends Calculation {
             return this.deactivated;
         }
 
-        public final void toggle() {
+		public final void toggle() {
             this.deactivated = !this.deactivated;
         }
     }
@@ -572,45 +572,45 @@ public class FreeStation extends Calculation {
      * 
      * @author HGdev
      */
-    private class IntermediateResults {
+    public static class IntermediateResults {
         /**
          * Fictive gisement. (this attribute is used from the outside)
          */
         @SuppressWarnings("unused")
-        private final double gisFict;
+        public final double gisFict;
 
         /**
          * Fictive distance. (this attribute is used from the outside)
          */
         @SuppressWarnings("unused")
-        private final double distFict;
+        public final double distFict;
 
         /**
          * Cadastral gisement. (this attribute is used from the outside)
          */
         @SuppressWarnings("unused")
-        private final double gisCadast;
+        public final double gisCadast;
 
         /**
          * Cadastral distance. (this attribute is used from the outside)
          */
         @SuppressWarnings("unused")
-        private final double distCadast;
+        public final double distCadast;
 
         /**
          * Rotation between fictive and cadastral coordinates. (this attribute
          * is used from the outside)
          */
-        private double       rotation;
+        public double       rotation;
 
         /**
          * Multiplication constants between fictive and cadastral coordinates.
          * (this attribute is used from the outside)
          */
         @SuppressWarnings("unused")
-        private double       constant;
+        public double       constant;
 
-        private IntermediateResults(double _gisFict, double _distFict,
+        public IntermediateResults(double _gisFict, double _distFict,
                 double _gisCadast, double _distCadast) {
             this.gisFict = _gisFict;
             this.distFict = _distFict;
