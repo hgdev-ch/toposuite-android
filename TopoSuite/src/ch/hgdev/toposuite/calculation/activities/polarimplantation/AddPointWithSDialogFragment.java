@@ -26,7 +26,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-class AddPointWithSDialogFragment extends DialogFragment {
+public class AddPointWithSDialogFragment extends DialogFragment {
     /**
      * The activity that creates an instance of AddPointWithSDialogFragment must
      * implement this interface in order to receive event callbacks. Each method

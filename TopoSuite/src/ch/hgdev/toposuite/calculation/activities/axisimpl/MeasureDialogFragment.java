@@ -16,7 +16,7 @@ import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-class MeasureDialogFragment extends DialogFragment {
+public class MeasureDialogFragment extends DialogFragment {
     /**
      * The activity that creates an instance of MeasureDialogFragment must
      * implement this interface in order to receive event callbacks. Each method

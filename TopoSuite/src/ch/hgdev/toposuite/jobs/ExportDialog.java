@@ -28,7 +28,7 @@ import com.google.common.io.Files;
  * 
  * @author HGdev
  */
-class ExportDialog extends DialogFragment {
+public class ExportDialog extends DialogFragment {
     private ExportDialogListener listener;
     private EditText             filenameEditText;
 

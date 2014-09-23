@@ -45,7 +45,7 @@ import com.google.common.io.Files;
  * 
  * @author HGdev
  */
-class ImportDialog extends DialogFragment {
+public class ImportDialog extends DialogFragment {
     private ImportDialogListener listener;
 
     private ArrayAdapter<String> adapter;
