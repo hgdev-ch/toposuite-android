@@ -117,7 +117,7 @@ class Job {
                 App.getDecimalPrecisionForSurface());
         editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_COORDINATES_DECIMAL_PRECISION,
                 App.getCoordinateDecimalRounding());
-        editor.commit();
+        editor.apply();
 
         for (int i = 0; i < jo.getJSONArray(Job.POINTS_KEY).length(); i++) {
             JSONObject pointObject = (JSONObject) jo.getJSONArray(
