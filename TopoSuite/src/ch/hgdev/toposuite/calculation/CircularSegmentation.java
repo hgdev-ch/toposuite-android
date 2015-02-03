@@ -21,9 +21,9 @@ import com.google.common.math.DoubleMath;
 
 /**
  * Arc of circle segmentation calculation.
- * 
+ *
  * @author HGdev
- * 
+ *
  */
 public class CircularSegmentation extends Calculation {
 
@@ -99,7 +99,7 @@ public class CircularSegmentation extends Calculation {
 
     /**
      * Perform some checks on given values and set class attributes.
-     * 
+     *
      * @param center
      *            Center of the circle.
      * @param start
@@ -195,12 +195,6 @@ public class CircularSegmentation extends Calculation {
 
             // update the number of segments attributes
             this.numberOfSegments = numberOfSegmentsForCalc;
-
-            if (DoubleMath.fuzzyEquals(Math.floor(angle / alpha),
-                    Math.round(angle / alpha), 0.0001)) {
-                // it is not necessary to compute the last point
-                numberOfSegmentsForCalc--;
-            }
 
             angle = alpha;
         } else {
