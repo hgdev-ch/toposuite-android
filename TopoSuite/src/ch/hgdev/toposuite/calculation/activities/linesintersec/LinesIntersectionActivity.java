@@ -34,7 +34,8 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-@SuppressLint("NewApi") public class LinesIntersectionActivity extends TopoSuiteActivity implements
+@SuppressLint("NewApi")
+public class LinesIntersectionActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
     private static final String            LINES_INTERSEC_POSITION = "lines_intersec_position";
     private static final String            P1D1_SELECTED_POSITION  = "p1d1_selected_position";
@@ -98,7 +99,8 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
     private AnimationDrawable              blinkAnimation;
 
-    @SuppressLint("NewApi") @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -534,6 +536,11 @@ import ch.hgdev.toposuite.utils.ViewUtils;
                 }
                 this.gisementD1Layout.setVisibility(View.VISIBLE);
                 this.d1Mode = LinesIntersectionActivity.Mode.GISEMENT;
+
+                this.perpendicularD1CheckBox.setEnabled(false);
+                this.perpendicularD1CheckBox.setChecked(false);
+                this.distP1D1TexView.setEnabled(false);
+                this.distP1D1EditText.setEnabled(false);
                 break;
             }
         case R.id.mode_d1_line:
@@ -544,6 +551,9 @@ import ch.hgdev.toposuite.utils.ViewUtils;
                 }
                 this.gisementD1Layout.setVisibility(View.GONE);
                 this.d1Mode = LinesIntersectionActivity.Mode.LINE;
+                this.perpendicularD1CheckBox.setEnabled(true);
+                this.distP1D1TexView.setEnabled(true);
+                this.distP1D1EditText.setEnabled(true);
                 break;
             }
         case R.id.mode_d2_gisement:
@@ -554,6 +564,10 @@ import ch.hgdev.toposuite.utils.ViewUtils;
                 }
                 this.gisementD2Layout.setVisibility(View.VISIBLE);
                 this.d2Mode = LinesIntersectionActivity.Mode.GISEMENT;
+                this.perpendicularD2CheckBox.setEnabled(false);
+                this.perpendicularD2CheckBox.setChecked(false);
+                this.distP1D2TexView.setEnabled(false);
+                this.distP1D2EditText.setEnabled(false);
                 break;
             }
         case R.id.mode_d2_line:
@@ -564,6 +578,9 @@ import ch.hgdev.toposuite.utils.ViewUtils;
                 }
                 this.gisementD2Layout.setVisibility(View.GONE);
                 this.d2Mode = LinesIntersectionActivity.Mode.LINE;
+                this.perpendicularD2CheckBox.setEnabled(true);
+                this.distP1D2TexView.setEnabled(true);
+                this.distP1D2EditText.setEnabled(true);
                 break;
             }
         }
@@ -646,23 +663,23 @@ import ch.hgdev.toposuite.utils.ViewUtils;
         // check that the two "gisements" are different, in other
         double g1 = ViewUtils.readDouble(this.gisementD1EditText);
         double g2 = ViewUtils.readDouble(this.gisementD2EditText);
-        
+
         if (this.d1Mode != Mode.GISEMENT) {
-        	g1 = new Gisement(
-        			this.adapter.getItem(point1D1SelectedPosition),
-        			this.adapter.getItem(point2D1SelectedPosition)
-        		).getGisement();
+            g1 = new Gisement(
+                    this.adapter.getItem(this.point1D1SelectedPosition),
+                    this.adapter.getItem(this.point2D1SelectedPosition)
+                    ).getGisement();
         }
-        
+
         if (this.d2Mode != Mode.GISEMENT) {
-        	g2 = new Gisement(
-        			this.adapter.getItem(point1D2SelectedPosition),
-        			this.adapter.getItem(point2D2SelectedPosition)
-        		).getGisement();
+            g2 = new Gisement(
+                    this.adapter.getItem(this.point1D2SelectedPosition),
+                    this.adapter.getItem(this.point2D2SelectedPosition)
+                    ).getGisement();
         }
-        
+
         if ((MathUtils.roundWithTolerance(g1 - g2, 0.001) % 200) == 0) {
-        	return false;
+            return false;
         }
 
         if (this.isD1Perpendicular && (this.displacementD1EditText.length() > 0)) {
