@@ -41,6 +41,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     // line
     private Spinner                             point1Spinner;
     private Spinner                             point2Spinner;
+    private TextView                            displacementTextView;
     private TextView                            point1TextView;
     private TextView                            point2TextView;
     private TextView                            distP1TexView;
@@ -149,6 +150,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 this.displacementEditText.setText(
                         DisplayUtils.toStringForEditText(displacement));
             }
+            this.displacementTextView.setEnabled(!this.isLinePerpendicular);
+            this.displacementEditText.setEnabled(!this.isLinePerpendicular);
+
             double gisement = this.lineCircleIntersection.getGisementL();
             if (MathUtils.isPositive(gisement)) {
                 this.modeGisementRadio.setChecked(true);
@@ -327,6 +331,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         this.point1TextView = (TextView) this.findViewById(R.id.point_1);
         this.point2TextView = (TextView) this.findViewById(R.id.point_2);
         this.distP1TexView = (TextView) this.findViewById(R.id.dist_p1_label);
+        this.displacementTextView = (TextView) this.findViewById(R.id.displacement_label);
         this.perpendicularCheckBox = (CheckBox) this.findViewById(R.id.is_l_perpendicular);
         this.gisementEditText = (EditText) this.findViewById(R.id.gisement);
         this.displacementEditText = (EditText) this.findViewById(R.id.displacement);
@@ -471,7 +476,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
     /**
      * Handle click on the radio button.
-     * 
+     *
      * @param view
      *            The radio button.
      */
@@ -518,7 +523,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
     /**
      * Handle click on checkbox.
-     * 
+     *
      * @param view
      */
     public void onCheckboxClicked(View view) {
@@ -527,14 +532,18 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         this.distP1TexView.setEnabled(checked);
         this.distP1EditText.setEnabled(checked);
         this.isLinePerpendicular = checked;
+        this.displacementEditText.setEnabled(!checked);
+        this.displacementTextView.setEnabled(!checked);
         if (!checked) {
             this.distP1EditText.setText("");
+        } else {
+            this.displacementEditText.setText("");
         }
     }
 
     /**
      * Check that inputs are OK so the calculation can be run safely.
-     * 
+     *
      * @return True if OK, false otherwise.
      */
     private boolean checkInputs() {
