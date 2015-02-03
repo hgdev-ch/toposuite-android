@@ -36,7 +36,7 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 @SuppressLint("NewApi")
 public class LinesIntersectionActivity extends TopoSuiteActivity implements
-        MergePointsDialog.MergePointsDialogListener {
+MergePointsDialog.MergePointsDialogListener {
     private static final String            LINES_INTERSEC_POSITION = "lines_intersec_position";
     private static final String            P1D1_SELECTED_POSITION  = "p1d1_selected_position";
     private static final String            P2D1_SELECTED_POSITION  = "p2d1_selected_position";
@@ -50,6 +50,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
     private Spinner                        point1D2Spinner;
     private Spinner                        point2D2Spinner;
 
+    private TextView                       displacementD1TextView;
+    private TextView                       displacementD2TextView;
     private TextView                       point1D1TextView;
     private TextView                       point2D1TextView;
     private TextView                       point1D2TextView;
@@ -150,9 +152,11 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         this.gisementD2EditText = (EditText) this.findViewById(R.id.gisement_d2);
         this.gisementD2EditText.setInputType(App.getInputTypeCoordinate());
 
+        this.displacementD1TextView = (TextView) this.findViewById(R.id.displacement_d1_label);
         this.displacementD1EditText = (EditText) this.findViewById(R.id.displacement_d1);
         this.displacementD1EditText.setInputType(App.getInputTypeCoordinate());
 
+        this.displacementD2TextView = (TextView) this.findViewById(R.id.displacement_d2_label);
         this.displacementD2EditText = (EditText) this.findViewById(R.id.displacement_d2);
         this.displacementD2EditText.setInputType(App.getInputTypeCoordinate());
 
@@ -364,11 +368,15 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 this.displacementD1EditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getDisplacementD1()));
             }
+            this.displacementD1TextView.setEnabled(!this.isD1Perpendicular);
+            this.displacementD1EditText.setEnabled(!this.isD1Perpendicular);
 
             if (!MathUtils.isZero(this.lineIntersec.getDisplacementD2())) {
                 this.displacementD2EditText.setText(DisplayUtils.toStringForEditText(
                         this.lineIntersec.getDisplacementD2()));
             }
+            this.displacementD2TextView.setEnabled(!this.isD2Perpendicular);
+            this.displacementD2EditText.setEnabled(!this.isD2Perpendicular);
 
             if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D1())) {
                 this.distP1D1EditText.setText(DisplayUtils.toStringForEditText(
@@ -594,11 +602,15 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             this.distP1D1TexView.setEnabled(checked);
             this.distP1D1EditText.setEnabled(checked);
             this.isD1Perpendicular = checked;
+            this.displacementD1EditText.setEnabled(!checked);
+            this.displacementD1TextView.setEnabled(!checked);
             break;
         case R.id.is_d2_perpendicular:
             this.distP1D2TexView.setEnabled(checked);
             this.distP1D2EditText.setEnabled(checked);
             this.isD2Perpendicular = checked;
+            this.displacementD2EditText.setEnabled(!checked);
+            this.displacementD2TextView.setEnabled(!checked);
             break;
         }
     }
