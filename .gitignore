@@ -1,6 +1,7 @@
 .metadata/
 .workspace/
 .codepro
+workspace
 
 .classpath
 .directory
