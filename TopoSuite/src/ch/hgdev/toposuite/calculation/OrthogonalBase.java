@@ -3,7 +3,6 @@ package ch.hgdev.toposuite.calculation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
@@ -80,7 +79,7 @@ public class OrthogonalBase {
             jo.put(OrthogonalBase.MEASURED_DISTANCE, this.measuredDistance);
             jo.put(OrthogonalBase.SCALE_FACTOR_LABEL, this.DEFAULT_SCALE_FACTOR);
         } catch (JSONException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
         }
 
         return jo;
@@ -101,7 +100,7 @@ public class OrthogonalBase {
 
             ob = new OrthogonalBase(origin, extremity, measureDist, defaultScaleFactor);
         } catch (JSONException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
         }
 
         return ob;

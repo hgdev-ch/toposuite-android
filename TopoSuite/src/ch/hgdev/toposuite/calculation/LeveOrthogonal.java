@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -217,7 +216,7 @@ public class LeveOrthogonal extends Calculation {
                 jo.put(Measure.ABSCISSA, this.abscissa);
                 jo.put(Measure.ORDINATE, this.ordinate);
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             }
 
             return jo;
@@ -235,7 +234,7 @@ public class LeveOrthogonal extends Calculation {
 
                 m = new Measure(number, abscissa, ordinate);
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             }
 
             return m;

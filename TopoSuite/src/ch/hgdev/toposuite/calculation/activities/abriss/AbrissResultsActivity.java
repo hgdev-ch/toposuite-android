@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -72,7 +71,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
                     orientationsList.add(m);
                 }
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             }
 
             this.abriss.getMeasures().addAll(orientationsList);

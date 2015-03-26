@@ -5,7 +5,6 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -112,7 +111,7 @@ public class LineCircleIntersection extends Calculation {
 
     /**
      * Initialize class attributes.
-     * 
+     *
      * @param _p1L
      *            First point on the line. Must NOT be null.
      * @param _p2L
@@ -194,7 +193,7 @@ public class LineCircleIntersection extends Calculation {
         if (MathUtils.isPositive((-proj * proj) + 1)) {
             beta = MathUtils.radToGrad(Math.atan(proj / Math.sqrt((-proj * proj) + 1)));
         } else {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     LineCircleIntersection.LINE_CIRCLE_INTERSECTION
                             + "No line-circle crossing. The radius should be longer than "
                             + DisplayUtils.formatDistance(minRadius)

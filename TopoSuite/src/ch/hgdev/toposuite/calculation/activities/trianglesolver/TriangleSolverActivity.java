@@ -1,7 +1,6 @@
 package ch.hgdev.toposuite.calculation.activities.trianglesolver;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -261,7 +260,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     /**
      * Update result views with results from the calculations.
-     * 
+     *
      * @param t
      */
     private void updateResults() {
@@ -298,7 +297,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     /**
      * Run the calculations if required parameters were filled.
-     * 
+     *
      * @return True if the calculation can be run, false otherwise.
      */
     private boolean chickenRun() {
@@ -336,7 +335,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     /**
      * Run the calculations.
-     * 
+     *
      * @return True if successful, false otherwise.
      */
     private boolean runCalculations() {
@@ -357,7 +356,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
             this.tS.compute();
         } catch (IllegalArgumentException e) {
             this.clearResults();
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Some data input to the solver were not valid");
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, "Some data input to the solver were not valid");
             return false;
         }
         return true;
@@ -365,7 +364,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     /**
      * Checks that all sides and angles are positive values.
-     * 
+     *
      * @return True if all sides and angles are positive, false otherwise.
      */
     private boolean areAllSidesAndAnglesPositives() {

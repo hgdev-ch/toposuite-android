@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -27,7 +26,7 @@ import ch.hgdev.toposuite.utils.StringUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularSegmentationResultsActivity extends TopoSuiteActivity implements
-        MergePointsDialog.MergePointsDialogListener {
+MergePointsDialog.MergePointsDialogListener {
     private ArrayList<Point>         points;
 
     private ListView                 resultsListView;
@@ -63,7 +62,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
             circularSegmentation.initAttributes(center, start, end, numberOfSegments, arcLength);
             circularSegmentation.compute();
         } catch (Exception e) { // illegal argument or calculation exception
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE, e.getMessage());
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE, e.getMessage());
             ViewUtils.showToast(this, this.getString(R.string.error_impossible_calculation));
         }
 
@@ -160,7 +159,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
 
     /**
      * Save a point to the database of points.
-     * 
+     *
      * @param position
      *            Position of the point in the list of points.
      * @return True if it was a success, false otherwise.
@@ -206,24 +205,24 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
     private void saveAllPoints() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.save_points)
-                .setMessage(R.string.save_all_points)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(R.string.save_all,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                CircularSegmentationResultsActivity.this.savePoints();
-                                CircularSegmentationResultsActivity.this.adapter
-                                        .notifyDataSetChanged();
-                            }
-                        })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        .setMessage(R.string.save_all_points)
+        .setIcon(android.R.drawable.ic_dialog_alert)
+        .setPositiveButton(R.string.save_all,
+                new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                CircularSegmentationResultsActivity.this.savePoints();
+                CircularSegmentationResultsActivity.this.adapter
+                .notifyDataSetChanged();
+            }
+        })
+        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // do nothing
+            }
+        });
         builder.create().show();
     }
 

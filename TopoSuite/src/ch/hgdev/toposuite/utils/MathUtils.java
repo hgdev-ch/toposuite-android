@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
@@ -15,7 +14,7 @@ import com.google.common.math.DoubleMath;
 
 /**
  * MathUtils provides static helpers for mathematical operation/conversion.
- * 
+ *
  * @author HGdev
  */
 public class MathUtils {
@@ -44,7 +43,7 @@ public class MathUtils {
 
     /**
      * Check if a double is zero.
-     * 
+     *
      * @param d
      *            a double
      * @return true if d is equal to 0, false otherwise.
@@ -55,7 +54,7 @@ public class MathUtils {
 
     /**
      * Check if a double is strictly positive.
-     * 
+     *
      * @param d
      *            a double
      * @return true if d is bigger than 0, false otherwise.
@@ -67,7 +66,7 @@ public class MathUtils {
     /**
      * Check if a double has the value of the largest possible value for a
      * double.
-     * 
+     *
      * @param d
      *            a double
      * @return true if d is equal to the maximum value, false otherwise.
@@ -78,7 +77,7 @@ public class MathUtils {
 
     /**
      * Check if a double is strictly negative.
-     * 
+     *
      * @param d
      *            a double
      * @return true if d is smaller than 0, false otherwise.
@@ -90,7 +89,7 @@ public class MathUtils {
     /**
      * Check if a double has the value of the smallest possible value for a
      * double.
-     * 
+     *
      * @param d
      *            a double
      * @return true if d is equal to the minimum value, false otherwise.
@@ -101,7 +100,7 @@ public class MathUtils {
 
     /**
      * Check that a double is between the given interval.
-     * 
+     *
      * @param d
      *            A double.
      * @param min
@@ -127,7 +126,7 @@ public class MathUtils {
 
     /**
      * Check the two inputs for equality.
-     * 
+     *
      * @param a
      *            First double to compare.
      * @param b
@@ -141,7 +140,7 @@ public class MathUtils {
     /**
      * Check the two input points for equality. This method does not take the
      * point number into account.
-     * 
+     *
      * @param p1
      *            First point to compare
      * @param p2
@@ -176,7 +175,7 @@ public class MathUtils {
     /**
      * Check the two input points for equality. This method does not take the
      * point number into account.
-     * 
+     *
      * @param p1
      *            First point to compare
      * @param p2
@@ -194,7 +193,7 @@ public class MathUtils {
      * some calculations. For instance, some value may be optional and in this
      * case, it should be ignored. In order to be ignored, a value of type
      * double must be set to {@link MathUtils.IGNORE_DOUBLE}.
-     * 
+     *
      * @param d
      *            a double
      * @return True if the value can be ignored, false otherwise.
@@ -212,7 +211,7 @@ public class MathUtils {
 
     /**
      * Check if a int has the value of the largest possible value for a int.
-     * 
+     *
      * @param value
      *            an int
      * @return true if d is equal to the maximum value, false otherwise.
@@ -223,7 +222,7 @@ public class MathUtils {
 
     /**
      * Check if a int has the value of the smallest possible value for a int.
-     * 
+     *
      * @param value
      *            an int
      * @return true if d is equal to the minimum value, false otherwise.
@@ -237,7 +236,7 @@ public class MathUtils {
      * some calculations. For instance, some value may be optional and in this
      * case, it should be ignored. In order to be ignored, a value of type
      * double must be set to {@link MathUtils.IGNORE_INT}.
-     * 
+     *
      * @param value
      *            an integer
      * @return True if the value can be ignored, false otherwise.
@@ -253,7 +252,7 @@ public class MathUtils {
 
     /**
      * Convert an angle in radian to its equivalent in gradian.
-     * 
+     *
      * @param rad
      *            angle in radian
      * @return angle in gradian
@@ -264,7 +263,7 @@ public class MathUtils {
 
     /**
      * Convert an angle in gradian to its equivalent radian.
-     * 
+     *
      * @param grad
      *            angle in gradian
      * @return angle in radian
@@ -275,7 +274,7 @@ public class MathUtils {
 
     /**
      * Convert an angle in gradian to its equivalent in degree.
-     * 
+     *
      * @param grad
      *            The angle to convert.
      * @return The angle in degree.
@@ -286,7 +285,7 @@ public class MathUtils {
 
     /**
      * Convert an angle in degree to its equivalent in gradian.
-     * 
+     *
      * @param deg
      *            The angle to convert.
      * @return The angle in gradian.
@@ -297,7 +296,7 @@ public class MathUtils {
 
     /**
      * Convert meters to centimeters.
-     * 
+     *
      * @param m
      *            The meters.
      * @return The distance in centimeters.
@@ -309,7 +308,7 @@ public class MathUtils {
     /**
      * Modulate an angle in gradian. This ensures that the angle is between 0
      * and 200 gradian.
-     * 
+     *
      * @param angle
      *            Angle in gradian unit.
      * @return The angle with a value between 0 and 200 gradians.
@@ -331,7 +330,7 @@ public class MathUtils {
     /**
      * Modulate an angle in gradian. This ensures that the angle is between 0
      * and 400 gradian.
-     * 
+     *
      * @param angle
      *            Angle in gradian unit.
      * @return The angle with a value between 0 and 400 gradians.
@@ -352,7 +351,7 @@ public class MathUtils {
 
     /**
      * Euclidean distance between 2 points in 2D.
-     * 
+     *
      * @param p1
      *            a Point
      * @param p2
@@ -368,7 +367,7 @@ public class MathUtils {
 
     /**
      * Pythagoras...
-     * 
+     *
      * @param a
      *            a double value
      * @param b
@@ -381,7 +380,7 @@ public class MathUtils {
 
     /**
      * Compute a "point lancé" for a east coordinate.
-     * 
+     *
      * @param east
      *            a east coordinate
      * @param gisement
@@ -397,7 +396,7 @@ public class MathUtils {
 
     /**
      * Compute a "point lancé" for a north coordinate.
-     * 
+     *
      * @param north
      *            a north coordinate
      * @param gisement
@@ -413,7 +412,7 @@ public class MathUtils {
 
     /**
      * Calculate an angle defined by 3 points.
-     * 
+     *
      * @param p1
      *            First point
      * @param p2
@@ -430,7 +429,7 @@ public class MathUtils {
 
     /**
      * TODO fill the description of this function.
-     * 
+     *
      * @param distance
      *            Distance in meter.
      * @param zenAngle
@@ -455,7 +454,7 @@ public class MathUtils {
 
     /**
      * Convert a scale factor into PPM (Part Per Million).
-     * 
+     *
      * @param scaleFactor
      *            a scale factor
      * @return scale factor in PPM
@@ -467,7 +466,7 @@ public class MathUtils {
     /**
      * Round a value of type coordinate to the number of decimals set in the
      * settings (3 by default). If values are "ignorable", they are not rounded.
-     * 
+     *
      * @param coordinate
      *            Coordinate to round.
      * @return Coordinate rounded.
@@ -487,23 +486,23 @@ public class MathUtils {
         try {
             return df.parse(df.format(coordinate)).doubleValue();
         } catch (ParseException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.toString());
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.toString());
             return MathUtils.IGNORE_DOUBLE;
         }
     }
-    
+
     /**
      * Round up a given number only if it is close enough according to a given
      * tolerance.
-     * 
+     *
      * @param n
-     * 			a number
+     *            a number
      * @param tolerance
-     * 			a tolerance
+     *            a tolerance
      * @return The number rounded up or not
      */
     public static double roundWithTolerance(double n, double tolerance) {
-    	double nSup = Math.ceil(n);
-    	return DoubleMath.fuzzyEquals(nSup-n, 0.0d, tolerance) ? nSup : n;
+        double nSup = Math.ceil(n);
+        return DoubleMath.fuzzyEquals(nSup - n, 0.0d, tolerance) ? nSup : n;
     }
 }

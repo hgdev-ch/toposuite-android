@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -44,9 +43,9 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
  * Activity related to the polar survey calculation.
- * 
+ *
  * @author HGdev
- * 
+ *
  */
 public class PolarSurveyActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener,
@@ -163,7 +162,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     this.instrumentHeight = fs.getI();
                     this.iEditText.setText(DisplayUtils.toStringForEditText(this.instrumentHeight));
                 } else {
-                    Log.e(Logger.TOPOSUITE_CALCULATION_INVALID_TYPE,
+                    Logger.log(
+                            Logger.ErrLabel.CALCULATION_INVALID_TYPE,
                             PolarSurveyActivity.POLAR_SURVEY_ACTIVITY
                                     + "trying to get Z0 from a calculation that does not compute one");
                 }
@@ -250,7 +250,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                     this.adapter.add(m);
                 }
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+                Logger.log(Logger.ErrLabel.PARSE_ERROR,
                         PolarSurveyActivity.POLAR_SURVEY_ACTIVITY
                                 + "error retrieving list of determinations from JSON");
             }
@@ -346,7 +346,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     }
 
     /**
-     * 
+     *
      * @param position
      *            Position of the determination measure to edit.
      */
@@ -380,7 +380,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     /**
      * Check that the I field, the unknown orientation field have been filled
      * and that the station has been chosen.
-     * 
+     *
      * @return True if inputs are OK, false otherwise.
      */
     private boolean checkInputs() {

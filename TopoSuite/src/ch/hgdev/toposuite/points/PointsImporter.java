@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
 import android.util.Pair;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -21,7 +20,7 @@ public class PointsImporter {
     /**
      * Import a set of points from a file. This function assumes that the
      * supplied extension is valid and supported by the importer.
-     * 
+     *
      * @param inputStream
      *            An input stream.
      * @param ext
@@ -32,7 +31,7 @@ public class PointsImporter {
      */
     public static List<Pair<Integer, String>> importFromFile(InputStream inputStream,
             final String ext)
-            throws IOException {
+                    throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(inputStream));
         String line = "";
@@ -72,7 +71,7 @@ public class PointsImporter {
                 }
             } catch (InvalidFormatException e) {
                 errors.add(new Pair<Integer, String>(nbLines, e.getMessage()));
-                Log.w(Logger.TOPOSUITE_INPUT_ERROR, e.getMessage() + " => " + errors.size());
+                Logger.log(Logger.ErrLabel.INPUT_ERROR, e.getMessage() + " => " + errors.size());
                 continue;
             }
 
@@ -85,7 +84,7 @@ public class PointsImporter {
 
     /**
      * Format errors list as a String.
-     * 
+     *
      * @param filename
      *            File name.
      * @param errors

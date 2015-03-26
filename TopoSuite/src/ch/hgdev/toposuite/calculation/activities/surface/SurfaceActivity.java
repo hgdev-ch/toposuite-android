@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -214,7 +213,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                     this.adapter.add(p);
                 }
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+                Logger.log(Logger.ErrLabel.PARSE_ERROR,
                         "SurfaceActivity: cannot restore saved instance.");
             }
             this.name = savedInstanceState.getString(SurfaceActivity.SURFACE_NAME_LABEL);
@@ -259,7 +258,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     /**
      * Check that at least three points have been added.
-     * 
+     *
      * @return True if input is OK, false otherwise.
      */
     private boolean checkInputs() {
@@ -286,7 +285,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     /**
      * Show a dialog to edit a point.
-     * 
+     *
      * @param position
      *            Position of the point in the list of points.
      */

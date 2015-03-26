@@ -17,7 +17,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,7 @@ import com.google.common.io.Files;
 /**
  * This class is used to display an import dialog which allows the user to
  * choose the file to import.
- * 
+ *
  * @author HGdev
  */
 public class ImportDialog extends DialogFragment {
@@ -57,14 +56,14 @@ public class ImportDialog extends DialogFragment {
 
     /**
      * Listener for handling dialog events.
-     * 
+     *
      * @author HGdev
      */
     public interface ImportDialogListener {
         /**
          * This callback is triggered when the action performed by the dialog
          * succeed.
-         * 
+         *
          * @param message
          *            Success message.
          */
@@ -73,7 +72,7 @@ public class ImportDialog extends DialogFragment {
         /**
          * This callback is triggered when the action performed by the dialog
          * fail.
-         * 
+         *
          * @param error
          *            Error message.
          */
@@ -175,9 +174,9 @@ public class ImportDialog extends DialogFragment {
                                     lnr.getLineNumber()));
                     lnr.close();
                 } catch (FileNotFoundException e) {
-                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 } catch (IOException e) {
-                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 }
             }
 
@@ -258,11 +257,11 @@ public class ImportDialog extends DialogFragment {
                 }
             }
         } catch (FileNotFoundException e) {
-            Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
         } catch (IOException e) {
-            Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
         }

@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -72,7 +71,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
                     this.polarSurvey.getDeterminations().add(m);
                 }
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+                Logger.log(Logger.ErrLabel.PARSE_ERROR,
                         PolarSurveyResultsActivity.POLAR_SURVEY_RESULTS_ACTIVITY
                                 + "error retrieving list of determinations from JSON");
             }
@@ -160,7 +159,8 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         }
 
         // If the mergeDialogCounter is still 0, it means that no merge dialog
-        // has been popped-up so far. And since the merge dialog callback handles
+        // has been popped-up so far. And since the merge dialog callback
+        // handles
         // the redirection to the points manager itself, it is needed to do it
         // here.
         if (this.mergeDialogCounter == 0) {
@@ -170,7 +170,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
 
     /**
      * Save a point to the database of points.
-     * 
+     *
      * @param position
      *            Position of the point in the list of points.
      * @return True if it was a success, false otherwise.

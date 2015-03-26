@@ -5,7 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -46,7 +45,7 @@ public class PolarImplantationResultsActivity extends TopoSuiteActivity {
                 this.polarImplantation.getMeasures().add(m);
             }
         } catch (JSONException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+            Logger.log(Logger.ErrLabel.PARSE_ERROR,
                     PolarImplantationResultsActivity.POLAR_IMPLANTATION_RESULTS_ACTIVITY
                             + "error retrieving list of measures from JSON");
         }

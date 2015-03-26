@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.points.Point;
@@ -13,7 +12,7 @@ import ch.hgdev.toposuite.utils.Logger;
 
 /**
  * DAO for {@link Point}
- * 
+ *
  * @author HGdev
  */
 public class PointsDataSource implements DAO {
@@ -36,7 +35,7 @@ public class PointsDataSource implements DAO {
 
     /**
      * Find all points.
-     * 
+     *
      * @return the list of all points.
      */
     public ArrayList<Point> findAll() {
@@ -69,7 +68,7 @@ public class PointsDataSource implements DAO {
 
     /**
      * Create a new Point in the database.
-     * 
+     *
      * @param obj
      *            a point
      * @throws SQLiteTopoSuiteException
@@ -88,12 +87,12 @@ public class PointsDataSource implements DAO {
 
         long rowID = db.insert(PointsTable.TABLE_NAME_POINTS, null, pointValues);
         if (rowID == -1) {
-            Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_CREATE + " => " +
+            Logger.log(Logger.ErrLabel.SQL_ERROR, PointsDataSource.ERROR_CREATE + " => " +
                     Logger.formatPoint(point));
             throw new SQLiteTopoSuiteException(PointsDataSource.ERROR_CREATE);
         }
 
-        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, PointsDataSource.SUCCESS_CREATE + " => " +
+        Logger.log(Logger.InfoLabel.SQL_SUCCESS, PointsDataSource.SUCCESS_CREATE + " => " +
                 Logger.formatPoint(point));
     }
 
@@ -113,17 +112,17 @@ public class PointsDataSource implements DAO {
                 PointsTable.COLUMN_NAME_NUMBER + " = ?",
                 new String[] { point.getNumber() });
         if (rowID == -1) {
-            Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_UPDATE + " => " +
+            Logger.log(Logger.ErrLabel.SQL_ERROR, PointsDataSource.ERROR_UPDATE + " => " +
                     Logger.formatPoint(point));
             throw new SQLiteTopoSuiteException(PointsDataSource.ERROR_UPDATE);
         }
-        Log.i(Logger.TOPOSUITE_SQL_SUCCESS,
+        Logger.log(Logger.InfoLabel.SQL_SUCCESS,
                 PointsDataSource.SUCCESS_UPDATE + " => " + Logger.formatPoint(point));
     }
 
     /**
      * Delete a Point.
-     * 
+     *
      * @param obj
      *            a point
      * @throws SQLiteTopoSuiteException
@@ -136,12 +135,12 @@ public class PointsDataSource implements DAO {
         long rowID = db.delete(PointsTable.TABLE_NAME_POINTS,
                 PointsTable.COLUMN_NAME_NUMBER + " = '" + point.getNumber() + "'", null);
         if (rowID == -1) {
-            Log.e(Logger.TOPOSUITE_SQL_ERROR, PointsDataSource.ERROR_DELETE + " => " +
+            Logger.log(Logger.ErrLabel.SQL_ERROR, PointsDataSource.ERROR_DELETE + " => " +
                     Logger.formatPoint(point));
             throw new SQLiteTopoSuiteException(PointsDataSource.ERROR_DELETE);
         }
 
-        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, PointsDataSource.SUCCESS_DELETE + " => " +
+        Logger.log(Logger.InfoLabel.SQL_SUCCESS, PointsDataSource.SUCCESS_DELETE + " => " +
                 Logger.formatPoint(point));
     }
 

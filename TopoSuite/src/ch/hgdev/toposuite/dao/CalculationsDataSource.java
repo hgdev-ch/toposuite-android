@@ -10,7 +10,6 @@ import org.json.JSONException;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.calculation.CalculationFactory;
@@ -21,7 +20,7 @@ import ch.hgdev.toposuite.utils.Logger;
 
 /**
  * DAO for {@link Calculation}.
- * 
+ *
  * @author HGdev
  */
 public class CalculationsDataSource implements DAO {
@@ -45,7 +44,7 @@ public class CalculationsDataSource implements DAO {
 
     /**
      * Find all calculations.
-     * 
+     *
      * @return the list of all calculations
      */
     public ArrayList<Calculation> findAll() {
@@ -77,7 +76,8 @@ public class CalculationsDataSource implements DAO {
                             CalculationType.valueOf(type), id, description, d, serializedInputData);
                     calculations.add(calculation);
                 } catch (ParseException e) {
-                    Log.e(Logger.TOPOSUITE_PARSE_ERROR, CalculationsDataSource.ERROR_PARSING_DATE);
+                    Logger.log(Logger.ErrLabel.PARSE_ERROR,
+                            CalculationsDataSource.ERROR_PARSING_DATE);
                 }
 
                 cursor.moveToNext();
@@ -89,7 +89,7 @@ public class CalculationsDataSource implements DAO {
 
     /**
      * Create a new Calculation in the database. TODO check for SQL Injection.
-     * 
+     *
      * @param obj
      *            a calculation
      * @throws SQLiteTopoSuiteException
@@ -104,7 +104,7 @@ public class CalculationsDataSource implements DAO {
         try {
             json = calculation.exportToJSON();
         } catch (JSONException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, "Error while exporting calculation to JSON!");
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, "Error while exporting calculation to JSON!");
         }
 
         ContentValues calculationValues = new ContentValues();
@@ -125,7 +125,7 @@ public class CalculationsDataSource implements DAO {
 
         long rowID = db.insert(CalculationsTable.TABLE_NAME_CALCULATIONS, null, calculationValues);
         if (rowID == -1) {
-            Log.e(Logger.TOPOSUITE_SQL_ERROR, CalculationsDataSource.ERROR_CREATE + " => " +
+            Logger.log(Logger.ErrLabel.SQL_ERROR, CalculationsDataSource.ERROR_CREATE + " => " +
                     Logger.formatCalculation(calculation));
             throw new SQLiteTopoSuiteException(CalculationsDataSource.ERROR_CREATE);
         }
@@ -133,7 +133,7 @@ public class CalculationsDataSource implements DAO {
         // we update the object ID now we have one
         calculation.setId(rowID);
 
-        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, CalculationsDataSource.SUCCESS_CREATE + " => " +
+        Logger.log(Logger.InfoLabel.SQL_SUCCESS, CalculationsDataSource.SUCCESS_CREATE + " => " +
                 Logger.formatCalculation(calculation));
     }
 
@@ -147,7 +147,7 @@ public class CalculationsDataSource implements DAO {
         try {
             json = calculation.exportToJSON();
         } catch (JSONException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, "Error while exporting calculation to JSON!");
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, "Error while exporting calculation to JSON!");
         }
 
         ContentValues calculationValues = new ContentValues();
@@ -164,18 +164,18 @@ public class CalculationsDataSource implements DAO {
                 CalculationsTable.COLUMN_NAME_ID + " = ?",
                 new String[] { String.valueOf(calculation.getId()) });
         if (rowID == -1) {
-            Log.e(Logger.TOPOSUITE_SQL_ERROR, CalculationsDataSource.ERROR_UPDATE + " => " +
+            Logger.log(Logger.ErrLabel.SQL_ERROR, CalculationsDataSource.ERROR_UPDATE + " => " +
                     Logger.formatCalculation(calculation));
             throw new SQLiteTopoSuiteException(CalculationsDataSource.ERROR_UPDATE);
         }
 
-        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, CalculationsDataSource.SUCCESS_UPDATE + " => " +
+        Logger.log(Logger.InfoLabel.SQL_SUCCESS, CalculationsDataSource.SUCCESS_UPDATE + " => " +
                 Logger.formatCalculation(calculation));
     }
 
     /**
      * Delete a Calculation.
-     * 
+     *
      * @param obj
      *            a calculation
      * @throws SQLiteTopoSuiteException
@@ -188,12 +188,12 @@ public class CalculationsDataSource implements DAO {
         long rowID = db.delete(CalculationsTable.TABLE_NAME_CALCULATIONS,
                 CalculationsTable.COLUMN_NAME_ID + " = " + calculation.getId(), null);
         if (rowID == -1) {
-            Log.e(Logger.TOPOSUITE_SQL_ERROR, CalculationsDataSource.ERROR_DELETE + " => " +
+            Logger.log(Logger.ErrLabel.SQL_ERROR, CalculationsDataSource.ERROR_DELETE + " => " +
                     Logger.formatCalculation(calculation));
             throw new SQLiteTopoSuiteException(CalculationsDataSource.ERROR_DELETE);
         }
 
-        Log.i(Logger.TOPOSUITE_SQL_SUCCESS, CalculationsDataSource.SUCCESS_DELETE + " => " +
+        Logger.log(Logger.InfoLabel.SQL_SUCCESS, CalculationsDataSource.SUCCESS_DELETE + " => " +
                 Logger.formatCalculation(calculation));
     }
 

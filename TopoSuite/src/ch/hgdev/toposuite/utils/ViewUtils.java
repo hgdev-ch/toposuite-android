@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,7 +20,7 @@ import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
  * Useful functions for interacting with View object.
- * 
+ *
  * @author HGdev
  */
 public class ViewUtils {
@@ -42,7 +41,7 @@ public class ViewUtils {
 
     /**
      * Convenient function for easily reading a double value from an EditText.
-     * 
+     *
      * @param editText
      *            An EditText object
      * @return The value contained in the edit text as double.
@@ -61,7 +60,7 @@ public class ViewUtils {
                         df.parse(input).doubleValue()
                         : MathUtils.IGNORE_DOUBLE;
             } catch (ParseException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.toString());
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.toString());
             }
         }
         return MathUtils.IGNORE_DOUBLE;
@@ -69,7 +68,7 @@ public class ViewUtils {
 
     /**
      * Convenient function for easily reading a integer value from an EditText.
-     * 
+     *
      * @param editText
      *            An EditText object
      * @return The value contained in the edit text as int.
@@ -86,7 +85,7 @@ public class ViewUtils {
 
     /**
      * Check if an EditText is empty or not.
-     * 
+     *
      * @param editText
      *            The EditText to check.
      * @return True if empty, false otherwise.
@@ -97,7 +96,7 @@ public class ViewUtils {
 
     /**
      * Show an error toast.
-     * 
+     *
      * @param context
      *            Calling context.
      * @param errorMessage
@@ -111,7 +110,7 @@ public class ViewUtils {
 
     /**
      * Start the Points Manager Activity ({@link PointsManagerActivity}).
-     * 
+     *
      * @param currentActivity
      *            Activity that performs the redirection.
      */
@@ -123,7 +122,7 @@ public class ViewUtils {
 
     /**
      * Convenient function for locking screen orientation.
-     * 
+     *
      * @param currentActivity
      *            Activity that request the lock.
      */
@@ -141,7 +140,7 @@ public class ViewUtils {
 
     /**
      * Convenient function for unlocking screen orientation.
-     * 
+     *
      * @param currentActivity
      *            Activity that request the unlock.
      */

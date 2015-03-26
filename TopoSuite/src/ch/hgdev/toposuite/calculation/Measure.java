@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
-import android.util.Log;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
@@ -286,7 +285,7 @@ public class Measure {
             json.put(Measure.MEASURE_NUMBER, this.measureNumber);
 
         } catch (JSONException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, Measure.JSON_SERIALIZE_ERROR);
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, Measure.JSON_SERIALIZE_ERROR);
         }
 
         return json;
@@ -317,20 +316,20 @@ public class Measure {
             Point orient = json.has(Measure.ORIENTATION_NUMBER) ?
                     SharedResources.getSetOfPoints().find(
                             json.getString(Measure.ORIENTATION_NUMBER))
-                    : null;
-            m = new Measure(
-                    orient,
-                    json.getDouble(Measure.HORIZ_DIR),
-                    json.getDouble(Measure.ZEN_ANGLE),
-                    json.getDouble(Measure.DISTANCE),
-                    json.getDouble(Measure.S),
-                    json.getDouble(Measure.LAT_DEPL),
-                    json.getDouble(Measure.LON_DEPL),
-                    json.getDouble(Measure.I),
-                    json.getDouble(Measure.UNKNOWN_ORIENTATION),
-                    json.getString(Measure.MEASURE_NUMBER));
+                            : null;
+                            m = new Measure(
+                                    orient,
+                                    json.getDouble(Measure.HORIZ_DIR),
+                                    json.getDouble(Measure.ZEN_ANGLE),
+                                    json.getDouble(Measure.DISTANCE),
+                                    json.getDouble(Measure.S),
+                                    json.getDouble(Measure.LAT_DEPL),
+                                    json.getDouble(Measure.LON_DEPL),
+                                    json.getDouble(Measure.I),
+                                    json.getDouble(Measure.UNKNOWN_ORIENTATION),
+                                    json.getString(Measure.MEASURE_NUMBER));
         } catch (JSONException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, Measure.JSON_UNSERIALIZE_ERROR);
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, Measure.JSON_UNSERIALIZE_ERROR);
         }
 
         return m;

@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Context;
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.points.Point;
@@ -16,9 +15,9 @@ import com.google.common.base.Strings;
 
 /**
  * Utility functions to format things to display.
- * 
+ *
  * @author HGdev
- * 
+ *
  */
 public class DisplayUtils {
 
@@ -26,9 +25,9 @@ public class DisplayUtils {
      * Double values may represent different type of data. They are enumerated
      * here and for each of them, the number of decimal to show may be
      * different.
-     * 
+     *
      * @author HGdev
-     * 
+     *
      */
     private enum valueType {
         COORDINATE,
@@ -43,7 +42,7 @@ public class DisplayUtils {
     /**
      * Convert a value of type int to a String. This method is meant to be used
      * to set values in EditText views.
-     * 
+     *
      * @param value
      *            The value to convert to a String.
      * @return Value as a String.
@@ -59,7 +58,7 @@ public class DisplayUtils {
      * Convert a value of type double to a String according to the number of
      * decimals to display which are set in the application settings. This
      * method is meant to be used to set values in EditText views.
-     * 
+     *
      * @param value
      *            The value to convert to a String.
      * @return Value as a String.
@@ -73,7 +72,7 @@ public class DisplayUtils {
 
     /**
      * Utility to format a string to be displayed.
-     * 
+     *
      * @param value
      *            The value to format.
      * @param type
@@ -109,7 +108,7 @@ public class DisplayUtils {
                 precision = App.getDecimalPrecisionForCC();
                 break;
             default:
-                Log.w(Logger.TOPOSUITE_SETTINGS_ERROR, "unknown value type");
+                Logger.log(Logger.ErrLabel.SETTINGS_ERROR, "unknown value type");
                 return "-";
             }
             String pattern = precision < 1 ? "#,##0" : "#,##0.";
@@ -126,7 +125,7 @@ public class DisplayUtils {
 
     /**
      * Format a value of type coordinate.
-     * 
+     *
      * @param value
      *            Coordinate to format.
      * @return Formatted coordinate.
@@ -137,7 +136,7 @@ public class DisplayUtils {
 
     /**
      * Format a value of type angle.
-     * 
+     *
      * @param value
      *            Angle to format.
      * @return Formatted angle.
@@ -148,7 +147,7 @@ public class DisplayUtils {
 
     /**
      * Format a value of type distance.
-     * 
+     *
      * @param value
      *            Distance to format.
      * @return Formatted distance.
@@ -159,7 +158,7 @@ public class DisplayUtils {
 
     /**
      * Format a value of type average.
-     * 
+     *
      * @param value
      *            Average value to format.
      * @return Formatted average value.
@@ -170,7 +169,7 @@ public class DisplayUtils {
 
     /**
      * Format a value of type gap.
-     * 
+     *
      * @param value
      *            Gap value to format.
      * @return Formatted gap value.
@@ -181,7 +180,7 @@ public class DisplayUtils {
 
     /**
      * Format a value of type surface.
-     * 
+     *
      * @param value
      *            Surface value to format.
      * @return Formatted surface value.
@@ -194,7 +193,7 @@ public class DisplayUtils {
      * Format a value in CC (1/10000 Grad). This removes any decimal precision
      * and rounds the value half up. If the value appears to be either infinite
      * or NaN, a simple dash is returned.
-     * 
+     *
      * @param value
      *            Input value in CC.
      * @return Formatted CC value.
@@ -205,9 +204,9 @@ public class DisplayUtils {
 
     /**
      * Format given centimeters in order to display them in a TextView.
-     * 
+     *
      * FIXME: use DisplayUtils.format
-     * 
+     *
      * @param cm
      *            centimeters.
      * @return formatted centimeters.
@@ -220,7 +219,7 @@ public class DisplayUtils {
      * Convert a value of type boolean to a string. If value is true, if will
      * return "yes" in the appropriate language, otherwise "no" in the
      * appropriate language.
-     * 
+     *
      * @param context
      *            Calling activity.
      * @param value
@@ -234,7 +233,7 @@ public class DisplayUtils {
     /**
      * Format a date using the global date format defined in
      * {@link App#dateFormat}
-     * 
+     *
      * @param d
      *            a date
      * @return a formatted date
@@ -246,7 +245,7 @@ public class DisplayUtils {
 
     /**
      * Convert dp to pixels
-     * 
+     *
      * @param dp
      *            the number of dp
      * @return the number of pixels
@@ -258,7 +257,7 @@ public class DisplayUtils {
 
     /**
      * Format a point in order to display it in a TextView.
-     * 
+     *
      * @param context
      *            the context
      * @param pt
@@ -275,7 +274,7 @@ public class DisplayUtils {
 
     /**
      * Format a 2D point in order to display it in a TextView.
-     * 
+     *
      * @param context
      *            the context
      * @param pt
@@ -290,7 +289,7 @@ public class DisplayUtils {
 
     /**
      * Convert 0.0 values to empty strings.
-     * 
+     *
      * @param doubleAsString
      *            a double value formatted as a String
      * @return an empty String if the value is 0.0, the original String

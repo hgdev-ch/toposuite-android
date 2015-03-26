@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -227,7 +226,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                     this.adapter.add(m);
                 }
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR,
+                Logger.log(Logger.ErrLabel.PARSE_ERROR,
                         "PolarImplantationActivity: cannot restore saved instance.");
             }
             this.drawList();
@@ -320,7 +319,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     }
 
     /**
-     * 
+     *
      * @param position
      *            Position of the point with S to edit.
      */
@@ -350,7 +349,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     /**
      * Check that the I field, the unknown orientation field have been filled
      * and that the station has been chosen.
-     * 
+     *
      * @return True if inputs are OK, false otherwise.
      */
     private boolean checkInputs() {

@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.InputType;
-import android.util.Log;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.DBHelper;
@@ -23,9 +22,9 @@ import ch.hgdev.toposuite.utils.Logger;
 
 /**
  * Handle every settings that need to be global to the application.
- * 
+ *
  * @author HGdev
- * 
+ *
  */
 public class App extends Application {
     /**
@@ -191,7 +190,7 @@ public class App extends Application {
         File tmpDir = new File(App.tmpDirectoryPath);
         if (!tmpDir.exists()) {
             if (!tmpDir.mkdirs()) {
-                Log.e(Logger.TOPOSUITE_IO_ERROR,
+                Logger.log(Logger.ErrLabel.IO_ERROR,
                         "Failed to create the temporary directoy!");
             }
         }
@@ -223,7 +222,7 @@ public class App extends Application {
     public void onTerminate() {
         File tmpDir = new File(App.tmpDirectoryPath);
         if (!tmpDir.delete()) {
-            Log.e(Logger.TOPOSUITE_IO_ERROR, "Cannot delete temportary directory!");
+            Logger.log(Logger.ErrLabel.IO_ERROR, "Cannot delete temportary directory!");
         }
         super.onTerminate();
     }
@@ -244,7 +243,7 @@ public class App extends Application {
             App.inputTypeCoordinate = App.coordinatesTypeStandard;
             break;
         default:
-            Log.e(Logger.TOPOSUITE_SETTINGS_ERROR,
+            Logger.log(Logger.ErrLabel.SETTINGS_ERROR,
                     "The type of allowed input coordinate is non valid");
         }
     }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -42,7 +41,7 @@ public class HelpActivity extends TopoSuiteActivity {
 
     /**
      * Return appropriate html help file name, taking care of the locale set.
-     * 
+     *
      * @return HTML help file name.
      */
     private String getHelpFileName() {
@@ -58,7 +57,7 @@ public class HelpActivity extends TopoSuiteActivity {
                 try {
                     stream.close();
                 } catch (IOException e) {
-                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 }
             }
         }

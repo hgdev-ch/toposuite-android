@@ -17,7 +17,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,7 +41,7 @@ import com.google.common.io.Files;
 /**
  * This class is used to display an import dialog which allows the user to
  * choose the file to import.
- * 
+ *
  * @author HGdev
  */
 public class ImportDialog extends DialogFragment {
@@ -57,14 +56,14 @@ public class ImportDialog extends DialogFragment {
 
     /**
      * Listener for handling dialog events.
-     * 
+     *
      * @author HGdev
      */
     public interface ImportDialogListener {
         /**
          * This callback is triggered when the action performed by the dialog
          * succeed.
-         * 
+         *
          * @param message
          *            Success message.
          */
@@ -73,7 +72,7 @@ public class ImportDialog extends DialogFragment {
         /**
          * This callback is triggered when the action performed by the dialog
          * fail.
-         * 
+         *
          * @param error
          *            Error message.
          */
@@ -230,26 +229,26 @@ public class ImportDialog extends DialogFragment {
             PointsDataSource.getInstance().truncate();
             CalculationsDataSource.getInstance().truncate();
 
-            // clean in-memory residues 
+            // clean in-memory residues
             SharedResources.getSetOfPoints().clear();
             SharedResources.getCalculationsHistory().clear();
 
             String json = Joiner.on('\n').join(lines);
             Job.loadJobFromJSON(json);
         } catch (FileNotFoundException e) {
-            Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
         } catch (IOException e) {
-            Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
         } catch (JSONException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
         } catch (ParseException e) {
-            Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
         }

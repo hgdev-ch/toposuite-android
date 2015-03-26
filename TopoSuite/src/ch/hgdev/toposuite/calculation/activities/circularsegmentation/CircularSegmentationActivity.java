@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -175,7 +174,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
     /**
      * Define the action done when the mode radio button is clicked.
-     * 
+     *
      * @param view
      */
     public void onRadioButtonClicked(View view) {
@@ -197,13 +196,13 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
             }
             break;
         default:
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Unknown mode selected");
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
         }
     }
 
     /**
      * Check that all input have been filled correctly.
-     * 
+     *
      * @return True if inputs are OK, false otherwise.
      */
     private boolean checkInputs() {

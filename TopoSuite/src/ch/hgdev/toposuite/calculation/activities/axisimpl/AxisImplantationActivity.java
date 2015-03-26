@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -41,7 +40,7 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class AxisImplantationActivity extends TopoSuiteActivity implements
-        MeasureDialogListener {
+MeasureDialogListener {
     private static final String        AXIS_IMPL_ACTIVITY          = "AxisImplantationActivity: ";
 
     private static final String        AXIS_IMPL_POSITION          = "axis_impl_position";
@@ -100,7 +99,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                         .getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
                     AxisImplantationActivity.this.stationTextView.setText
-                            (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
+                    (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
                 } else {
                     AxisImplantationActivity.this.stationTextView.setText("");
                 }
@@ -121,7 +120,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                         .getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
                     AxisImplantationActivity.this.originTextView.setText
-                            (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
+                    (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
                 } else {
                     AxisImplantationActivity.this.originTextView.setText("");
                 }
@@ -144,7 +143,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                         .getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
                     AxisImplantationActivity.this.extremityTextView.setText
-                            (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
+                    (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
                 } else {
                     AxisImplantationActivity.this.extremityTextView.setText("");
                 }
@@ -194,9 +193,10 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements
                     this.axisImpl.setUnknownOrientation(fs.getUnknownOrientation());
                     this.axisImpl.setStation(fs.getStationResult());
                 } else {
-                    Log.e(Logger.TOPOSUITE_CALCULATION_INVALID_TYPE,
+                    Logger.log(
+                            Logger.ErrLabel.CALCULATION_INVALID_TYPE,
                             AxisImplantationActivity.AXIS_IMPL_ACTIVITY
-                                    + "trying to get Z0 from a calculation that does not compute one");
+                            + "trying to get Z0 from a calculation that does not compute one");
                 }
                 this.checkboxZ0.setChecked(true);
                 this.unknownOrientationEditText.setEnabled(false);

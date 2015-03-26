@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -344,7 +343,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             }
             break;
         default:
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, "Unknown mode selected");
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
         }
     }
 }

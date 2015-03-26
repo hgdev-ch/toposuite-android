@@ -5,7 +5,6 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -79,7 +78,7 @@ public class TriangleSolver extends Calculation {
 
     /**
      * Initialize class attributes.
-     * 
+     *
      * @param _a
      * @param _b
      * @param _c
@@ -114,7 +113,7 @@ public class TriangleSolver extends Calculation {
     /**
      * Check that at least three arguments are greater than zero and that the
      * sum of all angles is no greater than 200 (remember we use gradian).
-     * 
+     *
      * @return True if OK, false otherwise.
      */
     private boolean checkInputs() {
@@ -124,7 +123,7 @@ public class TriangleSolver extends Calculation {
                 && MathUtils.isPositive(this.gamma.first)
                 && (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first))
                 > App.getAngleTolerance())) {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
                             + "three angles are given and their sum does not equal 200 [g] "
                             + "(taking a tolerance into account).");
@@ -132,7 +131,7 @@ public class TriangleSolver extends Calculation {
         }
         // at least one side is required
         if (!this.isOnePositive(this.a.first, this.b.first, this.c.first)) {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER + "at least one side is required.");
             return false;
         }
@@ -161,7 +160,7 @@ public class TriangleSolver extends Calculation {
         if (count >= 3) {
             return true;
         } else {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     String.format(
                             "%s%s (a = %s; b = %s; c = %s; alpha = %s; beta = %s; gamma = %s)",
                             TriangleSolver.TRIANGLE_SOLVER,
@@ -447,29 +446,29 @@ public class TriangleSolver extends Calculation {
 
     /**
      * Having every angles and sides, make sure there is no inconsistency.
-     * 
+     *
      * @return True if no inconsistency has been found, false otherwise.
      */
     private boolean checkFoundValues() {
         if (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first)) > App
                 .getAngleTolerance()) {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
                             + "the sum of the found angles does not meet the tolerance.");
             return false;
         }
         if (!MathUtils.isPositive(this.a.first)) {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER + "the value of 'a' is not positive.");
             return false;
         }
         if (!MathUtils.isPositive(this.b.first)) {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER + "the value of 'b' is not positive.");
             return false;
         }
         if (!MathUtils.isPositive(this.c.first)) {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER + "the value of 'c' is not positive.");
             return false;
         }
@@ -487,11 +486,12 @@ public class TriangleSolver extends Calculation {
                     this.areAllPositive(this.alpha.second, this.beta.second, this.gamma.second)) {
                 return;
             }
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
                             + "at least one of the second solution angle or side is not positive.");
         }
-        Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+        Logger.log(
+                Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                 TriangleSolver.TRIANGLE_SOLVER
                         + "the condition for the second solution (b > c * sin(beta) is not respected.");
         this.a.second = MathUtils.IGNORE_DOUBLE;
@@ -540,7 +540,7 @@ public class TriangleSolver extends Calculation {
             // impossible
             if (!(this.areAllPositive(this.a.second, this.b.second, this.c.second) && this
                     .areAllPositive(this.alpha.second, this.beta.second, this.gamma.second))) {
-                Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                         TriangleSolver.TRIANGLE_SOLVER
                                 + "not all values of sides and angles are positives which makes "
                                 + "the second solution calculation impossible.");
@@ -574,7 +574,7 @@ public class TriangleSolver extends Calculation {
 
     /**
      * Compute the triangle height.
-     * 
+     *
      * @return
      */
     private double computeHeight(double beta, double c) {
@@ -607,7 +607,7 @@ public class TriangleSolver extends Calculation {
 
     /**
      * Return true if all provided parameters are positive.
-     * 
+     *
      * @param a
      * @param b
      * @param c
@@ -620,7 +620,7 @@ public class TriangleSolver extends Calculation {
 
     /**
      * Return true if at least one parameter is positive.
-     * 
+     *
      * @param a
      * @param b
      * @param c
@@ -633,7 +633,7 @@ public class TriangleSolver extends Calculation {
 
     /**
      * Determine an angle when having three sides.
-     * 
+     *
      * @param a
      * @param b
      * @param c
@@ -658,7 +658,7 @@ public class TriangleSolver extends Calculation {
 
     /**
      * Determine c when having a, b and gamma.
-     * 
+     *
      * @param a
      * @param b
      * @param gamma

@@ -7,7 +7,6 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -126,28 +125,28 @@ public class CircularSegmentation extends Calculation {
             String msg = CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "either the length of an arc or the number of segments "
                     + "must be provided but not none or both.";
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
         }
 
         if ((numberOfSegments < 2) && MathUtils.isIgnorable(arcLength)) {
             String msg = CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "at least two segments must be chosen for a segmentation.";
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
         }
 
         if (!(MathUtils.isPositive(arcLength)) && MathUtils.isIgnorable(numberOfSegments)) {
             String msg = CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "the arc length must be positive.";
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
         }
 
         if (start.equals(end) || start.equals(center) || end.equals(center)) {
             String msg = CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "all points must be different from each another.";
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
         }
 
@@ -159,7 +158,7 @@ public class CircularSegmentation extends Calculation {
                     + "Radius according to the starting point is %f.\n"
                     + "Radius according to the ending point is %f.\n",
                     radiusStart, radiusEnd);
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
         }
 
@@ -200,7 +199,7 @@ public class CircularSegmentation extends Calculation {
         } else {
             String msg = CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "either the number of segments or the length of an arc must be ignorable.";
-            Log.e(Logger.TOPOSUITE_INPUT_ERROR, msg);
+            Logger.log(Logger.ErrLabel.INPUT_ERROR, msg);
             throw new CalculationException(msg);
         }
 

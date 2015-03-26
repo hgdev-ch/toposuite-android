@@ -5,7 +5,6 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -70,7 +69,7 @@ public class CirclesIntersection extends Calculation {
 
     public CirclesIntersection(Point _centerFirst, double _radiusFirst,
             Point _centerSecond, double _radiusSecond, boolean hasDAO)
-            throws IllegalArgumentException {
+                    throws IllegalArgumentException {
         super(CalculationType.CIRCLESINTERSEC,
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 hasDAO);
@@ -87,7 +86,7 @@ public class CirclesIntersection extends Calculation {
 
     /**
      * Initialize class attributes.
-     * 
+     *
      * @param _centerFirst
      *            Center of the first circle.
      * @param _radiusFirst
@@ -129,25 +128,26 @@ public class CirclesIntersection extends Calculation {
     public void compute() throws CalculationException {
         double distCenters = MathUtils.euclideanDistance(this.centerFirst, this.centerSecond);
         if (MathUtils.isZero(distCenters)) {
-        	Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
-                            "The two circles have the same center!");
-        	throw new CalculationException(App.getContext().getString(
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
+                    "The two circles have the same center!");
+            throw new CalculationException(App.getContext().getString(
                     R.string.error_impossible_calculation));
         }
-        
+
         double alpha = ((Math.pow(distCenters, 2) + Math.pow(this.radiusFirst, 2)) - Math.pow(
                 this.radiusSecond, 2)) / (2 * this.radiusFirst * distCenters);
         // make sure there is an intersection
         if (((-alpha * alpha) + 1) <= 0) {
             // radius to small => circles are next to each another
             if ((this.radiusFirst + this.radiusSecond) < distCenters) {
-                Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                         CirclesIntersection.CIRCLE_INTERSECTION
-                                + "the circles are next to each another (no intersection).");
+                        + "the circles are next to each another (no intersection).");
             } else {
-                Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+                Logger.log(
+                        Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                         CirclesIntersection.CIRCLE_INTERSECTION
-                                + "one of the circle is included in the other one (no intersection).");
+                        + "one of the circle is included in the other one (no intersection).");
             }
             this.setIgnorableResults();
             throw new CalculationException(App.getContext().getString(
@@ -160,16 +160,16 @@ public class CirclesIntersection extends Calculation {
 
         this.firstIntersection.setEast(
                 this.centerFirst.getEast()
-                        + (this.radiusFirst * Math.sin(gisement + alpha)));
+                + (this.radiusFirst * Math.sin(gisement + alpha)));
         this.firstIntersection.setNorth(
                 this.centerFirst.getNorth()
-                        + (this.radiusFirst * Math.cos(gisement + alpha)));
+                + (this.radiusFirst * Math.cos(gisement + alpha)));
         this.secondIntersection.setEast(
                 this.centerFirst.getEast()
-                        + (this.radiusFirst * Math.sin(gisement - alpha)));
+                + (this.radiusFirst * Math.sin(gisement - alpha)));
         this.secondIntersection.setNorth(
                 this.centerFirst.getNorth()
-                        + (this.radiusFirst * Math.cos(gisement - alpha)));
+                + (this.radiusFirst * Math.cos(gisement - alpha)));
 
         this.updateLastModification();
         this.setDescription(this.getCalculationName() + " - "

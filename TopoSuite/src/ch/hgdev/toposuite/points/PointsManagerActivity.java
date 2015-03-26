@@ -14,7 +14,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -39,9 +38,9 @@ import com.google.common.io.LineReader;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
- * 
+ *
  * @author HGdev
- * 
+ *
  */
 public class PointsManagerActivity extends TopoSuiteActivity implements
         AddPointDialogFragment.AddPointDialogListener,
@@ -95,10 +94,10 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                         mime = "text/ptp";
                     }
                 } catch (FileNotFoundException e) {
-                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                     ViewUtils.showToast(this, e.getMessage());
                 } catch (IOException e) {
-                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                     ViewUtils.showToast(this, e.getMessage());
                 }
             }
@@ -235,7 +234,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     /**
      * Call to update the share intent
-     * 
+     *
      * @param shareIntent
      *            The share intent.
      */
@@ -270,7 +269,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     /**
      * Display a dialog to allow the user to edit a point.
-     * 
+     *
      * @param id
      *            Id of the point to be edited.
      */
@@ -287,7 +286,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     /**
      * Create a point based on the input and add it to the table of points and
      * the set of points.
-     * 
+     *
      * @param number
      *            Point's number attribute.
      * @param east
@@ -352,7 +351,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             SharedResources.getSetOfPoints().saveAsCSV(
                     this, App.tmpDirectoryPath, App.FILENAME_FOR_POINTS_SHARING);
         } catch (IOException e) {
-            Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
         }
 
         Intent sendIntent = new Intent();
@@ -416,10 +415,10 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                                     }
 
                                 } catch (FileNotFoundException e) {
-                                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                                     ViewUtils.showToast(PointsManagerActivity.this, e.getMessage());
                                 } catch (IOException e) {
-                                    Log.e(Logger.TOPOSUITE_IO_ERROR, e.getMessage());
+                                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                                     ViewUtils.showToast(PointsManagerActivity.this, e.getMessage());
                                 }
                             }

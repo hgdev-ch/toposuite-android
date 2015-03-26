@@ -4,22 +4,21 @@ import java.util.Calendar;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 
 /**
  * Provide application specific utilities such a method to provide the
  * application string.
- * 
+ *
  * @author HGdev
- * 
+ *
  */
 public class AppUtils {
 
     /**
      * Return the current year.
-     * 
+     *
      * @return Year as an integer.
      */
     public static int getYear() {
@@ -28,7 +27,7 @@ public class AppUtils {
 
     /**
      * Return the application name.
-     * 
+     *
      * @return Application name.
      */
     public static String getAppName() {
@@ -37,7 +36,7 @@ public class AppUtils {
 
     /**
      * Get current application version name.
-     * 
+     *
      * @return String version of the application.
      */
     public static String getVersionName() {
@@ -47,14 +46,14 @@ public class AppUtils {
                     .getPackageInfo(App.getContext().getPackageName(), 0);
             version = pi.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(Logger.TOPOSUITE_RESSOURCE_NOT_FOUND, "Application name version", e);
+            Logger.log(Logger.ErrLabel.RESOURCE_NOT_FOUND, "Application name version" + e);
         }
         return version;
     }
 
     /**
      * Get current application version code.
-     * 
+     *
      * @return String code version number of the application.
      */
     public static String getVersionCode() {
@@ -64,7 +63,7 @@ public class AppUtils {
                     .getPackageInfo(App.getContext().getPackageName(), 0);
             version = String.valueOf(pi.versionCode);
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(Logger.TOPOSUITE_RESSOURCE_NOT_FOUND, "Application code version", e);
+            Logger.log(Logger.ErrLabel.RESOURCE_NOT_FOUND, "Application code version " + e);
         }
         return version;
     }

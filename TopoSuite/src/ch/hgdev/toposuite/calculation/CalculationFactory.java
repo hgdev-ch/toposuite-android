@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.json.JSONException;
 
-import android.util.Log;
 import ch.hgdev.toposuite.utils.Logger;
 
 import com.google.common.base.Strings;
@@ -14,7 +13,7 @@ import com.google.common.base.Strings;
  * is to create empty Calculation and to eventually import some input arguments.
  * This is actually only useful for database operations. Indeed, it simplifies
  * and makes cleaner the loading of the calculations history from the DB.
- * 
+ *
  * @author HGdev
  */
 public class CalculationFactory {
@@ -23,7 +22,7 @@ public class CalculationFactory {
     /**
      * Create a new calculation object and fill the input arguments with a
      * serialized set of input arguments.
-     * 
+     *
      * @param type
      *            The type of calculations as defined in CalculationType enum.
      * @param id
@@ -99,7 +98,7 @@ public class CalculationFactory {
             calculation = new TriangleSolver(id, lastModification);
             break;
         default:
-            Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR,
+            Logger.log(Logger.ErrLabel.CALCULATION_IMPORT_ERROR,
                     CalculationFactory.CALCULATION_NOT_FOUND);
         }
 
@@ -108,7 +107,7 @@ public class CalculationFactory {
             try {
                 calculation.importFromJSON(jsonInputArgs);
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_CALCULATION_IMPORT_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.CALCULATION_IMPORT_ERROR, e.getMessage());
             }
         }
 
@@ -117,7 +116,7 @@ public class CalculationFactory {
 
     /**
      * See {@link CalculationFactory#createCalculation(CalculationType, String)}
-     * 
+     *
      * @param type
      *            The type of calculations as defined in CalculationType enum.
      * @return calculation object with empty fields

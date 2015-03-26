@@ -8,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -56,14 +55,14 @@ public class Surface extends Calculation {
 
     /**
      * Check input.
-     * 
+     *
      * @return True if the input is OK and the calculation can be run, false
      *         otherwise.
      */
     private boolean checkInput() {
         // we need at least three points to define a surface
         if (this.points.size() < 3) {
-            Log.w(Logger.TOPOSUITE_CALCULATION_IMPOSSIBLE,
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     Surface.SURFACE + "at least three points must be provided to define a surface.");
             return false;
         }
@@ -194,9 +193,9 @@ public class Surface extends Calculation {
 
     /**
      * Point with a radius.
-     * 
+     *
      * @author HGdev
-     * 
+     *
      */
     public static class PointWithRadius extends Point {
         private static final String NUMBER        = "number";
@@ -232,7 +231,7 @@ public class Surface extends Calculation {
                 json.put(Surface.PointWithRadius.RADIUS, this.radius);
                 json.put(Surface.PointWithRadius.VERTEX_NUMBER, this.vertexNumber);
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             }
             return json;
         }
@@ -248,7 +247,7 @@ public class Surface extends Calculation {
                 int vertex_number = jo.getInt(Surface.PointWithRadius.VERTEX_NUMBER);
                 p = new PointWithRadius(number, east, north, radius, vertex_number);
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             }
             return p;
         }

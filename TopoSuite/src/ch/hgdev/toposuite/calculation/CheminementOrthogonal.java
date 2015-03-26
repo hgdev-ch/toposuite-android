@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -302,7 +301,7 @@ public class CheminementOrthogonal extends Calculation {
 
     /**
      * Result holds the resulting points of the cheminement orthogonal.
-     * 
+     *
      * @author HGdev
      */
     public static class Result {
@@ -367,7 +366,7 @@ public class CheminementOrthogonal extends Calculation {
 
     /**
      * Measure holds an input measure of the cheminement orthogoal.
-     * 
+     *
      * @author HGdev
      */
     public static class Measure {
@@ -389,7 +388,7 @@ public class CheminementOrthogonal extends Calculation {
                 jo.put(Measure.NUMBER, this.number);
                 jo.put(Measure.DISTANCE, this.distance);
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             }
 
             return jo;
@@ -406,7 +405,7 @@ public class CheminementOrthogonal extends Calculation {
 
                 m = new Measure(number, distance);
             } catch (JSONException e) {
-                Log.e(Logger.TOPOSUITE_PARSE_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             }
 
             return m;
