@@ -208,6 +208,7 @@
 	            android:gravity="left" />
 
 	        <TextView
+	            android:id="@+id/displacement_d1_label"
 			    android:layout_width="wrap_content"
 			    android:layout_height="match_parent"
 			    android:layout_weight="0.05"
@@ -395,6 +396,7 @@
 	            android:gravity="left" />
 	        
 	        <TextView
+	            android:id="@+id/displacement_d2_label"
 			    android:layout_width="wrap_content"
 			    android:layout_height="match_parent"
 			    android:layout_weight="0.05"
