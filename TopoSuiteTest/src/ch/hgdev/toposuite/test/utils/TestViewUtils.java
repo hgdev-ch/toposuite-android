@@ -41,6 +41,7 @@ public class TestViewUtils extends AndroidTestCase {
         Assert.assertEquals(123.0, ViewUtils.readDouble(this.eT));
         this.eT.setText("-15");
         Assert.assertEquals(-15.0, ViewUtils.readDouble(this.eT));
+
         this.eT.setText("12.123.321");
         Assert.assertEquals(12.123, ViewUtils.readDouble(this.eT));
         this.eT.setText("123.221");
@@ -51,6 +52,12 @@ public class TestViewUtils extends AndroidTestCase {
         Assert.assertEquals(12.0, ViewUtils.readDouble(this.eT));
         this.eT.setText("321.32-");
         Assert.assertEquals(321.32, ViewUtils.readDouble(this.eT));
+
+        // with some locale, like French, "," is used as the decimal separator
+        this.eT.setText("3,14");
+        Assert.assertEquals(3.14, ViewUtils.readDouble(this.eT));
+        this.eT.setText("3,14,156");
+        Assert.assertEquals(3.14, ViewUtils.readDouble(this.eT));
     }
 
     public void testReadInt() {

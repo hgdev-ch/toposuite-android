@@ -55,7 +55,17 @@ public class ViewUtils {
             df.setDecimalFormatSymbols(symbols);
 
             try {
-                String input = df.parse(editText.getText().toString()).toString();
+                // Note: some locale use "," as a separator, hence the hack.
+                // To date, I have not found a way to properly parse a double
+                // regardless of the locale without causing troubles in
+                // some ways. For instance, one can handle a
+                // locale aware conversion but some Android keyboard only allow
+                // "." as separator when entering numbers... Hence, users can
+                // use a locale which uses "," as the decimal separator but
+                // we still have to deal with numbers having "." as decimal
+                // separator because users cannot input a "," when entering
+                // numbers...
+                String input = df.parse(editText.getText().toString().replace(',', '.')).toString();
                 return (ViewUtils.doublePattern.matcher(input).matches()) ?
                         df.parse(input).doubleValue()
                         : MathUtils.IGNORE_DOUBLE;
