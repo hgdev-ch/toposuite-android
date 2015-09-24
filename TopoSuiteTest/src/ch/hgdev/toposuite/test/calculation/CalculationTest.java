@@ -5,12 +5,13 @@ import java.text.DecimalFormat;
 
 import android.test.AndroidTestCase;
 import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.test.testutils.Util;
 
 /**
  * Base class for any calculation test.
- * 
+ *
  * @author HGdev
- * 
+ *
  */
 public class CalculationTest extends AndroidTestCase {
     protected DecimalFormat df1;
@@ -32,6 +33,8 @@ public class CalculationTest extends AndroidTestCase {
 
         // we want to keep a good precision for the tests
         App.setCoordinateDecimalRounding(20);
-    }
 
+        // make sure we use a consistent locale for these tests
+        Util.setLocale("en", "US");
+    }
 }
