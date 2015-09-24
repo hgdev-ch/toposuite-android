@@ -31,7 +31,7 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
-        MergePointsDialog.MergePointsDialogListener {
+MergePointsDialog.MergePointsDialogListener {
 
     private static final String                 LINE_POINT_ONE_SELECTED_POSITION  = "line_point_one_selected_position";
     private static final String                 LINE_POINT_TWO_SELECTED_POSITION  = "line_point_two_selected_position";
@@ -590,7 +590,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         }
         double distP1 = 0.0;
         if (!ViewUtils.isEmpty(this.distP1EditText) && this.isLinePerpendicular) {
-            distP1 = ViewUtils.readDouble(this.displacementEditText);
+            distP1 = ViewUtils.readDouble(this.distP1EditText);
         }
         double displacement = 0.0;
         if (!ViewUtils.isEmpty(this.displacementEditText)) {
