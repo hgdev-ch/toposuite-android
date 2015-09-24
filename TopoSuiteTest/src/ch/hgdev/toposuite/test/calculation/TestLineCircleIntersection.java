@@ -136,4 +136,28 @@ public class TestLineCircleIntersection extends CalculationTest {
         Assert.assertEquals("18.1749", this.df4.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("6.6972", this.df4.format(lci.getFirstIntersection().getNorth()));
     }
+
+    /**
+     * Test for bug report #622
+     */
+    public void testRealCase3() {
+        Point p1 = new Point("1", 600.0, 200.0, MathUtils.IGNORE_DOUBLE, true, false);
+        Point p2 = new Point("2", 630.0, 225.0, MathUtils.IGNORE_DOUBLE, true, false);
+        double distance = 5.0;
+        double radius = 10.0;
+
+        LineCircleIntersection lci = new LineCircleIntersection(false);
+        lci.initAttributes(p1, p2, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, distance, p1,
+                radius);
+
+        try {
+            lci.compute();
+        } catch (CalculationException e) {
+            Assert.fail("The calculation should be possible!");
+        }
+        Assert.assertEquals("598.297", this.df3.format(lci.getSecondIntersection().getEast()));
+        Assert.assertEquals("209.854", this.df3.format(lci.getSecondIntersection().getNorth()));
+        Assert.assertEquals("609.385", this.df3.format(lci.getFirstIntersection().getEast()));
+        Assert.assertEquals("196.548", this.df3.format(lci.getFirstIntersection().getNorth()));
+    }
 }
