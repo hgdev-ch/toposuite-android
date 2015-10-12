@@ -17,6 +17,7 @@ local.properties
 .DS_Store
 *.log
 *.swp
+tags
 
 TopoSuite/javadoc
 TopoSuite/lint.html
