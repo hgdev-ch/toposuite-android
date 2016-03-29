@@ -17,18 +17,22 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class MeasureDialogFragment extends DialogFragment {
+    public static final String MEASURE = "measure";
+    public static final String IS_EDITION = "is_edition";
+
+
     /**
      * The activity that creates an instance of MeasureDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
+     *
      */
     public interface MeasureDialogListener {
         /**
          * Define what to do when the "Add" button is clicked.
-         * 
+         *
          * @param dialog
          *            Dialog to fetch information from.
          */
@@ -36,7 +40,7 @@ public class MeasureDialogFragment extends DialogFragment {
 
         /**
          * Define what to do when the "Edit" button is clicked.
-         * 
+         *
          * @param dialog
          *            Dialog to fetch information from.
          */
@@ -58,7 +62,7 @@ public class MeasureDialogFragment extends DialogFragment {
     /**
      * True if the dialog is for edition, false otherwise.
      */
-    private final boolean isEdition;
+    private boolean isEdition;
 
     /**
      * TODO make something cleaner and only use measure instead of this huge
@@ -66,13 +70,25 @@ public class MeasureDialogFragment extends DialogFragment {
      */
     private Measure       measure;
 
-    public MeasureDialogFragment() {
-        this.isEdition = false;
+    public static MeasureDialogFragment newInstance() {
+        MeasureDialogFragment mdf = new MeasureDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putBoolean("is_edition", false);
+        mdf.setArguments(args);
+
+        return mdf;
     }
 
-    public MeasureDialogFragment(Measure m) {
-        this.isEdition = true;
-        this.measure = m;
+    public static MeasureDialogFragment newInstance(Measure m) {
+        MeasureDialogFragment mdf = new MeasureDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable("measure", m);
+        args.putBoolean("is_edition", true);
+        mdf.setArguments(args);
+
+        return mdf;
     }
 
     @Override
@@ -159,6 +175,9 @@ public class MeasureDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
+        this.isEdition = getArguments().getBoolean(IS_EDITION);
+        this.measure = (Measure)getArguments().getSerializable(MEASURE);
+
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -208,7 +227,7 @@ public class MeasureDialogFragment extends DialogFragment {
 
     /**
      * Verify that the user has entered all required data.
-     * 
+     *
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {

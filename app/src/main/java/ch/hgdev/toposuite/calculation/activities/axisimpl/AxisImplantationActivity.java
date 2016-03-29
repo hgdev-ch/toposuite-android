@@ -349,7 +349,7 @@ MeasureDialogListener {
     private void showAddMeasureDialog() {
         ViewUtils.lockScreenOrientation(this);
 
-        MeasureDialogFragment dialog = new MeasureDialogFragment();
+        MeasureDialogFragment dialog = MeasureDialogFragment.newInstance();
         dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
@@ -360,7 +360,7 @@ MeasureDialogListener {
         ViewUtils.lockScreenOrientation(this);
 
         Measure m = this.axisImpl.getMeasures().get(position);
-        MeasureDialogFragment dialog = new MeasureDialogFragment(m);
+        MeasureDialogFragment dialog = MeasureDialogFragment.newInstance(m);
         dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
