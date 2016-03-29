@@ -222,7 +222,7 @@ public class App extends Application {
     public void onTerminate() {
         File tmpDir = new File(App.tmpDirectoryPath);
         if (!tmpDir.delete()) {
-            Logger.log(Logger.ErrLabel.IO_ERROR, "Cannot delete temportary directory!");
+            Logger.log(Logger.ErrLabel.IO_ERROR, "Cannot delete temporary directory!");
         }
         super.onTerminate();
     }
