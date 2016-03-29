@@ -26,6 +26,9 @@ build/
 captures/
 doc/
 gen/
+gradle/
+gradlew
+gradlew.bat
 javadoc/
 libs/
 local.properties
