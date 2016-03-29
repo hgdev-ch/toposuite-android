@@ -5,19 +5,19 @@
        src="https://scan.coverity.com/projects/2735/badge.svg"/>
 </a>
 
-Copyright(C) 2014, CRAG (Commission paritaire  Romande d'Apprentissage de
+Copyright(C) 2014-2016, CRAG (Commission paritaire  Romande d'Apprentissage de
 Géomaticien(ne)s)
 
 TopoSuite for Android is an application developed by
-[hgdev](http://www.hgdev.ch/) and commissioned by the CRAG (Commission paritaire
+[hgdev](https://hgdev.ch/) and commissioned by the CRAG (Commission paritaire
 Romande d'Apprentissage de  Géomaticien(ne)s).
 
 The application development is currently sponsored by the CRAG,
 [CF-Geo](http://www.cf-geo.ch/), [CEPM](http://www.cepm.ch/),
 [CPLN](http://www.cpln.ch/), [EPCA](http://www.epcasion.ch/) and
 [Pro-Geo](http://www.pro-geo.ch/). If you are interested in seeing more features
-or improvements in this application, please,
-[contact us](http://www.hgdev.ch/contact.html).
+or improvements to this application, please,
+[contact us](https://hgdev.ch/contact.html).
 
 This application is free software licensed under the GPLv2 license (see
 LICENSE).  This means that you can freely use, study, redistribute and modify
@@ -26,11 +26,11 @@ make them available under the same license.
 
 ## ABOUT
 
-TopoSuite for Android is an application that target devices running Android at
-version 4.0.3 and later. It targets land surveyors by helping them determining
-new geographical points based on measurements and offering some utilities.
+TopoSuite is an application for land surveyors running on Android 4.0.3 and
+later versions. It is useful for determining new geographical points based on
+measurements and it offers various calculations possibilities.
 
-It is able to do the following calculations:
+Here is a list of supported calculations:
 
 * Polar calculations
     * station orientation
@@ -58,7 +58,7 @@ It is able to do the following calculations:
     * triangle solver
     * circular elements resolution
 
-Data, such as points, may be imported into the application. The supported input
+Data, such as points, may be imported into the application. Supported input
 files are CSV (with ";" as a separator for now), LTOP and PTP. The list of
 points can be exported to CSV and shared through e-mail, etc.
 
@@ -73,9 +73,10 @@ instance).
 
 ## CONTRIBUTING
 
-Contributions are welcome. However, if your changes add a major feature, contact
-us before because we might not want it into the application. Simple bug fixes or
-minor improvements should usually be easily accepted.
+Contributions are welcome. Simple bug fixes or minor improvements should usually
+be easily accepted. However, if you plan on adding a major feature, contact us
+beforehand so we can make sure that it fits with the overall goals of the
+application.
 
 ## SPONSORING
 
@@ -84,5 +85,5 @@ this piece of software is useful to you, feel free to contribute by making a
 donation. If you feel like a feature is missing and you would like to have it
 implemented, consider sponsoring the development of this feature. Several
 organizations have already contributed to the development of this application.
-Why not yours? Feel free to [contact us](http://www.hgdev.ch/contact.html)
+Why not yours? Feel free to [contact us](https://hgdev.ch/contact.html)
 about this.
