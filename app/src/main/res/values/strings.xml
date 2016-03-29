@@ -118,7 +118,7 @@
     <string name="error_choose_file">Please, choose file to import!</string>
     <string name="error_enter_point_number">Please, enter points number!</string>
     <string name="error_file_already_exists">File already exists!</string>
-    <string name="error_fill_data">Every mandatory field must be field!</string>
+    <string name="error_fill_data">Every mandatory field must be filled!</string>
     <string name="error_import_label">Import error</string>
     <string name="error_impossible_calculation">Impossible calculation!</string>
     <string name="error_impossible_to_import">Impossible to import the file!</string>
