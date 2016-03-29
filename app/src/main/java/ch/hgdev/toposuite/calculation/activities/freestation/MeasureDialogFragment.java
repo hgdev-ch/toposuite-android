@@ -28,6 +28,9 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class MeasureDialogFragment extends DialogFragment {
+    public static final String IS_EDITION = "is_edition";
+    public static final String IS_MANDATORY = "is_mandatory";
+    public static final String MEASURE = "measure";
     /**
      * The activity that creates an instance of MeasureDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
@@ -80,7 +83,7 @@ public class MeasureDialogFragment extends DialogFragment {
     /**
      * True if the dialog is for edition, false otherwise.
      */
-    private final boolean       isEdition;
+    private boolean       isEdition;
 
     /**
      * TODO make something cleaner and only use measure instead of this huge
@@ -89,17 +92,29 @@ public class MeasureDialogFragment extends DialogFragment {
     private Measure             measure;
 
     /** True if the instrument height is provided, false otherwise */
-    private final boolean       isSMandatory;
+    private boolean       isSMandatory;
 
-    public MeasureDialogFragment(boolean _isSMandatory) {
-        this.isEdition = false;
-        this.isSMandatory = _isSMandatory;
+    public static MeasureDialogFragment newInstance(boolean isSMandatory) {
+        MeasureDialogFragment mdf = new MeasureDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putBoolean(IS_EDITION, false);
+        args.putBoolean(IS_MANDATORY, isSMandatory);
+        mdf.setArguments(args);
+
+        return mdf;
     }
 
-    public MeasureDialogFragment(Measure m, boolean _isSMandatory) {
-        this.isEdition = true;
-        this.measure = m;
-        this.isSMandatory = _isSMandatory;
+    public static MeasureDialogFragment newInstance(Measure m, boolean isSMandatory) {
+        MeasureDialogFragment mdf = new MeasureDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putBoolean(IS_EDITION, true);
+        args.putBoolean(IS_MANDATORY, isSMandatory);
+        args.putSerializable(MEASURE, m);
+        mdf.setArguments(args);
+
+        return mdf;
     }
 
     @Override
@@ -205,6 +220,10 @@ public class MeasureDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
+        this.isEdition = getArguments().getBoolean(IS_EDITION);
+        this.isSMandatory = getArguments().getBoolean(IS_MANDATORY);
+        this.measure = (Measure)getArguments().getSerializable(MEASURE);
+
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
 

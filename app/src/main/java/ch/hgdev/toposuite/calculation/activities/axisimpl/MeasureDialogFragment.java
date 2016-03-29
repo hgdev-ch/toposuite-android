@@ -74,7 +74,7 @@ public class MeasureDialogFragment extends DialogFragment {
         MeasureDialogFragment mdf = new MeasureDialogFragment();
 
         Bundle args = new Bundle();
-        args.putBoolean("is_edition", false);
+        args.putBoolean(IS_EDITION, false);
         mdf.setArguments(args);
 
         return mdf;
@@ -84,8 +84,8 @@ public class MeasureDialogFragment extends DialogFragment {
         MeasureDialogFragment mdf = new MeasureDialogFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("measure", m);
-        args.putBoolean("is_edition", true);
+        args.putSerializable(MEASURE, m);
+        args.putBoolean(IS_EDITION, true);
         mdf.setArguments(args);
 
         return mdf;

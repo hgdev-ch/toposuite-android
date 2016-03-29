@@ -177,7 +177,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
 
         boolean isSMandatory = ((this.iEditText.length() == 0) ||
                 MathUtils.isZero(ViewUtils.readDouble(this.iEditText))) ? false : true;
-        MeasureDialogFragment dialog = new MeasureDialogFragment(isSMandatory);
+        MeasureDialogFragment dialog = MeasureDialogFragment.newInstance(isSMandatory);
         dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
@@ -191,7 +191,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
                 MathUtils.isZero(ViewUtils.readDouble(this.iEditText))) ? false : true;
 
         Measure m = this.freeStation.getMeasures().get(position);
-        MeasureDialogFragment dialog = new MeasureDialogFragment(m, isSMandatory);
+        MeasureDialogFragment dialog = MeasureDialogFragment.newInstance(m, isSMandatory);
         dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
     }
 
