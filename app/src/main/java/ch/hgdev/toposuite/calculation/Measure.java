@@ -4,12 +4,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+
+import java.io.Serializable;
+
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class Measure {
+public class Measure implements Serializable {
     public static final String  ORIENTATION_NUMBER     = "orientation_number";
     public static final String  HORIZ_DIR              = "horiz_dir";
     public static final String  ZEN_ANGLE              = "zen_angle";
