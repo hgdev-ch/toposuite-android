@@ -34,6 +34,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         EditPointWithRadiusDialogFragment.EditPointWithRadiusDialogListener {
     public static final String                    POINT_WITH_RADIUS_NUMBER_LABEL = "point_with_radius_number";
     public static final String                    RADIUS_LABEL                   = "radius";
+    public static final String                    SURFACE_CALCULATION            = "surface_calculation";
     private static final String                   POINT_WITH_RADIUS_LABEL        = "points_with_radius";
     private static final String                   SURFACE_NAME_LABEL             = "surface_name";
     private static final String                   SURFACE_DESCRIPTION_LABEL      = "surface_description";
@@ -290,14 +291,14 @@ public class SurfaceActivity extends TopoSuiteActivity implements
      *            Position of the point in the list of points.
      */
     private void showEditPointDialog(int position) {
-        EditPointWithRadiusDialogFragment dialog = new EditPointWithRadiusDialogFragment(
-                this.surfaceCalculation);
+        EditPointWithRadiusDialogFragment dialog = new EditPointWithRadiusDialogFragment();
 
         this.position = position;
         Surface.PointWithRadius p = this.adapter.getItem(position);
         Bundle args = new Bundle();
         args.putString(SurfaceActivity.POINT_WITH_RADIUS_NUMBER_LABEL, p.getNumber());
         args.putDouble(SurfaceActivity.RADIUS_LABEL, p.getRadius());
+        args.putSerializable(SURFACE_CALCULATION, this.surfaceCalculation);
 
         dialog.setArguments(args);
         dialog.show(this.getFragmentManager(), "EditPointWithRadiusDialogFragment");

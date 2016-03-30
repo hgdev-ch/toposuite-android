@@ -63,12 +63,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
     private EditText                  radiusEditText;
 
     private Spinner                   positionSpinner;
-    private Surface                   surfaceCalculation;
     private String                    positionAfter;
-
-    public EditPointWithRadiusDialogFragment(Surface _surfaceCalculation) {
-        this.surfaceCalculation = _surfaceCalculation;
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -200,7 +195,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
                 new ArrayList<String>());
         this.positionSpinner.setAdapter(positionAdapter);
         positionAdapter.add(this.getActivity().getString(R.string.displace_after));
-        for (Surface.PointWithRadius pt : this.surfaceCalculation.getPoints()) {
+        for (Surface.PointWithRadius pt : ((Surface)bundle.getSerializable(SurfaceActivity.SURFACE_CALCULATION)).getPoints()) {
             if (!pt.getNumber().equals(pointNumber)) {
                 positionAdapter.add(pt.toString());
             }

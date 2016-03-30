@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.calculation;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * 
  * @author HGdev
  */
-public abstract class Calculation implements Exportable, Importable, DAOUpdater {
+public abstract class Calculation implements Exportable, Importable, DAOUpdater, Serializable {
     public static final String    ID                = "id";
     public static final String    TYPE              = "type";
     public static final String    DESCRIPTION       = "description";
