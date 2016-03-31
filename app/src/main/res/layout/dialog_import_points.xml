@@ -84,7 +84,7 @@
 	    android:text= "@string/cancel" />
 
     <Button
-        android:id="@+id/export_button"
+        android:id="@+id/import_button"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dip"
         android:layout_height="wrap_content"

@@ -73,7 +73,7 @@ public class ImportDialog extends DialogFragment {
          * This callback is triggered when the action performed by the dialog
          * fail.
          *
-         * @param error
+         * @param message
          *            Error message.
          */
         void onImportDialogError(String message);
@@ -103,8 +103,8 @@ public class ImportDialog extends DialogFragment {
             }
         });
 
-        Button exportButton = (Button) view.findViewById(R.id.export_button);
-        exportButton.setOnClickListener(new OnClickListener() {
+        Button importButton = (Button) view.findViewById(R.id.import_button);
+        importButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImportDialog.this.performImportAction();
@@ -178,16 +178,16 @@ public class ImportDialog extends DialogFragment {
             this.listener = (ImportDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement ExportDialogListener");
+                    + " must implement ImportDialogListener");
         }
     }
 
-    private final void closeOnSuccess(String message) {
+    private void closeOnSuccess(String message) {
         this.listener.onImportDialogSuccess(message);
         this.dismiss();
     }
 
-    private final void closeOnError(String message) {
+    private void closeOnError(String message) {
         this.listener.onImportDialogError(message);
         this.dismiss();
     }
