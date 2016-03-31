@@ -540,7 +540,7 @@ CO = CM = CF = Rayon
 
 OF = Corde (OF)
 
-OS = OF = Tangente
+OS = FS = Tangente
 
 MS = Bissectrice
 
@@ -549,6 +549,8 @@ MS = Bissectrice
 2α = Angle au centre
 
 M = Milieu de courbe
+
+MB = Flèche
 
  |Eléments circulaires 2|
 
