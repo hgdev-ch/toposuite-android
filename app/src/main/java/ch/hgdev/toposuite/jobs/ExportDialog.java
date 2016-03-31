@@ -1,11 +1,5 @@
 package ch.hgdev.toposuite.jobs;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -16,11 +10,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.common.io.Files;
+
+import org.json.JSONException;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.ViewUtils;
-
-import com.google.common.io.Files;
 
 /**
  * This class is used to display an export dialog which allows the user to
@@ -51,7 +52,7 @@ public class ExportDialog extends DialogFragment {
          * This callback is triggered when the action performed by the dialog
          * fail.
          * 
-         * @param error
+         * @param message
          *            Error message.
          */
         void onExportDialogError(String message);
@@ -102,12 +103,12 @@ public class ExportDialog extends DialogFragment {
         }
     }
 
-    private final void closeOnError(String message) {
+    private void closeOnError(String message) {
         this.listener.onExportDialogError(message);
         this.dismiss();
     }
 
-    private final void closeOnSuccess(String message) {
+    private void closeOnSuccess(String message) {
         this.listener.onExportDialogSuccess(message);
         this.dismiss();
     }
@@ -115,7 +116,7 @@ public class ExportDialog extends DialogFragment {
     /**
      * Perform export.
      */
-    private final void performExportAction() {
+    private void performExportAction() {
         // make sure that the input is correct
         if (this.filenameEditText.getText().toString().isEmpty()) {
             ViewUtils.showToast(this.getActivity(),

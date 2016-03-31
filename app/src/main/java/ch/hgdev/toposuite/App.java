@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite;
 
-import java.io.File;
-import java.util.Locale;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,6 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+
+import java.io.File;
+import java.util.Locale;
+
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.DBHelper;

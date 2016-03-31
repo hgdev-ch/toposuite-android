@@ -28,7 +28,7 @@ public interface DataImporter {
     /**
      * Initialize Point attributes from PTP.
      * 
-     * @param ltopLine
+     * @param ptpLine
      *            A PTP line that contains the values of the Point attributes.
      * @throws InvalidFormatException
      */

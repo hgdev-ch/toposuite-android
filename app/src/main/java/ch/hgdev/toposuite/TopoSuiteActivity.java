@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -18,6 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.CheminementOrthoActivity;
@@ -293,7 +294,7 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         /**
          * Constructs a new DrawerItemClickListener.
          * 
-         * @param list_
+         * @param _list
          *            the items list
          */
         public DrawerItemClickListener(ListView _list) {

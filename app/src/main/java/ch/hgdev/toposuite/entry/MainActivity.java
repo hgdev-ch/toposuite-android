@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.entry;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;

@@ -1,13 +1,5 @@
 package ch.hgdev.toposuite.points;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -24,6 +16,17 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
+
+import com.google.common.io.LineReader;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -33,8 +36,6 @@ import ch.hgdev.toposuite.export.ImportDialog;
 import ch.hgdev.toposuite.export.SupportedFileTypes;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
-
-import com.google.common.io.LineReader;
 
 /**
  * Activity to manage points, such as adding, removing or modifying them.
@@ -365,7 +366,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     /**
      * TODO
      */
-    private final void importFromExternalFile(final Uri dataUri, final String mime) {
+    private void importFromExternalFile(final Uri dataUri, final String mime) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.import_label)
                 .setMessage(R.string.warning_import_file_without_warning_label)

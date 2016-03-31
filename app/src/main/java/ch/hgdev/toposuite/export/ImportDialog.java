@@ -1,18 +1,5 @@
 package ch.hgdev.toposuite.export;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.LineNumberReader;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -28,14 +15,28 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.common.io.Files;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.LineNumberReader;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.PointsImporter;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
-
-import com.google.common.io.Files;
 
 /**
  * This class is used to display an import dialog which allows the user to
@@ -73,7 +74,7 @@ public class ImportDialog extends DialogFragment {
          * This callback is triggered when the action performed by the dialog
          * fail.
          *
-         * @param error
+         * @param message
          *            Error message.
          */
         void onImportDialogError(String message);
@@ -105,7 +106,7 @@ public class ImportDialog extends DialogFragment {
             }
         });
 
-        Button exportButton = (Button) view.findViewById(R.id.export_button);
+        Button exportButton = (Button) view.findViewById(R.id.import_button);
         exportButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,12 +201,12 @@ public class ImportDialog extends DialogFragment {
         }
     }
 
-    private final void closeOnSuccess(String message) {
+    private void closeOnSuccess(String message) {
         this.listener.onImportDialogSuccess(message);
         this.dismiss();
     }
 
-    private final void closeOnError(String message) {
+    private void closeOnError(String message) {
         this.listener.onImportDialogError(message);
         this.dismiss();
     }
