@@ -222,6 +222,7 @@
     <string name="mode_gisement_label">Gisement</string>
     <string name="mode_segment_label">Segment</string>
     <string name="name">Nom</string>
+    <string name="new_label">Nouveau</string>
     <string name="new_limit_point_east">Nouv. point-limite Y (droit)</string>
     <string name="new_limit_point_west">Nouv. point-limite X (gauche)</string>
     <string name="no">Non</string>
@@ -232,7 +233,9 @@
     <string name="north_label">Nord [m]</string>
     <string name="number_of_points_label">Le fichier contient: <xliff:g>%d</xliff:g> points</string>
     <string name="number_of_segments_label">Nombre de segments</string>
-    <string name="new_label">Nouveau</string>
+    <string name="oit_vd_webpage_url">http://www.vd.ch/oit</string>
+    <string name="oit_vd_webpage_url_short">www.vd.ch/oit</string>
+    <string name="oit_vd">Office de l\'information sur le territoire - Vaud</string>
     <string name="optional_prths">(optionnel)</string>
     <string name="ordinate">Ordonnée</string>
     <string name="ordinate_label">Ordonnée [m]</string>

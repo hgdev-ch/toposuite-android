@@ -122,6 +122,17 @@ public class MainActivity extends TopoSuiteActivity {
                         + App.getContext().getString(R.string.pgs_webpage_url_short) + "</a>")
                 .append("</td></tr>");
 
+        // OIT-VD
+        html.append("<tr><td>")
+                .append("<img src='file:///android_asset/vd_logo.png' alt='")
+                .append(App.getContext().getString(R.string.oit_vd))
+                .append("'/></td><td>")
+                .append(App.getContext().getString(R.string.oit_vd))
+                .append(" - " + "<a href='"
+                        + App.getContext().getString(R.string.oit_vd_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.oit_vd_webpage_url_short) + "</a>")
+                .append("</td></tr>");
+
         // end of sponsors list
         html.append("</table></div>");
 
