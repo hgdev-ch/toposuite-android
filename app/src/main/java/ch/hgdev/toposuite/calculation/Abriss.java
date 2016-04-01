@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -83,6 +83,8 @@ public class Abriss extends Calculation {
         // of the computations.
         int numberOfDeactivatedOrientations = 0;
         int index = -1;
+        double adjZ0 = 0.0;
+        double z0Sum = 0.0;
 
         for (Measure m : this.orientations) {
             index++;
@@ -98,6 +100,24 @@ public class Abriss extends Calculation {
             double z0 = MathUtils.modulo400(g.getGisement() - m.getHorizDir());
             double calcDist = MathUtils.euclideanDistance(this.station, m.getPoint());
 
+            // special case for when angle values cross the 400 grad for some
+            // see issue #625
+            if (this.results.isEmpty()) {
+                adjZ0 = z0;
+                z0Sum = adjZ0;
+            } else {
+                // check diff with previous adjusted z0
+                double diff = z0 - adjZ0;
+                if (diff < -200) {
+                    adjZ0 = z0 + 400;
+                } else if (diff > 200) {
+                    adjZ0 = z0 - 400;
+                } else {
+                    adjZ0 = z0;
+                }
+                z0Sum += adjZ0;
+            }
+
             Result r = new Result(m.getPoint(), g.getHorizDist(),
                     z0, 0.0, g.getGisement(), calcDist, 0.0, 0.0, 0.0);
 
@@ -110,11 +130,9 @@ public class Abriss extends Calculation {
                 Result oldResult = this.results.get(index);
                 oldResult = r;
             }
-
-            this.mean += z0;
         }
 
-        this.mean = MathUtils.modulo400(this.mean / (
+        this.mean = MathUtils.modulo400(z0Sum / (
                 this.orientations.size() - numberOfDeactivatedOrientations));
 
         index = 0;

@@ -133,6 +133,43 @@ public class TestAbriss extends CalculationTest {
         Assert.assertEquals(30, (int) a.getMeanErrComp());
     }
 
+    // See bug #625
+    //TODO: add test case for when there are more measures
+    public void testRealCaseAngleCloseToZero() {
+        Point p9000 = new Point("9000", 529117.518, 182651.404, 925.059, true);
+        Point p9001 = new Point("9001", 529137.864, 182649.391, 919.810, true);
+        Point p9002 = new Point("9002", 529112.403, 182631.705, 924.720, true);
+
+        Abriss a = new Abriss(p9000, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+        a.getMeasures().add(new Measure(p9002, 216.0699, 97.2887, 20.360));
+        a.compute();
+
+        // test intermediate values for point 9001
+        Assert.assertEquals("399.9012",
+                this.df4.format(a.getResults().get(0).getUnknownOrientation()));
+        Assert.assertEquals("106.3792",
+                this.df4.format(a.getResults().get(0).getOrientedDirection()));
+        Assert.assertEquals("-1010.4",
+                this.df1.format(a.getResults().get(0).getErrAngle()));
+        Assert.assertEquals("-3.2",
+                this.df1.format(a.getResults().get(0).getErrTrans()));
+
+        // test intermediate values for point 9002
+        Assert.assertEquals("0.1033",
+                this.df4.format(a.getResults().get(1).getUnknownOrientation()));
+        Assert.assertEquals("216.0721",
+                this.df4.format(a.getResults().get(1).getOrientedDirection()));
+        Assert.assertEquals("1010.4",
+                this.df1.format(a.getResults().get(1).getErrAngle()));
+        Assert.assertEquals("3.2",
+                this.df1.format(a.getResults().get(1).getErrTrans()));
+
+        // test final results
+        Assert.assertEquals("0.0022", this.df4.format(a.getMean()));
+    }
+
     public void testMeasureDeactivation() {
         Point p34 = new Point("34", 556506.667, 172513.91, 620.34, true);
         Point p45 = new Point("45", 556495.16, 172493.912, 623.37, true);
