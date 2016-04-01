@@ -8,7 +8,6 @@ Aide à l'utilisation de TopoSuite
 =================================
 
 .. contents::
-
   :local:
 
 .. sectnum::
