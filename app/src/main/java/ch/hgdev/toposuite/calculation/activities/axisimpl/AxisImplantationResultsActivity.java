@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -12,10 +13,11 @@ import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantatio
 
 public class AxisImplantationResultsActivity extends TopoSuiteActivity {
 
-    private TextView                  axisImplantationTextView;
-    private ListView                  resultsListView;
+    private TextView axisImplantationPointsTextView;
+    private TextView axisImplantationStationTextView;
+    private ListView resultsListView;
 
-    private AxisImplantation          axisImpl;
+    private AxisImplantation axisImpl;
 
     private ArrayListOfResultsAdapter adapter;
 
@@ -24,10 +26,9 @@ public class AxisImplantationResultsActivity extends TopoSuiteActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_axis_implantation_results);
 
-        this.axisImplantationTextView = (TextView) this.findViewById(
-                R.id.axis_implantation);
-        this.resultsListView = (ListView) this.findViewById(
-                R.id.results_list);
+        this.axisImplantationPointsTextView = (TextView) this.findViewById(R.id.axis_implantation_points);
+        this.axisImplantationStationTextView = (TextView) this.findViewById(R.id.axis_implantation_station);
+        this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
@@ -40,8 +41,9 @@ public class AxisImplantationResultsActivity extends TopoSuiteActivity {
             builder.append(this.axisImpl.getOrthogonalBase().getOrigin());
             builder.append("-");
             builder.append(this.axisImpl.getOrthogonalBase().getExtremity());
+            this.axisImplantationPointsTextView.setText(builder.toString());
+            this.axisImplantationStationTextView.setText(this.axisImpl.getStation().toString());
 
-            this.axisImplantationTextView.setText(builder.toString());
             this.drawList();
         }
     }

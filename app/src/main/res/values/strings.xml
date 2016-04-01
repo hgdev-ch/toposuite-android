@@ -31,7 +31,7 @@
     <string name="arc_label">Arc [m]</string>
     <string name="arc_length_label">Arc length</string>
     <string name="arrow_label">Arrow [m]</string>
-    <string name="axis_implantation_label">Axis implantation from the station</string>
+    <string name="axis_implantation_label">Axis implantation</string>
     <string name="base_label">Orthogonal survey from the base</string>
     <string name="bisector_label">Bisector [m]</string>
     <string name="by_point_label">By point</string>
@@ -146,6 +146,7 @@
     <string name="flon_label">fLon [cm]</string>
     <string name="format_3dots">Format&#8230;</string>
     <string name="free_station_label">Calculation of the free station</string>
+    <string name="from_station">from station</string>
     <string name="fs_label">FS [cm]</string>
     <string name="fs_without_unit_label">FS</string>
     <string name="general_settings">General settings</string>

@@ -17,7 +17,22 @@
             android:text="@string/axis_implantation_label" />
         
         <TextView
-            android:id="@+id/axis_implantation"
+            android:id="@+id/axis_implantation_points"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.41"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="16dp"
+            android:text="@string/from_station"/>
+
+        <TextView
+            android:id="@+id/axis_implantation_station"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.41"

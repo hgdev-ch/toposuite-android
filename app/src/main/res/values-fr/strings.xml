@@ -31,7 +31,7 @@
     <string name="arc_label">Arc [m]</string>
     <string name="arc_length_label">Longueur d\'un arc</string>
     <string name="arrow_label">Flèche [m]</string>
-    <string name="axis_implantation_label">Implantation d\'un axe depuis la station</string>
+    <string name="axis_implantation_label">Implantation de l\'axe</string>
     <string name="base_label">Levé orthogonal depuis la base</string>
     <string name="bisector_label">Bissectrice [m]</string>
     <string name="by_point_label">Selon point</string>
@@ -148,6 +148,7 @@
     <string name="flon_label">fLon [cm]</string>
     <string name="format_3dots">Format&#8230;</string>
     <string name="free_station_label">Calcul de la station libre</string>
+    <string name="from_station">depuis la station</string>
     <string name="fs_label">FS [cm]</string>
     <string name="fs_without_unit_label">FS</string>
     <string name="general_settings">Préférences générales</string>
