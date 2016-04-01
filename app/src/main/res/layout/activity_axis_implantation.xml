@@ -47,7 +47,7 @@
         <TextView
             android:id="@+id/station_point"
             android:layout_width="wrap_content"
-            android:layout_height="30dip"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.86"
             android:gravity="center"
@@ -97,7 +97,7 @@
         <Spinner
             android:id="@+id/origin_spinner"
             android:layout_width="64dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.18" />
     </LinearLayout>
     
@@ -109,7 +109,7 @@
 	        <TextView
 	            android:id="@+id/origin_point"
 	            android:layout_width="0dip"
-	            android:layout_height="30dp"
+	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
 	            android:layout_weight="0.86"
 	            android:gravity="center"
@@ -133,7 +133,7 @@
         <Spinner
             android:id="@+id/extremity_spinner"
             android:layout_width="74dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.15" />
     </LinearLayout>
     
@@ -145,7 +145,7 @@
 	        <TextView
 	            android:id="@+id/extremity_point"
 	            android:layout_width="0dip"
-	            android:layout_height="30dp"
+	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
 	            android:layout_weight="0.86"
 	            android:gravity="center"
