@@ -1,8 +1,10 @@
 package ch.hgdev.toposuite.test.utils;
 
-import junit.framework.Assert;
 import android.test.AndroidTestCase;
 import android.widget.EditText;
+
+import junit.framework.Assert;
+
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -58,6 +60,17 @@ public class TestViewUtils extends AndroidTestCase {
         Assert.assertEquals(3.14, ViewUtils.readDouble(this.eT));
         this.eT.setText("3,14,156");
         Assert.assertEquals(3.14, ViewUtils.readDouble(this.eT));
+
+        // test case for scientific notation (yup, someEditText.getText().toString() has the "good"
+        // idea of converting "0.0009" to "9.0E-4"... How kind of it...
+        this.eT.setText("9.0E-4");
+        Assert.assertEquals(0.0009, ViewUtils.readDouble(this.eT));
+        this.eT.setText("9.0e-4");
+        Assert.assertEquals(0.0009, ViewUtils.readDouble(this.eT));
+        this.eT.setText("3.3E3");
+        Assert.assertEquals(3300.0, ViewUtils.readDouble(this.eT));
+        this.eT.setText("3.3e3");
+        Assert.assertEquals(3300.0, ViewUtils.readDouble(this.eT));
     }
 
     public void testReadInt() {

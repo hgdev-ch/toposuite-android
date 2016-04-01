@@ -1,11 +1,5 @@
 package ch.hgdev.toposuite.utils;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.regex.Pattern;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +9,13 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.regex.Pattern;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
@@ -66,11 +67,14 @@ public class ViewUtils {
                 // separator because users cannot input a "," when entering
                 // numbers...
                 String input = df.parse(editText.getText().toString().replace(',', '.')).toString();
-                return (ViewUtils.doublePattern.matcher(input).matches()) ?
-                        df.parse(input).doubleValue()
-                        : MathUtils.IGNORE_DOUBLE;
+                if (ViewUtils.doublePattern.matcher(input).matches()) {
+                    return df.parse(input).doubleValue();
+                }
+                // maybe it's using scientific notation? Attempt parsing nonetheless.
+                return Double.parseDouble(input);
             } catch (ParseException e) {
                 Logger.log(Logger.ErrLabel.PARSE_ERROR, e.toString());
+                return MathUtils.IGNORE_DOUBLE;
             }
         }
         return MathUtils.IGNORE_DOUBLE;
