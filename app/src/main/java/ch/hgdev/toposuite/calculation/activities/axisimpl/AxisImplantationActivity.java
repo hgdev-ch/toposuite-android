@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.axisimpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -20,6 +17,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -47,6 +48,7 @@ MeasureDialogListener {
     private static final String        STATION_SELECTED_POSITION   = "station_selected_position";
     private static final String        ORIGIN_SELECTED_POSITION    = "origin_selected_position";
     private static final String        EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
+    private static final String        MEASURES_LIST               = "measures_list";
 
     private CheckBox                   checkboxZ0;
 
@@ -268,7 +270,7 @@ MeasureDialogListener {
 
         int index = SharedResources.getCalculationsHistory().indexOf(this.axisImpl);
         outState.putInt(AxisImplantationActivity.AXIS_IMPL_POSITION, index);
-
+        outState.putSerializable(AxisImplantationActivity.MEASURES_LIST, new ArrayList(this.axisImpl.getMeasures()));
     }
 
     @Override
@@ -282,7 +284,10 @@ MeasureDialogListener {
 
             this.axisImpl = (AxisImplantation) SharedResources
                     .getCalculationsHistory().get(index);
-
+            ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(AxisImplantationActivity.MEASURES_LIST);
+            if ((measures != null) && (!measures.isEmpty())) {
+                this.axisImpl.getMeasures().addAll(measures);
+            }
             this.drawList();
 
             this.stationSelectedPosition = savedInstanceState
