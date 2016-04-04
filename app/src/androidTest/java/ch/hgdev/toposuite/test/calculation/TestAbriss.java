@@ -5,6 +5,7 @@ import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestAbriss extends CalculationTest {
 
@@ -134,11 +135,12 @@ public class TestAbriss extends CalculationTest {
     }
 
     // See bug #625
-    //TODO: add test case for when there are more measures
     public void testRealCaseAngleCloseToZero() {
         Point p9000 = new Point("9000", 529117.518, 182651.404, 925.059, true);
         Point p9001 = new Point("9001", 529137.864, 182649.391, 919.810, true);
         Point p9002 = new Point("9002", 529112.403, 182631.705, 924.720, true);
+        Point p9003 = new Point("9003", 529139.385, 182648.989, MathUtils.IGNORE_DOUBLE, true);
+        Point p9004 = new Point("9004", 529112.544, 182632.033, MathUtils.IGNORE_DOUBLE, true);
 
         Abriss a = new Abriss(p9000, false);
         a.removeDAO(CalculationsDataSource.getInstance());
@@ -168,6 +170,39 @@ public class TestAbriss extends CalculationTest {
 
         // test final results
         Assert.assertEquals("0.0022", this.df4.format(a.getMean()));
+
+        // test with more measures
+        a = new Abriss(p9000, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
+        a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
+        a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+        a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
+        a.compute();
+
+        Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
+
+        // test with a different order
+        a = new Abriss(p9000, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
+        a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
+        a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
+        a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+        a.compute();
+
+        Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
+
+        // another order
+        a = new Abriss(p9000, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+        a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
+        a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
+        a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
+        a.compute();
+
+        Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
     }
 
     public void testMeasureDeactivation() {
