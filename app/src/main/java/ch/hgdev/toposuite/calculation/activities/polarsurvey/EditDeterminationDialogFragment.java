@@ -100,7 +100,8 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                                 EditDeterminationDialogFragment.this.zenAngle = ViewUtils
                                         .readDouble(EditDeterminationDialogFragment.this.zenAngleEditText);
                             } else {
-                                EditDeterminationDialogFragment.this.zenAngle = MathUtils.IGNORE_DOUBLE;
+                                // zenital angle defaults to 100.0
+                                EditDeterminationDialogFragment.this.zenAngle = 100.0;
                             }
                             if (EditDeterminationDialogFragment.this.sEditText.length() > 0) {
                                 EditDeterminationDialogFragment.this.s = ViewUtils
