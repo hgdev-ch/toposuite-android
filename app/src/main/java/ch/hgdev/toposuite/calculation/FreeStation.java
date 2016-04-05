@@ -1,12 +1,14 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.google.common.math.DoubleMath;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -15,40 +17,40 @@ import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-import com.google.common.math.DoubleMath;
-
 public class FreeStation extends Calculation {
-    private static final String     STATION_NUMBER = "station_number";
-    private static final String     MEASURES       = "measures";
-    private static final String     INSTRUMENT     = "instrument";
+    private static final String STATION_NUMBER = "station_number";
+    private static final String MEASURES = "measures";
+    private static final String INSTRUMENT = "instrument";
 
-    private String                  stationNumber;
-    private ArrayList<Measure>      measures;
-    /** Height of the instrument (I). */
-    private double                  i;
+    private String stationNumber;
+    private ArrayList<Measure> measures;
+    /**
+     * Height of the instrument (I).
+     */
+    private double i;
 
-    private Point                   stationResult;
+    private Point stationResult;
     private final ArrayList<Result> results;
-    private double                  unknownOrientation;
+    private double unknownOrientation;
     /**
      * Mean east error.
      */
-    private double                  sE;
+    private double sE;
 
     /**
      * Mean north error.
      */
-    private double                  sN;
+    private double sN;
 
     /**
      * Mean altitude error.
      */
-    private double                  sA;
+    private double sA;
 
     /**
      * Mean FS.
      */
-    private double                  meanFS;
+    private double meanFS;
 
     public FreeStation(String _stationNumber, double _i, boolean hasDAO) {
         super(CalculationType.FREESTATION, App.getContext().getString(
@@ -74,7 +76,7 @@ public class FreeStation extends Calculation {
 
     public FreeStation(long id, Date lastModification) {
         super(id, CalculationType.FREESTATION, App.getContext().getString(
-                R.string.title_activity_free_station),
+                        R.string.title_activity_free_station),
                 lastModification, true);
 
         this.measures = new ArrayList<Measure>();
@@ -87,7 +89,14 @@ public class FreeStation extends Calculation {
             return;
         }
 
-        if (!this.hasDeactivatedMeasure()) {
+        // since we need to adjust some measures for the computation, use a copy
+        // this prevents future calls to compute() to modify the measures (see #731)
+        ArrayList<Measure> measuresCopy = new ArrayList<Measure>(this.measures.size());
+        for (Measure m : this.measures) {
+            measuresCopy.add(new Measure(m));
+        }
+
+        if (!this.hasDeactivatedMeasure(measuresCopy)) {
             this.results.clear();
         }
 
@@ -114,7 +123,7 @@ public class FreeStation extends Calculation {
         int numberOfDeactivatedOrientations = 0;
         int index = -1;
 
-        for (Measure m : this.measures) {
+        for (Measure m : measuresCopy) {
             index++;
 
             if (m.isDeactivated()) {
@@ -125,8 +134,7 @@ public class FreeStation extends Calculation {
                     m.getPoint().getNorth(), m.getPoint().getAltitude(),
                     false, false);
 
-            double horizDist = m.getDistance() * Math.sin(
-                    MathUtils.gradToRad(m.getZenAngle()));
+            double horizDist = m.getDistance() * Math.sin(MathUtils.gradToRad(m.getZenAngle()));
             double gis = MathUtils.modulo400(m.getHorizDir());
 
             if (!MathUtils.isZero(m.getLatDepl())) {
@@ -156,7 +164,7 @@ public class FreeStation extends Calculation {
                 nbAltitudes++;
             }
 
-            if (!this.hasDeactivatedMeasure()) {
+            if (!this.hasDeactivatedMeasure(measuresCopy)) {
                 this.results.add(new Result(res, weight));
             } else {
                 // just used as tmp variable for modifying the pointed value of
@@ -185,7 +193,7 @@ public class FreeStation extends Calculation {
         double meanConstants = 0.0;
 
         for (int i = 0; i < this.results.size(); i++) {
-            if (this.measures.get(i).isDeactivated()) {
+            if (measuresCopy.get(i).isDeactivated()) {
                 // dummy intermediate results in order to avoid indexes problems
                 intermRes.add(new IntermediateResults(
                         MathUtils.IGNORE_DOUBLE,
@@ -197,7 +205,7 @@ public class FreeStation extends Calculation {
             Gisement g1 = new Gisement(
                     centroidFict, this.results.get(i).getPoint(), false);
             Gisement g2 = new Gisement(
-                    centroidCadast, this.measures.get(i).getPoint(), false);
+                    centroidCadast, measuresCopy.get(i).getPoint(), false);
             intermRes.add(
                     new IntermediateResults(
                             g1.getGisement(), g1.getHorizDist(),
@@ -256,24 +264,24 @@ public class FreeStation extends Calculation {
         double v = 0.0;
 
         for (int i = 0; i < this.results.size(); i++) {
-            if (this.measures.get(i).isDeactivated()) {
+            if (measuresCopy.get(i).isDeactivated()) {
                 continue;
             }
 
             double newGis = MathUtils.modulo400(
-                    meanRotations + this.measures.get(i).getHorizDir());
-            double newDist = meanConstants * this.measures.get(i).getDistance();
+                    meanRotations + measuresCopy.get(i).getHorizDir());
+            double newDist = meanConstants * measuresCopy.get(i).getDistance();
 
             // vE [cm]
             double newE = MathUtils.pointLanceEast(
                     this.stationResult.getEast(), newGis, newDist);
-            double vE = (newE - this.measures.get(i).getPoint().getEast()) * 100;
+            double vE = (newE - measuresCopy.get(i).getPoint().getEast()) * 100;
             this.results.get(i).setvE(vE);
 
             // vN [cm]
             double newN = MathUtils.pointLanceNorth(
                     this.stationResult.getNorth(), newGis, newDist);
-            double vN = (newN - this.measures.get(i).getPoint().getNorth()) * 100;
+            double vN = (newN - measuresCopy.get(i).getPoint().getNorth()) * 100;
             this.results.get(i).setvN(vN);
 
             // vA [cm]
@@ -320,7 +328,7 @@ public class FreeStation extends Calculation {
 
     /**
      * Find the minimum rotation from the list of intermediate results.
-     * 
+     *
      * @param results
      * @return
      */
@@ -449,8 +457,8 @@ public class FreeStation extends Calculation {
         return this.results;
     }
 
-    private boolean hasDeactivatedMeasure() {
-        for (Measure m : this.measures) {
+    private boolean hasDeactivatedMeasure(ArrayList<Measure> measures) {
+        for (Measure m : measures) {
             if (m.isDeactivated()) {
                 return true;
             }
@@ -459,8 +467,10 @@ public class FreeStation extends Calculation {
     }
 
     public static class Result {
-        /** The target point. */
-        private Point   point;
+        /**
+         * The target point.
+         */
+        private Point point;
 
         private boolean deactivated;
 
@@ -468,32 +478,32 @@ public class FreeStation extends Calculation {
          * Difference between the east coordinate of the original point and the
          * new one.
          */
-        private double  vE;
+        private double vE;
 
         /**
          * Difference between the north coordinate of the original point and the
          * new one.
          */
-        private double  vN;
+        private double vN;
 
         /**
          * Difference between the altitude of the original point and the new
          * one.
          */
-        private double  vA;
+        private double vA;
 
         /**
          * FS.
          */
-        private double  fS;
+        private double fS;
 
         /**
          * Weight.
          */
-        private double  weight;
+        private double weight;
 
         public Result(Point _point, double _vE, double _vN, double _vA,
-                double _weight) {
+                      double _weight) {
             this.point = _point;
             this.vE = _vE;
             this.vN = _vN;
@@ -569,7 +579,7 @@ public class FreeStation extends Calculation {
 
     /**
      * This nested class is just used for holding intermediate results.
-     * 
+     *
      * @author HGdev
      */
     private class IntermediateResults {
@@ -601,17 +611,17 @@ public class FreeStation extends Calculation {
          * Rotation between fictive and cadastral coordinates. (this attribute
          * is used from the outside)
          */
-        private double       rotation;
+        private double rotation;
 
         /**
          * Multiplication constants between fictive and cadastral coordinates.
          * (this attribute is used from the outside)
          */
         @SuppressWarnings("unused")
-        private double       constant;
+        private double constant;
 
         private IntermediateResults(double _gisFict, double _distFict,
-                double _gisCadast, double _distCadast) {
+                                    double _gisCadast, double _distCadast) {
             this.gisFict = _gisFict;
             this.distFict = _distFict;
 

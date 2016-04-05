@@ -1,9 +1,9 @@
 package ch.hgdev.toposuite.calculation;
 
+import android.os.Bundle;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.os.Bundle;
 
 import java.io.Serializable;
 
@@ -13,82 +13,88 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Measure implements Serializable {
-    public static final String  ORIENTATION_NUMBER     = "orientation_number";
-    public static final String  HORIZ_DIR              = "horiz_dir";
-    public static final String  ZEN_ANGLE              = "zen_angle";
-    public static final String  DISTANCE               = "distance";
-    public static final String  S                      = "s";
-    public static final String  I                      = "i";
-    public static final String  LAT_DEPL               = "lat_depl";
-    public static final String  LON_DEPL               = "lon_depl";
-    public static final String  UNKNOWN_ORIENTATION    = "unknown_orientation";
-    public static final String  MEASURE_NUMBER         = "measure_number";
+    public static final String ORIENTATION_NUMBER = "orientation_number";
+    public static final String HORIZ_DIR = "horiz_dir";
+    public static final String ZEN_ANGLE = "zen_angle";
+    public static final String DISTANCE = "distance";
+    public static final String S = "s";
+    public static final String I = "i";
+    public static final String LAT_DEPL = "lat_depl";
+    public static final String LON_DEPL = "lon_depl";
+    public static final String UNKNOWN_ORIENTATION = "unknown_orientation";
+    public static final String MEASURE_NUMBER = "measure_number";
 
-    private static final String JSON_SERIALIZE_ERROR   = "Unable to serialize Measure!";
+    private static final String JSON_SERIALIZE_ERROR = "Unable to serialize Measure!";
     private static final String JSON_UNSERIALIZE_ERROR = "Unable to unserialize Measure!";
 
     /**
      * Point (usually orientation point).
      */
-    private Point               point;
+    private Point point;
     /**
      * Horizontal direction (Hz).
      */
-    private double              horizDir;
+    private double horizDir;
     /**
      * Zenithal angle (Vz).
      */
-    private double              zenAngle;
+    private double zenAngle;
     /**
      * Dist. Incl. (Ds).
      */
-    private double              distance;
+    private double distance;
     /**
      * Height of the prism (S).
      */
-    private double              s;
+    private double s;
     /**
      * Height of the instrument (I).
      */
-    private double              i;
+    private double i;
     /**
      * Lateral displacement (Dlat or sometimes Dm1).
      */
-    private double              latDepl;
+    private double latDepl;
     /**
      * Longitudinal displacement (Dlong or sometimes Dm1).
      */
-    private double              lonDepl;
+    private double lonDepl;
 
     /**
      * Unknown orientation (Z0, result of abriss calculation).
      */
-    private double              unknownOrientation;
+    private double unknownOrientation;
 
     /**
      * Determine a number for the measure.
      */
-    private String              measureNumber;
+    private String measureNumber;
 
     /**
      * Abscissa.
      */
-    private double              abscissa;
+    private double abscissa;
 
     /**
      * Ordinate.
      */
-    private double              ordinate;
+    private double ordinate;
 
     /**
      * True if the measure is deactivated, false otherwise. This flag must not
      * be serialized because it must not be persistent.
      */
-    private boolean             deactivated;
+    private boolean deactivated;
+
+    public Measure(Measure m) {
+        this(m.getPoint(), m.getHorizDir(), m.getZenAngle(), m.getDistance(), m.getS(),
+                m.getLatDepl(), m.getLonDepl(), m.getI(), m.getUnknownOrientation(),
+                m.getMeasureNumber(), m.getAbscissa(), m.getOrdinate(), m.isDeactivated());
+    }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
-            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
-            String _measureNumber, double _abscissa, double _ordinate) {
+                   double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
+                   String _measureNumber, double _abscissa, double _ordinate, boolean _deactivated) {
         this.point = _point;
         this.horizDir = _horizDir;
         this.zenAngle = _zenAngle;
@@ -101,48 +107,55 @@ public class Measure implements Serializable {
         this.measureNumber = _measureNumber;
         this.abscissa = _abscissa;
         this.ordinate = _ordinate;
-        this.deactivated = false;
+        this.deactivated = _deactivated;
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
-            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
-            String _measureNumber, double _abscissa) {
+                   double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
+                   String _measureNumber, double _abscissa, double _ordinate) {
+        this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
+                _unknownOrientation, _measureNumber, _abscissa, _ordinate, false);
+    }
+
+    public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
+                   double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
+                   String _measureNumber, double _abscissa) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
                 _unknownOrientation, _measureNumber, _abscissa, MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
-            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
-            String _measureNumber) {
+                   double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation,
+                   String _measureNumber) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
                 _unknownOrientation, _measureNumber, MathUtils.IGNORE_INT);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
-            double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation) {
+                   double _s, double _latDepl, double _lonDepl, double _i, double _unknownOrientation) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
                 _unknownOrientation, "");
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
-            double _s, double _latDepl, double _lonDepl, double _i) {
+                   double _s, double _latDepl, double _lonDepl, double _i) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl, _i,
                 MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
-            double _s, double _latDepl, double _lonDepl) {
+                   double _s, double _latDepl, double _lonDepl) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, _lonDepl,
                 MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
-            double _s, double _latDepl) {
+                   double _s, double _latDepl) {
         this(_point, _horizDir, _zenAngle, _distance, _s, _latDepl, MathUtils.IGNORE_DOUBLE);
     }
 
     public Measure(Point _point, double _horizDir, double _zenAngle, double _distance,
-            double _s) {
+                   double _s) {
         this(_point, _horizDir, _zenAngle, _distance, _s, MathUtils.IGNORE_DOUBLE);
     }
 
@@ -319,18 +332,18 @@ public class Measure implements Serializable {
             Point orient = json.has(Measure.ORIENTATION_NUMBER) ?
                     SharedResources.getSetOfPoints().find(
                             json.getString(Measure.ORIENTATION_NUMBER))
-                            : null;
-                            m = new Measure(
-                                    orient,
-                                    json.getDouble(Measure.HORIZ_DIR),
-                                    json.getDouble(Measure.ZEN_ANGLE),
-                                    json.getDouble(Measure.DISTANCE),
-                                    json.getDouble(Measure.S),
-                                    json.getDouble(Measure.LAT_DEPL),
-                                    json.getDouble(Measure.LON_DEPL),
-                                    json.getDouble(Measure.I),
-                                    json.getDouble(Measure.UNKNOWN_ORIENTATION),
-                                    json.getString(Measure.MEASURE_NUMBER));
+                    : null;
+            m = new Measure(
+                    orient,
+                    json.getDouble(Measure.HORIZ_DIR),
+                    json.getDouble(Measure.ZEN_ANGLE),
+                    json.getDouble(Measure.DISTANCE),
+                    json.getDouble(Measure.S),
+                    json.getDouble(Measure.LAT_DEPL),
+                    json.getDouble(Measure.LON_DEPL),
+                    json.getDouble(Measure.I),
+                    json.getDouble(Measure.UNKNOWN_ORIENTATION),
+                    json.getString(Measure.MEASURE_NUMBER));
         } catch (JSONException e) {
             Logger.log(Logger.ErrLabel.PARSE_ERROR, Measure.JSON_UNSERIALIZE_ERROR);
         }
