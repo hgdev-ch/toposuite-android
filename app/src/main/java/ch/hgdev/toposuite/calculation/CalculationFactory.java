@@ -1,12 +1,12 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
+import com.google.common.base.Strings;
 
 import org.json.JSONException;
 
-import ch.hgdev.toposuite.utils.Logger;
+import java.util.Date;
 
-import com.google.common.base.Strings;
+import ch.hgdev.toposuite.utils.Logger;
 
 /**
  * Factory for easily creating new Calculation of a given type. Its main purpose
@@ -107,7 +107,7 @@ public class CalculationFactory {
             try {
                 calculation.importFromJSON(jsonInputArgs);
             } catch (JSONException e) {
-                Logger.log(Logger.ErrLabel.CALCULATION_IMPORT_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.CALCULATION_IMPORT_ERROR, e.getMessage() + " (" + calculation.getType() + ")");
             }
         }
 
@@ -115,7 +115,8 @@ public class CalculationFactory {
     }
 
     /**
-     * See {@link CalculationFactory#createCalculation(CalculationType, String)}
+     * See {@link CalculationFactory#createCalculation(CalculationType type, long id, String description,
+            Date lastModification, String jsonInputArgs)}
      *
      * @param type
      *            The type of calculations as defined in CalculationType enum.
