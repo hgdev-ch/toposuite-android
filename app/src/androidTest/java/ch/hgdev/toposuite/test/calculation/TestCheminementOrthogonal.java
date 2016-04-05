@@ -31,7 +31,7 @@ public class TestCheminementOrthogonal extends CalculationTest {
         Assert.assertEquals("621.616", this.df3.format(co.getResults().get(3).getEast()));
         Assert.assertEquals("246.911", this.df3.format(co.getResults().get(3).getNorth()));
 
-        Assert.assertEquals("620", this.df3.format(co.getResults().get(4).getEast()));
-        Assert.assertEquals("215", this.df3.format(co.getResults().get(4).getNorth()));
+        Assert.assertEquals("620.000", this.df3.format(co.getResults().get(4).getEast()));
+        Assert.assertEquals("215.000", this.df3.format(co.getResults().get(4).getNorth()));
     }
 }

@@ -21,7 +21,7 @@ public class TestOrthogonalImplantation extends CalculationTest {
 
         oi.compute();
 
-        Assert.assertEquals("19.36", this.df3.format(oi.getResults().get(0).getAbscissa()));
+        Assert.assertEquals("19.360", this.df3.format(oi.getResults().get(0).getAbscissa()));
         Assert.assertEquals("10.391", this.df3.format(oi.getResults().get(0).getOrdinate()));
 
         Assert.assertEquals("-8.618", this.df3.format(oi.getResults().get(1).getAbscissa()));

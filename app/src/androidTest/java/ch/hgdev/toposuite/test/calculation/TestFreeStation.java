@@ -241,7 +241,7 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("2.3", this.df1.format(fs.getResults().get(3).getvE()));
 
         Assert.assertEquals("-2.2", this.df1.format(fs.getResults().get(0).getvN()));
-        Assert.assertEquals("0", this.df1.format(fs.getResults().get(1).getvN()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(1).getvN()));
         Assert.assertEquals("-2.5", this.df1.format(fs.getResults().get(2).getvN()));
         Assert.assertEquals("0.9", this.df1.format(fs.getResults().get(3).getvN()));
 

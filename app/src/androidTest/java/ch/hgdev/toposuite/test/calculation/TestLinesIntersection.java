@@ -43,7 +43,7 @@ public class TestLinesIntersection extends CalculationTest {
 
         Assert.assertEquals("60.484", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("89.52", this.df3.format(
+        Assert.assertEquals("89.520", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -123,7 +123,7 @@ public class TestLinesIntersection extends CalculationTest {
 
         Assert.assertEquals("-0.306", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("80.77", this.df3.format(
+        Assert.assertEquals("80.770", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -139,7 +139,7 @@ public class TestLinesIntersection extends CalculationTest {
 
         Assert.assertEquals("60.354", this.df3.format(
                 li.getIntersectionPoint().getEast()));
-        Assert.assertEquals("47.95", this.df3.format(
+        Assert.assertEquals("47.950", this.df3.format(
                 li.getIntersectionPoint().getNorth()));
     }
 
@@ -185,7 +185,7 @@ public class TestLinesIntersection extends CalculationTest {
             Assert.fail("The calculation should be possible!");
         }
 
-        Assert.assertEquals("39.14", this.df3.format(
+        Assert.assertEquals("39.140", this.df3.format(
                 li.getIntersectionPoint().getEast()));
         Assert.assertEquals("124.041", this.df3.format(
                 li.getIntersectionPoint().getNorth()));

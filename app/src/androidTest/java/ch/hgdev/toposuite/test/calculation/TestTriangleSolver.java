@@ -167,10 +167,10 @@ public class TestTriangleSolver extends CalculationTest {
     private void assertT2Zero(TriangleSolver t) {
         t.compute();
 
-        Assert.assertEquals("0", this.df1.format(t.getPerimeter().second));
-        Assert.assertEquals("0", this.df1.format(t.getHeight().second));
-        Assert.assertEquals("0", this.df1.format(t.getSurface().second));
-        Assert.assertEquals("0", this.df1.format(t.getIncircleRadius().second));
-        Assert.assertEquals("0", this.df1.format(t.getExcircleRadius().second));
+        Assert.assertEquals("0.0", this.df1.format(t.getPerimeter().second));
+        Assert.assertEquals("0.0", this.df1.format(t.getHeight().second));
+        Assert.assertEquals("0.0", this.df1.format(t.getSurface().second));
+        Assert.assertEquals("0.0", this.df1.format(t.getIncircleRadius().second));
+        Assert.assertEquals("0.0", this.df1.format(t.getExcircleRadius().second));
     }
 }

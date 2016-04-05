@@ -1,9 +1,10 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.test.AndroidTestCase;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import android.test.AndroidTestCase;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.test.testutils.Util;
 
@@ -22,13 +23,13 @@ public class CalculationTest extends AndroidTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        this.df1 = new DecimalFormat("#.#");
+        this.df1 = new DecimalFormat("0.0");
         this.df1.setRoundingMode(RoundingMode.HALF_UP);
-        this.df2 = new DecimalFormat("#.##");
+        this.df2 = new DecimalFormat("0.00");
         this.df2.setRoundingMode(RoundingMode.HALF_UP);
-        this.df3 = new DecimalFormat("#.###");
+        this.df3 = new DecimalFormat("0.000");
         this.df3.setRoundingMode(RoundingMode.HALF_UP);
-        this.df4 = new DecimalFormat("#.####");
+        this.df4 = new DecimalFormat("0.0000");
         this.df4.setRoundingMode(RoundingMode.HALF_UP);
 
         // we want to keep a good precision for the tests
