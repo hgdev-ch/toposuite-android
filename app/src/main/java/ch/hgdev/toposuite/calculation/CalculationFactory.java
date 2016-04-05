@@ -106,7 +106,7 @@ public class CalculationFactory {
             calculation.setDescription(description);
             try {
                 calculation.importFromJSON(jsonInputArgs);
-            } catch (JSONException e) {
+            } catch (JSONException | CalculationSerializationException e) {
                 Logger.log(Logger.ErrLabel.CALCULATION_IMPORT_ERROR, e.getMessage() + " (" + calculation.getType() + ")");
             }
         }

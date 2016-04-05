@@ -1,11 +1,14 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.google.common.base.Preconditions;
+import com.google.common.math.DoubleMath;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -14,9 +17,6 @@ import ch.hgdev.toposuite.calculation.activities.circularsegmentation.CircularSe
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
-
-import com.google.common.base.Preconditions;
-import com.google.common.math.DoubleMath;
 
 /**
  * Arc of circle segmentation calculation.
@@ -240,7 +240,7 @@ public class CircularSegmentation extends Calculation {
     }
 
     @Override
-    public void importFromJSON(String jsonInputArgs) throws JSONException {
+    public void importFromJSON(String jsonInputArgs) throws JSONException, CalculationSerializationException {
         JSONObject json = new JSONObject(jsonInputArgs);
 
         this.circleCenter = SharedResources.getSetOfPoints().find(
@@ -249,6 +249,10 @@ public class CircularSegmentation extends Calculation {
                 json.getString(CircularSegmentation.CIRCLE_START_POINT));
         this.circleEndPoint = SharedResources.getSetOfPoints().find(
                 json.getString(CircularSegmentation.CIRCLE_END_POINT));
+
+        if ((this.circleCenter == null) || (this.circleStartPoint == null) || (this.circleEndPoint == null)) {
+            throw new CalculationSerializationException("at least a point from the circle is missing");
+        }
 
         this.arcLength = json.getDouble(CircularSegmentation.ARC_LENGTH);
         this.numberOfSegments = json.getInt(CircularSegmentation.NUMBER_OF_SEGMENTS);

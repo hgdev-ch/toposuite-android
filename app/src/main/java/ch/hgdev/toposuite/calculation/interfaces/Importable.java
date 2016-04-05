@@ -2,6 +2,8 @@ package ch.hgdev.toposuite.calculation.interfaces;
 
 import org.json.JSONException;
 
+import ch.hgdev.toposuite.calculation.CalculationSerializationException;
+
 /**
  * This interface provides a simple method for importing a calculation input.
  * 
@@ -15,5 +17,5 @@ public interface Importable {
      *            JSON string that contains the calculation input values
      * @throws JSONException
      */
-    public void importFromJSON(String jsonInputArgs) throws JSONException;
+    public void importFromJSON(String jsonInputArgs) throws JSONException, CalculationSerializationException;
 }

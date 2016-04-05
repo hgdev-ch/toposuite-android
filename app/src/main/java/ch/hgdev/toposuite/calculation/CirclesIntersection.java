@@ -1,9 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
+import com.google.common.base.Preconditions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -13,42 +15,40 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-import com.google.common.base.Preconditions;
-
 public class CirclesIntersection extends Calculation {
 
-    private static final String CIRCLE_INTERSECTION  = "Circle intersection: ";
+    private static final String CIRCLE_INTERSECTION = "Circle intersection: ";
 
-    private static final String FIRST_RADIUS         = "first_radius";
-    private static final String CENTER_FIRST_NUMBER  = "center_first";
-    private static final String SECOND_RADIUS        = "second_radius";
+    private static final String FIRST_RADIUS = "first_radius";
+    private static final String CENTER_FIRST_NUMBER = "center_first";
+    private static final String SECOND_RADIUS = "second_radius";
     private static final String CENTER_SECOND_NUMBER = "center_second";
 
     /**
      * Center of the first circle.
      */
-    private Point               centerFirst;
+    private Point centerFirst;
     /**
      * Radius of the first circle.
      */
-    private double              radiusFirst;
+    private double radiusFirst;
     /**
      * Center of the second circle.
      */
-    private Point               centerSecond;
+    private Point centerSecond;
     /**
      * Radius of the second circle.
      */
-    private double              radiusSecond;
+    private double radiusSecond;
 
     /**
      * Point on the first intersection.
      */
-    private Point               firstIntersection;
+    private Point firstIntersection;
     /**
      * Point on the second intersection (if relevant).
      */
-    private Point               secondIntersection;
+    private Point secondIntersection;
 
     public CirclesIntersection(long id, Date lastModification) {
         super(id,
@@ -68,8 +68,8 @@ public class CirclesIntersection extends Calculation {
     }
 
     public CirclesIntersection(Point _centerFirst, double _radiusFirst,
-            Point _centerSecond, double _radiusSecond, boolean hasDAO)
-                    throws IllegalArgumentException {
+                               Point _centerSecond, double _radiusSecond, boolean hasDAO)
+            throws IllegalArgumentException {
         super(CalculationType.CIRCLESINTERSEC,
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 hasDAO);
@@ -87,18 +87,14 @@ public class CirclesIntersection extends Calculation {
     /**
      * Initialize class attributes.
      *
-     * @param _centerFirst
-     *            Center of the first circle.
-     * @param _radiusFirst
-     *            Radius of the first circle.
-     * @param _centerSecond
-     *            Center of the second circle.
-     * @param _radiusSecond
-     *            Radius of the second circle.
+     * @param _centerFirst  Center of the first circle.
+     * @param _radiusFirst  Radius of the first circle.
+     * @param _centerSecond Center of the second circle.
+     * @param _radiusSecond Radius of the second circle.
      * @throws IllegalArgumentException
      */
     private void initAttributes(Point _centerFirst, double _radiusFirst,
-            Point _centerSecond, double _radiusSecond) throws IllegalArgumentException {
+                                Point _centerSecond, double _radiusSecond) throws IllegalArgumentException {
         this.setCenterFirst(_centerFirst);
         this.setRadiusFirst(_radiusFirst);
         this.setCenterSecond(_centerSecond);
@@ -142,12 +138,12 @@ public class CirclesIntersection extends Calculation {
             if ((this.radiusFirst + this.radiusSecond) < distCenters) {
                 Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                         CirclesIntersection.CIRCLE_INTERSECTION
-                        + "the circles are next to each another (no intersection).");
+                                + "the circles are next to each another (no intersection).");
             } else {
                 Logger.log(
                         Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                         CirclesIntersection.CIRCLE_INTERSECTION
-                        + "one of the circle is included in the other one (no intersection).");
+                                + "one of the circle is included in the other one (no intersection).");
             }
             this.setIgnorableResults();
             throw new CalculationException(App.getContext().getString(
@@ -160,16 +156,16 @@ public class CirclesIntersection extends Calculation {
 
         this.firstIntersection.setEast(
                 this.centerFirst.getEast()
-                + (this.radiusFirst * Math.sin(gisement + alpha)));
+                        + (this.radiusFirst * Math.sin(gisement + alpha)));
         this.firstIntersection.setNorth(
                 this.centerFirst.getNorth()
-                + (this.radiusFirst * Math.cos(gisement + alpha)));
+                        + (this.radiusFirst * Math.cos(gisement + alpha)));
         this.secondIntersection.setEast(
                 this.centerFirst.getEast()
-                + (this.radiusFirst * Math.sin(gisement - alpha)));
+                        + (this.radiusFirst * Math.sin(gisement - alpha)));
         this.secondIntersection.setNorth(
                 this.centerFirst.getNorth()
-                + (this.radiusFirst * Math.cos(gisement - alpha)));
+                        + (this.radiusFirst * Math.cos(gisement - alpha)));
 
         this.updateLastModification();
         this.setDescription(this.getCalculationName() + " - "
@@ -207,29 +203,37 @@ public class CirclesIntersection extends Calculation {
     }
 
     @Override
-    public void importFromJSON(String jsonInputArgs) throws JSONException {
+    public void importFromJSON(String jsonInputArgs) throws JSONException, CalculationSerializationException {
         JSONObject json = new JSONObject(jsonInputArgs);
 
         Point centerFirst = SharedResources.getSetOfPoints().find(
                 json.getString(CirclesIntersection.CENTER_FIRST_NUMBER));
         if (centerFirst != null) {
             this.setCenterFirst(centerFirst);
+        } else {
+            throw new CalculationSerializationException("the center point of the first circle is null");
         }
 
         Point centerSecond = SharedResources.getSetOfPoints().find(
                 json.getString(CirclesIntersection.CENTER_SECOND_NUMBER));
         if (centerSecond != null) {
             this.setCenterSecond(centerSecond);
+        } else {
+            throw new CalculationSerializationException("the center point of the second circle is null");
         }
 
         double radiusFirst = json.getDouble(CirclesIntersection.FIRST_RADIUS);
         if (MathUtils.isPositive(radiusFirst)) {
             this.setRadiusFirst(radiusFirst);
+        } else {
+            throw new CalculationSerializationException("the radius of the first circle is not a positive value");
         }
 
         double radiusSecond = json.getDouble(CirclesIntersection.SECOND_RADIUS);
         if (MathUtils.isPositive(radiusSecond)) {
             this.setRadiusSecond(radiusSecond);
+        } else {
+            throw new CalculationSerializationException("the radius of the second circle is not a positive value");
         }
     }
 

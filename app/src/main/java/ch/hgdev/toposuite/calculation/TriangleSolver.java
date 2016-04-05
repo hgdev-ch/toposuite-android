@@ -1,9 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
+import com.google.common.base.Preconditions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -14,18 +16,16 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.Pair;
 
-import com.google.common.base.Preconditions;
-
 public class TriangleSolver extends Calculation {
 
-    private static final String  TRIANGLE_SOLVER = "Triangle solver: ";
+    private static final String TRIANGLE_SOLVER = "Triangle solver: ";
 
-    private static final String  A               = "a";
-    private static final String  B               = "b";
-    private static final String  C               = "c";
-    private static final String  ALPHA           = "alpha";
-    private static final String  BETA            = "beta";
-    private static final String  GAMMA           = "gamma";
+    private static final String A = "a";
+    private static final String B = "b";
+    private static final String C = "c";
+    private static final String ALPHA = "alpha";
+    private static final String BETA = "beta";
+    private static final String GAMMA = "gamma";
 
     private Pair<Double, Double> a;
     private Pair<Double, Double> b;
@@ -40,7 +40,7 @@ public class TriangleSolver extends Calculation {
     private Pair<Double, Double> incircleRadius;
     private Pair<Double, Double> excircleRadius;
 
-    private boolean              twoSolutions;
+    private boolean twoSolutions;
 
     public TriangleSolver(long id, Date lastModification) {
         super(id,
@@ -688,14 +688,18 @@ public class TriangleSolver extends Calculation {
     }
 
     @Override
-    public void importFromJSON(String jsonInputArgs) throws JSONException {
+    public void importFromJSON(String jsonInputArgs) throws JSONException, CalculationSerializationException {
         JSONObject json = new JSONObject(jsonInputArgs);
-        this.a.first = json.getDouble(TriangleSolver.A);
-        this.b.first = json.getDouble(TriangleSolver.B);
-        this.c.first = json.getDouble(TriangleSolver.C);
-        this.alpha.first = json.getDouble(TriangleSolver.ALPHA);
-        this.beta.first = json.getDouble(TriangleSolver.BETA);
-        this.gamma.first = json.getDouble(TriangleSolver.GAMMA);
+        try {
+            this.setA(json.getDouble(TriangleSolver.A));
+            this.setB(json.getDouble(TriangleSolver.B));
+            this.setC(json.getDouble(TriangleSolver.C));
+            this.setAlpha(json.getDouble(TriangleSolver.ALPHA));
+            this.setBeta(json.getDouble(TriangleSolver.BETA));
+            this.setGamma(json.getDouble(TriangleSolver.GAMMA));
+        } catch (IllegalArgumentException e) {
+            throw new CalculationSerializationException("at least a side or an angle is invalid");
+        }
     }
 
     @Override
@@ -777,7 +781,7 @@ public class TriangleSolver extends Calculation {
     }
 
     public void setA(double _a) throws IllegalArgumentException {
-        Preconditions.checkArgument(_a >= 0.0, "Argument was %s but expected nonnegative", _a);
+        Preconditions.checkArgument(_a >= 0.0, "argument was %s but expected nonnegative", _a);
         if (this.a == null) {
             this.a = new Pair<Double, Double>(_a, MathUtils.IGNORE_DOUBLE);
         } else {
@@ -787,7 +791,7 @@ public class TriangleSolver extends Calculation {
     }
 
     public void setB(double _b) throws IllegalArgumentException {
-        Preconditions.checkArgument(_b >= 0.0, "Argument was %s but expected nonnegative", _b);
+        Preconditions.checkArgument(_b >= 0.0, "argument was %s but expected nonnegative", _b);
         if (this.b == null) {
             this.b = new Pair<Double, Double>(_b, MathUtils.IGNORE_DOUBLE);
         } else {
@@ -797,7 +801,7 @@ public class TriangleSolver extends Calculation {
     }
 
     public void setC(double _c) throws IllegalArgumentException {
-        Preconditions.checkArgument(_c >= 0.0, "Argument was %s but expected nonnegative", _c);
+        Preconditions.checkArgument(_c >= 0.0, "argument was %s but expected nonnegative", _c);
         if (this.c == null) {
             this.c = new Pair<Double, Double>(_c, MathUtils.IGNORE_DOUBLE);
         } else {
@@ -807,8 +811,7 @@ public class TriangleSolver extends Calculation {
     }
 
     public void setAlpha(double _alpha) throws IllegalArgumentException {
-        Preconditions.checkArgument(
-                _alpha >= 0.0, "Argument was %s but expected nonnegative", _alpha);
+        Preconditions.checkArgument(_alpha >= 0.0, "argument was %s but expected nonnegative", _alpha);
         if (this.alpha == null) {
             this.alpha = new Pair<Double, Double>(MathUtils.modulo400(_alpha),
                     MathUtils.IGNORE_DOUBLE);
@@ -820,7 +823,7 @@ public class TriangleSolver extends Calculation {
 
     public void setBeta(double _beta) throws IllegalArgumentException {
         Preconditions.checkArgument(
-                _beta >= 0.0, "Argument was %s but expected nonnegative", _beta);
+                _beta >= 0.0, "argument was %s but expected nonnegative", _beta);
         if (this.beta == null) {
             this.beta = new Pair<Double, Double>(MathUtils.modulo400(_beta),
                     MathUtils.IGNORE_DOUBLE);
@@ -832,7 +835,7 @@ public class TriangleSolver extends Calculation {
 
     public void setGamma(double _gamma) throws IllegalArgumentException {
         Preconditions.checkArgument(
-                _gamma >= 0.0, "Argument was %s but expected nonnegative", _gamma);
+                _gamma >= 0.0, "argument was %s but expected nonnegative", _gamma);
         if (this.gamma == null) {
             this.gamma = new Pair<Double, Double>(MathUtils.modulo400(_gamma),
                     MathUtils.IGNORE_DOUBLE);
