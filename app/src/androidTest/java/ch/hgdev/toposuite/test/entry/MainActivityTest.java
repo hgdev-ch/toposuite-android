@@ -1,5 +1,8 @@
 package ch.hgdev.toposuite.test.entry;
 
+import com.robotium.solo.Solo;
+
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.entry.MainActivity;
 import ch.hgdev.toposuite.help.HelpActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -7,8 +10,6 @@ import ch.hgdev.toposuite.jobs.JobsActivity;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 import ch.hgdev.toposuite.settings.SettingsActivity;
 import ch.hgdev.toposuite.test.testutils.TestActivity;
-
-import com.robotium.solo.Solo;
 
 /**
  * This set of tests click on all the menus accessible from the main activity.
@@ -30,30 +31,28 @@ public class MainActivityTest extends TestActivity<MainActivity> {
         Solo solo = this.getSolo();
 
         // open left slider
-        solo.clickOnText("TopoSuite");
-
-        solo.clickOnText("Home");
+        solo.clickOnImageButton(0);
+        solo.clickOnText(solo.getString(R.string.home));
         solo.assertCurrentActivity("Home activity", MainActivity.class);
-        solo.clickOnText("TopoSuite");
 
-        solo.clickOnText("Points Manager");
+        solo.clickOnImageButton(0);
+        solo.clickOnText(solo.getString(R.string.title_activity_points_manager));
         solo.assertCurrentActivity("Points Manager activity", PointsManagerActivity.class);
-        solo.clickOnText("Points Manager");
 
-        solo.clickOnText("History");
+        solo.clickOnImageButton(0);
+        solo.clickOnText(solo.getString(R.string.title_activity_history));
         solo.assertCurrentActivity("History activity", HistoryActivity.class);
-        solo.clickOnText("History");
 
-        solo.clickOnText("Jobs");
+        solo.clickOnImageButton(0);
+        solo.clickOnText(solo.getString(R.string.title_activity_jobs));
         solo.assertCurrentActivity("Jobs activity", JobsActivity.class);
-        solo.clickOnText("Jobs");
 
-        solo.clickOnText("Settings");
+        solo.clickOnImageButton(0);
+        solo.clickOnText(solo.getString(R.string.title_activity_settings));
         solo.assertCurrentActivity("Settings activity", SettingsActivity.class);
-        solo.clickOnText("Settings");
 
-        solo.clickOnText("Help");
+        solo.clickOnImageButton(0);
+        solo.clickOnText(solo.getString(R.string.title_activity_help));
         solo.assertCurrentActivity("Help activity", HelpActivity.class);
-        solo.clickOnText("Help");
     }
 }
