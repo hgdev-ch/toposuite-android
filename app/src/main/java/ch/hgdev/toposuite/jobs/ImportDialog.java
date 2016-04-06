@@ -21,7 +21,6 @@ import com.google.common.io.Files;
 import org.json.JSONException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -236,10 +235,6 @@ public class ImportDialog extends DialogFragment {
 
             String json = Joiner.on('\n').join(lines);
             Job.loadJobFromJSON(json);
-        } catch (FileNotFoundException e) {
-            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-            ViewUtils.showToast(this.getActivity(), e.getMessage());
-            return;
         } catch (IOException e) {
             Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
