@@ -1,10 +1,12 @@
 package ch.hgdev.toposuite.dao;
 
-import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.points.Point;
@@ -79,7 +81,7 @@ public class PointsDataSource implements DAO {
         SQLiteDatabase db = App.dbHelper.getReadableDatabase();
 
         ContentValues pointValues = new ContentValues();
-        pointValues.put(PointsTable.COLUMN_NAME_NUMBER, point.getNumber());
+        pointValues.put(PointsTable.COLUMN_NAME_NUMBER, DatabaseUtils.sqlEscapeString(point.getNumber()));
         pointValues.put(PointsTable.COLUMN_NAME_EAST, point.getEast());
         pointValues.put(PointsTable.COLUMN_NAME_NORTH, point.getNorth());
         pointValues.put(PointsTable.COLUMN_NAME_ALTITUDE, point.getAltitude());
@@ -110,7 +112,7 @@ public class PointsDataSource implements DAO {
                 PointsTable.TABLE_NAME_POINTS,
                 pointValues,
                 PointsTable.COLUMN_NAME_NUMBER + " = ?",
-                new String[] { point.getNumber() });
+                new String[] { DatabaseUtils.sqlEscapeString(point.getNumber()) });
         if (rowID == -1) {
             Logger.log(Logger.ErrLabel.SQL_ERROR, PointsDataSource.ERROR_UPDATE + " => " +
                     Logger.formatPoint(point));
@@ -133,7 +135,7 @@ public class PointsDataSource implements DAO {
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
 
         long rowID = db.delete(PointsTable.TABLE_NAME_POINTS,
-                PointsTable.COLUMN_NAME_NUMBER + " = '" + point.getNumber() + "'", null);
+                PointsTable.COLUMN_NAME_NUMBER + " = " + DatabaseUtils.sqlEscapeString(point.getNumber()), null);
         if (rowID == -1) {
             Logger.log(Logger.ErrLabel.SQL_ERROR, PointsDataSource.ERROR_DELETE + " => " +
                     Logger.formatPoint(point));
