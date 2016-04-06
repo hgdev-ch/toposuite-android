@@ -1,11 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.surface;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -18,6 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -110,6 +111,12 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     @Override
     public void onResume() {
         super.onResume();
+        if (this.name == null) {
+            this.name = "";
+        }
+        if (this.description == null) {
+            this.description = "";
+        }
         if (!this.name.isEmpty()) {
             this.nameEditText.setText(this.name);
         }
