@@ -1,7 +1,6 @@
 .. raw:: html
 
         <meta http-equiv='content-type' content='text/html; charset=utf-8' />
-        <link type="text/css" rel="stylesheet" href="file:///android_asset/help/css/help.css">
 
 
 Aide à l'utilisation de TopoSuite
