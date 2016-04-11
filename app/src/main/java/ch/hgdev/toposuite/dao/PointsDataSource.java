@@ -18,13 +18,13 @@ import ch.hgdev.toposuite.utils.Logger;
  * @author HGdev
  */
 public class PointsDataSource implements DAO {
-    private static final String     ERROR_CREATE   = "Unable to create a new point!";
-    private static final String     ERROR_DELETE   = "Unable to delete a point!";
-    private static final String     ERROR_UPDATE   = "Unable to update a point!";
+    private static final String ERROR_CREATE = "Unable to create a new point!";
+    private static final String ERROR_DELETE = "Unable to delete a point!";
+    private static final String ERROR_UPDATE = "Unable to update a point!";
 
-    private static final String     SUCCESS_CREATE = "Point successfully created!";
-    private static final String     SUCCESS_DELETE = "Point successfully deleted!";
-    private static final String     SUCCESS_UPDATE = "Point successfully updated!";
+    private static final String SUCCESS_CREATE = "Point successfully created!";
+    private static final String SUCCESS_DELETE = "Point successfully deleted!";
+    private static final String SUCCESS_UPDATE = "Point successfully updated!";
 
     private static PointsDataSource pointsDataSource;
 
@@ -45,10 +45,10 @@ public class PointsDataSource implements DAO {
 
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM " + PointsTable.TABLE_NAME_POINTS + " ORDER BY number ASC", null);
-        ArrayList<Point> points = new ArrayList<Point>();
+        ArrayList<Point> points = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
-            while (cursor.isAfterLast() == false) {
+            while (!cursor.isAfterLast()) {
                 String number = cursor.getString(
                         cursor.getColumnIndex(PointsTable.COLUMN_NAME_NUMBER));
                 double east = cursor.getDouble(
@@ -64,6 +64,7 @@ public class PointsDataSource implements DAO {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
 
         return points;
     }
@@ -71,8 +72,7 @@ public class PointsDataSource implements DAO {
     /**
      * Create a new Point in the database.
      *
-     * @param obj
-     *            a point
+     * @param obj a point
      * @throws SQLiteTopoSuiteException
      */
     @Override
@@ -112,7 +112,7 @@ public class PointsDataSource implements DAO {
                 PointsTable.TABLE_NAME_POINTS,
                 pointValues,
                 PointsTable.COLUMN_NAME_NUMBER + " = ?",
-                new String[] { DatabaseUtils.sqlEscapeString(point.getNumber()) });
+                new String[]{DatabaseUtils.sqlEscapeString(point.getNumber())});
         if (rowID == -1) {
             Logger.log(Logger.ErrLabel.SQL_ERROR, PointsDataSource.ERROR_UPDATE + " => " +
                     Logger.formatPoint(point));
@@ -125,8 +125,7 @@ public class PointsDataSource implements DAO {
     /**
      * Delete a Point.
      *
-     * @param obj
-     *            a point
+     * @param obj a point
      * @throws SQLiteTopoSuiteException
      */
     @Override
