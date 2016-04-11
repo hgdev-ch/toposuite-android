@@ -1,13 +1,12 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -18,16 +17,16 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Surface extends Calculation {
-    private static final String                 SURFACE             = "Surface: ";
+    private static final String SURFACE = "Surface: ";
 
-    private static final String                 POINTS_LIST         = "points_list";
-    private static final String                 SURFACE_NAME        = "surface_name";
-    private static final String                 SURFACE_DESCRIPTION = "surface_description";
+    private static final String POINTS_LIST = "points_list";
+    private static final String SURFACE_NAME = "surface_name";
+    private static final String SURFACE_DESCRIPTION = "surface_description";
 
-    private String                              surfaceName;
-    private String                              surfaceDescription;
-    private double                              surface;
-    private double                              perimeter;
+    private String surfaceName;
+    private String surfaceDescription;
+    private double surface;
+    private double perimeter;
     private final List<Surface.PointWithRadius> points;
 
     public Surface(long id, Date lastModification) {
@@ -58,7 +57,7 @@ public class Surface extends Calculation {
      * Check input.
      *
      * @return True if the input is OK and the calculation can be run, false
-     *         otherwise.
+     * otherwise.
      */
     private boolean checkInput() {
         // we need at least three points to define a surface
@@ -122,13 +121,11 @@ public class Surface extends Calculation {
     @Override
     public String exportToJSON() throws JSONException {
         JSONObject json = new JSONObject();
-        if (this.points.size() > 0) {
-            JSONArray pointsArray = new JSONArray();
-            for (Surface.PointWithRadius p : this.points) {
-                pointsArray.put(p.toJSONObject());
-            }
-            json.put(Surface.POINTS_LIST, pointsArray);
+        JSONArray pointsArray = new JSONArray();
+        for (Surface.PointWithRadius p : this.points) {
+            pointsArray.put(p.toJSONObject());
         }
+        json.put(Surface.POINTS_LIST, pointsArray);
         json.put(Surface.SURFACE_NAME, this.surfaceName);
         json.put(Surface.SURFACE_DESCRIPTION, this.surfaceDescription);
         return json.toString();
@@ -144,8 +141,16 @@ public class Surface extends Calculation {
             Surface.PointWithRadius p = Surface.PointWithRadius.getPointFromJSON(jo.toString());
             this.points.add(p);
         }
-        this.surfaceName = json.getString(Surface.SURFACE_NAME);
-        this.surfaceDescription = json.getString(Surface.SURFACE_DESCRIPTION);
+        try {
+            this.surfaceName = json.getString(Surface.SURFACE_NAME);
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.SERIALIZATION, "no surface name found (optional)");
+        }
+        try {
+            this.surfaceDescription = json.getString(Surface.SURFACE_DESCRIPTION);
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.SERIALIZATION, "no surface description found (optional)");
+        }
     }
 
     @Override
@@ -196,22 +201,21 @@ public class Surface extends Calculation {
      * Point with a radius.
      *
      * @author HGdev
-     *
      */
     public static class PointWithRadius extends Point {
-        private static final String NUMBER        = "number";
-        private static final String EAST          = "east";
-        private static final String NORTH         = "north";
-        private static final String RADIUS        = "radius";
+        private static final String NUMBER = "number";
+        private static final String EAST = "east";
+        private static final String NORTH = "north";
+        private static final String RADIUS = "radius";
         private static final String VERTEX_NUMBER = "vertex_number";
         /**
          * Radius wrt to the point of origin. Altitude is ignored.
          */
-        private double              radius;
-        private int                 vertexNumber;
+        private double radius;
+        private int vertexNumber;
 
         public PointWithRadius(String number, double east, double north, double _radius,
-                int _vertexNumber) {
+                               int _vertexNumber) {
             super(number, east, north, MathUtils.IGNORE_DOUBLE, false);
             this.radius = _radius;
             this.vertexNumber = _vertexNumber;

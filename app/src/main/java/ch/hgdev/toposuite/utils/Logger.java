@@ -1,8 +1,9 @@
 package ch.hgdev.toposuite.utils;
 
+import android.util.Log;
+
 import org.json.JSONException;
 
-import android.util.Log;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.points.Point;
@@ -46,7 +47,8 @@ public class Logger {
      * Warning labels for log messages.
      */
     public enum WarnLabel {
-        CALCULATION_IMPOSSIBLE("CALCULATION IMPOSSIBLE");
+        CALCULATION_IMPOSSIBLE("CALCULATION IMPOSSIBLE"),
+        SERIALIZATION("SERIALIZATION");
 
         private final String label;
 
