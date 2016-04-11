@@ -1,15 +1,16 @@
 package ch.hgdev.toposuite.dao;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import org.json.JSONException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.json.JSONException;
-
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.calculation.CalculationFactory;
@@ -24,14 +25,14 @@ import ch.hgdev.toposuite.utils.Logger;
  * @author HGdev
  */
 public class CalculationsDataSource implements DAO {
-    private static final String           ERROR_CREATE       = "Unable to create a new calculation!";
-    private static final String           ERROR_DELETE       = "Unable to delete the calculation!";
-    private static final String           ERROR_UPDATE       = "Unable to update the calculation!";
-    private static final String           ERROR_PARSING_DATE = "Error while parsing the last modification date!";
+    private static final String ERROR_CREATE = "Unable to create a new calculation!";
+    private static final String ERROR_DELETE = "Unable to delete the calculation!";
+    private static final String ERROR_UPDATE = "Unable to update the calculation!";
+    private static final String ERROR_PARSING_DATE = "Error while parsing the last modification date!";
 
-    private static final String           SUCCESS_CREATE     = "Calculation successfully created!";
-    private static final String           SUCCESS_DELETE     = "Calculation successfully deleted!";
-    private static final String           SUCCESS_UPDATE     = "Calculation successfully updated!";
+    private static final String SUCCESS_CREATE = "Calculation successfully created!";
+    private static final String SUCCESS_DELETE = "Calculation successfully deleted!";
+    private static final String SUCCESS_UPDATE = "Calculation successfully updated!";
 
     private static CalculationsDataSource calculationsDataSource;
 
@@ -53,10 +54,10 @@ public class CalculationsDataSource implements DAO {
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM " + CalculationsTable.TABLE_NAME_CALCULATIONS + " ORDER BY id DESC",
                 null);
-        ArrayList<Calculation> calculations = new ArrayList<Calculation>();
+        ArrayList<Calculation> calculations = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
-            while (cursor.isAfterLast() == false) {
+            while (!cursor.isAfterLast()) {
                 long id = cursor.getLong(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_ID));
                 String type = cursor.getString(
@@ -83,6 +84,7 @@ public class CalculationsDataSource implements DAO {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
 
         return calculations;
     }
@@ -90,8 +92,7 @@ public class CalculationsDataSource implements DAO {
     /**
      * Create a new Calculation in the database. TODO check for SQL Injection.
      *
-     * @param obj
-     *            a calculation
+     * @param obj a calculation
      * @throws SQLiteTopoSuiteException
      */
     @Override
@@ -162,7 +163,7 @@ public class CalculationsDataSource implements DAO {
 
         long rowID = db.update(CalculationsTable.TABLE_NAME_CALCULATIONS, calculationValues,
                 CalculationsTable.COLUMN_NAME_ID + " = ?",
-                new String[] { String.valueOf(calculation.getId()) });
+                new String[]{String.valueOf(calculation.getId())});
         if (rowID == -1) {
             Logger.log(Logger.ErrLabel.SQL_ERROR, CalculationsDataSource.ERROR_UPDATE + " => " +
                     Logger.formatCalculation(calculation));
@@ -176,8 +177,7 @@ public class CalculationsDataSource implements DAO {
     /**
      * Delete a Calculation.
      *
-     * @param obj
-     *            a calculation
+     * @param obj a calculation
      * @throws SQLiteTopoSuiteException
      */
     @Override
