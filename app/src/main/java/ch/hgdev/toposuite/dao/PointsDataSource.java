@@ -81,7 +81,7 @@ public class PointsDataSource implements DAO {
         SQLiteDatabase db = App.dbHelper.getReadableDatabase();
 
         ContentValues pointValues = new ContentValues();
-        pointValues.put(PointsTable.COLUMN_NAME_NUMBER, DatabaseUtils.sqlEscapeString(point.getNumber()));
+        pointValues.put(PointsTable.COLUMN_NAME_NUMBER, point.getNumber());
         pointValues.put(PointsTable.COLUMN_NAME_EAST, point.getEast());
         pointValues.put(PointsTable.COLUMN_NAME_NORTH, point.getNorth());
         pointValues.put(PointsTable.COLUMN_NAME_ALTITUDE, point.getAltitude());
