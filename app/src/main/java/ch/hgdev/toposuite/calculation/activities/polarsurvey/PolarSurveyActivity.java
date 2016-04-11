@@ -1,12 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -24,6 +17,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -475,9 +476,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 MathUtils.IGNORE_DOUBLE,
                 MathUtils.IGNORE_DOUBLE,
                 dialog.getDeterminationNo());
-
-        this.position = -1;
-        this.adapter.add(m);
+        this.adapter.insert(m, this.position);
         this.adapter.notifyDataSetChanged();
 
         ViewUtils.unlockScreenOrientation(this);
