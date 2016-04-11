@@ -1,9 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -28,15 +29,15 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
-    private static final String       POLAR_SURVEY_RESULTS_ACTIVITY = "PolarSurveyResultsActivity: ";
+    private static final String POLAR_SURVEY_RESULTS_ACTIVITY = "PolarSurveyResultsActivity: ";
 
-    private ListView                  resultsListView;
+    private ListView resultsListView;
 
-    private PolarSurvey               polarSurvey;
+    private PolarSurvey polarSurvey;
     private ArrayListOfResultsAdapter adapter;
 
-    private int                       saveCounter;
-    private int                       mergeDialogCounter;
+    private int saveCounter;
+    private int mergeDialogCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,11 +102,11 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.save_points:
-            this.saveAllPoints();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.save_points:
+                this.saveAllPoints();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -121,19 +122,19 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.save_point:
-            if (this.savePoint(info.position)) {
-                ViewUtils.showToast(this,
-                        this.getString(R.string.point_add_success));
-            }
-            this.adapter.notifyDataSetChanged();
-            return true;
-        case R.id.delete_point:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.save_point:
+                if (this.savePoint(info.position)) {
+                    ViewUtils.showToast(this,
+                            this.getString(R.string.point_add_success));
+                }
+                this.adapter.notifyDataSetChanged();
+                return true;
+            case R.id.delete_point:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -154,7 +155,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         // rester the merge dialog counter
         this.mergeDialogCounter = 0;
 
-        for (int position = 0; position < this.adapter.getCount(); position++) {
+        for (int position = this.adapter.getCount() - 1; position >= 0; position--) {
             this.savePoint(position);
         }
 
@@ -171,8 +172,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
     /**
      * Save a point to the database of points.
      *
-     * @param position
-     *            Position of the point in the list of points.
+     * @param position Position of the point in the list of points.
      * @return True if it was a success, false otherwise.
      */
     private boolean savePoint(int position) {

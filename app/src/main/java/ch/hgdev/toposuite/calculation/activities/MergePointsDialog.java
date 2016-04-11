@@ -75,7 +75,7 @@ public class MergePointsDialog extends DialogFragment {
          * This callback is triggered when the action performed by the dialog
          * fail.
          * 
-         * @param error
+         * @param message
          *            Error message.
          */
         void onMergePointsDialogError(String message);
@@ -202,12 +202,12 @@ public class MergePointsDialog extends DialogFragment {
                 DisplayUtils.formatDifferences(deltaAlt));
     }
 
-    private final void closeOnSuccess(String message) {
+    private void closeOnSuccess(String message) {
         this.listener.onMergePointsDialogSuccess(message);
         this.dismiss();
     }
 
-    private final void performMergeByMeanAction() {
+    private void performMergeByMeanAction() {
         if (this.selectedMode == MergePointsDialog.MERGE_MODE_ALTITUDE_ONLY) {
             this.oldPt.setAltitude(
                     (this.newPt.getAltitude() + this.oldPt.getAltitude()) / 2);
@@ -228,7 +228,7 @@ public class MergePointsDialog extends DialogFragment {
         this.closeOnSuccess(this.getActivity().getString(R.string.success_merge));
     }
 
-    private final void performMergeByReplaceAction() {
+    private void performMergeByReplaceAction() {
         if (this.selectedMode == MergePointsDialog.MERGE_MODE_ALTITUDE_ONLY) {
             this.oldPt.setAltitude(this.newPt.getAltitude());
         } else {
@@ -243,7 +243,7 @@ public class MergePointsDialog extends DialogFragment {
         this.closeOnSuccess(this.getActivity().getString(R.string.success_replace));
     }
 
-    private final void performMergeByKeepAction() {
+    private void performMergeByKeepAction() {
         this.closeOnSuccess(this.getActivity().getString(R.string.success_point_kept));
     }
 }
