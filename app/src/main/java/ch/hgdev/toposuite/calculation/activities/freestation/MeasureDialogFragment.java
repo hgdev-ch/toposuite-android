@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.freestation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,6 +15,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -31,68 +32,68 @@ public class MeasureDialogFragment extends DialogFragment {
     public static final String IS_EDITION = "is_edition";
     public static final String IS_MANDATORY = "is_mandatory";
     public static final String MEASURE = "measure";
+
     /**
      * The activity that creates an instance of MeasureDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface MeasureDialogListener {
         /**
          * Define what to do when the "Add" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogAdd(MeasureDialogFragment dialog);
 
         /**
          * Define what to do when the "Edit" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogEdit(MeasureDialogFragment dialog);
 
         void onDialogCancel();
     }
 
-    MeasureDialogListener       listener;
-    private Point               point;
-    private double              horizDir;
-    private double              distance;
-    private double              zenAngle;
-    private double              s;
-    private double              latDepl;
-    private double              lonDepl;
+    MeasureDialogListener listener;
+    private Point point;
+    private double horizDir;
+    private double distance;
+    private double zenAngle;
+    private double s;
+    private double latDepl;
+    private double lonDepl;
 
-    private LinearLayout        layout;
-    private Spinner             pointSpinner;
-    private TextView            pointTextView;
-    private EditText            horizDirEditText;
-    private EditText            distanceEditText;
-    private EditText            zenAngleEditText;
-    private EditText            sEditText;
-    private EditText            latDeplEditText;
-    private EditText            lonDeplEditText;
+    private LinearLayout layout;
+    private Spinner pointSpinner;
+    private TextView pointTextView;
+    private EditText horizDirEditText;
+    private EditText distanceEditText;
+    private EditText zenAngleEditText;
+    private EditText sEditText;
+    private EditText latDeplEditText;
+    private EditText lonDeplEditText;
 
     private ArrayAdapter<Point> adapter;
 
     /**
      * True if the dialog is for edition, false otherwise.
      */
-    private boolean       isEdition;
+    private boolean isEdition;
 
     /**
      * TODO make something cleaner and only use measure instead of this huge
      * amount of attributes...
      */
-    private Measure             measure;
+    private Measure measure;
 
-    /** True if the instrument height is provided, false otherwise */
-    private boolean       isSMandatory;
+    /**
+     * True if the instrument height is provided, false otherwise
+     */
+    private boolean isSMandatory;
 
     public static MeasureDialogFragment newInstance(boolean isSMandatory) {
         MeasureDialogFragment mdf = new MeasureDialogFragment();
@@ -159,22 +160,10 @@ public class MeasureDialogFragment extends DialogFragment {
                         if (MeasureDialogFragment.this.checkDialogInputs()) {
                             // TODO check that if S is set, I is set too and
                             // pop-up an error
-                            if (MeasureDialogFragment.this.zenAngleEditText.length() > 0) {
-                                MeasureDialogFragment.this.zenAngle = ViewUtils
-                                        .readDouble(MeasureDialogFragment.this.zenAngleEditText);
-                            }
-                            if (MeasureDialogFragment.this.sEditText.length() > 0) {
-                                MeasureDialogFragment.this.s = ViewUtils
-                                        .readDouble(MeasureDialogFragment.this.sEditText);
-                            }
-                            if (MeasureDialogFragment.this.latDeplEditText.length() > 0) {
-                                MeasureDialogFragment.this.latDepl = ViewUtils
-                                        .readDouble(MeasureDialogFragment.this.latDeplEditText);
-                            }
-                            if (MeasureDialogFragment.this.lonDeplEditText.length() > 0) {
-                                MeasureDialogFragment.this.lonDepl = ViewUtils
-                                        .readDouble(MeasureDialogFragment.this.lonDeplEditText);
-                            }
+                            MeasureDialogFragment.this.zenAngle = ViewUtils.readDouble(MeasureDialogFragment.this.zenAngleEditText);
+                            MeasureDialogFragment.this.s = ViewUtils.readDouble(MeasureDialogFragment.this.sEditText);
+                            MeasureDialogFragment.this.latDepl = ViewUtils.readDouble(MeasureDialogFragment.this.latDeplEditText);
+                            MeasureDialogFragment.this.lonDepl = ViewUtils.readDouble(MeasureDialogFragment.this.lonDeplEditText);
 
                             MeasureDialogFragment.this.point =
                                     (Point) MeasureDialogFragment.this.pointSpinner
@@ -222,7 +211,7 @@ public class MeasureDialogFragment extends DialogFragment {
     private void initAttributes() {
         this.isEdition = getArguments().getBoolean(IS_EDITION);
         this.isSMandatory = getArguments().getBoolean(IS_MANDATORY);
-        this.measure = (Measure)getArguments().getSerializable(MEASURE);
+        this.measure = (Measure) getArguments().getSerializable(MEASURE);
 
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
@@ -353,7 +342,7 @@ public class MeasureDialogFragment extends DialogFragment {
 
     /**
      * Verify that the user has entered all required data.
-     * 
+     *
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
