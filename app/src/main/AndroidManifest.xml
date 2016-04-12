@@ -23,7 +23,8 @@
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.points.PointsManagerActivity"
-            android:label="@string/title_activity_points_manager" >
+            android:label="@string/title_activity_points_manager"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -239,7 +240,8 @@
         </activity>
         <activity
             android:name="ch.hgdev.toposuite.jobs.JobsActivity"
-            android:label="@string/title_activity_jobs" >
+            android:label="@string/title_activity_jobs"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
