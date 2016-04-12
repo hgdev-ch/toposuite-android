@@ -2,7 +2,7 @@ package ch.hgdev.toposuite;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.SparseArray;
@@ -107,7 +107,6 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         // the drawerToggle handles the actions when a sliding menu is opened or
         // closed
         this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout,
-                R.drawable.ic_launcher,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View view) {
