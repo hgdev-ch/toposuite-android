@@ -98,6 +98,19 @@ public class ViewUtils {
     }
 
     /**
+     * Convenient function for easily reading a string from an EditText.
+     *
+     * @param editText An EditText object
+     * @return The value in the edit text as a string or an empty string if it is empty.
+     */
+    public static String readString(EditText editText) {
+        if ((editText != null) && (editText.length() > 0)) {
+            return editText.getText().toString();
+        }
+        return "";
+    }
+
+    /**
      * Check if an EditText is empty or not.
      *
      * @param editText
