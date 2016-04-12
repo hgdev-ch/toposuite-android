@@ -1,17 +1,18 @@
 package ch.hgdev.toposuite.utils;
 
+import android.content.Context;
+
+import com.google.common.base.Strings;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.content.Context;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.points.Point;
-
-import com.google.common.base.Strings;
 
 /**
  * Utility functions to format things to display.
@@ -296,6 +297,10 @@ public class DisplayUtils {
      *         otherwise.
      */
     public static String zeroToEmpty(String doubleAsString) {
-        return MathUtils.isZero(Double.parseDouble(doubleAsString)) ? "" : doubleAsString;
+        try {
+            return MathUtils.isZero(Double.parseDouble(doubleAsString)) ? "" : doubleAsString;
+        } catch (NumberFormatException e) {
+            return "";
+        }
     }
 }
