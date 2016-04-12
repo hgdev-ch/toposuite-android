@@ -237,16 +237,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
      * Do the actual computation.
      */
     private void runCalculation() {
-        if (this.nameEditText.length() > 0) {
-            this.name = this.nameEditText.getText().toString();
-        } else {
-            this.name = "";
-        }
-        if (this.descriptionEditText.length() > 0) {
-            this.description = this.descriptionEditText.getText().toString();
-        } else {
-            this.description = "";
-        }
+        this.name = ViewUtils.readString(this.nameEditText);
+        this.description = ViewUtils.readString(this.descriptionEditText);
 
         this.surfaceCalculation.setSurfaceName(this.name);
         this.surfaceCalculation.setSurfaceDescription(this.description);

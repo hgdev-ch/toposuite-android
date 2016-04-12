@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.pointproj;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -30,36 +31,36 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PointProjectionActivity extends TopoSuiteActivity {
-    public static final String          POINT_PROJ_POSITION       = "point_proj_position";
-    public static final String          POINT_1_SELECTED_POSITION = "point_1_selected_position";
-    public static final String          POINT_2_SELECTED_POSITION = "point_2_selected_position";
-    public static final String          POINT_SELECTED_POSITION   = "point_selected_position";
-    public static final String          DISPLACEMENT              = "displacement";
-    public static final String          POINT_NUMBER              = "point_number";
-    public static final String          GISEMENT                  = "gisement";
-    public static final String          IS_MODE_LINE              = "is_mode_line";
+    public static final String POINT_PROJ_POSITION = "point_proj_position";
+    public static final String POINT_1_SELECTED_POSITION = "point_1_selected_position";
+    public static final String POINT_2_SELECTED_POSITION = "point_2_selected_position";
+    public static final String POINT_SELECTED_POSITION = "point_selected_position";
+    public static final String DISPLACEMENT = "displacement";
+    public static final String POINT_NUMBER = "point_number";
+    public static final String GISEMENT = "gisement";
+    public static final String IS_MODE_LINE = "is_mode_line";
 
-    private Spinner                     point1Spinner;
-    private Spinner                     point2Spinner;
-    private Spinner                     pointSpinner;
+    private Spinner point1Spinner;
+    private Spinner point2Spinner;
+    private Spinner pointSpinner;
 
-    private TextView                    point1TextView;
-    private TextView                    point2TextView;
-    private TextView                    pointTextView;
+    private TextView point1TextView;
+    private TextView point2TextView;
+    private TextView pointTextView;
 
-    private EditText                    gisementEditText;
-    private EditText                    displacementEditText;
-    private EditText                    pointNumberEditText;
+    private EditText gisementEditText;
+    private EditText displacementEditText;
+    private EditText pointNumberEditText;
 
-    private LinearLayout                point2SpinnerLayout;
-    private LinearLayout                point2Layout;
-    private LinearLayout                gisementLayout;
+    private LinearLayout point2SpinnerLayout;
+    private LinearLayout point2Layout;
+    private LinearLayout gisementLayout;
 
-    private RadioButton                 modeGisementRadio;
+    private RadioButton modeGisementRadio;
 
-    private int                         point1SelectedPosition;
-    private int                         point2SelectedPosition;
-    private int                         pointSelectedPosition;
+    private int point1SelectedPosition;
+    private int point2SelectedPosition;
+    private int pointSelectedPosition;
     private PointProjectionOnALine.Mode selectedMode;
 
     @Override
@@ -239,11 +240,11 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         outState.putInt(PointProjectionActivity.POINT_SELECTED_POSITION,
                 this.pointSelectedPosition);
         outState.putString(PointProjectionActivity.GISEMENT,
-                this.gisementEditText.getText().toString());
+                ViewUtils.readString(this.gisementEditText));
         outState.putString(PointProjectionActivity.DISPLACEMENT,
-                this.displacementEditText.getText().toString());
+                ViewUtils.readString(this.displacementEditText));
         outState.putString(PointProjectionActivity.POINT_NUMBER,
-                this.pointNumberEditText.getText().toString());
+                ViewUtils.readString(this.pointNumberEditText));
         outState.putBoolean(PointProjectionActivity.IS_MODE_LINE,
                 this.selectedMode == Mode.LINE);
     }
@@ -275,50 +276,47 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         int id = item.getItemId();
 
         switch (id) {
-        case R.id.run_calculation_button:
-            if ((this.point1SelectedPosition == 0)
-                    || (this.pointSelectedPosition == 0)
-                    || (this.pointNumberEditText.length() == 0)
-                    || ((this.selectedMode == Mode.LINE) && (this.point2SelectedPosition == 0))
-                    || ((this.selectedMode == Mode.GISEMENT) &&
-                    (this.gisementEditText.length() == 0))) {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+            case R.id.run_calculation_button:
+                if ((this.point1SelectedPosition == 0)
+                        || (this.pointSelectedPosition == 0)
+                        || (this.pointNumberEditText.length() == 0)
+                        || ((this.selectedMode == Mode.LINE) && (this.point2SelectedPosition == 0))
+                        || ((this.selectedMode == Mode.GISEMENT) &&
+                        (this.gisementEditText.length() == 0))) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                    return true;
+                }
+
+                PointProjectionOnALine ppoal;
+
+                Point p1 = (Point) this.point1Spinner.getItemAtPosition(this.point1SelectedPosition);
+
+                double displ = ViewUtils.readDouble(this.displacementEditText);
+                String ptNumber = ViewUtils.readString(this.pointNumberEditText);
+
+                Point p = (Point) this.pointSpinner.getItemAtPosition(this.pointSelectedPosition);
+
+                if (this.selectedMode == Mode.GISEMENT) {
+                    double gisement = ViewUtils.readDouble(this.gisementEditText);
+                    ppoal = new PointProjectionOnALine(ptNumber, p1, gisement, p, displ, true);
+                } else {
+                    Point p2 = (Point) this.point2Spinner.getItemAtPosition(
+                            this.point2SelectedPosition);
+                    ppoal = new PointProjectionOnALine(ptNumber, p1, p2, p, displ, true);
+                }
+
+                int position = SharedResources.getCalculationsHistory().indexOf(ppoal);
+
+                Bundle bundle = new Bundle();
+                bundle.putInt(PointProjectionActivity.POINT_SELECTED_POSITION, position);
+
+                Intent resultsActivityIntent = new Intent(this, PointProjectionResultActivity.class);
+                resultsActivityIntent.putExtras(bundle);
+                this.startActivity(resultsActivityIntent);
+
                 return true;
-            }
-
-            PointProjectionOnALine ppoal;
-
-            Point p1 = (Point) this.point1Spinner.getItemAtPosition(
-                    this.point1SelectedPosition);
-
-            double displ = ViewUtils.readDouble(this.displacementEditText);
-            String ptNumber = this.pointNumberEditText.getText().toString();
-
-            Point p = (Point) this.pointSpinner.getItemAtPosition(
-                    this.pointSelectedPosition);
-
-            if (this.selectedMode == Mode.GISEMENT) {
-                double gisement = ViewUtils.readDouble(this.gisementEditText);
-                ppoal = new PointProjectionOnALine(ptNumber, p1, gisement, p, displ, true);
-            } else {
-                Point p2 = (Point) this.point2Spinner.getItemAtPosition(
-                        this.point2SelectedPosition);
-                ppoal = new PointProjectionOnALine(ptNumber, p1, p2, p, displ, true);
-            }
-
-            int position = SharedResources.getCalculationsHistory().indexOf(ppoal);
-
-            Bundle bundle = new Bundle();
-            bundle.putInt(PointProjectionActivity.POINT_SELECTED_POSITION, position);
-
-            Intent resultsActivityIntent = new Intent(
-                    this, PointProjectionResultActivity.class);
-            resultsActivityIntent.putExtras(bundle);
-            this.startActivity(resultsActivityIntent);
-
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -326,24 +324,24 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         switch (view.getId()) {
-        case R.id.mode_gisement:
-            if (checked) {
-                this.point2SpinnerLayout.setVisibility(View.GONE);
-                this.point2Layout.setVisibility(View.GONE);
-                this.gisementLayout.setVisibility(View.VISIBLE);
-                this.selectedMode = PointProjectionOnALine.Mode.GISEMENT;
-            }
-            break;
-        case R.id.mode_line:
-            if (checked) {
-                this.point2SpinnerLayout.setVisibility(View.VISIBLE);
-                this.point2Layout.setVisibility(View.VISIBLE);
-                this.gisementLayout.setVisibility(View.GONE);
-                this.selectedMode = PointProjectionOnALine.Mode.LINE;
-            }
-            break;
-        default:
-            Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
+            case R.id.mode_gisement:
+                if (checked) {
+                    this.point2SpinnerLayout.setVisibility(View.GONE);
+                    this.point2Layout.setVisibility(View.GONE);
+                    this.gisementLayout.setVisibility(View.VISIBLE);
+                    this.selectedMode = PointProjectionOnALine.Mode.GISEMENT;
+                }
+                break;
+            case R.id.mode_line:
+                if (checked) {
+                    this.point2SpinnerLayout.setVisibility(View.VISIBLE);
+                    this.point2Layout.setVisibility(View.VISIBLE);
+                    this.gisementLayout.setVisibility(View.GONE);
+                    this.selectedMode = PointProjectionOnALine.Mode.LINE;
+                }
+                break;
+            default:
+                Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
         }
     }
 }

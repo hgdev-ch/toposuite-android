@@ -28,36 +28,34 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 /**
  * This class is used to display an export dialog which allows the user to
  * choose the export format and the path where the file will be stored.
- * 
+ *
  * @author HGdev
  */
 public class ExportDialog extends DialogFragment {
     private ExportDialogListener listener;
 
-    private Spinner              formatSpinner;
-    private EditText             filenameEditText;
+    private Spinner formatSpinner;
+    private EditText filenameEditText;
 
     /**
      * Listener for handling dialog events.
-     * 
+     *
      * @author HGdev
      */
     public interface ExportDialogListener {
         /**
          * This callback is triggered when the action performed by the dialog
          * succeed.
-         * 
-         * @param message
-         *            Success message.
+         *
+         * @param message Success message.
          */
         void onExportDialogSuccess(String message);
 
         /**
          * This callback is triggered when the action performed by the dialog
          * fail.
-         * 
-         * @param message
-         *            Error message.
+         *
+         * @param message Error message.
          */
         void onExportDialogError(String message);
     }
@@ -72,7 +70,7 @@ public class ExportDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_export_points, container, false);
 
         Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
@@ -137,10 +135,8 @@ public class ExportDialog extends DialogFragment {
      */
     private void performExportAction() {
         // make sure that the input is correct
-        if ((this.formatSpinner.getSelectedItemPosition() == 0)
-                || this.filenameEditText.getText().toString().isEmpty()) {
-            ViewUtils.showToast(this.getActivity(),
-                    this.getActivity().getString(R.string.error_fill_data));
+        if ((this.formatSpinner.getSelectedItemPosition() == 0) || ViewUtils.readString(this.filenameEditText).isEmpty()) {
+            ViewUtils.showToast(this.getActivity(), this.getActivity().getString(R.string.error_fill_data));
             return;
         }
 
@@ -167,14 +163,14 @@ public class ExportDialog extends DialogFragment {
             SupportedFileTypes type = SupportedFileTypes.valueOf(format);
 
             switch (type) {
-            case CSV:
-                lines = SharedResources.getSetOfPoints().saveAsCSV(
-                        this.getActivity(), App.publicDataDirectory, filename);
-                break;
-            default:
-                ViewUtils.showToast(this.getActivity(),
-                        this.getActivity().getString(R.string.error_unsupported_format));
-                return;
+                case CSV:
+                    lines = SharedResources.getSetOfPoints().saveAsCSV(
+                            this.getActivity(), App.publicDataDirectory, filename);
+                    break;
+                default:
+                    ViewUtils.showToast(this.getActivity(),
+                            this.getActivity().getString(R.string.error_unsupported_format));
+                    return;
             }
         } catch (IOException e) {
             this.closeOnError(e.getMessage());

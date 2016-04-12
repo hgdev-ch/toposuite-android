@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -22,40 +23,37 @@ public class EditMeasureDialogFragment extends DialogFragment {
      * The activity that creates an instance of EditMeasureDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface EditMeasureDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(EditMeasureDialogFragment dialog);
 
         /**
          * Define what to do when the "Edit" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogEdit(EditMeasureDialogFragment dialog);
     }
 
-    private Bundle                    bundle;
+    private Bundle bundle;
     private EditMeasureDialogListener listener;
 
-    private String                    number;
-    private double                    abscissa;
-    private double                    ordinate;
-    private int                       measurePosition;
+    private String number;
+    private double abscissa;
+    private double ordinate;
+    private int measurePosition;
 
-    private LinearLayout              layout;
-    private EditText                  numberEditText;
-    private EditText                  abscissaEditText;
-    private EditText                  ordinateEditText;
+    private LinearLayout layout;
+    private EditText numberEditText;
+    private EditText abscissaEditText;
+    private EditText ordinateEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -72,12 +70,11 @@ public class EditMeasureDialogFragment extends DialogFragment {
                         // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditMeasureDialogFragment.this.listener
-                                .onDialogCancel(EditMeasureDialogFragment.this);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditMeasureDialogFragment.this.listener.onDialogCancel(EditMeasureDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -88,15 +85,10 @@ public class EditMeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (EditMeasureDialogFragment.this.checkDialogInputs()) {
-                            EditMeasureDialogFragment.this.number =
-                                    EditMeasureDialogFragment.this.numberEditText.getText()
-                                            .toString();
-                            EditMeasureDialogFragment.this.abscissa = ViewUtils
-                                    .readDouble(EditMeasureDialogFragment.this.abscissaEditText);
-                            EditMeasureDialogFragment.this.ordinate = ViewUtils
-                                    .readDouble(EditMeasureDialogFragment.this.ordinateEditText);
-                            EditMeasureDialogFragment.this.listener
-                                    .onDialogEdit(EditMeasureDialogFragment.this);
+                            EditMeasureDialogFragment.this.number = ViewUtils.readString(EditMeasureDialogFragment.this.numberEditText);
+                            EditMeasureDialogFragment.this.abscissa = ViewUtils.readDouble(EditMeasureDialogFragment.this.abscissaEditText);
+                            EditMeasureDialogFragment.this.ordinate = ViewUtils.readDouble(EditMeasureDialogFragment.this.ordinateEditText);
+                            EditMeasureDialogFragment.this.listener.onDialogEdit(EditMeasureDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -156,7 +148,6 @@ public class EditMeasureDialogFragment extends DialogFragment {
     /**
      * Create a view to get updated abscissa, ordinate and altitude value of a
      * point from the user.
-     * 
      */
     private void genEditMeasureView() {
         this.layout.addView(this.numberEditText);
@@ -167,9 +158,9 @@ public class EditMeasureDialogFragment extends DialogFragment {
     /**
      * Verify that the user has entered all required data. Note that the
      * altitude is not required and should be set to 0 if no data was inserted.
-     * 
+     *
      * @return True if every EditTexts of the dialog have been filled, false
-     *         otherwise.
+     * otherwise.
      */
     private boolean checkDialogInputs() {
         if ((this.abscissaEditText.length() == 0) || (this.ordinateEditText.length() == 0)) {

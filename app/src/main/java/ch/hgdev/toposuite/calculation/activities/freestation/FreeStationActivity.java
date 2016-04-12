@@ -12,6 +12,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -25,17 +26,19 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class FreeStationActivity extends TopoSuiteActivity implements
         MeasureDialogFragment.MeasureDialogListener {
 
-    /** Position of this free station calculation in the calculation history. */
-    public static final String    FREE_STATION_POSITION = "free_station_position";
+    /**
+     * Position of this free station calculation in the calculation history.
+     */
+    public static final String FREE_STATION_POSITION = "free_station_position";
 
-    private EditText              stationEditText;
-    private EditText              iEditText;
-    private ListView              measuresListView;
+    private EditText stationEditText;
+    private EditText iEditText;
+    private ListView measuresListView;
 
     private ArrayAdapter<Measure> adapter;
-    private FreeStation           freeStation;
+    private FreeStation freeStation;
 
-    private int                   position;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,15 +130,15 @@ public class FreeStationActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.edit_measure:
-            this.showEditMeasureDialog(info.position);
-            return true;
-        case R.id.delete_measure:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.edit_measure:
+                this.showEditMeasureDialog(info.position);
+                return true;
+            case R.id.delete_measure:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -143,29 +146,22 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.add_determination_button:
-            this.showAddMeasureDialog();
-            return true;
-        case R.id.run_calculation_button:
-            if (this.checkInputs()) {
-                // update I and station number
-                if (this.iEditText.length() > 0) {
-                    this.freeStation.setI(
-                            ViewUtils.readDouble(this.iEditText));
-                } else {
-                    this.freeStation.setI(MathUtils.IGNORE_DOUBLE);
-                }
-                this.freeStation.setStationNumber(
-                        this.stationEditText.getText().toString());
+            case R.id.add_determination_button:
+                this.showAddMeasureDialog();
+                return true;
+            case R.id.run_calculation_button:
+                if (this.checkInputs()) {
+                    // update I and station number
+                    this.freeStation.setI(ViewUtils.readDouble(this.iEditText));
+                    this.freeStation.setStationNumber(ViewUtils.readString(this.stationEditText));
 
-                this.startFreeStationResultsActivity();
-            } else {
-                ViewUtils.showToast(
-                        this, this.getString(R.string.error_fill_data));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+                    this.startFreeStationResultsActivity();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

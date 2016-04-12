@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.abriss;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,6 +15,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -28,61 +29,57 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 /**
  * Dialog window to allow the user to edit an orientation for the abriss
  * calculation.
- * 
+ *
  * @author HGdev
- * 
  */
 public class EditOrientationDialogFragment extends DialogFragment {
     /**
      * The activity that creates an instance of EditOrientationDialogFragment
      * must implement this interface in order to receive event callbacks. Each
      * method passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface EditOrientationDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(EditOrientationDialogFragment dialog);
 
         /**
          * Define what to do when the "Edit" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogEdit(EditOrientationDialogFragment dialog);
     }
 
-    public static final String    ORIENTATION_NUMBER   = "Orientation number";
-    public static final String    HORIZONTAL_DIRECTION = "Horizontal direction";
-    public static final String    HORIZONTAL_DISTANCE  = "Horizontal distance";
-    public static final String    ZENITHAL_ANGLE       = "Zenithal angle";
-    public static final String    ORIENTATION_POSITION = "Orientation position";
-    private Bundle                bundle;
+    public static final String ORIENTATION_NUMBER = "Orientation number";
+    public static final String HORIZONTAL_DIRECTION = "Horizontal direction";
+    public static final String HORIZONTAL_DISTANCE = "Horizontal distance";
+    public static final String ZENITHAL_ANGLE = "Zenithal angle";
+    public static final String ORIENTATION_POSITION = "Orientation position";
+    private Bundle bundle;
     EditOrientationDialogListener listener;
-    private Spinner               orientationSpinner;
-    private TextView              orientationView;
-    private Point                 orientation;
-    private double                horizontalDirection;
-    private double                horizontalDistance;
-    private double                zenithalAngle;
-    private LinearLayout          layout;
-    private EditText              horizontalDirectionEditText;
-    private EditText              horizontalDistanceEditText;
-    private EditText              zenithalAngleEditText;
+    private Spinner orientationSpinner;
+    private TextView orientationView;
+    private Point orientation;
+    private double horizontalDirection;
+    private double horizontalDistance;
+    private double zenithalAngle;
+    private LinearLayout layout;
+    private EditText horizontalDirectionEditText;
+    private EditText horizontalDistanceEditText;
+    private EditText zenithalAngleEditText;
 
     /**
      * The position of the current orientation in the ArrayList adapter. This is
      * used for retrieving the orientation in the adapter after its
      * modification.
      */
-    private int                   orientationPosition;
+    private int orientationPosition;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -100,12 +97,12 @@ public class EditOrientationDialogFragment extends DialogFragment {
                         // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditOrientationDialogFragment.this.listener
-                                .onDialogCancel(EditOrientationDialogFragment.this);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditOrientationDialogFragment.this.listener
+                        .onDialogCancel(EditOrientationDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -116,19 +113,10 @@ public class EditOrientationDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (EditOrientationDialogFragment.this.checkDialogInputs()) {
-                            if (EditOrientationDialogFragment.this.horizontalDistanceEditText
-                                    .length() > 0) {
-                                EditOrientationDialogFragment.this.horizontalDistance = ViewUtils
-                                        .readDouble(EditOrientationDialogFragment.this.horizontalDistanceEditText);
-                            }
-                            if (EditOrientationDialogFragment.this.zenithalAngleEditText.length() > 0) {
-                                EditOrientationDialogFragment.this.zenithalAngle = ViewUtils
-                                        .readDouble(EditOrientationDialogFragment.this.zenithalAngleEditText);
-                            }
-                            EditOrientationDialogFragment.this.horizontalDirection = ViewUtils
-                                    .readDouble(EditOrientationDialogFragment.this.horizontalDirectionEditText);
-                            EditOrientationDialogFragment.this.listener
-                                    .onDialogEdit(EditOrientationDialogFragment.this);
+                            EditOrientationDialogFragment.this.horizontalDistance = ViewUtils.readDouble(EditOrientationDialogFragment.this.horizontalDistanceEditText);
+                            EditOrientationDialogFragment.this.zenithalAngle = ViewUtils.readDouble(EditOrientationDialogFragment.this.zenithalAngleEditText);
+                            EditOrientationDialogFragment.this.horizontalDirection = ViewUtils.readDouble(EditOrientationDialogFragment.this.horizontalDirectionEditText);
+                            EditOrientationDialogFragment.this.listener.onDialogEdit(EditOrientationDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -248,7 +236,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
 
     /**
      * Verify that the user has entered all required data.
-     * 
+     *
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {

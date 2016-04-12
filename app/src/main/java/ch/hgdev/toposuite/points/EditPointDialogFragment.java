@@ -10,59 +10,56 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.google.common.collect.Iterables;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-import com.google.common.collect.Iterables;
-
 /**
  * Dialog window to allow the user to add a new point to the list of points.
- * 
+ *
  * @author HGdev
- * 
  */
 public class EditPointDialogFragment extends DialogFragment {
     /**
      * The activity that creates an instance of EditPointDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface EditPointDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(EditPointDialogFragment dialog);
 
         /**
          * Define what to do when the "Edit" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogEdit(EditPointDialogFragment dialog);
     }
 
     public static final String POINT_POSITION = "Point position";
-    private Bundle             bundle;
-    EditPointDialogListener    listener;
-    private String             number;
-    private double             altitude;
-    private double             east;
-    private double             north;
-    private LinearLayout       layout;
-    private EditText           altitudeEditText;
-    private EditText           eastEditText;
-    private EditText           northEditText;
-    private EditText           numberEditText;
+    private Bundle bundle;
+    EditPointDialogListener listener;
+    private String number;
+    private double altitude;
+    private double east;
+    private double north;
+    private LinearLayout layout;
+    private EditText altitudeEditText;
+    private EditText eastEditText;
+    private EditText northEditText;
+    private EditText numberEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -79,12 +76,12 @@ public class EditPointDialogFragment extends DialogFragment {
                         // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditPointDialogFragment.this.listener
-                                .onDialogCancel(EditPointDialogFragment.this);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditPointDialogFragment.this.listener
+                        .onDialogCancel(EditPointDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -95,20 +92,11 @@ public class EditPointDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (EditPointDialogFragment.this.checkDialogInputs()) {
-                            // altitude is not mandatory
-                            if (EditPointDialogFragment.this.altitudeEditText.length() > 0) {
-                                EditPointDialogFragment.this.altitude = ViewUtils
-                                        .readDouble(EditPointDialogFragment.this.altitudeEditText);
-                            }
-                            EditPointDialogFragment.this.number =
-                                    EditPointDialogFragment.this.numberEditText.getText()
-                                            .toString();
-                            EditPointDialogFragment.this.east = ViewUtils
-                                    .readDouble(EditPointDialogFragment.this.eastEditText);
-                            EditPointDialogFragment.this.north = ViewUtils
-                                    .readDouble(EditPointDialogFragment.this.northEditText);
-                            EditPointDialogFragment.this.listener
-                                    .onDialogEdit(EditPointDialogFragment.this);
+                            EditPointDialogFragment.this.altitude = ViewUtils.readDouble(EditPointDialogFragment.this.altitudeEditText);
+                            EditPointDialogFragment.this.number = ViewUtils.readString(EditPointDialogFragment.this.numberEditText);
+                            EditPointDialogFragment.this.east = ViewUtils.readDouble(EditPointDialogFragment.this.eastEditText);
+                            EditPointDialogFragment.this.north = ViewUtils.readDouble(EditPointDialogFragment.this.northEditText);
+                            EditPointDialogFragment.this.listener.onDialogEdit(EditPointDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -179,7 +167,6 @@ public class EditPointDialogFragment extends DialogFragment {
     /**
      * Create a view to get updated east, north and altitude value of a point
      * from the user.
-     * 
      */
     private void genEditPointView() {
         this.layout.addView(this.numberEditText);
@@ -191,9 +178,9 @@ public class EditPointDialogFragment extends DialogFragment {
     /**
      * Verify that the user has entered all required data. Note that the
      * altitude is not required and should be set to 0 if no data was inserted.
-     * 
+     *
      * @return True if every EditTexts of the dialog have been filled, false
-     *         otherwise.
+     * otherwise.
      */
     private boolean checkDialogInputs() {
         if ((this.eastEditText.length() == 0) || (this.northEditText.length() == 0)) {

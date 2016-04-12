@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.abriss;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,6 +15,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -28,48 +29,44 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 /**
  * Dialog window to allow the user to add a new orientation for the abriss
  * calculation.
- * 
+ *
  * @author HGdev
- * 
  */
 public class AddOrientationDialogFragment extends DialogFragment {
     /**
      * The activity that creates an instance of AddOrientationDialogFragment
      * must implement this interface in order to receive event callbacks. Each
      * method passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface AddOrientationDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(AddOrientationDialogFragment dialog);
 
         /**
          * Define what to do when the "Add" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogAdd(AddOrientationDialogFragment dialog);
     }
 
     AddOrientationDialogListener listener;
-    private Spinner              orientationSpinner;
-    private TextView             orientationView;
-    private Point                orientation;
-    private double               horizontalDirection;
-    private double               horizontalDistance;
-    private double               zenithalAngle;
-    private LinearLayout         layout;
-    private EditText             horizontalDirectionEditText;
-    private EditText             horizontalDistanceEditText;
-    private EditText             zenithalAngleEditText;
+    private Spinner orientationSpinner;
+    private TextView orientationView;
+    private Point orientation;
+    private double horizontalDirection;
+    private double horizontalDistance;
+    private double zenithalAngle;
+    private LinearLayout layout;
+    private EditText horizontalDirectionEditText;
+    private EditText horizontalDistanceEditText;
+    private EditText zenithalAngleEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -87,12 +84,11 @@ public class AddOrientationDialogFragment extends DialogFragment {
                         // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AddOrientationDialogFragment.this.listener
-                                .onDialogCancel(AddOrientationDialogFragment.this);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                AddOrientationDialogFragment.this.listener.onDialogCancel(AddOrientationDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -103,19 +99,10 @@ public class AddOrientationDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (AddOrientationDialogFragment.this.checkDialogInputs()) {
-                            if (AddOrientationDialogFragment.this.horizontalDistanceEditText
-                                    .length() > 0) {
-                                AddOrientationDialogFragment.this.horizontalDistance = ViewUtils
-                                        .readDouble(AddOrientationDialogFragment.this.horizontalDistanceEditText);
-                            }
-                            if (AddOrientationDialogFragment.this.zenithalAngleEditText.length() > 0) {
-                                AddOrientationDialogFragment.this.zenithalAngle = ViewUtils
-                                        .readDouble(AddOrientationDialogFragment.this.zenithalAngleEditText);
-                            }
-                            AddOrientationDialogFragment.this.horizontalDirection = ViewUtils
-                                    .readDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText);
-                            AddOrientationDialogFragment.this.listener
-                                    .onDialogAdd(AddOrientationDialogFragment.this);
+                            AddOrientationDialogFragment.this.horizontalDistance = ViewUtils.readDouble(AddOrientationDialogFragment.this.horizontalDistanceEditText);
+                            AddOrientationDialogFragment.this.zenithalAngle = ViewUtils.readDouble(AddOrientationDialogFragment.this.zenithalAngleEditText);
+                            AddOrientationDialogFragment.this.horizontalDirection = ViewUtils.readDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText);
+                            AddOrientationDialogFragment.this.listener.onDialogAdd(AddOrientationDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -227,7 +214,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
 
     /**
      * Verify that the user has entered all required data.
-     * 
+     *
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {

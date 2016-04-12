@@ -26,34 +26,32 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 /**
  * This class is used to display an export dialog which allows the user to
  * choose the export format and the path where the file will be stored.
- * 
+ *
  * @author HGdev
  */
 public class ExportDialog extends DialogFragment {
     private ExportDialogListener listener;
-    private EditText             filenameEditText;
+    private EditText filenameEditText;
 
     /**
      * Listener for handling dialog events.
-     * 
+     *
      * @author HGdev
      */
     public interface ExportDialogListener {
         /**
          * This callback is triggered when the action performed by the dialog
          * succeed.
-         * 
-         * @param message
-         *            Success message.
+         *
+         * @param message Success message.
          */
         void onExportDialogSuccess(String message);
 
         /**
          * This callback is triggered when the action performed by the dialog
          * fail.
-         * 
-         * @param message
-         *            Error message.
+         *
+         * @param message Error message.
          */
         void onExportDialogError(String message);
     }
@@ -68,7 +66,7 @@ public class ExportDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_export_job, container, false);
 
         Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
@@ -118,13 +116,12 @@ public class ExportDialog extends DialogFragment {
      */
     private void performExportAction() {
         // make sure that the input is correct
-        if (this.filenameEditText.getText().toString().isEmpty()) {
-            ViewUtils.showToast(this.getActivity(),
-                    this.getActivity().getString(R.string.error_fill_data));
+        if (ViewUtils.readString(this.filenameEditText).isEmpty()) {
+            ViewUtils.showToast(this.getActivity(), this.getActivity().getString(R.string.error_fill_data));
             return;
         }
 
-        String filename = this.filenameEditText.getEditableText().toString();
+        String filename = ViewUtils.readString(this.filenameEditText);
 
         // make sure the extension is there
         String ext = Files.getFileExtension(filename);

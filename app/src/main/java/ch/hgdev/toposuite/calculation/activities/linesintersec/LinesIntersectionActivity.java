@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.linesintersec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -19,6 +16,10 @@ import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -36,70 +37,70 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 @SuppressLint("NewApi")
 public class LinesIntersectionActivity extends TopoSuiteActivity implements
-MergePointsDialog.MergePointsDialogListener {
-    private static final String            LINES_INTERSEC_POSITION = "lines_intersec_position";
-    private static final String            P1D1_SELECTED_POSITION  = "p1d1_selected_position";
-    private static final String            P2D1_SELECTED_POSITION  = "p2d1_selected_position";
-    private static final String            P1D2_SELECTED_POSITION  = "p1d2_selected_position";
-    private static final String            P2D2_SELECTED_POSITION  = "p2d2_selected_position";
-    private static final String            D1_IS_PERPENDICULAR     = "d1_is_perpendicular";
-    private static final String            D2_IS_PERPENDICULAR     = "d2_is_perpendicular";
+        MergePointsDialog.MergePointsDialogListener {
+    private static final String LINES_INTERSEC_POSITION = "lines_intersec_position";
+    private static final String P1D1_SELECTED_POSITION = "p1d1_selected_position";
+    private static final String P2D1_SELECTED_POSITION = "p2d1_selected_position";
+    private static final String P1D2_SELECTED_POSITION = "p1d2_selected_position";
+    private static final String P2D2_SELECTED_POSITION = "p2d2_selected_position";
+    private static final String D1_IS_PERPENDICULAR = "d1_is_perpendicular";
+    private static final String D2_IS_PERPENDICULAR = "d2_is_perpendicular";
 
-    private Spinner                        point1D1Spinner;
-    private Spinner                        point2D1Spinner;
-    private Spinner                        point1D2Spinner;
-    private Spinner                        point2D2Spinner;
+    private Spinner point1D1Spinner;
+    private Spinner point2D1Spinner;
+    private Spinner point1D2Spinner;
+    private Spinner point2D2Spinner;
 
-    private TextView                       displacementD1TextView;
-    private TextView                       displacementD2TextView;
-    private TextView                       point1D1TextView;
-    private TextView                       point2D1TextView;
-    private TextView                       point1D2TextView;
-    private TextView                       point2D2TextView;
-    private TextView                       distP1D1TexView;
-    private TextView                       distP1D2TexView;
-    private TextView                       intersectionPointTextView;
+    private TextView displacementD1TextView;
+    private TextView displacementD2TextView;
+    private TextView point1D1TextView;
+    private TextView point2D1TextView;
+    private TextView point1D2TextView;
+    private TextView point2D2TextView;
+    private TextView distP1D1TexView;
+    private TextView distP1D2TexView;
+    private TextView intersectionPointTextView;
 
-    private EditText                       gisementD1EditText;
-    private EditText                       gisementD2EditText;
-    private EditText                       displacementD1EditText;
-    private EditText                       displacementD2EditText;
-    private EditText                       pointNumberEditText;
-    private EditText                       distP1D1EditText;
-    private EditText                       distP1D2EditText;
+    private EditText gisementD1EditText;
+    private EditText gisementD2EditText;
+    private EditText displacementD1EditText;
+    private EditText displacementD2EditText;
+    private EditText pointNumberEditText;
+    private EditText distP1D1EditText;
+    private EditText distP1D2EditText;
 
-    private LinearLayout                   point2D1SpinnerLayout;
-    private LinearLayout                   point2D2SpinnerLayout;
-    private LinearLayout                   point2D1Layout;
-    private LinearLayout                   point2D2Layout;
-    private LinearLayout                   gisementD1Layout;
-    private LinearLayout                   gisementD2Layout;
-    private LinearLayout                   resultLayout;
+    private LinearLayout point2D1SpinnerLayout;
+    private LinearLayout point2D2SpinnerLayout;
+    private LinearLayout point2D1Layout;
+    private LinearLayout point2D2Layout;
+    private LinearLayout gisementD1Layout;
+    private LinearLayout gisementD2Layout;
+    private LinearLayout resultLayout;
 
-    private RadioButton                    modeGisementD1Radio;
-    private RadioButton                    modeGisementD2Radio;
+    private RadioButton modeGisementD1Radio;
+    private RadioButton modeGisementD2Radio;
 
-    private CheckBox                       perpendicularD1CheckBox;
-    private CheckBox                       perpendicularD2CheckBox;
+    private CheckBox perpendicularD1CheckBox;
+    private CheckBox perpendicularD2CheckBox;
 
-    private ScrollView                     scrollView;
+    private ScrollView scrollView;
 
-    private ArrayAdapter<Point>            adapter;
+    private ArrayAdapter<Point> adapter;
 
-    private int                            point1D1SelectedPosition;
-    private int                            point2D1SelectedPosition;
-    private int                            point1D2SelectedPosition;
-    private int                            point2D2SelectedPosition;
+    private int point1D1SelectedPosition;
+    private int point2D1SelectedPosition;
+    private int point1D2SelectedPosition;
+    private int point2D2SelectedPosition;
 
-    private boolean                        isD1Perpendicular;
-    private boolean                        isD2Perpendicular;
+    private boolean isD1Perpendicular;
+    private boolean isD2Perpendicular;
 
     private LinesIntersectionActivity.Mode d1Mode;
     private LinesIntersectionActivity.Mode d2Mode;
 
-    private LinesIntersection              lineIntersec;
+    private LinesIntersection lineIntersec;
 
-    private AnimationDrawable              blinkAnimation;
+    private AnimationDrawable blinkAnimation;
 
     @SuppressLint("NewApi")
     @SuppressWarnings("deprecation")
@@ -480,55 +481,55 @@ MergePointsDialog.MergePointsDialogListener {
         int id = item.getItemId();
 
         switch (id) {
-        case R.id.run_calculation_button:
-            this.runCalculation();
-            return true;
-        case R.id.save_point:
-            // check if the user has supplied a point number
-            if ((this.lineIntersec == null) || (this.pointNumberEditText.length() == 0)) {
-                ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+            case R.id.run_calculation_button:
+                this.runCalculation();
                 return true;
-            }
+            case R.id.save_point:
+                // check if the user has supplied a point number
+                if ((this.lineIntersec == null) || (this.pointNumberEditText.length() == 0)) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                    return true;
+                }
 
-            // make sure that the computation has been done before
-            this.runCalculation();
+                // make sure that the computation has been done before
+                this.runCalculation();
 
-            if (MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getEast())
-                    || MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getNorth())) {
-                ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                if (MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getEast())
+                        || MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getNorth())) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                    return true;
+                }
+
+                if (SharedResources.getSetOfPoints().find(
+                        this.lineIntersec.getPointNumber()) == null) {
+                    SharedResources.getSetOfPoints().add(
+                            this.lineIntersec.getIntersectionPoint());
+                    this.lineIntersec.getIntersectionPoint().registerDAO(
+                            PointsDataSource.getInstance());
+
+                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+                } else {
+                    // this point already exists
+                    MergePointsDialog dialog = new MergePointsDialog();
+
+                    Bundle args = new Bundle();
+                    args.putString(
+                            MergePointsDialog.POINT_NUMBER,
+                            this.lineIntersec.getPointNumber());
+
+                    args.putDouble(MergePointsDialog.NEW_EAST,
+                            this.lineIntersec.getIntersectionPoint().getEast());
+                    args.putDouble(MergePointsDialog.NEW_NORTH,
+                            this.lineIntersec.getIntersectionPoint().getNorth());
+                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                            this.lineIntersec.getIntersectionPoint().getAltitude());
+
+                    dialog.setArguments(args);
+                    dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                }
                 return true;
-            }
-
-            if (SharedResources.getSetOfPoints().find(
-                    this.lineIntersec.getPointNumber()) == null) {
-                SharedResources.getSetOfPoints().add(
-                        this.lineIntersec.getIntersectionPoint());
-                this.lineIntersec.getIntersectionPoint().registerDAO(
-                        PointsDataSource.getInstance());
-
-                ViewUtils.showToast(this, this.getString(R.string.point_add_success));
-            } else {
-                // this point already exists
-                MergePointsDialog dialog = new MergePointsDialog();
-
-                Bundle args = new Bundle();
-                args.putString(
-                        MergePointsDialog.POINT_NUMBER,
-                        this.lineIntersec.getPointNumber());
-
-                args.putDouble(MergePointsDialog.NEW_EAST,
-                        this.lineIntersec.getIntersectionPoint().getEast());
-                args.putDouble(MergePointsDialog.NEW_NORTH,
-                        this.lineIntersec.getIntersectionPoint().getNorth());
-                args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                        this.lineIntersec.getIntersectionPoint().getAltitude());
-
-                dialog.setArguments(args);
-                dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -536,61 +537,61 @@ MergePointsDialog.MergePointsDialogListener {
         boolean checked = ((RadioButton) view).isChecked();
 
         switch (view.getId()) {
-        case R.id.mode_d1_gisement:
-            if (checked) {
-                this.point2D1SpinnerLayout.setVisibility(View.GONE);
-                if (this.point2D1Layout != null) {
-                    this.point2D1Layout.setVisibility(View.GONE);
-                }
-                this.gisementD1Layout.setVisibility(View.VISIBLE);
-                this.d1Mode = LinesIntersectionActivity.Mode.GISEMENT;
+            case R.id.mode_d1_gisement:
+                if (checked) {
+                    this.point2D1SpinnerLayout.setVisibility(View.GONE);
+                    if (this.point2D1Layout != null) {
+                        this.point2D1Layout.setVisibility(View.GONE);
+                    }
+                    this.gisementD1Layout.setVisibility(View.VISIBLE);
+                    this.d1Mode = LinesIntersectionActivity.Mode.GISEMENT;
 
-                this.perpendicularD1CheckBox.setEnabled(false);
-                this.perpendicularD1CheckBox.setChecked(false);
-                this.distP1D1TexView.setEnabled(false);
-                this.distP1D1EditText.setEnabled(false);
-                break;
-            }
-        case R.id.mode_d1_line:
-            if (checked) {
-                this.point2D1SpinnerLayout.setVisibility(View.VISIBLE);
-                if (this.point2D1Layout != null) {
-                    this.point2D1Layout.setVisibility(View.VISIBLE);
+                    this.perpendicularD1CheckBox.setEnabled(false);
+                    this.perpendicularD1CheckBox.setChecked(false);
+                    this.distP1D1TexView.setEnabled(false);
+                    this.distP1D1EditText.setEnabled(false);
+                    break;
                 }
-                this.gisementD1Layout.setVisibility(View.GONE);
-                this.d1Mode = LinesIntersectionActivity.Mode.LINE;
-                this.perpendicularD1CheckBox.setEnabled(true);
-                this.distP1D1TexView.setEnabled(true);
-                this.distP1D1EditText.setEnabled(true);
-                break;
-            }
-        case R.id.mode_d2_gisement:
-            if (checked) {
-                this.point2D2SpinnerLayout.setVisibility(View.GONE);
-                if (this.point2D2Layout != null) {
-                    this.point2D2Layout.setVisibility(View.GONE);
+            case R.id.mode_d1_line:
+                if (checked) {
+                    this.point2D1SpinnerLayout.setVisibility(View.VISIBLE);
+                    if (this.point2D1Layout != null) {
+                        this.point2D1Layout.setVisibility(View.VISIBLE);
+                    }
+                    this.gisementD1Layout.setVisibility(View.GONE);
+                    this.d1Mode = LinesIntersectionActivity.Mode.LINE;
+                    this.perpendicularD1CheckBox.setEnabled(true);
+                    this.distP1D1TexView.setEnabled(true);
+                    this.distP1D1EditText.setEnabled(true);
+                    break;
                 }
-                this.gisementD2Layout.setVisibility(View.VISIBLE);
-                this.d2Mode = LinesIntersectionActivity.Mode.GISEMENT;
-                this.perpendicularD2CheckBox.setEnabled(false);
-                this.perpendicularD2CheckBox.setChecked(false);
-                this.distP1D2TexView.setEnabled(false);
-                this.distP1D2EditText.setEnabled(false);
-                break;
-            }
-        case R.id.mode_d2_line:
-            if (checked) {
-                this.point2D2SpinnerLayout.setVisibility(View.VISIBLE);
-                if (this.point2D2Layout != null) {
-                    this.point2D2Layout.setVisibility(View.VISIBLE);
+            case R.id.mode_d2_gisement:
+                if (checked) {
+                    this.point2D2SpinnerLayout.setVisibility(View.GONE);
+                    if (this.point2D2Layout != null) {
+                        this.point2D2Layout.setVisibility(View.GONE);
+                    }
+                    this.gisementD2Layout.setVisibility(View.VISIBLE);
+                    this.d2Mode = LinesIntersectionActivity.Mode.GISEMENT;
+                    this.perpendicularD2CheckBox.setEnabled(false);
+                    this.perpendicularD2CheckBox.setChecked(false);
+                    this.distP1D2TexView.setEnabled(false);
+                    this.distP1D2EditText.setEnabled(false);
+                    break;
                 }
-                this.gisementD2Layout.setVisibility(View.GONE);
-                this.d2Mode = LinesIntersectionActivity.Mode.LINE;
-                this.perpendicularD2CheckBox.setEnabled(true);
-                this.distP1D2TexView.setEnabled(true);
-                this.distP1D2EditText.setEnabled(true);
-                break;
-            }
+            case R.id.mode_d2_line:
+                if (checked) {
+                    this.point2D2SpinnerLayout.setVisibility(View.VISIBLE);
+                    if (this.point2D2Layout != null) {
+                        this.point2D2Layout.setVisibility(View.VISIBLE);
+                    }
+                    this.gisementD2Layout.setVisibility(View.GONE);
+                    this.d2Mode = LinesIntersectionActivity.Mode.LINE;
+                    this.perpendicularD2CheckBox.setEnabled(true);
+                    this.distP1D2TexView.setEnabled(true);
+                    this.distP1D2EditText.setEnabled(true);
+                    break;
+                }
         }
     }
 
@@ -598,20 +599,20 @@ MergePointsDialog.MergePointsDialogListener {
         boolean checked = ((CheckBox) view).isChecked();
 
         switch (view.getId()) {
-        case R.id.is_d1_perpendicular:
-            this.distP1D1TexView.setEnabled(checked);
-            this.distP1D1EditText.setEnabled(checked);
-            this.isD1Perpendicular = checked;
-            this.displacementD1EditText.setEnabled(!checked);
-            this.displacementD1TextView.setEnabled(!checked);
-            break;
-        case R.id.is_d2_perpendicular:
-            this.distP1D2TexView.setEnabled(checked);
-            this.distP1D2EditText.setEnabled(checked);
-            this.isD2Perpendicular = checked;
-            this.displacementD2EditText.setEnabled(!checked);
-            this.displacementD2TextView.setEnabled(!checked);
-            break;
+            case R.id.is_d1_perpendicular:
+                this.distP1D1TexView.setEnabled(checked);
+                this.distP1D1EditText.setEnabled(checked);
+                this.isD1Perpendicular = checked;
+                this.displacementD1EditText.setEnabled(!checked);
+                this.displacementD1TextView.setEnabled(!checked);
+                break;
+            case R.id.is_d2_perpendicular:
+                this.distP1D2TexView.setEnabled(checked);
+                this.distP1D2EditText.setEnabled(checked);
+                this.isD2Perpendicular = checked;
+                this.displacementD2EditText.setEnabled(!checked);
+                this.displacementD2TextView.setEnabled(!checked);
+                break;
         }
     }
 
@@ -680,14 +681,14 @@ MergePointsDialog.MergePointsDialogListener {
             g1 = new Gisement(
                     this.adapter.getItem(this.point1D1SelectedPosition),
                     this.adapter.getItem(this.point2D1SelectedPosition)
-                    ).getGisement();
+            ).getGisement();
         }
 
         if (this.d2Mode != Mode.GISEMENT) {
             g2 = new Gisement(
                     this.adapter.getItem(this.point1D2SelectedPosition),
                     this.adapter.getItem(this.point2D2SelectedPosition)
-                    ).getGisement();
+            ).getGisement();
         }
 
         if ((MathUtils.roundWithTolerance(g1 - g2, 0.001) % 200) == 0) {
@@ -721,10 +722,7 @@ MergePointsDialog.MergePointsDialogListener {
             p2D1 = this.adapter.getItem(this.point2D1SelectedPosition);
         }
 
-        double displacementD1 = MathUtils.IGNORE_DOUBLE;
-        if (this.displacementD1EditText.length() > 0) {
-            displacementD1 = ViewUtils.readDouble(this.displacementD1EditText);
-        }
+        double displacementD1 = ViewUtils.readDouble(this.displacementD1EditText);
 
         double distP1D1 = MathUtils.IGNORE_DOUBLE;
         if ((this.distP1D1EditText.length() > 0) && this.isD1Perpendicular) {
@@ -741,17 +739,14 @@ MergePointsDialog.MergePointsDialogListener {
             p2D2 = this.adapter.getItem(this.point2D2SelectedPosition);
         }
 
-        double displacementD2 = MathUtils.IGNORE_DOUBLE;
-        if (this.displacementD2EditText.length() > 0) {
-            displacementD2 = ViewUtils.readDouble(this.displacementD2EditText);
-        }
+        double displacementD2 = ViewUtils.readDouble(this.displacementD2EditText);
 
         double distP1D2 = MathUtils.IGNORE_DOUBLE;
         if ((this.distP1D2EditText.length() > 0) && this.isD2Perpendicular) {
             distP1D2 = ViewUtils.readDouble(this.distP1D2EditText);
         }
 
-        String pointNumber = this.pointNumberEditText.getText().toString();
+        String pointNumber = ViewUtils.readString(this.pointNumberEditText);
 
         if (this.lineIntersec == null) {
             this.lineIntersec = new LinesIntersection(p1D1, p2D1, displacementD1, gisementD1,

@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.linecircleintersection;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -31,61 +32,61 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
-MergePointsDialog.MergePointsDialogListener {
+        MergePointsDialog.MergePointsDialogListener {
 
-    private static final String                 LINE_POINT_ONE_SELECTED_POSITION  = "line_point_one_selected_position";
-    private static final String                 LINE_POINT_TWO_SELECTED_POSITION  = "line_point_two_selected_position";
-    private static final String                 CIRCLE_CENTER_SELECTED_POSITION   = "circle_center_selected_position";
-    private static final String                 CIRCLE_BY_POINT_SELECTED_POSITION = "circle_by_point_selected_position";
+    private static final String LINE_POINT_ONE_SELECTED_POSITION = "line_point_one_selected_position";
+    private static final String LINE_POINT_TWO_SELECTED_POSITION = "line_point_two_selected_position";
+    private static final String CIRCLE_CENTER_SELECTED_POSITION = "circle_center_selected_position";
+    private static final String CIRCLE_BY_POINT_SELECTED_POSITION = "circle_by_point_selected_position";
 
     // line
-    private Spinner                             point1Spinner;
-    private Spinner                             point2Spinner;
-    private TextView                            displacementTextView;
-    private TextView                            point1TextView;
-    private TextView                            point2TextView;
-    private TextView                            distP1TexView;
-    private EditText                            gisementEditText;
-    private EditText                            displacementEditText;
-    private EditText                            distP1EditText;
-    private LinearLayout                        point2SpinnerLayout;
-    private LinearLayout                        point2Layout;
-    private LinearLayout                        gisementLayout;
-    private RadioButton                         modeGisementRadio;
-    private CheckBox                            perpendicularCheckBox;
-    private int                                 point1SelectedPosition;
-    private int                                 point2SelectedPosition;
-    private boolean                             isLinePerpendicular;
+    private Spinner point1Spinner;
+    private Spinner point2Spinner;
+    private TextView displacementTextView;
+    private TextView point1TextView;
+    private TextView point2TextView;
+    private TextView distP1TexView;
+    private EditText gisementEditText;
+    private EditText displacementEditText;
+    private EditText distP1EditText;
+    private LinearLayout point2SpinnerLayout;
+    private LinearLayout point2Layout;
+    private LinearLayout gisementLayout;
+    private RadioButton modeGisementRadio;
+    private CheckBox perpendicularCheckBox;
+    private int point1SelectedPosition;
+    private int point2SelectedPosition;
+    private boolean isLinePerpendicular;
     private LineCircleIntersectionActivity.Mode mode;
 
     // circle
-    private Spinner                             centerCSpinner;
-    private int                                 centerCSelectedPosition;
-    private Point                               centerCPoint;
-    private TextView                            centerCTextView;
-    private double                              radiusC;
-    private EditText                            radiusCEditText;
-    private Spinner                             byPointSpinner;
-    private int                                 byPointSelectedPosition;
-    private Point                               byPoint;
-    private TextView                            byPointTextView;
+    private Spinner centerCSpinner;
+    private int centerCSelectedPosition;
+    private Point centerCPoint;
+    private TextView centerCTextView;
+    private double radiusC;
+    private EditText radiusCEditText;
+    private Spinner byPointSpinner;
+    private int byPointSelectedPosition;
+    private Point byPoint;
+    private TextView byPointTextView;
 
     // results
-    private TextView                            intersectionOneTextView;
-    private EditText                            intersectionOneEditText;
-    private Point                               intersectionOne;
-    private TextView                            intersectionTwoTextView;
-    private EditText                            intersectionTwoEditText;
-    private Point                               intersectionTwo;
+    private TextView intersectionOneTextView;
+    private EditText intersectionOneEditText;
+    private Point intersectionOne;
+    private TextView intersectionTwoTextView;
+    private EditText intersectionTwoEditText;
+    private Point intersectionTwo;
 
-    private ArrayAdapter<Point>                 adapter;
-    private LineCircleIntersection              lineCircleIntersection;
+    private ArrayAdapter<Point> adapter;
+    private LineCircleIntersection lineCircleIntersection;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
      * from the history.
      */
-    private int                                 position;
+    private int position;
 
     private enum Mode {
         LINE,
@@ -226,100 +227,100 @@ MergePointsDialog.MergePointsDialogListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.run_calculation_button:
-            if (this.checkInputs()) {
-                this.runCalculations();
-                this.updateResults();
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-            }
-            return true;
-        case R.id.save_points:
-            if ((this.intersectionOne == null) || (this.intersectionTwo == null)) {
-                ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                return true;
-            }
-
-            if ((this.intersectionOneEditText.length() < 1)
-                    && (this.intersectionTwoEditText.length() < 1)) {
-                ViewUtils.showToast(this, this.getString(R.string.error_no_points_saved));
-                return true;
-            }
-
-            // save first point
-            if (this.intersectionOneEditText.length() > 0) {
-                this.intersectionOne.setNumber(this.intersectionOneEditText.getText().toString());
-
-                if (MathUtils.isZero(this.intersectionOne.getEast())
-                        && MathUtils.isZero(this.intersectionOne.getNorth())) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                } else if (SharedResources.getSetOfPoints().find(
-                        this.intersectionOne.getNumber()) == null) {
-                    SharedResources.getSetOfPoints().add(this.intersectionOne);
-                    this.intersectionOne.registerDAO(PointsDataSource.getInstance());
-
-                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+            case R.id.run_calculation_button:
+                if (this.checkInputs()) {
+                    this.runCalculations();
+                    this.updateResults();
                 } else {
-                    // this point already exists
-                    MergePointsDialog dialog = new MergePointsDialog();
-
-                    Bundle args = new Bundle();
-                    args.putString(
-                            MergePointsDialog.POINT_NUMBER,
-                            this.intersectionOne.getNumber());
-
-                    args.putDouble(MergePointsDialog.NEW_EAST,
-                            this.intersectionOne.getEast());
-                    args.putDouble(MergePointsDialog.NEW_NORTH,
-                            this.intersectionOne.getNorth());
-                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                            this.intersectionOne.getAltitude());
-
-                    dialog.setArguments(args);
-                    dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 }
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.point_one_not_saved));
-            }
-
-            // save second point
-            if (this.intersectionTwoEditText.length() > 0) {
-                this.intersectionTwo.setNumber(this.intersectionTwoEditText.getText().toString());
-
-                if (MathUtils.isZero(this.intersectionTwo.getEast())
-                        && MathUtils.isZero(this.intersectionTwo.getNorth())) {
+                return true;
+            case R.id.save_points:
+                if ((this.intersectionOne == null) || (this.intersectionTwo == null)) {
                     ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                } else if (SharedResources.getSetOfPoints().find(
-                        this.intersectionTwo.getNumber()) == null) {
-                    SharedResources.getSetOfPoints().add(this.intersectionTwo);
-                    this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
-
-                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
-                } else {
-                    // this point already exists
-                    MergePointsDialog dialog = new MergePointsDialog();
-
-                    Bundle args = new Bundle();
-                    args.putString(
-                            MergePointsDialog.POINT_NUMBER,
-                            this.intersectionTwo.getNumber());
-
-                    args.putDouble(MergePointsDialog.NEW_EAST,
-                            this.intersectionTwo.getEast());
-                    args.putDouble(MergePointsDialog.NEW_NORTH,
-                            this.intersectionTwo.getNorth());
-                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                            this.intersectionTwo.getAltitude());
-
-                    dialog.setArguments(args);
-                    dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                    return true;
                 }
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.point_two_not_saved));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+
+                if ((this.intersectionOneEditText.length() < 1)
+                        && (this.intersectionTwoEditText.length() < 1)) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_saved));
+                    return true;
+                }
+
+                // save first point
+                if (this.intersectionOneEditText.length() > 0) {
+                    this.intersectionOne.setNumber(ViewUtils.readString(this.intersectionOneEditText));
+
+                    if (MathUtils.isZero(this.intersectionOne.getEast())
+                            && MathUtils.isZero(this.intersectionOne.getNorth())) {
+                        ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                    } else if (SharedResources.getSetOfPoints().find(
+                            this.intersectionOne.getNumber()) == null) {
+                        SharedResources.getSetOfPoints().add(this.intersectionOne);
+                        this.intersectionOne.registerDAO(PointsDataSource.getInstance());
+
+                        ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+                    } else {
+                        // this point already exists
+                        MergePointsDialog dialog = new MergePointsDialog();
+
+                        Bundle args = new Bundle();
+                        args.putString(
+                                MergePointsDialog.POINT_NUMBER,
+                                this.intersectionOne.getNumber());
+
+                        args.putDouble(MergePointsDialog.NEW_EAST,
+                                this.intersectionOne.getEast());
+                        args.putDouble(MergePointsDialog.NEW_NORTH,
+                                this.intersectionOne.getNorth());
+                        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                                this.intersectionOne.getAltitude());
+
+                        dialog.setArguments(args);
+                        dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                    }
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.point_one_not_saved));
+                }
+
+                // save second point
+                if (this.intersectionTwoEditText.length() > 0) {
+                    this.intersectionTwo.setNumber(ViewUtils.readString(this.intersectionTwoEditText));
+
+                    if (MathUtils.isZero(this.intersectionTwo.getEast())
+                            && MathUtils.isZero(this.intersectionTwo.getNorth())) {
+                        ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                    } else if (SharedResources.getSetOfPoints().find(
+                            this.intersectionTwo.getNumber()) == null) {
+                        SharedResources.getSetOfPoints().add(this.intersectionTwo);
+                        this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
+
+                        ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+                    } else {
+                        // this point already exists
+                        MergePointsDialog dialog = new MergePointsDialog();
+
+                        Bundle args = new Bundle();
+                        args.putString(
+                                MergePointsDialog.POINT_NUMBER,
+                                this.intersectionTwo.getNumber());
+
+                        args.putDouble(MergePointsDialog.NEW_EAST,
+                                this.intersectionTwo.getEast());
+                        args.putDouble(MergePointsDialog.NEW_NORTH,
+                                this.intersectionTwo.getNorth());
+                        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                                this.intersectionTwo.getAltitude());
+
+                        dialog.setArguments(args);
+                        dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                    }
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.point_two_not_saved));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -477,23 +478,22 @@ MergePointsDialog.MergePointsDialogListener {
     /**
      * Handle click on the radio button.
      *
-     * @param view
-     *            The radio button.
+     * @param view The radio button.
      */
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
 
         switch (view.getId()) {
-        case R.id.mode_gisement:
-            if (checked) {
-                this.setModeGisement();
-                break;
-            }
-        case R.id.mode_line:
-            if (checked) {
-                this.setModeLine();
-                break;
-            }
+            case R.id.mode_gisement:
+                if (checked) {
+                    this.setModeGisement();
+                    break;
+                }
+            case R.id.mode_line:
+                if (checked) {
+                    this.setModeLine();
+                    break;
+                }
         }
     }
 

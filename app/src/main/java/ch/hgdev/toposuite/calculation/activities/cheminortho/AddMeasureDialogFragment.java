@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -19,37 +20,34 @@ public class AddMeasureDialogFragment extends DialogFragment {
      * The activity that creates an instance of AddPointDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface AddMeasureDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(AddMeasureDialogFragment dialog);
 
         /**
          * Define what to do when the "Add" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogAdd(AddMeasureDialogFragment dialog);
     }
 
     AddMeasureDialogListener listener;
 
-    private String           number;
-    private double           distance;
+    private String number;
+    private double distance;
 
-    private LinearLayout     layout;
+    private LinearLayout layout;
 
-    private EditText         numberEditText;
-    private EditText         distanceEditText;
+    private EditText numberEditText;
+    private EditText distanceEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -66,12 +64,11 @@ public class AddMeasureDialogFragment extends DialogFragment {
                         // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AddMeasureDialogFragment.this.listener
-                                .onDialogCancel(AddMeasureDialogFragment.this);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                AddMeasureDialogFragment.this.listener.onDialogCancel(AddMeasureDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -82,13 +79,9 @@ public class AddMeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (AddMeasureDialogFragment.this.checkDialogInputs()) {
-                            AddMeasureDialogFragment.this.number =
-                                    AddMeasureDialogFragment.this.numberEditText.getText()
-                                            .toString();
-                            AddMeasureDialogFragment.this.distance = ViewUtils
-                                    .readDouble(AddMeasureDialogFragment.this.distanceEditText);
-                            AddMeasureDialogFragment.this.listener
-                                    .onDialogAdd(AddMeasureDialogFragment.this);
+                            AddMeasureDialogFragment.this.number = ViewUtils.readString(AddMeasureDialogFragment.this.numberEditText);
+                            AddMeasureDialogFragment.this.distance = ViewUtils.readDouble(AddMeasureDialogFragment.this.distanceEditText);
+                            AddMeasureDialogFragment.this.listener.onDialogAdd(AddMeasureDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -138,7 +131,6 @@ public class AddMeasureDialogFragment extends DialogFragment {
     /**
      * Create a view to get number, abscissa, ordinate and altitude of a point
      * from the user.
-     * 
      */
     private void genAddMeasureView() {
         this.layout.addView(this.numberEditText);
@@ -148,9 +140,9 @@ public class AddMeasureDialogFragment extends DialogFragment {
     /**
      * Verify that the user has entered all required data. Note that the
      * altitude is not required and should be set to 0 if no data was inserted.
-     * 
+     *
      * @return True if every EditTexts of the dialog have been filled, false
-     *         otherwise.
+     * otherwise.
      */
     private boolean checkDialogInputs() {
         if ((this.numberEditText.length() == 0) ||

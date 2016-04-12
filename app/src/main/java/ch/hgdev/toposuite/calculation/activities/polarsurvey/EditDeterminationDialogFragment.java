@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -22,46 +23,43 @@ public class EditDeterminationDialogFragment extends DialogFragment {
      * The activity that creates an instance of EditDeterminationDialogFragment
      * must implement this interface in order to receive event callbacks. Each
      * method passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface EditDeterminationDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(EditDeterminationDialogFragment dialog);
 
         /**
          * Define what to do when the "Edit" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogEdit(EditDeterminationDialogFragment dialog);
     }
 
     EditDeterminationDialogListener listener;
-    private String                  determinationNo;
-    private double                  horizDir;
-    private double                  distance;
-    private double                  zenAngle;
-    private double                  s;
-    private double                  latDepl;
-    private double                  lonDepl;
+    private String determinationNo;
+    private double horizDir;
+    private double distance;
+    private double zenAngle;
+    private double s;
+    private double latDepl;
+    private double lonDepl;
 
-    private LinearLayout            layout;
-    private ScrollView              scrollView;
-    private EditText                determinationNoEditText;
-    private EditText                horizDirEditText;
-    private EditText                distanceEditText;
-    private EditText                zenAngleEditText;
-    private EditText                sEditText;
-    private EditText                latDeplEditText;
-    private EditText                lonDeplEditText;
+    private LinearLayout layout;
+    private ScrollView scrollView;
+    private EditText determinationNoEditText;
+    private EditText horizDirEditText;
+    private EditText distanceEditText;
+    private EditText zenAngleEditText;
+    private EditText sEditText;
+    private EditText latDeplEditText;
+    private EditText lonDeplEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -96,41 +94,20 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         if (EditDeterminationDialogFragment.this.checkDialogInputs()) {
-                            if (EditDeterminationDialogFragment.this.zenAngleEditText.length() > 0) {
-                                EditDeterminationDialogFragment.this.zenAngle = ViewUtils
-                                        .readDouble(EditDeterminationDialogFragment.this.zenAngleEditText);
-                            } else {
+                            EditDeterminationDialogFragment.this.zenAngle = ViewUtils.readDouble(EditDeterminationDialogFragment.this.zenAngleEditText);
+                            if (MathUtils.isIgnorable(EditDeterminationDialogFragment.this.zenAngle)) {
                                 // zenital angle defaults to 100.0
                                 EditDeterminationDialogFragment.this.zenAngle = 100.0;
                             }
-                            if (EditDeterminationDialogFragment.this.sEditText.length() > 0) {
-                                EditDeterminationDialogFragment.this.s = ViewUtils
-                                        .readDouble(EditDeterminationDialogFragment.this.sEditText);
-                            } else {
-                                EditDeterminationDialogFragment.this.s = MathUtils.IGNORE_DOUBLE;
-                            }
-                            if (EditDeterminationDialogFragment.this.latDeplEditText.length() > 0) {
-                                EditDeterminationDialogFragment.this.latDepl = ViewUtils
-                                        .readDouble(EditDeterminationDialogFragment.this.latDeplEditText);
-                            } else {
-                                EditDeterminationDialogFragment.this.latDepl = MathUtils.IGNORE_DOUBLE;
-                            }
-                            if (EditDeterminationDialogFragment.this.lonDeplEditText.length() > 0) {
-                                EditDeterminationDialogFragment.this.lonDepl = ViewUtils
-                                        .readDouble(EditDeterminationDialogFragment.this.lonDeplEditText);
-                            } else {
-                                EditDeterminationDialogFragment.this.lonDepl = MathUtils.IGNORE_DOUBLE;
-                            }
 
-                            EditDeterminationDialogFragment.this.determinationNo =
-                                    EditDeterminationDialogFragment.this.determinationNoEditText
-                                            .getText().toString();
-                            EditDeterminationDialogFragment.this.horizDir = ViewUtils
-                                    .readDouble(EditDeterminationDialogFragment.this.horizDirEditText);
-                            EditDeterminationDialogFragment.this.distance = ViewUtils
-                                    .readDouble(EditDeterminationDialogFragment.this.distanceEditText);
-                            EditDeterminationDialogFragment.this.listener
-                                    .onDialogEdit(EditDeterminationDialogFragment.this);
+                            EditDeterminationDialogFragment.this.s = ViewUtils.readDouble(EditDeterminationDialogFragment.this.sEditText);
+                            EditDeterminationDialogFragment.this.latDepl = ViewUtils.readDouble(EditDeterminationDialogFragment.this.latDeplEditText);
+                            EditDeterminationDialogFragment.this.lonDepl = ViewUtils.readDouble(EditDeterminationDialogFragment.this.lonDeplEditText);
+
+                            EditDeterminationDialogFragment.this.determinationNo = ViewUtils.readString(EditDeterminationDialogFragment.this.determinationNoEditText);
+                            EditDeterminationDialogFragment.this.horizDir = ViewUtils.readDouble(EditDeterminationDialogFragment.this.horizDirEditText);
+                            EditDeterminationDialogFragment.this.distance = ViewUtils.readDouble(EditDeterminationDialogFragment.this.distanceEditText);
+                            EditDeterminationDialogFragment.this.listener.onDialogEdit(EditDeterminationDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -243,7 +220,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
 
     /**
      * Verify that the user has entered all required data.
-     * 
+     *
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {

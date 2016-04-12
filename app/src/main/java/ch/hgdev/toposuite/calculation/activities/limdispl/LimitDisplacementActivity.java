@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.limdispl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -26,32 +27,32 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LimitDisplacementActivity extends TopoSuiteActivity {
-    public final static String  LIMIT_DISPLACEMENT_POSITION = "limit_displacement_position";
-    private final static String POINT_A_SELECTED_POSITION   = "point_a_selected_position";
-    private final static String POINT_B_SELECTED_POSITION   = "point_b_selected_position";
-    private final static String POINT_C_SELECTED_POSITION   = "point_c_selected_position";
-    private final static String POINT_D_SELECTED_POSITION   = "point_d_selected_position";
+    public final static String LIMIT_DISPLACEMENT_POSITION = "limit_displacement_position";
+    private final static String POINT_A_SELECTED_POSITION = "point_a_selected_position";
+    private final static String POINT_B_SELECTED_POSITION = "point_b_selected_position";
+    private final static String POINT_C_SELECTED_POSITION = "point_c_selected_position";
+    private final static String POINT_D_SELECTED_POSITION = "point_d_selected_position";
 
-    private TextView            pointATextView;
-    private TextView            pointBTextView;
-    private TextView            pointCTextView;
-    private TextView            pointDTextView;
+    private TextView pointATextView;
+    private TextView pointBTextView;
+    private TextView pointCTextView;
+    private TextView pointDTextView;
 
-    private Spinner             pointASpinner;
-    private Spinner             pointBSpinner;
-    private Spinner             pointCSpinner;
-    private Spinner             pointDSpinner;
+    private Spinner pointASpinner;
+    private Spinner pointBSpinner;
+    private Spinner pointCSpinner;
+    private Spinner pointDSpinner;
 
-    private EditText            imposedSurfaceEditText;
-    private EditText            pointWestNumberEditText;
-    private EditText            pointEastNumberEditText;
+    private EditText imposedSurfaceEditText;
+    private EditText pointWestNumberEditText;
+    private EditText pointEastNumberEditText;
 
-    private int                 pointASelectedPosition;
-    private int                 pointBSelectedPosition;
-    private int                 pointCSelectedPosition;
-    private int                 pointDSelectedPosition;
+    private int pointASelectedPosition;
+    private int pointBSelectedPosition;
+    private int pointCSelectedPosition;
+    private int pointDSelectedPosition;
 
-    private LimitDisplacement   limDispl;
+    private LimitDisplacement limDispl;
     private ArrayAdapter<Point> adapter;
 
     @Override
@@ -223,47 +224,46 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.run_calculation_button:
-            if ((this.pointASelectedPosition == 0)
-                    || (this.pointBSelectedPosition == 0)
-                    || (this.pointCSelectedPosition == 0)
-                    || (this.pointDSelectedPosition == 0)
-                    || (this.pointWestNumberEditText.getText().toString().isEmpty())
-                    || (this.pointEastNumberEditText.getText().toString().isEmpty())
-                    || (ViewUtils.readDouble(
-                            this.imposedSurfaceEditText) == MathUtils.IGNORE_DOUBLE)) {
-                ViewUtils.showToast(this,
-                        this.getText(R.string.error_fill_data));
+            case R.id.run_calculation_button:
+                if ((this.pointASelectedPosition == 0)
+                        || (this.pointBSelectedPosition == 0)
+                        || (this.pointCSelectedPosition == 0)
+                        || (this.pointDSelectedPosition == 0)
+                        || (ViewUtils.readString(this.pointWestNumberEditText).isEmpty())
+                        || (ViewUtils.readString(this.pointEastNumberEditText).isEmpty())
+                        || (ViewUtils.readDouble(this.imposedSurfaceEditText) == MathUtils.IGNORE_DOUBLE)) {
+                    ViewUtils.showToast(this,
+                            this.getText(R.string.error_fill_data));
+                    return true;
+                }
+
+                Point pointA = this.adapter.getItem(this.pointASelectedPosition);
+                Point pointB = this.adapter.getItem(this.pointBSelectedPosition);
+                Point pointC = this.adapter.getItem(this.pointCSelectedPosition);
+                Point pointD = this.adapter.getItem(this.pointDSelectedPosition);
+                double surface = ViewUtils.readDouble(this.imposedSurfaceEditText);
+                String pointXNumber = ViewUtils.readString(this.pointWestNumberEditText);
+                String pointYNumber = ViewUtils.readString(this.pointEastNumberEditText);
+
+                if (this.limDispl == null) {
+                    this.limDispl = new LimitDisplacement(
+                            pointA, pointB, pointC, pointD, surface,
+                            pointXNumber, pointYNumber, true);
+                } else {
+                    this.limDispl.setPointA(pointA);
+                    this.limDispl.setPointB(pointB);
+                    this.limDispl.setPointC(pointC);
+                    this.limDispl.setPointD(pointD);
+                    this.limDispl.setSurface(surface);
+                    this.limDispl.setPointXNumber(pointXNumber);
+                    this.limDispl.setPointYNumber(pointYNumber);
+                }
+
+                this.startLimitDisplacementResultsActivity();
+
                 return true;
-            }
-
-            Point pointA = this.adapter.getItem(this.pointASelectedPosition);
-            Point pointB = this.adapter.getItem(this.pointBSelectedPosition);
-            Point pointC = this.adapter.getItem(this.pointCSelectedPosition);
-            Point pointD = this.adapter.getItem(this.pointDSelectedPosition);
-            double surface = ViewUtils.readDouble(this.imposedSurfaceEditText);
-            String pointXNumber = this.pointWestNumberEditText.getText().toString();
-            String pointYNumber = this.pointEastNumberEditText.getText().toString();
-
-            if (this.limDispl == null) {
-                this.limDispl = new LimitDisplacement(
-                        pointA, pointB, pointC, pointD, surface,
-                        pointXNumber, pointYNumber, true);
-            } else {
-                this.limDispl.setPointA(pointA);
-                this.limDispl.setPointB(pointB);
-                this.limDispl.setPointC(pointC);
-                this.limDispl.setPointD(pointD);
-                this.limDispl.setSurface(surface);
-                this.limDispl.setPointXNumber(pointXNumber);
-                this.limDispl.setPointYNumber(pointYNumber);
-            }
-
-            this.startLimitDisplacementResultsActivity();
-
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -305,13 +305,10 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
     private void startLimitDisplacementResultsActivity() {
         Bundle bundle = new Bundle();
 
-        bundle.putInt(
-                LimitDisplacementActivity.LIMIT_DISPLACEMENT_POSITION,
-                SharedResources.getCalculationsHistory().indexOf(
-                        this.limDispl));
+        bundle.putInt(LimitDisplacementActivity.LIMIT_DISPLACEMENT_POSITION,
+                SharedResources.getCalculationsHistory().indexOf(this.limDispl));
 
-        Intent resultsActivityIntent = new Intent(
-                this, LimitDisplacementResultsActivity.class);
+        Intent resultsActivityIntent = new Intent(this, LimitDisplacementResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);
         this.startActivity(resultsActivityIntent);
     }

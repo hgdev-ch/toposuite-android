@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.circlesintersection;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -31,49 +32,49 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
 
     private static final String CENTER_ONE_SELECTED_POSITION = "center_one_selected_position";
-    private static final String BY_ONE_SELECTED_POSITION     = "by_one_selected_position";
+    private static final String BY_ONE_SELECTED_POSITION = "by_one_selected_position";
     private static final String CENTER_TWO_SELECTED_POSITION = "center_two_selected_position";
-    private static final String BY_TWO_SELECTED_POSITION     = "by_two_selected_position";
+    private static final String BY_TWO_SELECTED_POSITION = "by_two_selected_position";
 
-    private Spinner             centerOneSpinner;
-    private int                 centerOneSelectedPosition;
-    private Point               centerOnePoint;
-    private TextView            centerOneTextView;
-    private double              radiusOne;
-    private EditText            radiusOneEditText;
-    private Spinner             byPointOneSpinner;
-    private int                 byPointOneSelectedPosition;
-    private Point               byPointOne;
-    private TextView            byPointOneTextView;
+    private Spinner centerOneSpinner;
+    private int centerOneSelectedPosition;
+    private Point centerOnePoint;
+    private TextView centerOneTextView;
+    private double radiusOne;
+    private EditText radiusOneEditText;
+    private Spinner byPointOneSpinner;
+    private int byPointOneSelectedPosition;
+    private Point byPointOne;
+    private TextView byPointOneTextView;
 
-    private Spinner             centerTwoSpinner;
-    private int                 centerTwoSelectedPosition;
-    private Point               centerTwoPoint;
-    private TextView            centerTwoTextView;
-    private double              radiusTwo;
-    private EditText            radiusTwoEditText;
-    private Spinner             byPointTwoSpinner;
-    private int                 byPointTwoSelectedPosition;
-    private Point               byPointTwo;
-    private TextView            byPointTwoTextView;
+    private Spinner centerTwoSpinner;
+    private int centerTwoSelectedPosition;
+    private Point centerTwoPoint;
+    private TextView centerTwoTextView;
+    private double radiusTwo;
+    private EditText radiusTwoEditText;
+    private Spinner byPointTwoSpinner;
+    private int byPointTwoSelectedPosition;
+    private Point byPointTwo;
+    private TextView byPointTwoTextView;
 
     private ArrayAdapter<Point> adapter;
 
     private CirclesIntersection circlesIntersection;
 
-    private TextView            intersectionOneTextView;
-    private EditText            intersectionOneEditText;
-    private Point               intersectionOne;
+    private TextView intersectionOneTextView;
+    private EditText intersectionOneEditText;
+    private Point intersectionOne;
 
-    private TextView            intersectionTwoTextView;
-    private EditText            intersectionTwoEditText;
-    private Point               intersectionTwo;
+    private TextView intersectionTwoTextView;
+    private EditText intersectionTwoEditText;
+    private Point intersectionTwo;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
      * from the history.
      */
-    private int                 position;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,106 +172,106 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.run_calculation_button:
-            if (this.checkInputs()) {
-                if (!MathUtils.isPositive(ViewUtils.readDouble(this.radiusOneEditText))
-                        || !MathUtils.isPositive(ViewUtils.readDouble(this.radiusTwoEditText))) {
-                    ViewUtils.showToast(this,
-                            this.getString(R.string.error_radius_must_be_positive));
+            case R.id.run_calculation_button:
+                if (this.checkInputs()) {
+                    if (!MathUtils.isPositive(ViewUtils.readDouble(this.radiusOneEditText))
+                            || !MathUtils.isPositive(ViewUtils.readDouble(this.radiusTwoEditText))) {
+                        ViewUtils.showToast(this,
+                                this.getString(R.string.error_radius_must_be_positive));
+                    } else {
+                        this.runCalculations();
+                        this.updateResults();
+                    }
                 } else {
-                    this.runCalculations();
-                    this.updateResults();
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 }
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-            }
-            return true;
-        case R.id.save_points:
-            if ((this.intersectionOne == null) || (this.intersectionTwo == null)) {
-                ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
                 return true;
-            }
+            case R.id.save_points:
+                if ((this.intersectionOne == null) || (this.intersectionTwo == null)) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                    return true;
+                }
 
-            if ((this.intersectionOneEditText.length() < 1)
-                    && (this.intersectionTwoEditText.length() < 1)) {
-                ViewUtils.showToast(this, this.getString(R.string.error_no_points_saved));
+                if ((this.intersectionOneEditText.length() < 1)
+                        && (this.intersectionTwoEditText.length() < 1)) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_saved));
+                    return true;
+                }
+
+                // save first point
+                if (this.intersectionOneEditText.length() > 0) {
+                    this.intersectionOne.setNumber(ViewUtils.readString(this.intersectionOneEditText));
+
+                    if (MathUtils.isZero(this.intersectionOne.getEast())
+                            && MathUtils.isZero(this.intersectionOne.getNorth())) {
+                        ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                    } else if (SharedResources.getSetOfPoints().find(
+                            this.intersectionOne.getNumber()) == null) {
+                        SharedResources.getSetOfPoints().add(this.intersectionOne);
+                        this.intersectionOne.registerDAO(PointsDataSource.getInstance());
+
+                        ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+                    } else {
+                        // this point already exists
+                        MergePointsDialog dialog = new MergePointsDialog();
+
+                        Bundle args = new Bundle();
+                        args.putString(
+                                MergePointsDialog.POINT_NUMBER,
+                                this.intersectionOne.getNumber());
+
+                        args.putDouble(MergePointsDialog.NEW_EAST,
+                                this.intersectionOne.getEast());
+                        args.putDouble(MergePointsDialog.NEW_NORTH,
+                                this.intersectionOne.getNorth());
+                        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                                this.intersectionOne.getAltitude());
+
+                        dialog.setArguments(args);
+                        dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                    }
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.point_one_not_saved));
+                }
+
+                // save second point
+                if (this.intersectionTwoEditText.length() > 0) {
+                    this.intersectionTwo.setNumber(ViewUtils.readString(this.intersectionTwoEditText));
+
+                    if (MathUtils.isZero(this.intersectionTwo.getEast())
+                            && MathUtils.isZero(this.intersectionTwo.getNorth())) {
+                        ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
+                    } else if (SharedResources.getSetOfPoints().find(
+                            this.intersectionTwo.getNumber()) == null) {
+                        SharedResources.getSetOfPoints().add(this.intersectionTwo);
+                        this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
+
+                        ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+                    } else {
+                        // this point already exists
+                        MergePointsDialog dialog = new MergePointsDialog();
+
+                        Bundle args = new Bundle();
+                        args.putString(
+                                MergePointsDialog.POINT_NUMBER,
+                                this.intersectionTwo.getNumber());
+
+                        args.putDouble(MergePointsDialog.NEW_EAST,
+                                this.intersectionTwo.getEast());
+                        args.putDouble(MergePointsDialog.NEW_NORTH,
+                                this.intersectionTwo.getNorth());
+                        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                                this.intersectionTwo.getAltitude());
+
+                        dialog.setArguments(args);
+                        dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                    }
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.point_two_not_saved));
+                }
                 return true;
-            }
-
-            // save first point
-            if (this.intersectionOneEditText.length() > 0) {
-                this.intersectionOne.setNumber(this.intersectionOneEditText.getText().toString());
-
-                if (MathUtils.isZero(this.intersectionOne.getEast())
-                        && MathUtils.isZero(this.intersectionOne.getNorth())) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                } else if (SharedResources.getSetOfPoints().find(
-                        this.intersectionOne.getNumber()) == null) {
-                    SharedResources.getSetOfPoints().add(this.intersectionOne);
-                    this.intersectionOne.registerDAO(PointsDataSource.getInstance());
-
-                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
-                } else {
-                    // this point already exists
-                    MergePointsDialog dialog = new MergePointsDialog();
-
-                    Bundle args = new Bundle();
-                    args.putString(
-                            MergePointsDialog.POINT_NUMBER,
-                            this.intersectionOne.getNumber());
-
-                    args.putDouble(MergePointsDialog.NEW_EAST,
-                            this.intersectionOne.getEast());
-                    args.putDouble(MergePointsDialog.NEW_NORTH,
-                            this.intersectionOne.getNorth());
-                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                            this.intersectionOne.getAltitude());
-
-                    dialog.setArguments(args);
-                    dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
-                }
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.point_one_not_saved));
-            }
-
-            // save second point
-            if (this.intersectionTwoEditText.length() > 0) {
-                this.intersectionTwo.setNumber(this.intersectionTwoEditText.getText().toString());
-
-                if (MathUtils.isZero(this.intersectionTwo.getEast())
-                        && MathUtils.isZero(this.intersectionTwo.getNorth())) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                } else if (SharedResources.getSetOfPoints().find(
-                        this.intersectionTwo.getNumber()) == null) {
-                    SharedResources.getSetOfPoints().add(this.intersectionTwo);
-                    this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
-
-                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
-                } else {
-                    // this point already exists
-                    MergePointsDialog dialog = new MergePointsDialog();
-
-                    Bundle args = new Bundle();
-                    args.putString(
-                            MergePointsDialog.POINT_NUMBER,
-                            this.intersectionTwo.getNumber());
-
-                    args.putDouble(MergePointsDialog.NEW_EAST,
-                            this.intersectionTwo.getEast());
-                    args.putDouble(MergePointsDialog.NEW_NORTH,
-                            this.intersectionTwo.getNorth());
-                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                            this.intersectionTwo.getAltitude());
-
-                    dialog.setArguments(args);
-                    dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
-                }
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.point_two_not_saved));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -437,7 +438,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
 
     /**
      * Check that inputs are OK so the calculation can be run safely.
-     * 
+     *
      * @return True if OK, false otherwise.
      */
     private boolean checkInputs() {

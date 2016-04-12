@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.circularsegmentation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -17,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -29,39 +30,39 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularSegmentationActivity extends TopoSuiteActivity {
-    public static final String  CIRCLE_CENTER_POINT_NUMBER      = "circle_center_point_number";
-    public static final String  CIRCLE_START_POINT_NUMBER       = "circle_start_point_number";
-    public static final String  CIRCLE_END_POINT_NUMBER         = "circle_end_point_number";
-    public static final String  NUMBER_OF_SEGMENTS              = "number_of_segments";
-    public static final String  ARC_LENGTH                      = "arc_length";
-    public static final String  FIRST_RESULT_POINT_NUMBER       = "first_result_point_number";
+    public static final String CIRCLE_CENTER_POINT_NUMBER = "circle_center_point_number";
+    public static final String CIRCLE_START_POINT_NUMBER = "circle_start_point_number";
+    public static final String CIRCLE_END_POINT_NUMBER = "circle_end_point_number";
+    public static final String NUMBER_OF_SEGMENTS = "number_of_segments";
+    public static final String ARC_LENGTH = "arc_length";
+    public static final String FIRST_RESULT_POINT_NUMBER = "first_result_point_number";
 
     private static final String CIRCLE_CENTER_SELECTED_POSITION = "circle_center_selected_position";
-    private static final String CIRCLE_START_SELECTED_POSITION  = "circle_start_selected_position";
-    private static final String CIRCLE_END_SELECTED_POSITION    = "circle_end_selected_position";
-    private static final String IS_MODE_ARC_LENGTH              = "is_mode_arc_length";
+    private static final String CIRCLE_START_SELECTED_POSITION = "circle_start_selected_position";
+    private static final String CIRCLE_END_SELECTED_POSITION = "circle_end_selected_position";
+    private static final String IS_MODE_ARC_LENGTH = "is_mode_arc_length";
 
-    private Spinner             circleCenterSpinner;
-    private int                 circleCenterSelectedPosition;
-    private TextView            circleCenterTextView;
+    private Spinner circleCenterSpinner;
+    private int circleCenterSelectedPosition;
+    private TextView circleCenterTextView;
 
-    private Spinner             circleStartSpinner;
-    private int                 circleStartSelectedPosition;
-    private TextView            circleStartTextView;
+    private Spinner circleStartSpinner;
+    private int circleStartSelectedPosition;
+    private TextView circleStartTextView;
 
-    private Spinner             circleEndSpinner;
-    private int                 circleEndSelectedPosition;
-    private TextView            circleEndTextView;
+    private Spinner circleEndSpinner;
+    private int circleEndSelectedPosition;
+    private TextView circleEndTextView;
 
-    private LinearLayout        segmentLayout;
-    private EditText            segmentEditText;
+    private LinearLayout segmentLayout;
+    private EditText segmentEditText;
 
-    private LinearLayout        arcLengthLayout;
-    private EditText            arcLengthEditText;
+    private LinearLayout arcLengthLayout;
+    private EditText arcLengthEditText;
 
-    private Mode                selectedMode;
+    private Mode selectedMode;
 
-    private EditText            firstPointNumberEditText;
+    private EditText firstPointNumberEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,15 +156,15 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.run_calculation_button:
-            if (this.checkInputs()) {
-                this.showCircularSegmentationResultActivity();
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.run_calculation_button:
+                if (this.checkInputs()) {
+                    this.showCircularSegmentationResultActivity();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -181,22 +182,22 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         switch (view.getId()) {
-        case R.id.mode_segment:
-            if (checked) {
-                this.arcLengthLayout.setVisibility(View.GONE);
-                this.segmentLayout.setVisibility(View.VISIBLE);
-                this.selectedMode = Mode.SEGMENT;
-            }
-            break;
-        case R.id.mode_arc_length:
-            if (checked) {
-                this.arcLengthLayout.setVisibility(View.VISIBLE);
-                this.segmentLayout.setVisibility(View.GONE);
-                this.selectedMode = Mode.ARCLENGTH;
-            }
-            break;
-        default:
-            Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
+            case R.id.mode_segment:
+                if (checked) {
+                    this.arcLengthLayout.setVisibility(View.GONE);
+                    this.segmentLayout.setVisibility(View.VISIBLE);
+                    this.selectedMode = Mode.SEGMENT;
+                }
+                break;
+            case R.id.mode_arc_length:
+                if (checked) {
+                    this.arcLengthLayout.setVisibility(View.VISIBLE);
+                    this.segmentLayout.setVisibility(View.GONE);
+                    this.selectedMode = Mode.ARCLENGTH;
+                }
+                break;
+            default:
+                Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
         }
     }
 
@@ -237,12 +238,9 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
     private void showCircularSegmentationResultActivity() {
         Bundle bundle = new Bundle();
 
-        Point circleCenter = (Point) this.circleCenterSpinner
-                .getItemAtPosition(this.circleCenterSelectedPosition);
-        Point circleStart = (Point) this.circleStartSpinner
-                .getItemAtPosition(this.circleStartSelectedPosition);
-        Point circleEnd = (Point) this.circleEndSpinner
-                .getItemAtPosition(this.circleEndSelectedPosition);
+        Point circleCenter = (Point) this.circleCenterSpinner.getItemAtPosition(this.circleCenterSelectedPosition);
+        Point circleStart = (Point) this.circleStartSpinner.getItemAtPosition(this.circleStartSelectedPosition);
+        Point circleEnd = (Point) this.circleEndSpinner.getItemAtPosition(this.circleEndSelectedPosition);
 
         int numberOfSegments = MathUtils.IGNORE_INT;
         double arcLength = MathUtils.IGNORE_DOUBLE;
@@ -252,19 +250,15 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
             arcLength = ViewUtils.readDouble(this.arcLengthEditText);
         }
 
-        String firstResultPointNumber = this.firstPointNumberEditText.getText().toString();
+        String firstResultPointNumber = ViewUtils.readString(this.firstPointNumberEditText);
 
-        bundle.putString(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER,
-                circleCenter.getNumber());
-        bundle.putString(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER,
-                circleStart.getNumber());
-        bundle.putString(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER,
-                circleEnd.getNumber());
+        bundle.putString(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER, circleCenter.getNumber());
+        bundle.putString(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER, circleStart.getNumber());
+        bundle.putString(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER, circleEnd.getNumber());
 
         bundle.putInt(CircularSegmentationActivity.NUMBER_OF_SEGMENTS, numberOfSegments);
         bundle.putDouble(CircularSegmentationActivity.ARC_LENGTH, arcLength);
-        bundle.putString(CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER,
-                firstResultPointNumber);
+        bundle.putString(CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER, firstResultPointNumber);
 
         Intent resultsActivityIntent = new Intent(this, CircularSegmentationResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -17,47 +18,43 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
  * Dialog window to allow the user to add a new point to the list of points.
- * 
+ *
  * @author HGdev
- * 
  */
 public class AddPointDialogFragment extends DialogFragment {
     /**
      * The activity that creates an instance of AddPointDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface AddPointDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(AddPointDialogFragment dialog);
 
         /**
          * Define what to do when the "Add" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogAdd(AddPointDialogFragment dialog);
     }
 
     AddPointDialogListener listener;
-    private String         number;
-    private double         altitude;
-    private double         east;
-    private double         north;
-    private LinearLayout   layout;
-    private EditText       altitudeEditText;
-    private EditText       eastEditText;
-    private EditText       northEditText;
-    private EditText       numberEditText;
+    private String number;
+    private double altitude;
+    private double east;
+    private double north;
+    private LinearLayout layout;
+    private EditText altitudeEditText;
+    private EditText eastEditText;
+    private EditText northEditText;
+    private EditText numberEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -74,12 +71,12 @@ public class AddPointDialogFragment extends DialogFragment {
                         // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AddPointDialogFragment.this.listener
-                                .onDialogCancel(AddPointDialogFragment.this);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                AddPointDialogFragment.this.listener
+                        .onDialogCancel(AddPointDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -90,19 +87,11 @@ public class AddPointDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (AddPointDialogFragment.this.checkDialogInputs()) {
-                            // altitude is not mandatory
-                            if (AddPointDialogFragment.this.altitudeEditText.length() > 0) {
-                                AddPointDialogFragment.this.altitude = ViewUtils
-                                        .readDouble(AddPointDialogFragment.this.altitudeEditText);
-                            }
-                            AddPointDialogFragment.this.number =
-                                    AddPointDialogFragment.this.numberEditText.getText().toString();
-                            AddPointDialogFragment.this.east = ViewUtils
-                                    .readDouble(AddPointDialogFragment.this.eastEditText);
-                            AddPointDialogFragment.this.north = ViewUtils
-                                    .readDouble(AddPointDialogFragment.this.northEditText);
-                            AddPointDialogFragment.this.listener
-                                    .onDialogAdd(AddPointDialogFragment.this);
+                            AddPointDialogFragment.this.altitude = ViewUtils.readDouble(AddPointDialogFragment.this.altitudeEditText);
+                            AddPointDialogFragment.this.number = ViewUtils.readString(AddPointDialogFragment.this.numberEditText);
+                            AddPointDialogFragment.this.east = ViewUtils.readDouble(AddPointDialogFragment.this.eastEditText);
+                            AddPointDialogFragment.this.north = ViewUtils.readDouble(AddPointDialogFragment.this.northEditText);
+                            AddPointDialogFragment.this.listener.onDialogAdd(AddPointDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -166,7 +155,6 @@ public class AddPointDialogFragment extends DialogFragment {
     /**
      * Create a view to get number, east, north and altitude of a point from the
      * user.
-     * 
      */
     private void genAddPointView() {
         this.layout.addView(this.numberEditText);
@@ -178,9 +166,9 @@ public class AddPointDialogFragment extends DialogFragment {
     /**
      * Verify that the user has entered all required data. Note that the
      * altitude is not required and should be set to 0 if no data was inserted.
-     * 
+     *
      * @return True if every EditTexts of the dialog have been filled, false
-     *         otherwise.
+     * otherwise.
      */
     private boolean checkDialogInputs() {
         if ((this.numberEditText.length() == 0) || (this.eastEditText.length() == 0)

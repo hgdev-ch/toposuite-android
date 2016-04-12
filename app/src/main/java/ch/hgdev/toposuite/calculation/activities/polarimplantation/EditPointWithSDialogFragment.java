@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.polarimplantation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,6 +15,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -30,35 +31,32 @@ public class EditPointWithSDialogFragment extends DialogFragment {
      * The activity that creates an instance of EditPointWithSDialogFragment
      * must implement this interface in order to receive event callbacks. Each
      * method passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface EditPointWithSDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(EditPointWithSDialogFragment dialog);
 
         /**
          * Define what to do when the "Edit" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogEdit(EditPointWithSDialogFragment dialog);
     }
 
     EditPointWithSDialogListener listener;
-    private LinearLayout         layout;
-    private Point                point;
-    private Spinner              pointSpinner;
-    private TextView             pointTextView;
-    private double               s;
-    private EditText             sEditText;
+    private LinearLayout layout;
+    private Point point;
+    private Spinner pointSpinner;
+    private TextView pointTextView;
+    private double s;
+    private EditText sEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -75,12 +73,12 @@ public class EditPointWithSDialogFragment extends DialogFragment {
                         // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditPointWithSDialogFragment.this.listener
-                                .onDialogCancel(EditPointWithSDialogFragment.this);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditPointWithSDialogFragment.this.listener
+                        .onDialogCancel(EditPointWithSDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -91,15 +89,9 @@ public class EditPointWithSDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (EditPointWithSDialogFragment.this.checkDialogInputs()) {
-                            if (EditPointWithSDialogFragment.this.sEditText.length() > 0) {
-                                EditPointWithSDialogFragment.this.s = ViewUtils.readDouble(
-                                        EditPointWithSDialogFragment.this.sEditText);
-                            }
-                            EditPointWithSDialogFragment.this.point =
-                                    (Point) EditPointWithSDialogFragment.this.pointSpinner
-                                            .getSelectedItem();
-                            EditPointWithSDialogFragment.this.listener
-                                    .onDialogEdit(EditPointWithSDialogFragment.this);
+                            EditPointWithSDialogFragment.this.s = ViewUtils.readDouble(EditPointWithSDialogFragment.this.sEditText);
+                            EditPointWithSDialogFragment.this.point = (Point) EditPointWithSDialogFragment.this.pointSpinner.getSelectedItem();
+                            EditPointWithSDialogFragment.this.listener.onDialogEdit(EditPointWithSDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -152,8 +144,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
         this.pointSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                EditPointWithSDialogFragment.this.point = (Point) EditPointWithSDialogFragment.this.pointSpinner
-                        .getItemAtPosition(pos);
+                EditPointWithSDialogFragment.this.point = (Point) EditPointWithSDialogFragment.this.pointSpinner.getItemAtPosition(pos);
                 if (!EditPointWithSDialogFragment.this.point.getNumber().isEmpty()) {
                     EditPointWithSDialogFragment.this.pointTextView.setText(DisplayUtils
                             .formatPoint(EditPointWithSDialogFragment.this.getActivity(),
@@ -184,7 +175,6 @@ public class EditPointWithSDialogFragment extends DialogFragment {
     /**
      * Create a view to get number, abscissa, ordinate and altitude of a point
      * from the user.
-     * 
      */
     private void genAddMeasureView() {
         this.layout.addView(this.pointSpinner);
@@ -195,9 +185,9 @@ public class EditPointWithSDialogFragment extends DialogFragment {
     /**
      * Verify that the user has entered all required data. Note that the
      * altitude is not required and should be set to 0 if no data was inserted.
-     * 
+     *
      * @return True if every EditTexts of the dialog have been filled, false
-     *         otherwise.
+     * otherwise.
      */
     protected boolean checkDialogInputs() {
         if (this.pointSpinner.getSelectedItemPosition() < 1) {

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Measure;
@@ -27,22 +28,19 @@ public class MeasureDialogFragment extends DialogFragment {
      * passes the DialogFragment in case the host needs to query it.
      *
      * @author HGdev
-     *
      */
     public interface MeasureDialogListener {
         /**
          * Define what to do when the "Add" button is clicked.
          *
-         * @param dialog
-         *            Dialog to fetch information from.
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogAdd(MeasureDialogFragment dialog);
 
         /**
          * Define what to do when the "Edit" button is clicked.
          *
-         * @param dialog
-         *            Dialog to fetch information from.
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogEdit(MeasureDialogFragment dialog);
 
@@ -50,14 +48,14 @@ public class MeasureDialogFragment extends DialogFragment {
     }
 
     MeasureDialogListener listener;
-    private String        measureNumber;
-    private double        horizDir;
-    private double        distance;
+    private String measureNumber;
+    private double horizDir;
+    private double distance;
 
-    private LinearLayout  layout;
-    private EditText      measureNumberEditText;
-    private EditText      horizDirEditText;
-    private EditText      distanceEditText;
+    private LinearLayout layout;
+    private EditText measureNumberEditText;
+    private EditText horizDirEditText;
+    private EditText distanceEditText;
 
     /**
      * True if the dialog is for edition, false otherwise.
@@ -68,7 +66,7 @@ public class MeasureDialogFragment extends DialogFragment {
      * TODO make something cleaner and only use measure instead of this huge
      * amount of attributes...
      */
-    private Measure       measure;
+    private Measure measure;
 
     public static MeasureDialogFragment newInstance() {
         MeasureDialogFragment mdf = new MeasureDialogFragment();
@@ -131,13 +129,9 @@ public class MeasureDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         if (MeasureDialogFragment.this.checkDialogInputs()) {
-                            MeasureDialogFragment.this.measureNumber =
-                                    MeasureDialogFragment.this.measureNumberEditText
-                                            .getText().toString();
-                            MeasureDialogFragment.this.horizDir = ViewUtils
-                                    .readDouble(MeasureDialogFragment.this.horizDirEditText);
-                            MeasureDialogFragment.this.distance = ViewUtils
-                                    .readDouble(MeasureDialogFragment.this.distanceEditText);
+                            MeasureDialogFragment.this.measureNumber = ViewUtils.readString(MeasureDialogFragment.this.measureNumberEditText);
+                            MeasureDialogFragment.this.horizDir = ViewUtils.readDouble(MeasureDialogFragment.this.horizDirEditText);
+                            MeasureDialogFragment.this.distance = ViewUtils.readDouble(MeasureDialogFragment.this.distanceEditText);
 
                             if (MeasureDialogFragment.this.isEdition) {
                                 MeasureDialogFragment.this.listener
@@ -176,7 +170,7 @@ public class MeasureDialogFragment extends DialogFragment {
      */
     private void initAttributes() {
         this.isEdition = getArguments().getBoolean(IS_EDITION);
-        this.measure = (Measure)getArguments().getSerializable(MEASURE);
+        this.measure = (Measure) getArguments().getSerializable(MEASURE);
 
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);

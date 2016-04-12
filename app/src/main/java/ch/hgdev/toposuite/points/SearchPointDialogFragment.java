@@ -7,43 +7,40 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.EditText;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
  * @author HGdev
- * 
  */
 public class SearchPointDialogFragment extends DialogFragment {
     /**
      * The activity that creates an instance of SearchPointDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface SearchPointDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(SearchPointDialogFragment dialog);
 
         /**
          * Define what to do when the "Search" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogSearch(SearchPointDialogFragment dialog);
     }
 
     SearchPointDialogListener listener;
-    private EditText          pointNumberEditText;
-    private String            pointNumber;
+    private EditText pointNumberEditText;
+    private String pointNumber;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -56,11 +53,8 @@ public class SearchPointDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (SearchPointDialogFragment.this.checkDialogInputs()) {
-                                    SearchPointDialogFragment.this.pointNumber =
-                                            SearchPointDialogFragment.this.pointNumberEditText
-                                                    .getText().toString();
-                                    SearchPointDialogFragment.this.listener
-                                            .onDialogSearch(SearchPointDialogFragment.this);
+                                    SearchPointDialogFragment.this.pointNumber = ViewUtils.readString(SearchPointDialogFragment.this.pointNumberEditText);
+                                    SearchPointDialogFragment.this.listener.onDialogSearch(SearchPointDialogFragment.this);
                                 } else {
                                     ViewUtils.showToast(
                                             SearchPointDialogFragment.this.getActivity(),
@@ -93,7 +87,7 @@ public class SearchPointDialogFragment extends DialogFragment {
 
     /**
      * Verify that the user has entered required input.
-     * 
+     *
      * @return True if the EditText has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {

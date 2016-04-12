@@ -25,26 +25,27 @@ import ch.hgdev.toposuite.points.PointsManagerActivity;
  * @author HGdev
  */
 public class ViewUtils {
-    /** Color used for deactivated fields */
+    /**
+     * Color used for deactivated fields
+     */
     public static final int DEACTIVATED_COLOR = Color.GRAY;
 
     /**
      * Regular expression pattern to check if a string can be transformed to a
      * double.
      */
-    private static Pattern  doublePattern     = Pattern.compile("^-?\\d+(\\.\\d*)?$");
+    private static Pattern doublePattern = Pattern.compile("^-?\\d+(\\.\\d*)?$");
 
     /**
      * Regular expression pattern to check if a string can be transformed to an
      * integer.
      */
-    private static Pattern  intPattern        = Pattern.compile("^-?\\d+$");
+    private static Pattern intPattern = Pattern.compile("^-?\\d+$");
 
     /**
      * Convenient function for easily reading a double value from an EditText.
      *
-     * @param editText
-     *            An EditText object
+     * @param editText An EditText object
      * @return The value contained in the edit text as double.
      */
     public static double readDouble(EditText editText) {
@@ -66,7 +67,7 @@ public class ViewUtils {
                 // we still have to deal with numbers having "." as decimal
                 // separator because users cannot input a "," when entering
                 // numbers...
-                String input = df.parse(editText.getText().toString().replace(',', '.')).toString();
+                String input = df.parse(ViewUtils.readString(editText).replace(',', '.')).toString();
                 if (ViewUtils.doublePattern.matcher(input).matches()) {
                     return df.parse(input).doubleValue();
                 }
@@ -83,13 +84,12 @@ public class ViewUtils {
     /**
      * Convenient function for easily reading a integer value from an EditText.
      *
-     * @param editText
-     *            An EditText object
+     * @param editText An EditText object
      * @return The value contained in the edit text as int.
      */
     public static int readInt(EditText editText) {
         if ((editText != null) && (editText.length() > 0)) {
-            String val = editText.getText().toString();
+            String val = ViewUtils.readString(editText);
             return (ViewUtils.intPattern.matcher(val).matches()) ?
                     Integer.parseInt(val)
                     : MathUtils.IGNORE_INT;
@@ -113,8 +113,7 @@ public class ViewUtils {
     /**
      * Check if an EditText is empty or not.
      *
-     * @param editText
-     *            The EditText to check.
+     * @param editText The EditText to check.
      * @return True if empty, false otherwise.
      */
     public static boolean isEmpty(EditText editText) {
@@ -124,10 +123,8 @@ public class ViewUtils {
     /**
      * Show an error toast.
      *
-     * @param context
-     *            Calling context.
-     * @param errorMessage
-     *            Error message to display in the toast.
+     * @param context      Calling context.
+     * @param errorMessage Error message to display in the toast.
      */
     public static void showToast(Context context, CharSequence errorMessage) {
         Toast toast = Toast.makeText(context, errorMessage, Toast.LENGTH_LONG);
@@ -138,8 +135,7 @@ public class ViewUtils {
     /**
      * Start the Points Manager Activity ({@link PointsManagerActivity}).
      *
-     * @param currentActivity
-     *            Activity that performs the redirection.
+     * @param currentActivity Activity that performs the redirection.
      */
     public static void redirectToPointsManagerActivity(Activity currentActivity) {
         Intent pointsManagerIntent = new Intent(
@@ -150,16 +146,14 @@ public class ViewUtils {
     /**
      * Convenient function for locking screen orientation.
      *
-     * @param currentActivity
-     *            Activity that request the lock.
+     * @param currentActivity Activity that request the lock.
      */
     public static void lockScreenOrientation(Activity currentActivity) {
         int currentOrientation = currentActivity.getResources().getConfiguration().orientation;
         if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
             currentActivity.setRequestedOrientation(
                     ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        }
-        else {
+        } else {
             currentActivity.setRequestedOrientation(
                     ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
@@ -168,8 +162,7 @@ public class ViewUtils {
     /**
      * Convenient function for unlocking screen orientation.
      *
-     * @param currentActivity
-     *            Activity that request the unlock.
+     * @param currentActivity Activity that request the unlock.
      */
     public static void unlockScreenOrientation(Activity currentActivity) {
         currentActivity.setRequestedOrientation(

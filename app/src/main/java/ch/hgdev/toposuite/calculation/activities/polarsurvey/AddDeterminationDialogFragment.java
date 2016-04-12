@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -21,46 +22,43 @@ public class AddDeterminationDialogFragment extends DialogFragment {
      * The activity that creates an instance of AddDeterminationDialogFragment
      * must implement this interface in order to receive event callbacks. Each
      * method passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface AddDeterminationDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(AddDeterminationDialogFragment dialog);
 
         /**
          * Define what to do when the "Add" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogAdd(AddDeterminationDialogFragment dialog);
     }
 
     AddDeterminationDialogListener listener;
-    private String                 determinationNo;
-    private double                 horizDir;
-    private double                 distance;
-    private double                 zenAngle;
-    private double                 s;
-    private double                 latDepl;
-    private double                 lonDepl;
+    private String determinationNo;
+    private double horizDir;
+    private double distance;
+    private double zenAngle;
+    private double s;
+    private double latDepl;
+    private double lonDepl;
 
-    private LinearLayout           layout;
-    private ScrollView             scrollView;
-    private EditText               determinationNoEditText;
-    private EditText               horizDirEditText;
-    private EditText               distanceEditText;
-    private EditText               zenAngleEditText;
-    private EditText               sEditText;
-    private EditText               latDeplEditText;
-    private EditText               lonDeplEditText;
+    private LinearLayout layout;
+    private ScrollView scrollView;
+    private EditText determinationNoEditText;
+    private EditText horizDirEditText;
+    private EditText distanceEditText;
+    private EditText zenAngleEditText;
+    private EditText sEditText;
+    private EditText latDeplEditText;
+    private EditText lonDeplEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -95,32 +93,14 @@ public class AddDeterminationDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         if (AddDeterminationDialogFragment.this.checkDialogInputs()) {
-                            if (AddDeterminationDialogFragment.this.zenAngleEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.zenAngle = ViewUtils
-                                        .readDouble(AddDeterminationDialogFragment.this.zenAngleEditText);
-                            }
-                            if (AddDeterminationDialogFragment.this.sEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.s = ViewUtils
-                                        .readDouble(AddDeterminationDialogFragment.this.sEditText);
-                            }
-                            if (AddDeterminationDialogFragment.this.latDeplEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.latDepl = ViewUtils
-                                        .readDouble(AddDeterminationDialogFragment.this.latDeplEditText);
-                            }
-                            if (AddDeterminationDialogFragment.this.lonDeplEditText.length() > 0) {
-                                AddDeterminationDialogFragment.this.lonDepl = ViewUtils
-                                        .readDouble(AddDeterminationDialogFragment.this.lonDeplEditText);
-                            }
-
-                            AddDeterminationDialogFragment.this.determinationNo =
-                                    AddDeterminationDialogFragment.this.determinationNoEditText
-                                            .getText().toString();
-                            AddDeterminationDialogFragment.this.horizDir = ViewUtils
-                                    .readDouble(AddDeterminationDialogFragment.this.horizDirEditText);
-                            AddDeterminationDialogFragment.this.distance = ViewUtils
-                                    .readDouble(AddDeterminationDialogFragment.this.distanceEditText);
-                            AddDeterminationDialogFragment.this.listener
-                                    .onDialogAdd(AddDeterminationDialogFragment.this);
+                            AddDeterminationDialogFragment.this.zenAngle = ViewUtils.readDouble(AddDeterminationDialogFragment.this.zenAngleEditText);
+                            AddDeterminationDialogFragment.this.s = ViewUtils.readDouble(AddDeterminationDialogFragment.this.sEditText);
+                            AddDeterminationDialogFragment.this.latDepl = ViewUtils.readDouble(AddDeterminationDialogFragment.this.latDeplEditText);
+                            AddDeterminationDialogFragment.this.lonDepl = ViewUtils.readDouble(AddDeterminationDialogFragment.this.lonDeplEditText);
+                            AddDeterminationDialogFragment.this.determinationNo = ViewUtils.readString(AddDeterminationDialogFragment.this.determinationNoEditText);
+                            AddDeterminationDialogFragment.this.horizDir = ViewUtils.readDouble(AddDeterminationDialogFragment.this.horizDirEditText);
+                            AddDeterminationDialogFragment.this.distance = ViewUtils.readDouble(AddDeterminationDialogFragment.this.distanceEditText);
+                            AddDeterminationDialogFragment.this.listener.onDialogAdd(AddDeterminationDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -225,7 +205,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
 
     /**
      * Verify that the user has entered all required data.
-     * 
+     *
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
