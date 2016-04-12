@@ -22,7 +22,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:support-v4:23.3.0'
     compile 'com.google.guava:guava:19.0'
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.5.4'
 }
