@@ -182,266 +182,251 @@ public class TriangleSolver extends Calculation {
     private void findMissingValues() {
         // three sides given
         if (this.areAllPositive(this.a.first, this.b.first, this.c.first)) {
-            this.alpha.first = this.determineAngleHavingThreeSides(
-                    this.a.first, this.b.first, this.c.first);
-            this.beta.first = this.determineAngleHavingThreeSides(
-                    this.b.first, this.a.first, this.c.first);
-            this.gamma.first = this.determineAngleHavingThreeSides(
-                    this.c.first, this.a.first, this.b.first);
+            this.alpha.first = this.determineAngleHavingThreeSides(this.a.first, this.b.first, this.c.first);
+            this.beta.first = this.determineAngleHavingThreeSides(this.b.first, this.a.first, this.c.first);
+            this.gamma.first = this.determineAngleHavingThreeSides(this.c.first, this.a.first, this.b.first);
             return;
         }
         // a, b and gamma given
         if (this.areAllPositive(this.a.first, this.b.first, this.gamma.first)) {
-            this.c.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.first, this.b.first, this.gamma.first);
-            this.alpha.first = this.determineAngleHavingThreeSides(
-                    this.a.first, this.b.first, this.c.first);
-            this.beta.first = this.determineAngleHavingThreeSides(
-                    this.b.first, this.a.first, this.c.first);
+            this.c.first = this.determineSideHavingTwoSidesAndOneAngle(this.a.first, this.b.first, this.gamma.first);
+            this.alpha.first = this.determineAngleHavingThreeSides(this.a.first, this.b.first, this.c.first);
+            this.beta.first = this.determineAngleHavingThreeSides(this.b.first, this.a.first, this.c.first);
             return;
         }
         // b, c and alpha given
         if (this.areAllPositive(this.b.first, this.c.first, this.alpha.first)) {
-            this.a.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.first, this.c.first, this.alpha.first);
-            this.beta.first = this.determineAngleHavingThreeSides(
-                    this.b.first, this.a.first, this.c.first);
-            this.gamma.first = this.determineAngleHavingThreeSides(
-                    this.c.first, this.a.first, this.b.first);
+            this.a.first = this.determineSideHavingTwoSidesAndOneAngle(this.b.first, this.c.first, this.alpha.first);
+            this.beta.first = this.determineAngleHavingThreeSides(this.b.first, this.a.first, this.c.first);
+            this.gamma.first = this.determineAngleHavingThreeSides(this.c.first, this.a.first, this.b.first);
             return;
         }
         // a, c and beta given
         if (this.areAllPositive(this.a.first, this.c.first, this.beta.first)) {
-            this.b.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.first, this.c.first, this.beta.first);
-            this.alpha.first = this.determineAngleHavingThreeSides(
-                    this.a.first, this.b.first, this.c.first);
-            this.gamma.first = this.determineAngleHavingThreeSides(
-                    this.c.first, this.a.first, this.b.first);
+            this.b.first = this.determineSideHavingTwoSidesAndOneAngle(this.a.first, this.c.first, this.beta.first);
+            this.alpha.first = this.determineAngleHavingThreeSides(this.a.first, this.b.first, this.c.first);
+            this.gamma.first = this.determineAngleHavingThreeSides(this.c.first, this.a.first, this.b.first);
             return;
         }
         // a, b and alpha given (2 solutions case)
         if (this.areAllPositive(this.a.first, this.b.first, this.alpha.first)) {
             this.twoSolutions = true;
+
             this.a.second = this.a.first;
             this.b.second = this.b.first;
             this.alpha.second = this.alpha.first;
 
-            this.beta.first = this.determineAngleHavingTwoSidesAndOneAngle(
-                    this.a.first, this.b.first, this.alpha.first);
+            this.beta.first = this.determineAngleHavingTwoSidesAndOneAngle(this.a.first, this.b.first, this.alpha.first);
             this.beta.second = 200.0 - this.beta.first;
-            this.gamma.first = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.beta.first);
-            this.gamma.second = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.second, this.beta.second);
-            this.c.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.first, this.b.first, this.gamma.first);
-            this.c.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.second, this.b.second, this.gamma.second);
-
-            this.checkSecondSolution();
+            this.gamma.first = this.determineAngleHavingTheTwoOthers(this.alpha.first, this.beta.first);
+            this.gamma.second = this.determineAngleHavingTheTwoOthers(this.alpha.second, this.beta.second);
+            this.c.first = this.determineSideHavingTwoSidesAndOneAngle(this.a.first, this.b.first, this.gamma.first);
+            this.c.second = this.determineSideHavingTwoSidesAndOneAngle(this.a.second, this.b.second, this.gamma.second);
             return;
         }
         // a, b and beta given (2 solutions case)
         if (this.areAllPositive(this.a.first, this.b.first, this.beta.first)) {
             this.twoSolutions = true;
+
             this.a.second = this.a.first;
             this.b.second = this.b.first;
             this.beta.second = this.beta.first;
 
-            this.alpha.second = this.determineAngleHavingTwoSidesAndOneAngle(
-                    this.b.first, this.a.first, this.beta.first);
+            this.alpha.second = this.determineAngleHavingTwoSidesAndOneAngle(this.b.first, this.a.first, this.beta.first);
             this.alpha.first = 200.0 - this.alpha.second;
-            this.gamma.first = this.determineAngleHavingTheTwoOthers(
-                    this.beta.first, this.alpha.first);
-            this.gamma.second = this.determineAngleHavingTheTwoOthers(
-                    this.beta.second, this.alpha.second);
-            this.c.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.first, this.b.first, this.gamma.first);
-            this.c.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.second, this.b.second, this.gamma.second);
-
-            this.checkSecondSolution();
+            this.gamma.first = this.determineAngleHavingTheTwoOthers(this.beta.first, this.alpha.first);
+            this.gamma.second = this.determineAngleHavingTheTwoOthers(this.beta.second, this.alpha.second);
+            this.c.first = this.determineSideHavingTwoSidesAndOneAngle(this.a.first, this.b.first, this.gamma.first);
+            this.c.second = this.determineSideHavingTwoSidesAndOneAngle(this.a.second, this.b.second, this.gamma.second);
             return;
         }
         // b, c and beta given (2 solutions case)
         if (this.areAllPositive(this.b.first, this.c.first, this.beta.first)) {
             this.twoSolutions = true;
+
             this.b.second = this.b.first;
             this.c.second = this.c.first;
             this.beta.second = this.beta.first;
 
-            this.gamma.first = this.determineAngleHavingTwoSidesAndOneAngle(
-                    this.b.first, this.c.first, this.beta.first);
+            this.gamma.first = this.determineAngleHavingTwoSidesAndOneAngle(this.b.first, this.c.first, this.beta.first);
             this.gamma.second = 200.0 - this.gamma.first;
-            this.alpha.first = this.determineAngleHavingTheTwoOthers(
-                    this.beta.first, this.gamma.first);
-            this.alpha.second = this.determineAngleHavingTheTwoOthers(
-                    this.beta.second, this.gamma.second);
-            this.a.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.first, this.c.first, this.alpha.first);
-            this.a.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.second, this.c.second, this.alpha.second);
-
-            this.checkSecondSolution();
+            this.alpha.first = this.determineAngleHavingTheTwoOthers(this.beta.first, this.gamma.first);
+            this.alpha.second = this.determineAngleHavingTheTwoOthers(this.beta.second, this.gamma.second);
+            this.a.first = this.determineSideHavingTwoSidesAndOneAngle(this.b.first, this.c.first, this.alpha.first);
+            this.a.second = this.determineSideHavingTwoSidesAndOneAngle(this.b.second, this.c.second, this.alpha.second);
             return;
         }
         // b, c and gamma given (2 solutions case)
         if (this.areAllPositive(this.b.first, this.c.first, this.gamma.first)) {
             this.twoSolutions = true;
+
             this.b.second = this.b.first;
             this.c.second = this.c.first;
             this.gamma.second = this.gamma.first;
 
-            this.beta.first = this.determineAngleHavingTwoSidesAndOneAngle(
-                    this.c.first, this.b.first, this.gamma.first);
+            this.beta.first = this.determineAngleHavingTwoSidesAndOneAngle(this.c.first, this.b.first, this.gamma.first);
             this.beta.second = 200.0 - this.beta.first;
-            this.alpha.first = this.determineAngleHavingTheTwoOthers(
-                    this.beta.first, this.gamma.first);
-            this.alpha.second = this.determineAngleHavingTheTwoOthers(
-                    this.beta.second, this.gamma.second);
-            this.a.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.first, this.c.first, this.alpha.first);
-            this.a.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.b.second, this.c.second, this.alpha.second);
-
-            this.checkSecondSolution();
+            this.alpha.first = this.determineAngleHavingTheTwoOthers(this.beta.first, this.gamma.first);
+            this.alpha.second = this.determineAngleHavingTheTwoOthers(this.beta.second, this.gamma.second);
+            this.a.first = this.determineSideHavingTwoSidesAndOneAngle(this.b.first, this.c.first, this.alpha.first);
+            this.a.second = this.determineSideHavingTwoSidesAndOneAngle(this.b.second, this.c.second, this.alpha.second);
             return;
         }
         // a, c and alpha given (2 solutions case)
         if (this.areAllPositive(this.a.first, this.c.first, this.alpha.first)) {
             this.twoSolutions = true;
+
             this.a.second = this.a.first;
             this.c.second = this.c.first;
             this.alpha.second = this.alpha.first;
 
-            this.gamma.first = this.determineAngleHavingTwoSidesAndOneAngle(
-                    this.a.first, this.c.first, this.alpha.first);
+            this.gamma.first = this.determineAngleHavingTwoSidesAndOneAngle(this.a.first, this.c.first, this.alpha.first);
             this.gamma.second = 200.0 - this.gamma.first;
-            this.beta.first = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.gamma.first);
-            this.beta.second = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.second, this.gamma.second);
-            this.b.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.first, this.c.first, this.beta.first);
-            this.b.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.a.second, this.c.second, this.beta.second);
-
-            this.checkSecondSolution();
+            this.beta.first = this.determineAngleHavingTheTwoOthers(this.alpha.first, this.gamma.first);
+            this.beta.second = this.determineAngleHavingTheTwoOthers(this.alpha.second, this.gamma.second);
+            this.b.first = this.determineSideHavingTwoSidesAndOneAngle(this.a.first, this.c.first, this.beta.first);
+            this.b.second = this.determineSideHavingTwoSidesAndOneAngle(this.a.second, this.c.second, this.beta.second);
             return;
         }
         // a, c and gamma given (2 solutions case)
         if (this.areAllPositive(this.a.first, this.c.first, this.gamma.first)) {
             this.twoSolutions = true;
+
             this.a.second = this.a.first;
             this.c.second = this.c.first;
             this.gamma.second = this.gamma.first;
 
-            this.alpha.second = this.determineAngleHavingTwoSidesAndOneAngle(
-                    this.c.first, this.a.first, this.gamma.first);
+            this.alpha.second = this.determineAngleHavingTwoSidesAndOneAngle(this.c.first, this.a.first, this.gamma.first);
             this.alpha.first = 200.0 - this.alpha.second;
-            this.beta.first = this.determineAngleHavingTheTwoOthers(
-                    this.gamma.first, this.alpha.first);
-            this.beta.second = this.determineAngleHavingTheTwoOthers(
-                    this.gamma.second, this.alpha.second);
-            this.b.first = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.c.first, this.a.first, this.beta.first);
-            this.b.second = this.determineSideHavingTwoSidesAndOneAngle(
-                    this.c.second, this.a.second, this.beta.second);
-
-            this.checkSecondSolution();
+            this.beta.first = this.determineAngleHavingTheTwoOthers(this.gamma.first, this.alpha.first);
+            this.beta.second = this.determineAngleHavingTheTwoOthers(this.gamma.second, this.alpha.second);
+            this.b.first = this.determineSideHavingTwoSidesAndOneAngle(this.c.first, this.a.first, this.beta.first);
+            this.b.second = this.determineSideHavingTwoSidesAndOneAngle(this.c.second, this.a.second, this.beta.second);
             return;
         }
         // a, beta and gamma given
         if (this.areAllPositive(this.a.first, this.beta.first, this.gamma.first)) {
-            this.alpha.first = this.determineAngleHavingTheTwoOthers(
-                    this.beta.first, this.gamma.first);
-            this.b.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.a.first, this.beta.first, this.alpha.first);
-            this.c.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.a.first, this.gamma.first, this.alpha.first);
+            this.alpha.first = this.determineAngleHavingTheTwoOthers(this.beta.first, this.gamma.first);
+            this.b.first = this.determineSideHavingOneSideAndTwoAngles(this.a.first, this.beta.first, this.alpha.first);
+            this.c.first = this.determineSideHavingOneSideAndTwoAngles(this.a.first, this.gamma.first, this.alpha.first);
             return;
         }
         // b, alpha and gamma given
         if (this.areAllPositive(this.b.first, this.alpha.first, this.gamma.first)) {
-            this.beta.first = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.gamma.first);
-            this.a.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.b.first, this.alpha.first, this.beta.first);
-            this.c.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.b.first, this.gamma.first, this.beta.first);
+            this.beta.first = this.determineAngleHavingTheTwoOthers(this.alpha.first, this.gamma.first);
+            this.a.first = this.determineSideHavingOneSideAndTwoAngles(this.b.first, this.alpha.first, this.beta.first);
+            this.c.first = this.determineSideHavingOneSideAndTwoAngles(this.b.first, this.gamma.first, this.beta.first);
             return;
         }
         // c, alpha and beta given
         if (this.areAllPositive(this.c.first, this.alpha.first, this.beta.first)) {
-            this.gamma.first = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.beta.first);
-            this.a.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.c.first, this.alpha.first, this.gamma.first);
-            this.b.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.c.first, this.beta.first, this.gamma.first);
+            this.gamma.first = this.determineAngleHavingTheTwoOthers(this.alpha.first, this.beta.first);
+            this.a.first = this.determineSideHavingOneSideAndTwoAngles(this.c.first, this.alpha.first, this.gamma.first);
+            this.b.first = this.determineSideHavingOneSideAndTwoAngles(this.c.first, this.beta.first, this.gamma.first);
             return;
         }
         // a, alpha and beta given
         if (this.areAllPositive(this.a.first, this.alpha.first, this.beta.first)) {
-            this.gamma.first = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.beta.first);
-            this.b.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.a.first, this.beta.first, this.alpha.first);
-            this.c.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.a.first, this.gamma.first, this.alpha.first);
+            this.gamma.first = this.determineAngleHavingTheTwoOthers(this.alpha.first, this.beta.first);
+            this.b.first = this.determineSideHavingOneSideAndTwoAngles(this.a.first, this.beta.first, this.alpha.first);
+            this.c.first = this.determineSideHavingOneSideAndTwoAngles(this.a.first, this.gamma.first, this.alpha.first);
             return;
         }
         // a, alpha and gamma given
         if (this.areAllPositive(this.a.first, this.alpha.first, this.gamma.first)) {
-            this.beta.first = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.gamma.first);
-            this.b.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.a.first, this.beta.first, this.alpha.first);
-            this.c.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.a.first, this.gamma.first, this.alpha.first);
+            this.beta.first = this.determineAngleHavingTheTwoOthers(this.alpha.first, this.gamma.first);
+            this.b.first = this.determineSideHavingOneSideAndTwoAngles(this.a.first, this.beta.first, this.alpha.first);
+            this.c.first = this.determineSideHavingOneSideAndTwoAngles(this.a.first, this.gamma.first, this.alpha.first);
             return;
         }
         // b, alpha and beta given
         if (this.areAllPositive(this.b.first, this.alpha.first, this.beta.first)) {
-            this.gamma.first = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.beta.first);
-            this.a.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.b.first, this.alpha.first, this.beta.first);
-            this.c.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.b.first, this.gamma.first, this.beta.first);
+            this.gamma.first = this.determineAngleHavingTheTwoOthers(this.alpha.first, this.beta.first);
+            this.a.first = this.determineSideHavingOneSideAndTwoAngles(this.b.first, this.alpha.first, this.beta.first);
+            this.c.first = this.determineSideHavingOneSideAndTwoAngles(this.b.first, this.gamma.first, this.beta.first);
             return;
         }
         // b, gamma and beta given
         if (this.areAllPositive(this.b.first, this.gamma.first, this.beta.first)) {
-            this.alpha.first = this.determineAngleHavingTheTwoOthers(
-                    this.beta.first, this.gamma.first);
-            this.a.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.b.first, this.alpha.first, this.beta.first);
-            this.c.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.b.first, this.gamma.first, this.beta.first);
+            this.alpha.first = this.determineAngleHavingTheTwoOthers(this.beta.first, this.gamma.first);
+            this.a.first = this.determineSideHavingOneSideAndTwoAngles(this.b.first, this.alpha.first, this.beta.first);
+            this.c.first = this.determineSideHavingOneSideAndTwoAngles(this.b.first, this.gamma.first, this.beta.first);
             return;
         }
         // c, gamma and alpha given
         if (this.areAllPositive(this.c.first, this.gamma.first, this.alpha.first)) {
-            this.beta.first = this.determineAngleHavingTheTwoOthers(
-                    this.alpha.first, this.gamma.first);
-            this.a.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.c.first, this.alpha.first, this.gamma.first);
-            this.b.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.c.first, this.beta.first, this.gamma.first);
+            this.beta.first = this.determineAngleHavingTheTwoOthers(this.alpha.first, this.gamma.first);
+            this.a.first = this.determineSideHavingOneSideAndTwoAngles(this.c.first, this.alpha.first, this.gamma.first);
+            this.b.first = this.determineSideHavingOneSideAndTwoAngles(this.c.first, this.beta.first, this.gamma.first);
             return;
         }
         // c, gamma and beta given
         if (this.areAllPositive(this.c.first, this.gamma.first, this.beta.first)) {
-            this.alpha.first = this.determineAngleHavingTheTwoOthers(
-                    this.beta.first, this.gamma.first);
-            this.a.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.c.first, this.alpha.first, this.gamma.first);
-            this.b.first = this.determineSideHavingOneSideAndTwoAngles(
-                    this.c.first, this.beta.first, this.gamma.first);
+            this.alpha.first = this.determineAngleHavingTheTwoOthers(this.beta.first, this.gamma.first);
+            this.a.first = this.determineSideHavingOneSideAndTwoAngles(this.c.first, this.alpha.first, this.gamma.first);
+            this.b.first = this.determineSideHavingOneSideAndTwoAngles(this.c.first, this.beta.first, this.gamma.first);
             return;
         }
+    }
+
+    private void resetAllResults() {
+        this.twoSolutions = false;
+        this.initAttributes(
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE,
+                MathUtils.IGNORE_DOUBLE);
+
+        this.perimeter = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        this.height = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        this.surface = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        this.incircleRadius = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        this.excircleRadius = new Pair<Double, Double>(
+                MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+    }
+
+    /**
+     * Reset second solution to ignorable values.
+     */
+    private void resetSecondSolution() {
+        this.a.second = MathUtils.IGNORE_DOUBLE;
+        this.b.second = MathUtils.IGNORE_DOUBLE;
+        this.c.second = MathUtils.IGNORE_DOUBLE;
+        this.alpha.second = MathUtils.IGNORE_DOUBLE;
+        this.beta.second = MathUtils.IGNORE_DOUBLE;
+        this.gamma.second = MathUtils.IGNORE_DOUBLE;
+    }
+
+    /**
+     * Swaps two solutions.
+     */
+    private void swapSolutions() {
+        double a = this.a.first;
+        double b = this.b.first;
+        double c = this.c.first;
+        double alpha = this.alpha.first;
+        double beta = this.beta.first;
+        double gamma = this.gamma.first;
+
+        this.a.first = this.a.second;
+        this.b.first = this.b.second;
+        this.c.first = this.c.second;
+        this.alpha.first = this.alpha.second;
+        this.beta.first = this.beta.second;
+        this.gamma.first = this.gamma.second;
+
+        this.a.second = a;
+        this.b.second = b;
+        this.c.second = c;
+        this.alpha.second = alpha;
+        this.beta.second = beta;
+        this.gamma.second = gamma;
     }
 
     /**
@@ -449,9 +434,8 @@ public class TriangleSolver extends Calculation {
      *
      * @return True if no inconsistency has been found, false otherwise.
      */
-    private boolean checkFoundValues() {
-        if (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first)) > App
-                .getAngleTolerance()) {
+    private boolean isFirstSolutionValid() {
+        if (Math.abs(200 - (this.alpha.first + this.beta.first + this.gamma.first)) > App.getAngleTolerance()) {
             Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
                             + "the sum of the found angles does not meet the tolerance.");
@@ -472,19 +456,33 @@ public class TriangleSolver extends Calculation {
                     TriangleSolver.TRIANGLE_SOLVER + "the value of 'c' is not positive.");
             return false;
         }
+        if (!MathUtils.isPositive(this.alpha.first)) {
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER + "the value of 'alpha' is not positive.");
+            return false;
+        }
+        if (!MathUtils.isPositive(this.beta.first)) {
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER + "the value of 'beta' is not positive.");
+            return false;
+        }
+        if (!MathUtils.isPositive(this.gamma.first)) {
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
+                    TriangleSolver.TRIANGLE_SOLVER + "the value of 'gamma' is not positive.");
+            return false;
+        }
         return true;
     }
 
     /**
      * There are cases were the second solution is not valid. This method checks
-     * for such cases and set the resulting angles and sides to
-     * MathUtils.IGNORE_DOUBLE if the second solution is not valid.
+     * for such cases.
      */
-    private void checkSecondSolution() {
+    private boolean isSecondSolutionValid() {
         if (this.b.first > (this.c.first * Math.sin(MathUtils.gradToRad(this.beta.first)))) {
             if (this.areAllPositive(this.a.second, this.b.second, this.c.second) &&
                     this.areAllPositive(this.alpha.second, this.beta.second, this.gamma.second)) {
-                return;
+                return true;
             }
             Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                     TriangleSolver.TRIANGLE_SOLVER
@@ -494,12 +492,7 @@ public class TriangleSolver extends Calculation {
                 Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
                 TriangleSolver.TRIANGLE_SOLVER
                         + "the condition for the second solution (b > c * sin(beta) is not respected.");
-        this.a.second = MathUtils.IGNORE_DOUBLE;
-        this.b.second = MathUtils.IGNORE_DOUBLE;
-        this.c.second = MathUtils.IGNORE_DOUBLE;
-        this.alpha.second = MathUtils.IGNORE_DOUBLE;
-        this.beta.second = MathUtils.IGNORE_DOUBLE;
-        this.gamma.second = MathUtils.IGNORE_DOUBLE;
+        return false;
     }
 
     /**
@@ -508,6 +501,7 @@ public class TriangleSolver extends Calculation {
     @Override
     public void compute() throws IllegalArgumentException {
         if (!this.checkInputs()) {
+            this.resetAllResults();
             throw new IllegalArgumentException(
                     "TriangleSolver: At least 3 of the arguments should be greater than 0 "
                             + "and the sum of the 3 angles must be less than or equal to 200");
@@ -515,15 +509,18 @@ public class TriangleSolver extends Calculation {
 
         this.initAttributes(this.a.first, this.b.first, this.c.first,
                 this.alpha.first, this.beta.first, this.gamma.first);
+
         this.findMissingValues();
-        if (!this.checkFoundValues()) {
-            this.initAttributes(
-                    MathUtils.IGNORE_DOUBLE,
-                    MathUtils.IGNORE_DOUBLE,
-                    MathUtils.IGNORE_DOUBLE,
-                    MathUtils.IGNORE_DOUBLE,
-                    MathUtils.IGNORE_DOUBLE,
-                    MathUtils.IGNORE_DOUBLE);
+
+        // in some cases, one solution is invalid and the valid solution is the second one
+        if (this.twoSolutions && !this.isFirstSolutionValid()) {
+                this.swapSolutions();
+        }
+
+        if (!this.isFirstSolutionValid()) {
+            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE, TriangleSolver.TRIANGLE_SOLVER +
+                    "no solution found.");
+            this.resetAllResults();
             return;
         }
 
@@ -536,26 +533,23 @@ public class TriangleSolver extends Calculation {
                 this.a.first, this.b.first, this.c.first, this.excircleRadius.first);
 
         if (this.twoSolutions) {
-            // if not all values are positive, then the calculation is
-            // impossible
-            if (!(this.areAllPositive(this.a.second, this.b.second, this.c.second) && this
-                    .areAllPositive(this.alpha.second, this.beta.second, this.gamma.second))) {
-                Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
+            if (this.isSecondSolutionValid()) {
+                this.perimeter.second = this.computePerimeter(
+                        this.a.second, this.b.second, this.c.second);
+                this.height.second = this.computeHeight(this.beta.second, this.c.second);
+                this.incircleRadius.second = this.computeIncircleRadius(
+                        this.perimeter.second, this.a.second, this.b.second, this.c.second);
+                this.excircleRadius.second = this.computeExcircleRadius(
+                        this.a.second, this.alpha.second);
+                this.surface.second = this.computeSurface(
+                        this.a.second, this.b.second, this.c.second, this.excircleRadius.second);
+            } else {
+                Logger.log(Logger.InfoLabel.CALCULATION,
                         TriangleSolver.TRIANGLE_SOLVER
                                 + "not all values of sides and angles are positives which makes "
                                 + "the second solution calculation impossible.");
-                return;
+                this.resetSecondSolution();
             }
-
-            this.perimeter.second = this.computePerimeter(
-                    this.a.second, this.b.second, this.c.second);
-            this.height.second = this.computeHeight(this.beta.second, this.c.second);
-            this.incircleRadius.second = this.computeIncircleRadius(
-                    this.perimeter.second, this.a.second, this.b.second, this.c.second);
-            this.excircleRadius.second = this.computeExcircleRadius(
-                    this.a.second, this.alpha.second);
-            this.surface.second = this.computeSurface(
-                    this.a.second, this.b.second, this.c.second, this.excircleRadius.second);
         }
 
         this.twoSolutions = false;
@@ -568,6 +562,7 @@ public class TriangleSolver extends Calculation {
     /**
      * Compute the triangle perimeter.
      */
+
     private double computePerimeter(double a, double b, double c) {
         return a + b + c;
     }

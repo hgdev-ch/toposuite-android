@@ -1,18 +1,20 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
 import ch.hgdev.toposuite.calculation.TriangleSolver;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestTriangleSolver extends CalculationTest {
 
-    private final double a     = 3.4560;
-    private final double b     = 1.3500;
-    private final double c     = 2.6540;
+    private final double a = 3.4560;
+    private final double b = 1.3500;
+    private final double c = 2.6540;
     private final double alpha = 128.2621;
-    private final double beta  = 22.9514;
+    private final double beta = 22.9514;
     private final double gamma = 48.7865;
 
-    public void testTriangleValidInput() {
+    public void testOneSolutionCases() {
         try {
             this.assertT(new TriangleSolver(this.a, this.b, this.c, 0.0, 0.0, 0.0, false));
             this.assertT(new TriangleSolver(this.a, this.b, 0.0, 0.0, 0.0, this.gamma, false));
@@ -27,10 +29,16 @@ public class TestTriangleSolver extends CalculationTest {
             this.assertT(new TriangleSolver(0.0, this.b, 0.0, 0.0, this.beta, this.gamma, false));
             this.assertT(new TriangleSolver(0.0, 0.0, this.c, this.alpha, 0.0, this.gamma, false));
             this.assertT(new TriangleSolver(0.0, 0.0, this.c, 0.0, this.beta, this.gamma, false));
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            Assert.fail("An illegal argument exception should not be thrown here");
+        }
+    }
 
-            // cases with two solution
+    public void testTwoSolutionsCases() {
+        try {
             this.assertT(new TriangleSolver(this.a, this.b, 0.0, this.alpha, 0.0, 0.0, false));
-            this.assertT2Zero(new TriangleSolver(this.a, this.b, 0.0, this.alpha, 0.0, 0.0, false));
+            this.assertT2Ignorable(new TriangleSolver(this.a, this.b, 0.0, this.alpha, 0.0, 0.0, false));
 
             this.assertT(new TriangleSolver(this.a, this.b, 0.0, 0.0, this.beta, 0.0, false));
             this.assertT2A(new TriangleSolver(this.a, this.b, 0.0, 0.0, this.beta, 0.0, false));
@@ -39,10 +47,10 @@ public class TestTriangleSolver extends CalculationTest {
             this.assertT2B(new TriangleSolver(0.0, this.b, this.c, 0.0, this.beta, 0.0, false));
 
             this.assertT(new TriangleSolver(0.0, this.b, this.c, 0.0, 0.0, this.gamma, false));
-            this.assertT2Zero(new TriangleSolver(0.0, this.b, this.c, 0.0, 0.0, this.gamma, false));
+            this.assertT2Ignorable(new TriangleSolver(0.0, this.b, this.c, 0.0, 0.0, this.gamma, false));
 
             this.assertT(new TriangleSolver(this.a, 0.0, this.c, this.alpha, 0.0, 0.0, false));
-            this.assertT2Zero(new TriangleSolver(this.a, 0.0, this.c, this.alpha, 0.0, 0.0, false));
+            this.assertT2Ignorable(new TriangleSolver(this.a, 0.0, this.c, this.alpha, 0.0, 0.0, false));
 
             this.assertT(new TriangleSolver(this.a, 0.0, this.c, 0.0, 0.0, this.gamma, false));
             this.assertT2C(new TriangleSolver(this.a, 0.0, this.c, 0.0, 0.0, this.gamma, false));
@@ -53,7 +61,6 @@ public class TestTriangleSolver extends CalculationTest {
     }
 
     public void testTriangleInvalidInput() {
-
         try {
             new TriangleSolver(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, false);
             Assert.fail("More than 3 values as zero should throw an IllegalArgumentException");
@@ -119,9 +126,31 @@ public class TestTriangleSolver extends CalculationTest {
     }
 
     /**
+     * This is a regression test for issue #760.
+     */
+    public void testTriangle760() {
+        double a = 20.0;
+        double c = 35.0;
+        double gamma = 72.25;
+
+        TriangleSolver t = new TriangleSolver(a, 0.0, c, 0.0, 0.0, gamma, false);
+        t.compute();
+
+        Assert.assertEquals("20.0", this.df1.format(t.getA()));
+        Assert.assertEquals("35.0", this.df1.format(t.getC()));
+        Assert.assertEquals("72.25", this.df2.format(t.getGamma()));
+
+        Assert.assertEquals("34.6643", this.df4.format(t.getAlpha()));
+        Assert.assertEquals("93.0857", this.df4.format(t.getBeta()));
+        Assert.assertEquals("38.383", this.df3.format(t.getB()));
+
+        Assert.assertEquals("19.305", this.df3.format(t.getExcircleRadius().first));
+    }
+
+    /**
      * Assert resulting values for t computed with class parameters a, b, c,
      * alpha, beta and gamma. This tests only the first solution.
-     * 
+     *
      * @param t
      */
     private void assertT(TriangleSolver t) {
@@ -164,13 +193,13 @@ public class TestTriangleSolver extends CalculationTest {
         Assert.assertEquals("1.9135", this.df4.format(t.getExcircleRadius().second));
     }
 
-    private void assertT2Zero(TriangleSolver t) {
+    private void assertT2Ignorable(TriangleSolver t) {
         t.compute();
 
-        Assert.assertEquals("0.0", this.df1.format(t.getPerimeter().second));
-        Assert.assertEquals("0.0", this.df1.format(t.getHeight().second));
-        Assert.assertEquals("0.0", this.df1.format(t.getSurface().second));
-        Assert.assertEquals("0.0", this.df1.format(t.getIncircleRadius().second));
-        Assert.assertEquals("0.0", this.df1.format(t.getExcircleRadius().second));
+        Assert.assertTrue(MathUtils.isIgnorable(t.getPerimeter().second));
+        Assert.assertTrue(MathUtils.isIgnorable(t.getHeight().second));
+        Assert.assertTrue(MathUtils.isIgnorable(t.getSurface().second));
+        Assert.assertTrue(MathUtils.isIgnorable(t.getIncircleRadius().second));
+        Assert.assertTrue(MathUtils.isIgnorable(t.getExcircleRadius().second));
     }
 }

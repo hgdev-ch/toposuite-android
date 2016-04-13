@@ -66,7 +66,8 @@ public class Logger {
      * Informative labels for log messages.
      */
     public enum InfoLabel {
-        SQL_SUCCESS("SQL SUCCESS");
+        SQL_SUCCESS("SQL SUCCESS"),
+        CALCULATION("CALCULATION");
 
         private final String label;
 

@@ -260,8 +260,6 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     /**
      * Update result views with results from the calculations.
-     *
-     * @param t
      */
     private void updateResults() {
         this.aBisTextView.setText(DisplayUtils.formatDistance(this.tS.getABis()));
