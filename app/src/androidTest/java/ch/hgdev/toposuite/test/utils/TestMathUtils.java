@@ -1,14 +1,14 @@
 package ch.hgdev.toposuite.test.utils;
 
+import junit.framework.Assert;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestMathUtils extends TestCase {
+public class TestMathUtils extends UtilsTest {
     public void testIsZero() {
         double d1 = 0.0;
         double d2 = 0.0000000000001;
@@ -55,13 +55,13 @@ public class TestMathUtils extends TestCase {
     }
 
     public void testRadToGrad() {
-        Assert.assertEquals("218.89", String.format("%.2f", MathUtils.radToGrad(3.4383)));
-        Assert.assertEquals("79.132", String.format("%.3f", MathUtils.radToGrad(1.243)));
+        Assert.assertEquals("218.89", this.df2.format(MathUtils.radToGrad(3.4383)));
+        Assert.assertEquals("79.132", this.df3.format(MathUtils.radToGrad(1.243)));
     }
 
     public void testGradToRad() {
-        Assert.assertEquals("3.438", String.format("%.3f", MathUtils.gradToRad(218.89)));
-        Assert.assertEquals("1.243", String.format("%.3f", MathUtils.gradToRad(79.132)));
+        Assert.assertEquals("3.438", this.df3.format(MathUtils.gradToRad(218.89)));
+        Assert.assertEquals("1.243", this.df3.format(MathUtils.gradToRad(79.132)));
     }
 
     public void testEuclideanDistance() {

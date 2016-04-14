@@ -1,14 +1,12 @@
 package ch.hgdev.toposuite.test.utils;
 
-import android.test.AndroidTestCase;
 import android.widget.EditText;
 
 import junit.framework.Assert;
 
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
-
-public class TestViewUtils extends AndroidTestCase {
+public class TestViewUtils extends UtilsTest {
 
     private EditText eT;
 

@@ -1,10 +1,10 @@
 package ch.hgdev.toposuite.test.utils;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
+
 import ch.hgdev.toposuite.utils.StringUtils;
 
-public class TestStringUtils extends TestCase {
+public class TestStringUtils extends UtilsTest {
 
     public void testIncrementAsNumber() {
         String validInput1 = "123.456";
