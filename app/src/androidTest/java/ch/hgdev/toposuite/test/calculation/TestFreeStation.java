@@ -336,4 +336,47 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("3.4", this.df1.format(fs.getResults().get(3).getfS()));
         Assert.assertEquals("2.0", this.df1.format(fs.getResults().get(3).getvA()));
     }
+
+    /**
+     * This is a regression test for issue #759: calculation is wrong when DM1 and DM2 are provided.
+     */
+    public void testFreeStation759() {
+        Point p2 = new Point("2", 634.6482, 236.0624, MathUtils.IGNORE_DOUBLE, true);
+        Point p3 = new Point("3", 643.1335, 159.6949, MathUtils.IGNORE_DOUBLE, true);
+        Point p4 = new Point("4", 576.2674, 169.0361, MathUtils.IGNORE_DOUBLE, true);
+
+        Measure m2 = new Measure(p2, 50.0, 100.0, 50.0, MathUtils.IGNORE_DOUBLE, -1.0);
+        Measure m3 = new Measure(p3, 150.0, 100.0, 55.0, MathUtils.IGNORE_DOUBLE, -2.0, 4.0);
+        Measure m4 = new Measure(p4, 240.0, 100.0, 40.0, MathUtils.IGNORE_DOUBLE, 1.0, -1.0);
+
+
+        FreeStation fs = new FreeStation("test759", MathUtils.IGNORE_DOUBLE, false);
+        fs.getMeasures().add(m2);
+        fs.getMeasures().add(m3);
+        fs.getMeasures().add(m4);
+        fs.compute();
+
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(0).getvE()));
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(0).getvN()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(0).getfS()));
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(0).getvA()));
+
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(1).getvE()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(1).getvN()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(1).getfS()));
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(1).getvA()));
+
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(2).getvE()));
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(2).getvN()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(2).getfS()));
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(2).getvA()));
+
+        Assert.assertEquals("400.0000", this.df4.format(fs.getUnknownOrientation()));
+        Assert.assertEquals("0.0008", this.df4.format(fs.getsE()));
+        Assert.assertEquals("0.0008", this.df4.format(fs.getsN()));
+        Assert.assertTrue(MathUtils.isIgnorable(fs.getsA()));
+
+        Assert.assertEquals("600.0000", this.df4.format(fs.getStationResult().getEast()));
+        Assert.assertEquals("200.0000", this.df4.format(fs.getStationResult().getNorth()));
+    }
 }

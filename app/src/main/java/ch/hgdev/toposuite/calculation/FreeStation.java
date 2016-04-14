@@ -76,7 +76,7 @@ public class FreeStation extends Calculation {
 
     public FreeStation(long id, Date lastModification) {
         super(id, CalculationType.FREESTATION, App.getContext().getString(
-                        R.string.title_activity_free_station),
+                R.string.title_activity_free_station),
                 lastModification, true);
 
         this.measures = new ArrayList<Measure>();
@@ -134,22 +134,22 @@ public class FreeStation extends Calculation {
                     m.getPoint().getNorth(), m.getPoint().getAltitude(),
                     false, false);
 
-            double horizDist = m.getDistance() * Math.sin(MathUtils.gradToRad(m.getZenAngle()));
-            double gis = MathUtils.modulo400(m.getHorizDir());
-
-            if (!MathUtils.isZero(m.getLatDepl())) {
-                double angle = Math.asin(Math.abs(m.getLatDepl() / horizDist));
-                horizDist = Math.abs(m.getLatDepl()) / Math.tan(angle);
-
-                // correction of the direction [g]
-                gis += (MathUtils.isPositive(m.getLatDepl()))
-                        ? MathUtils.radToGrad(angle) : -MathUtils.radToGrad(angle);
+            double hz = MathUtils.modulo400(m.getHorizDir());
+            double zenAngle = MathUtils.gradToRad(MathUtils.modulo400(m.getZenAngle()));
+            double horizDist = m.getDistance() * Math.sin(zenAngle);
+            if (!MathUtils.isIgnorable(m.getLonDepl())) {
+                horizDist += m.getLonDepl();
+            }
+            if (!MathUtils.isIgnorable(m.getLatDepl())) {
+                hz += MathUtils.radToGrad(Math.atan(m.getLatDepl() / horizDist));
+                horizDist = MathUtils.pythagoras(horizDist, m.getLatDepl());
             }
             // the distance, here horizontal distance, is used later on
             m.setDistance(horizDist);
+            m.setHorizDir(hz);
 
-            res.setEast(MathUtils.pointLanceEast(0, gis, horizDist));
-            res.setNorth(MathUtils.pointLanceNorth(0, gis, horizDist));
+            res.setEast(MathUtils.pointLanceEast(0, hz, horizDist));
+            res.setNorth(MathUtils.pointLanceNorth(0, hz, horizDist));
 
             double weight = 0.0;
             if (MathUtils.isPositive(m.getPoint().getAltitude())) {
@@ -268,19 +268,16 @@ public class FreeStation extends Calculation {
                 continue;
             }
 
-            double newGis = MathUtils.modulo400(
-                    meanRotations + measuresCopy.get(i).getHorizDir());
+            double newGis = MathUtils.modulo400(meanRotations + measuresCopy.get(i).getHorizDir());
             double newDist = meanConstants * measuresCopy.get(i).getDistance();
 
             // vE [cm]
-            double newE = MathUtils.pointLanceEast(
-                    this.stationResult.getEast(), newGis, newDist);
+            double newE = MathUtils.pointLanceEast(this.stationResult.getEast(), newGis, newDist);
             double vE = (newE - measuresCopy.get(i).getPoint().getEast()) * 100;
             this.results.get(i).setvE(vE);
 
             // vN [cm]
-            double newN = MathUtils.pointLanceNorth(
-                    this.stationResult.getNorth(), newGis, newDist);
+            double newN = MathUtils.pointLanceNorth(this.stationResult.getNorth(), newGis, newDist);
             double vN = (newN - measuresCopy.get(i).getPoint().getNorth()) * 100;
             this.results.get(i).setvN(vN);
 
@@ -292,8 +289,8 @@ public class FreeStation extends Calculation {
             double fS = Math.sqrt(Math.pow(vE, 2) + Math.pow(vN, 2));
             this.results.get(i).setfS(fS);
 
-            this.sE += vE * vE;
-            this.sN += vN * vN;
+            this.sE += Math.pow(vE, 2);
+            this.sN += Math.pow(vN, 2);
             diffAlt += this.results.get(i).getWeight() * Math.pow(vA, 2);
             this.meanFS += fS;
 
@@ -311,7 +308,7 @@ public class FreeStation extends Calculation {
         this.sA = Math.sqrt(diffAlt / ((nbAltitudes - 1) * totalWeights));
         this.meanFS /= (this.results.size() - numberOfDeactivatedOrientations);
 
-        this.unknownOrientation = meanRotations;
+        this.unknownOrientation = MathUtils.modulo400(meanRotations);
 
         // if I is not provided, there is no altimetry, so we just set
         // the altitude of the station to 0.0
