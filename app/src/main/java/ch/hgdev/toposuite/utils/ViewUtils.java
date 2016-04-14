@@ -56,6 +56,11 @@ public class ViewUtils {
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(App.locale);
             df.setDecimalFormatSymbols(symbols);
 
+            String input = ViewUtils.readString(editText);
+
+            // +4.1 should be parsed as 4.1 but Double.parseDouble does not handle this case...
+            input = input.replace("+", "");
+
             try {
                 // Note: some locale use "," as a separator, hence the hack.
                 // To date, I have not found a way to properly parse a double
@@ -67,13 +72,14 @@ public class ViewUtils {
                 // we still have to deal with numbers having "." as decimal
                 // separator because users cannot input a "," when entering
                 // numbers...
-                String input = df.parse(ViewUtils.readString(editText).replace(',', '.')).toString();
+                input = df.parse(input.replace(',', '.')).toString();
+
                 if (ViewUtils.doublePattern.matcher(input).matches()) {
                     return df.parse(input).doubleValue();
                 }
                 // maybe it's using scientific notation? Attempt parsing nonetheless.
                 return Double.parseDouble(input);
-            } catch (ParseException e) {
+            } catch (ParseException | NumberFormatException e) {
                 Logger.log(Logger.ErrLabel.PARSE_ERROR, e.toString());
                 return MathUtils.IGNORE_DOUBLE;
             }

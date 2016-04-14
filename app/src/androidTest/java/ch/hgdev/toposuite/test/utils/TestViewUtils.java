@@ -69,6 +69,13 @@ public class TestViewUtils extends UtilsTest {
         Assert.assertEquals(3300.0, ViewUtils.readDouble(this.eT));
         this.eT.setText("3.3e3");
         Assert.assertEquals(3300.0, ViewUtils.readDouble(this.eT));
+
+        // test case for numbers with a leading "+" sign
+        this.eT.setText("+4.0");
+        Assert.assertEquals(4.0, ViewUtils.readDouble(this.eT));
+        this.eT.setText("+4");
+        Assert.assertEquals(4.0, ViewUtils.readDouble(this.eT));
+
     }
 
     public void testReadInt() {
