@@ -95,10 +95,17 @@ public class ViewUtils {
      */
     public static int readInt(EditText editText) {
         if ((editText != null) && (editText.length() > 0)) {
-            String val = ViewUtils.readString(editText);
-            return (ViewUtils.intPattern.matcher(val).matches()) ?
-                    Integer.parseInt(val)
-                    : MathUtils.IGNORE_INT;
+            String input = ViewUtils.readString(editText);
+            // +4 should be parsed as 4 but Integer.parseInt does not handle this case...
+            input = input.replace("+", "");
+            try {
+                return (ViewUtils.intPattern.matcher(input).matches()) ?
+                        Integer.parseInt(input)
+                        : MathUtils.IGNORE_INT;
+            } catch (NumberFormatException e) {
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.toString());
+                return MathUtils.IGNORE_INT;
+            }
         }
         return MathUtils.IGNORE_INT;
     }

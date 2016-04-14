@@ -110,5 +110,9 @@ public class TestViewUtils extends UtilsTest {
         Assert.assertEquals(12341, ViewUtils.readInt(this.eT));
         this.eT.setText("-22231144");
         Assert.assertEquals(-22231144, ViewUtils.readInt(this.eT));
+
+        // test case for number with a leading "+" sign
+        this.eT.setText("+4");
+        Assert.assertEquals(4, ViewUtils.readInt(this.eT));
     }
 }
