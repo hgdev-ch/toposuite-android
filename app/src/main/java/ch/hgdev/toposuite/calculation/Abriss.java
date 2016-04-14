@@ -15,21 +15,21 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Abriss extends Calculation {
-    public static final String       STATION_NUMBER    = "station_number";
-    public static final String       ORIENTATIONS_LIST = "orientations_list";
+    public static final String STATION_NUMBER = "station_number";
+    public static final String ORIENTATIONS_LIST = "orientations_list";
 
-    private Point                    station;
+    private Point station;
     private final ArrayList<Measure> orientations;
 
-    private final ArrayList<Result>  results;
-    private double                   mean;
+    private final ArrayList<Result> results;
+    private double mean;
 
     /**
      * MSE stands for Mean Squared Error.
      */
-    private double                   mse;
+    private double mse;
 
-    private double                   meanErrComp;
+    private double meanErrComp;
 
     public Abriss(boolean hasDAO) {
         super(CalculationType.ABRISS,
@@ -157,15 +157,12 @@ public class Abriss extends Calculation {
             this.results.get(index).setErrTrans(errTrans);
 
             // [cm] => measured distance - calculated distance
-            /*
-             * this.results.get(index).setErrLong( MathUtils.mToCm(
-             * (Math.sin(MathUtils.gradToRad(m.getZenAngle()) m.getDistance()))
-             * - calcDist));
-             */
-            this.results.get(index).setErrLong(
-                    MathUtils.mToCm(
-                            calcDist - (Math.sin(MathUtils.gradToRad(m.getZenAngle()))
-                                    * m.getDistance())));
+            double errLong = MathUtils.IGNORE_DOUBLE;
+            // if no distance is provided, then there cannot be any error with regard to the distance
+            if (!MathUtils.isIgnorable(m.getDistance())) {
+                errLong = MathUtils.mToCm(calcDist - (Math.sin(MathUtils.gradToRad(m.getZenAngle())) * m.getDistance()));
+            }
+            this.results.get(index).setErrLong(errLong);
 
             this.mse += Math.pow(errAngle, 2);
 
@@ -255,7 +252,7 @@ public class Abriss extends Calculation {
 
     /**
      * Getter for the Mean Squared Error.
-     * 
+     *
      * @return
      */
     public double getMSE() {
@@ -276,20 +273,20 @@ public class Abriss extends Calculation {
     }
 
     public class Result {
-        private final Point  orientation;
+        private final Point orientation;
         private final double distance;
         private final double unknownOrientation;
-        private double       orientatedDirection;
+        private double orientatedDirection;
         private final double gisement;
         private final double calculatedDistance;
-        private double       errAngle;
-        private double       errTrans;
-        private double       errLong;
-        private boolean      deactivated;
+        private double errAngle;
+        private double errTrans;
+        private double errLong;
+        private boolean deactivated;
 
         public Result(Point _orientation, double _distance, double _unknownOrientation,
-                double _orientationDirection, double _gisement, double _calculatedDistance,
-                double _errAngle, double _errTrans, double _errLong) {
+                      double _orientationDirection, double _gisement, double _calculatedDistance,
+                      double _errAngle, double _errTrans, double _errLong) {
             this.orientation = _orientation;
             this.distance = _distance;
             this.unknownOrientation = _unknownOrientation;

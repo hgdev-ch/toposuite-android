@@ -15,6 +15,7 @@ import ch.hgdev.toposuite.test.testutils.Util;
  *
  */
 public class CalculationTest extends AndroidTestCase {
+    protected  DecimalFormat df0;
     protected DecimalFormat df1;
     protected DecimalFormat df2;
     protected DecimalFormat df3;
@@ -23,6 +24,8 @@ public class CalculationTest extends AndroidTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        this.df0 = new DecimalFormat("0");
+        this.df0.setRoundingMode(RoundingMode.HALF_UP);
         this.df1 = new DecimalFormat("0.0");
         this.df1.setRoundingMode(RoundingMode.HALF_UP);
         this.df2 = new DecimalFormat("0.00");

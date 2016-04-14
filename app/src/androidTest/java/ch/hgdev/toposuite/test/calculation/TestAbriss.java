@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
@@ -93,9 +94,8 @@ public class TestAbriss extends CalculationTest {
 
         // test final results
         Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
-        Assert.assertEquals(43, (int) a.getMSE());
-        Assert.assertEquals(30, (int) a.getMeanErrComp());
-
+        Assert.assertEquals("43", this.df0.format(a.getMSE()));
+        Assert.assertEquals("30", this.df0.format(a.getMeanErrComp()));
     }
 
     public void testRealCaseNegative() {
@@ -130,8 +130,8 @@ public class TestAbriss extends CalculationTest {
 
         // test final results
         Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
-        Assert.assertEquals(43, (int) a.getMSE());
-        Assert.assertEquals(30, (int) a.getMeanErrComp());
+        Assert.assertEquals("43", this.df0.format(a.getMSE()));
+        Assert.assertEquals("30", this.df0.format(a.getMeanErrComp()));
     }
 
     // See bug #625
@@ -271,7 +271,51 @@ public class TestAbriss extends CalculationTest {
 
         // test final results
         Assert.assertEquals("233.2435", this.df4.format(a.getMean()));
-        Assert.assertEquals(43, (int) a.getMSE());
-        Assert.assertEquals(30, (int) a.getMeanErrComp());
+        Assert.assertEquals("43", this.df0.format(a.getMSE()));
+        Assert.assertEquals("30", this.df0.format(a.getMeanErrComp()));
+    }
+
+    /**
+     * This is a regression test for issue #762.
+     * If the user does not provide any distance in the measures, then there cannot be any longitudinal
+     * errors.
+     *
+     * Test values are from NK document, ex 1.1.5.2.
+     */
+    public void testWithoutDistanceInMeasures() {
+        Point p1136 = new Point("1136", 649.0, 780.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1137 = new Point("1137", 615.0, 740.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1138 = new Point("1138", 615.0, 810.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1139 = new Point("1139", 687.0, 804.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1140 = new Point("1140", 676.0, 743.0, MathUtils.IGNORE_DOUBLE, true);
+
+        Abriss a = new Abriss(p1136, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p1137, 0.0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+        a.getMeasures().add(new Measure(p1138, 101.218, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+        a.getMeasures().add(new Measure(p1139, 219.3067, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+        a.getMeasures().add(new Measure(p1140, 315.113, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+        a.compute();
+
+        Assert.assertEquals("386", this.df0.format(a.getResults().get(0).getErrAngle()));
+        Assert.assertEquals("3.2", this.df1.format(a.getResults().get(0).getErrTrans()));
+        Assert.assertTrue(MathUtils.isIgnorable(a.getResults().get(0).getErrLong()));
+
+        Assert.assertEquals("-26", this.df0.format(a.getResults().get(1).getErrAngle()));
+        Assert.assertEquals("-0.2", this.df1.format(a.getResults().get(1).getErrTrans()));
+        Assert.assertTrue(MathUtils.isIgnorable(a.getResults().get(1).getErrLong()));
+
+        Assert.assertEquals("206", this.df0.format(a.getResults().get(2).getErrAngle()));
+        Assert.assertEquals("1.5", this.df1.format(a.getResults().get(2).getErrTrans()));
+        Assert.assertTrue(MathUtils.isIgnorable(a.getResults().get(2).getErrLong()));
+
+        Assert.assertEquals("-565", this.df0.format(a.getResults().get(3).getErrAngle()));
+        Assert.assertEquals("-4.1", this.df1.format(a.getResults().get(3).getErrTrans()));
+        Assert.assertTrue(MathUtils.isIgnorable(a.getResults().get(3).getErrLong()));
+
+        // test final results
+        Assert.assertEquals("244.8109", this.df4.format(a.getMean()));
+        Assert.assertEquals("413", this.df0.format(a.getMSE()));
+        Assert.assertEquals("206", this.df0.format(a.getMeanErrComp()));
     }
 }
