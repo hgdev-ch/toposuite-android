@@ -1,10 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.abriss;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -20,6 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -263,7 +264,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogAdd(AddOrientationDialogFragment dialog) {
-        double zenithAngle = (MathUtils.isZero(dialog.getZenithalAngle()))
+        double zenithAngle = (MathUtils.isIgnorable(dialog.getZenithalAngle()))
                 ? 100.0 : dialog.getZenithalAngle();
         this.adapter.add(new Measure(
                 dialog.getOrientation(),
@@ -281,7 +282,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditOrientationDialogFragment dialog) {
-        double zenithAngle = (MathUtils.isZero(dialog.getZenithalAngle()))
+        double zenithAngle = (MathUtils.isIgnorable(dialog.getZenithalAngle()))
                 ? 100.0 : dialog.getZenithalAngle();
         Measure orientation = this.adapter.getItem(dialog.getOrientationPosition());
         orientation.setPoint(dialog.getOrientation());
