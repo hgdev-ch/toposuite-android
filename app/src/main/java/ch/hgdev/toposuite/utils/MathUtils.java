@@ -22,12 +22,12 @@ public class MathUtils {
     /**
      * The earth equatorial radius in meters.
      */
-    public static final double EARTH_RADIUS  = 6378100.0;
+    public static final double EARTH_RADIUS = 6378100.0;
 
     /**
      * The machine precision used to perform logical operation on doubles.
      */
-    public static final double EPSILON       = Double.MIN_NORMAL;
+    public static final double EPSILON = Double.MIN_NORMAL;
 
     /**
      * Use this value when you need to set a variable which needs to be ignored
@@ -39,13 +39,12 @@ public class MathUtils {
      * Use this value when you need to set a variable which needs to be ignored
      * later in some calculations.
      */
-    public static final int    IGNORE_INT    = Integer.MIN_VALUE;
+    public static final int IGNORE_INT = Integer.MIN_VALUE;
 
     /**
      * Check if a double is zero.
      *
-     * @param d
-     *            a double
+     * @param d a double
      * @return true if d is equal to 0, false otherwise.
      */
     public static boolean isZero(double d) {
@@ -55,8 +54,7 @@ public class MathUtils {
     /**
      * Check if a double is strictly positive.
      *
-     * @param d
-     *            a double
+     * @param d a double
      * @return true if d is bigger than 0, false otherwise.
      */
     public static boolean isPositive(double d) {
@@ -67,8 +65,7 @@ public class MathUtils {
      * Check if a double has the value of the largest possible value for a
      * double.
      *
-     * @param d
-     *            a double
+     * @param d a double
      * @return true if d is equal to the maximum value, false otherwise.
      */
     public static boolean isMax(double d) {
@@ -78,8 +75,7 @@ public class MathUtils {
     /**
      * Check if a double is strictly negative.
      *
-     * @param d
-     *            a double
+     * @param d a double
      * @return true if d is smaller than 0, false otherwise.
      */
     public static boolean isNegative(double d) {
@@ -90,8 +86,7 @@ public class MathUtils {
      * Check if a double has the value of the smallest possible value for a
      * double.
      *
-     * @param d
-     *            a double
+     * @param d a double
      * @return true if d is equal to the minimum value, false otherwise.
      */
     public static boolean isMin(double d) {
@@ -101,14 +96,10 @@ public class MathUtils {
     /**
      * Check that a double is between the given interval.
      *
-     * @param d
-     *            A double.
-     * @param min
-     *            The lowest value of the interval.
-     * @param max
-     *            The highest value of the interval.
-     * @param tolerance
-     *            The minimal accepted tolerance.
+     * @param d         A double.
+     * @param min       The lowest value of the interval.
+     * @param max       The highest value of the interval.
+     * @param tolerance The minimal accepted tolerance.
      * @return True if d is in the interval, false otherwise.
      */
     public static boolean isBetween(double d, double min, double max, double tolerance) {
@@ -127,10 +118,8 @@ public class MathUtils {
     /**
      * Check the two inputs for equality.
      *
-     * @param a
-     *            First double to compare.
-     * @param b
-     *            Second double to compare.
+     * @param a First double to compare.
+     * @param b Second double to compare.
      * @return True if they are the same, false otherwise.
      */
     public static boolean equals(double a, double b) {
@@ -141,15 +130,11 @@ public class MathUtils {
      * Check the two input points for equality. This method does not take the
      * point number into account.
      *
-     * @param p1
-     *            First point to compare
-     * @param p2
-     *            Second point to compare
-     * @param tolerance
-     *            The tolerance used for the comparison
-     * @param altitude
-     *            Set to true if you want to consider the altitude for the
-     *            comparison
+     * @param p1        First point to compare
+     * @param p2        Second point to compare
+     * @param tolerance The tolerance used for the comparison
+     * @param altitude  Set to true if you want to consider the altitude for the
+     *                  comparison
      * @return True if they are the same, false otherwise.
      */
     public static boolean equals(Point p1, Point p2, double tolerance, boolean altitude) {
@@ -176,12 +161,9 @@ public class MathUtils {
      * Check the two input points for equality. This method does not take the
      * point number into account.
      *
-     * @param p1
-     *            First point to compare
-     * @param p2
-     *            Second point to compare
-     * @param tolerance
-     *            The tolerance used for the comparison
+     * @param p1        First point to compare
+     * @param p2        Second point to compare
+     * @param tolerance The tolerance used for the comparison
      * @return True if they are the same, false otherwise.
      */
     public static boolean equals(Point p1, Point p2, double tolerance) {
@@ -194,8 +176,7 @@ public class MathUtils {
      * case, it should be ignored. In order to be ignored, a value of type
      * double must be set to {@link MathUtils.IGNORE_DOUBLE}.
      *
-     * @param d
-     *            a double
+     * @param d a double
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(double d) {
@@ -212,8 +193,7 @@ public class MathUtils {
     /**
      * Check if a int has the value of the largest possible value for a int.
      *
-     * @param value
-     *            an int
+     * @param value an int
      * @return true if d is equal to the maximum value, false otherwise.
      */
     public static boolean isMax(int value) {
@@ -223,8 +203,7 @@ public class MathUtils {
     /**
      * Check if a int has the value of the smallest possible value for a int.
      *
-     * @param value
-     *            an int
+     * @param value an int
      * @return true if d is equal to the minimum value, false otherwise.
      */
     public static boolean isMin(int value) {
@@ -237,8 +216,7 @@ public class MathUtils {
      * case, it should be ignored. In order to be ignored, a value of type
      * double must be set to {@link MathUtils.IGNORE_INT}.
      *
-     * @param value
-     *            an integer
+     * @param value an integer
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(int value) {
@@ -253,8 +231,7 @@ public class MathUtils {
     /**
      * Convert an angle in radian to its equivalent in gradian.
      *
-     * @param rad
-     *            angle in radian
+     * @param rad angle in radian
      * @return angle in gradian
      */
     public static double radToGrad(double rad) {
@@ -264,8 +241,7 @@ public class MathUtils {
     /**
      * Convert an angle in gradian to its equivalent radian.
      *
-     * @param grad
-     *            angle in gradian
+     * @param grad angle in gradian
      * @return angle in radian
      */
     public static double gradToRad(double grad) {
@@ -275,8 +251,7 @@ public class MathUtils {
     /**
      * Convert an angle in gradian to its equivalent in degree.
      *
-     * @param grad
-     *            The angle to convert.
+     * @param grad The angle to convert.
      * @return The angle in degree.
      */
     public static double gradToDeg(double grad) {
@@ -286,8 +261,7 @@ public class MathUtils {
     /**
      * Convert an angle in degree to its equivalent in gradian.
      *
-     * @param deg
-     *            The angle to convert.
+     * @param deg The angle to convert.
      * @return The angle in gradian.
      */
     public static double degToGrad(double deg) {
@@ -297,8 +271,7 @@ public class MathUtils {
     /**
      * Convert meters to centimeters.
      *
-     * @param m
-     *            The meters.
+     * @param m The meters.
      * @return The distance in centimeters.
      */
     public static double mToCm(double m) {
@@ -309,8 +282,7 @@ public class MathUtils {
      * Modulate an angle in gradian. This ensures that the angle is between 0
      * and 200 gradian.
      *
-     * @param angle
-     *            Angle in gradian unit.
+     * @param angle Angle in gradian unit.
      * @return The angle with a value between 0 and 200 gradians.
      */
     public static double modulo200(double angle) {
@@ -319,20 +291,15 @@ public class MathUtils {
             while (m < 0) {
                 m += 200;
             }
-        } else if (m >= 200) {
-            while (m >= 200) {
-                m -= 200;
-            }
         }
-        return m;
+        return Math.abs(m % 200.0);
     }
 
     /**
      * Modulate an angle in gradian. This ensures that the angle is between 0
      * and 400 gradian.
      *
-     * @param angle
-     *            Angle in gradian unit.
+     * @param angle Angle in gradian unit.
      * @return The angle with a value between 0 and 400 gradians.
      */
     public static double modulo400(double angle) {
@@ -341,21 +308,15 @@ public class MathUtils {
             while (m < 0) {
                 m += 400;
             }
-        } else if (m >= 400) {
-            while (m >= 400) {
-                m -= 400;
-            }
         }
-        return m;
+        return Math.abs(m % 400.0);
     }
 
     /**
      * Euclidean distance between 2 points in 2D.
      *
-     * @param p1
-     *            a Point
-     * @param p2
-     *            a Point
+     * @param p1 a Point
+     * @param p2 a Point
      * @return the euclidean distance between p1 and p2
      */
     public static double euclideanDistance(Point p1, Point p2) {
@@ -368,10 +329,8 @@ public class MathUtils {
     /**
      * Pythagoras...
      *
-     * @param a
-     *            a double value
-     * @param b
-     *            another double value
+     * @param a a double value
+     * @param b another double value
      * @return sqrt(a^2 + b^2)
      */
     public static double pythagoras(double a, double b) {
@@ -381,12 +340,9 @@ public class MathUtils {
     /**
      * Compute a "point lancé" for a east coordinate.
      *
-     * @param east
-     *            a east coordinate
-     * @param gisement
-     *            a gisement
-     * @param distance
-     *            a distance
+     * @param east     a east coordinate
+     * @param gisement a gisement
+     * @param distance a distance
      * @return new east coordinate
      */
     public static double pointLanceEast(double east, double gisement, double distance) {
@@ -397,12 +353,9 @@ public class MathUtils {
     /**
      * Compute a "point lancé" for a north coordinate.
      *
-     * @param north
-     *            a north coordinate
-     * @param gisement
-     *            a gisement
-     * @param distance
-     *            a distance
+     * @param north    a north coordinate
+     * @param gisement a gisement
+     * @param distance a distance
      * @return new north coordinate
      */
     public static double pointLanceNorth(double north, double gisement, double distance) {
@@ -413,12 +366,9 @@ public class MathUtils {
     /**
      * Calculate an angle defined by 3 points.
      *
-     * @param p1
-     *            First point
-     * @param p2
-     *            Second point
-     * @param p3
-     *            Third point
+     * @param p1 First point
+     * @param p2 Second point
+     * @param p3 Third point
      * @return an angle
      */
     public static double angle3Pts(Point p1, Point p2, Point p3) {
@@ -430,20 +380,15 @@ public class MathUtils {
     /**
      * TODO fill the description of this function.
      *
-     * @param distance
-     *            Distance in meter.
-     * @param zenAngle
-     *            Zenithal angle.
-     * @param i
-     *            Height of the instrument (I).
-     * @param s
-     *            Height of the prism (S).
-     * @param altitude
-     *            Altitude.
+     * @param distance Distance in meter.
+     * @param zenAngle Zenithal angle.
+     * @param i        Height of the instrument (I).
+     * @param s        Height of the prism (S).
+     * @param altitude Altitude.
      * @return
      */
     public static double nivellTrigo(double distance, double zenAngle, double i,
-            double s, double altitude) {
+                                     double s, double altitude) {
         double radius = MathUtils.EARTH_RADIUS + altitude;
         double e = Math.pow(distance, 2) / (2 * radius);
         double r = (0.13 * Math.pow(distance, 2)) / (2 * radius);
@@ -455,8 +400,7 @@ public class MathUtils {
     /**
      * Convert a scale factor into PPM (Part Per Million).
      *
-     * @param scaleFactor
-     *            a scale factor
+     * @param scaleFactor a scale factor
      * @return scale factor in PPM
      */
     public static int scaleToPPM(double scaleFactor) {
@@ -467,8 +411,7 @@ public class MathUtils {
      * Round a value of type coordinate to the number of decimals set in the
      * settings (3 by default). If values are "ignorable", they are not rounded.
      *
-     * @param coordinate
-     *            Coordinate to round.
+     * @param coordinate Coordinate to round.
      * @return Coordinate rounded.
      */
     public static double roundCoordinate(double coordinate) {
@@ -495,10 +438,8 @@ public class MathUtils {
      * Round up a given number only if it is close enough according to a given
      * tolerance.
      *
-     * @param n
-     *            a number
-     * @param tolerance
-     *            a tolerance
+     * @param n         a number
+     * @param tolerance a tolerance
      * @return The number rounded up or not
      */
     public static double roundWithTolerance(double n, double tolerance) {

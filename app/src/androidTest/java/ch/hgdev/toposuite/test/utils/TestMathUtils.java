@@ -64,6 +64,31 @@ public class TestMathUtils extends UtilsTest {
         Assert.assertEquals("1.243", this.df3.format(MathUtils.gradToRad(79.132)));
     }
 
+    public void testModulo200() {
+        Assert.assertEquals("100.0000", this.df4.format(MathUtils.modulo200(100.0)));
+        Assert.assertEquals("100.0000", this.df4.format(MathUtils.modulo200(-100.0)));
+        Assert.assertEquals("0.0000", this.df4.format(MathUtils.modulo200(200.0)));
+        Assert.assertEquals("0.0000", this.df4.format(MathUtils.modulo200(0.0)));
+        Assert.assertEquals("0.0000", this.df4.format(MathUtils.modulo200(-200.0)));
+        Assert.assertEquals("0.0000", this.df4.format(MathUtils.modulo200(-0.0)));
+        Assert.assertEquals("1.0000", this.df4.format(MathUtils.modulo200(201.0)));
+        Assert.assertEquals("1.0000", this.df4.format(MathUtils.modulo200(401.0)));
+        Assert.assertEquals("199.9999", this.df4.format(MathUtils.modulo200(199.9999)));
+    }
+
+    public void testModulo400() {
+        Assert.assertEquals("200.0000", this.df4.format(MathUtils.modulo400(200.0)));
+        Assert.assertEquals("200.0000", this.df4.format(MathUtils.modulo400(-200.0)));
+        Assert.assertEquals("0.0000", this.df4.format(MathUtils.modulo400(400.0)));
+        Assert.assertEquals("0.0000", this.df4.format(MathUtils.modulo400(0.0)));
+        Assert.assertEquals("0.0000", this.df4.format(MathUtils.modulo400(-400.0)));
+        Assert.assertEquals("0.0000", this.df4.format(MathUtils.modulo400(-0.0)));
+        Assert.assertEquals("1.0000", this.df4.format(MathUtils.modulo400(401.0)));
+        Assert.assertEquals("1.0000", this.df4.format(MathUtils.modulo400(801.0)));
+        Assert.assertEquals("399.9999", this.df4.format(MathUtils.modulo400(399.9999)));
+
+    }
+
     public void testEuclideanDistance() {
         DecimalFormat df = new DecimalFormat("#.####");
         df.setRoundingMode(RoundingMode.HALF_UP);
