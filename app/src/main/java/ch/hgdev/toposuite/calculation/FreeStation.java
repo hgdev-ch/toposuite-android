@@ -286,7 +286,7 @@ public class FreeStation extends Calculation {
             this.results.get(i).setvA(vA);
 
             // FS [cm]
-            double fS = Math.sqrt(Math.pow(vE, 2) + Math.pow(vN, 2));
+            double fS = MathUtils.pythagoras(vE, vN);
             this.results.get(i).setfS(fS);
 
             this.sE += Math.pow(vE, 2);
