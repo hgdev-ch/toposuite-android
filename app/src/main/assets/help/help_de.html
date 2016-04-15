@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Hilfe bei der Benützung von TopoSuite</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="hilfe-bei-der-benutzung-von-toposuite">
+<h1 class="title">Hilfe bei der Benützung von TopoSuite</h1>
+
+<meta http-equiv='content-type' content='text/html; charset=utf-8' /><div class="contents local topic" id="contents">
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#allgemeine-hilfe" id="id1">1&nbsp;&nbsp;&nbsp;Allgemeine Hilfe</a><ul class="auto-toc">
+<li><a class="reference internal" href="#punktverwaltung" id="id2">1.1&nbsp;&nbsp;&nbsp;Punktverwaltung</a><ul class="auto-toc">
+<li><a class="reference internal" href="#jobs" id="id3">1.1.1&nbsp;&nbsp;&nbsp;Jobs</a></li>
+<li><a class="reference internal" href="#import" id="id4">1.1.2&nbsp;&nbsp;&nbsp;Import</a><ul class="auto-toc">
+<li><a class="reference internal" href="#csv" id="id5">1.1.2.1&nbsp;&nbsp;&nbsp;CSV</a></li>
+<li><a class="reference internal" href="#ltop" id="id6">1.1.2.2&nbsp;&nbsp;&nbsp;LTOP</a></li>
+<li><a class="reference internal" href="#ptp" id="id7">1.1.2.3&nbsp;&nbsp;&nbsp;PTP</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#export" id="id8">1.1.3&nbsp;&nbsp;&nbsp;Export</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#chronologischer-ablauf" id="id9">1.2&nbsp;&nbsp;&nbsp;Chronologischer Ablauf</a></li>
+<li><a class="reference internal" href="#einstellungen" id="id10">1.3&nbsp;&nbsp;&nbsp;Einstellungen</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#berechnungen" id="id11">2&nbsp;&nbsp;&nbsp;Berechnungen</a><ul class="auto-toc">
+<li><a class="reference internal" href="#polarberechnungen" id="id12">2.1&nbsp;&nbsp;&nbsp;Polarberechnungen</a><ul class="auto-toc">
+<li><a class="reference internal" href="#satzorientierung" id="id13">2.1.1&nbsp;&nbsp;&nbsp;Satzorientierung</a></li>
+<li><a class="reference internal" href="#freie-station" id="id14">2.1.2&nbsp;&nbsp;&nbsp;Freie Station</a></li>
+<li><a class="reference internal" href="#polaraufnahme" id="id15">2.1.3&nbsp;&nbsp;&nbsp;Polaraufnahme</a></li>
+<li><a class="reference internal" href="#polar-absteckung" id="id16">2.1.4&nbsp;&nbsp;&nbsp;Polar-Absteckung</a></li>
+<li><a class="reference internal" href="#absteckung-einer-achse" id="id17">2.1.5&nbsp;&nbsp;&nbsp;Absteckung einer Achse</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#orthogonalberechnungen" id="id18">2.2&nbsp;&nbsp;&nbsp;Orthogonalberechnungen</a><ul class="auto-toc">
+<li><a class="reference internal" href="#orthogonalaufnahme" id="id19">2.2.1&nbsp;&nbsp;&nbsp;Orthogonalaufnahme</a></li>
+<li><a class="reference internal" href="#orthogonalzug" id="id20">2.2.2&nbsp;&nbsp;&nbsp;Orthogonalzug</a></li>
+<li><a class="reference internal" href="#orthogonale-absteckung" id="id21">2.2.3&nbsp;&nbsp;&nbsp;Orthogonale Absteckung</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schnittpunkte" id="id22">2.3&nbsp;&nbsp;&nbsp;Schnittpunkte</a><ul class="auto-toc">
+<li><a class="reference internal" href="#gerade-und-oder-richtungen" id="id23">2.3.1&nbsp;&nbsp;&nbsp;Gerade (und/oder Richtungen)</a></li>
+<li><a class="reference internal" href="#schnittpunkte-von-kreisen-distanzen" id="id24">2.3.2&nbsp;&nbsp;&nbsp;Schnittpunkte von Kreisen (Distanzen)</a></li>
+<li><a class="reference internal" href="#gerade-kreis" id="id25">2.3.3&nbsp;&nbsp;&nbsp;Gerade/Kreis</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flachen" id="id26">2.4&nbsp;&nbsp;&nbsp;Flächen</a><ul class="auto-toc">
+<li><a class="reference internal" href="#flachenberechnung-inkl-mit-kreisbogen" id="id27">2.4.1&nbsp;&nbsp;&nbsp;Flächenberechnung (inkl. mit Kreisbogen)</a></li>
+<li><a class="reference internal" href="#parallel-verschiebung-einer-grenze-mit-vorgeschriebener-flache" id="id28">2.4.2&nbsp;&nbsp;&nbsp;Parallel-Verschiebung einer Grenze mit vorgeschriebener Fläche</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#verschiedenes" id="id29">2.5&nbsp;&nbsp;&nbsp;Verschiedenes</a><ul class="auto-toc">
+<li><a class="reference internal" href="#azimut-richtungswinkel-distanz" id="id30">2.5.1&nbsp;&nbsp;&nbsp;Azimut (Richtungswinkel) / Distanz</a></li>
+<li><a class="reference internal" href="#projektion-eines-punktes-auf-eine-gerade" id="id31">2.5.2&nbsp;&nbsp;&nbsp;Projektion eines Punktes auf eine Gerade</a></li>
+<li><a class="reference internal" href="#berechnung-eines-kreises-durch-3-punkte" id="id32">2.5.3&nbsp;&nbsp;&nbsp;Berechnung eines Kreises durch 3 Punkte</a></li>
+<li><a class="reference internal" href="#teilung-eines-bogens" id="id33">2.5.4&nbsp;&nbsp;&nbsp;Teilung eines Bogens</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mathematik" id="id34">2.6&nbsp;&nbsp;&nbsp;Mathematik</a><ul class="auto-toc">
+<li><a class="reference internal" href="#auflosung-von-dreiecken" id="id35">2.6.1&nbsp;&nbsp;&nbsp;Auflösung von Dreiecken</a></li>
+<li><a class="reference internal" href="#berechnung-von-kreiselementen" id="id36">2.6.2&nbsp;&nbsp;&nbsp;Berechnung von Kreiselementen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="allgemeine-hilfe">
+<h1><a class="toc-backref" href="#id1">1&nbsp;&nbsp;&nbsp;Allgemeine Hilfe</a></h1>
+<p>Programmeinheiten:</p>
+<p>Alle Winkel müssen in &quot;Grad&quot; oder &quot;Gon&quot; eingegeben werden.</p>
+<p>Alle Distanzen müssen in &quot;Meter&quot; eingegeben werden. Die vom Programm erwarteten
+Distanzen sind alles Schrägdistanzen.  Wenn kein Zenitwinkel (Höhenwinkel)
+angegeben ist, nimmt das Programm an, dass es sich um eine Horizontaldistanz
+handelt.</p>
+<p>VORSICHT: bestätigen Sie Ihre letzten Werte in den Eingabemasken damit das
+Programm diese Werte berücksichtigt. Um dies zu tun, setzen Sie den Cursor auf
+das Feld der zu speichernden Punktnummer oder bestätigen Sie Ihren letzten Wert
+mit &quot;Weiter&quot; oder &quot;OK&quot; oder &quot;Enter&quot;.</p>
+<div class="section" id="punktverwaltung">
+<h2><a class="toc-backref" href="#id2">1.1&nbsp;&nbsp;&nbsp;Punktverwaltung</a></h2>
+<p>Um einen einzelnen Punkt zu ändern oder zu löschen, genügt ein verlängerter
+Druck auf diesen Punkt in der Punkteliste. Dies bewirkt das Erscheinen eines
+Kontextmenüs.</p>
+<p>Der Knopf &quot;Suchen&quot; ermöglicht, einen gewünschten Punkt zu finden. Der Knopf
+&quot;Löschen&quot; ermöglicht, alle Punkte gleichzeitig zu löschen. Um nicht frühere
+Berechnungen zu beeinflussen, ist es nicht möglich, eine Punktnummer ändern. Da
+die Punktnummer verwendet wird, um einen Punkt zu identifizieren, würde dies
+aus dem chronologischen Ablauf wieder verwendete Berechnungen ändern.</p>
+<div class="section" id="jobs">
+<h3><a class="toc-backref" href="#id3">1.1.1&nbsp;&nbsp;&nbsp;Jobs</a></h3>
+<p>Jede Aktion in TopoSuite wird in einer Datenbank aufgezeichnet. So werden alle
+Berechnungen und Punkte bei einer späteren Öffnung von TopoSuite direkt
+zurückgeholt.</p>
+<p>Es ist möglich, über das Menü &quot;Job&quot; (verfügbar auf der linken Seite von
+TopoSuite) den laufenden Job in eine *.tpst-Datei exportieren, einen Job aus
+einer Datei *.tpst zu importieren oder die aktuelle Arbeit zu löschen.  Der
+Backup-Auftrag eines Jobs sichert: die Einstellungen, den chronologischen
+Ablauf der Berechnungen und die Punkte. Wenn ein Job importiert wird, ist es
+klar, dass TopoSuite die früher gesicherten Daten wieder einführt.</p>
+<p>Wie der Import von Punkten, ist es möglich, auch *.tpst Dateien, welche sich
+im TopoSuite/Verzeichnis befinden, zu importieren. Alle exportierten Dateien
+befinden sich ebenfalls im gleichen Verzeichnis (zugänglich aus dem
+Datei-Explorer).</p>
+<p>Es ist möglich, direkt eine *.tpst Datei aus dem Datei-Explorer zu öffnen (für
+die zugelassenen Explorers, siehe Abschnitt Import).</p>
+</div>
+<div class="section" id="import">
+<h3><a class="toc-backref" href="#id4">1.1.2&nbsp;&nbsp;&nbsp;Import</a></h3>
+<p>Es ist möglich, entweder Punkte manuell anzufügen, oder alle Punkte mit Hilfe
+einer Datei CSV, LTOP oder PTP direkt zu importieren.</p>
+<p>Ab Gmail ist es nicht möglich, eine Punkt-Datei direkt zu öffnen. Man muss
+diese erst auf ein Telefon speichern und danach ab den Dateibrowser öffnen.</p>
+<p>Das Programm Cyanogenmod file manager ist zu vermeiden, denn ausser CSV ist die
+Verwaltung anderer Dateien schlecht.  Folgende Programme sind gut akzeptiert:</p>
+<ul class="simple">
+<li>Jenes der Standardeinstellungen in den Samsung Tabletts</li>
+<li>ASTRO</li>
+<li>ES File Explorer</li>
+<li>Google Drive</li>
+<li>Dropbox</li>
+<li>Zarchiver</li>
+</ul>
+<p>Beachten Sie bitte, dass diese Liste nicht erschöpfend ist, und es nicht
+heissen will, weil ein Dateibrowser hier nicht erwähnt ist, dass dieser nicht
+unterstützt wird.</p>
+<p>Ab dem Gerät (ohne Verbindung): Sie müssen die Datei in den Ordner der
+Anwendung platzieren (/TopoSuite), um aus dem Programm-Menü importiert zu
+werden.  Die Alternative (mit oder ohne Verbindung): Durch &quot;Drücken&quot; auf die
+Punkt-Datei bietet das Gerät an, die Datei mit mehreren Anwendungen,
+einschließlich &quot;TopoSuite&quot;, zu öffnen. Durch die Wahl TopoSuite in der Liste
+öffnet sich die Anwendung, und der Import der Punkteliste erfordert eine
+Bestätigung durch ein Popup.</p>
+<div class="section" id="csv">
+<h4><a class="toc-backref" href="#id5">1.1.2.1&nbsp;&nbsp;&nbsp;CSV</a></h4>
+<p>Diese Datei muss folgendermassen strukturiert sein:</p>
+<p>Punktnummer; Koordinate Ost; Koordinate Nord; Höhe.</p>
+</div>
+<div class="section" id="ltop">
+<h4><a class="toc-backref" href="#id6">1.1.2.2&nbsp;&nbsp;&nbsp;LTOP</a></h4>
+<p>Die Datei LTOP darf nicht verändert werden. Sie muss wirklich mit $$PK
+beginnen!</p>
+<p>Die Kolonnen 1 bis 14 sind für die Punktnummer bestimmt.</p>
+<p>Die Kolonnen 33 bis 44 entsprechen der Koordinate Ost.</p>
+<p>Die Kolonnen 45 bis 56 entsprechen der Koordinate Nord.</p>
+<p>Die Kolonnen 61 bis 70 enthalten die Höhe (optional).</p>
+</div>
+<div class="section" id="ptp">
+<h4><a class="toc-backref" href="#id7">1.1.2.3&nbsp;&nbsp;&nbsp;PTP</a></h4>
+<p>Die Datei PTP darf keine anderen Linien enthalten ausser jenen, welche die zu
+importierenden Punkte betreffen.</p>
+<p>Die Kolonnen 11 bis 22 sind für die Punktnummer bestimmt.</p>
+<p>Die Kolonnen 33 bis 43 entsprechen der Koordinate Ost.</p>
+<p>Die Kolonnen 45 bis 55 entsprechen der Koordinate Nord.</p>
+<p>Die Kolonnen 57 bis 64 enthalten die Höhe (optional).</p>
+<p>Für die Punktnummer nimmt das Programm nur Rücksicht auf die Kolonne dieser
+Nummer, ohne Plan- oder Gemeindenummern, usw.  zu verwalten.</p>
+<p>Wenn die gleiche Nummer zweimal auftritt (z.B. auf zwei verschiedenen Plänen),
+bearbeitet hält das Programm nur den ersten gelesenen Punkt der Datei.  Achten
+Sie auf eventuelle Titellinien zu Beginn der Datei.</p>
+</div>
+</div>
+<div class="section" id="export">
+<h3><a class="toc-backref" href="#id8">1.1.3&nbsp;&nbsp;&nbsp;Export</a></h3>
+<p>Es ist auch möglich, die Punkt-Datei mit dem Knopf &quot;Teilen&quot; oder dem Knopf
+&quot;Exportieren&quot; auszuführen. Dieser Letzte ermöglicht Ihnen, die Datei in die
+interne Datei von TopoSuite zu exportieren und kann dann im Programm mit der
+Funktion &quot;Import&quot; zurückgeholt werden.</p>
+</div>
+</div>
+<div class="section" id="chronologischer-ablauf">
+<h2><a class="toc-backref" href="#id9">1.2&nbsp;&nbsp;&nbsp;Chronologischer Ablauf</a></h2>
+<p>Dieser Ablauf erlaubt, jede bereits ausgeführte Berechnung zu wiederholen.</p>
+<p>Eine Taste erlaubt ebenfalls, alle gespeicherten Daten zu löschen.</p>
+</div>
+<div class="section" id="einstellungen">
+<h2><a class="toc-backref" href="#id10">1.3&nbsp;&nbsp;&nbsp;Einstellungen</a></h2>
+<p>Die Einstellungen erlauben verschiedene Optionen:</p>
+<ul class="simple">
+<li>Erlaubnis oder nicht der Eingabe von negativen Koordinaten</li>
+<li>Die Genauigkeit, mit welcher das Programm die Koordinaten für die
+Berechnungen benützt (Anzahl Dezimalstellen nach dem Meter)</li>
+</ul>
+<p>Die Anzeige-Parameter erlauben die Wahl der anzuzeigenden Dezimalstellen für:</p>
+<ul class="simple">
+<li>Die Koordinaten (Anzahl Dezimalstellen nach dem Meter);</li>
+<li>Die Winkel (Anzahl Dezimalstellen nach dem Grad/gon);</li>
+<li>Die Distanzen – einschliesslich der Massstabsfaktoren (Anzahl Dezimalstellen
+nach dem Meter);</li>
+<li>Die Mittelwerte (Anzahl Dezimalstellen nach dem Zentimeter);</li>
+<li>Die Abweichungen (Anzahl Dezimalstellen nach dem Zentimeter);</li>
+<li>Die Flächen (Anzahl Dezimalstellen nach dem Quadratmeter).</li>
+</ul>
+<p>Die Option negative Koordinaten hat keinen Einfluss auf den Import von Punkten,
+sowie weder auf Punkte, welche bereits in die Anwendung eingegeben wurden, noch
+bereits berechnete Punkte.</p>
+</div>
+</div>
+<div class="section" id="berechnungen">
+<h1><a class="toc-backref" href="#id11">2&nbsp;&nbsp;&nbsp;Berechnungen</a></h1>
+<div class="section" id="polarberechnungen">
+<h2><a class="toc-backref" href="#id12">2.1&nbsp;&nbsp;&nbsp;Polarberechnungen</a></h2>
+<div class="section" id="satzorientierung">
+<h3><a class="toc-backref" href="#id13">2.1.1&nbsp;&nbsp;&nbsp;Satzorientierung</a></h3>
+<p>Die Berechnung der Satzorientierung erlaubt die Orientierungsunbekannte zu
+erhalten. Die Änderung eines Wertes erhält man durch längeres Klicken auf
+dieses Mass.</p>
+</div>
+<div class="section" id="freie-station">
+<h3><a class="toc-backref" href="#id14">2.1.2&nbsp;&nbsp;&nbsp;Freie Station</a></h3>
+<p>Die Berechnung der freien Station ergibt die Koordinaten (3D) der Station sowie
+die Orientierungsunbekannte. Um die freie Station mit den klassischen Mitteln
+zu berechnen, müssen einige Voraussetzungen respektiert werden:</p>
+<ul class="simple">
+<li>Mindestens 3 Anschlusspunkte messen;</li>
+<li>Winkel und Distanz auf jeden Anschlusspunkt messen;</li>
+<li>Die Anschlusspunkte gut verteilen, sodass das Arbeitsgebiet umschlossen ist;</li>
+<li>Die freie Station sollte so gut wie möglich innerhalb des Polygons liegen,
+welchen die Anschlusspunkte beschreiben;</li>
+<li>Repräsentative Anschlusspunkte der Qualität des Arbeitsgebietes wählen (Regel
+der Nachbarschaft). Es ist zum Beispiel unnötig, LFP2 zu nehmen, um sich in
+die Zone einer digitalisierten graphischen Vermessung zu integrieren. In
+einer Zone der numerischen Vermessung guter Qualität, ist die Messung von
+LFP3 vorzuziehen;</li>
+<li>Nicht zwei zu nahe beieinander liegende Anschlusspunkte messen. Dies kann
+ungünstige Werte für den Massstabsfaktor und den Rotationswinkel ergeben;</li>
+<li>Das Messen von Fixpunkten bevorzugen, deren Versicherung unzweifelhaft ist
+(wenn möglich Bolzen statt schief stehende Marksteine).</li>
+</ul>
+<p>Die Methode von Helmert wird zur Berechnung der freien Station benützt.</p>
+<p>sE = sN = mittlerer Fehler der Koordinate Ost und Nord der freien Station</p>
+<p>sH = mittlerer Fehler der Höhe der Koordinate der freien Station</p>
+<p>vE = Restfehler Ost auf den betreffenden Punkt</p>
+<p>vN = Restfehler Nord auf den betreffenden Punkt</p>
+<p>vH = Restfehler der Höhe auf den betreffenden Punkt</p>
+<p>vα = Restfehler des Winkels auf den betreffenden Punkt</p>
+<p>sZo = mittlerer Fehler einer Orientierungsunbekannten</p>
+<p>vZo = mittlerer Fehler einer kompensierten Richtung</p>
+</div>
+<div class="section" id="polaraufnahme">
+<h3><a class="toc-backref" href="#id15">2.1.3&nbsp;&nbsp;&nbsp;Polaraufnahme</a></h3>
+<p>Der Wert der Orientierungsunbekannten kann mit einem Haken links oben geborgen
+werden.</p>
+<p>Die folgende geometrische Bedingung sollte erfüllt sein:</p>
+<ul class="simple">
+<li>Die Distanz von der Station zum Neupunkt sollte nicht 1.25 Mal die Länge des
+längsten Orientierungsvektors übersteigen (Distanz zwischen Station und dem
+zur Orientierung dienenden Punkt).</li>
+</ul>
+<p>Für die Verschiebungen müssen folgende Vorzeichen respektiert werden:</p>
+<p><img alt="leve polaire" src="file:///android_asset/help/img/polar_survey.png" /></p>
+<p>VORSICHT: Die Höhe eines Punktes mit DM1 oder DM2 ist nicht am Ort der
+definitiven Koordinaten.  Diese Höhe muss in der Punkteliste beseitigt werden,
+falls sie nicht bedeutsam ist.</p>
+</div>
+<div class="section" id="polar-absteckung">
+<h3><a class="toc-backref" href="#id16">2.1.4&nbsp;&nbsp;&nbsp;Polar-Absteckung</a></h3>
+<p>Die Berechnung Polarabsteckung (ab Koordinaten) ergibt folgende Werte:</p>
+<ul class="simple">
+<li>Horizontalwinkel (Hz)</li>
+<li>Horizontaldistanz,</li>
+<li>Schrägdistanz</li>
+<li>Zenitwinkel</li>
+<li>Höhe des Prismas</li>
+<li>Azimut (φ)</li>
+</ul>
+<p>Die folgende geometrische Bedingung sollte erfüllt sein:</p>
+<ul class="simple">
+<li>Die Distanz ab der Station zum abzusteckenden Punkt darf die Länge des
+längsten Orientierungsvektors (Distanz zwischen Station und
+Orientierungspunkt) nicht um mehr als 1.25 mal übersteigen.</li>
+</ul>
+<blockquote>
+<img alt="Implantation polaire" src="file:///android_asset/help/img/polar_implantation.png" /></blockquote>
+</div>
+<div class="section" id="absteckung-einer-achse">
+<h3><a class="toc-backref" href="#id17">2.1.5&nbsp;&nbsp;&nbsp;Absteckung einer Achse</a></h3>
+<p>Diese Berechnung ergibt die Quer- und Längsverschiebung zu einer Achse AB
+(berechnet ab dem Basispunkt &quot;A&quot;).</p>
+</div>
+</div>
+<div class="section" id="orthogonalberechnungen">
+<h2><a class="toc-backref" href="#id18">2.2&nbsp;&nbsp;&nbsp;Orthogonalberechnungen</a></h2>
+<div class="section" id="orthogonalaufnahme">
+<h3><a class="toc-backref" href="#id19">2.2.1&nbsp;&nbsp;&nbsp;Orthogonalaufnahme</a></h3>
+<p>Der gemessene Wert der Basis der Orthogonalaufnahme (A-B) muss eingegeben
+werden, damit der Massstabsfaktor berechnet werden kann.</p>
+<p>Die Werte von Abszissen (x) und Ordinaten (y) müssen gemäss untenstehendem Bild
+eingegeben werden:</p>
+<blockquote>
+<img alt="leve orthogonal" src="file:///android_asset/help/img/orthogonal_implantation.png" /></blockquote>
+<p>Die folgenden geometrischen Bedingungen sollten erfüllt sein:</p>
+<ul class="simple">
+<li>Die Abszisse ausser Basis sollte allgemein den Viertel der Basislänge nicht übersteigen.</li>
+<li>Die Ordinatenlänge darf (für einen Grenzpunkt) 35 Meter nicht übersteigen.</li>
+<li>Die Ordinate sollte allgemein die Länge der Basis nicht übersteigen.</li>
+</ul>
+</div>
+<div class="section" id="orthogonalzug">
+<h3><a class="toc-backref" href="#id20">2.2.2&nbsp;&nbsp;&nbsp;Orthogonalzug</a></h3>
+<p>Die zu respektierenden Vorzeichen für den Orthogonalzug sind folgende:</p>
+<blockquote>
+<img alt="cheminement orthogonal" src="file:///android_asset/help/img/chem_ortho.png" /></blockquote>
+<p>Die folgenden geometrischen Bedingungen sollten erfüllt sein:</p>
+<ul class="simple">
+<li>Die Differenz zwischen AB berechnet und AB gemessen muss in der Toleranz
+sein.</li>
+<li>Die totale Länge des Orthogonalzuges soll die dreifache Distanz AB nicht
+übersteigen.</li>
+<li>Punkte können &quot;ausser Basis&quot; bestimmt werden (freier Zug ab den
+Anschluss-Punkten), aber die kumulierte Distanz ausser Basis soll ½ AB nicht
+übersteigen.</li>
+</ul>
+</div>
+<div class="section" id="orthogonale-absteckung">
+<h3><a class="toc-backref" href="#id21">2.2.3&nbsp;&nbsp;&nbsp;Orthogonale Absteckung</a></h3>
+<p>Die Berechnung der orthogonalen Absteckung (ab Koordinaten) ergibt die Werte
+der Abszissen und Ordinaten, welche die Absteckung im Gelände erlaubt. Die
+Abszissen- (x) und Ordinatenwerte (y) müssen nach folgendem Schema gegeben
+werden:</p>
+<blockquote>
+<img alt="Implantation orthogonale" src="file:///android_asset/help/img/orthogonal_implantation.png" /></blockquote>
+<p>Die geometrischen Bedingungen der Orthogonalaufnahme sollten erfüllt sein.</p>
+</div>
+</div>
+<div class="section" id="schnittpunkte">
+<h2><a class="toc-backref" href="#id22">2.3&nbsp;&nbsp;&nbsp;Schnittpunkte</a></h2>
+<div class="section" id="gerade-und-oder-richtungen">
+<h3><a class="toc-backref" href="#id23">2.3.1&nbsp;&nbsp;&nbsp;Gerade (und/oder Richtungen)</a></h3>
+<p>Die Definition der Geraden kann eingegeben werden:</p>
+<ul class="simple">
+<li>Entweder durch zwei Punkte;</li>
+<li>Oder durch einen Punkt und ein Azimut (φ).</li>
+</ul>
+<p>Die Gerade kann entweder verschoben werden, oder rechtwinklig zur vorgegebenen
+Geraden sein.</p>
+<p>Für die Verschiebung (Wert X), ein Plus Zeichen verschiebt nach rechts, ein
+Minus Zeichen verschiebt nach links.</p>
+<p>Wenn die Gerade rechtwinklig zur vorgegebenen Geraden steht, kann eine Distanz
+vom Punkt C (Wert Y) eingegeben werden.</p>
+<p>Siehe Bild hier unten:</p>
+<blockquote>
+<img alt="Intersection de lignes" src="file:///android_asset/help/img/lines_intersection.png" /></blockquote>
+</div>
+<div class="section" id="schnittpunkte-von-kreisen-distanzen">
+<h3><a class="toc-backref" href="#id24">2.3.2&nbsp;&nbsp;&nbsp;Schnittpunkte von Kreisen (Distanzen)</a></h3>
+<p>Zwei Möglichkeiten zur Berechnung von Kreis-Schnittpunkten:</p>
+<ul class="simple">
+<li>Manuelle Eingabe der Dimension der Radien;</li>
+<li>Wahl eines Kreispunktes, die Grösse des Radius wird automatisch berechnet.</li>
+</ul>
+<p>Achtung: es gibt fast jedes Mal 2 Lösungen.</p>
+<p>Eine einzige Lösung ergeben nur 2 sich tangierende Kreise.</p>
+<p>Keine Lösung ergibt sich, wenn sich die Kreise nicht berühren.</p>
+<p>Definition des ersten Kreises    : Zentrum: A und Radius: r1</p>
+<p>Definition des zweiten Kreises : Zentrum: B und Radius: r2</p>
+<blockquote>
+<img alt="Intersection de cercles" src="file:///android_asset/help/img/circles_intersection.png" /></blockquote>
+<p>Die berechneten Schnittpunkte sind I1 und I2.</p>
+</div>
+<div class="section" id="gerade-kreis">
+<h3><a class="toc-backref" href="#id25">2.3.3&nbsp;&nbsp;&nbsp;Gerade/Kreis</a></h3>
+<p>Die Definition der Geraden kann gegeben werden:</p>
+<ul class="simple">
+<li>Entweder durch zwei Punkte</li>
+<li>Oder durch einen Punkt und ein Azimut (G)</li>
+</ul>
+<p>Die Definition des Kreises kann gegeben werden:</p>
+<ul class="simple">
+<li>Entweder durch manuelle Eingabe der Radien</li>
+<li>Oder durch einen Kreispunkt, die Grösse des Radius wird automatisch berechnet.</li>
+</ul>
+<p>Die Gerade kann verschoben werden (Plus Zeichen = rechts; Minus Zeichen = links).</p>
+<blockquote>
+<img alt="Intersection d'un cercle et d'une droite" src="file:///android_asset/help/img/line_circle_intersection.png" /></blockquote>
+<p>Die beiden berechneten Punkte sind I1 und I2.</p>
+</div>
+</div>
+<div class="section" id="flachen">
+<h2><a class="toc-backref" href="#id26">2.4&nbsp;&nbsp;&nbsp;Flächen</a></h2>
+<div class="section" id="flachenberechnung-inkl-mit-kreisbogen">
+<h3><a class="toc-backref" href="#id27">2.4.1&nbsp;&nbsp;&nbsp;Flächenberechnung (inkl. mit Kreisbogen)</a></h3>
+<p>Für die Flächenberechnung müssen folgende Elemente eingegeben werden:</p>
+<ul class="simple">
+<li>Die Punkte im Uhrzeigersinn.</li>
+</ul>
+<p>Siehe Bild hier unten:</p>
+<p><img alt="Surface" src="file:///android_asset/help/img/surface.png" /></p>
+<p>Punkt 1</p>
+<p>Punkt 2, Radius +</p>
+<p>Punkt 3,</p>
+<p>Punkt 4,</p>
+<p>Punkt 5, Radius -</p>
+<p>Punkt 6,</p>
+<p>Punkt 7</p>
+</div>
+<div class="section" id="parallel-verschiebung-einer-grenze-mit-vorgeschriebener-flache">
+<h3><a class="toc-backref" href="#id28">2.4.2&nbsp;&nbsp;&nbsp;Parallel-Verschiebung einer Grenze mit vorgeschriebener Fläche</a></h3>
+<p>Das Ziel der Berechnung ist, den Wert der Verschiebung der Grenze AD zu
+erhalten, um damit die gewünschte Fläche (S) zu erreichen.</p>
+<p>XY muss parallel zu AD sein.</p>
+<p>Die erhaltenen Werte sind folgende:</p>
+<p>d = Länge der Verschiebung der Grenze AD</p>
+<p>S = vorgeschriebene Fläche</p>
+<blockquote>
+<img alt="Deplacement parallele de limite avec surface imposable" src="file:///android_asset/help/img/parallel_displacement.png" /></blockquote>
+</div>
+</div>
+<div class="section" id="verschiedenes">
+<h2><a class="toc-backref" href="#id29">2.5&nbsp;&nbsp;&nbsp;Verschiedenes</a></h2>
+<div class="section" id="azimut-richtungswinkel-distanz">
+<h3><a class="toc-backref" href="#id30">2.5.1&nbsp;&nbsp;&nbsp;Azimut (Richtungswinkel) / Distanz</a></h3>
+<p>Zur Berechnung von Azimut/Distanz genügt es, in der Punktliste zu wählen:</p>
+<ul class="simple">
+<li>Den Standpunkt,</li>
+<li>Den Orientierungspunkt.</li>
+</ul>
+</div>
+<div class="section" id="projektion-eines-punktes-auf-eine-gerade">
+<h3><a class="toc-backref" href="#id31">2.5.2&nbsp;&nbsp;&nbsp;Projektion eines Punktes auf eine Gerade</a></h3>
+<p>Um die Gerade zu definieren, gibt es zwei Möglichkeiten:</p>
+<ul class="simple">
+<li>Durch zwei bekannte Punkte;</li>
+<li>Durch einen Punkt und ein Azimut.</li>
+</ul>
+<p>Die Gerade kann durch ein Plus-Zeichen nach rechts verschoben werden, durch ein
+Minus-Zeichen nach links.</p>
+<p>Jetzt wählt man den zu projizierenden Punkt in der Liste der bekannten Punkte.</p>
+<p>Die verlangte Nummer ist jene des auf die Gerade projizierten Punktes.</p>
+<blockquote>
+<img alt="Projection d'un point sur une droite" src="file:///android_asset/help/img/point_project_line.png" /></blockquote>
+<p>x = Distanz des zu projizierenden Punktes (P) auf die Gerade</p>
+<p>y = Distanz des projizierten Punktes zum Punkt A</p>
+<p>z = Distanz des projizierten Punktes zum Punkt B</p>
+</div>
+<div class="section" id="berechnung-eines-kreises-durch-3-punkte">
+<h3><a class="toc-backref" href="#id32">2.5.3&nbsp;&nbsp;&nbsp;Berechnung eines Kreises durch 3 Punkte</a></h3>
+<p>Ab drei Punkten der Koordinatenliste ist es möglich, die Koordinaten des
+Zentrums und den Radius eines Kreises zu erhalten.</p>
+<p>Die Koordinaten des Zentrums können nach Eingabe einer Punknummer registriert
+werden.</p>
+</div>
+<div class="section" id="teilung-eines-bogens">
+<h3><a class="toc-backref" href="#id33">2.5.4&nbsp;&nbsp;&nbsp;Teilung eines Bogens</a></h3>
+<p>Die Berechnung erlaubt, gleichmässig verteilte Koordinaten entlang eines Bogens
+zu erhalten.</p>
+<p>Die Teilung erhält man durch die gewünschte Anzahl der Segmente (Bild A) oder
+anhand einer manuell eingegebenen Distanz (a) - (Bild B).</p>
+<p>Bei der zweiten Lösung ist es klar, dass die Restdistanz zwischen dem letzten
+gerechneten Punkt und dem Ende des Bogens nicht mit den anderen Bogenlängen
+übereinstimmt (?).</p>
+<blockquote>
+<img alt="Segmentation d'un arc de cercle" src="file:///android_asset/help/img/circular_segmentation.png" /></blockquote>
+</div>
+</div>
+<div class="section" id="mathematik">
+<h2><a class="toc-backref" href="#id34">2.6&nbsp;&nbsp;&nbsp;Mathematik</a></h2>
+<div class="section" id="auflosung-von-dreiecken">
+<h3><a class="toc-backref" href="#id35">2.6.1&nbsp;&nbsp;&nbsp;Auflösung von Dreiecken</a></h3>
+<p>Die zur Auflösung von Dreiecken einzugebenden Elemente sind folgende:</p>
+<ul class="simple">
+<li>3 Seiten</li>
+<li>2 Seiten, 1 eingeschriebener Winkel</li>
+<li>1 Seite, 2 Winkel</li>
+</ul>
+<blockquote>
+<img alt="Triangle" src="file:///android_asset/help/img/triangle.png" /></blockquote>
+<p>r = Radius des Inkreises (eingeschriebenen Kreises)</p>
+<p>R = Radius des Umkreises</p>
+<p>h = berechnete Höhe</p>
+</div>
+<div class="section" id="berechnung-von-kreiselementen">
+<h3><a class="toc-backref" href="#id36">2.6.2&nbsp;&nbsp;&nbsp;Berechnung von Kreiselementen</a></h3>
+<p>Die zur Berechnung einzugebenden Elemente sind folgende:</p>
+<ul class="simple">
+<li>Radius, Sehne</li>
+<li>Radius, Zentriwinkel</li>
+<li>Radius, Tangente</li>
+<li>Radius, Pfeilhöhe</li>
+<li>Sehne, Zentriwinkel</li>
+<li>Sehne, Tangente</li>
+<li>Sehne, Pfeilhöhe</li>
+<li>Tangente, Zentriwinkel</li>
+</ul>
+<blockquote>
+<img alt="Elements circulaires" src="file:///android_asset/help/img/circular_curve.png" /></blockquote>
+<p>S = Tangentenschnittpunkt</p>
+<p>C = Zentrum</p>
+<p>CO = CM = CF = Radius</p>
+<p>OF = Sehne (OF)</p>
+<p>OS = FS = Tangente</p>
+<p>MS = Winkelhalbierende</p>
+<p>β = Tangentenwinkel (Innenwinkel)</p>
+<p>2α = Zentriwinkel</p>
+<p>MB = Bogenmitte</p>
+<blockquote>
+<img alt="Elements circulaires 2" src="file:///android_asset/help/img/circular_curve_2.png" /></blockquote>
+<p>Das obere Bild stellt die Fläche des Sektors (Kreisausschnitts) dar.</p>
+<p>Das untere Bild stellt die Fläche des Segmentes (Kreisabschnitts) dar.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
