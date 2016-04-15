@@ -1,12 +1,13 @@
 package ch.hgdev.toposuite.help;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -47,7 +48,7 @@ public class HelpActivity extends TopoSuiteActivity {
     private String getHelpFileName() {
         InputStream stream = null;
         try {
-            String helpFile = "help_" + App.locale.getLanguage().toString() + ".html";
+            String helpFile = "help_" + App.locale.getLanguage() + ".html";
             stream = this.getAssets().open("help/" + helpFile);
             return helpFile;
         } catch (IOException exception) {
