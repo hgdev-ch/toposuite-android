@@ -24,6 +24,8 @@ To build this tool, issue the following command:
 go build .
 ```
 
+You may also simply run this program like a script.
+
 ## Usage
 
 See
