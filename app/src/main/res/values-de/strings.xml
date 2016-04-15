@@ -258,6 +258,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="point_search">Suchen Sie einen Punkt</string>
 	<string name="point_one_not_saved">Der erste Punkt wurde nicht gespeichert!</string>
 	<string name="point_two_not_saved">Der zweiten Punkt wurde nicht gespeichert!</string>
+	<string name="points_import">Importieren Sie Punkte</string>
 	<string name="pref_about_title">Übrigens</string>
 	<string name="pref_angles_display_precision">Dezimalen der Winkel</string>
 	<string name="pref_averages_display_precision">Dezimalen der Durchschnitte</string>

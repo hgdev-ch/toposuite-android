@@ -263,6 +263,7 @@
 	<string name="point_search">Rechercher un point</string>
 	<string name="point_one_not_saved">Le premier point n\'a pas été sauvegardé!</string>
 	<string name="point_two_not_saved">Le second point n\'a pas été sauvegardé!</string>
+	<string name="points_import">Import des points</string>
 	<string name="pref_about_title">À propos</string>
 	<string name="pref_angles_display_precision">Décimales des angles</string>
 	<string name="pref_averages_display_precision">Décimales des moyennes</string>
