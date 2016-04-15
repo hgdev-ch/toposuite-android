@@ -54,10 +54,39 @@
 
                 <!-- TODO make something nicer... -->
 
+                <!--
+                    Work around Android stupid PatternMatcher in order to allow opening files with
+                    "." in their name.
+                -->
                 <data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.coo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.coo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.coo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.coo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.coo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.coo"
                     android:scheme="file" />
 
                 <data
@@ -65,17 +94,92 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.COO"
                     android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.COO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.COO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.COO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.COO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.COO"
+                    android:scheme="file" />
 
                 <data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.koo"
                     android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.koo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.koo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.koo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.koo"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.koo"
+                    android:scheme="file" />
 
                 <data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.KOO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.KOO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.KOO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.KOO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.KOO"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.KOO"
                     android:scheme="file" />
 
                 <data
@@ -86,7 +190,58 @@
                 <data
                     android:host="*"
                     android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.ptp"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.ptp"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.ptp"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.ptp"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.ptp"
+                    android:scheme="file" />
+
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
                     android:pathPattern=".*\\.PTP"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.PTP"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.PTP"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.PTP"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.PTP"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.PTP"
                     android:scheme="file" />
 
                 <data
@@ -94,11 +249,61 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.csv"
                     android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.csv"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.csv"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.csv"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.csv"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.csv"
+                    android:scheme="file" />
 
                 <data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.CSV"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.CSV"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.CSV"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.CSV"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.CSV"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.CSV"
                     android:scheme="file" />
 
                 <data android:mimeType="text/csv" />
@@ -229,11 +434,69 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.tpst"
                     android:scheme="file" />
+                <!--
+                    Work around Android stupid PatternMatcher in order to allow opening files with
+                    "." in their name.
+                -->
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.tpst"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.tpst"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.tpst"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.tpst"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.tpst"
+                    android:scheme="file" />
 
                 <data
                     android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.TPST"
+                    android:scheme="file" />
+                <!--
+                    Work around Android stupid PatternMatcher in order to allow opening files with
+                    "." in their name.
+                -->
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.TPST"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.TPST"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.TPST"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.TPST"
+                    android:scheme="file" />
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.TPST"
                     android:scheme="file" />
 
                 <data android:mimeType="application/json" />
