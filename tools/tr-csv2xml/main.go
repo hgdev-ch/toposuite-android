@@ -19,6 +19,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 	"text/template"
 )
 
@@ -47,6 +48,11 @@ func render(name string, w io.Writer, data []attr) error {
 		return err
 	}
 	return t.Execute(w, data)
+}
+
+// escapeApostrophe escapes apostrophe signs from the string s
+func escapeApostrophe(s string) string {
+	return strings.Replace(s, "'", "\\'", -1)
 }
 
 // attr represents a XML attribute.
@@ -143,9 +149,9 @@ func main() {
 		if len(entry) != 4 {
 			fatalf("malformed CSV entry at line %d", idx+2)
 		}
-		en[idx] = attr{Name: entry[0], Value: entry[1]}
-		fr[idx] = attr{Name: entry[0], Value: entry[2]}
-		de[idx] = attr{Name: entry[0], Value: entry[3]}
+		en[idx] = attr{Name: entry[0], Value: escapeApostrophe(entry[1])}
+		fr[idx] = attr{Name: entry[0], Value: escapeApostrophe(entry[2])}
+		de[idx] = attr{Name: entry[0], Value: escapeApostrophe(entry[3])}
 	}
 
 	// render template for each language
