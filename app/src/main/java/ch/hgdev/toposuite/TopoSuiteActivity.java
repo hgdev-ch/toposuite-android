@@ -119,7 +119,7 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
             }
         };
 
-        this.drawerLayout.setDrawerListener(this.drawerToggle);
+        this.drawerLayout.addDrawerListener(this.drawerToggle);
 
         // set the titles that will appear in the action bar
         this.getActionBar().setTitle(this.getActivityTitle());
