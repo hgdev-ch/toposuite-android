@@ -214,8 +214,7 @@ public class FreeStation extends Calculation {
             // calculation of the rotation between fictive and cadastral
             // coordinates according to the following formula:
             // mod400(gis_cadastral - gis_fictive)
-            double rotation = (g2.getGisement() - g1.getGisement()) + 400.0;
-            intermRes.get(i).rotation = rotation;
+            intermRes.get(i).rotation = MathUtils.modulo400(g2.getGisement() - g1.getGisement());;
 
             // calculation of the multiplication constants between fictive and
             // cadastral coordinates according to the following formula:
