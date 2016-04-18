@@ -12,17 +12,18 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.TopoSuiteActivity.ActivityItem;
 
 public class ExpandableRightMenuAdapter extends BaseExpandableListAdapter {
-    private Activity                                              activity;
+    private Activity activity;
     private final SparseArray<TopoSuiteActivity.CalculationGroup> groups;
-    private LayoutInflater                                        inflater;
-    private int                                                   lastExpandedGroupPosition;
-    private ExpandableListView                                    listView;
+    private LayoutInflater inflater;
+    private int lastExpandedGroupPosition;
+    private ExpandableListView listView;
 
     public ExpandableRightMenuAdapter(Activity _activity, ExpandableListView _listView,
-            SparseArray<TopoSuiteActivity.CalculationGroup> _groups) {
+                                      SparseArray<TopoSuiteActivity.CalculationGroup> _groups) {
         this.activity = _activity;
         this.groups = _groups;
         this.inflater = this.activity.getLayoutInflater();
@@ -41,7 +42,7 @@ public class ExpandableRightMenuAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
-            View convertView, ViewGroup parent) {
+                             View convertView, ViewGroup parent) {
         final ActivityItem activityItem = (TopoSuiteActivity.ActivityItem) this.getChild(
                 groupPosition, childPosition);
         final String children = activityItem.toString();
@@ -59,15 +60,15 @@ public class ExpandableRightMenuAdapter extends BaseExpandableListAdapter {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                case MotionEvent.ACTION_HOVER_ENTER:
-                case MotionEvent.ACTION_HOVER_MOVE:
-                    v.setBackgroundResource(android.R.color.holo_blue_dark);
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                case MotionEvent.ACTION_HOVER_EXIT:
-                    v.setBackgroundResource(android.R.color.transparent);
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_HOVER_ENTER:
+                    case MotionEvent.ACTION_HOVER_MOVE:
+                        v.setActivated(true);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_HOVER_EXIT:
+                        v.setActivated(false);
                 }
                 return false;
             }
@@ -108,14 +109,12 @@ public class ExpandableRightMenuAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
-            ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = this.inflater.inflate(R.layout.group_item, null);
         }
 
-        TopoSuiteActivity.CalculationGroup group = (TopoSuiteActivity.CalculationGroup) this
-                .getGroup(groupPosition);
+        TopoSuiteActivity.CalculationGroup group = (TopoSuiteActivity.CalculationGroup) this.getGroup(groupPosition);
         ((CheckedTextView) convertView).setText(group.getGroupName());
         ((CheckedTextView) convertView).setChecked(isExpanded);
 
