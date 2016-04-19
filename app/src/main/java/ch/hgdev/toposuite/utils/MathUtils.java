@@ -25,6 +25,11 @@ public class MathUtils {
     public static final double EARTH_RADIUS = 6378100.0;
 
     /**
+     * Earth refractivity coefficient..
+     */
+    public static final double REFRACTIVITY_COEFFICIENT = 0.13;
+
+    /**
      * The machine precision used to perform logical operation on doubles.
      */
     public static final double EPSILON = Double.MIN_NORMAL;
@@ -391,10 +396,8 @@ public class MathUtils {
                                      double s, double altitude) {
         double radius = MathUtils.EARTH_RADIUS + altitude;
         double e = Math.pow(distance, 2) / (2 * radius);
-        double r = (0.13 * Math.pow(distance, 2)) / (2 * radius);
-
-        return ((((distance / Math.tan(MathUtils.gradToRad(zenAngle)))
-                + i) - s) + e) - r;
+        double r = (MathUtils.REFRACTIVITY_COEFFICIENT * Math.pow(distance, 2)) / (2 * radius);
+        return (distance / Math.tan(MathUtils.gradToRad(zenAngle))) + i - s + e - r;
     }
 
     /**
