@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.export.ExportDialog;
 import ch.hgdev.toposuite.export.ImportDialog;
+import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -32,19 +34,19 @@ import ch.hgdev.toposuite.utils.ViewUtils;
  * Activity to manage points, such as adding, removing or modifying them.
  *
  * @author HGdev
- *
  */
 public class PointsManagerActivity extends TopoSuiteActivity implements
         AddPointDialogFragment.AddPointDialogListener,
         EditPointDialogFragment.EditPointDialogListener,
         SearchPointDialogFragment.SearchPointDialogListener,
         ExportDialog.ExportDialogListener,
-        ImportDialog.ImportDialogListener {
+        ImportDialog.ImportDialogListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private int                      selectedPointId;
-    private ListView                 pointsListView;
+    private int selectedPointId;
+    private ListView pointsListView;
     private ArrayListOfPointsAdapter adapter;
-    private ShareActionProvider      shareActionProvider;
+    private ShareActionProvider shareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,23 +74,33 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         int id = item.getItemId();
 
         switch (id) {
-        case R.id.add_point_button:
-            this.showAddPointDialog();
-            return true;
-        case R.id.delete_points_button:
-            this.removeAllPoints();
-            return true;
-        case R.id.search_point_button:
-            this.showSearchPointDialog();
-            return true;
-        case R.id.export_points_button:
-            this.showExportDialog();
-            return true;
-        case R.id.import_points_button:
-            this.showImportDialog();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.add_point_button:
+                this.showAddPointDialog();
+                return true;
+            case R.id.delete_points_button:
+                this.removeAllPoints();
+                return true;
+            case R.id.search_point_button:
+                this.showSearchPointDialog();
+                return true;
+            case R.id.export_points_button:
+                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
+                    this.showExportDialog();
+                } else {
+                    AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
+                            String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+                }
+                return true;
+            case R.id.import_points_button:
+                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                    this.showImportDialog();
+                } else {
+                    AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                            String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -167,25 +179,24 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         Point point;
         switch (item.getItemId()) {
-        case R.id.delete_point:
-            point = SharedResources.getSetOfPoints().get((int) info.id);
-            this.adapter.remove(point);
-            this.adapter.notifyDataSetChanged();
-            SharedResources.getSetOfPoints().remove(point);
-            return true;
-        case R.id.edit_point:
-            this.showEditPointDialog((int) info.id);
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.delete_point:
+                point = SharedResources.getSetOfPoints().get((int) info.id);
+                this.adapter.remove(point);
+                this.adapter.notifyDataSetChanged();
+                SharedResources.getSetOfPoints().remove(point);
+                return true;
+            case R.id.edit_point:
+                this.showEditPointDialog((int) info.id);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
     /**
      * Call to update the share intent
      *
-     * @param shareIntent
-     *            The share intent.
+     * @param shareIntent The share intent.
      */
     private void setShareIntent(Intent shareIntent) {
         if (this.shareActionProvider != null) {
@@ -201,6 +212,28 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private void showImportDialog() {
         ImportDialog dialog = new ImportDialog();
         dialog.show(this.getFragmentManager(), "ImportDialogFragment");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (AppUtils.Permission.valueOf(requestCode)) {
+            case READ_EXTERNAL_STORAGE:
+                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                    this.showImportDialog();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
+                }
+                break;
+            case WRITE_EXTERNAL_STORAGE:
+                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
+                    this.showExportDialog();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     /**
@@ -219,8 +252,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     /**
      * Display a dialog to allow the user to edit a point.
      *
-     * @param id
-     *            Id of the point to be edited.
+     * @param id Id of the point to be edited.
      */
     private void showEditPointDialog(int id) {
         EditPointDialogFragment dialog = new EditPointDialogFragment();
@@ -236,14 +268,10 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
      * Create a point based on the input and add it to the table of points and
      * the set of points.
      *
-     * @param number
-     *            Point's number attribute.
-     * @param east
-     *            Point's east attribute.
-     * @param north
-     *            Point's north attribute.
-     * @param altitude
-     *            Point's altitude attribute.
+     * @param number   Point's number attribute.
+     * @param east     Point's east attribute.
+     * @param north    Point's north attribute.
+     * @param altitude Point's altitude attribute.
      */
     private void addPoint(String number, double east, double north, double altitude) {
         if (number.isEmpty()) {
