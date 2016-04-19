@@ -224,6 +224,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="north_label">Nord [m]</string>
 	<string name="number_of_points_label">Die Datei enthält: <xliff:g>%d</xliff:g> Punkt</string>
 	<string name="number_of_segments_label">Zahl der Abschnitte </string>
+	<string name="need_storage_access"><xliff:g>%s</xliff:g> benötigt Zugriff auf Daten</string>
 	<string name="new_label">Neu</string>
 	<string name="oit_vd">Office de l\'information sur le territoire - Vaud</string>
 	<string name="oit_vd_webpage_url">http://www.vd.ch/oit</string>

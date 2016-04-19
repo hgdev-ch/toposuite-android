@@ -420,8 +420,7 @@
         <activity
             android:name="ch.hgdev.toposuite.jobs.JobImportActivity"
             android:label="@string/job_import"
-            android:launchMode="singleTop"
-            android:noHistory="true">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />

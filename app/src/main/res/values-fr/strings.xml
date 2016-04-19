@@ -229,6 +229,7 @@
 	<string name="north_label">Nord [m]</string>
 	<string name="number_of_points_label">Le fichier contient: <xliff:g>%d</xliff:g> points</string>
 	<string name="number_of_segments_label">Nombre de segments</string>
+	<string name="need_storage_access"><xliff:g>%s</xliff:g> a besoin d\'un accès aux données</string>
 	<string name="new_label">Nouveau</string>
 	<string name="oit_vd">Office de l\'information sur le territoire - Vaud</string>
 	<string name="oit_vd_webpage_url">http://www.vd.ch/oit</string>

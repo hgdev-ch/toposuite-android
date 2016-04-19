@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 
 import com.google.common.base.Joiner;
 import com.google.common.io.Files;
@@ -21,6 +22,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.PointsDataSource;
+import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
@@ -29,7 +31,9 @@ import ch.hgdev.toposuite.utils.ViewUtils;
  *
  * @author HGdev
  */
-public class JobImportActivity extends TopoSuiteActivity implements ImportDialog.ImportDialogListener {
+public class JobImportActivity extends TopoSuiteActivity implements ImportDialog.ImportDialogListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,13 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
         // detect if another app is sending data to this activity
         Uri dataUri = this.getIntent().getData();
         if (dataUri != null) {
-            this.importJob(dataUri.getPath());
+            this.path = dataUri.getPath();
+            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                this.importJob();
+            } else {
+                AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+            }
         }
     }
 
@@ -56,7 +66,22 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
         ViewUtils.showToast(this, message);
     }
 
-    private void importJob(final String path) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (AppUtils.Permission.valueOf(requestCode)) {
+            case READ_EXTERNAL_STORAGE:
+                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                    this.importJob();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
+                    this.finish();
+                }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private void importJob() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.job_import)
                 .setMessage(R.string.warning_import_job_without_warning_label)
@@ -65,7 +90,7 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                JobImportActivity.this.doImportJob(path);
+                                JobImportActivity.this.doImportJob();
                                 JobImportActivity.this.finish();
                             }
                         })
@@ -79,8 +104,8 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
         builder.create().show();
     }
 
-    private void doImportJob(String path) {
-        File jsonFile = new File(path);
+    private void doImportJob() {
+        File jsonFile = new File(this.path);
         List<String> lines;
         try {
             lines = Files.readLines(jsonFile, Charset.defaultCharset());
