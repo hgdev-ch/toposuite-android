@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.jobs;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.Menu;
 import android.view.View;
 
@@ -11,10 +12,11 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.PointsDataSource;
+import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class JobsActivity extends TopoSuiteActivity implements ExportDialog.ExportDialogListener,
-        ImportDialog.ImportDialogListener {
+        ImportDialog.ImportDialogListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +34,32 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
         return this.getString(R.string.title_activity_jobs);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (AppUtils.Permission.valueOf(requestCode)) {
+            case READ_EXTERNAL_STORAGE:
+                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                    this.importJob();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
+                }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
     public void onExportButtonClicked(View view) {
         ExportDialog dialog = new ExportDialog();
         dialog.show(this.getFragmentManager(), "ExportDialogFragment");
     }
 
     public void onImportButtonClicked(View view) {
-        ImportDialog dialog = new ImportDialog();
-        dialog.show(this.getFragmentManager(), "ImportDialogFragment");
+        if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+            this.importJob();
+        } else {
+            AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                    String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+        }
     }
 
     public void onClearButtonClicked(View view) {
@@ -88,5 +108,10 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
     @Override
     public void onImportDialogError(String message) {
         ViewUtils.showToast(this, message);
+    }
+
+    private void importJob() {
+        ImportDialog dialog = new ImportDialog();
+        dialog.show(this.getFragmentManager(), "ImportDialogFragment");
     }
 }
