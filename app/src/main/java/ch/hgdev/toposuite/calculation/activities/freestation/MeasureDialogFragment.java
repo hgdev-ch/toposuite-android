@@ -160,7 +160,9 @@ public class MeasureDialogFragment extends DialogFragment {
                         if (MeasureDialogFragment.this.checkDialogInputs()) {
                             // TODO check that if S is set, I is set too and
                             // pop-up an error
-                            MeasureDialogFragment.this.zenAngle = ViewUtils.readDouble(MeasureDialogFragment.this.zenAngleEditText);
+                            if (!ViewUtils.isEmpty(MeasureDialogFragment.this.zenAngleEditText)) {
+                                MeasureDialogFragment.this.zenAngle = ViewUtils.readDouble(MeasureDialogFragment.this.zenAngleEditText);
+                            }
                             MeasureDialogFragment.this.s = ViewUtils.readDouble(MeasureDialogFragment.this.sEditText);
                             MeasureDialogFragment.this.latDepl = ViewUtils.readDouble(MeasureDialogFragment.this.latDeplEditText);
                             MeasureDialogFragment.this.lonDepl = ViewUtils.readDouble(MeasureDialogFragment.this.lonDeplEditText);
@@ -240,7 +242,7 @@ public class MeasureDialogFragment extends DialogFragment {
         });
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        points.add(new Point("", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
         this.adapter = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);
