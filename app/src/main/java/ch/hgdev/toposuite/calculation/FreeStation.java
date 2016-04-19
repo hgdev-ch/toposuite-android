@@ -15,7 +15,6 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity;
 import ch.hgdev.toposuite.points.Point;
-import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStation extends Calculation {
@@ -68,7 +67,7 @@ public class FreeStation extends Calculation {
     }
 
     public FreeStation(String _stationNumber, boolean hasDAO) {
-        this(_stationNumber, 0.0, hasDAO);
+        this(_stationNumber, MathUtils.IGNORE_DOUBLE, hasDAO);
     }
 
     public FreeStation(boolean hasDAO) {
@@ -190,9 +189,9 @@ public class FreeStation extends Calculation {
 
         int n = this.results.size() - numberOfDeactivatedOrientations;
         centroidFict = new Point("", centroidYFict / n, centroidXFict / n,
-                0.0, false, false);
+                MathUtils.IGNORE_DOUBLE, false, false);
         centroidCadast = new Point("", centroidYCadast / n, centroidXCadast / n,
-                0.0, false, false);
+                MathUtils.IGNORE_DOUBLE, false, false);
 
         List<IntermediateResults> intermRes = new ArrayList<IntermediateResults>();
         double meanRotations = 0.0;
@@ -250,7 +249,7 @@ public class FreeStation extends Calculation {
 
         // calculation of the gisement/distance between the fictive centroid and
         // the station (which is actually at the coordinates 0;0).
-        this.stationResult = new Point(this.stationNumber, 0.0, 0.0, 0.0, false, false);
+        this.stationResult = new Point(this.stationNumber, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, false, false);
         Gisement g = new Gisement(centroidFict, this.stationResult, false);
         double gisFictiveGToSt = g.getGisement(); // gisement g-St
         double distFictiveGToSt = g.getHorizDist(); // distance g-St
@@ -527,11 +526,11 @@ public class FreeStation extends Calculation {
         }
 
         public Result(Point _point) {
-            this(_point, 0.0, 0.0, 0.0, 0.0);
+            this(_point, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
         }
 
         public Result(Point _point, double _weight) {
-            this(_point, 0.0, 0.0, 0.0, _weight);
+            this(_point, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, _weight);
         }
 
         public final Point getPoint() {
