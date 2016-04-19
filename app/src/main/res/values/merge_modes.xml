@@ -2,7 +2,7 @@
 <resources>
     <string-array name="merge_modes">
         <item>All</item>
-        <item>Without altitude</item>
-        <item>Altitude only</item>
+        <item>Planimetry only</item>
+        <item>Altimetry only</item>
     </string-array>
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="merge_modes">
+        <item>Alle</item>
+        <item>Nur Planimetrie</item>
+        <item>Nur Höhe</item>
+    </string-array>
+</resources>
