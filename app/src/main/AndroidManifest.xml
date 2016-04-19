@@ -27,8 +27,7 @@
         <activity
             android:name=".points.PointsImportActivity"
             android:label="@string/points_import"
-            android:launchMode="singleTop"
-            android:noHistory="true">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />

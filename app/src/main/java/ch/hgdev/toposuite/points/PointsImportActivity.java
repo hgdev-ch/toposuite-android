@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Pair;
 
 import com.google.common.io.LineReader;
@@ -19,51 +20,29 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.export.SupportedFileTypes;
 import ch.hgdev.toposuite.jobs.ImportDialog;
+import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class PointsImportActivity extends TopoSuiteActivity implements ImportDialog.ImportDialogListener {
+public class PointsImportActivity extends TopoSuiteActivity implements ImportDialog.ImportDialogListener,
+        ActivityCompat.OnRequestPermissionsResultCallback{
+
+    private Uri dataUri;
+    String mime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // detect if another app is sending data to this activity
-        Uri dataUri = this.getIntent().getData();
-        if (dataUri != null) {
-            String mime = this.getIntent().getType();
-
-            // minor hack to handle LTOP format
-            if (mime.equals("application/octet-stream") || mime.equals("text/plain")
-                    || mime.isEmpty()) {
-                // We need to check if the file is a LTOP file or not.
-                // This verification can only be achieved by reading the
-                // first line of the file.
-                try {
-                    ContentResolver cr = this.getContentResolver();
-                    InputStreamReader in = new InputStreamReader(
-                            cr.openInputStream(dataUri));
-                    LineReader lr = new LineReader(in);
-                    String firstLine = lr.readLine();
-
-                    if (firstLine == null) {
-                        ViewUtils.showToast(this, this.getString(
-                                R.string.error_unsupported_format));
-                        return;
-                    } else if ((firstLine.length() >= 4)
-                            && firstLine.substring(0, 4).equals("$$PK")) {
-                        // fix the MIME type
-                        mime = "text/ltop";
-                    } else {
-                        // small hack for handling PTP files because there is no
-                        // proper way to detect them
-                        mime = "text/ptp";
-                    }
-                } catch (IOException e) {
-                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                    ViewUtils.showToast(this, e.getMessage());
-                }
+        this.dataUri = this.getIntent().getData();
+        this.mime = this.getIntent().getType();
+        if (this.dataUri != null) {
+            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                this.importPoints();
+            } else {
+                AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
             }
-            this.importFromExternalFile(dataUri, mime);
         }
     }
 
@@ -79,21 +58,58 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
 
     @Override
     public void onImportDialogError(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.error_import_label)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage(message)
-                .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        });
-        builder.create().show();
+        ViewUtils.showToast(this, message);
     }
 
-    private void importFromExternalFile(final Uri dataUri, final String mime) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (AppUtils.Permission.valueOf(requestCode)) {
+            case READ_EXTERNAL_STORAGE:
+                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                    this.importPoints();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
+                    this.finish();
+                }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private void importPoints() {
+        // minor hack to handle LTOP format
+        if (this.mime.equals("application/octet-stream") || this.mime.equals("text/plain") || this.mime.isEmpty()) {
+            // We need to check if the file is a LTOP file or not.
+            // This verification can only be achieved by reading the
+            // first line of the file.
+            try {
+                ContentResolver cr = this.getContentResolver();
+                InputStreamReader in = new InputStreamReader(cr.openInputStream(this.dataUri));
+                LineReader lr = new LineReader(in);
+                String firstLine = lr.readLine();
+
+                if (firstLine == null) {
+                    ViewUtils.showToast(this, this.getString(
+                            R.string.error_unsupported_format));
+                    return;
+                } else if ((firstLine.length() >= 4)
+                        && firstLine.substring(0, 4).equals("$$PK")) {
+                    // fix the MIME type
+                    this.mime = "text/ltop";
+                } else {
+                    // small hack for handling PTP files because there is no
+                    // proper way to detect them
+                    this.mime = "text/ptp";
+                }
+            } catch (IOException e) {
+                Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                ViewUtils.showToast(this, e.getMessage());
+            }
+        }
+        this.importFromExternalFile();
+    }
+
+    private void importFromExternalFile() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.import_label)
                 .setMessage(R.string.warning_import_file_without_warning_label)
@@ -105,7 +121,7 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
                             public void onClick(DialogInterface dialog, int which) {
                                 ContentResolver cr = PointsImportActivity.this
                                         .getContentResolver();
-                                String ext = mime.substring(mime.lastIndexOf("/") + 1);
+                                String ext = PointsImportActivity.this.mime.substring(PointsImportActivity.this.mime.lastIndexOf("/") + 1);
 
                                 // ugly hack to support ES File Explorer and
                                 // Samsung's file explorer that set the MIME
@@ -121,7 +137,7 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
                                     ViewUtils.showToast(PointsImportActivity.this,
                                             PointsImportActivity.this.getString(
                                                     R.string.error_unsupported_format));
-                                    return;
+                                    PointsImportActivity.this.finish();
                                 }
 
                                 try {
@@ -129,23 +145,28 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
                                     SharedResources.getCalculationsHistory().clear();
                                     SharedResources.getSetOfPoints().clear();
 
-                                    InputStream inputStream = cr.openInputStream(dataUri);
+                                    InputStream inputStream = cr.openInputStream(PointsImportActivity.this.dataUri);
                                     List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
 
                                     if (!errors.isEmpty()) {
                                         dialog.dismiss();
                                         PointsImportActivity.this.onImportDialogError(PointsImporter.formatErrors(ext, errors));
                                     }
+                                    ViewUtils.showToast(PointsImportActivity.this,
+                                            PointsImportActivity.this.getString(R.string.success_import_dialog));
                                 } catch (IOException e) {
                                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                                     ViewUtils.showToast(PointsImportActivity.this, e.getMessage());
+                                } finally {
+                                    PointsImportActivity.this.finish();
                                 }
-                                PointsImportActivity.this.finish();
                             }
                         })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        ViewUtils.showToast(PointsImportActivity.this,
+                                PointsImportActivity.this.getString(R.string.error_impossible_to_import));
                         PointsImportActivity.this.finish();
                     }
                 });
