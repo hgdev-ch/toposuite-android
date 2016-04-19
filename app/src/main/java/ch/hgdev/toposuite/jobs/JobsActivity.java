@@ -43,12 +43,14 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
                 }
+                break;
             case WRITE_EXTERNAL_STORAGE:
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
                     this.exportJob();
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
                 }
+                break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
