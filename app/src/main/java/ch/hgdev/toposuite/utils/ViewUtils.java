@@ -151,8 +151,7 @@ public class ViewUtils {
      * @param currentActivity Activity that performs the redirection.
      */
     public static void redirectToPointsManagerActivity(Activity currentActivity) {
-        Intent pointsManagerIntent = new Intent(
-                currentActivity, PointsManagerActivity.class);
+        Intent pointsManagerIntent = new Intent(currentActivity, PointsManagerActivity.class);
         currentActivity.startActivity(pointsManagerIntent);
     }
 

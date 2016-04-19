@@ -228,6 +228,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="oit_vd">Office de l\'information sur le territoire - Vaud</string>
 	<string name="oit_vd_webpage_url">http://www.vd.ch/oit</string>
 	<string name="oit_vd_webpage_url_short">www.vd.ch/oit</string>
+	<string name="ok">OK</string>
 	<string name="optional_prths">(optional)</string>
 	<string name="ordinate">Ordinate</string>
 	<string name="ordinate_label">Ordinate [m]</string>

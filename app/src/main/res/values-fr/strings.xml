@@ -233,6 +233,7 @@
 	<string name="oit_vd">Office de l\'information sur le territoire - Vaud</string>
 	<string name="oit_vd_webpage_url">http://www.vd.ch/oit</string>
 	<string name="oit_vd_webpage_url_short">www.vd.ch/oit</string>
+	<string name="ok">OK</string>
 	<string name="optional_prths">(optionnel)</string>
 	<string name="ordinate">Ordonnée</string>
 	<string name="ordinate_label">Ordonnée [m]</string>
