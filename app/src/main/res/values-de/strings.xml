@@ -114,7 +114,8 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="error_fill_data">Alle obligatorischen Felder müssen erfüllt sein!</string>
 	<string name="error_import_label">Importfehler</string>
 	<string name="error_impossible_calculation">Unmögliche Berechnung!</string>
-	<string name="error_impossible_to_import">Unmöglich, die Datei einzuführen!</string>
+	<string name="error_impossible_to_export">Unmöglich zu exportieren!</string>
+	<string name="error_impossible_to_import">Unmöglich zu importieren!</string>
 	<string name="error_no_suitable_calculation_found">Keine entsprechenden Berechnung wurde gefunden!</string>
 	<string name="error_no_points_to_save">Es gibt keinen Punkt zu bewahren!</string>
 	<string name="error_no_points_saved">Es gibt keine Punkte zu bewahren! Haben Sie eine Punktnummer eingegeben?</string>

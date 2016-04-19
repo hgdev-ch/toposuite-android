@@ -119,7 +119,8 @@
 	<string name="error_fill_data">Tous les champs obligatoires doivent être remplis!</string>
 	<string name="error_import_label">Erreur d\'importation</string>
 	<string name="error_impossible_calculation">Calcul impossible!</string>
-	<string name="error_impossible_to_import">Impossible d\'importer le fichier!</string>
+	<string name="error_impossible_to_export">Export impossible!</string>
+	<string name="error_impossible_to_import">Import impossible!</string>
 	<string name="error_no_suitable_calculation_found">Aucun calcul approprié n\'a été trouvé!</string>
 	<string name="error_no_points_to_save">Il n\'y a aucun point à sauvegarder!</string>
 	<string name="error_no_points_saved">Aucun point sauvegardé! Avez-vous entré un numéro de point?</string>

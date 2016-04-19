@@ -43,14 +43,24 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
                 }
+            case WRITE_EXTERNAL_STORAGE:
+                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
+                    this.exportJob();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
+                }
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
     public void onExportButtonClicked(View view) {
-        ExportDialog dialog = new ExportDialog();
-        dialog.show(this.getFragmentManager(), "ExportDialogFragment");
+        if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
+            this.exportJob();
+        } else {
+            AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
+                    String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+        }
     }
 
     public void onImportButtonClicked(View view) {
@@ -108,6 +118,11 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
     @Override
     public void onImportDialogError(String message) {
         ViewUtils.showToast(this, message);
+    }
+
+    private void exportJob() {
+        ExportDialog dialog = new ExportDialog();
+        dialog.show(this.getFragmentManager(), "ExportDialogFragment");
     }
 
     private void importJob() {
