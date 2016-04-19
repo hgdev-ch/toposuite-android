@@ -15,6 +15,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.freestation.FreeStationActivity;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class FreeStation extends Calculation {
@@ -152,16 +153,21 @@ public class FreeStation extends Calculation {
             res.setNorth(MathUtils.pointLanceNorth(0, hz, horizDist));
 
             double weight = 0.0;
-            if (MathUtils.isPositive(m.getPoint().getAltitude())) {
-                // small trick to handle ignorable I
-                double tmpI = (MathUtils.isIgnorable(this.i)) ? 0.0 : this.i;
-
+            if (!MathUtils.isIgnorable(m.getPoint().getAltitude())
+                    && MathUtils.isPositive(m.getPoint().getAltitude())
+                    && MathUtils.isIgnorable(m.getLatDepl())
+                    && MathUtils.isIgnorable(m.getLonDepl())
+                    && !MathUtils.isIgnorable(this.i)
+                    && MathUtils.isPositive(this.i)) {
                 res.setAltitude(res.getAltitude() - MathUtils.nivellTrigo(
-                        horizDist, m.getZenAngle(), tmpI, m.getS(), 0.0));
+                        horizDist, m.getZenAngle(), this.i, m.getS(), res.getAltitude()));
                 weight = 1 / Math.pow((horizDist / 1000), 2);
+
                 totalWeights += weight;
                 meanAltitude += weight * res.getAltitude();
                 nbAltitudes++;
+            } else {
+                res.setAltitude(MathUtils.IGNORE_DOUBLE);
             }
 
             if (!this.hasDeactivatedMeasure(measuresCopy)) {
@@ -254,7 +260,10 @@ public class FreeStation extends Calculation {
         double tmp2 = distFictiveGToSt * meanConstants;
         this.stationResult.setEast((Math.sin(tmp1) * tmp2) + centroidCadast.getEast());
         this.stationResult.setNorth((Math.cos(tmp1) * tmp2) + centroidCadast.getNorth());
-        double altitude = (!MathUtils.isZero(meanAltitude)) ? meanAltitude / totalWeights : 0.0;
+        double altitude = MathUtils.IGNORE_DOUBLE;
+        if (!MathUtils.isIgnorable(meanAltitude) && !MathUtils.isZero(meanAltitude) && (nbAltitudes > 0)) {
+            altitude = meanAltitude / totalWeights;
+        }
         this.stationResult.setAltitude(altitude);
 
         double diffAlt = 0.0;
@@ -281,7 +290,11 @@ public class FreeStation extends Calculation {
             this.results.get(i).setvN(vN);
 
             // vA [cm]
-            double vA = (altitude - this.results.get(i).getPoint().getAltitude()) * 100;
+            double resAlt = this.results.get(i).getPoint().getAltitude();
+            double vA = (altitude - resAlt) * 100;
+            if (MathUtils.isIgnorable(resAlt)) {
+                vA = MathUtils.IGNORE_DOUBLE;
+            }
             this.results.get(i).setvA(vA);
 
             // FS [cm]
@@ -290,7 +303,9 @@ public class FreeStation extends Calculation {
 
             this.sE += Math.pow(vE, 2);
             this.sN += Math.pow(vN, 2);
-            diffAlt += this.results.get(i).getWeight() * Math.pow(vA, 2);
+            if (!MathUtils.isIgnorable(resAlt)) {
+                diffAlt += this.results.get(i).getWeight() * Math.pow(vA, 2);
+            }
             this.meanFS += fS;
 
             u += Math.pow(this.results.get(i).getPoint().getEast() - centroidYFict, 2);
@@ -304,15 +319,18 @@ public class FreeStation extends Calculation {
                         Math.pow(centroidYFict, 2) + Math.pow(centroidXFict, 2)) / (u + v)));
         this.sN = this.sE;
 
-        this.sA = Math.sqrt(diffAlt / ((nbAltitudes - 1) * totalWeights));
+        if (nbAltitudes > 1) {
+            this.sA = Math.sqrt(diffAlt / ((nbAltitudes - 1) * totalWeights));
+        } else {
+            this.sA = MathUtils.IGNORE_DOUBLE;
+        }
         this.meanFS /= (this.results.size() - numberOfDeactivatedOrientations);
 
         this.unknownOrientation = MathUtils.modulo400(meanRotations);
 
-        // if I is not provided, there is no altimetry, so we just set
-        // the altitude of the station to 0.0
+        // if I is not provided, there is no altimetry
         if (MathUtils.isIgnorable(this.i)) {
-            this.stationResult.setAltitude(0.0);
+            this.stationResult.setAltitude(MathUtils.IGNORE_DOUBLE);
         }
 
         this.updateLastModification();
