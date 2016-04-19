@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "ch.hgdev.toposuite"
         minSdkVersion 15
-        targetSdkVersion 22 //TODO: update to 23 once permissions have been handled!
+        targetSdkVersion 23
 
         testApplicationId "ch.hgdev.toposuite.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
