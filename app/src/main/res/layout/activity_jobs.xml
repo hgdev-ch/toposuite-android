@@ -1,37 +1,40 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-            
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="vertical"
-	    android:paddingTop="15dp" >
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/export_job"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:onClick="onExportButtonClicked"
-            android:text="@string/job_export"
-            android:layout_gravity="center" />
+        <!-- table of jobs header -->
 
-        <Button
-            android:id="@+id/import_job"
-            android:layout_width="180dp"
+        <TextView
+            android:id="@+id/job_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onImportButtonClicked"
-            android:text="@string/job_import"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp" />
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/filename"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-        <Button
-            android:id="@+id/clear_job"
-            android:layout_width="180dp"
+        <TextView
+            android:id="@+id/file_last_modification"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/job_clear"
-            android:onClick="onClearButtonClicked"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp" />
-	</LinearLayout>
-</ScrollView>
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/last_modification"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/apm_list_of_jobs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"></ListView>
+
+</LinearLayout>

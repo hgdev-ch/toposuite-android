@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/export_job"
+        android:icon="@drawable/ic_action_download"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/job_export" />
+
+    <item
+        android:id="@+id/clear_job"
+        android:icon="@drawable/ic_action_discard"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/job_clear" />
+</menu>

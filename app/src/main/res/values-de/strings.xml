@@ -169,6 +169,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="job_export">Job Autrag abbrechen</string>
 	<string name="job_import">Importieren Sie einen Job</string>
 	<string name="keep_button">Aufbewahren</string>
+	<string name="last_modification">Letzte Änderung</string>
 	<string name="last_modification_label">Letzte Änderung: <xliff:g>%s</xliff:g></string>
 	<string name="lateral_displacement_3dots">Seitliche Abweichung…</string>
 	<string name="letter_a_unit">a [m]</string>
