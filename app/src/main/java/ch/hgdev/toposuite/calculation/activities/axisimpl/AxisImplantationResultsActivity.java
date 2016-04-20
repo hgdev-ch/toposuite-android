@@ -1,7 +1,6 @@
 package ch.hgdev.toposuite.calculation.activities.axisimpl;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,13 +45,6 @@ public class AxisImplantationResultsActivity extends TopoSuiteActivity {
 
             this.drawList();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        this.getMenuInflater().inflate(R.menu.axis_implantation_results, menu);
-        return true;
     }
 
     @Override
