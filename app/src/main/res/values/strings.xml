@@ -70,6 +70,8 @@
 	<string name="delete_all_history">Clear history</string>
 	<string name="delete_all_points">Delete all points?</string>
 	<string name="delete_job">Delete current job</string>
+	<string name="deletion_failure">Impossible to delete</string>
+	<string name="deletion_success">Deleted successfully</string>
 	<string name="description">Description</string>
 	<string name="determination_sight_3dots">Determination sight No…</string>
 	<string name="determination_sight_label">Determination sight No</string>

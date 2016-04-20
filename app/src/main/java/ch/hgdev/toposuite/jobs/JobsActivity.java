@@ -37,7 +37,7 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class JobsActivity extends TopoSuiteActivity implements ExportDialog.ExportDialogListener,
-        ImportDialog.ImportDialogListener, ActivityCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     private ListView jobsListView;
     private ArrayListOfJobFilesAdapter adapter;
@@ -99,9 +99,9 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = (int) info.id;
         switch (item.getItemId()) {
             case R.id.import_job:
-                int position = (int) info.id;
                 if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
                     JobsActivity.this.importJob(position);
                 } else {
@@ -111,6 +111,18 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
                         JobsActivity.this.importJob(position);
                     }
                 }
+                return true;
+            case R.id.delete_job:
+                if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                    JobsActivity.this.deleteJob(position);
+                } else {
+                    AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                            String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+                    if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                        JobsActivity.this.deleteJob(position);
+                    }
+                }
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
@@ -145,20 +157,6 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
     @Override
     public void onExportDialogError(String message) {
         ViewUtils.showToast(this, message);
-    }
-
-    @Override
-    public void onImportDialogSuccess(String message) {
-        ViewUtils.showToast(this, message);
-    }
-
-    @Override
-    public void onImportDialogError(String message) {
-        ViewUtils.showToast(this, message);
-    }
-
-    public void onJobClicked(int position) {
-
     }
 
     /**
@@ -207,7 +205,18 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
             return;
         }
 
+        this.drawList();
         ViewUtils.showToast(this, this.getString(R.string.success_import_job_dialog));
+    }
+
+    private void deleteJob(int pos) {
+        File f = this.adapter.getItem(pos);
+        if (f.delete()) {
+            ViewUtils.showToast(this, this.getString(R.string.deletion_success));
+            this.drawList();
+        } else {
+            ViewUtils.showToast(this, this.getString(R.string.deletion_failure));
+        }
     }
 
     private void exportJob() {

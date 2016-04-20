@@ -70,6 +70,8 @@
 	<string name="delete_all_history">Verlauf leeren</string>
 	<string name="delete_all_points">Alle Punkte löschen ?</string>
 	<string name="delete_job">Aktuelles Job löschen</string>
+	<string name="deletion_failure">Unmöglich zu löschen</string>
+	<string name="deletion_success">Gelöschte erfolgreich</string>
 	<string name="description">Beschreibung</string>
 	<string name="determination_sight_3dots">Anpeilbestimmung Nr…</string>
 	<string name="determination_sight_label">Anpeilbestimmung Nr</string>

@@ -70,6 +70,8 @@
 	<string name="delete_all_history">Effacer l\'historique</string>
 	<string name="delete_all_points">Effacer tous les points?</string>
 	<string name="delete_job">Effacer le job courant</string>
+	<string name="deletion_failure">Suppression impossible</string>
+	<string name="deletion_success">Supprimé avec succès</string>
 	<string name="description">Description</string>
 	<string name="determination_sight_3dots">Visée de détermination No…</string>
 	<string name="determination_sight_label">Visée de détermination No</string>
