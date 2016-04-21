@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.text.InputType;
 
 import java.io.File;
@@ -52,6 +53,7 @@ public class App extends Application {
 
     /**
      * CSV separator.
+     * TODO: use locale dependent separator but add an option in settings to override.
      */
     public static final String CSV_SEPARATOR = ";";
 
@@ -59,12 +61,6 @@ public class App extends Application {
      * Number of decimal to display with dealing with numbers.
      */
     public static String numberOfDecimals = "%.4f";
-
-    /**
-     * A smaller number of decimals than {@link App}. It is used to format
-     * numbers that are not meant to be very precise.
-     */
-    public static String smallNumberOfDecimals = "%.2f";
 
     /**
      * Old date format.
@@ -80,6 +76,11 @@ public class App extends Application {
      * Default locale (language).
      */
     public static final Locale locale = Locale.getDefault();
+
+    /**
+     * Identify the current job name.
+     */
+    public static String currentJobName;
 
     /**
      * This variable contains the path to the publicly accessible data directory
@@ -184,6 +185,9 @@ public class App extends Application {
         calculations.addAll(CalculationsDataSource.getInstance().findAll());
         calculations.setNotifyOnChange(true);
 
+        // when starting, the job is only temporary
+        App.currentJobName = null;
+
         // init the public data directory path
         App.publicDataDirectory = Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/" + App.PUBLIC_DIR;
@@ -251,6 +255,14 @@ public class App extends Application {
                 Logger.log(Logger.ErrLabel.SETTINGS_ERROR,
                         "The type of allowed input coordinate is non valid");
         }
+    }
+
+    public static String getCurrentJobName() {
+        return App.currentJobName;
+    }
+
+    public static void setCurrentJobName(@NonNull String name) {
+        App.currentJobName = name;
     }
 
     public static int getInputTypeCoordinate() {

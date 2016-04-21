@@ -1,9 +1,9 @@
 package ch.hgdev.toposuite.jobs;
 
-import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.common.base.Joiner;
 import com.google.common.io.Files;
@@ -40,7 +41,8 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private ListView jobsListView;
-    private ArrayListOfJobFilesAdapter adapter;
+    private TextView jobNameTextView;
+    private ArrayListOfJobsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,10 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
 
         this.jobsListView = (ListView) this.findViewById(R.id.apm_list_of_jobs);
         this.registerForContextMenu(this.jobsListView);
+
+        this.jobNameTextView = (TextView) this.findViewById(R.id.current_job);
+        String currentJobName = Job.getCurrentJobName();
+        this.jobNameTextView.setText(Job.getCurrentJobName());
     }
 
     @Override
@@ -172,22 +178,22 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
         if ((filenameList != null) && (filenameList.length > 0)) {
             Arrays.sort(filenameList);
 
-            ArrayList<File> files = new ArrayList<File>();
+            ArrayList<Job> jobs = new ArrayList<Job>();
             for (String filename : filenameList) {
-                files.add(new File(App.publicDataDirectory, filename));
+                jobs.add(new Job(new File(App.publicDataDirectory, filename)));
             }
 
-            this.adapter = new ArrayListOfJobFilesAdapter(this, R.layout.jobs_list_item, files);
+            this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, jobs);
             this.jobsListView.setAdapter(this.adapter);
         } else {
-            this.adapter = new ArrayListOfJobFilesAdapter(this, R.layout.jobs_list_item);
+            this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item);
             this.jobsListView.setAdapter(this.adapter);
         }
     }
 
     private void importJob(int pos) {
-        File f = this.adapter.getItem(pos);
-
+        Job job = this.adapter.getItem(pos);
+        File f = job.getTpst();
         try {
             List<String> lines = Files.readLines(f, Charset.defaultCharset());
             // remove previous points and calculations from the SQLite DB
@@ -215,7 +221,8 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
     }
 
     private void deleteJob(int pos) {
-        File f = this.adapter.getItem(pos);
+        Job job = this.adapter.getItem(pos);
+        File f = job.getTpst();
         if (f.delete()) {
             ViewUtils.showToast(this, this.getString(R.string.deletion_success));
             this.drawList();

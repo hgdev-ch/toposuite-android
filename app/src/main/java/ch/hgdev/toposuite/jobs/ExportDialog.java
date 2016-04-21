@@ -139,7 +139,7 @@ public class ExportDialog extends DialogFragment {
         try {
             FileOutputStream outputStream = new FileOutputStream(
                     new File(App.publicDataDirectory, filename));
-            outputStream.write(Job.getCurrentJobAsString().getBytes());
+            outputStream.write(Job.getCurrentJobAsJson().getBytes());
             outputStream.close();
         } catch (IOException e) {
             this.closeOnError(e.getMessage());

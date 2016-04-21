@@ -2,11 +2,15 @@ package ch.hgdev.toposuite.jobs;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+
+import com.google.common.io.Files;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.Calendar;
 
@@ -18,28 +22,68 @@ import ch.hgdev.toposuite.settings.SettingsActivity;
 import ch.hgdev.toposuite.utils.AppUtils;
 
 class Job {
-    public static final String  EXTENSION                = "tpst";
+    public static final String EXTENSION = "tpst";
 
-    private static final String GENERATED_BY_KEY         = "generated_by";
-    private static final String VERSION_KEY              = "version";
-    private static final String CREATED_AT_KEY           = "created_at";
-    private static final String APP_VERSION_NAME_KEY     = "toposuite_name_version";
-    private static final String APP_VERSION_CODE_KEY     = "toposuite_code_version";
-    private static final String SETTINGS_KEY             = "settings";
+    private static final String GENERATED_BY_KEY = "generated_by";
+    private static final String VERSION_KEY = "version";
+    private static final String CREATED_AT_KEY = "created_at";
+    private static final String APP_VERSION_NAME_KEY = "toposuite_name_version";
+    private static final String APP_VERSION_CODE_KEY = "toposuite_code_version";
+    private static final String SETTINGS_KEY = "settings";
     private static final String COORDINATE_PRECISION_KEY = "coordinate_precision";
-    private static final String ANGLE_PRECISION_KEY      = "angle_precision";
-    private static final String DISTANCE_PRECISION_KEY   = "distance_precision";
-    private static final String AVERAGE_PRECISION_KEY    = "average_precision";
-    private static final String GAP_PRECISION_KEY        = "gap_precision";
-    private static final String SURFACE_PRECISION_KEY    = "surface_precision";
-    private static final String COORDINATE_ROUNDING      = "coordinate_rounding";
-    private static final String POINTS_KEY               = "points";
-    private static final String CALCULATIONS_KEY         = "calculations";
+    private static final String ANGLE_PRECISION_KEY = "angle_precision";
+    private static final String DISTANCE_PRECISION_KEY = "distance_precision";
+    private static final String AVERAGE_PRECISION_KEY = "average_precision";
+    private static final String GAP_PRECISION_KEY = "gap_precision";
+    private static final String SURFACE_PRECISION_KEY = "surface_precision";
+    private static final String COORDINATE_ROUNDING = "coordinate_rounding";
+    private static final String POINTS_KEY = "points";
+    private static final String CALCULATIONS_KEY = "calculations";
 
-    private static final String VERSION                  = "1"; // TODO update before release 1.1.0
-    private static final String GENERATOR                = "TopoSuite Android";
+    private static final String VERSION = "1"; // TODO update before release 1.1.0
+    private static final String GENERATOR = "TopoSuite Android";
 
-    public static String getCurrentJobAsString() throws JSONException {
+    private String name;
+    private long lastModified;
+    private File tpst;
+
+
+    public Job(@NonNull File tpst) {
+        this.name = Files.getNameWithoutExtension(tpst.getName());
+        this.tpst = tpst;
+        this.lastModified = tpst.lastModified();
+    }
+
+    public Job(@NonNull String name, @NonNull File tpst) {
+        this.name = name;
+        this.tpst = tpst;
+        this.lastModified = tpst.lastModified();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public File getTpst() {
+        return tpst;
+    }
+
+    public long getLastModified() {
+        return lastModified;
+    }
+
+    public static String getCurrentJobName() {
+        if (App.currentJobName == null) {
+            return "-";
+        }
+        return App.getCurrentJobName();
+    }
+
+    public static void setCurrentJobName(@NonNull String name) {
+        App.setCurrentJobName(name);
+    }
+
+    public static String getCurrentJobAsJson() throws JSONException {
         JSONObject jo = new JSONObject();
         jo.put(Job.GENERATED_BY_KEY, Job.GENERATOR);
         jo.put(Job.VERSION_KEY, Job.VERSION);
@@ -135,9 +179,8 @@ class Job {
 
     /**
      * Check if a given extension is valid for a job.
-     * 
-     * @param ext
-     *            A file extension
+     *
+     * @param ext A file extension
      * @return True if the extension is valid, false otherwise.
      */
     public static boolean isExtensionValid(String ext) {

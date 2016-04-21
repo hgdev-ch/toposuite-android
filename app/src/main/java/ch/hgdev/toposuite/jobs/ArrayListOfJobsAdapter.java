@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import ch.hgdev.toposuite.R;
@@ -18,17 +17,17 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  *
  * @author HGdev
  */
-public class ArrayListOfJobFilesAdapter extends ArrayAdapter<File> {
-    private final ArrayList<File> files;
+public class ArrayListOfJobsAdapter extends ArrayAdapter<Job> {
+    private final ArrayList<Job> jobs;
     private final Context context;
 
-    public ArrayListOfJobFilesAdapter(Context context, int textViewResourceId) {
-        this(context, textViewResourceId, new ArrayList<File>());
+    public ArrayListOfJobsAdapter(Context context, int textViewResourceId) {
+        this(context, textViewResourceId, new ArrayList<Job>());
     }
 
-    public ArrayListOfJobFilesAdapter(Context context, int textViewResourceId, ArrayList<File> files) {
-        super(context, textViewResourceId, files);
-        this.files = files;
+    public ArrayListOfJobsAdapter(Context context, int textViewResourceId, ArrayList<Job> jobs) {
+        super(context, textViewResourceId, jobs);
+        this.jobs = jobs;
         this.context = context;
     }
 
@@ -40,18 +39,18 @@ public class ArrayListOfJobFilesAdapter extends ArrayAdapter<File> {
             view = inflater.inflate(R.layout.jobs_list_item, null);
         }
 
-        if (!this.files.isEmpty()) {
-            File f = this.files.get(position);
-            if (f != null) {
+        if (!this.jobs.isEmpty()) {
+            Job job = this.jobs.get(position);
+            if (job != null) {
                 TextView nameTextView = (TextView) view.findViewById(R.id.job_filename);
                 TextView lastModificationTextView = (TextView) view.findViewById(R.id.job_file_last_modification);
 
                 if (nameTextView != null) {
-                    nameTextView.setText(f.getName());
+                    nameTextView.setText(job.getName());
                 }
 
                 if (lastModificationTextView != null) {
-                    lastModificationTextView.setText(DisplayUtils.formatDate(f.lastModified()));
+                    lastModificationTextView.setText(DisplayUtils.formatDate(job.getLastModified()));
                 }
             }
         }

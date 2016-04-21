@@ -64,6 +64,7 @@
 	<string name="cpln_webpage_url">http://www.cpln.ch/</string>
 	<string name="cpln_webpage_url_short">www.cpln.ch</string>
 	<string name="crag">CRAG (Commission paritaire romande d\'apprentissage de géomaticien/ne)</string>
+	<string name="current_job_label">Job courant</string>
 	<string name="delete">Supprimer</string>
 	<string name="delete_3dots">Supprimer…</string>
 	<string name="delete_all">Tout supprimer</string>
@@ -172,6 +173,7 @@
 	<string name="intersection_point_label">Point d\'intersection:</string>
 	<string name="intersection_one_label">Premier point d\'intersection:</string>
 	<string name="intersection_two_label">Second point d\'intersection:</string>
+	<string name="job_label">Job</string>
 	<string name="job_clear">Effacer le job courant</string>
 	<string name="job_export">Exporter le job courant</string>
 	<string name="job_import">Importer un job</string>

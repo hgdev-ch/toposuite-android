@@ -64,6 +64,7 @@
 	<string name="cpln_webpage_url">http://www.cpln.ch/</string>
 	<string name="cpln_webpage_url_short">www.cpln.ch</string>
 	<string name="crag">CRAG (Commission paritaire romande d\'apprentissage de géomaticien/ne)</string>
+	<string name="current_job_label">Aktueller Job</string>
 	<string name="delete">Entfernen</string>
 	<string name="delete_3dots">Entfernen…</string>
 	<string name="delete_all">Alles löschen</string>
@@ -167,6 +168,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="intersection_point_label">Schnittpunkt:</string>
 	<string name="intersection_one_label">Der erste Schnittpunkt:</string>
 	<string name="intersection_two_label">Der zweite Schnittpunkt:</string>
+	<string name="job_label">Job</string>
 	<string name="job_clear">Aktueller Job löschen</string>
 	<string name="job_export">Job Autrag abbrechen</string>
 	<string name="job_import">Importieren Sie einen Job</string>
