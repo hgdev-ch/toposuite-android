@@ -119,6 +119,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="error_impossible_calculation">Unmögliche Berechnung!</string>
 	<string name="error_impossible_to_export">Unmöglich zu exportieren!</string>
 	<string name="error_impossible_to_import">Unmöglich zu importieren!</string>
+	<string name="error_name_exist">Dieser Name ist bereits vorhanden!</string>
 	<string name="error_no_suitable_calculation_found">Keine entsprechenden Berechnung wurde gefunden!</string>
 	<string name="error_no_points_to_save">Es gibt keinen Punkt zu bewahren!</string>
 	<string name="error_no_points_saved">Es gibt keine Punkte zu bewahren! Haben Sie eine Punktnummer eingegeben?</string>
@@ -172,6 +173,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="job_clear">Aktueller Job löschen</string>
 	<string name="job_export">Job Autrag abbrechen</string>
 	<string name="job_import">Importieren Sie einen Job</string>
+	<string name="job_save">Aktueller Job speichern</string>
 	<string name="keep_button">Aufbewahren</string>
 	<string name="last_modification">Letzte Änderung</string>
 	<string name="last_modification_label">Letzte Änderung: <xliff:g>%s</xliff:g></string>
@@ -283,6 +285,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="radius">Radius [m]</string>
 	<string name="radius_3dots">Radius…</string>
 	<string name="radius_label">Radius [m]</string>
+	<string name="rename_button">Umbenennen</string>
 	<string name="replace_button">Ersetzen</string>
 	<string name="retrieve_z0">Holen Sie sich das unbekannte Orientierung der letzten Berechnung</string>
 	<string name="sa_label">sH [cm]:</string>
@@ -312,6 +315,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="success_merge">Punkte erfolgreich zusammengeführt!</string>
 	<string name="success_point_kept">Punkt erhalten!</string>
 	<string name="success_replace">Punkt ersetzt mit Erfolg!</string>
+	<string name="success_rename">Umbenannt erfolgreich!</string>
 	<string name="surface_label">Oberfläche [m²]</string>
 	<string name="tangent_label">Tangente [m]</string>
 	<string name="target_point">Zielpunkt</string>

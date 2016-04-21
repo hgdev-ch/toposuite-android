@@ -69,6 +69,19 @@ public class DisplayUtils {
     }
 
     /**
+     * Format a string for a view, handling the case of null string.
+     *
+     * @param s A string to display oon a view.
+     * @return Formatted string s.
+     */
+    public static String format(String s) {
+        if (s == null) {
+            return "-";
+        }
+        return s;
+    }
+
+    /**
      * Utility to format a string to be displayed.
      *
      * @param value The value to format.

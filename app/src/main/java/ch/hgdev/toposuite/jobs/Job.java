@@ -11,7 +11,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import ch.hgdev.toposuite.App;
@@ -73,13 +76,10 @@ class Job {
     }
 
     public static String getCurrentJobName() {
-        if (App.currentJobName == null) {
-            return "-";
-        }
         return App.getCurrentJobName();
     }
 
-    public static void setCurrentJobName(@NonNull String name) {
+    public static void setCurrentJobName(String name) {
         App.setCurrentJobName(name);
     }
 
@@ -185,5 +185,23 @@ class Job {
      */
     public static boolean isExtensionValid(String ext) {
         return Job.EXTENSION.equalsIgnoreCase(ext);
+    }
+
+    public static ArrayList<Job> getJobsList() {
+        ArrayList<Job> jobs = new ArrayList<Job>();
+        String[] filenameList = new File(App.publicDataDirectory).list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String filename) {
+                return Files.getFileExtension(filename).equalsIgnoreCase(Job.EXTENSION);
+            }
+        });
+        if ((filenameList != null) && (filenameList.length > 0)) {
+            Arrays.sort(filenameList);
+
+            for (String filename : filenameList) {
+                jobs.add(new Job(new File(App.publicDataDirectory, filename)));
+            }
+        }
+        return jobs;
     }
 }

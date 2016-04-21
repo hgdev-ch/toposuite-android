@@ -124,6 +124,7 @@
 	<string name="error_impossible_calculation">Calcul impossible!</string>
 	<string name="error_impossible_to_export">Export impossible!</string>
 	<string name="error_impossible_to_import">Import impossible!</string>
+	<string name="error_name_exist">Ce nom existe déjà!</string>
 	<string name="error_no_suitable_calculation_found">Aucun calcul approprié n\'a été trouvé!</string>
 	<string name="error_no_points_to_save">Il n\'y a aucun point à sauvegarder!</string>
 	<string name="error_no_points_saved">Aucun point sauvegardé! Avez-vous entré un numéro de point?</string>
@@ -177,6 +178,7 @@
 	<string name="job_clear">Effacer le job courant</string>
 	<string name="job_export">Exporter le job courant</string>
 	<string name="job_import">Importer un job</string>
+	<string name="job_save">Sauvegarder le job courant</string>
 	<string name="keep_button">Conserver</string>
 	<string name="last_modification">Dernière modification</string>
 	<string name="last_modification_label">Dernière modification: <xliff:g>%s</xliff:g></string>
@@ -288,6 +290,7 @@
 	<string name="radius">Rayon [m]</string>
 	<string name="radius_3dots">Rayon…</string>
 	<string name="radius_label">Rayon [m]</string>
+	<string name="rename_button">Renommer</string>
 	<string name="replace_button">Remplacer</string>
 	<string name="retrieve_z0">Récupérer l\'inconnue d\'orientation du dernier calcul</string>
 	<string name="sa_label">sH [cm]:</string>
@@ -317,6 +320,7 @@
 	<string name="success_merge">Points fusionnés avec succès!</string>
 	<string name="success_point_kept">Point conservé!</string>
 	<string name="success_replace">Point remplacé avec succès!</string>
+	<string name="success_rename">Renommé avec succès!</string>
 	<string name="surface_label">Surface [m²]</string>
 	<string name="tangent_label">Tangente [m]</string>
 	<string name="target_point">Point visé</string>

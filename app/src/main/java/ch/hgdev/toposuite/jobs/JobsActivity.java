@@ -19,12 +19,10 @@ import com.google.common.io.Files;
 import org.json.JSONException;
 
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import ch.hgdev.toposuite.App;
@@ -34,10 +32,12 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.AppUtils;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class JobsActivity extends TopoSuiteActivity implements ExportDialog.ExportDialogListener,
+public class JobsActivity extends TopoSuiteActivity implements
+        RenameCurrentJobFragment.RenameCurrentJobListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private ListView jobsListView;
@@ -53,8 +53,7 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
         this.registerForContextMenu(this.jobsListView);
 
         this.jobNameTextView = (TextView) this.findViewById(R.id.current_job);
-        String currentJobName = Job.getCurrentJobName();
-        this.jobNameTextView.setText(Job.getCurrentJobName());
+        this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
     }
 
     @Override
@@ -86,16 +85,16 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.export_job:
+            case R.id.save_job:
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                    this.exportJob();
+                    this.saveJob();
                 } else {
                     AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
                             String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
                 }
                 return true;
             case R.id.clear_job:
-                this.clearJobs();
+                this.clearJob();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -144,7 +143,7 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
                 break;
             case WRITE_EXTERNAL_STORAGE:
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                    this.exportJob();
+                    this.saveJob();
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
                 }
@@ -154,41 +153,12 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
         }
     }
 
-    @Override
-    public void onExportDialogSuccess(String message) {
-        this.drawList();
-        ViewUtils.showToast(this, message);
-    }
-
-    @Override
-    public void onExportDialogError(String message) {
-        ViewUtils.showToast(this, message);
-    }
-
     /**
      * Draw the main table containing all the points.
      */
     private void drawList() {
-        String[] filenameList = new File(App.publicDataDirectory).list(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String filename) {
-                return Files.getFileExtension(filename).equalsIgnoreCase(Job.EXTENSION);
-            }
-        });
-        if ((filenameList != null) && (filenameList.length > 0)) {
-            Arrays.sort(filenameList);
-
-            ArrayList<Job> jobs = new ArrayList<Job>();
-            for (String filename : filenameList) {
-                jobs.add(new Job(new File(App.publicDataDirectory, filename)));
-            }
-
-            this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, jobs);
-            this.jobsListView.setAdapter(this.adapter);
-        } else {
-            this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item);
-            this.jobsListView.setAdapter(this.adapter);
-        }
+        this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
+        this.jobsListView.setAdapter(this.adapter);
     }
 
     private void importJob(int pos) {
@@ -216,6 +186,8 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
             return;
         }
 
+        Job.setCurrentJobName(Files.getNameWithoutExtension(f.getName()));
+        this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
         this.drawList();
         ViewUtils.showToast(this, this.getString(R.string.success_import_job_dialog));
     }
@@ -231,12 +203,34 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
         }
     }
 
-    private void exportJob() {
-        ExportDialog dialog = new ExportDialog();
-        dialog.show(this.getSupportFragmentManager(), "ExportDialogFragment");
+    private void saveJob() {
+        String currentJob = Job.getCurrentJobName();
+        if (currentJob == null) {
+            this.renameJob();
+            return;
+        }
+
+        String filename = currentJob.concat("." + Job.EXTENSION);
+        File f = new File(this.getFilesDir(), filename);
+        if (f.isFile()) {
+            ViewUtils.showToast(this, this.getString(R.string.error_file_already_exists));
+            return;
+        }
+
+        try {
+            FileOutputStream outputStream = new FileOutputStream(new File(App.publicDataDirectory, filename));
+            outputStream.write(Job.getCurrentJobAsJson().getBytes());
+            outputStream.close();
+            ViewUtils.showToast(this, this.getString(R.string.success_export_job_dialog));
+        } catch (IOException | JSONException e) {
+            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
+        } finally {
+            this.drawList();
+        }
     }
 
-    private void clearJobs() {
+    private void clearJob() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.delete_job)
                 .setMessage(R.string.loose_job)
@@ -253,6 +247,10 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
                                 // clean in-memory residues
                                 SharedResources.getSetOfPoints().clear();
                                 SharedResources.getCalculationsHistory().clear();
+
+                                // update current view
+                                Job.setCurrentJobName(null);
+                                JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
                             }
                         })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -262,5 +260,22 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
                     }
                 });
         builder.create().show();
+    }
+
+    private void renameJob() {
+        RenameCurrentJobFragment dialog = new RenameCurrentJobFragment();
+        dialog.show(this.getSupportFragmentManager(), "RenameCurrentJobFragment");
+    }
+
+    @Override
+    public void onRenameCurrentJobSuccess(String message) {
+        this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
+        ViewUtils.showToast(this, message);
+        this.saveJob();
+    }
+
+    @Override
+    public void onRenameCurrentJobError(String message) {
+        ViewUtils.showToast(this, message);
     }
 }

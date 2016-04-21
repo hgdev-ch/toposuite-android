@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.text.InputType;
 
 import java.io.File;
@@ -261,7 +260,7 @@ public class App extends Application {
         return App.currentJobName;
     }
 
-    public static void setCurrentJobName(@NonNull String name) {
+    public static void setCurrentJobName(String name) {
         App.currentJobName = name;
     }
 

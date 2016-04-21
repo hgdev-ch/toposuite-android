@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.jobs;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,7 @@ public class ArrayListOfJobsAdapter extends ArrayAdapter<Job> {
     private final ArrayList<Job> jobs;
     private final Context context;
 
-    public ArrayListOfJobsAdapter(Context context, int textViewResourceId) {
-        this(context, textViewResourceId, new ArrayList<Job>());
-    }
-
-    public ArrayListOfJobsAdapter(Context context, int textViewResourceId, ArrayList<Job> jobs) {
+    public ArrayListOfJobsAdapter(@NonNull  Context context, int textViewResourceId, @NonNull ArrayList<Job> jobs) {
         super(context, textViewResourceId, jobs);
         this.jobs = jobs;
         this.context = context;
