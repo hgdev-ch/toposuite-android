@@ -1,5 +1,8 @@
 package ch.hgdev.toposuite.utils;
 
+import com.google.common.base.Strings;
+import com.google.common.math.DoubleMath;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -8,9 +11,6 @@ import java.text.ParseException;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.points.Point;
-
-import com.google.common.base.Strings;
-import com.google.common.math.DoubleMath;
 
 /**
  * MathUtils provides static helpers for mathematical operation/conversion.
@@ -45,6 +45,12 @@ public class MathUtils {
      * later in some calculations.
      */
     public static final int IGNORE_INT = Integer.MIN_VALUE;
+
+    /**
+     * Use this value when you need to set a variable which needs to be ignored
+     * later in some calculations.
+     */
+    public static final long IGNORE_LONG = Long.MIN_VALUE;
 
     /**
      * Check if a double is zero.
@@ -179,20 +185,17 @@ public class MathUtils {
      * Determine if the given value could be ignored or not. This is useful in
      * some calculations. For instance, some value may be optional and in this
      * case, it should be ignored. In order to be ignored, a value of type
-     * double must be set to {@link MathUtils.IGNORE_DOUBLE}.
+     * double must be set to {@link MathUtils#IGNORE_DOUBLE}.
      *
      * @param d a double
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(double d) {
-        if ((d == MathUtils.IGNORE_DOUBLE)
+        return (d == MathUtils.IGNORE_DOUBLE)
                 || MathUtils.isMax(d)
                 || MathUtils.isMin(d)
                 || Double.isInfinite(d)
-                || Double.isNaN(d)) {
-            return true;
-        }
-        return false;
+                || Double.isNaN(d);
     }
 
     /**
@@ -219,18 +222,50 @@ public class MathUtils {
      * Determine if the given value could be ignored or not. This is useful in
      * some calculations. For instance, some value may be optional and in this
      * case, it should be ignored. In order to be ignored, a value of type
-     * double must be set to {@link MathUtils.IGNORE_INT}.
+     * double must be set to {@link MathUtils#IGNORE_INT}.
      *
      * @param value an integer
      * @return True if the value can be ignored, false otherwise.
      */
     public static boolean isIgnorable(int value) {
-        if ((value == MathUtils.IGNORE_INT)
+        return (value == MathUtils.IGNORE_INT)
                 || MathUtils.isMax(value)
-                || MathUtils.isMin(value)) {
-            return true;
-        }
-        return false;
+                || MathUtils.isMin(value);
+    }
+
+    /**
+     * Check if a int has the value of the largest possible value for a int.
+     *
+     * @param value an int
+     * @return true if d is equal to the maximum value, false otherwise.
+     */
+    public static boolean isMax(long value) {
+        return value == Long.MAX_VALUE;
+    }
+
+    /**
+     * Check if a int has the value of the smallest possible value for a int.
+     *
+     * @param value an int
+     * @return true if d is equal to the minimum value, false otherwise.
+     */
+    public static boolean isMin(long value) {
+        return value == Long.MIN_VALUE;
+    }
+
+    /**
+     * Determine if the given value could be ignored or not. This is useful in
+     * some calculations. For instance, some value may be optional and in this
+     * case, it should be ignored. In order to be ignored, a value of type
+     * double must be set to {@link MathUtils#IGNORE_LONG}.
+     *
+     * @param value an integer
+     * @return True if the value can be ignored, false otherwise.
+     */
+    public static boolean isIgnorable(long value) {
+        return (value == MathUtils.IGNORE_INT)
+                || MathUtils.isMax(value)
+                || MathUtils.isMin(value);
     }
 
     /**
