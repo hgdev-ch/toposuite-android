@@ -21,8 +21,8 @@
 	<string name="app_copyright">Copyright <xliff:g> &#169; 2014-%s</xliff:g> - <xliff:g id="crag">%s</xliff:g></string>
 	<string name="app_developer">HGdev</string>
 	<string name="app_developer_full_info"><xliff:g id="app_developer">%s</xliff:g> - <xliff:g id="app_developer_webpage_url">%s</xliff:g></string>
-	<string name="app_developer_webpage_url">http://www.hgdev.ch/</string>
-	<string name="app_developer_webpage_url_short">www.hgdev.ch</string>
+	<string name="app_developer_webpage_url">https://hgdev.ch/</string>
+	<string name="app_developer_webpage_url_short">hgdev.ch</string>
 	<string name="app_name">TopoSuite</string>
 	<string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
 	<string name="app_website">Site officiel:</string>
