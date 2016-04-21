@@ -17,5 +17,5 @@ public interface Importable {
      *            JSON string that contains the calculation input values
      * @throws JSONException
      */
-    public void importFromJSON(String jsonInputArgs) throws JSONException, CalculationSerializationException;
+    void importFromJSON(String jsonInputArgs) throws JSONException, CalculationSerializationException;
 }

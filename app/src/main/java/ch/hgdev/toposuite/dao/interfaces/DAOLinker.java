@@ -12,7 +12,7 @@ public interface DAOLinker {
      * @param dao
      *            a DAO object
      */
-    public void registerDAO(DAO dao);
+    void registerDAO(DAO dao);
 
     /**
      * Remove a DAO.
@@ -20,5 +20,5 @@ public interface DAOLinker {
      * @param dao
      *            a DAO object
      */
-    public void removeDAO(DAO dao);
+    void removeDAO(DAO dao);
 }

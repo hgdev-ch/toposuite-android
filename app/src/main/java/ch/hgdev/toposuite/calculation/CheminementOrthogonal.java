@@ -220,7 +220,7 @@ public class CheminementOrthogonal extends Calculation {
         JSONObject json = new JSONObject(jsonInputArgs);
 
         OrthogonalBase ob = OrthogonalBase.getOrthogonalBaseFromJSON(
-                ((JSONObject) json.get(CheminementOrthogonal.ORTHOGONAL_BASE)).toString());
+                json.get(CheminementOrthogonal.ORTHOGONAL_BASE).toString());
         this.orthogonalBase = ob;
 
         JSONArray measuresArray = json.getJSONArray(CheminementOrthogonal.MEASURES);

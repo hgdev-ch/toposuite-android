@@ -90,7 +90,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
     private enum Mode {
         LINE,
-        GISEMENT;
+        GISEMENT
     }
 
     @Override

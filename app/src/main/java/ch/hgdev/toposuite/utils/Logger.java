@@ -33,7 +33,7 @@ public class Logger {
 
         private final String label;
 
-        private ErrLabel(final String label) {
+        ErrLabel(final String label) {
             this.label = label;
         }
 
@@ -53,7 +53,7 @@ public class Logger {
 
         private final String label;
 
-        private WarnLabel(final String label) {
+        WarnLabel(final String label) {
             this.label = label;
         }
 
@@ -72,7 +72,7 @@ public class Logger {
 
         private final String label;
 
-        private InfoLabel(final String label) {
+        InfoLabel(final String label) {
             this.label = label;
         }
 

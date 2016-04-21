@@ -132,7 +132,7 @@ public class OrthogonalImplantation extends Calculation {
         JSONObject json = new JSONObject(jsonInputArgs);
 
         OrthogonalBase ob = OrthogonalBase.getOrthogonalBaseFromJSON(
-                ((JSONObject) json.get(OrthogonalImplantation.ORTHOGONAL_BASE)).toString());
+                json.get(OrthogonalImplantation.ORTHOGONAL_BASE).toString());
         this.orthogonalBase = ob;
 
         JSONArray measuresArray = json.getJSONArray(OrthogonalImplantation.MEASURES);

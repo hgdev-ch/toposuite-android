@@ -12,5 +12,5 @@ public interface DAOUpdater extends DAOLinker {
      * @param obj
      *            an object
      */
-    public void notifyUpdate(Object obj);
+    void notifyUpdate(Object obj);
 }

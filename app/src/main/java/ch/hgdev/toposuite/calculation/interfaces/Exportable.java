@@ -15,5 +15,5 @@ public interface Exportable {
      * @return JSON string
      * @throws JSONException
      */
-    public String exportToJSON() throws JSONException;
+    String exportToJSON() throws JSONException;
 }
