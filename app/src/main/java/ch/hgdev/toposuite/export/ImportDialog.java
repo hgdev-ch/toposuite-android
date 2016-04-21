@@ -2,8 +2,8 @@ package ch.hgdev.toposuite.export;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +26,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.LineNumberReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +34,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.PointsImporter;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -49,11 +49,11 @@ public class ImportDialog extends DialogFragment {
 
     private ArrayAdapter<String> adapter;
 
-    private Spinner              filesListSpinner;
-    private TextView             fileLastModificationTextView;
-    private TextView             fileNumberOfPointsTextView;
+    private Spinner filesListSpinner;
+    private TextView fileLastModificationTextView;
+    private TextView fileNumberOfPointsTextView;
 
-    private boolean              isConfirmationAsked = false;
+    private boolean isConfirmationAsked = false;
 
     /**
      * Listener for handling dialog events.
@@ -65,8 +65,7 @@ public class ImportDialog extends DialogFragment {
          * This callback is triggered when the action performed by the dialog
          * succeed.
          *
-         * @param message
-         *            Success message.
+         * @param message Success message.
          */
         void onImportDialogSuccess(String message);
 
@@ -74,8 +73,7 @@ public class ImportDialog extends DialogFragment {
          * This callback is triggered when the action performed by the dialog
          * fail.
          *
-         * @param message
-         *            Error message.
+         * @param message Error message.
          */
         void onImportDialogError(String message);
     }
@@ -90,7 +88,7 @@ public class ImportDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_import_points, container, false);
 
         this.fileLastModificationTextView = (TextView) view.findViewById(
@@ -157,13 +155,11 @@ public class ImportDialog extends DialogFragment {
                 ImportDialog.this.isConfirmationAsked = false;
 
                 File f = new File(App.publicDataDirectory, filename);
-                SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat, App.locale);
 
                 // display the last modification date of the selected file
                 ImportDialog.this.fileLastModificationTextView.setText(
                         String.format(ImportDialog.this.getActivity().getString(
-                                R.string.last_modification_label),
-                                sdf.format(f.lastModified())));
+                                R.string.last_modification_label), DisplayUtils.formatDate(f.lastModified())));
 
                 try {
                     // display the number of points contained in the file

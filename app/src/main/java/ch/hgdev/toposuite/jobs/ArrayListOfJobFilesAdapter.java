@@ -8,11 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
  * Adapter to correctly format a list of jobs to display.
@@ -36,7 +35,6 @@ public class ArrayListOfJobFilesAdapter extends ArrayAdapter<File> {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.jobs_list_item, null);
         }
-        SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat, App.locale);
 
         File f = this.files.get(position);
         if (f != null) {
@@ -48,7 +46,7 @@ public class ArrayListOfJobFilesAdapter extends ArrayAdapter<File> {
             }
 
             if (lastModificationTextView != null) {
-                lastModificationTextView.setText(sdf.format(f.lastModified()));
+                lastModificationTextView.setText(DisplayUtils.formatDate(f.lastModified()));
             }
         }
 

@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import org.json.JSONException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,6 +14,7 @@ import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.calculation.CalculationFactory;
 import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
+import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 
@@ -69,17 +68,9 @@ public class CalculationsDataSource implements DAO {
                 String serializedInputData = cursor.getString(
                         cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA));
 
-                SimpleDateFormat sdf = new SimpleDateFormat(App.dateFormat, App.locale);
-                Date d;
-                try {
-                    d = sdf.parse(lastModification);
-                    Calculation calculation = CalculationFactory.createCalculation(
-                            CalculationType.valueOf(type), id, description, d, serializedInputData);
-                    calculations.add(calculation);
-                } catch (ParseException e) {
-                    Logger.log(Logger.ErrLabel.PARSE_ERROR,
-                            CalculationsDataSource.ERROR_PARSING_DATE);
-                }
+                Date d = AppUtils.parseSerializedDate(lastModification);
+                Calculation calculation = CalculationFactory.createCalculation(CalculationType.valueOf(type), id, description, d, serializedInputData);
+                calculations.add(calculation);
 
                 cursor.moveToNext();
             }

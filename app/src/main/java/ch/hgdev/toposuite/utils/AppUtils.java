@@ -1,17 +1,21 @@
 package ch.hgdev.toposuite.utils;
 
 import android.app.Activity;
-import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import ch.hgdev.toposuite.App;
@@ -79,7 +83,7 @@ public class AppUtils {
                 lookup.put(p.value, p);
         }
 
-        private Permission(int value) {
+        Permission(int value) {
             this.value = value;
             switch (value) {
                 case 0x100:
@@ -263,5 +267,41 @@ public class AppUtils {
      */
     public static boolean isPermissionGranted(final @NonNull Activity activity, final Permission permission) {
         return ContextCompat.checkSelfPermission(activity, permission.name) == PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    public static String serializeDate(final @NonNull Date d) {
+        SimpleDateFormat sdf = new SimpleDateFormat(App.ISO8601_DATE_FORMAT, Locale.US);
+        return sdf.format(d);
+    }
+
+    /**
+     * Attempt to parse a date. At first, attempt to parse ISO8601 formatted date. If this fails,
+     * fallback to parsing using the old date format. If it still fails, the returned value is the
+     * date of EPOCH. This function is meant to be used when deserializing dates, typically from
+     * JSON files. Hence, it does not care about locale.
+     *
+     * @param date A date formatted as {@link App#ISO8601_DATE_FORMAT} or {@link App#DATE_FORMAT}.
+     * @return A new date object corresponding to the date string.
+     */
+    public static Date parseSerializedDate(final @NonNull String date) {
+        Date d;
+        try {
+            // try ISO 8601 date first
+            SimpleDateFormat sdfISO = new SimpleDateFormat(App.ISO8601_DATE_FORMAT, Locale.US);
+            d = sdfISO.parse(date);
+        } catch (ParseException e) {
+            try {
+                Logger.log(Logger.WarnLabel.PARSE_ERROR, "old date format (" + date + ")");
+                // well, try old format ten
+                SimpleDateFormat sdf = new SimpleDateFormat(App.DATE_FORMAT, Locale.US);
+                d = sdf.parse(date);
+            } catch (ParseException p) {
+                // meh, use default EPOCH then
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, p.getMessage());
+                d = new Date(0);
+            }
+        }
+        return d;
     }
 }

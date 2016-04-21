@@ -1,14 +1,13 @@
 package ch.hgdev.toposuite.calculation;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.interfaces.Exportable;
@@ -16,6 +15,7 @@ import ch.hgdev.toposuite.calculation.interfaces.Importable;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
+import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
@@ -23,22 +23,20 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * Calculation <b>must</b> call {@link Calculation#updateLastModification()}
  * when they update their attributes in order to keep the last modification up
  * to date.
- * 
+ *
  * @author HGdev
  */
 public abstract class Calculation implements Exportable, Importable, DAOUpdater, Serializable {
-    public static final String    ID                = "id";
-    public static final String    TYPE              = "type";
-    public static final String    DESCRIPTION       = "description";
-    public static final String    LAST_MODIFICATION = "last_modification";
-    public static final String    INPUT_DATA        = "input_data";
-
-    private static final String   DATE_FORMAT       = "dd-MM-yyyy H:m:s";
+    public static final String ID = "id";
+    public static final String TYPE = "type";
+    public static final String DESCRIPTION = "description";
+    public static final String LAST_MODIFICATION = "last_modification";
+    public static final String INPUT_DATA = "input_data";
 
     /**
      * The ID used by the database.
      */
-    private long                  id;
+    private long id;
 
     /**
      * Type of calculation.
@@ -48,32 +46,28 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
     /**
      * Calculations description.
      */
-    private String                description;
+    private String description;
 
     /**
      * Date of the last modification.
      */
-    private Date                  lastModification;
+    private Date lastModification;
 
     /**
      * List of DAO linked.
      */
-    private final ArrayList<DAO>  daoList;
+    private final ArrayList<DAO> daoList;
 
     /**
      * Constructs a new Calculation.
-     * 
-     * @param _id
-     *            the calculation ID
-     * @param _type
-     *            type of calculation
-     * @param _description
-     *            description of the calculation
-     * @param _lastModification
-     *            the last modification date
+     *
+     * @param _id               the calculation ID
+     * @param _type             type of calculation
+     * @param _description      description of the calculation
+     * @param _lastModification the last modification date
      */
     public Calculation(long _id, CalculationType _type, String _description,
-            Date _lastModification, boolean hasDAO) {
+                       Date _lastModification, boolean hasDAO) {
         this.id = _id;
         this.type = _type;
         this.description = _description;
@@ -91,7 +85,6 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
     }
 
     /**
-     * 
      * @param _type
      * @param _description
      */
@@ -106,14 +99,14 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
 
     /**
      * Method that should return the activity class related to the calculation.
-     * 
+     *
      * @return Activity class related to the calculation.
      */
     public abstract Class<?> getActivityClass();
 
     /**
      * Method that should return the calculation name.
-     * 
+     *
      * @return Calculation name.
      */
     public abstract String getCalculationName();
@@ -125,7 +118,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
 
     /**
      * Getter for the ID.
-     * 
+     *
      * @return the ID
      */
     public long getId() {
@@ -134,7 +127,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
 
     /**
      * Setter for the ID.
-     * 
+     *
      * @param _id
      */
     public void setId(long _id) {
@@ -143,7 +136,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
 
     /**
      * Getter for the description.
-     * 
+     *
      * @return the calculation description
      */
     public String getDescription() {
@@ -152,9 +145,8 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
 
     /**
      * Setter for the description.
-     * 
-     * @param _description
-     *            the new description
+     *
+     * @param _description the new description
      */
     public void setDescription(String _description) {
         this.description = _description;
@@ -162,7 +154,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
 
     /**
      * Getter for the calculation type.
-     * 
+     *
      * @return the calculation type
      */
     public CalculationType getType() {
@@ -171,7 +163,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
 
     /**
      * Getter for the last modification date.
-     * 
+     *
      * @return the last modification date
      */
     public Date getLastModification() {
@@ -187,7 +179,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
 
     /**
      * Serialize Calculation to JSON.
-     * 
+     *
      * @return JSON representation of the calculation.
      * @throws JSONException
      */
@@ -197,18 +189,15 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
         jo.put(Calculation.DESCRIPTION, this.description);
         jo.put(Calculation.TYPE, this.type.toString());
         jo.put(Calculation.INPUT_DATA, this.exportToJSON());
-
-        SimpleDateFormat sdf = new SimpleDateFormat(Calculation.DATE_FORMAT);
-        jo.put(Calculation.LAST_MODIFICATION, sdf.format(this.lastModification));
+        jo.put(Calculation.LAST_MODIFICATION, AppUtils.serializeDate(this.lastModification));
 
         return jo;
     }
 
     /**
      * Create a Calculation from a JSON string.
-     * 
-     * @param json
-     *            JSON string that represents a Calculation.
+     *
+     * @param json JSON string that represents a Calculation.
      * @return A new Calculation.
      */
     public static Calculation createCalculationFromJSON(String json) throws JSONException,
@@ -218,9 +207,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
         String description = jo.getString(Calculation.DESCRIPTION);
         CalculationType type = CalculationType.valueOf(jo.getString(Calculation.TYPE));
 
-        SimpleDateFormat sdf = new SimpleDateFormat(Calculation.DATE_FORMAT);
-        Date lastModification = sdf.parse(jo.getString(Calculation.LAST_MODIFICATION));
-
+        Date lastModification = AppUtils.parseSerializedDate(jo.getString(Calculation.LAST_MODIFICATION));
         String jsonInputArgs = jo.getString(Calculation.INPUT_DATA);
 
         Calculation c = CalculationFactory.createCalculation(type, id, description,

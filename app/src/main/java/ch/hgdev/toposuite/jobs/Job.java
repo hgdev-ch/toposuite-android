@@ -1,14 +1,15 @@
 package ch.hgdev.toposuite.jobs;
 
-import java.text.ParseException;
-import java.util.Calendar;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import java.text.ParseException;
+import java.util.Calendar;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Calculation;
@@ -35,7 +36,7 @@ class Job {
     private static final String POINTS_KEY               = "points";
     private static final String CALCULATIONS_KEY         = "calculations";
 
-    private static final String VERSION                  = "1";
+    private static final String VERSION                  = "1"; // TODO update before release 1.1.0
     private static final String GENERATOR                = "TopoSuite Android";
 
     public static String getCurrentJobAsString() throws JSONException {

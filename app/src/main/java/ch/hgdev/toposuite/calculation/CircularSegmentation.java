@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -153,7 +154,7 @@ public class CircularSegmentation extends Calculation {
         double radiusStart = MathUtils.euclideanDistance(start, center);
         double radiusEnd = MathUtils.euclideanDistance(end, center);
         if (!(DoubleMath.fuzzyEquals(radiusStart, radiusEnd, App.getCoordinateTolerance()))) {
-            String msg = String.format(CircularSegmentation.CIRCULAR_SEGMENTATION
+            String msg = String.format(Locale.ENGLISH, CircularSegmentation.CIRCULAR_SEGMENTATION
                     + "the two points must be at the same distance from the center each."
                     + "Radius according to the starting point is %f.\n"
                     + "Radius according to the ending point is %f.\n",

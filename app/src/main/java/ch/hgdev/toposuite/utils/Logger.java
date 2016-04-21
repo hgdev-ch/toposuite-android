@@ -48,6 +48,7 @@ public class Logger {
      */
     public enum WarnLabel {
         CALCULATION_IMPOSSIBLE("CALCULATION IMPOSSIBLE"),
+        PARSE_ERROR("PARSE ERROR"),
         SERIALIZATION("SERIALIZATION");
 
         private final String label;

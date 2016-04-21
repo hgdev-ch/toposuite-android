@@ -25,23 +25,22 @@ import ch.hgdev.toposuite.utils.Logger;
  * Handle every settings that need to be global to the application.
  *
  * @author HGdev
- *
  */
 public class App extends Application {
     /**
      * App (public) directory.
      */
-    public static final String PUBLIC_DIR                    = "Toposuite";
+    public static final String PUBLIC_DIR = "Toposuite";
 
     /**
      * Database file name.
      */
-    public static final String DATABASE                      = "topo_suite.db";
+    public static final String DATABASE = "topo_suite.db";
 
     /**
      * The file name used by the points sharing function.
      */
-    public static final String FILENAME_FOR_POINTS_SHARING   = "toposuite-points.csv";
+    public static final String FILENAME_FOR_POINTS_SHARING = "toposuite-points.csv";
 
     /**
      * Database version. This number must be increased whenever the database
@@ -49,118 +48,123 @@ public class App extends Application {
      * {@link SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)}
      * method.
      */
-    public static final int    DATABASE_VERSION              = 6;
+    public static final int DATABASE_VERSION = 6;
 
     /**
      * CSV separator.
      */
-    public static final String CSV_SEPARATOR                 = ";";
+    public static final String CSV_SEPARATOR = ";";
 
     /**
      * Number of decimal to display with dealing with numbers.
      */
-    public static String       numberOfDecimals              = "%.4f";
+    public static String numberOfDecimals = "%.4f";
 
     /**
      * A smaller number of decimals than {@link App}. It is used to format
      * numbers that are not meant to be very precise.
      */
-    public static String       smallNumberOfDecimals         = "%.2f";
+    public static String smallNumberOfDecimals = "%.2f";
 
     /**
-     * Date format.
+     * Old date format.
      */
-    public static final String dateFormat                    = "MM-dd-yyyy HH:mm";
+    public static final String DATE_FORMAT = "MM-dd-yyyy HH:mm";
+
+    /**
+     * ISO 8601 date format.
+     */
+    public static final String ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 
     /**
      * Default locale (language).
      */
-    public static final Locale locale                        = Locale.getDefault();
+    public static final Locale locale = Locale.getDefault();
 
     /**
      * This variable contains the path to the publicly accessible data directory
      * of the app. It is initialized in the {@link App#onCreate()} method.
      */
-    public static String       publicDataDirectory;
+    public static String publicDataDirectory;
 
     /**
      * Path to the temporary directory. It is initialized in the
      * {@link App#onCreate()} method.
      */
-    public static String       tmpDirectoryPath;
+    public static String tmpDirectoryPath;
 
     /**
      * Flag for verifying if the points have been exported or not.
      */
-    public static boolean      arePointsExported             = false;
+    public static boolean arePointsExported = false;
 
     /**
      * Database helper.
      */
-    public static DBHelper     dbHelper;
+    public static DBHelper dbHelper;
 
     /**
      * Application context.
      */
-    private static Context     context;
+    private static Context context;
 
     /**
      * Set number of decimal to which a coordinate value should be rounded to
      * (not only display).
      */
-    private static int         coordinateDecimalRounding     = 3;
+    private static int coordinateDecimalRounding = 3;
 
     /**
      * Number of decimal used for value of type coordinate.
      */
-    private static int         decimalPrecisionForCoordinate = 3;
+    private static int decimalPrecisionForCoordinate = 3;
 
     /**
      * Number of decimal used for value of type angle.
      */
-    private static int         decimalPrecisionForAngle      = 4;
+    private static int decimalPrecisionForAngle = 4;
 
     /**
      * Number of decimal used for value of type distance.
      */
-    private static int         decimalPrecisionForDistance   = 3;
+    private static int decimalPrecisionForDistance = 3;
 
     /**
      * Number of decimal used for value of type average.
      */
-    private static int         decimalPrecisionForAverage    = 3;
+    private static int decimalPrecisionForAverage = 3;
 
     /**
      * Number of decimal used for value of type gap.
      */
-    private static int         decimalPrecisionForGap        = 1;
+    private static int decimalPrecisionForGap = 1;
 
     /**
      * Number of decimal used for value of type surface.
      */
-    private static int         decimalPrecisionForSurface    = 4;
+    private static int decimalPrecisionForSurface = 4;
 
     /**
      * Number of decimal used for value of type CC.
      */
-    private static int         decimalPrecisionForCC         = 0;
+    private static int decimalPrecisionForCC = 0;
 
     /**
      * Determine an input type of type coordinate, that is a decimal signed
      * number.
      */
-    private static int         inputTypeCoordinate;
+    private static int inputTypeCoordinate;
 
     /**
      * Standard type for coordinates.
      */
-    private static final int   coordinatesTypeStandard       = InputType.TYPE_CLASS_NUMBER
-                                                                     | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+    private static final int coordinatesTypeStandard = InputType.TYPE_CLASS_NUMBER
+            | InputType.TYPE_NUMBER_FLAG_DECIMAL;
     /**
      * Type of coordinate that allows values to be negative.
      */
-    private static final int   coordinatesTypeAllowNegative  = App.coordinatesTypeStandard
-                                                                     | InputType.TYPE_NUMBER_FLAG_SIGNED;
+    private static final int coordinatesTypeAllowNegative = App.coordinatesTypeStandard
+            | InputType.TYPE_NUMBER_FLAG_SIGNED;
 
     @Override
     public void onCreate() {
@@ -237,15 +241,15 @@ public class App extends Application {
      */
     public static void toggleNegativeCoordinates() {
         switch (App.inputTypeCoordinate) {
-        case App.coordinatesTypeStandard:
-            App.inputTypeCoordinate = App.coordinatesTypeAllowNegative;
-            break;
-        case App.coordinatesTypeAllowNegative:
-            App.inputTypeCoordinate = App.coordinatesTypeStandard;
-            break;
-        default:
-            Logger.log(Logger.ErrLabel.SETTINGS_ERROR,
-                    "The type of allowed input coordinate is non valid");
+            case App.coordinatesTypeStandard:
+                App.inputTypeCoordinate = App.coordinatesTypeAllowNegative;
+                break;
+            case App.coordinatesTypeAllowNegative:
+                App.inputTypeCoordinate = App.coordinatesTypeStandard;
+                break;
+            default:
+                Logger.log(Logger.ErrLabel.SETTINGS_ERROR,
+                        "The type of allowed input coordinate is non valid");
         }
     }
 
