@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.utils;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.google.common.base.Strings;
 
@@ -74,7 +75,7 @@ public class DisplayUtils {
      * @param type  The type of the value.
      * @return Value formatted according to type.
      */
-    private static String format(double value, DisplayUtils.valueType type) {
+    private static String format(double value, @NonNull DisplayUtils.valueType type) {
         int precision;
 
         if (MathUtils.isIgnorable(value)) {
@@ -114,7 +115,7 @@ public class DisplayUtils {
             symbols.setGroupingSeparator('\'');
             DecimalFormat df = new DecimalFormat(pattern, symbols);
             df.setRoundingMode(RoundingMode.HALF_UP);
-            return df.format(value).toString();
+            return df.format(value);
         }
     }
 
@@ -211,7 +212,7 @@ public class DisplayUtils {
      * @param value   The value to convert to a String.
      * @return Value as a String.
      */
-    public static String toString(Context context, boolean value) {
+    public static String toString(@NonNull Context context, boolean value) {
         return value ? context.getString(R.string.yes) : context.getString(R.string.no);
     }
 
@@ -223,6 +224,9 @@ public class DisplayUtils {
      * @return a formatted date
      */
     public static String formatDate(Date d) {
+        if (d == null) {
+            return "-";
+        }
         SimpleDateFormat df = new SimpleDateFormat(App.DATE_FORMAT, App.locale);
         return df.format(d);
     }
@@ -235,6 +239,9 @@ public class DisplayUtils {
      * @return a formatted date
      */
     public static String formatDate(long d) {
+        if (MathUtils.isIgnorable(d)) {
+            return "-";
+        }
         SimpleDateFormat df = new SimpleDateFormat(App.DATE_FORMAT, App.locale);
         return df.format(d);
     }
@@ -245,7 +252,7 @@ public class DisplayUtils {
      * @param dp the number of dp
      * @return the number of pixels
      */
-    public static int dpToPx(Context context, int dp) {
+    public static int dpToPx(@NonNull Context context, int dp) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) ((dp * scale) + 0.5f);
     }
@@ -257,7 +264,7 @@ public class DisplayUtils {
      * @param pt      a Point
      * @return formatted Point
      */
-    public static String formatPoint(Context context, Point pt) {
+    public static String formatPoint(@NonNull Context context, Point pt) {
         return String.format("%s: %s, %s: %s, %s: %s", context.getString(R.string.east),
                 DisplayUtils.formatCoordinate(pt.getEast()), context.getString(R.string.north),
                 DisplayUtils.formatCoordinate(pt.getNorth()),
@@ -272,7 +279,7 @@ public class DisplayUtils {
      * @param pt      a 2D Point (altitude = 0.0)
      * @return formatted Point
      */
-    public static String format2DPoint(Context context, Point pt) {
+    public static String format2DPoint(@NonNull Context context, @NonNull Point pt) {
         return String.format("%s: %s, %s: %s", context.getString(R.string.east),
                 DisplayUtils.formatCoordinate(pt.getEast()), context.getString(R.string.north),
                 DisplayUtils.formatCoordinate(pt.getNorth()));
