@@ -1,6 +1,6 @@
 package ch.hgdev.toposuite.calculation.activities.cheminortho;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -201,7 +201,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
                     0.0);
 
             dialog.setArguments(args);
-            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+            dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
 
             return false;
         }

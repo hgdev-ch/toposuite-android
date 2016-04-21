@@ -1,7 +1,8 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/save_points"
         android:icon="@drawable/ic_action_save"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/save_3dots"/>
+        android:title="@string/save_3dots"
+        app:showAsAction="ifRoom|withText" />
 </menu>

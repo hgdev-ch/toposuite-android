@@ -1,6 +1,6 @@
 package ch.hgdev.toposuite.points;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.net.Uri;

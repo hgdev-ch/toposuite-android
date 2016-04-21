@@ -1,7 +1,9 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/toggle_right_menu"
-          android:title="@string/toggle_right_menu_button"
-          android:showAsAction="always|withText"
-          android:icon="@drawable/ic_drawer"
-          android:orderInCategory="100"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/toggle_right_menu"
+        android:icon="@drawable/ic_drawer"
+        android:orderInCategory="100"
+        android:title="@string/toggle_right_menu_button"
+        app:showAsAction="always|withText" />
 </menu>

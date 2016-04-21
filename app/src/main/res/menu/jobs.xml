@@ -1,13 +1,14 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/export_job"
         android:icon="@drawable/ic_action_download"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/job_export" />
+        android:title="@string/job_export"
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/clear_job"
         android:icon="@drawable/ic_action_discard"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/job_clear" />
+        android:title="@string/job_clear"
+        app:showAsAction="ifRoom|withText" />
 </menu>

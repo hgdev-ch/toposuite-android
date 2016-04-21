@@ -283,7 +283,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
      */
     private void showAddPointDialog() {
         AddPointWithRadiusDialogFragment dialog = new AddPointWithRadiusDialogFragment();
-        dialog.show(this.getFragmentManager(), "AddPointWithRadiusDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "AddPointWithRadiusDialogFragment");
     }
 
     /**
@@ -303,7 +303,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         args.putSerializable(SURFACE_CALCULATION, this.surfaceCalculation);
 
         dialog.setArguments(args);
-        dialog.show(this.getFragmentManager(), "EditPointWithRadiusDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "EditPointWithRadiusDialogFragment");
     }
 
     @Override

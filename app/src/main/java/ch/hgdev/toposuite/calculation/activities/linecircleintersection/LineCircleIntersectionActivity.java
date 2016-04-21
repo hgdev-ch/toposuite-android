@@ -277,7 +277,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                                 this.intersectionOne.getAltitude());
 
                         dialog.setArguments(args);
-                        dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                        dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
                     }
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.point_one_not_saved));
@@ -313,7 +313,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                                 this.intersectionTwo.getAltitude());
 
                         dialog.setArguments(args);
-                        dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                        dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
                     }
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.point_two_not_saved));

@@ -98,7 +98,7 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
                         this.ppoal.getProjPt().getAltitude());
 
                 dialog.setArguments(args);
-                dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
             }
 
             return true;

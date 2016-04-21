@@ -1,11 +1,13 @@
 package ch.hgdev.toposuite.points;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -14,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.widget.ShareActionProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -109,7 +110,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         this.getMenuInflater().inflate(R.menu.points_manager, menu);
 
         MenuItem item = menu.findItem(R.id.menu_item_share);
-        this.shareActionProvider = (ShareActionProvider) item.getActionProvider();
+        this.shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         this.updateShareIntent();
 
         return super.onCreateOptionsMenu(menu);
@@ -206,12 +207,12 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     private void showExportDialog() {
         ExportDialog dialog = new ExportDialog();
-        dialog.show(this.getFragmentManager(), "ExportDialogFragments");
+        dialog.show(this.getSupportFragmentManager(), "ExportDialogFragments");
     }
 
     private void showImportDialog() {
         ImportDialog dialog = new ImportDialog();
-        dialog.show(this.getFragmentManager(), "ImportDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "ImportDialogFragment");
     }
 
     @Override
@@ -241,12 +242,12 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
      */
     private void showAddPointDialog() {
         AddPointDialogFragment dialog = new AddPointDialogFragment();
-        dialog.show(this.getFragmentManager(), "AddPointDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "AddPointDialogFragment");
     }
 
     private void showSearchPointDialog() {
         SearchPointDialogFragment dialog = new SearchPointDialogFragment();
-        dialog.show(this.getFragmentManager(), "SearchPointDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "SearchPointDialogFragment");
     }
 
     /**
@@ -261,7 +262,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         args.putInt(EditPointDialogFragment.POINT_POSITION, id);
         dialog.setArguments(args);
 
-        dialog.show(this.getFragmentManager(), "EditPointDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "EditPointDialogFragment");
     }
 
     /**

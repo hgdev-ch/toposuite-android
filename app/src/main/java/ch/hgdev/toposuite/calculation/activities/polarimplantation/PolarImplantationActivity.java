@@ -315,7 +315,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         ViewUtils.lockScreenOrientation(this);
 
         AddPointWithSDialogFragment dialog = new AddPointWithSDialogFragment();
-        dialog.show(this.getFragmentManager(), "AddPointWithSDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "AddPointWithSDialogFragment");
     }
 
     /**
@@ -336,7 +336,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         args.putDouble(PolarImplantationActivity.S, m.getS());
 
         dialog.setArguments(args);
-        dialog.show(this.getFragmentManager(), "EditPointWithSDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "EditPointWithSDialogFragment");
     }
 
     /**

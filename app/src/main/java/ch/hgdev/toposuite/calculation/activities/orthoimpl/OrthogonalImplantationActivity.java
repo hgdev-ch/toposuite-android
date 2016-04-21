@@ -311,7 +311,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         ViewUtils.lockScreenOrientation(this);
 
         AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
-        dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "MeasureDialogFragment");
     }
 
     private void showEditMeasureDialog(int pos) {
@@ -327,7 +327,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         bundle.putInt(OrthogonalImplantationActivity.MEASURE_POSITION, pos);
 
         dialog.setArguments(bundle);
-        dialog.show(this.getFragmentManager(), "EditMeasureDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "EditMeasureDialogFragment");
     }
 
     @Override

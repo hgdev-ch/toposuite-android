@@ -1,12 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto" >
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="@string/pref_general_title" >
+    <PreferenceCategory android:title="@string/pref_general_title">
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="switch_negative_coordinates"
-            android:title="@string/pref_negative_coordinates" >
-        </CheckBoxPreference>
+            android:title="@string/pref_negative_coordinates" />
 
         <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
             android:defaultValue="3"
@@ -16,7 +15,7 @@
             android:title="@string/pref_coordinates_decimal_precision"
             custom:min="1" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/pref_display_title" >
+    <PreferenceCategory android:title="@string/pref_display_title">
         <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
             android:defaultValue="3"
             android:dialogMessage="@string/choose_value"
@@ -62,11 +61,10 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_key_storage_settings"
-        android:title="@string/pref_about_title" >
+        android:title="@string/pref_about_title">
         <PreferenceScreen
             android:key="screen_about_toposuite"
-            android:title="@string/about_toposuite" >
-        </PreferenceScreen>
+            android:title="@string/about_toposuite" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -118,7 +118,7 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
                     pt.getAltitude());
 
             dialog.setArguments(args);
-            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+            dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
 
             return false;
         }

@@ -525,7 +525,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                             this.lineIntersec.getIntersectionPoint().getAltitude());
 
                     dialog.setArguments(args);
-                    dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+                    dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
                 }
                 return true;
             default:

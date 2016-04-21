@@ -147,7 +147,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
                     st.getAltitude());
 
             dialog.setArguments(args);
-            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+            dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
 
             return false;
         }

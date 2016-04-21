@@ -355,7 +355,7 @@ MeasureDialogListener {
         ViewUtils.lockScreenOrientation(this);
 
         MeasureDialogFragment dialog = MeasureDialogFragment.newInstance();
-        dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "MeasureDialogFragment");
     }
 
     /**
@@ -366,7 +366,7 @@ MeasureDialogListener {
 
         Measure m = this.axisImpl.getMeasures().get(position);
         MeasureDialogFragment dialog = MeasureDialogFragment.newInstance(m);
-        dialog.show(this.getFragmentManager(), "MeasureDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "MeasureDialogFragment");
     }
 
     @Override

@@ -2,7 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.circularsegmentation;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -193,7 +193,7 @@ MergePointsDialog.MergePointsDialogListener {
                     r.getAltitude());
 
             dialog.setArguments(args);
-            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+            dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
         }
 
         return true;

@@ -304,7 +304,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         ViewUtils.lockScreenOrientation(this);
 
         AddMeasureDialogFragment dialog = new AddMeasureDialogFragment();
-        dialog.show(this.getFragmentManager(), "AddPointDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "AddPointDialogFragment");
     }
 
     private void showEditMeasureDialog(int pos) {
@@ -319,7 +319,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         bundle.putInt(CheminementOrthoActivity.MEASURE_POSITION, pos);
 
         dialog.setArguments(bundle);
-        dialog.show(this.getFragmentManager(), "EditMeasureDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "EditMeasureDialogFragment");
     }
 
     @Override

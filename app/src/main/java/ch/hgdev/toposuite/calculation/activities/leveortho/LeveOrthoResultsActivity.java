@@ -1,6 +1,6 @@
 package ch.hgdev.toposuite.calculation.activities.leveortho;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -182,7 +182,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
                     MathUtils.IGNORE_DOUBLE);
 
             dialog.setArguments(args);
-            dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+            dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
 
             return false;
         }

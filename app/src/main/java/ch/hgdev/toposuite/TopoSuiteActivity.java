@@ -2,9 +2,9 @@ package ch.hgdev.toposuite;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.Menu;
@@ -51,7 +51,7 @@ import ch.hgdev.toposuite.settings.SettingsActivity;
  * 
  * @author HGdev
  */
-public abstract class TopoSuiteActivity extends FragmentActivity {
+public abstract class TopoSuiteActivity extends AppCompatActivity {
     /**
      * The drawer layout that contains the left/right sliding menus and the
      * activity layout.
@@ -122,9 +122,9 @@ public abstract class TopoSuiteActivity extends FragmentActivity {
         this.drawerLayout.addDrawerListener(this.drawerToggle);
 
         // set the titles that will appear in the action bar
-        this.getActionBar().setTitle(this.getActivityTitle());
-        this.getActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getActionBar().setHomeButtonEnabled(true);
+        this.getSupportActionBar().setTitle(this.getActivityTitle());
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeButtonEnabled(true);
 
     }
 

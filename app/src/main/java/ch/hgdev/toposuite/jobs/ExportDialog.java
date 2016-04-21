@@ -2,7 +2,7 @@ package ch.hgdev.toposuite.jobs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

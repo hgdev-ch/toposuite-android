@@ -4,35 +4,29 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.preference.DialogPreference;
+import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.NumberPicker;
-import android.widget.TextView;
+
 import ch.hgdev.toposuite.R;
 
 /**
  * Number picker for preferences. Thanks to Luke Horvat
  * (https://gist.github.com/lukehorvat/4398028)
- * 
+ *
+ * Modified for compatibility with Android support library
+ * (see also NumberPickerPreferenceDialogFragment).
+ *
  * @author HGdev
- * 
  */
 public class NumberPickerDialogPreference extends DialogPreference {
 
     private static final int DEFAULT_MIN_VALUE = 0;
     private static final int DEFAULT_MAX_VALUE = 100;
-    private static final int DEFAULT_VALUE     = 0;
+    private static final int DEFAULT_VALUE = 0;
 
-    private int              mMinValue;
-    private int              mMaxValue;
-    private int              mValue;
-    private NumberPicker     mNumberPicker;
-
-    public NumberPickerDialogPreference(Context context) {
-        this(context, null);
-    }
+    private int mMinValue;
+    private int mMaxValue;
+    private int mValue;
 
     public NumberPickerDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -67,22 +61,6 @@ public class NumberPickerDialogPreference extends DialogPreference {
         return a.getInt(index, NumberPickerDialogPreference.DEFAULT_VALUE);
     }
 
-    @Override
-    protected void onBindDialogView(View view) {
-        super.onBindDialogView(view);
-
-        TextView dialogMessageText = (TextView) view.findViewById(R.id.text_dialog_message);
-        dialogMessageText.setText(this.getDialogMessage());
-
-        this.mNumberPicker = (NumberPicker) view.findViewById(R.id.number_picker);
-        this.mNumberPicker.setMinValue(this.mMinValue);
-        this.mNumberPicker.setMaxValue(this.mMaxValue);
-        this.mNumberPicker.setValue(this.mValue);
-
-        // prevent keyboard from showing up
-        this.mNumberPicker.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-    }
-
     public int getMinValue() {
         return this.mMinValue;
     }
@@ -115,18 +93,6 @@ public class NumberPickerDialogPreference extends DialogPreference {
         }
     }
 
-    @Override
-    protected void onDialogClosed(boolean positiveResult) {
-        super.onDialogClosed(positiveResult);
-
-        // when the user selects "OK", persist the new value
-        if (positiveResult) {
-            int numberPickerValue = this.mNumberPicker.getValue();
-            if (this.callChangeListener(numberPickerValue)) {
-                this.setValue(numberPickerValue);
-            }
-        }
-    }
 
     @Override
     protected Parcelable onSaveInstanceState() {
@@ -188,9 +154,7 @@ public class NumberPickerDialogPreference extends DialogPreference {
             dest.writeInt(this.value);
         }
 
-        @SuppressWarnings("unused")
         public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-                                                                       // @formatter:off 
             @Override
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
@@ -201,6 +165,5 @@ public class NumberPickerDialogPreference extends DialogPreference {
                 return new SavedState[size];
             }
         };
-       // @formatter:on
     }
 }

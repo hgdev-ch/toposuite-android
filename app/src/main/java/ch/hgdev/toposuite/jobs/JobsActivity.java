@@ -1,6 +1,6 @@
 package ch.hgdev.toposuite.jobs;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -221,7 +221,7 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
 
     private void exportJob() {
         ExportDialog dialog = new ExportDialog();
-        dialog.show(this.getFragmentManager(), "ExportDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "ExportDialogFragment");
     }
 
     private void clearJobs() {

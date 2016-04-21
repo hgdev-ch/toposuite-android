@@ -1,7 +1,8 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	<item
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
         android:id="@+id/run_calculation_button"
         android:icon="@drawable/ic_action_play"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/calculate_3dots"/>
+        android:title="@string/calculate_3dots"
+        app:showAsAction="ifRoom|withText" />
 </menu>

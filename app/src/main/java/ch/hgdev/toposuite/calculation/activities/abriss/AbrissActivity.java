@@ -232,7 +232,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         ViewUtils.lockScreenOrientation(this);
 
         AddOrientationDialogFragment dialog = new AddOrientationDialogFragment();
-        dialog.show(this.getFragmentManager(), "AddOrientationDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "AddOrientationDialogFragment");
     }
 
     /**
@@ -252,7 +252,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         args.putInt(EditOrientationDialogFragment.ORIENTATION_POSITION, position);
 
         dialog.setArguments(args);
-        dialog.show(this.getFragmentManager(), "EditOrientationDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "EditOrientationDialogFragment");
     }
 
     /**

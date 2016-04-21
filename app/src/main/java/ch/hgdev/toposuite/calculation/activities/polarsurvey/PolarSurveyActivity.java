@@ -343,7 +343,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         ViewUtils.lockScreenOrientation(this);
 
         AddDeterminationDialogFragment dialog = new AddDeterminationDialogFragment();
-        dialog.show(this.getFragmentManager(), "AddDeterminationDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "AddDeterminationDialogFragment");
     }
 
     /**
@@ -368,7 +368,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         args.putDouble(PolarSurveyActivity.LON_DEPL, d.getLonDepl());
 
         dialog.setArguments(args);
-        dialog.show(this.getFragmentManager(), "EditDeterminationDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "EditDeterminationDialogFragment");
     }
 
     /**

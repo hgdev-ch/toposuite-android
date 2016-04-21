@@ -298,7 +298,7 @@ public class CircleActivity extends TopoSuiteActivity implements
                 this.circle.getCenter().getAltitude());
 
         dialog.setArguments(args);
-        dialog.show(this.getFragmentManager(), "MergePointsDialogFragment");
+        dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
     }
 
     private final void itemSelected() {
