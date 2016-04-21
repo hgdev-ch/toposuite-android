@@ -169,15 +169,20 @@ public class JobsActivity extends TopoSuiteActivity implements ExportDialog.Expo
                 return Files.getFileExtension(filename).equalsIgnoreCase(Job.EXTENSION);
             }
         });
-        Arrays.sort(filenameList);
+        if ((filenameList != null) && (filenameList.length > 0)) {
+            Arrays.sort(filenameList);
 
-        ArrayList<File> files = new ArrayList<File>();
-        for (String filename : filenameList) {
-            files.add(new File(App.publicDataDirectory, filename));
+            ArrayList<File> files = new ArrayList<File>();
+            for (String filename : filenameList) {
+                files.add(new File(App.publicDataDirectory, filename));
+            }
+
+            this.adapter = new ArrayListOfJobFilesAdapter(this, R.layout.jobs_list_item, files);
+            this.jobsListView.setAdapter(this.adapter);
+        } else {
+            this.adapter = new ArrayListOfJobFilesAdapter(this, R.layout.jobs_list_item);
+            this.jobsListView.setAdapter(this.adapter);
         }
-
-        this.adapter = new ArrayListOfJobFilesAdapter(this, R.layout.jobs_list_item, files);
-        this.jobsListView.setAdapter(this.adapter);
     }
 
     private void importJob(int pos) {

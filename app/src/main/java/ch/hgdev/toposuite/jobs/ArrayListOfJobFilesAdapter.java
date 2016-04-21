@@ -22,6 +22,10 @@ public class ArrayListOfJobFilesAdapter extends ArrayAdapter<File> {
     private final ArrayList<File> files;
     private final Context context;
 
+    public ArrayListOfJobFilesAdapter(Context context, int textViewResourceId) {
+        this(context, textViewResourceId, new ArrayList<File>());
+    }
+
     public ArrayListOfJobFilesAdapter(Context context, int textViewResourceId, ArrayList<File> files) {
         super(context, textViewResourceId, files);
         this.files = files;
@@ -36,17 +40,19 @@ public class ArrayListOfJobFilesAdapter extends ArrayAdapter<File> {
             view = inflater.inflate(R.layout.jobs_list_item, null);
         }
 
-        File f = this.files.get(position);
-        if (f != null) {
-            TextView nameTextView = (TextView) view.findViewById(R.id.job_filename);
-            TextView lastModificationTextView = (TextView) view.findViewById(R.id.job_file_last_modification);
+        if (!this.files.isEmpty()) {
+            File f = this.files.get(position);
+            if (f != null) {
+                TextView nameTextView = (TextView) view.findViewById(R.id.job_filename);
+                TextView lastModificationTextView = (TextView) view.findViewById(R.id.job_file_last_modification);
 
-            if (nameTextView != null) {
-                nameTextView.setText(f.getName());
-            }
+                if (nameTextView != null) {
+                    nameTextView.setText(f.getName());
+                }
 
-            if (lastModificationTextView != null) {
-                lastModificationTextView.setText(DisplayUtils.formatDate(f.lastModified()));
+                if (lastModificationTextView != null) {
+                    lastModificationTextView.setText(DisplayUtils.formatDate(f.lastModified()));
+                }
             }
         }
 
