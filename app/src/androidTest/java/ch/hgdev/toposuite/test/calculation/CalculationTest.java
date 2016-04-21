@@ -20,6 +20,7 @@ public class CalculationTest extends AndroidTestCase {
     protected DecimalFormat df2;
     protected DecimalFormat df3;
     protected DecimalFormat df4;
+    protected  DecimalFormat df8;
 
     @Override
     protected void setUp() throws Exception {
@@ -34,6 +35,8 @@ public class CalculationTest extends AndroidTestCase {
         this.df3.setRoundingMode(RoundingMode.HALF_UP);
         this.df4 = new DecimalFormat("0.0000");
         this.df4.setRoundingMode(RoundingMode.HALF_UP);
+        this.df8 = new DecimalFormat("0.00000000");
+        this.df8.setRoundingMode(RoundingMode.HALF_UP);
 
         // we want to keep a good precision for the tests
         App.setCoordinateDecimalRounding(20);
