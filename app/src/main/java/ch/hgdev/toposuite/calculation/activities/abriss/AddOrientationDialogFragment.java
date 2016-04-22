@@ -24,6 +24,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
@@ -142,12 +143,10 @@ public class AddOrientationDialogFragment extends DialogFragment {
         this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point point = (Point) AddOrientationDialogFragment.this.orientationSpinner
-                        .getItemAtPosition(pos);
+                Point point = (Point) AddOrientationDialogFragment.this.orientationSpinner.getItemAtPosition(pos);
                 if (!point.getNumber().isEmpty()) {
-                    AddOrientationDialogFragment.this.orientationView.setText(DisplayUtils
-                            .formatPoint(
-                                    AddOrientationDialogFragment.this.getActivity(), point));
+                    AddOrientationDialogFragment.this.orientationView.setText(
+                            DisplayUtils.formatPoint(AddOrientationDialogFragment.this.getActivity(), point));
                 } else {
                     AddOrientationDialogFragment.this.orientationView.setText("");
                 }
@@ -160,7 +159,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
             }
         });
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        points.add(new Point("", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
                 this.getActivity(), R.layout.spinner_list_item, points);
@@ -186,9 +185,9 @@ public class AddOrientationDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.zenithalAngleEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.horizontalDirection = 0.0;
-        this.horizontalDistance = 0.0;
-        this.zenithalAngle = 0.0;
+        this.horizontalDirection = MathUtils.IGNORE_DOUBLE;
+        this.horizontalDistance = MathUtils.IGNORE_DOUBLE;
+        this.zenithalAngle = MathUtils.IGNORE_DOUBLE;
     }
 
     /**

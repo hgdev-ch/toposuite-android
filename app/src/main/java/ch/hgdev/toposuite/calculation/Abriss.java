@@ -89,6 +89,11 @@ public class Abriss extends Calculation {
         for (Measure m : this.orientations) {
             index++;
 
+            // zenithal angle value is optional, needs to be 100.0 by default
+            if (MathUtils.isIgnorable(m.getZenAngle())) {
+                m.setZenAngle(100.0); // default value for zenithal angle
+            }
+
             // skip deactivated orientations
             if (m.isDeactivated()) {
                 numberOfDeactivatedOrientations++;

@@ -318,4 +318,76 @@ public class TestAbriss extends CalculationTest {
         Assert.assertEquals("413", this.df0.format(a.getMSE()));
         Assert.assertEquals("206", this.df0.format(a.getMeanErrComp()));
     }
+
+    // This is a regression test for bug #830
+    // The calculation must change the zenithal angle of measures to 100.0 if not provided.
+    public void testZenithalAngleNotProvided() {
+        Point p9000 = new Point("9000", 529117.518, 182651.404, 925.059, true);
+        Point p9001 = new Point("9001", 529137.864, 182649.391, 919.810, true);
+        Point p9002 = new Point("9002", 529112.403, 182631.705, 924.720, true);
+        Point p9003 = new Point("9003", 529139.385, 182648.989, MathUtils.IGNORE_DOUBLE, true);
+        Point p9004 = new Point("9004", 529112.544, 182632.033, MathUtils.IGNORE_DOUBLE, true);
+
+        Abriss a = new Abriss(p9000, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+        a.getMeasures().add(new Measure(p9002, 216.0699, 97.2887, 20.360));
+        a.compute();
+
+        // test intermediate values for point 9001
+        Assert.assertEquals("399.9012",
+                this.df4.format(a.getResults().get(0).getUnknownOrientation()));
+        Assert.assertEquals("106.3792",
+                this.df4.format(a.getResults().get(0).getOrientedDirection()));
+        Assert.assertEquals("-1010.4",
+                this.df1.format(a.getResults().get(0).getErrAngle()));
+        Assert.assertEquals("-3.2",
+                this.df1.format(a.getResults().get(0).getErrTrans()));
+
+        // test intermediate values for point 9002
+        Assert.assertEquals("0.1033",
+                this.df4.format(a.getResults().get(1).getUnknownOrientation()));
+        Assert.assertEquals("216.0721",
+                this.df4.format(a.getResults().get(1).getOrientedDirection()));
+        Assert.assertEquals("1010.4",
+                this.df1.format(a.getResults().get(1).getErrAngle()));
+        Assert.assertEquals("3.2",
+                this.df1.format(a.getResults().get(1).getErrTrans()));
+
+        // test final results
+        Assert.assertEquals("0.0022", this.df4.format(a.getMean()));
+
+        // test with more measures
+        a = new Abriss(p9000, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
+        a.getMeasures().add(new Measure(p9003, 107.000, MathUtils.IGNORE_DOUBLE, 22.00));
+        a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+        a.getMeasures().add(new Measure(p9004, 215.700, MathUtils.IGNORE_DOUBLE, 20.00));
+        a.compute();
+
+        Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
+
+        // test with a different order
+        a = new Abriss(p9000, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
+        a.getMeasures().add(new Measure(p9003, 107.000, MathUtils.IGNORE_DOUBLE, 22.00));
+        a.getMeasures().add(new Measure(p9004, 215.700, MathUtils.IGNORE_DOUBLE, 20.00));
+        a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+        a.compute();
+
+        Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
+
+        // another order
+        a = new Abriss(p9000, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+        a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
+        a.getMeasures().add(new Measure(p9003, 107.000, MathUtils.IGNORE_DOUBLE, 22.00));
+        a.getMeasures().add(new Measure(p9004, 215.700, MathUtils.IGNORE_DOUBLE, 20.00));
+        a.compute();
+
+        Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
+    }
 }

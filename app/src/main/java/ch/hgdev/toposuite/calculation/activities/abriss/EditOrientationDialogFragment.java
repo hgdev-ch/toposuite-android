@@ -99,8 +99,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EditOrientationDialogFragment.this.listener
-                        .onDialogCancel(EditOrientationDialogFragment.this);
+                EditOrientationDialogFragment.this.listener.onDialogCancel(EditOrientationDialogFragment.this);
             }
         });
         Dialog dialog = builder.create();
@@ -172,9 +171,8 @@ public class EditOrientationDialogFragment extends DialogFragment {
                 Point point = (Point) EditOrientationDialogFragment.this.orientationSpinner
                         .getItemAtPosition(pos);
                 if (!point.getNumber().isEmpty()) {
-                    EditOrientationDialogFragment.this.orientationView.setText(DisplayUtils
-                            .formatPoint(
-                                    EditOrientationDialogFragment.this.getActivity(), point));
+                    EditOrientationDialogFragment.this.orientationView.setText(
+                            DisplayUtils.formatPoint(EditOrientationDialogFragment.this.getActivity(), point));
                 } else {
                     EditOrientationDialogFragment.this.orientationView.setText("");
                 }
