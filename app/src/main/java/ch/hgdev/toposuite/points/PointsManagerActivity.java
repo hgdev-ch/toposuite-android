@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 
@@ -186,9 +187,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                 this.adapter.notifyDataSetChanged();
                 SharedResources.getSetOfPoints().remove(point);
                 return true;
-            case R.id.edit_point:
-                this.showEditPointDialog((int) info.id);
-                return true;
             default:
                 return super.onContextItemSelected(item);
         }
@@ -319,6 +317,12 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         ArrayList<Point> points = new ArrayList<Point>(SharedResources.getSetOfPoints());
         this.adapter = new ArrayListOfPointsAdapter(this, R.layout.points_list_item, points);
         this.pointsListView.setAdapter(this.adapter);
+        this.pointsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PointsManagerActivity.this.showEditPointDialog(position);
+            }
+        });
     }
 
     /**
