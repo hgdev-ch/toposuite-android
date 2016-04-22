@@ -534,4 +534,50 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("199.997", this.df3.format(fs.getStationResult().getNorth()));
         Assert.assertEquals("100.020", this.df3.format(fs.getStationResult().getAltitude()));
     }
+
+    /**
+     * This is a regression test for bug #831. The calculation must change the zenithal angle of
+     * measures to 100.0 if not provided.
+     * This test is the same as testFreeStation750 but without using 100.0 for the zenithal angle
+     * values of the measures.
+     */
+    public void testFreeStation831() {
+        Point p2 = new Point("2", 634.6482, 236.0624, MathUtils.IGNORE_DOUBLE, true);
+        Point p3 = new Point("3", 643.1335, 159.6949, MathUtils.IGNORE_DOUBLE, true);
+        Point p4 = new Point("4", 576.2674, 169.0361, MathUtils.IGNORE_DOUBLE, true);
+
+        Measure m2 = new Measure(p2, 50.0, MathUtils.IGNORE_DOUBLE, 50.0, MathUtils.IGNORE_DOUBLE, -1.0);
+        Measure m3 = new Measure(p3, 150.0, MathUtils.IGNORE_DOUBLE, 55.0, MathUtils.IGNORE_DOUBLE, -2.0, 4.0);
+        Measure m4 = new Measure(p4, 240.0, MathUtils.IGNORE_DOUBLE, 40.0, MathUtils.IGNORE_DOUBLE, 1.0, -1.0);
+
+
+        FreeStation fs = new FreeStation("test759", MathUtils.IGNORE_DOUBLE, false);
+        fs.getMeasures().add(m2);
+        fs.getMeasures().add(m3);
+        fs.getMeasures().add(m4);
+        fs.compute();
+
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(0).getvE()));
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(0).getvN()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(0).getfS()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(0).getvA()));
+
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(1).getvE()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(1).getvN()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(1).getfS()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(1).getvA()));
+
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(2).getvE()));
+        Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(2).getvN()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(2).getfS()));
+        Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(2).getvA()));
+
+        Assert.assertEquals("400.0000", this.df4.format(fs.getUnknownOrientation()));
+        Assert.assertEquals("0.0008", this.df4.format(fs.getsE()));
+        Assert.assertEquals("0.0008", this.df4.format(fs.getsN()));
+        Assert.assertTrue(MathUtils.isIgnorable(fs.getsA()));
+
+        Assert.assertEquals("600.0000", this.df4.format(fs.getStationResult().getEast()));
+        Assert.assertEquals("200.0000", this.df4.format(fs.getStationResult().getNorth()));
+    }
 }

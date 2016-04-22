@@ -93,6 +93,10 @@ public class FreeStation extends Calculation {
         // this prevents future calls to compute() to modify the measures (see #731)
         ArrayList<Measure> measuresCopy = new ArrayList<Measure>(this.measures.size());
         for (Measure m : this.measures) {
+            // zenithal angle value is optional, needs to be 100.0 by default
+            if (MathUtils.isIgnorable(m.getZenAngle())) {
+                m.setZenAngle(100.0); // default value for zenithal angle
+            }
             measuresCopy.add(new Measure(m));
         }
 
@@ -260,7 +264,7 @@ public class FreeStation extends Calculation {
         this.stationResult.setEast((Math.sin(tmp1) * tmp2) + centroidCadast.getEast());
         this.stationResult.setNorth((Math.cos(tmp1) * tmp2) + centroidCadast.getNorth());
         double altitude = MathUtils.IGNORE_DOUBLE;
-        if (!MathUtils.isIgnorable(meanAltitude) && !MathUtils.isZero(meanAltitude) && (nbAltitudes > 0)) {
+        if (!MathUtils.isIgnorable(meanAltitude) && (nbAltitudes > 0)) {
             altitude = meanAltitude / totalWeights;
         }
         this.stationResult.setAltitude(altitude);

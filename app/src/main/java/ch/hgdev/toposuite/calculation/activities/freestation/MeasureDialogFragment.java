@@ -294,12 +294,12 @@ public class MeasureDialogFragment extends DialogFragment {
                 + this.getActivity().getString(R.string.optional_prths));
         this.lonDeplEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.horizDir = 0.0;
-        this.distance = 0.0;
-        this.zenAngle = 100.0;
-        this.s = 0.0;
-        this.latDepl = 0.0;
-        this.lonDepl = 0.0;
+        this.horizDir = MathUtils.IGNORE_DOUBLE;
+        this.distance = MathUtils.IGNORE_DOUBLE;
+        this.zenAngle = MathUtils.IGNORE_DOUBLE;
+        this.s = MathUtils.IGNORE_DOUBLE;
+        this.latDepl = MathUtils.IGNORE_DOUBLE;
+        this.lonDepl = MathUtils.IGNORE_DOUBLE;
     }
 
     /**
@@ -315,17 +315,13 @@ public class MeasureDialogFragment extends DialogFragment {
         this.lonDepl = this.measure.getLonDepl();
 
         this.pointSpinner.setSelection(this.adapter.getPosition(this.point));
-        this.pointTextView.setText(DisplayUtils.formatPoint(
-                this.getActivity(), this.point));
+        this.pointTextView.setText(DisplayUtils.formatPoint(this.getActivity(), this.point));
         this.horizDirEditText.setText(DisplayUtils.toStringForEditText(this.horizDir));
         this.distanceEditText.setText(DisplayUtils.toStringForEditText(this.distance));
         this.zenAngleEditText.setText(DisplayUtils.toStringForEditText(this.getZenAngle()));
-        this.sEditText.setText(DisplayUtils.zeroToEmpty(
-                DisplayUtils.toStringForEditText(this.getS())));
-        this.latDeplEditText.setText(DisplayUtils.zeroToEmpty(
-                DisplayUtils.toStringForEditText(this.getLatDepl())));
-        this.lonDeplEditText.setText(DisplayUtils.zeroToEmpty(
-                DisplayUtils.toStringForEditText(this.getLonDepl())));
+        this.sEditText.setText(DisplayUtils.toStringForEditText(this.getS()));
+        this.latDeplEditText.setText(DisplayUtils.toStringForEditText(this.getLatDepl()));
+        this.lonDeplEditText.setText(DisplayUtils.toStringForEditText(this.getLonDepl()));
     }
 
     /**
@@ -351,7 +347,7 @@ public class MeasureDialogFragment extends DialogFragment {
         return ((this.pointSpinner.getSelectedItemPosition() > 0)
                 && (this.horizDirEditText.length() > 0)
                 && (this.distanceEditText.length() > 0)
-                && ((this.isSMandatory && (!MathUtils.isZero(
+                && ((this.isSMandatory && (!MathUtils.isIgnorable(
                 ViewUtils.readDouble(this.sEditText)))) || !this.isSMandatory));
     }
 
