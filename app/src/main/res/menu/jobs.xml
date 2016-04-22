@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/clear_job"
-        android:icon="@drawable/ic_action_discard"
+        android:icon="@drawable/ic_action_backspace"
         android:title="@string/job_clear"
         app:showAsAction="ifRoom|withText" />
 </menu>
