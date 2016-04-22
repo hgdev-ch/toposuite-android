@@ -1,11 +1,12 @@
 package ch.hgdev.toposuite.points;
 
-import java.util.ArrayList;
+import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;

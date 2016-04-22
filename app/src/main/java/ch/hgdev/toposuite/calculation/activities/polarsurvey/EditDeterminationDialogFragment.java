@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
 import android.app.Activity;
-import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +15,6 @@ import android.widget.ScrollView;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.DisplayUtils;
-import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class EditDeterminationDialogFragment extends DialogFragment {
@@ -95,15 +94,9 @@ public class EditDeterminationDialogFragment extends DialogFragment {
                     public void onClick(View v) {
                         if (EditDeterminationDialogFragment.this.checkDialogInputs()) {
                             EditDeterminationDialogFragment.this.zenAngle = ViewUtils.readDouble(EditDeterminationDialogFragment.this.zenAngleEditText);
-                            if (MathUtils.isIgnorable(EditDeterminationDialogFragment.this.zenAngle)) {
-                                // zenital angle defaults to 100.0
-                                EditDeterminationDialogFragment.this.zenAngle = 100.0;
-                            }
-
                             EditDeterminationDialogFragment.this.s = ViewUtils.readDouble(EditDeterminationDialogFragment.this.sEditText);
                             EditDeterminationDialogFragment.this.latDepl = ViewUtils.readDouble(EditDeterminationDialogFragment.this.latDeplEditText);
                             EditDeterminationDialogFragment.this.lonDepl = ViewUtils.readDouble(EditDeterminationDialogFragment.this.lonDeplEditText);
-
                             EditDeterminationDialogFragment.this.determinationNo = ViewUtils.readString(EditDeterminationDialogFragment.this.determinationNoEditText);
                             EditDeterminationDialogFragment.this.horizDir = ViewUtils.readDouble(EditDeterminationDialogFragment.this.horizDirEditText);
                             EditDeterminationDialogFragment.this.distance = ViewUtils.readDouble(EditDeterminationDialogFragment.this.distanceEditText);

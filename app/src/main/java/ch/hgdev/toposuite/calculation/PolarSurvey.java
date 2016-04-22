@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -18,28 +18,27 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * Implementation of the polar survey calculation. It computes the north and
  * east coordinates of the "thrown point", accessible by getters after a call to
  * the compute() method.
- * 
+ *
  * @author HGdev
- * 
  */
 public class PolarSurvey extends Calculation {
-    public static final String       STATION_NUMBER      = "station_number";
-    public static final String       DETERMINATIONS_LIST = "determinations_list";
-    public static final String       Z0_CALCULATION_ID   = "z0_calculation_id";
+    public static final String STATION_NUMBER = "station_number";
+    public static final String DETERMINATIONS_LIST = "determinations_list";
+    public static final String Z0_CALCULATION_ID = "z0_calculation_id";
 
-    private Point                    station;
-    private double                   unknownOrientation;
-    private double                   instrumentHeight;
+    private Point station;
+    private double unknownOrientation;
+    private double instrumentHeight;
     /**
      * A user can either provide a Z0 (unknown orientation) or either retrieve
      * it from another calculation (abriss or free station typically). In the
      * latter case, we need to store the calculation ID in order to be able to
      * retrieve the correct z0 from within a call from the calculation history.
      */
-    private long                     z0CalculationId;
+    private long z0CalculationId;
 
     private final ArrayList<Measure> determinations;
-    private final ArrayList<Result>  results;
+    private final ArrayList<Result> results;
 
     public PolarSurvey(long id, Date lastModification) {
         super(id, CalculationType.POLARSURVEY,
@@ -52,14 +51,14 @@ public class PolarSurvey extends Calculation {
     }
 
     public PolarSurvey(Point _station, double _unknownOrientation, double _instrumentHeight,
-            long _z0CalculationId,
-            boolean hasDAO) {
+                       long _z0CalculationId,
+                       boolean hasDAO) {
         this(_station, _unknownOrientation, _instrumentHeight, hasDAO);
         this.z0CalculationId = _z0CalculationId;
     }
 
     public PolarSurvey(Point _station, double _unknownOrientation, double _instrumentHeight,
-            boolean hasDAO) {
+                       boolean hasDAO) {
         super(CalculationType.POLARSURVEY,
                 App.getContext().getString(R.string.title_activity_polar_survey),
                 hasDAO);
@@ -89,6 +88,11 @@ public class PolarSurvey extends Calculation {
         this.results.clear();
 
         for (Measure m : this.determinations) {
+            // zenithal angle value is optional, needs to be 100.0 by default
+            if (MathUtils.isIgnorable(m.getZenAngle())) {
+                m.setZenAngle(100.0); // default value for zenithal angle
+            }
+
             double zenAngle = MathUtils.gradToRad(MathUtils.modulo400(m.getZenAngle()));
             double hz = MathUtils.gradToRad(MathUtils.modulo400(m.getHorizDir()));
 
@@ -207,9 +211,8 @@ public class PolarSurvey extends Calculation {
     /**
      * Class to store the results of the polar survey calculation on each
      * determination.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public class Result {
         private final String determinationNumber;

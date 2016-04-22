@@ -181,7 +181,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         this.determinationNo = "";
         this.horizDir = MathUtils.IGNORE_DOUBLE;
         this.distance = MathUtils.IGNORE_DOUBLE;
-        this.zenAngle = 100.0;
+        this.zenAngle = MathUtils.IGNORE_DOUBLE;
         this.s = MathUtils.IGNORE_DOUBLE;
         this.latDepl = MathUtils.IGNORE_DOUBLE;
         this.lonDepl = MathUtils.IGNORE_DOUBLE;

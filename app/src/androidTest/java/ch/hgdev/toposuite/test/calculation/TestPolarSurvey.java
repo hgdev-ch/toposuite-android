@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarSurvey;
 import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
@@ -9,9 +10,8 @@ import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * Tests for the PolarSurvey class.
- * 
+ *
  * @author HGdev
- * 
  */
 public class TestPolarSurvey extends CalculationTest {
 
@@ -118,5 +118,36 @@ public class TestPolarSurvey extends CalculationTest {
 
         Assert.assertEquals("556487.533", this.df3.format(r5.getEast()));
         Assert.assertEquals("172486.84", this.df2.format(r5.getNorth()));
+    }
+
+    // This is a regression test for bug #826
+    // The calculation must change the zenithal angle of measures to 100.0 if not provided.
+    public void testZenithalAngleNotProvided() {
+        Point station = new Point("station", 1205.0, 2470.0, MathUtils.IGNORE_DOUBLE, true);
+        double z0 = 120.02;
+
+        Measure m1 = new Measure(null, 41.741, 100.0, 36.0);
+
+        PolarSurvey lp = new PolarSurvey(station, z0, MathUtils.IGNORE_DOUBLE, false);
+        lp.getDeterminations().add(m1);
+        lp.compute();
+
+        Result r1 = lp.getResults().get(0);
+        Assert.assertEquals("1225.347", this.df3.format(r1.getEast()));
+        Assert.assertEquals("2440.301", this.df3.format(r1.getNorth()));
+        Assert.assertTrue(MathUtils.isIgnorable(r1.getAltitude()));
+
+        // now test with zenithal angle set to MathUtils.IGNORE_DOUBLE
+        // we should obtain the same results
+        m1 = new Measure(null, 41.741, MathUtils.IGNORE_DOUBLE, 36.0);
+
+        lp = new PolarSurvey(station, z0, MathUtils.IGNORE_DOUBLE, false);
+        lp.getDeterminations().add(m1);
+        lp.compute();
+
+        r1 = lp.getResults().get(0);
+        Assert.assertEquals("1225.347", this.df3.format(r1.getEast()));
+        Assert.assertEquals("2440.301", this.df3.format(r1.getNorth()));
+        Assert.assertTrue(MathUtils.isIgnorable(r1.getAltitude()));
     }
 }

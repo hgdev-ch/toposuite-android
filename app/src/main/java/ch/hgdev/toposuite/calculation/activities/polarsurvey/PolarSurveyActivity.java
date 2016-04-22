@@ -46,53 +46,52 @@ import ch.hgdev.toposuite.utils.ViewUtils;
  * Activity related to the polar survey calculation.
  *
  * @author HGdev
- *
  */
 public class PolarSurveyActivity extends TopoSuiteActivity implements
         AddDeterminationDialogFragment.AddDeterminationDialogListener,
         EditDeterminationDialogFragment.EditDeterminationDialogListener {
-    private static final String   POLAR_SURVEY_ACTIVITY                     = "PolarSurveyActivity: ";
+    private static final String POLAR_SURVEY_ACTIVITY = "PolarSurveyActivity: ";
 
-    public static final String    POLAR_SURVEY_POSITION                     = "polar_survey_position";
-    public static final String    STATION_NUMBER_LABEL                      = "station_number";
-    public static final String    UNKNOWN_ORIENTATION_LABEL                 = "unknown_orientation";
-    public static final String    UNKNOWN_ORIENTATION_CALCULATION_ID_LABEL_ = "unknown_orientation_calculation_id";
-    public static final String    INSTRUMENT_HEIGHT_LABEL                   = "instrument_height";
-    public static final String    DETERMINATIONS_LABEL                      = "determinations";
+    public static final String POLAR_SURVEY_POSITION = "polar_survey_position";
+    public static final String STATION_NUMBER_LABEL = "station_number";
+    public static final String UNKNOWN_ORIENTATION_LABEL = "unknown_orientation";
+    public static final String UNKNOWN_ORIENTATION_CALCULATION_ID_LABEL_ = "unknown_orientation_calculation_id";
+    public static final String INSTRUMENT_HEIGHT_LABEL = "instrument_height";
+    public static final String DETERMINATIONS_LABEL = "determinations";
 
-    public static final String    DETERMINATION_NUMBER                      = "determination_number";
-    public static final String    HORIZ_DIR                                 = "horizontal_direction";
-    public static final String    DISTANCE                                  = "distance";
-    public static final String    ZEN_ANGLE                                 = "zenithal_angle";
-    public static final String    S                                         = "s";
-    public static final String    LAT_DEPL                                  = "lateral_displacement";
-    public static final String    LON_DEPL                                  = "longitudinal displacement";
+    public static final String DETERMINATION_NUMBER = "determination_number";
+    public static final String HORIZ_DIR = "horizontal_direction";
+    public static final String DISTANCE = "distance";
+    public static final String ZEN_ANGLE = "zenithal_angle";
+    public static final String S = "s";
+    public static final String LAT_DEPL = "lateral_displacement";
+    public static final String LON_DEPL = "longitudinal displacement";
 
-    private static final String   STATION_SELECTED_POSITION                 = "station_selected_position";
-    private Spinner               stationSpinner;
-    private int                   stationSelectedPosition;
-    private ArrayAdapter<Point>   stationAdapter;
-    private TextView              stationPointTextView;
-    private EditText              iEditText;
-    private EditText              unknownOrientEditText;
-    private ListView              determinationsListView;
+    private static final String STATION_SELECTED_POSITION = "station_selected_position";
+    private Spinner stationSpinner;
+    private int stationSelectedPosition;
+    private ArrayAdapter<Point> stationAdapter;
+    private TextView stationPointTextView;
+    private EditText iEditText;
+    private EditText unknownOrientEditText;
+    private ListView determinationsListView;
     private ArrayAdapter<Measure> adapter;
-    private CheckBox              z0CheckBox;
+    private CheckBox z0CheckBox;
 
-    private Point                 station;
-    private double                z0;
-    private double                instrumentHeight;
+    private Point station;
+    private double z0;
+    private double instrumentHeight;
 
-    private PolarSurvey           polarSurvey;
+    private PolarSurvey polarSurvey;
 
-    private Point                 z0Station;
-    private long                  z0Id;
+    private Point z0Station;
+    private long z0Id;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
      * from the history.
      */
-    private int                   position;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +134,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
             }
         });
 
-        ArrayList<Measure> list = new ArrayList<Measure>();
+        ArrayList<Measure> list = new ArrayList<>();
 
         // check if we create a new polar survey calculation or if we modify an
         // existing one.
@@ -185,11 +184,11 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     public void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, false));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point("", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.stationAdapter = new ArrayAdapter<Point>(
+        this.stationAdapter = new ArrayAdapter<>(
                 this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(this.stationAdapter);
 
@@ -263,18 +262,18 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.add_determination_button:
-            this.showAddDeterminationDialog();
-            return true;
-        case R.id.run_calculation_button:
-            if (this.checkInputs()) {
-                this.showPolarSurveyResultActivity();
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.add_determination_button:
+                this.showAddDeterminationDialog();
+                return true;
+            case R.id.run_calculation_button:
+                if (this.checkInputs()) {
+                    this.showPolarSurveyResultActivity();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -290,15 +289,15 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.edit_measure:
-            this.showEditDeterminationDialog(info.position);
-            return true;
-        case R.id.delete_measure:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.edit_measure:
+                this.showEditDeterminationDialog(info.position);
+                return true;
+            case R.id.delete_measure:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -306,33 +305,33 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         boolean checked = ((CheckBox) view).isChecked();
 
         switch (view.getId()) {
-        case R.id.checkbox_z0:
-            if (checked) {
-                this.fetchLastFreeStationOrAbriss();
-                if (MathUtils.isIgnorable(this.z0)) {
-                    ViewUtils.showToast(this,
-                            this.getString(R.string.error_no_suitable_calculation_found));
-                } else {
-                    this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
-                    this.unknownOrientEditText.setEnabled(false);
-                    this.stationSpinner.setSelection(
-                            this.stationAdapter.getPosition(this.z0Station));
-                    this.stationSpinner.setEnabled(false);
-                    if (!MathUtils.isIgnorable(this.instrumentHeight)) {
-                        this.iEditText.setText(
-                                DisplayUtils.toStringForEditText(this.instrumentHeight));
-                        this.iEditText.setEnabled(false);
+            case R.id.checkbox_z0:
+                if (checked) {
+                    this.fetchLastFreeStationOrAbriss();
+                    if (MathUtils.isIgnorable(this.z0)) {
+                        ViewUtils.showToast(this,
+                                this.getString(R.string.error_no_suitable_calculation_found));
+                    } else {
+                        this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
+                        this.unknownOrientEditText.setEnabled(false);
+                        this.stationSpinner.setSelection(
+                                this.stationAdapter.getPosition(this.z0Station));
+                        this.stationSpinner.setEnabled(false);
+                        if (!MathUtils.isIgnorable(this.instrumentHeight)) {
+                            this.iEditText.setText(
+                                    DisplayUtils.toStringForEditText(this.instrumentHeight));
+                            this.iEditText.setEnabled(false);
+                        }
                     }
+                } else {
+                    this.unknownOrientEditText.setText("");
+                    this.unknownOrientEditText.setEnabled(true);
+                    this.stationSpinner.setSelection(0);
+                    this.stationSpinner.setEnabled(true);
+                    this.iEditText.setText("");
+                    this.iEditText.setEnabled(true);
                 }
-            } else {
-                this.unknownOrientEditText.setText("");
-                this.unknownOrientEditText.setEnabled(true);
-                this.stationSpinner.setSelection(0);
-                this.stationSpinner.setEnabled(true);
-                this.iEditText.setText("");
-                this.iEditText.setEnabled(true);
-            }
-            break;
+                break;
         }
     }
 
@@ -347,9 +346,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     }
 
     /**
-     *
-     * @param position
-     *            Position of the determination measure to edit.
+     * @param position Position of the determination measure to edit.
      */
     private void showEditDeterminationDialog(int position) {
         ViewUtils.lockScreenOrientation(this);
