@@ -54,7 +54,7 @@ public class RenameCurrentJobFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog d = super.onCreateDialog(savedInstanceState);
-        d.setTitle(this.getActivity().getString(R.string.export));
+        d.setTitle(this.getActivity().getString(R.string.rename_button));
 
         return d;
     }
