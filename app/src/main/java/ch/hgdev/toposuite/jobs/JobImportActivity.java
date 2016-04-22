@@ -23,6 +23,7 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.AppUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
@@ -120,7 +121,12 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
 
             String json = Joiner.on('\n').join(lines);
             Job.loadJobFromJSON(json);
-        } catch (IOException | JSONException | ParseException e) {
+        } catch (IOException e) {
+            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+            ViewUtils.showToast(this, e.getMessage());
+            return;
+        } catch (JSONException | ParseException e) {
+            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             ViewUtils.showToast(this, e.getMessage());
             return;
         }

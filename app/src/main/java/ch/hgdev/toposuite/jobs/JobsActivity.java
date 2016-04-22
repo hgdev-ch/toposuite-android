@@ -114,17 +114,6 @@ public class JobsActivity extends TopoSuiteActivity implements
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int position = (int) info.id;
         switch (item.getItemId()) {
-            case R.id.import_job:
-                if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    JobsActivity.this.importJob(position);
-                } else {
-                    AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                            String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-                    if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                        JobsActivity.this.importJob(position);
-                    }
-                }
-                return true;
             case R.id.delete_job:
                 if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
                     JobsActivity.this.deleteJob(position);
@@ -166,19 +155,58 @@ public class JobsActivity extends TopoSuiteActivity implements
      */
     private void drawList() {
         if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-            this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
-            this.jobsListView.setAdapter(this.adapter);
+            this.drawJobsList();
         } else {
             AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
                     String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
             if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
-                this.jobsListView.setAdapter(this.adapter);
+                this.drawJobsList();
             }
         }
     }
 
-    private void importJob(int pos) {
+    private void drawJobsList() {
+        this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
+        this.jobsListView.setAdapter(this.adapter);
+        this.jobsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                    JobsActivity.this.importJob(position);
+                } else {
+                    AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                            String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+                    if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                        JobsActivity.this.importJob(position);
+                    }
+                }
+            }
+        });
+    }
+
+    private void importJob(final int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.job_import)
+                .setMessage(R.string.warning_import_job_without_warning_label)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.import_label,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                JobsActivity.this.doImportJob(pos);
+                            }
+                        })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // nothing
+                            }
+                        });
+        builder.create().show();
+    }
+
+    private void doImportJob(final int pos) {
         Job job = this.adapter.getItem(pos);
         File f = job.getTpst();
         try {
