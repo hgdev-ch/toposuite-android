@@ -1,12 +1,14 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import android.support.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -17,24 +19,23 @@ import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * This class implements the axis implantation calculation.
- * 
+ *
  * @author HGdev
- * 
  */
 public class AxisImplantation extends Calculation {
-    public static final String                  STATION_NUMBER    = "station_number";
-    public static final String                  ORIGIN_NUMBER     = "origin_number";
-    public static final String                  EXTREMITY_NUMBER  = "extremity_number";
-    public static final String                  Z0_CALCULATION_ID = "z0_calculation_id";
-    public static final String                  MEASURES_LIST     = "measures_list";
+    public static final String STATION_NUMBER = "station_number";
+    public static final String ORIGIN_NUMBER = "origin_number";
+    public static final String EXTREMITY_NUMBER = "extremity_number";
+    public static final String Z0_CALCULATION_ID = "z0_calculation_id";
+    public static final String MEASURES_LIST = "measures_list";
 
-    private long                                z0CalculationId;
+    private long z0CalculationId;
 
-    private OrthogonalBase                      orthogonalBase;
-    private Point                               station;
-    private double                              unknownOrientation;
+    private OrthogonalBase orthogonalBase;
+    private Point station;
+    private double unknownOrientation;
 
-    private final List<Measure>                 measures;
+    private final List<Measure> measures;
 
     private final List<AxisImplantation.Result> results;
 
@@ -52,8 +53,8 @@ public class AxisImplantation extends Calculation {
         this(null, MathUtils.IGNORE_DOUBLE, null, null, hasDAO);
     }
 
-    public AxisImplantation(Point station, double unknownOrientation,
-            Point origin, Point extremity, boolean hasDAO) {
+    public AxisImplantation(@NonNull Point station, double unknownOrientation,
+                            @NonNull Point origin, @NonNull Point extremity, boolean hasDAO) {
         super(CalculationType.AXISIMPLANTATION,
                 App.getContext().getString(R.string.title_activity_axis_implantation),
                 hasDAO);
@@ -68,14 +69,14 @@ public class AxisImplantation extends Calculation {
 
     /**
      * Initialize class attributes.
-     * 
+     *
      * @param station
      * @param unknownOrientation
      * @param origin
      * @param extremity
      */
     public void initAttributes(Point station, double unknownOrientation,
-            Point origin, Point extremity) {
+                               Point origin, Point extremity) {
         this.orthogonalBase = new OrthogonalBase(origin, extremity);
         this.station = station;
         this.unknownOrientation = unknownOrientation;
@@ -83,7 +84,9 @@ public class AxisImplantation extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
+        this.checkComputability();
+
         // clear old results
         this.results.clear();
 
@@ -202,6 +205,31 @@ public class AxisImplantation extends Calculation {
         return App.getContext().getString(R.string.title_activity_axis_implantation);
     }
 
+    /**
+     * Check if a computation is possible.
+     * Throws a {@link CalculationException} if the computation is not possible.
+     */
+    private void checkComputability() throws CalculationException {
+        if (MathUtils.isIgnorable(this.unknownOrientation)) {
+            throw new CalculationException("unknown orientation is not valid");
+        }
+        if ((this.measures == null) || (this.measures.isEmpty())) {
+            throw new CalculationException("no measures provided");
+        }
+        if (this.station == null) {
+            throw new CalculationException("no station provided");
+        }
+        if (this.orthogonalBase == null) {
+            throw new CalculationException("no orthogonal base available");
+        }
+        if (this.orthogonalBase.getOrigin() == null) {
+            throw new CalculationException("no origin in orthogonal base");
+        }
+        if (this.orthogonalBase.getExtremity() == null) {
+            throw new CalculationException("no extremity in orthogonal base");
+        }
+    }
+
     public OrthogonalBase getOrthogonalBase() {
         return this.orthogonalBase;
     }
@@ -246,7 +274,7 @@ public class AxisImplantation extends Calculation {
         private double ordinate;
 
         public Result(String _number, double _east, double _north, double _abscissa,
-                double _ordinate) {
+                      double _ordinate) {
             this.number = _number;
             this.east = _east;
             this.north = _north;

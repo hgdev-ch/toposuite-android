@@ -110,6 +110,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="err_trans_label">Seitliche Abweichung [cm]</string>
 	<string name="err_lon_label">Distanzabweichung [cm]</string>
 	<string name="error_at_least_one_orientation">Sie müssen zumindest eine Richtung eintragen!</string>
+	<string name="error_computation_exception">Die Berechnung erzeugt einen Fehler!</string>
 	<string name="error_choose_unknown_orientation">Sie müssen eine unbekannte Orientierung wählen!</string>
 	<string name="error_choose_file">Wählen Sie eine Datei bitte!</string>
 	<string name="error_enter_point_number">Sie müssen Punktnummern eingeben!</string>

@@ -115,6 +115,7 @@
 	<string name="err_trans_label">Trans. Err. [cm]</string>
 	<string name="err_lon_label">Lon. Err. [cm]</string>
 	<string name="error_at_least_one_orientation">You must provide at least one orientation!</string>
+	<string name="error_computation_exception">The calculation generated an error!</string>
 	<string name="error_choose_unknown_orientation">You must select an unknown orientation!</string>
 	<string name="error_choose_file">Please, select a file to import!</string>
 	<string name="error_enter_point_number">You need to enter points numbers!</string>

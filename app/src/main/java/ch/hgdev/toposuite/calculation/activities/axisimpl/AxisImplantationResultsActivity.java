@@ -8,7 +8,10 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.AxisImplantation;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
+import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class AxisImplantationResultsActivity extends TopoSuiteActivity {
 
@@ -34,7 +37,12 @@ public class AxisImplantationResultsActivity extends TopoSuiteActivity {
             int position = bundle.getInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
             this.axisImpl = (AxisImplantation) SharedResources.getCalculationsHistory().
                     get(position);
-            this.axisImpl.compute();
+            try {
+                this.axisImpl.compute();
+            } catch (CalculationException e) {
+                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+            }
 
             StringBuilder builder = new StringBuilder();
             builder.append(this.axisImpl.getOrthogonalBase().getOrigin());

@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
 import ch.hgdev.toposuite.calculation.AxisImplantation;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -20,7 +21,11 @@ public class TestAxisImplantation extends CalculationTest {
         ai.getMeasures().add(new Measure(null, 378.042, 100.0, 35.490,
                 MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
                 MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, "222"));
-        ai.compute();
+        try {
+            ai.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
         AxisImplantation.Result r = ai.getResults().get(0);
 
         Assert.assertEquals("222", r.getNumber());

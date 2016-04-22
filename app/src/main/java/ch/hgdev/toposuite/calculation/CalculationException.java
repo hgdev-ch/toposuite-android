@@ -10,10 +10,6 @@ public class CalculationException extends Exception {
 
     private static final long serialVersionUID = -1483789450547225725L;
 
-    public CalculationException() {
-        // nothing to be done actually
-    }
-
     public CalculationException(String message) {
         super(message);
     }

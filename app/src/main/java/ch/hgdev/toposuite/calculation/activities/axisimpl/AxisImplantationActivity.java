@@ -40,39 +40,37 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class AxisImplantationActivity extends TopoSuiteActivity implements
-MeasureDialogListener {
-    private static final String        AXIS_IMPL_ACTIVITY          = "AxisImplantationActivity: ";
+public class AxisImplantationActivity extends TopoSuiteActivity implements MeasureDialogListener {
+    private static final String AXIS_IMPL_ACTIVITY = "AxisImplantationActivity: ";
+    private static final String AXIS_IMPL_POSITION = "axis_impl_position";
+    private static final String STATION_SELECTED_POSITION = "station_selected_position";
+    private static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
+    private static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
+    private static final String MEASURES_LIST = "measures_list";
 
-    private static final String        AXIS_IMPL_POSITION          = "axis_impl_position";
-    private static final String        STATION_SELECTED_POSITION   = "station_selected_position";
-    private static final String        ORIGIN_SELECTED_POSITION    = "origin_selected_position";
-    private static final String        EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
-    private static final String        MEASURES_LIST               = "measures_list";
+    private CheckBox checkboxZ0;
 
-    private CheckBox                   checkboxZ0;
+    private Spinner stationSpinner;
+    private Spinner originSpinner;
+    private Spinner extremitySpinner;
 
-    private Spinner                    stationSpinner;
-    private Spinner                    originSpinner;
-    private Spinner                    extremitySpinner;
+    private TextView calculatedDistanceTextView;
+    private TextView extremityTextView;
+    private TextView originTextView;
+    private TextView stationTextView;
 
-    private TextView                   calculatedDistanceTextView;
-    private TextView                   extremityTextView;
-    private TextView                   originTextView;
-    private TextView                   stationTextView;
+    private EditText unknownOrientationEditText;
 
-    private EditText                   unknownOrientationEditText;
+    private ListView measuresListView;
 
-    private ListView                   measuresListView;
-
-    private AxisImplantation           axisImpl;
+    private AxisImplantation axisImpl;
 
     private ArrayListOfMeasuresAdapter adapter;
-    private ArrayAdapter<Point>        pointsAdapter;
+    private ArrayAdapter<Point> pointsAdapter;
 
-    private int                        stationSelectedPosition;
-    private int                        originSelectedPosition;
-    private int                        extremitySelectedPosition;
+    private int stationSelectedPosition;
+    private int originSelectedPosition;
+    private int extremitySelectedPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +99,7 @@ MeasureDialogListener {
                         .getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
                     AxisImplantationActivity.this.stationTextView.setText
-                    (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
+                            (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
                 } else {
                     AxisImplantationActivity.this.stationTextView.setText("");
                 }
@@ -122,7 +120,7 @@ MeasureDialogListener {
                         .getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
                     AxisImplantationActivity.this.originTextView.setText
-                    (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
+                            (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
                 } else {
                     AxisImplantationActivity.this.originTextView.setText("");
                 }
@@ -145,7 +143,7 @@ MeasureDialogListener {
                         .getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
                     AxisImplantationActivity.this.extremityTextView.setText
-                    (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
+                            (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
                 } else {
                     AxisImplantationActivity.this.extremityTextView.setText("");
                 }
@@ -160,7 +158,7 @@ MeasureDialogListener {
         });
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        points.add(new Point("", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
 
         this.pointsAdapter = new ArrayAdapter<Point>(
@@ -169,8 +167,7 @@ MeasureDialogListener {
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.axisImpl = (AxisImplantation) SharedResources
-                    .getCalculationsHistory().get(position);
+            this.axisImpl = (AxisImplantation) SharedResources.getCalculationsHistory().get(position);
 
             this.stationSelectedPosition = this.pointsAdapter.getPosition(
                     this.axisImpl.getStation());
@@ -198,7 +195,7 @@ MeasureDialogListener {
                     Logger.log(
                             Logger.ErrLabel.CALCULATION_INVALID_TYPE,
                             AxisImplantationActivity.AXIS_IMPL_ACTIVITY
-                            + "trying to get Z0 from a calculation that does not compute one");
+                                    + "trying to get Z0 from a calculation that does not compute one");
                 }
                 this.checkboxZ0.setChecked(true);
                 this.unknownOrientationEditText.setEnabled(false);
@@ -207,7 +204,7 @@ MeasureDialogListener {
             this.unknownOrientationEditText.setText(DisplayUtils.toStringForEditText(
                     this.axisImpl.getUnknownOrientation()));
         } else {
-            this.axisImpl = new AxisImplantation(null, 0.0, null, null, true);
+            this.axisImpl = new AxisImplantation(null, MathUtils.IGNORE_DOUBLE, null, null, true);
         }
 
         this.drawList();
@@ -304,15 +301,15 @@ MeasureDialogListener {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.edit_measure:
-            this.showEditMeasureDialog(info.position);
-            return true;
-        case R.id.delete_measure:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.edit_measure:
+                this.showEditMeasureDialog(info.position);
+                return true;
+            case R.id.delete_measure:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -320,31 +317,31 @@ MeasureDialogListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.add_measure_button:
-            this.showAddMeasureDialog();
-            return true;
-        case R.id.run_calculation_button:
-            if (this.checkInputs()) {
-                // update I and station number
-                this.axisImpl.setStation(
-                        this.pointsAdapter.getItem(this.stationSelectedPosition));
-                this.axisImpl.getOrthogonalBase().setOrigin(
-                        this.pointsAdapter.getItem(this.originSelectedPosition));
-                this.axisImpl.getOrthogonalBase().setExtremity(
-                        this.pointsAdapter.getItem(this.extremitySelectedPosition));
+            case R.id.add_measure_button:
+                this.showAddMeasureDialog();
+                return true;
+            case R.id.run_calculation_button:
+                if (this.checkInputs()) {
+                    // update I and station number
+                    this.axisImpl.setStation(
+                            this.pointsAdapter.getItem(this.stationSelectedPosition));
+                    this.axisImpl.getOrthogonalBase().setOrigin(
+                            this.pointsAdapter.getItem(this.originSelectedPosition));
+                    this.axisImpl.getOrthogonalBase().setExtremity(
+                            this.pointsAdapter.getItem(this.extremitySelectedPosition));
 
-                this.axisImpl.setUnknownOrientation(
-                        ViewUtils.readDouble(
-                                this.unknownOrientationEditText));
+                    this.axisImpl.setUnknownOrientation(
+                            ViewUtils.readDouble(
+                                    this.unknownOrientationEditText));
 
-                this.startAxisImplantationResultsActivity();
-            } else {
-                ViewUtils.showToast(
-                        this, this.getString(R.string.error_fill_data));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+                    this.startAxisImplantationResultsActivity();
+                } else {
+                    ViewUtils.showToast(
+                            this, this.getString(R.string.error_fill_data));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -408,27 +405,27 @@ MeasureDialogListener {
         boolean checked = ((CheckBox) view).isChecked();
 
         switch (view.getId()) {
-        case R.id.checkbox_z0:
-            if (checked) {
-                this.fetchLastFreeStationOrAbriss();
-                if (MathUtils.isIgnorable(this.axisImpl.getUnknownOrientation())) {
-                    ViewUtils.showToast(this,
-                            this.getString(R.string.error_no_suitable_calculation_found));
+            case R.id.checkbox_z0:
+                if (checked) {
+                    this.fetchLastFreeStationOrAbriss();
+                    if (MathUtils.isIgnorable(this.axisImpl.getUnknownOrientation())) {
+                        ViewUtils.showToast(this,
+                                this.getString(R.string.error_no_suitable_calculation_found));
+                    } else {
+                        this.unknownOrientationEditText.setText(DisplayUtils
+                                .toStringForEditText(this.axisImpl.getUnknownOrientation()));
+                        this.unknownOrientationEditText.setEnabled(false);
+                        this.stationSpinner.setSelection(
+                                this.pointsAdapter.getPosition(this.axisImpl.getStation()));
+                        this.stationSpinner.setEnabled(false);
+                    }
                 } else {
-                    this.unknownOrientationEditText.setText(DisplayUtils
-                            .toStringForEditText(this.axisImpl.getUnknownOrientation()));
-                    this.unknownOrientationEditText.setEnabled(false);
-                    this.stationSpinner.setSelection(
-                            this.pointsAdapter.getPosition(this.axisImpl.getStation()));
-                    this.stationSpinner.setEnabled(false);
+                    this.unknownOrientationEditText.setText("");
+                    this.unknownOrientationEditText.setEnabled(true);
+                    this.stationSpinner.setSelection(0);
+                    this.stationSpinner.setEnabled(true);
                 }
-            } else {
-                this.unknownOrientationEditText.setText("");
-                this.unknownOrientationEditText.setEnabled(true);
-                this.stationSpinner.setSelection(0);
-                this.stationSpinner.setEnabled(true);
-            }
-            break;
+                break;
         }
     }
 

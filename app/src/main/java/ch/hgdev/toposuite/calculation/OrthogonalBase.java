@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.calculation;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,8 +24,8 @@ public class OrthogonalBase {
 
     private final double       DEFAULT_SCALE_FACTOR;
 
-    public OrthogonalBase(Point _origin, Point _extremity, double _measuredDistance,
-            double defaultScaleFactor) {
+    public OrthogonalBase(@NonNull Point _origin, @NonNull Point _extremity, double _measuredDistance,
+                          double defaultScaleFactor) {
         this.DEFAULT_SCALE_FACTOR = defaultScaleFactor;
         this.origin = _origin;
         this.extremity = _extremity;
@@ -32,11 +34,11 @@ public class OrthogonalBase {
         this.updateCalcDistAndScaleFactor();
     }
 
-    public OrthogonalBase(Point _origin, Point _extremity, double _measuredDistance) {
+    public OrthogonalBase(@NonNull Point _origin, @NonNull Point _extremity, double _measuredDistance) {
         this(_origin, _extremity, _measuredDistance, 0.0);
     }
 
-    public OrthogonalBase(Point _origin, Point _extremity) {
+    public OrthogonalBase(@NonNull Point _origin, @NonNull Point _extremity) {
         this(_origin, _extremity, MathUtils.IGNORE_DOUBLE);
     }
 
@@ -85,7 +87,7 @@ public class OrthogonalBase {
         return jo;
     }
 
-    public static OrthogonalBase getOrthogonalBaseFromJSON(String json) {
+    public static OrthogonalBase getOrthogonalBaseFromJSON(@NonNull String json) {
         OrthogonalBase ob = null;
 
         try {
@@ -110,7 +112,7 @@ public class OrthogonalBase {
         return this.origin;
     }
 
-    public void setOrigin(Point _origin) {
+    public void setOrigin(@NonNull Point _origin) {
         this.origin = _origin;
         this.updateCalcDistAndScaleFactor();
     }
@@ -119,7 +121,7 @@ public class OrthogonalBase {
         return this.extremity;
     }
 
-    public void setExtremity(Point _extremity) {
+    public void setExtremity(@NonNull Point _extremity) {
         this.extremity = _extremity;
         this.updateCalcDistAndScaleFactor();
     }
