@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.jobs;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
@@ -134,7 +135,7 @@ public class JobsActivity extends TopoSuiteActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull  String[] permissions, @NonNull  int[] grantResults) {
         switch (AppUtils.Permission.valueOf(requestCode)) {
             case READ_EXTERNAL_STORAGE:
                 if (!AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
@@ -157,8 +158,17 @@ public class JobsActivity extends TopoSuiteActivity implements
      * Draw the main table containing all the points.
      */
     private void drawList() {
-        this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
-        this.jobsListView.setAdapter(this.adapter);
+        if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+            this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
+            this.jobsListView.setAdapter(this.adapter);
+        } else {
+            AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                    String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+            if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
+                this.jobsListView.setAdapter(this.adapter);
+            }
+        }
     }
 
     private void importJob(int pos) {

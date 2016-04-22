@@ -187,6 +187,12 @@ class Job {
         return Job.EXTENSION.equalsIgnoreCase(ext);
     }
 
+    /**
+     * Get a list of existing jobs.
+     * Note: {@link ch.hgdev.toposuite.utils.AppUtils.Permission#READ_EXTERNAL_STORAGE} is required.
+     *
+     * @return A list of jobs.
+     */
     public static ArrayList<Job> getJobsList() {
         ArrayList<Job> jobs = new ArrayList<Job>();
         String[] filenameList = new File(App.publicDataDirectory).list(new FilenameFilter() {
