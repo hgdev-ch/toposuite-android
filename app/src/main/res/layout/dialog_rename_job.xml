@@ -2,49 +2,50 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="8dp"
-	    android:paddingTop="8dp" >
-        
+        android:paddingTop="8dp">
+
         <EditText
             android:id="@+id/filename_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/name" />
-	</LinearLayout>
-	
-    <View
-	    android:layout_width="fill_parent"
-	    android:layout_height="1dp"
-	    android:layout_marginBottom="0dp"
-	    android:background="?android:attr/dividerVertical" />
-    
-    <LinearLayout
-	   style="?android:attr/buttonBarStyle"
-	   android:layout_width="fill_parent"
-	   android:layout_height="wrap_content"
-	   android:measureWithLargestChild="true"
-	   android:orientation="horizontal"
-	   android:paddingTop="0dip" >
-        
-    <Button
-        android:id="@+id/cancel_button"
-	    style="?android:attr/buttonBarButtonStyle"
-	    android:layout_width="0dip"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
-	    android:text= "@string/cancel" />
+            android:hint="@string/name"
+            android:singleLine="true" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/rename_button"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="0dip"
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="0dp"
+        android:background="?android:attr/dividerVertical" />
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/rename_button" />
-	</LinearLayout>
+        android:measureWithLargestChild="true"
+        android:orientation="horizontal"
+        android:paddingTop="0dip">
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/rename_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/rename_button" />
+    </LinearLayout>
 </LinearLayout>
