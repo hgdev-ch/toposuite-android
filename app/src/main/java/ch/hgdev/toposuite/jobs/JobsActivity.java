@@ -86,7 +86,14 @@ public class JobsActivity extends TopoSuiteActivity implements
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.rename_job:
+                this.renameJob();
+                return true;
             case R.id.save_job:
+                if (Job.getCurrentJobName() == null) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_job_no_name));
+                    return true;
+                }
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
                     this.saveJob();
                 } else {
@@ -281,7 +288,6 @@ public class JobsActivity extends TopoSuiteActivity implements
     public void onRenameCurrentJobSuccess(String message) {
         this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
         ViewUtils.showToast(this, message);
-        this.saveJob();
     }
 
     @Override

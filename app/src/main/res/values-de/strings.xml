@@ -128,6 +128,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="error_point_number">Die Nummer eines Punktes soll größer oder gleich 1 sein.</string>
 	<string name="error_points_import">Fehler beim Importieren der Punkte! Einige Punkte könnten nicht importiert sein.</string>
 	<string name="error_same_points">Die Punkte müssen unterschiedlich sein!</string>
+	<string name="error_job_no_name">Der Job hat keinen Namen!</string>
 	<string name="error_three_points_required">Mindestens sollen drei Punkte geliefert sein!</string>
 	<string name="error_unsupported_format">Format nicht unterstützt!</string>
 	<string name="exception_invalid_format_values">Die Zeile enthält nichtgültige Werte!</string>
@@ -173,6 +174,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="job_clear">Aktueller Job löschen</string>
 	<string name="job_export">Job Autrag abbrechen</string>
 	<string name="job_import">Importieren Sie einen Job</string>
+	<string name="job_rename">Aktueller Job umbenennen</string>
 	<string name="job_save">Aktueller Job speichern</string>
 	<string name="keep_button">Aufbewahren</string>
 	<string name="last_modification">Letzte Änderung</string>
