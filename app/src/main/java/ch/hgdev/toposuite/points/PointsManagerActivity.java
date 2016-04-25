@@ -367,11 +367,12 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         builder.setTitle(R.string.error_import_label)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(message)
-                .setNegativeButton(R.string.cancel,
+                .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
+                                PointsManagerActivity.this.drawList();
+                                PointsManagerActivity.this.updateShareIntent();
                             }
                         });
         builder.create().show();

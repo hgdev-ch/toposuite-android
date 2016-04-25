@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import ch.hgdev.toposuite.App;
@@ -131,10 +132,7 @@ public class ImportDialog extends DialogFragment {
         } else {
             files.add(this.getActivity().getString(R.string.select_files_3dots));
         }
-
-        for (String s : filesList) {
-            files.add(s);
-        }
+        Collections.addAll(files, filesList);
 
         this.adapter = new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, files);
@@ -170,8 +168,6 @@ public class ImportDialog extends DialogFragment {
                                     R.string.number_of_points_label),
                                     lnr.getLineNumber()));
                     lnr.close();
-                } catch (FileNotFoundException e) {
-                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 }

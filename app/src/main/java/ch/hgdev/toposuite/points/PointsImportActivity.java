@@ -25,7 +25,7 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PointsImportActivity extends TopoSuiteActivity implements ImportDialog.ImportDialogListener,
-        ActivityCompat.OnRequestPermissionsResultCallback{
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     private Uri dataUri;
     String mime;
@@ -149,11 +149,10 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
                                     List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
 
                                     if (!errors.isEmpty()) {
-                                        dialog.dismiss();
                                         PointsImportActivity.this.onImportDialogError(PointsImporter.formatErrors(ext, errors));
+                                    } else {
+                                        PointsImportActivity.this.onImportDialogSuccess(PointsImportActivity.this.getString(R.string.success_import_dialog));
                                     }
-                                    ViewUtils.showToast(PointsImportActivity.this,
-                                            PointsImportActivity.this.getString(R.string.success_import_dialog));
                                 } catch (IOException e) {
                                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                                     ViewUtils.showToast(PointsImportActivity.this, e.getMessage());
