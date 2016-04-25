@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Pair;
 
+import com.google.common.io.Files;
 import com.google.common.io.LineReader;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
 
     private Uri dataUri;
     String mime;
+    String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
         // detect if another app is sending data to this activity
         this.dataUri = this.getIntent().getData();
         this.mime = this.getIntent().getType();
+        this.filename = this.dataUri.getLastPathSegment();
         if (this.dataUri != null) {
             if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
                 this.importPoints();
@@ -119,24 +122,26 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ContentResolver cr = PointsImportActivity.this
-                                        .getContentResolver();
-                                String ext = PointsImportActivity.this.mime.substring(PointsImportActivity.this.mime.lastIndexOf("/") + 1);
+                                ContentResolver cr = PointsImportActivity.this.getContentResolver();
+                                String ext = Files.getFileExtension(PointsImportActivity.this.filename);
+                                if (ext.isEmpty()) {
+                                    // attempt to detect type via mime then
+                                    ext = PointsImportActivity.this.mime.substring(PointsImportActivity.this.mime.lastIndexOf("/") + 1);
 
-                                // ugly hack to support ES File Explorer and
-                                // Samsung's file explorer that set the MIME
-                                // type of a CSV file to
-                                // "text/comma-separated-values" instead of
-                                // "text/csv"
-                                if (ext.equalsIgnoreCase("comma-separated-values")) {
-                                    ext = "csv";
+                                    // ugly hack to support ES File Explorer and
+                                    // Samsung's file explorer that set the MIME
+                                    // type of a CSV file to
+                                    // "text/comma-separated-values" instead of
+                                    // "text/csv"
+                                    if (ext.equalsIgnoreCase("comma-separated-values")) {
+                                        ext = "csv";
+                                    }
                                 }
 
                                 // make sure the file format is supported
                                 if (!SupportedFileTypes.isSupported(ext)) {
-                                    ViewUtils.showToast(PointsImportActivity.this,
-                                            PointsImportActivity.this.getString(
-                                                    R.string.error_unsupported_format));
+                                    ViewUtils.showToast(PointsImportActivity.this, PointsImportActivity.this.getString(
+                                            R.string.error_unsupported_format));
                                     PointsImportActivity.this.finish();
                                 }
 

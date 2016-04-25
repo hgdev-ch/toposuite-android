@@ -44,7 +44,6 @@ public enum SupportedFileTypes {
         } catch (IllegalArgumentException e) {
             return false;
         }
-
         return true;
     }
 
@@ -64,7 +63,6 @@ public enum SupportedFileTypes {
         } catch (IllegalArgumentException e) {
             // nothing
         }
-
         return type;
     }
 }
