@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.dao;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import org.json.JSONException;
 
@@ -96,7 +97,10 @@ public class CalculationsDataSource implements DAO {
         try {
             json = calculation.exportToJSON();
         } catch (JSONException e) {
-            Logger.log(Logger.ErrLabel.PARSE_ERROR, "Error while exporting calculation to JSON!");
+            Logger.log(Logger.ErrLabel.SERIALIZATION_ERROR, e.getMessage());
+        } catch (NullPointerException e) {
+            Logger.log(Logger.ErrLabel.SERIALIZATION_ERROR,
+                    "this is bad: null pointer exception while serializing calculation\n" + Log.getStackTraceString(e));
         }
 
         ContentValues calculationValues = new ContentValues();

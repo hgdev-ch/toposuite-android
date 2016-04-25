@@ -30,6 +30,7 @@ public class Logger {
         PARSE_ERROR("PARSE ERROR"),
         INPUT_ERROR("INPUT ERROR"),
         IO_ERROR("IO ERROR"),
+        SERIALIZATION_ERROR("SERIALIZATION ERROR"),
         SETTINGS_ERROR("SETTINGS ERROR");
 
         private final String label;
@@ -109,7 +110,7 @@ public class Logger {
         try {
             json = calculation.exportToJSON();
 
-        } catch (JSONException e) {
+        } catch (JSONException | NullPointerException e) {
             json = "ERROR";
         }
 
