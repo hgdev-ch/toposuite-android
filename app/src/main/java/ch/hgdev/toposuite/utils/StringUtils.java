@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.utils;
 
-import android.support.annotation.NonNull;
-
-import java.text.Normalizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,23 +36,5 @@ public class StringUtils {
         String prefix = str.substring(0, str.length() - number.length());
 
         return prefix + String.valueOf(Integer.valueOf(number) + 1);
-    }
-
-    /**
-     * Tentatively convert all non ASCII code from string str to their equivalent ASCII value when
-     * possible or to the empty string otherwise.
-     * For instance, "rösti" will be converted to "rosti".
-     *
-     * @param str Input string that needs to be "converted" to ASCII chars only.
-     * @return An ASCII representation of str.
-     */
-    public static String toASCII(@NonNull String str) {
-        String ret = str;
-
-        // remove UTF8 BOM if present
-        ret = ret.replace(UTF8_BOM, "");
-
-        ret = Normalizer.normalize(str, Normalizer.Form.NFD);
-        return ret.replaceAll("[^\\x00-\\x7F]", "");
     }
 }
