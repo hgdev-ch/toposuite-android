@@ -61,5 +61,7 @@ public class TestStringUtils extends UtilsTest {
         Assert.assertEquals("EN", StringUtils.toASCII("ÈÑ"));
         Assert.assertEquals("", StringUtils.toASCII("¶�®©"));
         Assert.assertEquals("", StringUtils.toASCII("ݰܛ܊שտԦ҉ϰϣ͢ʥ"));
+        Assert.assertEquals("", StringUtils.toASCII("\uFEFF")); // BOM sign
+        Assert.assertEquals("ab", StringUtils.toASCII("a\uFEFFb"));
     }
 }

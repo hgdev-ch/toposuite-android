@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
  * @author HGdev
  */
 public class StringUtils {
+    public static final String UTF8_BOM = "\uFEFF";
+
     /**
      * This method assumes that the String contains a number.
      *
@@ -40,7 +42,7 @@ public class StringUtils {
     }
 
     /**
-     * Tentatively onvert all non ASCII code from string str to their equivalent ASCII value when
+     * Tentatively convert all non ASCII code from string str to their equivalent ASCII value when
      * possible or to the empty string otherwise.
      * For instance, "rösti" will be converted to "rosti".
      *
@@ -48,7 +50,12 @@ public class StringUtils {
      * @return An ASCII representation of str.
      */
     public static String toASCII(@NonNull String str) {
-        String ret = Normalizer.normalize(str, Normalizer.Form.NFD);
+        String ret = str;
+
+        // remove UTF8 BOM if present
+        ret = ret.replace(UTF8_BOM, "");
+
+        ret = Normalizer.normalize(str, Normalizer.Form.NFD);
         return ret.replaceAll("[^\\x00-\\x7F]", "");
     }
 }
