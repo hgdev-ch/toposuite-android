@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.points;
 
+import android.util.Pair;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +9,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Pair;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
@@ -21,19 +22,15 @@ public class PointsImporter {
      * Import a set of points from a file. This function assumes that the
      * supplied extension is valid and supported by the importer.
      *
-     * @param inputStream
-     *            An input stream.
-     * @param ext
-     *            The file extension.
+     * @param inputStream An input stream.
+     * @param ext         The file extension.
      * @return A list of pair <line number, errors>. The list is empty if no
-     *         error occurred.
+     * error occurred.
      * @throws IOException
      */
-    public static List<Pair<Integer, String>> importFromFile(InputStream inputStream,
-            final String ext)
-                    throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(
-                new InputStreamReader(inputStream));
+    public static List<Pair<Integer, String>> importFromFile(InputStream inputStream, final String ext)
+            throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = "";
         SupportedFileTypes type = SupportedFileTypes.fileTypeOf(ext);
 
@@ -49,29 +46,29 @@ public class PointsImporter {
 
             try {
                 switch (type) {
-                case CSV:
-                    newPt.createPointFromCSV(line);
-                    break;
-                case COO:
-                case KOO:
-                case LTOP:
-                    if (nbLines == 1) {
-                        continue;
-                    }
+                    case CSV:
+                        newPt.createPointFromCSV(line);
+                        break;
+                    case COO:
+                    case KOO:
+                    case LTOP:
+                        if (nbLines == 1) {
+                            continue;
+                        }
 
-                    if (line.matches("^\\*\\*.*")) {
-                        continue;
-                    }
+                        if (line.matches("^\\*\\*.*")) {
+                            continue;
+                        }
 
-                    newPt.createPointFromLTOP(line);
-                    break;
-                case PTP:
-                    newPt.createPointFromPTP(line);
-                    break;
+                        newPt.createPointFromLTOP(line);
+                        break;
+                    case PTP:
+                        newPt.createPointFromPTP(line);
+                        break;
                 }
             } catch (InvalidFormatException e) {
                 errors.add(new Pair<Integer, String>(nbLines, e.getMessage()));
-                Logger.log(Logger.ErrLabel.INPUT_ERROR, e.getMessage() + " => " + errors.size());
+                Logger.log(Logger.ErrLabel.INPUT_ERROR, "line #" + nbLines + " => " + e.getMessage());
                 continue;
             }
 
@@ -85,10 +82,8 @@ public class PointsImporter {
     /**
      * Format errors list as a String.
      *
-     * @param filename
-     *            File name.
-     * @param errors
-     *            Errors list.
+     * @param filename File name.
+     * @param errors   Errors list.
      * @return A formatted string, ready to be displayed in an alert dialog.
      */
     public static String formatErrors(String filename, List<Pair<Integer, String>> errors) {
