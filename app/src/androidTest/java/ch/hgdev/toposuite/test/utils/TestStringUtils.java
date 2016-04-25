@@ -54,4 +54,12 @@ public class TestStringUtils extends UtilsTest {
             // should be thrown
         }
     }
+
+    public void testToASCII() {
+        Assert.assertEquals("rosti", StringUtils.toASCII("rösti"));
+        Assert.assertEquals("aaaeeeeiiou", StringUtils.toASCII("àäâéèëêîïöü"));
+        Assert.assertEquals("EN", StringUtils.toASCII("ÈÑ"));
+        Assert.assertEquals("", StringUtils.toASCII("¶�®©"));
+        Assert.assertEquals("", StringUtils.toASCII("ݰܛ܊שտԦ҉ϰϣ͢ʥ"));
+    }
 }
