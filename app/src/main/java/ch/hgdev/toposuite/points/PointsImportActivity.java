@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.points;
 
-import android.support.v7.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Pair;
 
 import com.google.common.io.LineReader;

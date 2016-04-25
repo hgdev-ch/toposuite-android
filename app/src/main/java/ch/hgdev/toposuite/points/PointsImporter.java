@@ -5,7 +5,6 @@ import android.util.Pair;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.export.InvalidFormatException;
 import ch.hgdev.toposuite.export.SupportedFileTypes;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.UnicodeReader;
 
 public class PointsImporter {
 
@@ -30,8 +30,7 @@ public class PointsImporter {
      */
     public static List<Pair<Integer, String>> importFromFile(InputStream inputStream, final String ext)
             throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        String line = "";
+        BufferedReader bufferedReader = new BufferedReader(new UnicodeReader(inputStream, "UTF-8"));
         SupportedFileTypes type = SupportedFileTypes.fileTypeOf(ext);
 
         // List of errors
@@ -39,11 +38,10 @@ public class PointsImporter {
 
         int nbLines = 0;
 
-        while ((line = bufferedReader.readLine()) != null) {
+        for (String line = ""; (line = bufferedReader.readLine()) != null;) {
             ++nbLines;
 
             Point newPt = new Point();
-
             try {
                 switch (type) {
                     case CSV:

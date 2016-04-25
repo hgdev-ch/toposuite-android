@@ -238,20 +238,15 @@ public class ImportDialog extends DialogFragment {
         }
 
         try {
-            InputStream inputStream = new FileInputStream(
-                    new File(App.publicDataDirectory, filename));
+            InputStream inputStream = new FileInputStream(new File(App.publicDataDirectory, filename));
+            // remove previous points and calculations
+            SharedResources.getSetOfPoints().clear();
+            SharedResources.getCalculationsHistory().clear();
 
-            if (inputStream != null) {
-                // remove previous points and calculations
-                SharedResources.getSetOfPoints().clear();
-                SharedResources.getCalculationsHistory().clear();
-
-                List<Pair<Integer, String>> errors = PointsImporter.importFromFile(
-                        inputStream, ext);
-                if (!errors.isEmpty()) {
-                    this.closeOnError(PointsImporter.formatErrors(filename, errors));
-                    return;
-                }
+            List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
+            if (!errors.isEmpty()) {
+                this.closeOnError(PointsImporter.formatErrors(filename, errors));
+                return;
             }
         } catch (FileNotFoundException e) {
             Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
