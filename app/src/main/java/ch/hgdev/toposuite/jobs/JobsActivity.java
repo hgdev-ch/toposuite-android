@@ -1,6 +1,8 @@
 package ch.hgdev.toposuite.jobs;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.common.base.Joiner;
@@ -44,6 +47,7 @@ public class JobsActivity extends TopoSuiteActivity implements
     private ListView jobsListView;
     private TextView jobNameTextView;
     private ArrayListOfJobsAdapter adapter;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,12 @@ public class JobsActivity extends TopoSuiteActivity implements
 
         this.jobNameTextView = (TextView) this.findViewById(R.id.current_job);
         this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
+
+        this.progress = new ProgressDialog(this);
+        this.progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        this.progress.setIndeterminate(true);
+        this.progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
     }
 
     @Override
@@ -131,7 +141,7 @@ public class JobsActivity extends TopoSuiteActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull  String[] permissions, @NonNull  int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (AppUtils.Permission.valueOf(requestCode)) {
             case READ_EXTERNAL_STORAGE:
                 if (!AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
@@ -193,6 +203,7 @@ public class JobsActivity extends TopoSuiteActivity implements
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                                 JobsActivity.this.doImportJob(pos);
                             }
                         })
@@ -207,34 +218,51 @@ public class JobsActivity extends TopoSuiteActivity implements
     }
 
     private void doImportJob(final int pos) {
-        Job job = this.adapter.getItem(pos);
-        File f = job.getTpst();
-        try {
-            List<String> lines = Files.readLines(f, Charset.defaultCharset());
-            // remove previous points and calculations from the SQLite DB
-            PointsDataSource.getInstance().truncate();
-            CalculationsDataSource.getInstance().truncate();
+        this.progress.show();
+        this.progress.setContentView(new ProgressBar(this));
 
-            // clean in-memory residues
-            SharedResources.getSetOfPoints().clear();
-            SharedResources.getCalculationsHistory().clear();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // remove previous points and calculations from the SQLite DB
+                PointsDataSource.getInstance().truncate();
+                CalculationsDataSource.getInstance().truncate();
 
-            String json = Joiner.on('\n').join(lines);
-            Job.loadJobFromJSON(json);
-        } catch (IOException e) {
-            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-            ViewUtils.showToast(this, e.getMessage());
-            return;
-        } catch (JSONException | ParseException e) {
-            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
-            ViewUtils.showToast(this, e.getMessage());
-            return;
-        }
+                // clean in-memory residues
+                SharedResources.getSetOfPoints().clear();
+                SharedResources.getCalculationsHistory().clear();
 
-        Job.setCurrentJobName(Files.getNameWithoutExtension(f.getName()));
-        this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
-        this.drawList();
-        ViewUtils.showToast(this, this.getString(R.string.success_import_job_dialog));
+                // erase current job name
+                Job.setCurrentJobName(null);
+
+                try {
+                    Job job = JobsActivity.this.adapter.getItem(pos);
+                    File f = job.getTpst();
+                    List<String> lines = Files.readLines(f, Charset.defaultCharset());
+                    String json = Joiner.on('\n').join(lines);
+                    Job.loadJobFromJSON(json);
+                    Job.setCurrentJobName(Files.getNameWithoutExtension(f.getName()));
+                } catch (IOException e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                } catch (JSONException | ParseException e) {
+                    Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JobsActivity.this.progress.dismiss();
+                        JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
+                        JobsActivity.this.drawList();
+                        if (Job.getCurrentJobName() == null) {
+                            ViewUtils.showToast(JobsActivity.this, JobsActivity.this.getString(R.string.error_impossible_to_import));
+                        } else {
+                            ViewUtils.showToast(JobsActivity.this, JobsActivity.this.getString(R.string.success_import_job_dialog));
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     private void deleteJob(int pos) {
