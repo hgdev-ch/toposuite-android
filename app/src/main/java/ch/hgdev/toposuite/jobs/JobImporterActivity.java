@@ -33,7 +33,7 @@ import ch.hgdev.toposuite.utils.ViewUtils;
  *
  * @author HGdev
  */
-public class JobImportActivity extends TopoSuiteActivity implements ImportDialogListener,
+public class JobImporterActivity extends TopoSuiteActivity implements ImportDialogListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
     private String path;
     private ProgressDialog progress;
@@ -101,7 +101,7 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                JobImportActivity.this.doImportJob();
+                                JobImporterActivity.this.doImportJob();
                             }
                         })
                 .setNegativeButton(R.string.cancel,
@@ -109,7 +109,7 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                JobImportActivity.this.finish();
+                                JobImporterActivity.this.finish();
                             }
                         });
         builder.create().show();
@@ -124,7 +124,7 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
             public void run() {
                 Job.deleteCurrentJob();
                 try {
-                    File jsonFile = new File(JobImportActivity.this.path);
+                    File jsonFile = new File(JobImporterActivity.this.path);
                     List<String> lines;
                     lines = Files.readLines(jsonFile, Charset.defaultCharset());
                     String json = Joiner.on('\n').join(lines);
@@ -136,18 +136,18 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
                     Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
                 }
 
-                JobImportActivity.this.runOnUiThread(new Runnable() {
+                JobImporterActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        JobImportActivity.this.progress.dismiss();
+                        JobImporterActivity.this.progress.dismiss();
                         if (Job.getCurrentJobName() == null) {
-                            ViewUtils.showToast(JobImportActivity.this,
-                                    JobImportActivity.this.getString(R.string.error_impossible_to_import));
+                            ViewUtils.showToast(JobImporterActivity.this,
+                                    JobImporterActivity.this.getString(R.string.error_impossible_to_import));
                         } else {
-                            ViewUtils.showToast(JobImportActivity.
-                                    this, JobImportActivity.this.getString(R.string.success_import_job_dialog));
+                            ViewUtils.showToast(JobImporterActivity.
+                                    this, JobImporterActivity.this.getString(R.string.success_import_job_dialog));
                         }
-                        JobImportActivity.this.finish();
+                        JobImporterActivity.this.finish();
                     }
                 });
             }
