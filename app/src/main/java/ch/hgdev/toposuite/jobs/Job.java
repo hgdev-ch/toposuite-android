@@ -24,7 +24,7 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.settings.SettingsActivity;
 import ch.hgdev.toposuite.utils.AppUtils;
 
-class Job {
+public class Job {
     public static final String EXTENSION = "tpst";
 
     private static final String GENERATED_BY_KEY = "generated_by";
