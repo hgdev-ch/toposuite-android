@@ -59,6 +59,8 @@ public class ImportDialog extends DialogFragment {
     private Spinner filesListSpinner;
     private TextView fileLastModificationTextView;
     private TextView fileNumberOfPointsTextView;
+    private String errMsg;
+    private String successMsg;
 
     /**
      * Listener for handling dialog events.
@@ -70,13 +72,13 @@ public class ImportDialog extends DialogFragment {
          * This callback is triggered when the action performed by the dialog
          * succeed.
          */
-        void onImportDialogSuccess();
+        void onImportDialogSuccess(String message);
 
         /**
          * This callback is triggered when the action performed by the dialog
          * fail.
          */
-        void onImportDialogError();
+        void onImportDialogError(String message);
     }
 
     @Override
@@ -85,6 +87,8 @@ public class ImportDialog extends DialogFragment {
     Dialog onCreateDialog(@NonNull Bundle savedInstanceState) {
         Dialog d = super.onCreateDialog(savedInstanceState);
         d.setTitle(this.getString(R.string.import_label));
+        this.errMsg = "";
+        this.successMsg = this.getString(R.string.success_import_dialog);
         return d;
     }
 
@@ -191,16 +195,6 @@ public class ImportDialog extends DialogFragment {
         }
     }
 
-    private void closeOnSuccess() {
-        this.dismiss();
-        this.listener.onImportDialogSuccess();
-    }
-
-    private void closeOnError() {
-        this.dismiss();
-        this.listener.onImportDialogError();
-    }
-
     /**
      * Import the selected file.
      */
@@ -248,22 +242,26 @@ public class ImportDialog extends DialogFragment {
                         List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                         if (errors.isEmpty()) {
                             Job.setCurrentJobName(Files.getNameWithoutExtension(filename));
+                        } else {
+                            ImportDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
                         }
                     } else {
                         Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
+                        ImportDialog.this.errMsg = App.getContext().getString(R.string.error_unsupported_format);
                     }
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                    ImportDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
                 }
 
                 act.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         progress.dismiss();
-                        if (Job.getCurrentJobName() == null) {
-                            ImportDialog.this.closeOnError();
+                        if (ImportDialog.this.errMsg.isEmpty()) {
+                            ImportDialog.this.listener.onImportDialogSuccess(ImportDialog.this.successMsg);
                         } else {
-                            ImportDialog.this.closeOnSuccess();
+                            ImportDialog.this.listener.onImportDialogError(ImportDialog.this.errMsg);
                         }
                     }
                 });

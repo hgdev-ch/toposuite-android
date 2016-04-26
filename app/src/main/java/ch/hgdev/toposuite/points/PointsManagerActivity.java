@@ -355,18 +355,18 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     }
 
     @Override
-    public void onImportDialogSuccess() {
-        ViewUtils.showToast(this, this.getString(R.string.success_import_dialog));
+    public void onImportDialogSuccess(String message) {
+        ViewUtils.showToast(this, message);
         this.drawList();
         this.updateShareIntent();
     }
 
     @Override
-    public void onImportDialogError() {
+    public void onImportDialogError(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.error_import_label)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage(PointsManagerActivity.this.getString(R.string.error_impossible_to_import))
+                .setMessage(message)
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             @Override
