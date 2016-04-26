@@ -18,14 +18,14 @@ import java.util.List;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.export.SupportedFileTypes;
-import ch.hgdev.toposuite.jobs.ImportDialog;
+import ch.hgdev.toposuite.transfer.ImportDialogListener;
+import ch.hgdev.toposuite.transfer.SupportedFileTypes;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class PointsImportActivity extends TopoSuiteActivity implements ImportDialog.ImportDialogListener,
+public class PointsImportActivity extends TopoSuiteActivity implements ImportDialogListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private Uri dataUri;

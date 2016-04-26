@@ -11,8 +11,8 @@ import java.util.List;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
-import ch.hgdev.toposuite.export.InvalidFormatException;
-import ch.hgdev.toposuite.export.SupportedFileTypes;
+import ch.hgdev.toposuite.transfer.InvalidFormatException;
+import ch.hgdev.toposuite.transfer.SupportedFileTypes;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.UnicodeReader;
 

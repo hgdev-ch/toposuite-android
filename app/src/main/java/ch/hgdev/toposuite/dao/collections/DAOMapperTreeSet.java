@@ -12,8 +12,8 @@ import android.content.Context;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
-import ch.hgdev.toposuite.export.DataExporter;
-import ch.hgdev.toposuite.export.SaveStrategy;
+import ch.hgdev.toposuite.transfer.DataExporter;
+import ch.hgdev.toposuite.transfer.SaveStrategy;
 
 import com.google.common.collect.Iterables;
 

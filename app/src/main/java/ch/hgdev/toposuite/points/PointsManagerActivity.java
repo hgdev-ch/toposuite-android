@@ -26,8 +26,10 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.export.ExportDialog;
-import ch.hgdev.toposuite.export.ImportDialog;
+import ch.hgdev.toposuite.transfer.ExportDialog;
+import ch.hgdev.toposuite.transfer.ExportDialogListener;
+import ch.hgdev.toposuite.transfer.ImportDialog;
+import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
@@ -42,8 +44,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         AddPointDialogFragment.AddPointDialogListener,
         EditPointDialogFragment.EditPointDialogListener,
         SearchPointDialogFragment.SearchPointDialogListener,
-        ExportDialog.ExportDialogListener,
-        ImportDialog.ImportDialogListener,
+        ExportDialogListener,
+        ImportDialogListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private int selectedPointId;

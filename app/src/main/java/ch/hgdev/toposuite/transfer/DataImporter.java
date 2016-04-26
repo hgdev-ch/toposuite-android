@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.export;
+package ch.hgdev.toposuite.transfer;
 
 /**
  * Interface for importing data from a file.

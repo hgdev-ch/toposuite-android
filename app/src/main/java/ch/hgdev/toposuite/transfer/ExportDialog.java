@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.export;
+package ch.hgdev.toposuite.transfer;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -36,29 +36,6 @@ public class ExportDialog extends DialogFragment {
 
     private Spinner formatSpinner;
     private EditText filenameEditText;
-
-    /**
-     * Listener for handling dialog events.
-     *
-     * @author HGdev
-     */
-    public interface ExportDialogListener {
-        /**
-         * This callback is triggered when the action performed by the dialog
-         * succeed.
-         *
-         * @param message Success message.
-         */
-        void onExportDialogSuccess(String message);
-
-        /**
-         * This callback is triggered when the action performed by the dialog
-         * fail.
-         *
-         * @param message Error message.
-         */
-        void onExportDialogError(String message);
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

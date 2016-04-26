@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.export;
+package ch.hgdev.toposuite.transfer;
 
 import java.util.ArrayList;
 import java.util.List;

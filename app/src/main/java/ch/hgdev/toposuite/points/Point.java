@@ -13,9 +13,9 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
-import ch.hgdev.toposuite.export.DataExporter;
-import ch.hgdev.toposuite.export.DataImporter;
-import ch.hgdev.toposuite.export.InvalidFormatException;
+import ch.hgdev.toposuite.transfer.DataExporter;
+import ch.hgdev.toposuite.transfer.DataImporter;
+import ch.hgdev.toposuite.transfer.InvalidFormatException;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 /**

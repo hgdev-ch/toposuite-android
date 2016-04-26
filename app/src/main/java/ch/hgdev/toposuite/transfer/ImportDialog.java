@@ -1,9 +1,13 @@
-package ch.hgdev.toposuite.jobs;
+package ch.hgdev.toposuite.transfer;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,25 +16,28 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.common.base.Joiner;
 import com.google.common.io.Files;
 
-import org.json.JSONException;
-
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.text.ParseException;
+import java.io.InputStream;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.jobs.Job;
+import ch.hgdev.toposuite.points.PointsImporter;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -48,37 +55,18 @@ public class ImportDialog extends DialogFragment {
 
     private Spinner filesListSpinner;
     private TextView fileLastModificationTextView;
-
-    private boolean isConfirmationAsked = false;
-
-    /**
-     * Listener for handling dialog events.
-     *
-     * @author HGdev
-     */
-    public interface ImportDialogListener {
-        /**
-         * This callback is triggered when the action performed by the dialog
-         * succeed.
-         *
-         * @param message Success message.
-         */
-        void onImportDialogSuccess(String message);
-
-        /**
-         * This callback is triggered when the action performed by the dialog
-         * fail.
-         *
-         * @param message Error message.
-         */
-        void onImportDialogError(String message);
-    }
+    private TextView fileNumberOfPointsTextView;
+    private String errMsg;
+    private String successMsg;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public
+    @NonNull
+    Dialog onCreateDialog(@NonNull Bundle savedInstanceState) {
         Dialog d = super.onCreateDialog(savedInstanceState);
         d.setTitle(this.getString(R.string.import_label));
-
+        this.errMsg = "";
+        this.successMsg = this.getString(R.string.success_import_dialog);
         return d;
     }
 
@@ -89,6 +77,8 @@ public class ImportDialog extends DialogFragment {
 
         this.fileLastModificationTextView = (TextView) view.findViewById(
                 R.id.file_last_modification);
+        this.fileNumberOfPointsTextView = (TextView) view.findViewById(
+                R.id.file_number_of_points);
 
         Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(new OnClickListener() {
@@ -108,12 +98,13 @@ public class ImportDialog extends DialogFragment {
 
         this.filesListSpinner = (Spinner) view.findViewById(R.id.files_list_spinner);
 
-        List<String> files = new ArrayList<String>();
+        List<String> files = new ArrayList<>();
 
         String[] filesList = new File(App.publicDataDirectory).list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
-                return Files.getFileExtension(filename).equalsIgnoreCase(Job.EXTENSION);
+                return SupportedFileTypes.isSupported(
+                        Files.getFileExtension(filename));
             }
 
         });
@@ -124,12 +115,9 @@ public class ImportDialog extends DialogFragment {
         } else {
             files.add(this.getActivity().getString(R.string.select_files_3dots));
         }
+        Collections.addAll(files, filesList);
 
-        for (String s : filesList) {
-            files.add(s);
-        }
-
-        this.adapter = new ArrayAdapter<String>(this.getActivity(),
+        this.adapter = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, files);
         this.filesListSpinner.setAdapter(this.adapter);
         this.filesListSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -144,16 +132,25 @@ public class ImportDialog extends DialogFragment {
                     return;
                 }
 
-                // reset the confirmation flag
-                ImportDialog.this.isConfirmationAsked = false;
-
                 File f = new File(App.publicDataDirectory, filename);
 
                 // display the last modification date of the selected file
                 ImportDialog.this.fileLastModificationTextView.setText(
                         String.format(ImportDialog.this.getActivity().getString(
-                                R.string.last_modification_label),
-                                DisplayUtils.formatDate(f.lastModified())));
+                                R.string.last_modification_label), DisplayUtils.formatDate(f.lastModified())));
+
+                try {
+                    // display the number of points contained in the file
+                    LineNumberReader lnr = new LineNumberReader(new FileReader(f));
+                    lnr.skip(Long.MAX_VALUE);
+                    ImportDialog.this.fileNumberOfPointsTextView.setText(
+                            String.format(ImportDialog.this.getActivity().getString(
+                                    R.string.number_of_points_label),
+                                    lnr.getLineNumber()));
+                    lnr.close();
+                } catch (IOException e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                }
             }
 
             @Override
@@ -176,61 +173,67 @@ public class ImportDialog extends DialogFragment {
         }
     }
 
-    private void closeOnSuccess(String message) {
-        this.listener.onImportDialogSuccess(message);
-        this.dismiss();
-    }
-
-    private void closeOnError(String message) {
-        this.listener.onImportDialogError(message);
-        this.dismiss();
-    }
-
     /**
      * Import the selected file.
      */
     private void performImportAction() {
         // check use input
-        int fileNamePosition = this.filesListSpinner.getSelectedItemPosition();
+        final int fileNamePosition = this.filesListSpinner.getSelectedItemPosition();
         if (fileNamePosition == 0) {
             ViewUtils.showToast(this.getActivity(),
                     this.getActivity().getString(R.string.error_choose_file));
             return;
         }
 
-        if (!App.arePointsExported && !this.isConfirmationAsked) {
-            ViewUtils.showToast(
-                    this.getActivity(),
-                    this.getActivity().getString(R.string.import_confirmation));
-            this.isConfirmationAsked = true;
-            return;
-        }
+        final Activity act = this.getActivity();
+        this.dismiss();
 
-        String filename = this.adapter.getItem(fileNamePosition);
-        String ext = Files.getFileExtension(filename);
+        final ProgressDialog progress = new ProgressDialog(this.getActivity());
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        progress.show();
+        progress.setContentView(new ProgressBar(this.getActivity()));
 
-        // make sure the file format is supported
-        if (ext.isEmpty() || !ext.equalsIgnoreCase(Job.EXTENSION)) {
-            this.closeOnError(this.getActivity().getString(
-                    R.string.error_unsupported_format));
-            return;
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Job.deleteCurrentJob();
+                try {
+                    String filename = ImportDialog.this.adapter.getItem(fileNamePosition);
+                    String ext = Files.getFileExtension(filename);
 
-        Job.deleteCurrentJob();
-        try {
-            List<String> lines = Files.readLines(new File(App.publicDataDirectory, filename), Charset.defaultCharset());
-            String json = Joiner.on('\n').join(lines);
-            Job.loadJobFromJSON(json);
-        } catch (IOException e) {
-            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-            ViewUtils.showToast(this.getActivity(), e.getMessage());
-            return;
-        } catch (JSONException | ParseException e) {
-            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
-            ViewUtils.showToast(this.getActivity(), e.getMessage());
-            return;
-        }
+                    if (SupportedFileTypes.isSupported(ext)) {
+                        InputStream inputStream = new FileInputStream(new File(App.publicDataDirectory, filename));
 
-        this.closeOnSuccess(this.getActivity().getString(R.string.success_import_job_dialog));
+                        List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
+                        if (errors.isEmpty()) {
+                            Job.setCurrentJobName(Files.getNameWithoutExtension(filename));
+                        } else {
+                            ImportDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
+                        }
+                    } else {
+                        Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
+                        ImportDialog.this.errMsg = App.getContext().getString(R.string.error_unsupported_format);
+                    }
+                } catch (IOException e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                    ImportDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
+                }
+
+                act.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.dismiss();
+                        if (ImportDialog.this.errMsg.isEmpty()) {
+                            ImportDialog.this.listener.onImportDialogSuccess(ImportDialog.this.successMsg);
+                        } else {
+                            ImportDialog.this.listener.onImportDialogError(ImportDialog.this.errMsg);
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 }

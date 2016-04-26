@@ -22,6 +22,7 @@ import java.util.List;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -32,7 +33,7 @@ import ch.hgdev.toposuite.utils.ViewUtils;
  *
  * @author HGdev
  */
-public class JobImportActivity extends TopoSuiteActivity implements ImportDialog.ImportDialogListener,
+public class JobImportActivity extends TopoSuiteActivity implements ImportDialogListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
     private String path;
     private ProgressDialog progress;
