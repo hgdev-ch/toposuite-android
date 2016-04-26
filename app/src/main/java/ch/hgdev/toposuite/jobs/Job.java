@@ -166,16 +166,21 @@ public class Job {
                 App.getCoordinateDecimalRounding());
         editor.apply();
 
-        for (int i = 0; i < jo.getJSONArray(Job.POINTS_KEY).length(); i++) {
-            JSONObject pointObject = (JSONObject) jo.getJSONArray(
-                    Job.POINTS_KEY).get(i);
-            Point.createPointFromJSON(pointObject.toString());
+        if (!jo.isNull(Job.POINTS_KEY)) {
+            for (int i = 0; i < jo.getJSONArray(Job.POINTS_KEY).length(); i++) {
+                JSONObject pointObject = (JSONObject) jo.getJSONArray(
+                        Job.POINTS_KEY).get(i);
+                Point.createPointFromJSON(pointObject.toString());
+            }
         }
 
-        for (int i = 0; i < jo.getJSONArray(Job.CALCULATIONS_KEY).length(); i++) {
-            JSONObject calculationObject = (JSONObject) jo.getJSONArray(
-                    Job.CALCULATIONS_KEY).get(i);
-            Calculation.createCalculationFromJSON(calculationObject.toString());
+        // load calculations, only if there are points as well
+        if (!jo.isNull(Job.POINTS_KEY) && !jo.isNull(Job.CALCULATIONS_KEY)) {
+            for (int i = 0; i < jo.getJSONArray(Job.CALCULATIONS_KEY).length(); i++) {
+                JSONObject calculationObject = (JSONObject) jo.getJSONArray(
+                        Job.CALCULATIONS_KEY).get(i);
+                Calculation.createCalculationFromJSON(calculationObject.toString());
+            }
         }
     }
 
