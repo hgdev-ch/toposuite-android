@@ -25,6 +25,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.transfer.ExportDialogListener;
 import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
+import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
@@ -143,7 +144,7 @@ public class PointsExporterDialog extends DialogFragment {
             switch (type) {
                 case CSV:
                     lines = SharedResources.getSetOfPoints().saveAsCSV(
-                            this.getActivity(), App.publicDataDirectory, filename);
+                            this.getActivity(), AppUtils.publicDataDirectory(this.getActivity()), filename);
                     break;
                 default:
                     ViewUtils.showToast(this.getActivity(),

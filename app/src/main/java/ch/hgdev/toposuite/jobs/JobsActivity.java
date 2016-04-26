@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.List;
 
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.utils.AppUtils;
@@ -278,7 +277,7 @@ public class JobsActivity extends TopoSuiteActivity implements
         }
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(new File(App.publicDataDirectory, filename));
+            FileOutputStream outputStream = new FileOutputStream(new File(AppUtils.publicDataDirectory(this), filename));
             outputStream.write(Job.getCurrentJobAsJson().getBytes());
             outputStream.close();
             ViewUtils.showToast(this, this.getString(R.string.success_export_job_dialog));

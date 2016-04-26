@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -223,11 +224,11 @@ public class AppUtils {
     /**
      * Helper function to ask the user for permission. On API < 23, this does nothing. On API > 23,
      * the user is dialog to ask for the permission only if it has not already been granted.
-     *
+     * <p>
      * The user need to override onRequestPermissionsResult() to handle the user's answer to the
      * request. In other words, the calling activity needs to implement
      * ActivityCompat.OnRequestPermissionsResultCallback.
-     *
+     * <p>
      * The activity is terminated if the user refuses to give permission.
      *
      * @param activity   The activity that needs to get the permission. It needs to implement
@@ -245,7 +246,7 @@ public class AppUtils {
                             ActivityCompat.requestPermissions(activity, new String[]{permission.name}, permission.value);
                         }
                     })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             activity.finish();
@@ -261,7 +262,7 @@ public class AppUtils {
     /**
      * Allows to verify if the specified permission has been granted.
      *
-     * @param activity The activity from which this method is called.
+     * @param activity   The activity from which this method is called.
      * @param permission The permission to check against.
      * @return True of the permission has been granted.
      */
@@ -303,5 +304,29 @@ public class AppUtils {
             }
         }
         return d;
+    }
+
+    /**
+     * Return path to public data directory used by Toposuite. The path is only returned if it
+     * exists and that the application has at least read access to it.
+     * If write external storage permission is granted and the path does not yet exist,
+     * this function creates the directory.
+     *
+     * @param activity Calling activity.
+     * @return Path to the public data directory or null.
+     */
+    public static String publicDataDirectory(@NonNull Activity activity) {
+        if (AppUtils.isPermissionGranted(activity, Permission.READ_EXTERNAL_STORAGE)) {
+            File dir = new File(App.publicDataDirectory);
+            if (dir.exists()) {
+                return dir.getAbsolutePath();
+            }
+            if (AppUtils.isPermissionGranted(activity, Permission.WRITE_EXTERNAL_STORAGE)) {
+                if (dir.mkdirs()) {
+                    return dir.getAbsolutePath();
+                }
+            }
+        }
+        return null;
     }
 }

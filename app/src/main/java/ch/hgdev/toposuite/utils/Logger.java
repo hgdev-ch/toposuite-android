@@ -51,6 +51,7 @@ public class Logger {
     public enum WarnLabel {
         CALCULATION_IMPOSSIBLE("CALCULATION IMPOSSIBLE"),
         PARSE_ERROR("PARSE ERROR"),
+        RESOURCE_NOT_FOUND("RESOURCE NOT FOUND"),
         SERIALIZATION("SERIALIZATION");
 
         private final String label;

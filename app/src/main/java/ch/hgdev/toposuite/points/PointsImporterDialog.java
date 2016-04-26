@@ -39,6 +39,7 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
+import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -101,22 +102,26 @@ public class PointsImporterDialog extends DialogFragment {
 
         List<String> files = new ArrayList<>();
 
-        String[] filesList = new File(App.publicDataDirectory).list(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String filename) {
-                return SupportedPointsFileTypes.isSupported(
-                        Files.getFileExtension(filename));
+        String pubDir = AppUtils.publicDataDirectory(PointsImporterDialog.this.getActivity());
+        if (pubDir != null) {
+            String[] filesList = new File(pubDir).list(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String filename) {
+                    return SupportedPointsFileTypes.isSupported(
+                            Files.getFileExtension(filename));
+                }
+            });
+            Arrays.sort(filesList);
+
+            if (filesList.length == 0) {
+                files.add(this.getActivity().getString(R.string.no_files));
+            } else {
+                files.add(this.getActivity().getString(R.string.select_files_3dots));
             }
-
-        });
-        Arrays.sort(filesList);
-
-        if (filesList.length == 0) {
-            files.add(this.getActivity().getString(R.string.no_files));
+            Collections.addAll(files, filesList);
         } else {
-            files.add(this.getActivity().getString(R.string.select_files_3dots));
+            Logger.log(Logger.WarnLabel.RESOURCE_NOT_FOUND, "public data directory");
         }
-        Collections.addAll(files, filesList);
 
         this.adapter = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, files);
@@ -133,24 +138,29 @@ public class PointsImporterDialog extends DialogFragment {
                     return;
                 }
 
-                File f = new File(App.publicDataDirectory, filename);
+                String pubDir = AppUtils.publicDataDirectory(PointsImporterDialog.this.getActivity());
+                if (pubDir != null) {
+                    File f = new File(pubDir, filename);
 
-                // display the last modification date of the selected file
-                PointsImporterDialog.this.fileLastModificationTextView.setText(
-                        String.format(PointsImporterDialog.this.getActivity().getString(
-                                R.string.last_modification_label), DisplayUtils.formatDate(f.lastModified())));
-
-                try {
-                    // display the number of points contained in the file
-                    LineNumberReader lnr = new LineNumberReader(new FileReader(f));
-                    lnr.skip(Long.MAX_VALUE);
-                    PointsImporterDialog.this.fileNumberOfPointsTextView.setText(
+                    // display the last modification date of the selected file
+                    PointsImporterDialog.this.fileLastModificationTextView.setText(
                             String.format(PointsImporterDialog.this.getActivity().getString(
-                                    R.string.number_of_points_label),
-                                    lnr.getLineNumber()));
-                    lnr.close();
-                } catch (IOException e) {
-                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                                    R.string.last_modification_label), DisplayUtils.formatDate(f.lastModified())));
+
+                    try {
+                        // display the number of points contained in the file
+                        LineNumberReader lnr = new LineNumberReader(new FileReader(f));
+                        lnr.skip(Long.MAX_VALUE);
+                        PointsImporterDialog.this.fileNumberOfPointsTextView.setText(
+                                String.format(PointsImporterDialog.this.getActivity().getString(
+                                        R.string.number_of_points_label),
+                                        lnr.getLineNumber()));
+                        lnr.close();
+                    } catch (IOException e) {
+                        Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                    }
+                } else {
+                    Logger.log(Logger.ErrLabel.RESOURCE_NOT_FOUND, "public data directory");
                 }
             }
 
@@ -206,7 +216,7 @@ public class PointsImporterDialog extends DialogFragment {
                 if (SupportedPointsFileTypes.isSupported(ext)) {
                     Job.deleteCurrentJob();
                     try {
-                        InputStream inputStream = new FileInputStream(new File(App.publicDataDirectory, filename));
+                        InputStream inputStream = new FileInputStream(new File(AppUtils.publicDataDirectory(PointsImporterDialog.this.getActivity()), filename));
                         List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                         if (!errors.isEmpty()) {
                             PointsImporterDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
