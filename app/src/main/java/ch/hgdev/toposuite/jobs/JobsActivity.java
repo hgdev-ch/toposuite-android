@@ -63,6 +63,7 @@ public class JobsActivity extends TopoSuiteActivity implements
         this.progress = new ProgressDialog(this);
         this.progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         this.progress.setIndeterminate(true);
+        this.progress.setCancelable(false);
         this.progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 

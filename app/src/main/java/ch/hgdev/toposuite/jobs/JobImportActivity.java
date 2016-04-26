@@ -47,6 +47,7 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
         this.progress = new ProgressDialog(this);
         this.progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         this.progress.setIndeterminate(true);
+        this.progress.setCancelable(false);
         this.progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         // detect if another app is sending data to this activity

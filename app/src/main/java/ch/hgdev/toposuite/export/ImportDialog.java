@@ -219,6 +219,7 @@ public class ImportDialog extends DialogFragment {
         final ProgressDialog progress = new ProgressDialog(this.getActivity());
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
+        progress.setCancelable(false);
         progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         progress.show();
         progress.setContentView(new ProgressBar(this.getActivity()));
