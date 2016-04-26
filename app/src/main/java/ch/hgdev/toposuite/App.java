@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 
@@ -173,6 +174,10 @@ public class App extends Application {
 
         // when starting, the job is only temporary
         App.currentJobName = null;
+
+        // init the public data directory path
+        App.publicDataDirectory = Environment.getExternalStorageDirectory()
+                .getAbsolutePath() + "/" + App.PUBLIC_DIR;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean allowNegativeCoordinate = prefs.getBoolean(
