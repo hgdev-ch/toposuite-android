@@ -14,8 +14,6 @@ import android.widget.EditText;
 
 import com.google.common.io.Files;
 
-import java.util.ArrayList;
-
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -112,13 +110,9 @@ public class RenameCurrentJobFragment extends DialogFragment {
         // make sure that the user did not provide an extension
         name = Files.getNameWithoutExtension(name);
 
-        ArrayList<Job> jobsList = Job.getJobsList();
-        for (Job j : jobsList) {
-            if (name.equals(j.getName())) {
-                this.closeOnError(this.getString(R.string.error_name_exist));
-            }
+        if (!Job.renameCurrentJob(name)) {
+            this.closeOnError(this.getString(R.string.error_name_exist));
         }
-        Job.setCurrentJobName(name);
         this.closeOnSuccess(this.getString(R.string.success_rename));
     }
 

@@ -129,7 +129,7 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
                     lines = Files.readLines(jsonFile, Charset.defaultCharset());
                     String json = Joiner.on('\n').join(lines);
                     Job.loadJobFromJSON(json);
-                    Job.setCurrentJobName(Files.getNameWithoutExtension(jsonFile.getName()));
+                    Job.renameCurrentJob(Files.getNameWithoutExtension(jsonFile.getName()));
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 } catch (JSONException | ParseException e) {

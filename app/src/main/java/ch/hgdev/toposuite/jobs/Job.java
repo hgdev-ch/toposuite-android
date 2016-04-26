@@ -81,7 +81,7 @@ public class Job {
         return App.getCurrentJobName();
     }
 
-    public static void setCurrentJobName(String name) {
+    private static void setCurrentJobName(String name) {
         App.setCurrentJobName(name);
     }
 

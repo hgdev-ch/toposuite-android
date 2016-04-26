@@ -210,7 +210,8 @@ public class PointsImporterDialog extends DialogFragment {
 
                         List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                         if (errors.isEmpty()) {
-                            Job.setCurrentJobName(Files.getNameWithoutExtension(filename));
+                            // tentatively rename current job
+                            Job.renameCurrentJob(Files.getNameWithoutExtension(filename));
                         } else {
                             PointsImporterDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
                         }

@@ -228,7 +228,7 @@ public class JobsActivity extends TopoSuiteActivity implements
                     List<String> lines = Files.readLines(f, Charset.defaultCharset());
                     String json = Joiner.on('\n').join(lines);
                     Job.loadJobFromJSON(json);
-                    Job.setCurrentJobName(Files.getNameWithoutExtension(f.getName()));
+                    Job.renameCurrentJob(Files.getNameWithoutExtension(f.getName()));
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 } catch (JSONException | ParseException e) {
