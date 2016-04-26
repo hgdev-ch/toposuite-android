@@ -17,10 +17,10 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.export.SupportedFileTypes;
 import ch.hgdev.toposuite.jobs.ImportDialog;
+import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -146,9 +146,7 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
                                 }
 
                                 try {
-                                    // clear existing points and calculations
-                                    SharedResources.getCalculationsHistory().clear();
-                                    SharedResources.getSetOfPoints().clear();
+                                    Job.deleteCurrentJob();
 
                                     InputStream inputStream = cr.openInputStream(PointsImportActivity.this.dataUri);
                                     List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);

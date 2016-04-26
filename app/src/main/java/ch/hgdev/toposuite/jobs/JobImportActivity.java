@@ -21,10 +21,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.dao.CalculationsDataSource;
-import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -124,17 +121,7 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // remove previous points and calculations from the SQLite DB
-                PointsDataSource.getInstance().truncate();
-                CalculationsDataSource.getInstance().truncate();
-
-                // clean in-memory residues
-                SharedResources.getSetOfPoints().clear();
-                SharedResources.getCalculationsHistory().clear();
-
-                // erase current job name
-                Job.setCurrentJobName(null);
-
+                Job.deleteCurrentJob();
                 try {
                     File jsonFile = new File(JobImportActivity.this.path);
                     List<String> lines;
@@ -148,7 +135,7 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
                     Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
                 }
 
-                runOnUiThread(new Runnable() {
+                JobImportActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         JobImportActivity.this.progress.dismiss();

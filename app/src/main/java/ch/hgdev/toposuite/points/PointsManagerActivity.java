@@ -28,6 +28,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.export.ExportDialog;
 import ch.hgdev.toposuite.export.ImportDialog;
+import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -296,7 +297,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                SharedResources.getSetOfPoints().clear();
+                                Job.deleteCurrentJob();
                                 PointsManagerActivity.this.drawList();
                             }
                         })

@@ -31,9 +31,6 @@ import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
-import ch.hgdev.toposuite.dao.CalculationsDataSource;
-import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -219,28 +216,16 @@ public class ImportDialog extends DialogFragment {
             return;
         }
 
+        Job.deleteCurrentJob();
         try {
-            List<String> lines = Files.readLines(new File(App.publicDataDirectory, filename),
-                    Charset.defaultCharset());
-            // remove previous points and calculations from the SQLite DB
-            PointsDataSource.getInstance().truncate();
-            CalculationsDataSource.getInstance().truncate();
-
-            // clean in-memory residues
-            SharedResources.getSetOfPoints().clear();
-            SharedResources.getCalculationsHistory().clear();
-
+            List<String> lines = Files.readLines(new File(App.publicDataDirectory, filename), Charset.defaultCharset());
             String json = Joiner.on('\n').join(lines);
             Job.loadJobFromJSON(json);
         } catch (IOException e) {
             Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;
-        } catch (JSONException e) {
-            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
-            ViewUtils.showToast(this.getActivity(), e.getMessage());
-            return;
-        } catch (ParseException e) {
+        } catch (JSONException | ParseException e) {
             Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
             ViewUtils.showToast(this.getActivity(), e.getMessage());
             return;

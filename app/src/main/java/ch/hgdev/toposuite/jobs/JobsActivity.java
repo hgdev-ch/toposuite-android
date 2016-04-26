@@ -31,10 +31,7 @@ import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.dao.CalculationsDataSource;
-import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
@@ -224,17 +221,7 @@ public class JobsActivity extends TopoSuiteActivity implements
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // remove previous points and calculations from the SQLite DB
-                PointsDataSource.getInstance().truncate();
-                CalculationsDataSource.getInstance().truncate();
-
-                // clean in-memory residues
-                SharedResources.getSetOfPoints().clear();
-                SharedResources.getCalculationsHistory().clear();
-
-                // erase current job name
-                Job.setCurrentJobName(null);
-
+                Job.deleteCurrentJob();
                 try {
                     Job job = JobsActivity.this.adapter.getItem(pos);
                     File f = job.getTpst();
@@ -248,7 +235,7 @@ public class JobsActivity extends TopoSuiteActivity implements
                     Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
                 }
 
-                runOnUiThread(new Runnable() {
+                JobsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         JobsActivity.this.progress.dismiss();
@@ -313,16 +300,7 @@ public class JobsActivity extends TopoSuiteActivity implements
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // remove previous points and calculations from the SQLite DB
-                                PointsDataSource.getInstance().truncate();
-                                CalculationsDataSource.getInstance().truncate();
-
-                                // clean in-memory residues
-                                SharedResources.getSetOfPoints().clear();
-                                SharedResources.getCalculationsHistory().clear();
-
-                                // update current view
-                                Job.setCurrentJobName(null);
+                                Job.deleteCurrentJob();
                                 JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
                             }
                         })
