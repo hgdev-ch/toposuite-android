@@ -4,7 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ShareCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ShareActionProvider;
@@ -22,13 +25,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ExportDialogListener;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
-import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -215,7 +217,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (AppUtils.Permission.valueOf(requestCode)) {
             case READ_EXTERNAL_STORAGE:
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
@@ -277,9 +279,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         if (number.isEmpty()) {
             ViewUtils.showToast(this, this.getString(R.string.error_point_number));
         } else {
-            // when created by a user and not computed, a point IS a basepoint
-            boolean basePoint = true;
-            Point point = new Point(number, east, north, altitude, basePoint);
+            Point point = new Point(number, east, north, altitude, true);
             SharedResources.getSetOfPoints().add(point);
         }
     }
@@ -315,7 +315,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
      * Draw the main table containing all the points.
      */
     private void drawList() {
-        ArrayList<Point> points = new ArrayList<Point>(SharedResources.getSetOfPoints());
+        ArrayList<Point> points = new ArrayList<>(SharedResources.getSetOfPoints());
         this.adapter = new ArrayListOfPointsAdapter(this, R.layout.points_list_item, points);
         this.pointsListView.setAdapter(this.adapter);
         this.pointsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -331,18 +331,25 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
      */
     private void updateShareIntent() {
         try {
-            SharedResources.getSetOfPoints().saveAsCSV(
-                    this, App.tmpDirectoryPath, App.FILENAME_FOR_POINTS_SHARING);
+            final File tmpPointsPath = new File(this.getCacheDir(), "points");
+            if (!tmpPointsPath.exists()) {
+                if (!tmpPointsPath.mkdir()) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, "failed to create directory " + tmpPointsPath.getAbsolutePath());
+                }
+            }
+            final File tmpPointsFile = new File(tmpPointsPath, "points.csv");
+            SharedResources.getSetOfPoints().saveAsCSV(this, tmpPointsFile);
+            final Uri uri = FileProvider.getUriForFile(this, this.getPackageName(), tmpPointsFile);
+            final Intent sendIntent = ShareCompat.IntentBuilder.from(this)
+                    .setType("text/csv")
+                    .setStream(uri).getIntent()
+                    .setAction(Intent.ACTION_SEND)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            this.setShareIntent(sendIntent);
         } catch (IOException e) {
             Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
         }
-
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(
-                new File(App.tmpDirectoryPath, App.FILENAME_FOR_POINTS_SHARING)));
-        sendIntent.setType("text/csv");
-        this.setShareIntent(sendIntent);
     }
 
     @Override

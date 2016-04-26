@@ -4,11 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 
-import java.io.File;
 import java.util.Locale;
 
 import ch.hgdev.toposuite.calculation.Calculation;
@@ -36,11 +34,6 @@ public class App extends Application {
      * Database file name.
      */
     public static final String DATABASE = "topo_suite.db";
-
-    /**
-     * The file name used by the points sharing function.
-     */
-    public static final String FILENAME_FOR_POINTS_SHARING = "toposuite-points.csv";
 
     /**
      * Database version. This number must be increased whenever the database
@@ -86,12 +79,6 @@ public class App extends Application {
      * of the app. It is initialized in the {@link App#onCreate()} method.
      */
     public static String publicDataDirectory;
-
-    /**
-     * Path to the temporary directory. It is initialized in the
-     * {@link App#onCreate()} method.
-     */
-    public static String tmpDirectoryPath;
 
     /**
      * Flag for verifying if the points have been exported or not.
@@ -187,22 +174,6 @@ public class App extends Application {
         // when starting, the job is only temporary
         App.currentJobName = null;
 
-        // init the public data directory path
-        App.publicDataDirectory = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/" + App.PUBLIC_DIR;
-
-        // init the temporary directory path
-        App.tmpDirectoryPath = App.publicDataDirectory + "/tmp";
-
-        // setup temporary directory
-        File tmpDir = new File(App.tmpDirectoryPath);
-        if (!tmpDir.exists()) {
-            if (!tmpDir.mkdirs()) {
-                Logger.log(Logger.ErrLabel.IO_ERROR,
-                        "Failed to create the temporary directoy!");
-            }
-        }
-
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean allowNegativeCoordinate = prefs.getBoolean(
                 SettingsActivity.SettingsFragment.KEY_PREF_NEGATIVE_COORDINATES, true);
@@ -224,15 +195,6 @@ public class App extends Application {
                 SettingsActivity.SettingsFragment.KEY_PREF_GAPS_DISPLAY_PRECISION, 1);
         App.decimalPrecisionForSurface = prefs.getInt(
                 SettingsActivity.SettingsFragment.KEY_PREF_SURFACES_DISPLAY_PRECISION, 4);
-    }
-
-    @Override
-    public void onTerminate() {
-        File tmpDir = new File(App.tmpDirectoryPath);
-        if (!tmpDir.delete()) {
-            Logger.log(Logger.ErrLabel.IO_ERROR, "Cannot delete temporary directory!");
-        }
-        super.onTerminate();
     }
 
     public static Context getContext() {

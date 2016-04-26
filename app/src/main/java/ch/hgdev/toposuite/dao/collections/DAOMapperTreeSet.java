@@ -1,5 +1,9 @@
 package ch.hgdev.toposuite.dao.collections;
 
+import android.content.Context;
+
+import com.google.common.collect.Iterables;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,29 +12,25 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
-import android.content.Context;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
 import ch.hgdev.toposuite.transfer.DataExporter;
 import ch.hgdev.toposuite.transfer.SaveStrategy;
 
-import com.google.common.collect.Iterables;
-
 /**
  * DAOMapperTreeSet is a TreeSet that is synchronized with the database through
  * a DAO object.
- * 
+ *
+ * @param <E> the type of the Set
  * @author HGdev
- * @param <E>
- *            the type of the Set
  */
 public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> implements DAOMapper,
         SaveStrategy {
     /**
      * Serial UID.
      */
-    private static final long   serialVersionUID = 310907601029773320L;
+    private static final long serialVersionUID = 310907601029773320L;
 
     /**
      * Searcher interface for finding object in the collection.
@@ -40,7 +40,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     /**
      * List of observers.
      */
-    private List<DAO>           daoList;
+    private List<DAO> daoList;
 
     /**
      * Control whether methods that change the list automatically call the
@@ -48,14 +48,14 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
      * {@link DAOMapperTreeSet#notifyCreation(Object)()} and
      * {@link DAOMapperTreeSet#notifyDeletion(Object)()} to have the changes
      * reflected in the DAO.
-     * 
+     * <p/>
      * The default value is set to true.
      */
-    private boolean             notifyOnChange;
+    private boolean notifyOnChange;
 
     public DAOMapperTreeSet(Comparator<? super E> comparator) {
         super(comparator);
-        this.daoList = new ArrayList<DAO>();
+        this.daoList = new ArrayList<>();
         this.notifyOnChange = true;
     }
 
@@ -92,9 +92,8 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
 
     /**
      * Get an element of the Set at a given position.
-     * 
-     * @param position
-     *            position of the item in the Set.
+     *
+     * @param position position of the item in the Set.
      * @return a element
      */
     public E get(int position) {
@@ -103,9 +102,8 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
 
     /**
      * Find a object E in the TreeSet.
-     * 
-     * @param needle
-     *            the needle to find in the haystack
+     *
+     * @param needle the needle to find in the haystack
      * @return the object that match the search criteria
      */
     public E find(Object needle) {
@@ -119,7 +117,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
 
     /**
      * Getter for notifyOnChange flag.
-     * 
+     *
      * @return the notifyOnChange
      */
     public boolean isNotifyOnChange() {
@@ -128,9 +126,8 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
 
     /**
      * Setter for notifyOnChange flag.
-     * 
-     * @param notifyOnChange
-     *            the notifyOnChange to set
+     *
+     * @param _notifyOnChange the notifyOnChange to set
      */
     public void setNotifyOnChange(boolean _notifyOnChange) {
         this.notifyOnChange = _notifyOnChange;
@@ -172,9 +169,8 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
 
     /**
      * Setter for the searcher interface.
-     * 
-     * @param searcher
-     *            searcher interface implementation
+     *
+     * @param _searcher searcher interface implementation
      */
     public void setSearcheable(Searcher<E> _searcher) {
         this.searcher = _searcher;
@@ -190,6 +186,12 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     public int saveAsCSV(Context context, String filename) throws IOException {
         FileOutputStream outputStream = context.openFileOutput(
                 filename, Context.MODE_PRIVATE);
+        return this.saveAsCSV(context, outputStream);
+    }
+
+    @Override
+    public int saveAsCSV(Context context, File file) throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(file);
         return this.saveAsCSV(context, outputStream);
     }
 
