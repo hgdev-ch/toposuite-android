@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.hgdev.toposuite"
-    android:versionCode="61"
-    android:versionName="1.1.0-dfb3216">
+    android:versionCode="62"
+    android:versionName="1.1.0-eb0c23e">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
