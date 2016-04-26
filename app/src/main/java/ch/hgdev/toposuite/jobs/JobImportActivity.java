@@ -1,10 +1,13 @@
 package ch.hgdev.toposuite.jobs;
 
-import android.support.v7.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.widget.ProgressBar;
 
 import com.google.common.base.Joiner;
 import com.google.common.io.Files;
@@ -35,10 +38,17 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class JobImportActivity extends TopoSuiteActivity implements ImportDialog.ImportDialogListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
     private String path;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.progress = new ProgressDialog(this);
+        this.progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        this.progress.setIndeterminate(true);
+        this.progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
         // detect if another app is sending data to this activity
         Uri dataUri = this.getIntent().getData();
         if (dataUri != null) {
@@ -91,14 +101,15 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                                 JobImportActivity.this.doImportJob();
-                                JobImportActivity.this.finish();
                             }
                         })
                 .setNegativeButton(R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                                 JobImportActivity.this.finish();
                             }
                         });
@@ -106,31 +117,51 @@ public class JobImportActivity extends TopoSuiteActivity implements ImportDialog
     }
 
     private void doImportJob() {
-        File jsonFile = new File(this.path);
-        List<String> lines;
-        try {
-            lines = Files.readLines(jsonFile, Charset.defaultCharset());
+        this.progress.show();
+        this.progress.setContentView(new ProgressBar(this));
 
-            // remove previous points and calculations from the SQLite DB
-            PointsDataSource.getInstance().truncate();
-            CalculationsDataSource.getInstance().truncate();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // remove previous points and calculations from the SQLite DB
+                PointsDataSource.getInstance().truncate();
+                CalculationsDataSource.getInstance().truncate();
 
-            // clean in-memory residues
-            SharedResources.getSetOfPoints().clear();
-            SharedResources.getCalculationsHistory().clear();
+                // clean in-memory residues
+                SharedResources.getSetOfPoints().clear();
+                SharedResources.getCalculationsHistory().clear();
 
-            String json = Joiner.on('\n').join(lines);
-            Job.loadJobFromJSON(json);
-        } catch (IOException e) {
-            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-            ViewUtils.showToast(this, e.getMessage());
-            return;
-        } catch (JSONException | ParseException e) {
-            Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
-            ViewUtils.showToast(this, e.getMessage());
-            return;
-        }
+                // erase current job name
+                Job.setCurrentJobName(null);
 
-        ViewUtils.showToast(this, this.getString(R.string.success_import_job_dialog));
+                try {
+                    File jsonFile = new File(JobImportActivity.this.path);
+                    List<String> lines;
+                    lines = Files.readLines(jsonFile, Charset.defaultCharset());
+                    String json = Joiner.on('\n').join(lines);
+                    Job.loadJobFromJSON(json);
+                    Job.setCurrentJobName(Files.getNameWithoutExtension(jsonFile.getName()));
+                } catch (IOException e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                } catch (JSONException | ParseException e) {
+                    Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JobImportActivity.this.progress.dismiss();
+                        if (Job.getCurrentJobName() == null) {
+                            ViewUtils.showToast(JobImportActivity.this,
+                                    JobImportActivity.this.getString(R.string.error_impossible_to_import));
+                        } else {
+                            ViewUtils.showToast(JobImportActivity.
+                                    this, JobImportActivity.this.getString(R.string.success_import_job_dialog));
+                        }
+                        JobImportActivity.this.finish();
+                    }
+                });
+            }
+        }).start();
     }
 }
