@@ -10,7 +10,7 @@ import ch.hgdev.toposuite.App;
  * 
  * @author HGdev
  */
-public enum SupportedFileTypes {
+public enum SupportedPointsFileTypes {
     CSV,
     LTOP, // LTOP custom MIME-type
     COO, // LTOP with a *.coo/*.COO extension
@@ -24,7 +24,7 @@ public enum SupportedFileTypes {
      */
     public static List<String> toList() {
         List<String> list = new ArrayList<String>();
-        for (SupportedFileTypes sft : SupportedFileTypes.values()) {
+        for (SupportedPointsFileTypes sft : SupportedPointsFileTypes.values()) {
             list.add(sft.toString());
         }
 
@@ -40,7 +40,7 @@ public enum SupportedFileTypes {
      */
     public static boolean isSupported(String format) {
         try {
-            SupportedFileTypes.valueOf(format.toUpperCase(App.locale));
+            SupportedPointsFileTypes.valueOf(format.toUpperCase(App.locale));
         } catch (IllegalArgumentException e) {
             return false;
         }
@@ -55,11 +55,11 @@ public enum SupportedFileTypes {
      *            A file format such as CSV, LTOP, etc.
      * @return the file format if it exists, null otherwise
      */
-    public static SupportedFileTypes fileTypeOf(String format) {
-        SupportedFileTypes type = null;
+    public static SupportedPointsFileTypes fileTypeOf(String format) {
+        SupportedPointsFileTypes type = null;
 
         try {
-            type = SupportedFileTypes.valueOf(format.toUpperCase(App.locale));
+            type = SupportedPointsFileTypes.valueOf(format.toUpperCase(App.locale));
         } catch (IllegalArgumentException e) {
             // nothing
         }

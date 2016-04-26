@@ -12,7 +12,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.transfer.InvalidFormatException;
-import ch.hgdev.toposuite.transfer.SupportedFileTypes;
+import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.UnicodeReader;
 
@@ -31,7 +31,7 @@ public class PointsImporter {
     public static List<Pair<Integer, String>> importFromFile(InputStream inputStream, final String ext)
             throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new UnicodeReader(inputStream, "UTF-8"));
-        SupportedFileTypes type = SupportedFileTypes.fileTypeOf(ext);
+        SupportedPointsFileTypes type = SupportedPointsFileTypes.fileTypeOf(ext);
 
         // List of errors
         List<Pair<Integer, String>> errors = new ArrayList<Pair<Integer, String>>();

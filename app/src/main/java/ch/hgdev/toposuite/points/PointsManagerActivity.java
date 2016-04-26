@@ -26,9 +26,7 @@ import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
-import ch.hgdev.toposuite.transfer.ExportDialog;
 import ch.hgdev.toposuite.transfer.ExportDialogListener;
-import ch.hgdev.toposuite.transfer.ImportDialog;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.utils.AppUtils;
@@ -207,12 +205,12 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     }
 
     private void showExportDialog() {
-        ExportDialog dialog = new ExportDialog();
+        PointsExporterDialog dialog = new PointsExporterDialog();
         dialog.show(this.getSupportFragmentManager(), "ExportDialogFragments");
     }
 
     private void showImportDialog() {
-        ImportDialog dialog = new ImportDialog();
+        PointsImporterDialog dialog = new PointsImporterDialog();
         dialog.show(this.getSupportFragmentManager(), "ImportDialogFragment");
     }
 

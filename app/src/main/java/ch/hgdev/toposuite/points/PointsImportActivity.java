@@ -19,7 +19,7 @@ import java.util.List;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
-import ch.hgdev.toposuite.transfer.SupportedFileTypes;
+import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
@@ -139,7 +139,7 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
                                 }
 
                                 // make sure the file format is supported
-                                if (!SupportedFileTypes.isSupported(ext)) {
+                                if (!SupportedPointsFileTypes.isSupported(ext)) {
                                     ViewUtils.showToast(PointsImportActivity.this, PointsImportActivity.this.getString(
                                             R.string.error_unsupported_format));
                                     PointsImportActivity.this.finish();

@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.transfer;
+package ch.hgdev.toposuite.points;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -37,7 +37,8 @@ import java.util.List;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.jobs.Job;
-import ch.hgdev.toposuite.points.PointsImporter;
+import ch.hgdev.toposuite.transfer.ImportDialogListener;
+import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -48,7 +49,7 @@ import ch.hgdev.toposuite.utils.ViewUtils;
  *
  * @author HGdev
  */
-public class ImportDialog extends DialogFragment {
+public class PointsImporterDialog extends DialogFragment {
     private ImportDialogListener listener;
 
     private ArrayAdapter<String> adapter;
@@ -84,7 +85,7 @@ public class ImportDialog extends DialogFragment {
         cancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImportDialog.this.dismiss();
+                PointsImporterDialog.this.dismiss();
             }
         });
 
@@ -92,7 +93,7 @@ public class ImportDialog extends DialogFragment {
         importButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImportDialog.this.performImportAction();
+                PointsImporterDialog.this.performImportAction();
             }
         });
 
@@ -103,7 +104,7 @@ public class ImportDialog extends DialogFragment {
         String[] filesList = new File(App.publicDataDirectory).list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
-                return SupportedFileTypes.isSupported(
+                return SupportedPointsFileTypes.isSupported(
                         Files.getFileExtension(filename));
             }
 
@@ -123,11 +124,11 @@ public class ImportDialog extends DialogFragment {
         this.filesListSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                String filename = ImportDialog.this.adapter.getItem(pos);
+                String filename = PointsImporterDialog.this.adapter.getItem(pos);
 
                 // skip when the selected item is the default item of the
                 // spinner
-                if (filename.equals(ImportDialog.this.getActivity().getString(
+                if (filename.equals(PointsImporterDialog.this.getActivity().getString(
                         R.string.select_files_3dots))) {
                     return;
                 }
@@ -135,16 +136,16 @@ public class ImportDialog extends DialogFragment {
                 File f = new File(App.publicDataDirectory, filename);
 
                 // display the last modification date of the selected file
-                ImportDialog.this.fileLastModificationTextView.setText(
-                        String.format(ImportDialog.this.getActivity().getString(
+                PointsImporterDialog.this.fileLastModificationTextView.setText(
+                        String.format(PointsImporterDialog.this.getActivity().getString(
                                 R.string.last_modification_label), DisplayUtils.formatDate(f.lastModified())));
 
                 try {
                     // display the number of points contained in the file
                     LineNumberReader lnr = new LineNumberReader(new FileReader(f));
                     lnr.skip(Long.MAX_VALUE);
-                    ImportDialog.this.fileNumberOfPointsTextView.setText(
-                            String.format(ImportDialog.this.getActivity().getString(
+                    PointsImporterDialog.this.fileNumberOfPointsTextView.setText(
+                            String.format(PointsImporterDialog.this.getActivity().getString(
                                     R.string.number_of_points_label),
                                     lnr.getLineNumber()));
                     lnr.close();
@@ -201,35 +202,35 @@ public class ImportDialog extends DialogFragment {
             public void run() {
                 Job.deleteCurrentJob();
                 try {
-                    String filename = ImportDialog.this.adapter.getItem(fileNamePosition);
+                    String filename = PointsImporterDialog.this.adapter.getItem(fileNamePosition);
                     String ext = Files.getFileExtension(filename);
 
-                    if (SupportedFileTypes.isSupported(ext)) {
+                    if (SupportedPointsFileTypes.isSupported(ext)) {
                         InputStream inputStream = new FileInputStream(new File(App.publicDataDirectory, filename));
 
                         List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                         if (errors.isEmpty()) {
                             Job.setCurrentJobName(Files.getNameWithoutExtension(filename));
                         } else {
-                            ImportDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
+                            PointsImporterDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
                         }
                     } else {
                         Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
-                        ImportDialog.this.errMsg = App.getContext().getString(R.string.error_unsupported_format);
+                        PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_unsupported_format);
                     }
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                    ImportDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
+                    PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
                 }
 
                 act.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         progress.dismiss();
-                        if (ImportDialog.this.errMsg.isEmpty()) {
-                            ImportDialog.this.listener.onImportDialogSuccess(ImportDialog.this.successMsg);
+                        if (PointsImporterDialog.this.errMsg.isEmpty()) {
+                            PointsImporterDialog.this.listener.onImportDialogSuccess(PointsImporterDialog.this.successMsg);
                         } else {
-                            ImportDialog.this.listener.onImportDialogError(ImportDialog.this.errMsg);
+                            PointsImporterDialog.this.listener.onImportDialogError(PointsImporterDialog.this.errMsg);
                         }
                     }
                 });

@@ -1,4 +1,4 @@
-package ch.hgdev.toposuite.transfer;
+package ch.hgdev.toposuite.points;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -23,6 +23,8 @@ import java.util.List;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.transfer.ExportDialogListener;
+import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
@@ -31,7 +33,7 @@ import ch.hgdev.toposuite.utils.ViewUtils;
  *
  * @author HGdev
  */
-public class ExportDialog extends DialogFragment {
+public class PointsExporterDialog extends DialogFragment {
     private ExportDialogListener listener;
 
     private Spinner formatSpinner;
@@ -54,7 +56,7 @@ public class ExportDialog extends DialogFragment {
         cancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExportDialog.this.dismiss();
+                PointsExporterDialog.this.dismiss();
             }
         });
 
@@ -62,7 +64,7 @@ public class ExportDialog extends DialogFragment {
         exportButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExportDialog.this.performExportAction();
+                PointsExporterDialog.this.performExportAction();
             }
         });
 
@@ -70,10 +72,9 @@ public class ExportDialog extends DialogFragment {
 
         // XXX since we only support export to CSV for now, we must keep only the
         // first element of the supported file types list.
-        // TODO make a new SupportedFileTypes for export only.
-        //List<String> list = SupportedFileTypes.toList();
+        // TODO make a new SupportedPointsFileTypes for export only.
         List<String> list = new ArrayList<String>();
-        list.add(SupportedFileTypes.toList().get(0));
+        list.add(SupportedPointsFileTypes.toList().get(0));
         list.add(0, this.getActivity().getString(R.string.format_3dots));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -137,7 +138,7 @@ public class ExportDialog extends DialogFragment {
         int lines = 0;
 
         try {
-            SupportedFileTypes type = SupportedFileTypes.valueOf(format);
+            SupportedPointsFileTypes type = SupportedPointsFileTypes.valueOf(format);
 
             switch (type) {
                 case CSV:
