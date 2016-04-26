@@ -20,6 +20,8 @@ import java.util.Calendar;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Calculation;
+import ch.hgdev.toposuite.dao.CalculationsDataSource;
+import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.settings.SettingsActivity;
 import ch.hgdev.toposuite.utils.AppUtils;
@@ -209,5 +211,18 @@ public class Job {
             }
         }
         return jobs;
+    }
+
+    public static void deleteCurrentJob() {
+        // remove previous points and calculations from the SQLite DB
+        PointsDataSource.getInstance().truncate();
+        CalculationsDataSource.getInstance().truncate();
+
+        // clean in-memory residues
+        SharedResources.getSetOfPoints().clear();
+        SharedResources.getCalculationsHistory().clear();
+
+        // erase current job name
+        Job.setCurrentJobName(null);
     }
 }
