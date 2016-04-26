@@ -89,7 +89,7 @@ public class Job {
         JSONObject jo = new JSONObject();
         jo.put(Job.GENERATED_BY_KEY, Job.GENERATOR);
         jo.put(Job.VERSION_KEY, Job.VERSION);
-        jo.put(Job.CREATED_AT_KEY, Calendar.getInstance().getTime());
+        jo.put(Job.CREATED_AT_KEY, AppUtils.serializeDate(Calendar.getInstance().getTime()));
         jo.put(Job.APP_VERSION_NAME_KEY, AppUtils.getVersionName());
         jo.put(Job.APP_VERSION_CODE_KEY, AppUtils.getVersionCode());
 
