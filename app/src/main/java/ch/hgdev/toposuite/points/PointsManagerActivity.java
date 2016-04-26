@@ -53,6 +53,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private ArrayListOfPointsAdapter adapter;
     private ShareActionProvider shareActionProvider;
 
+    private boolean shouldShowImportDialog;
+    private boolean shouldShowExportDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
         this.pointsListView = (ListView) this.findViewById(R.id.apm_list_of_points);
         this.registerForContextMenu(this.pointsListView);
+
+        this.shouldShowExportDialog = false;
+        this.shouldShowImportDialog = false;
     }
 
     @Override
@@ -67,6 +73,21 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         super.onResume();
         this.selectedPointId = 0;
         this.drawList();
+    }
+
+    @Override
+    protected void onPostResume() {
+        // workaround for this Android issue: https://code.google.com/p/android/issues/detail?id=190966
+        // TODO: remove once fixed
+        if (this.shouldShowImportDialog) {
+            this.showImportDialog();
+            this.shouldShowImportDialog = false;
+        }
+        if (this.shouldShowExportDialog) {
+            this.showExportDialog();
+            this.shouldShowExportDialog = false;
+        }
+        super.onPostResume();
     }
 
     @Override
@@ -221,14 +242,14 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         switch (AppUtils.Permission.valueOf(requestCode)) {
             case READ_EXTERNAL_STORAGE:
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    this.showImportDialog();
+                    this.shouldShowImportDialog = true;
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
                 }
                 break;
             case WRITE_EXTERNAL_STORAGE:
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                    this.showExportDialog();
+                    this.shouldShowExportDialog = true;
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
                 }
