@@ -91,12 +91,6 @@ public class JobImporterActivity extends TopoSuiteActivity implements ImportDial
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        this.startActivity(JobsActivity.class);
-        super.onDestroy();
-    }
-
     private void importJob() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.job_import)
