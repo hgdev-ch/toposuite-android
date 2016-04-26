@@ -93,7 +93,7 @@ public class PointsImporterDialog extends DialogFragment {
         importButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                PointsImporterDialog.this.performImportAction();
+                PointsImporterDialog.this.doImportPoints();
             }
         });
 
@@ -177,7 +177,7 @@ public class PointsImporterDialog extends DialogFragment {
     /**
      * Import the selected file.
      */
-    private void performImportAction() {
+    private void doImportPoints() {
         // check use input
         final int fileNamePosition = this.filesListSpinner.getSelectedItemPosition();
         if (fileNamePosition == 0) {
@@ -200,25 +200,24 @@ public class PointsImporterDialog extends DialogFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Job.deleteCurrentJob();
-                try {
-                    String filename = PointsImporterDialog.this.adapter.getItem(fileNamePosition);
-                    String ext = Files.getFileExtension(filename);
+                String filename = PointsImporterDialog.this.adapter.getItem(fileNamePosition);
+                String ext = Files.getFileExtension(filename);
 
-                    if (SupportedPointsFileTypes.isSupported(ext)) {
+                if (SupportedPointsFileTypes.isSupported(ext)) {
+                    Job.deleteCurrentJob();
+                    try {
                         InputStream inputStream = new FileInputStream(new File(App.publicDataDirectory, filename));
-
                         List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                         if (!errors.isEmpty()) {
                             PointsImporterDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
                         }
-                    } else {
-                        Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
-                        PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_unsupported_format);
+                    } catch (IOException e) {
+                        Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                        PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
                     }
-                } catch (IOException e) {
-                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                    PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
+                } else {
+                    Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
+                    PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_unsupported_format);
                 }
 
                 act.runOnUiThread(new Runnable() {

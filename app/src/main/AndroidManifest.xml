@@ -25,7 +25,7 @@
             android:name=".points.PointsManagerActivity"
             android:label="@string/title_activity_points_manager" />
         <activity
-            android:name=".points.PointsImportActivity"
+            android:name=".points.PointsImporterActivity"
             android:label="@string/points_import"
             android:launchMode="singleTop">
             <intent-filter>

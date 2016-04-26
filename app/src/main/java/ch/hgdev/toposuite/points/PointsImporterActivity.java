@@ -1,12 +1,15 @@
 package ch.hgdev.toposuite.points;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Pair;
+import android.widget.ProgressBar;
 
 import com.google.common.io.Files;
 import com.google.common.io.LineReader;
@@ -18,23 +21,37 @@ import java.util.List;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
-import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class PointsImportActivity extends TopoSuiteActivity implements ImportDialogListener,
+public class PointsImporterActivity extends TopoSuiteActivity implements ImportDialogListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
+    private ProgressDialog progress;
     private Uri dataUri;
+    private String errMsg;
+    private String successMsg;
     String mime;
     String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.errMsg = "";
+        this.successMsg = this.getString(R.string.success_import_dialog);
+
+        this.progress = new ProgressDialog(this);
+        this.progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        this.progress.setIndeterminate(true);
+        this.progress.setCancelable(false);
+        this.progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
         // detect if another app is sending data to this activity
         this.dataUri = this.getIntent().getData();
         this.mime = this.getIntent().getType();
@@ -57,11 +74,13 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
     @Override
     public void onImportDialogSuccess(String message) {
         ViewUtils.showToast(this, message);
+        this.finish();
     }
 
     @Override
     public void onImportDialogError(String message) {
         ViewUtils.showToast(this, message);
+        this.finish();
     }
 
     @Override
@@ -119,59 +138,76 @@ public class PointsImportActivity extends TopoSuiteActivity implements ImportDia
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(R.string.import_label,
                         new DialogInterface.OnClickListener() {
-
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ContentResolver cr = PointsImportActivity.this.getContentResolver();
-                                String ext = Files.getFileExtension(PointsImportActivity.this.filename);
-                                if (ext.isEmpty()) {
-                                    // attempt to detect type via mime then
-                                    ext = PointsImportActivity.this.mime.substring(PointsImportActivity.this.mime.lastIndexOf("/") + 1);
-
-                                    // ugly hack to support ES File Explorer and
-                                    // Samsung's file explorer that set the MIME
-                                    // type of a CSV file to
-                                    // "text/comma-separated-values" instead of
-                                    // "text/csv"
-                                    if (ext.equalsIgnoreCase("comma-separated-values")) {
-                                        ext = "csv";
-                                    }
-                                }
-
-                                // make sure the file format is supported
-                                if (!SupportedPointsFileTypes.isSupported(ext)) {
-                                    ViewUtils.showToast(PointsImportActivity.this, PointsImportActivity.this.getString(
-                                            R.string.error_unsupported_format));
-                                    PointsImportActivity.this.finish();
-                                }
-
-                                try {
-                                    Job.deleteCurrentJob();
-
-                                    InputStream inputStream = cr.openInputStream(PointsImportActivity.this.dataUri);
-                                    List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
-
-                                    if (!errors.isEmpty()) {
-                                        PointsImportActivity.this.onImportDialogError(PointsImporter.formatErrors(ext, errors));
-                                    } else {
-                                        PointsImportActivity.this.onImportDialogSuccess(PointsImportActivity.this.getString(R.string.success_import_dialog));
-                                    }
-                                } catch (IOException e) {
-                                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                                    ViewUtils.showToast(PointsImportActivity.this, e.getMessage());
-                                } finally {
-                                    PointsImportActivity.this.finish();
-                                }
+                                dialog.dismiss();
+                                PointsImporterActivity.this.doImportPoints();
                             }
                         })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ViewUtils.showToast(PointsImportActivity.this,
-                                PointsImportActivity.this.getString(R.string.error_impossible_to_import));
-                        PointsImportActivity.this.finish();
+                        dialog.dismiss();
+                        PointsImporterActivity.this.finish();
                     }
                 });
         builder.create().show();
+    }
+
+    private void doImportPoints() {
+        this.progress.show();
+        this.progress.setContentView(new ProgressBar(this));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ContentResolver cr = PointsImporterActivity.this.getContentResolver();
+                String ext = Files.getFileExtension(PointsImporterActivity.this.filename);
+                if (ext.isEmpty()) {
+                    // attempt to detect type via mime then
+                    ext = PointsImporterActivity.this.mime.substring(PointsImporterActivity.this.mime.lastIndexOf("/") + 1);
+
+                    // ugly hack to support ES File Explorer and
+                    // Samsung's file explorer that set the MIME
+                    // type of a CSV file to
+                    // "text/comma-separated-values" instead of
+                    // "text/csv"
+                    if (ext.equalsIgnoreCase("comma-separated-values")) {
+                        ext = "csv";
+                    }
+                }
+
+                // make sure the file format is supported
+                if (SupportedPointsFileTypes.isSupported(ext)) {
+                    Job.deleteCurrentJob();
+                    try {
+                        InputStream inputStream = cr.openInputStream(PointsImporterActivity.this.dataUri);
+                        List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
+                        if (!errors.isEmpty()) {
+                            PointsImporterActivity.this.errMsg = PointsImporter.formatErrors(ext, errors);
+                        }
+                    } catch (IOException e) {
+                        Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                        PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
+                    }
+                } else {
+                    Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
+                    PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(
+                            R.string.error_unsupported_format);
+                }
+
+                PointsImporterActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        PointsImporterActivity.this.progress.dismiss();
+                        if (PointsImporterActivity.this.errMsg.isEmpty()) {
+                            PointsImporterActivity.this.onImportDialogSuccess(PointsImporterActivity.this.successMsg);
+                        } else {
+                            PointsImporterActivity.this.onImportDialogError(PointsImporterActivity.this.errMsg);
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 }
