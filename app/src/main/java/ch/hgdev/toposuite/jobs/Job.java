@@ -213,6 +213,17 @@ public class Job {
         return jobs;
     }
 
+    public static boolean renameCurrentJob(@NonNull String name) {
+        ArrayList<Job> jobsList = Job.getJobsList();
+        for (Job j : jobsList) {
+            if (name.equals(j.getName())) {
+                return false;
+            }
+        }
+        Job.setCurrentJobName(name);
+        return true;
+    }
+
     public static void deleteCurrentJob() {
         // remove previous points and calculations from the SQLite DB
         PointsDataSource.getInstance().truncate();
