@@ -214,10 +214,12 @@ public class Job {
     }
 
     public static boolean renameCurrentJob(@NonNull String name) {
-        ArrayList<Job> jobsList = Job.getJobsList();
-        for (Job j : jobsList) {
-            if (name.equals(j.getName())) {
-                return false;
+        if (Job.getCurrentJobName() != null) {
+            ArrayList<Job> jobsList = Job.getJobsList();
+            for (Job j : jobsList) {
+                if (name.equals(j.getName())) {
+                    return false;
+                }
             }
         }
         Job.setCurrentJobName(name);
