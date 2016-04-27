@@ -305,7 +305,10 @@
                     android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.CSV"
                     android:scheme="file" />
 
+                <data android:mimeType="text/coo" />
                 <data android:mimeType="text/csv" />
+                <data android:mimeType="text/koo" />
+                <data android:mimeType="text/ptp" />
                 <data android:mimeType="text/comma-separated-values" />
                 <data android:mimeType="application/octet-stream" />
             </intent-filter>
