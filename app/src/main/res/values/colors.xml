@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="warning">#FF8E00</color>
+    <color name="primary_dark_red">#950000</color>
+    <color name="primary_red">#B30000</color>
+    <color name="accent_red">#F5040F</color>
+    <color name="white">#FFFFFF</color>
 </resources>

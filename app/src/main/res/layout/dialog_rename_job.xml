@@ -25,7 +25,7 @@
         android:background="?android:attr/dividerVertical" />
 
     <LinearLayout
-        style="?android:attr/buttonBarStyle"
+        style="@style/ButtonBarButtonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:measureWithLargestChild="true"
@@ -34,7 +34,7 @@
 
         <Button
             android:id="@+id/cancel_button"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/ButtonBarButtonStyle"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -42,7 +42,7 @@
 
         <Button
             android:id="@+id/rename_button"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/ButtonBarButtonStyle"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
