@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
@@ -51,6 +52,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private int selectedPointId;
     private ListView pointsListView;
     private ArrayListOfPointsAdapter adapter;
+    private FloatingActionButton addButton;
     private ShareActionProvider shareActionProvider;
 
     private boolean shouldShowImportDialog;
@@ -63,6 +65,15 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
         this.pointsListView = (ListView) this.findViewById(R.id.apm_list_of_points);
         this.registerForContextMenu(this.pointsListView);
+
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  PointsManagerActivity.this.showAddPointDialog();
+                                              }
+                                          }
+        );
 
         this.shouldShowExportDialog = false;
         this.shouldShowImportDialog = false;
@@ -100,9 +111,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.add_point_button:
-                this.showAddPointDialog();
-                return true;
             case R.id.delete_points_button:
                 this.removeAllPoints();
                 return true;
