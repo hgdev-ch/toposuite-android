@@ -2,11 +2,17 @@ package ch.hgdev.toposuite.jobs;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ShareCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,6 +49,7 @@ public class JobsActivity extends TopoSuiteActivity implements
     private ListView jobsListView;
     private TextView jobNameTextView;
     private ArrayListOfJobsAdapter adapter;
+    private ShareActionProvider shareActionProvider;
     private ProgressDialog progress;
 
     @Override
@@ -77,6 +84,11 @@ public class JobsActivity extends TopoSuiteActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.jobs, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+        this.shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+        this.updateShareIntent();
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -326,5 +338,46 @@ public class JobsActivity extends TopoSuiteActivity implements
     @Override
     public void onRenameCurrentJobError(String message) {
         ViewUtils.showToast(this, message);
+    }
+
+    /**
+     * Update the share intent.
+     */
+    private void updateShareIntent() {
+        try {
+            final File tmpTpstPath = new File(this.getCacheDir(), "jobs");
+            if (!tmpTpstPath.exists()) {
+                if (!tmpTpstPath.mkdir()) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, "failed to create directory " + tmpTpstPath.getAbsolutePath());
+                }
+            }
+            final File tmpTpstFile = new File(tmpTpstPath, "job.tpst");
+            FileOutputStream outputStream = new FileOutputStream(tmpTpstFile);
+            outputStream.write(Job.getCurrentJobAsJson().getBytes());
+            outputStream.close();
+            final Uri uri = FileProvider.getUriForFile(this, this.getPackageName(), tmpTpstFile);
+            final Intent sendIntent = ShareCompat.IntentBuilder.from(this)
+                    .setType("text/tpst")
+                    .setStream(uri).getIntent()
+                    .setAction(Intent.ACTION_SEND)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            this.setShareIntent(sendIntent);
+        } catch (IOException e) {
+            Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+        } catch (JSONException e) {
+            Logger.log(Logger.ErrLabel.SERIALIZATION_ERROR, e.getMessage());
+        }
+    }
+
+    /**
+     * Call to update the share intent
+     *
+     * @param shareIntent The share intent.
+     */
+    private void setShareIntent(Intent shareIntent) {
+        if (this.shareActionProvider != null) {
+            this.shareActionProvider.setShareIntent(shareIntent);
+        }
     }
 }

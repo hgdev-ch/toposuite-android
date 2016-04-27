@@ -177,6 +177,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="job_import">Importieren Sie einen Job</string>
 	<string name="job_rename">Aktueller Job umbenennen</string>
 	<string name="job_save">Aktueller Job speichern</string>
+	<string name="job_share">Aktueller Job teilen</string>
 	<string name="keep_button">Aufbewahren</string>
 	<string name="last_modification">Letzte Änderung</string>
 	<string name="last_modification_label">Letzte Änderung: <xliff:g>%s</xliff:g></string>

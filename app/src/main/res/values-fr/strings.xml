@@ -182,6 +182,7 @@
 	<string name="job_import">Importer un job</string>
 	<string name="job_rename">Renommer le job courant</string>
 	<string name="job_save">Sauvegarder le job courant</string>
+	<string name="job_share">Partager le job courant</string>
 	<string name="keep_button">Conserver</string>
 	<string name="last_modification">Dernière modification</string>
 	<string name="last_modification_label">Dernière modification: <xliff:g>%s</xliff:g></string>
