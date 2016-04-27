@@ -1,5 +1,7 @@
 package ch.hgdev.toposuite.points;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -44,7 +47,6 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class PointsManagerActivity extends TopoSuiteActivity implements
         AddPointDialogFragment.AddPointDialogListener,
         EditPointDialogFragment.EditPointDialogListener,
-        SearchPointDialogFragment.SearchPointDialogListener,
         ExportDialogListener,
         ImportDialogListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
@@ -114,9 +116,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             case R.id.delete_points_button:
                 this.removeAllPoints();
                 return true;
-            case R.id.search_point_button:
-                this.showSearchPointDialog();
-                return true;
             case R.id.export_points_button:
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
                     this.showExportDialog();
@@ -142,8 +141,35 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.points_manager, menu);
 
-        MenuItem item = menu.findItem(R.id.menu_item_share);
-        this.shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+        MenuItem itemSearch =  menu.findItem(R.id.search_point_button);
+        SearchManager sm = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
+        SearchView sv = (SearchView) MenuItemCompat.getActionView(itemSearch);
+        sv.setSearchableInfo(sm.getSearchableInfo(getComponentName()));
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if ((query != null) && (!query.isEmpty())) {
+                    Point point = SharedResources.getSetOfPoints().find(query);
+                    if (point != null) {
+                        int position = PointsManagerActivity.this.adapter.getPosition(point);
+                        PointsManagerActivity.this.showEditPointDialog(position);
+                        return true;
+
+                    } else {
+                        ViewUtils.showToast(PointsManagerActivity.this, PointsManagerActivity.this.getString(R.string.point_not_found));
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        MenuItem itemShare = menu.findItem(R.id.menu_item_share);
+        this.shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(itemShare);
         this.updateShareIntent();
 
         return super.onCreateOptionsMenu(menu);
@@ -181,23 +207,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogCancel(EditPointDialogFragment dialog) {
-        // do nothing
-    }
-
-    @Override
-    public void onDialogSearch(SearchPointDialogFragment dialog) {
-        Point point = SharedResources.getSetOfPoints().find(dialog.getPointNumber());
-        if (point != null) {
-            int position = PointsManagerActivity.this.adapter.getPosition(point);
-            this.showEditPointDialog(position);
-
-        } else {
-            ViewUtils.showToast(this, this.getString(R.string.point_not_found));
-        }
-    }
-
-    @Override
-    public void onDialogCancel(SearchPointDialogFragment dialog) {
         // do nothing
     }
 
@@ -273,11 +282,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private void showAddPointDialog() {
         AddPointDialogFragment dialog = new AddPointDialogFragment();
         dialog.show(this.getSupportFragmentManager(), "AddPointDialogFragment");
-    }
-
-    private void showSearchPointDialog() {
-        SearchPointDialogFragment dialog = new SearchPointDialogFragment();
-        dialog.show(this.getSupportFragmentManager(), "SearchPointDialogFragment");
     }
 
     /**
