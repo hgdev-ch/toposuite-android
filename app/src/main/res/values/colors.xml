@@ -4,5 +4,6 @@
     <color name="primary_dark_red">#950000</color>
     <color name="primary_red">#B30000</color>
     <color name="accent_red">#F5040F</color>
+    <color name="accent_holo">#33B5E5</color>
     <color name="white">#FFFFFF</color>
 </resources>
