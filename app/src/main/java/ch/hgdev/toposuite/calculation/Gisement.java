@@ -1,69 +1,67 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
+import com.google.common.base.Strings;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.gisement.GisementActivity;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
-
-import com.google.common.base.Strings;
 
 /**
  * Gisement provides methods for the calculation of a gisement/distance.
- * 
+ *
  * @author HGdev
  */
 public class Gisement extends Calculation {
-    public static final String ORIGIN_POINT_NUMBER      = "origin_point_number";
+    public static final String ORIGIN_POINT_NUMBER = "origin_point_number";
     public static final String ORIENTATION_POINT_NUMBER = "orientation_point_number";
 
     /**
      * The origin.
      */
-    private Point              origin;
+    private Point origin;
 
     /**
      * The orientation.
      */
-    private Point              orientation;
+    private Point orientation;
 
     /**
      * The "gisement", also called Z0.
      */
-    private double             gisement;
+    private double gisement;
 
     /**
      * The horizontal distance.
      */
-    private double             horizDist;
+    private double horizDist;
 
     /**
      * The altitude.
      */
-    private double             altitude;
+    private double altitude;
 
     /**
      * The slope given in percent.
      */
-    private double             slope;
+    private double slope;
 
     /**
      * Constructs a new Gisement object. It also calls the
      * {@link Gisement#compute()} method which computes the gisement, the
      * distance, the altitude and the slope.
-     * 
-     * @param _description
-     *            the calculation description
-     * @param _origin
-     *            the origin
-     * @param _orientation
-     *            the orientation
+     *
+     * @param _description the calculation description
+     * @param _origin      the origin
+     * @param _orientation the orientation
      */
     public Gisement(String _description, Point _origin, Point _orientation, boolean hasDAO) {
         super(CalculationType.GISEMENT,
@@ -73,10 +71,10 @@ public class Gisement extends Calculation {
         this.origin = _origin;
         this.orientation = _orientation;
 
-        this.compute();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
+        try {
+            this.compute();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
         }
     }
 
@@ -85,21 +83,17 @@ public class Gisement extends Calculation {
     }
 
     /**
-     * See {@link Gisement#Gisement(String, Point, Point)}
-     * 
-     * @param _origin
-     *            the origin
-     * @param _orientation
-     *            the orientation
+     * See {@link Gisement#Gisement(String, Point, Point, boolean)}.
+     *
+     * @param _origin      the origin
+     * @param _orientation the orientation
      */
     public Gisement(Point _origin, Point _orientation) {
         this("", _origin, _orientation, true);
     }
 
     /**
-     * 
      * @param id
-     * @param description
      * @param lastModification
      */
     public Gisement(long id, Date lastModification) {
@@ -113,7 +107,7 @@ public class Gisement extends Calculation {
      * Perform the gisement, distance, altitude and slope calculations.
      */
     @Override
-    public final void compute() {
+    public final void compute() throws CalculationException {
         double deltaY = this.orientation.getEast() - this.origin.getEast();
         double deltaX = this.orientation.getNorth() - this.origin.getNorth();
 
@@ -130,19 +124,22 @@ public class Gisement extends Calculation {
         // slope in percent
         this.slope = this.computeSlope(this.altitude, this.horizDist);
 
-        // update the calculation last modification date
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.origin_label) + ": "
                 + this.origin.toString()
                 + " / " + App.getContext().getString(R.string.orientation_label) + ": "
                 + this.orientation.toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     /**
      * Calculate the complement using the following rules:
-     * 
+     * <p>
      * <pre>
      * +==========+==========+============+
      * |  DeltaY  | Delta X  | Complement |
@@ -164,11 +161,9 @@ public class Gisement extends Calculation {
      * | Negative | Zero     |     300    |
      * +----------+----------+------------+
      * </pre>
-     * 
-     * @param deltaY
-     *            delta Y
-     * @param deltaX
-     *            delta X
+     *
+     * @param deltaY delta Y
+     * @param deltaX delta X
      * @return the complement
      */
     private double computeComplement(double deltaY, double deltaX) {
@@ -194,13 +189,10 @@ public class Gisement extends Calculation {
     /**
      * Calculate the "gisement" using the following formula:
      * <i>atan(deltaY/deltaX)</i>
-     * 
-     * @param deltaY
-     *            delta Y
-     * @param deltaX
-     *            delta X
-     * @param complement
-     *            the complement
+     *
+     * @param deltaY     delta Y
+     * @param deltaX     delta X
+     * @param complement the complement
      * @return the gisement
      */
     private double computeGisement(double deltaY, double deltaX, double complement) {
@@ -216,13 +208,10 @@ public class Gisement extends Calculation {
     /**
      * Calculate the horizontal distance using the following formula: <i>deltaY
      * / sin(gisement)</i>
-     * 
-     * @param deltaY
-     *            delta Y
-     * @param deltaX
-     *            delta X
-     * @param gisement
-     *            the gisement
+     *
+     * @param deltaY   delta Y
+     * @param deltaX   delta X
+     * @param gisement the gisement
      * @return the horizontal distance
      */
     private double computeHorizDist(double deltaY, double deltaX, double gisement) {
@@ -234,7 +223,7 @@ public class Gisement extends Calculation {
 
     /**
      * Calculate the altitude.
-     * 
+     *
      * @return the altitude
      */
     private double computeAltitude() {
@@ -248,11 +237,9 @@ public class Gisement extends Calculation {
     /**
      * Calculate the slope in percent using the following formula: <i>(altitude
      * / distance) * 100</i>
-     * 
-     * @param altitude
-     *            the altitude
-     * @param horizDist
-     *            the horizontal distance
+     *
+     * @param altitude  the altitude
+     * @param horizDist the horizontal distance
      * @return the slope in percent
      */
     private double computeSlope(double altitude, double horizDist) {
@@ -265,7 +252,7 @@ public class Gisement extends Calculation {
 
     /**
      * Getter for the origin.
-     * 
+     *
      * @return the origin
      */
     public Point getOrigin() {
@@ -275,18 +262,21 @@ public class Gisement extends Calculation {
     /**
      * Setter for the origin. Whenever this method is called, it triggers the
      * {@link Gisement#compute()} method.
-     * 
-     * @param _origin
-     *            the new origin
+     *
+     * @param _origin the new origin
      */
     public void setOrigin(Point _origin) {
         this.origin = _origin;
-        this.compute();
+        try {
+            this.compute();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+        }
     }
 
     /**
      * Getter for the orientation.
-     * 
+     *
      * @return the orientation
      */
     public Point getOrientation() {
@@ -296,18 +286,21 @@ public class Gisement extends Calculation {
     /**
      * Setter for the orientation. Whenever this method is called, it triggers
      * the {@link Gisement#compute()} method.
-     * 
-     * @param _orientation
-     *            the new orientation
+     *
+     * @param _orientation the new orientation
      */
     public void setOrientation(Point _orientation) {
         this.orientation = _orientation;
-        this.compute();
+        try {
+            this.compute();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+        }
     }
 
     /**
      * Getter the gisement.
-     * 
+     *
      * @return the gisement
      */
     public double getGisement() {
@@ -316,7 +309,7 @@ public class Gisement extends Calculation {
 
     /**
      * Getter for the distance.
-     * 
+     *
      * @return the distance
      */
     public double getHorizDist() {
@@ -325,7 +318,7 @@ public class Gisement extends Calculation {
 
     /**
      * Getter for the altitude.
-     * 
+     *
      * @return the altitude
      */
     public double getAltitude() {
@@ -334,7 +327,7 @@ public class Gisement extends Calculation {
 
     /**
      * Getter for the slope.
-     * 
+     *
      * @return the slope
      */
     public double getSlope() {

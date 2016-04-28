@@ -25,6 +25,7 @@ import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -477,12 +478,12 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
 
         try {
             this.circlesIntersection.compute();
+            this.intersectionOne = this.circlesIntersection.getFirstIntersection();
+            this.intersectionTwo = this.circlesIntersection.getSecondIntersection();
         } catch (CalculationException e) {
-            ViewUtils.showToast(this, e.getMessage());
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
         }
-
-        this.intersectionOne = this.circlesIntersection.getFirstIntersection();
-        this.intersectionTwo = this.circlesIntersection.getSecondIntersection();
     }
 
     @Override

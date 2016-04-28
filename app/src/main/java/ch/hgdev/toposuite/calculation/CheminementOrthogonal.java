@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -16,21 +16,21 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CheminementOrthogonal extends Calculation {
-    public static final String                       ORTHOGONAL_BASE      = "orthogonal_base";
-    public static final String                       MEASURES             = "measures";
+    public static final String ORTHOGONAL_BASE = "orthogonal_base";
+    public static final String MEASURES = "measures";
 
-    private static final String                      DUMMY_POINT_NUMBER_1 = "42";
-    private static final String                      DUMMY_POINT_NUMBER_2 = "22";
-    private static final String                      DUMMY_POINT_NUMBER_3 = "3232";
+    private static final String DUMMY_POINT_NUMBER_1 = "42";
+    private static final String DUMMY_POINT_NUMBER_2 = "22";
+    private static final String DUMMY_POINT_NUMBER_3 = "3232";
 
-    private OrthogonalBase                           orthogonalBase;
+    private OrthogonalBase orthogonalBase;
     private ArrayList<CheminementOrthogonal.Measure> measures;
-    private ArrayList<CheminementOrthogonal.Result>  results;
+    private ArrayList<CheminementOrthogonal.Result> results;
 
-    private double                                   fE;
-    private double                                   fN;
-    private double                                   fs;
-    private double                                   scale;
+    private double fE;
+    private double fN;
+    private double fs;
+    private double scale;
 
     public CheminementOrthogonal(Point origin, Point extremity, boolean hasDAO) {
         super(CalculationType.CHEMINORTHO,
@@ -40,10 +40,6 @@ public class CheminementOrthogonal extends Calculation {
         this.orthogonalBase = new OrthogonalBase(origin, extremity);
         this.measures = new ArrayList<CheminementOrthogonal.Measure>();
         this.results = new ArrayList<CheminementOrthogonal.Result>();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public CheminementOrthogonal(long id, Date lastModification) {
@@ -64,16 +60,12 @@ public class CheminementOrthogonal extends Calculation {
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<CheminementOrthogonal.Measure>();
         this.results = new ArrayList<CheminementOrthogonal.Result>();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (this.measures.size() < 1) {
-            return;
+            throw new CalculationException("no measures provided");
         }
 
         // current iteration
@@ -185,13 +177,17 @@ public class CheminementOrthogonal extends Calculation {
             this.results.add(newR);
         }
 
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.origin_label) + ": "
                 + this.orthogonalBase.getOrigin().toString()
                 + " / " + App.getContext().getString(R.string.extremity_label) + ": "
                 + this.orthogonalBase.getExtremity().toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     @Override
@@ -370,11 +366,11 @@ public class CheminementOrthogonal extends Calculation {
      * @author HGdev
      */
     public static class Measure {
-        public static final String NUMBER   = "number";
+        public static final String NUMBER = "number";
         public static final String DISTANCE = "distance";
 
-        private String             number;
-        private double             distance;
+        private String number;
+        private double distance;
 
         public Measure(String _number, double _distance) {
             this.number = _number;

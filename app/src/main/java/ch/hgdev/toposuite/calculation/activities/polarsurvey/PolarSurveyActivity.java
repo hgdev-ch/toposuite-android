@@ -31,6 +31,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.Calculation;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
@@ -151,16 +152,26 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 Calculation c = SharedResources.getCalculationsHistory().find(this.z0Id);
                 if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                     Abriss a = (Abriss) c;
-                    a.compute();
-                    this.z0 = a.getMean();
-                    this.z0Station = a.getStation();
+                    try {
+                        a.compute();
+                        this.z0 = a.getMean();
+                        this.z0Station = a.getStation();
+                    } catch (CalculationException e) {
+                        Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                        ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                    }
                 } else if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
                     FreeStation fs = (FreeStation) c;
-                    fs.compute();
-                    this.z0 = fs.getUnknownOrientation();
-                    this.z0Station = fs.getStationResult();
-                    this.instrumentHeight = fs.getI();
-                    this.iEditText.setText(DisplayUtils.toStringForEditText(this.instrumentHeight));
+                    try {
+                        fs.compute();
+                        this.z0 = fs.getUnknownOrientation();
+                        this.z0Station = fs.getStationResult();
+                        this.instrumentHeight = fs.getI();
+                        this.iEditText.setText(DisplayUtils.toStringForEditText(this.instrumentHeight));
+                    } catch (CalculationException e) {
+                        Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                        ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                    }
                 } else {
                     Logger.log(
                             Logger.ErrLabel.CALCULATION_INVALID_TYPE,
@@ -491,19 +502,29 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         for (Calculation c : SharedResources.getCalculationsHistory()) {
             if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                 Abriss a = (Abriss) c;
-                a.compute();
-                this.z0 = a.getMean();
-                this.z0Station = a.getStation();
-                this.z0Id = c.getId();
+                try {
+                    a.compute();
+                    this.z0 = a.getMean();
+                    this.z0Station = a.getStation();
+                    this.z0Id = c.getId();
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                }
                 break;
             }
             if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
                 FreeStation fs = (FreeStation) c;
-                fs.compute();
-                this.z0 = fs.getUnknownOrientation();
-                this.z0Station = fs.getStationResult();
-                this.z0Id = c.getId();
-                this.instrumentHeight = fs.getI();
+                try {
+                    fs.compute();
+                    this.z0 = fs.getUnknownOrientation();
+                    this.z0Station = fs.getStationResult();
+                    this.z0Id = c.getId();
+                    this.instrumentHeight = fs.getI();
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                }
                 break;
             }
         }

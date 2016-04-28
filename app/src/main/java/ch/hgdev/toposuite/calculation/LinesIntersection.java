@@ -1,9 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
+import com.google.common.math.DoubleMath;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -12,64 +14,62 @@ import ch.hgdev.toposuite.calculation.activities.linesintersec.LinesIntersection
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-import com.google.common.math.DoubleMath;
-
 public class LinesIntersection extends Calculation {
-    private static final String P1D1_NUMBER  = "p1d1_number";
-    private static final String P2D1_NUMBER  = "p2d1_number";
-    private static final String P1D2_NUMBER  = "p1d2_number";
-    private static final String P2D2_NUMBER  = "p2d2_number";
-    private static final String DISPL_D1     = "displ_d1";
-    private static final String DISPL_D2     = "displ_d2";
-    private static final String DIST_D1      = "dist_d1";
-    private static final String DIST_D2      = "dist_d2";
-    private static final String GIS_D1       = "gis_d1";
-    private static final String GIS_D2       = "gis_d2";
+    private static final String P1D1_NUMBER = "p1d1_number";
+    private static final String P2D1_NUMBER = "p2d1_number";
+    private static final String P1D2_NUMBER = "p1d2_number";
+    private static final String P2D2_NUMBER = "p2d2_number";
+    private static final String DISPL_D1 = "displ_d1";
+    private static final String DISPL_D2 = "displ_d2";
+    private static final String DIST_D1 = "dist_d1";
+    private static final String DIST_D2 = "dist_d2";
+    private static final String GIS_D1 = "gis_d1";
+    private static final String GIS_D2 = "gis_d2";
     private static final String POINT_NUMBER = "point_number";
 
-    private Point               p1D1;
-    private Point               p2D1;
-    private double              displacementD1;
-    private double              gisementD1;
-    private double              distanceP1D1;
+    private Point p1D1;
+    private Point p2D1;
+    private double displacementD1;
+    private double gisementD1;
+    private double distanceP1D1;
 
-    private Point               p1D2;
-    private Point               p2D2;
-    private double              displacementD2;
-    private double              gisementD2;
-    private double              distanceP1D2;
+    private Point p1D2;
+    private Point p2D2;
+    private double displacementD2;
+    private double gisementD2;
+    private double distanceP1D2;
 
-    private String              pointNumber;
+    private String pointNumber;
 
-    private Point               intersectionPoint;
+    private Point intersectionPoint;
 
     public LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
-            double _distanceP1D1, Point _p1D2, Point _p2D2, double _displacementD2,
-            double _distanceP1D2, String _pointNumber, boolean hasDAO) {
+                             double _distanceP1D1, Point _p1D2, Point _p2D2, double _displacementD2,
+                             double _distanceP1D2, String _pointNumber, boolean hasDAO) {
 
         this(_p1D1, _p2D1, _displacementD1, 0.0, _distanceP1D1, _p1D2, _p2D2,
                 _displacementD2, 0.0, _distanceP1D2, _pointNumber, hasDAO);
     }
 
     public LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
-            double _distanceP1D1, Point _p1D2, double _gisementD2, double _displacementD2,
-            double _distanceP1D2, String _pointNumber, boolean hasDAO) {
+                             double _distanceP1D1, Point _p1D2, double _gisementD2, double _displacementD2,
+                             double _distanceP1D2, String _pointNumber, boolean hasDAO) {
 
         this(_p1D1, _p2D1, _displacementD1, 0.0, _distanceP1D1, _p1D2, null,
                 _displacementD2, _gisementD2, _distanceP1D2, _pointNumber, hasDAO);
     }
 
     public LinesIntersection(Point _p1D1, double _gisementD1, double _displacementD1,
-            double _distanceP1D1, Point _p1D2, Point _p2D2, double _displacementD2,
-            double _distanceP1D2, String _pointNumber, boolean hasDAO) {
+                             double _distanceP1D1, Point _p1D2, Point _p2D2, double _displacementD2,
+                             double _distanceP1D2, String _pointNumber, boolean hasDAO) {
 
         this(_p1D1, null, _displacementD1, _gisementD1, _distanceP1D1, _p1D2, _p2D2,
                 _displacementD2, 0.0, _distanceP1D2, _pointNumber, hasDAO);
     }
 
     public LinesIntersection(Point _p1D1, double _gisementD1, double _displacementD1,
-            double _distanceP1D1, Point _p1D2, double _gisementD2, double _displacementD2,
-            double _distanceP1D2, String _pointNumber, boolean hasDAO) {
+                             double _distanceP1D1, Point _p1D2, double _gisementD2, double _displacementD2,
+                             double _distanceP1D2, String _pointNumber, boolean hasDAO) {
 
         this(_p1D1, null, _displacementD1, _gisementD1, _distanceP1D1, _p1D2, null,
                 _displacementD2, _gisementD2, _distanceP1D2, _pointNumber, hasDAO);
@@ -85,9 +85,9 @@ public class LinesIntersection extends Calculation {
     }
 
     public LinesIntersection(Point _p1D1, Point _p2D1, double _displacementD1,
-            double _gisementD1, double _distanceP1D1, Point _p1D2, Point _p2D2,
-            double _displacementD2, double _gisementD2, double _distanceP1D2,
-            String _pointNumber, boolean hasDAO) {
+                             double _gisementD1, double _distanceP1D1, Point _p1D2, Point _p2D2,
+                             double _displacementD2, double _gisementD2, double _distanceP1D2,
+                             String _pointNumber, boolean hasDAO) {
 
         super(
                 CalculationType.LINEINTERSEC,
@@ -119,10 +119,6 @@ public class LinesIntersection extends Calculation {
         this.setDistanceP1D2(_distanceP1D2);
 
         this.pointNumber = _pointNumber;
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     @Override
@@ -219,7 +215,11 @@ public class LinesIntersection extends Calculation {
         this.intersectionPoint = new Point(this.pointNumber, east, north, MathUtils.IGNORE_DOUBLE,
                 false, false);
 
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName() + " - "
                 + App.getContext().getString(R.string.line_1) + " "
                 + App.getContext().getString(R.string.origin_label) + ": "
@@ -227,7 +227,7 @@ public class LinesIntersection extends Calculation {
                 + " / " + App.getContext().getString(R.string.line_2) + " "
                 + App.getContext().getString(R.string.origin_label) + ": "
                 + this.p1D2.toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     @Override

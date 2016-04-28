@@ -1,11 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.abriss;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -17,24 +11,33 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Abriss;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class AbrissResultsActivity extends TopoSuiteActivity {
-    private ListView                    resultsListView;
+    private ListView resultsListView;
 
-    private TextView                    stationNumberTextView;
-    private TextView                    meanTextView;
-    private TextView                    meanErrorDirectionTextView;
-    private TextView                    meanErrorCompensatedTextView;
+    private TextView stationNumberTextView;
+    private TextView meanTextView;
+    private TextView meanErrorDirectionTextView;
+    private TextView meanErrorCompensatedTextView;
 
-    private Abriss                      abriss;
+    private Abriss abriss;
     private ArrayAdapter<Abriss.Result> adapter;
 
     @Override
@@ -77,11 +80,14 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
             this.abriss.getMeasures().addAll(orientationsList);
         }
 
-        this.abriss.compute();
-
-        this.displayResults();
-
-        this.registerForContextMenu(this.resultsListView);
+        try {
+            this.abriss.compute();
+            this.displayResults();
+            this.registerForContextMenu(this.resultsListView);
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+        }
     }
 
     @Override
@@ -119,12 +125,12 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.toggle_measure:
-            this.abriss.getResults().get(info.position).toggle();
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.toggle_measure:
+                this.abriss.getResults().get(info.position).toggle();
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -133,19 +139,24 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         int id = item.getItemId();
 
         switch (id) {
-        case R.id.run_calculation_button:
-            for (int i = 0; i < this.abriss.getResults().size(); i++) {
-                if (this.abriss.getResults().get(i).isDeactivated()) {
-                    this.abriss.getMeasures().get(i).deactivate();
-                } else {
-                    this.abriss.getMeasures().get(i).reactivate();
+            case R.id.run_calculation_button:
+                for (int i = 0; i < this.abriss.getResults().size(); i++) {
+                    if (this.abriss.getResults().get(i).isDeactivated()) {
+                        this.abriss.getMeasures().get(i).deactivate();
+                    } else {
+                        this.abriss.getMeasures().get(i).reactivate();
+                    }
                 }
-            }
-            this.abriss.compute();
-            this.displayResults();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+                try {
+                    this.abriss.compute();
+                    this.displayResults();
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

@@ -1,9 +1,9 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -14,37 +14,37 @@ import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
  * Calculate the projection of a point on a line.
- * 
+ *
  * @author HGdev
  */
 public class PointProjectionOnALine extends Calculation {
-    public static final String  NUMBER             = "number";
-    public static final String  P1_NUMBER          = "p1_number";
-    public static final String  P2_NUMBER          = "p2_number";
-    public static final String  PT_TO_PROJ_NUMBER  = "pt_to_proj_number";
-    public static final String  DISPLACEMENT       = "displacement";
-    public static final String  GISEMENT           = "gisement";
-    public static final String  MODE               = "mode";
-    public static final String  DUMMY_POINT_NUMBER = String.valueOf(Integer.MAX_VALUE);
+    public static final String NUMBER = "number";
+    public static final String P1_NUMBER = "p1_number";
+    public static final String P2_NUMBER = "p2_number";
+    public static final String PT_TO_PROJ_NUMBER = "pt_to_proj_number";
+    public static final String DISPLACEMENT = "displacement";
+    public static final String GISEMENT = "gisement";
+    public static final String MODE = "mode";
+    public static final String DUMMY_POINT_NUMBER = String.valueOf(Integer.MAX_VALUE);
 
-    private static final double DISTANCE           = 20.0;
+    private static final double DISTANCE = 20.0;
 
-    private String              number;
-    private Point               p1;
-    private Point               p2;
-    private Point               ptToProj;
-    private double              displacement;
-    private double              gisement;
-    private Mode                mode;
+    private String number;
+    private Point p1;
+    private Point p2;
+    private Point ptToProj;
+    private double displacement;
+    private double gisement;
+    private Mode mode;
 
-    private Point               projPt;
-    private double              distPtToLine;
-    private double              distPtToP1;
-    private double              distPtToP2;
+    private Point projPt;
+    private double distPtToLine;
+    private double distPtToP1;
+    private double distPtToP2;
 
     public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj,
-            double _displacement,
-            PointProjectionOnALine.Mode _mode, boolean hasDAO) {
+                                  double _displacement,
+                                  PointProjectionOnALine.Mode _mode, boolean hasDAO) {
         super(CalculationType.PROJPT,
                 App.getContext().getString(R.string.title_activity_point_projection),
                 hasDAO);
@@ -55,14 +55,10 @@ public class PointProjectionOnALine extends Calculation {
         this.ptToProj = _ptToProj;
         this.displacement = _displacement;
         this.mode = _mode;
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public PointProjectionOnALine(String _number, Point _p1, double gisement, Point _ptToProj,
-            double _displacement, boolean hasDAO) {
+                                  double _displacement, boolean hasDAO) {
         this(
                 _number,
                 _p1,
@@ -74,7 +70,7 @@ public class PointProjectionOnALine extends Calculation {
     }
 
     public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj,
-            double _displacement, boolean hasDAO) {
+                                  double _displacement, boolean hasDAO) {
         this(
                 _number,
                 _p1,
@@ -85,7 +81,7 @@ public class PointProjectionOnALine extends Calculation {
     }
 
     public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj,
-            boolean hasDAO) {
+                                  boolean hasDAO) {
         this(_number, _p1, _p2, _ptToProj, MathUtils.IGNORE_DOUBLE, hasDAO);
     }
 
@@ -98,7 +94,7 @@ public class PointProjectionOnALine extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         // displacement gisement
         double displGis = MathUtils.IGNORE_DOUBLE;
 
@@ -192,13 +188,17 @@ public class PointProjectionOnALine extends Calculation {
         // distance point to p2
         this.distPtToP2 = MathUtils.euclideanDistance(this.projPt, this.p2);
 
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName() + " - "
                 + App.getContext().getString(R.string.point_1) + ": "
                 + this.p1.toString() + " / "
                 + App.getContext().getString(R.string.point_to_project) + ": "
                 + this.ptToProj.toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     @Override
@@ -251,13 +251,11 @@ public class PointProjectionOnALine extends Calculation {
     /**
      * Create a point from a given gisement and a point. The new point is
      * determined using the "point lancé".
-     * 
+     * <p>
      * Note that the created point is not stored in the global list of points.
-     * 
-     * @param p1
-     *            a point
-     * @param gisement
-     *            a gisement
+     *
+     * @param p1       a point
+     * @param gisement a gisement
      * @return a new point
      */
     public static Point pointFromGisement(Point p1, double gisement) {

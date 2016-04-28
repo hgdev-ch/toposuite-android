@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -18,18 +18,17 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * Implement the polar implantation calculation, which does the opposite of the
  * polar survey. It finds back measures that were used to compute a point.
  * Theses values are accessible by getters after a call to the compute() method.
- * 
+ *
  * @author HGdev
- * 
  */
 public class PolarImplantation extends Calculation {
-    public static final String                        STATION_NUMBER    = "station_number";
-    public static final String                        POINT_NUMBER      = "station_number";
-    public static final String                        POINT_WITH_S_LIST = "points_with_s_list";
+    public static final String STATION_NUMBER = "station_number";
+    public static final String POINT_NUMBER = "station_number";
+    public static final String POINT_WITH_S_LIST = "points_with_s_list";
 
-    private Point                                     station;
-    private Point                                     point;
-    private final ArrayList<Measure>                  measures;
+    private Point station;
+    private Point point;
+    private final ArrayList<Measure> measures;
     private final ArrayList<PolarImplantation.Result> results;
 
     public PolarImplantation(long id, Date lastModification) {
@@ -50,19 +49,15 @@ public class PolarImplantation extends Calculation {
         this.station = _station;
         this.measures = new ArrayList<Measure>();
         this.results = new ArrayList<PolarImplantation.Result>();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     /**
      * Compute measure values from points and put it in the array of results.
      */
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (this.measures.isEmpty()) {
-            return;
+            throw new CalculationException("no measures provided");
         }
 
         this.results.clear();
@@ -95,12 +90,15 @@ public class PolarImplantation extends Calculation {
             this.results.add(r);
         }
 
-        // update the calculation last modification date
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.station_label) + ": "
                 + this.getStation().toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     @Override
@@ -176,9 +174,8 @@ public class PolarImplantation extends Calculation {
     /**
      * Class to store the results of the polar implantation calculation for each
      * points.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public class Result {
         private final String pointNumber;
@@ -190,7 +187,7 @@ public class PolarImplantation extends Calculation {
         private final double s;
 
         public Result(String _pointNumber, double _horizDir, double _horizDist, double _distance,
-                double _zenAngle, double _gisement, double _s) {
+                      double _zenAngle, double _gisement, double _s) {
             this.pointNumber = _pointNumber;
             this.horizDist = _horizDist;
             this.horizDir = _horizDir;

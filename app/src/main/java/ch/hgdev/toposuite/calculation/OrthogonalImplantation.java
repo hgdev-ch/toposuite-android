@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -15,14 +15,14 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class OrthogonalImplantation extends Calculation {
-    public static final String                       ORTHOGONAL_BASE    = "orthogonal_base";
-    public static final String                       MEASURES           = "measures";
-    public static final String                       POINT_NUMBER       = "point_number";
+    public static final String ORTHOGONAL_BASE = "orthogonal_base";
+    public static final String MEASURES = "measures";
+    public static final String POINT_NUMBER = "point_number";
 
-    private static final String                      DUMMY_POINT_NUMBER = "42";
+    private static final String DUMMY_POINT_NUMBER = "42";
 
-    private OrthogonalBase                           orthogonalBase;
-    private ArrayList<Point>                         measures;
+    private OrthogonalBase orthogonalBase;
+    private ArrayList<Point> measures;
     private ArrayList<OrthogonalImplantation.Result> results;
 
     public OrthogonalImplantation(Point origin, Point extremity, boolean hasDAO) {
@@ -33,10 +33,6 @@ public class OrthogonalImplantation extends Calculation {
         this.orthogonalBase = new OrthogonalBase(origin, extremity);
         this.measures = new ArrayList<Point>();
         this.results = new ArrayList<OrthogonalImplantation.Result>();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public OrthogonalImplantation(boolean hasDAO) {
@@ -47,10 +43,6 @@ public class OrthogonalImplantation extends Calculation {
         this.orthogonalBase = new OrthogonalBase();
         this.measures = new ArrayList<Point>();
         this.results = new ArrayList<OrthogonalImplantation.Result>();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public OrthogonalImplantation(long id, Date lastModification) {
@@ -66,9 +58,9 @@ public class OrthogonalImplantation extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (this.measures.size() == 0) {
-            return;
+            throw new CalculationException("no measure provided");
         }
 
         this.results.clear();
@@ -97,13 +89,17 @@ public class OrthogonalImplantation extends Calculation {
             this.results.add(new Result(p, abscissa, ordinate));
         }
 
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.origin_label) + ": "
                 + this.orthogonalBase.getOrigin().toString()
                 + " / " + App.getContext().getString(R.string.extremity_label) + ": "
                 + this.orthogonalBase.getExtremity().toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     @Override
@@ -179,7 +175,7 @@ public class OrthogonalImplantation extends Calculation {
     }
 
     public static class Result {
-        private Point  point;
+        private Point point;
         private double abscissa;
         private double ordinate;
 

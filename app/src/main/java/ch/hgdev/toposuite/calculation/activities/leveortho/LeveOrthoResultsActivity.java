@@ -12,28 +12,31 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal.Measure;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
 
-    private TextView                  baseTextView;
-    private ListView                  resultsListView;
+    private TextView baseTextView;
+    private ListView resultsListView;
 
     private ArrayListOfResultsAdapter adapter;
 
-    private LeveOrthogonal            leveOrtho;
+    private LeveOrthogonal leveOrtho;
 
-    private int                       saveCounter;
-    private int                       mergeDialogCounter;
+    private int saveCounter;
+    private int mergeDialogCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +52,22 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
             this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(
                     position);
             this.leveOrtho.getResults().clear();
-            this.leveOrtho.compute();
+            try {
+                this.leveOrtho.compute();
+                StringBuilder builder = new StringBuilder();
+                builder.append(this.leveOrtho.getOrthogonalBase().getOrigin());
+                builder.append("-");
+                builder.append(this.leveOrtho.getOrthogonalBase().getExtremity());
 
-            StringBuilder builder = new StringBuilder();
-            builder.append(this.leveOrtho.getOrthogonalBase().getOrigin());
-            builder.append("-");
-            builder.append(this.leveOrtho.getOrthogonalBase().getExtremity());
+                this.baseTextView.setText(builder.toString());
+                this.registerForContextMenu(this.resultsListView);
+                this.drawList();
 
-            this.baseTextView.setText(builder.toString());
-            this.registerForContextMenu(this.resultsListView);
-            this.drawList();
-
-            this.saveCounter = this.leveOrtho.getResults().size();
+                this.saveCounter = this.leveOrtho.getResults().size();
+            } catch (CalculationException e) {
+                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+            }
         }
     }
 
@@ -79,11 +86,11 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.save_points:
-            this.saveAllPoints();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.save_points:
+                this.saveAllPoints();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -99,19 +106,19 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.save_point:
-            if (this.savePoint(info.position)) {
-                ViewUtils.showToast(this,
-                        this.getString(R.string.point_add_success));
-            }
-            this.adapter.notifyDataSetChanged();
-            return true;
-        case R.id.delete_point:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.save_point:
+                if (this.savePoint(info.position)) {
+                    ViewUtils.showToast(this,
+                            this.getString(R.string.point_add_success));
+                }
+                this.adapter.notifyDataSetChanged();
+                return true;
+            case R.id.delete_point:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -147,9 +154,8 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
 
     /**
      * Save a point to the database of points.
-     * 
-     * @param position
-     *            Position of the point in the list of points.
+     *
+     * @param position Position of the point in the list of points.
      * @return True if it was a success, false otherwise.
      */
     private boolean savePoint(int position) {

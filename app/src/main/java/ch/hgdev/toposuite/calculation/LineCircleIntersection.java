@@ -61,10 +61,6 @@ public class LineCircleIntersection extends Calculation {
                 hasDAO);
 
         this.initAttributes(_p1L, _p2L, _displacementL, _gisement, _distance, _centerC, _radiusC);
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public LineCircleIntersection(Point _p1L, Point _p2L, double _displacementL, double _distance,
@@ -99,10 +95,6 @@ public class LineCircleIntersection extends Calculation {
 
         this.firstIntersection = new Point(false);
         this.secondIntersection = new Point(false);
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public LineCircleIntersection() {
@@ -237,7 +229,11 @@ public class LineCircleIntersection extends Calculation {
         this.secondIntersection.setNorth(
                 MathUtils.pointLanceNorth(this.p1L.getNorth(), stPtIntersecGis2, distAP2));
 
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName() + " - "
                 + App.getContext().getString(R.string.line) + " "
                 + App.getContext().getString(R.string.origin_label) + ": "
@@ -245,7 +241,7 @@ public class LineCircleIntersection extends Calculation {
                 + " / " + App.getContext().getString(R.string.circle_label) + " "
                 + App.getContext().getString(R.string.center_label) + ": "
                 + this.centerC.toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     /**

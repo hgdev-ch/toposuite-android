@@ -39,18 +39,16 @@ public class AxisImplantationResultsActivity extends TopoSuiteActivity {
                     get(position);
             try {
                 this.axisImpl.compute();
+                StringBuilder builder = new StringBuilder();
+                builder.append(this.axisImpl.getOrthogonalBase().getOrigin());
+                builder.append("-");
+                builder.append(this.axisImpl.getOrthogonalBase().getExtremity());
+                this.axisImplantationPointsTextView.setText(builder.toString());
+                this.axisImplantationStationTextView.setText(this.axisImpl.getStation().toString());
             } catch (CalculationException e) {
                 Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
                 ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
             }
-
-            StringBuilder builder = new StringBuilder();
-            builder.append(this.axisImpl.getOrthogonalBase().getOrigin());
-            builder.append("-");
-            builder.append(this.axisImpl.getOrthogonalBase().getExtremity());
-            this.axisImplantationPointsTextView.setText(builder.toString());
-            this.axisImplantationStationTextView.setText(this.axisImpl.getStation().toString());
-
             this.drawList();
         }
     }

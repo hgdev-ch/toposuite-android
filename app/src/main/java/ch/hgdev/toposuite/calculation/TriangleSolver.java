@@ -9,7 +9,6 @@ import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.trianglesolver.TriangleSolverActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
@@ -69,10 +68,6 @@ public class TriangleSolver extends Calculation {
             throw new IllegalArgumentException(
                     "TriangleSolver: At least 3 of the arguments should be greater than 0 "
                             + "and the sum of the 3 angles must be less than or equal to 200");
-        }
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
         }
     }
 
@@ -499,7 +494,7 @@ public class TriangleSolver extends Calculation {
      * Compute perimeter, height, surface, incircle radius and excircle radius.
      */
     @Override
-    public void compute() throws IllegalArgumentException {
+    public void compute() throws IllegalArgumentException, CalculationException {
         if (!this.checkInputs()) {
             this.resetAllResults();
             throw new IllegalArgumentException(
@@ -514,7 +509,7 @@ public class TriangleSolver extends Calculation {
 
         // in some cases, one solution is invalid and the valid solution is the second one
         if (this.twoSolutions && !this.isFirstSolutionValid()) {
-                this.swapSolutions();
+            this.swapSolutions();
         }
 
         if (!this.isFirstSolutionValid()) {
@@ -554,9 +549,7 @@ public class TriangleSolver extends Calculation {
 
         this.twoSolutions = false;
 
-        // update the calculation last modification date
-        this.updateLastModification();
-        this.notifyUpdate(this);
+        this.postCompute();
     }
 
     /**

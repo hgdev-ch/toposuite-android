@@ -17,12 +17,14 @@ import java.util.List;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Circle;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -248,15 +250,21 @@ public class CircleActivity extends TopoSuiteActivity implements
                 }
 
                 this.circle.setPointNumber(num);
-                this.circle.compute();
+                try {
+                    this.circle.compute();
 
-                if (SharedResources.getSetOfPoints().find(this.circle.getPointNumber()) == null) {
-                    SharedResources.getSetOfPoints().add(this.circle.getCenter());
-                    this.circle.getCenter().registerDAO(PointsDataSource.getInstance());
+                    if (SharedResources.getSetOfPoints().find(this.circle.getPointNumber()) == null) {
+                        SharedResources.getSetOfPoints().add(this.circle.getCenter());
+                        this.circle.getCenter().registerDAO(PointsDataSource.getInstance());
 
-                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
-                } else {
-                    this.showMergePointsDialog();
+                        ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+                    } else {
+                        this.showMergePointsDialog();
+                    }
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                    return false;
                 }
 
                 return true;
@@ -320,18 +328,23 @@ public class CircleActivity extends TopoSuiteActivity implements
                 this.circle.setPointC(c);
             }
 
-            this.circle.compute();
+            try {
+                this.circle.compute();
 
-            if (this.circle.getCenter() != null) {
-                this.circleCenterTextView.setText(
-                        DisplayUtils.format2DPoint(this,
-                                this.circle.getCenter()));
-            }
+                if (this.circle.getCenter() != null) {
+                    this.circleCenterTextView.setText(
+                            DisplayUtils.format2DPoint(this,
+                                    this.circle.getCenter()));
+                }
 
-            if (MathUtils.isPositive(this.circle.getRadius())) {
-                this.circleRadiusTextView.setText(
-                        DisplayUtils.formatDistance(
-                                this.circle.getRadius()));
+                if (MathUtils.isPositive(this.circle.getRadius())) {
+                    this.circleRadiusTextView.setText(
+                            DisplayUtils.formatDistance(
+                                    this.circle.getRadius()));
+                }
+            } catch (CalculationException e) {
+                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
             }
         }
     }

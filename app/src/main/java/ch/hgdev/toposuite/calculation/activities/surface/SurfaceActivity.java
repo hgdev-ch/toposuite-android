@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Surface;
 import ch.hgdev.toposuite.calculation.Surface.PointWithRadius;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -33,32 +34,32 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class SurfaceActivity extends TopoSuiteActivity implements
         AddPointWithRadiusDialogFragment.AddPointWithRadiusDialogListener,
         EditPointWithRadiusDialogFragment.EditPointWithRadiusDialogListener {
-    public static final String                    POINT_WITH_RADIUS_NUMBER_LABEL = "point_with_radius_number";
-    public static final String                    RADIUS_LABEL                   = "radius";
-    public static final String                    SURFACE_CALCULATION            = "surface_calculation";
-    private static final String                   POINT_WITH_RADIUS_LABEL        = "points_with_radius";
-    private static final String                   SURFACE_NAME_LABEL             = "surface_name";
-    private static final String                   SURFACE_DESCRIPTION_LABEL      = "surface_description";
-    private static final String                   PERIMETER_LABEL                = "perimeter_label";
-    private static final String                   SURFACE_LABEL                  = "surface_label";
-    private ListView                              pointsListView;
-    private EditText                              nameEditText;
-    private EditText                              descriptionEditText;
-    private TextView                              surfaceTextView;
-    private TextView                              perimeterTextView;
+    public static final String POINT_WITH_RADIUS_NUMBER_LABEL = "point_with_radius_number";
+    public static final String RADIUS_LABEL = "radius";
+    public static final String SURFACE_CALCULATION = "surface_calculation";
+    private static final String POINT_WITH_RADIUS_LABEL = "points_with_radius";
+    private static final String SURFACE_NAME_LABEL = "surface_name";
+    private static final String SURFACE_DESCRIPTION_LABEL = "surface_description";
+    private static final String PERIMETER_LABEL = "perimeter_label";
+    private static final String SURFACE_LABEL = "surface_label";
+    private ListView pointsListView;
+    private EditText nameEditText;
+    private EditText descriptionEditText;
+    private TextView surfaceTextView;
+    private TextView perimeterTextView;
 
-    private String                                name;
-    private String                                description;
-    private double                                surface;
-    private double                                perimeter;
+    private String name;
+    private String description;
+    private double surface;
+    private double perimeter;
     private ArrayAdapter<Surface.PointWithRadius> adapter;
-    private Surface                               surfaceCalculation;
+    private Surface surfaceCalculation;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
      * from the history.
      */
-    private int                                   position;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,20 +144,20 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.add_point_button:
-            this.showAddPointDialog();
-            return true;
-        case R.id.run_calculation_button:
-            if (this.checkInputs()) {
-                this.runCalculation();
-                this.updateResults();
-            } else {
-                ViewUtils.showToast(
-                        this, this.getText(R.string.error_three_points_required));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.add_point_button:
+                this.showAddPointDialog();
+                return true;
+            case R.id.run_calculation_button:
+                if (this.checkInputs()) {
+                    this.runCalculation();
+                    this.updateResults();
+                } else {
+                    ViewUtils.showToast(
+                            this, this.getText(R.string.error_three_points_required));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -172,21 +173,21 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.edit_point:
-            this.showEditPointDialog(info.position);
-            return true;
-        case R.id.delete_point:
-            this.adapter.remove(this.adapter.getItem(info.position));
+            case R.id.edit_point:
+                this.showEditPointDialog(info.position);
+                return true;
+            case R.id.delete_point:
+                this.adapter.remove(this.adapter.getItem(info.position));
 
-            // update the vertices number
-            for (int i = info.position; i < this.adapter.getCount(); i++) {
-                this.adapter.getItem(i).setVertexNumber(
-                        this.adapter.getItem(i).getVertexNumber() - 1);
-            }
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+                // update the vertices number
+                for (int i = info.position; i < this.adapter.getCount(); i++) {
+                    this.adapter.getItem(i).setVertexNumber(
+                            this.adapter.getItem(i).getVertexNumber() - 1);
+                }
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -243,9 +244,14 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         this.surfaceCalculation.setSurfaceName(this.name);
         this.surfaceCalculation.setSurfaceDescription(this.description);
 
-        this.surfaceCalculation.compute();
-        this.surface = this.surfaceCalculation.getSurface();
-        this.perimeter = this.surfaceCalculation.getPerimeter();
+        try {
+            this.surfaceCalculation.compute();
+            this.surface = this.surfaceCalculation.getSurface();
+            this.perimeter = this.surfaceCalculation.getPerimeter();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+        }
     }
 
     /**
@@ -289,8 +295,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     /**
      * Show a dialog to edit a point.
      *
-     * @param position
-     *            Position of the point in the list of points.
+     * @param position Position of the point in the list of points.
      */
     private void showEditPointDialog(int position) {
         EditPointWithRadiusDialogFragment dialog = new EditPointWithRadiusDialogFragment();

@@ -1,42 +1,45 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesSolverActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CircularCurvesSolver extends Calculation {
-    public static final String RADIUS      = "radius";
+    public static final String RADIUS = "radius";
     public static final String ALPHA_ANGLE = "alpha_angle";
-    public static final String CHORD_OF    = "chord_of";
-    public static final String TANGENT     = "tangent";
-    public static final String ARROW       = "arrow";
+    public static final String CHORD_OF = "chord_of";
+    public static final String TANGENT = "tangent";
+    public static final String ARROW = "arrow";
 
-    private double             radius;
-    /** central angle */
-    private double             alphaAngle;
-    private double             chordOF;
-    private double             tangent;
-    private double             arrow;
+    private double radius;
+    /**
+     * central angle
+     */
+    private double alphaAngle;
+    private double chordOF;
+    private double tangent;
+    private double arrow;
 
-    private double             bisector;
-    private double             arc;
-    private double             circumference;
-    private double             chordOM;
-    /** Vertex angle */
-    private double             betaAngle;
-    private double             circleSurface;
-    private double             sectorSurface;
-    private double             segmentSurface;
+    private double bisector;
+    private double arc;
+    private double circumference;
+    private double chordOM;
+    /**
+     * Vertex angle
+     */
+    private double betaAngle;
+    private double circleSurface;
+    private double sectorSurface;
+    private double segmentSurface;
 
     public CircularCurvesSolver(double _radius, double _alphaAngle,
-            double _chordOF, double _tangent, double _arrow, boolean hasDAO) {
+                                double _chordOF, double _tangent, double _arrow, boolean hasDAO) {
 
         super(
                 CalculationType.CIRCCURVESOLVER,
@@ -48,10 +51,6 @@ public class CircularCurvesSolver extends Calculation {
         this.chordOF = _chordOF;
         this.tangent = _tangent;
         this.arrow = _arrow;
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public CircularCurvesSolver(long id, Date lastModification) {
@@ -72,7 +71,7 @@ public class CircularCurvesSolver extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (!MathUtils.isZero(this.radius) && !MathUtils.isZero(this.chordOF)) {
             // radius / chord OF
 
@@ -185,8 +184,7 @@ public class CircularCurvesSolver extends Calculation {
 
         this.alphaAngle *= 2;
 
-        this.updateLastModification();
-        this.notifyUpdate(this);
+        this.postCompute();
     }
 
     @Override

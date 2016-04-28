@@ -5,32 +5,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CircularCurvesSolver;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CircularCurvesSolverActivity extends TopoSuiteActivity {
 
-    private EditText             radiusEditText;
-    private EditText             alphaAngleEditText;
-    private EditText             chordOFEditText;
-    private EditText             tangentEditText;
-    private EditText             arrowEditText;
+    private EditText radiusEditText;
+    private EditText alphaAngleEditText;
+    private EditText chordOFEditText;
+    private EditText tangentEditText;
+    private EditText arrowEditText;
 
-    private TextView             bisectorTextView;
-    private TextView             arcTextView;
-    private TextView             circumferenceTextView;
-    private TextView             chordOMTextView;
-    private TextView             betaAngleTextView;
-    private TextView             circleSurfaceTextView;
-    private TextView             sectorSurfaceTextView;
-    private TextView             segmentSurfaceTextView;
+    private TextView bisectorTextView;
+    private TextView arcTextView;
+    private TextView circumferenceTextView;
+    private TextView chordOMTextView;
+    private TextView betaAngleTextView;
+    private TextView circleSurfaceTextView;
+    private TextView sectorSurfaceTextView;
+    private TextView segmentSurfaceTextView;
 
     private CircularCurvesSolver ccs;
 
@@ -88,26 +91,26 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.clear_button:
-            this.clearInputs();
-            this.clearResults();
-            return true;
-        case R.id.run_calculation_button:
-            if (this.chickenRun()) {
-                this.updateResults();
-            } else {
-                ViewUtils.showToast(this,
-                        this.getText(R.string.error_impossible_calculation));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.clear_button:
+                this.clearInputs();
+                this.clearResults();
+                return true;
+            case R.id.run_calculation_button:
+                if (this.chickenRun()) {
+                    this.updateResults();
+                } else {
+                    ViewUtils.showToast(this,
+                            this.getText(R.string.error_impossible_calculation));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
     /**
      * Check and run the calculation.
-     * 
+     *
      * @return check/calculation status
      */
     private boolean chickenRun() {
@@ -138,7 +141,13 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
             this.ccs.setArrow(arrow);
         }
 
-        this.ccs.compute();
+        try {
+            this.ccs.compute();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+            return false;
+        }
 
         return true;
     }
@@ -170,7 +179,7 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
 
     /**
      * Check user inputs.
-     * 
+     *
      * @return true if the user input is valid, false otherwise
      */
     private boolean checkInput() {

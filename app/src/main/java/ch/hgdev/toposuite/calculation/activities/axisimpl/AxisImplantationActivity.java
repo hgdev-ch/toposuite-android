@@ -28,6 +28,7 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.AxisImplantation;
 import ch.hgdev.toposuite.calculation.Calculation;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
@@ -183,14 +184,24 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
                 if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                     Abriss a = (Abriss) c;
-                    a.compute();
-                    this.axisImpl.setUnknownOrientation(a.getMean());
-                    this.axisImpl.setStation(a.getStation());
+                    try {
+                        a.compute();
+                        this.axisImpl.setUnknownOrientation(a.getMean());
+                        this.axisImpl.setStation(a.getStation());
+                    } catch (CalculationException e) {
+                        Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                        ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                    }
                 } else if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
                     FreeStation fs = (FreeStation) c;
-                    fs.compute();
-                    this.axisImpl.setUnknownOrientation(fs.getUnknownOrientation());
-                    this.axisImpl.setStation(fs.getStationResult());
+                    try {
+                        fs.compute();
+                        this.axisImpl.setUnknownOrientation(fs.getUnknownOrientation());
+                        this.axisImpl.setStation(fs.getStationResult());
+                    } catch (CalculationException e) {
+                        Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                        ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                    }
                 } else {
                     Logger.log(
                             Logger.ErrLabel.CALCULATION_INVALID_TYPE,
@@ -443,18 +454,28 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         for (Calculation c : SharedResources.getCalculationsHistory()) {
             if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                 Abriss a = (Abriss) c;
-                a.compute();
-                this.axisImpl.setUnknownOrientation(a.getMean());
-                this.axisImpl.setStation(a.getStation());
-                this.axisImpl.setZ0CalculationId(c.getId());
+                try {
+                    a.compute();
+                    this.axisImpl.setUnknownOrientation(a.getMean());
+                    this.axisImpl.setStation(a.getStation());
+                    this.axisImpl.setZ0CalculationId(c.getId());
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                }
                 break;
             }
             if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
                 FreeStation fs = (FreeStation) c;
-                fs.compute();
-                this.axisImpl.setUnknownOrientation(fs.getUnknownOrientation());
-                this.axisImpl.setStation(fs.getStationResult());
-                this.axisImpl.setZ0CalculationId(c.getId());
+                try {
+                    fs.compute();
+                    this.axisImpl.setUnknownOrientation(fs.getUnknownOrientation());
+                    this.axisImpl.setStation(fs.getStationResult());
+                    this.axisImpl.setZ0CalculationId(c.getId());
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                }
                 break;
             }
         }

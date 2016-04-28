@@ -40,10 +40,6 @@ public class Abriss extends Calculation {
         this.results = new ArrayList<Abriss.Result>();
         this.mean = 0.0;
         this.mse = 0.0;
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public Abriss(Point station, boolean hasDAO) {
@@ -66,9 +62,9 @@ public class Abriss extends Calculation {
      * Perform the the computation.
      */
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (this.orientations.size() == 0) {
-            return;
+            throw new CalculationException("no measures provided");
         }
 
         // if some measures have been deactivated, then we have to keep them
@@ -177,12 +173,15 @@ public class Abriss extends Calculation {
         this.mse = Math.sqrt(this.mse / (index - numberOfDeactivatedOrientations - 1));
         this.meanErrComp = this.mse / Math.sqrt(index - numberOfDeactivatedOrientations);
 
-        // update the calculation last modification date
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.station_label) + ": "
                 + this.getStation().toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     @Override

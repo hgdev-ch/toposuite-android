@@ -13,6 +13,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.interfaces.Exportable;
 import ch.hgdev.toposuite.calculation.interfaces.Importable;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
+import ch.hgdev.toposuite.dao.collections.DAOMapperArrayList;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
 import ch.hgdev.toposuite.utils.AppUtils;
@@ -59,6 +60,11 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
     private final ArrayList<DAO> daoList;
 
     /**
+     * Indicates whether this calculation shall be recorded in history.
+     */
+    private final boolean hasDAO;
+
+    /**
      * Constructs a new Calculation.
      *
      * @param _id               the calculation ID
@@ -77,9 +83,9 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
             this.lastModification = Calendar.getInstance().getTime();
         }
 
+        this.hasDAO = hasDAO;
         this.daoList = new ArrayList<DAO>();
-
-        if (hasDAO) {
+        if (this.hasDAO) {
             this.registerDAO(CalculationsDataSource.getInstance());
         }
     }
@@ -90,11 +96,6 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
      */
     public Calculation(CalculationType _type, String _description, boolean hasDAO) {
         this(0, _type, _description, null, hasDAO);
-
-        // since no ID is provided, this a new calculation and then, we have to
-        // add it
-        // into the calculation history.
-        // SharedResources.getCalculationsHistory().add(0, this);
     }
 
     /**
@@ -112,9 +113,26 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
     public abstract String getCalculationName();
 
     /**
-     * Method that actually performs the calculation.
+     * Method that actually performs the calculation. The calculation gets recorded to the history
+     * once it has been computed once. Hence, when overriding this method, it shall not be forgotten
+     * to call the parent once the computation finishes.
      */
     public abstract void compute() throws CalculationException;
+
+    /**
+     * This method shall be called after {@link: Calculation@compute}.
+     */
+    protected void postCompute() {
+        this.updateLastModification();
+
+        if (this.hasDAO) {
+            this.notifyUpdate(this);
+            DAOMapperArrayList<Calculation> calculationsHistory = SharedResources.getCalculationsHistory();
+            if (calculationsHistory.find(this) == null) {
+                calculationsHistory.add(0, this);
+            }
+        }
+    }
 
     /**
      * Getter for the ID.
@@ -173,7 +191,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
     /**
      * Update the last modification date with the current date.
      */
-    public void updateLastModification() {
+    private void updateLastModification() {
         this.lastModification = Calendar.getInstance().getTime();
     }
 
@@ -200,8 +218,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
      * @param json JSON string that represents a Calculation.
      * @return A new Calculation.
      */
-    public static Calculation createCalculationFromJSON(String json) throws JSONException,
-            ParseException {
+    public static Calculation createCalculationFromJSON(String json) throws JSONException, ParseException {
         JSONObject jo = new JSONObject(json);
         long id = jo.getLong(Calculation.ID);
         String description = jo.getString(Calculation.DESCRIPTION);

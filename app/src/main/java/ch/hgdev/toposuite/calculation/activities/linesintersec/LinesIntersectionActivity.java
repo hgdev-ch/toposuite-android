@@ -33,6 +33,7 @@ import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -103,8 +104,6 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
     private AnimationDrawable blinkAnimation;
 
-    @SuppressLint("NewApi")
-    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -768,19 +767,16 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         }
 
         if ((this.lineIntersec.getP2D2() == null) || (this.lineIntersec.getP2D1() == null)) {
-            ViewUtils.showToast(this, this.getString(
-                    R.string.error_impossible_calculation));
+            ViewUtils.showToast(this, this.getString(R.string.error_impossible_calculation));
             return;
         }
 
         try {
             this.lineIntersec.compute();
+            this.displayResult();
         } catch (CalculationException e) {
-            ViewUtils.showToast(this, e.getMessage());
-
-            // avoid to display the results
-            return;
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
         }
-        this.displayResult();
     }
 }

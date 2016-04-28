@@ -1,25 +1,28 @@
 package ch.hgdev.toposuite.calculation.activities.polarimplantation;
 
+import android.os.Bundle;
+import android.widget.ListView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.os.Bundle;
-import android.widget.ListView;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarImplantation;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PolarImplantationResultsActivity extends TopoSuiteActivity {
-    private static final String       POLAR_IMPLANTATION_RESULTS_ACTIVITY = "PolarImplantationResultsActivity: ";
+    private static final String POLAR_IMPLANTATION_RESULTS_ACTIVITY = "PolarImplantationResultsActivity: ";
 
-    private ListView                  resultsListView;
+    private ListView resultsListView;
 
-    private PolarImplantation         polarImplantation;
+    private PolarImplantation polarImplantation;
     private ArrayListOfResultsAdapter adapter;
 
     @Override
@@ -50,8 +53,13 @@ public class PolarImplantationResultsActivity extends TopoSuiteActivity {
                             + "error retrieving list of measures from JSON");
         }
 
-        this.polarImplantation.compute();
-        this.displayResults();
+        try {
+            this.polarImplantation.compute();
+            this.displayResults();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+        }
     }
 
     @Override

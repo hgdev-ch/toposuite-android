@@ -10,29 +10,32 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class FreeStationResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
 
-    private TextView                  freeStationTextView;
-    private TextView                  freeStationPointTextView;
-    private TextView                  sETextView;
-    private TextView                  sNTextView;
-    private TextView                  sATextView;
-    private TextView                  unknownOrientationTextView;
+    private TextView freeStationTextView;
+    private TextView freeStationPointTextView;
+    private TextView sETextView;
+    private TextView sNTextView;
+    private TextView sATextView;
+    private TextView unknownOrientationTextView;
 
-    private ListView                  resultsListView;
+    private ListView resultsListView;
     private ArrayListOfResultsAdapter adapter;
-    private FreeStation               freeStation;
+    private FreeStation freeStation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +59,14 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
             int position = bundle.getInt(FreeStationActivity.FREE_STATION_POSITION);
             this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
                     position);
-            this.freeStation.compute();
-            this.drawList();
-            this.refreshResults();
+            try {
+                this.freeStation.compute();
+                this.drawList();
+                this.refreshResults();
+            } catch (CalculationException e) {
+                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+            }
         }
 
         this.registerForContextMenu(this.resultsListView);
@@ -81,22 +89,27 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.save_points:
-            this.savePoint(this.freeStation.getStationResult());
-            return true;
-        case R.id.run_calculation_button:
-            for (int i = 0; i < this.freeStation.getResults().size(); i++) {
-                if (this.freeStation.getResults().get(i).isDeactivated()) {
-                    this.freeStation.getMeasures().get(i).deactivate();
-                } else {
-                    this.freeStation.getMeasures().get(i).reactivate();
+            case R.id.save_points:
+                this.savePoint(this.freeStation.getStationResult());
+                return true;
+            case R.id.run_calculation_button:
+                for (int i = 0; i < this.freeStation.getResults().size(); i++) {
+                    if (this.freeStation.getResults().get(i).isDeactivated()) {
+                        this.freeStation.getMeasures().get(i).deactivate();
+                    } else {
+                        this.freeStation.getMeasures().get(i).reactivate();
+                    }
                 }
-            }
-            this.freeStation.compute();
-            this.refreshResults();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+                try {
+                this.freeStation.compute();
+                this.refreshResults();
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -105,12 +118,12 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.toggle_measure:
-            this.freeStation.getResults().get(info.position).toggle();
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.toggle_measure:
+                this.freeStation.getResults().get(info.position).toggle();
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 

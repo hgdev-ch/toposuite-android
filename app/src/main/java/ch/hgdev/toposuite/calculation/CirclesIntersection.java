@@ -64,7 +64,6 @@ public class CirclesIntersection extends Calculation {
                 App.getContext().getString(R.string.title_activity_circles_intersection),
                 true);
         this.initAttributes();
-        SharedResources.getCalculationsHistory().add(0, this);
     }
 
     public CirclesIntersection(Point _centerFirst, double _radiusFirst,
@@ -78,10 +77,6 @@ public class CirclesIntersection extends Calculation {
                 "The two provided points must be different.");
 
         this.initAttributes(_centerFirst, _radiusFirst, _centerSecond, _radiusSecond);
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     /**
@@ -167,7 +162,11 @@ public class CirclesIntersection extends Calculation {
                 this.centerFirst.getNorth()
                         + (this.radiusFirst * Math.cos(gisement - alpha)));
 
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName() + " - "
                 + App.getContext().getString(R.string.circle_one_label) + " "
                 + App.getContext().getString(R.string.center_label) + ": "
@@ -175,7 +174,7 @@ public class CirclesIntersection extends Calculation {
                 + " / " + App.getContext().getString(R.string.circle_two_label) + " "
                 + App.getContext().getString(R.string.center_label) + ": "
                 + this.centerSecond.toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     /**

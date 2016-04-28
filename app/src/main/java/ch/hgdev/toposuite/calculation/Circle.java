@@ -1,9 +1,9 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -13,21 +13,21 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Circle extends Calculation {
-    private static final String POINT_A      = "point_a";
-    private static final String POINT_B      = "point_b";
-    private static final String POINT_C      = "point_c";
+    private static final String POINT_A = "point_a";
+    private static final String POINT_B = "point_b";
+    private static final String POINT_C = "point_c";
     private static final String POINT_NUMBER = "point_number";
 
-    private Point               pointA;
-    private Point               pointB;
-    private Point               pointC;
-    private String              pointNumber;
+    private Point pointA;
+    private Point pointB;
+    private Point pointC;
+    private String pointNumber;
 
-    private Point               center;
-    private double              radius;
+    private Point center;
+    private double radius;
 
     public Circle(Point _pointA, Point _pointB, Point _pointC, String _pointNumber,
-            boolean hasDAO) {
+                  boolean hasDAO) {
         super(CalculationType.CIRCLE,
                 App.getContext().getString(R.string.title_activity_circle),
                 hasDAO);
@@ -36,10 +36,6 @@ public class Circle extends Calculation {
         this.pointB = _pointB;
         this.pointC = _pointC;
         this.pointNumber = _pointNumber;
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public Circle(long id, Date lastModification) {
@@ -49,10 +45,10 @@ public class Circle extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if ((this.pointA == null) || (this.pointB == null)
                 || (this.pointC == null)) {
-            return;
+            throw new CalculationException("one of the point is null");
         }
 
         double deltaEastAB = this.pointA.getEast() - this.pointB.getEast();
@@ -82,8 +78,7 @@ public class Circle extends Calculation {
             this.radius = MathUtils.euclideanDistance(this.center, this.pointA);
         }
 
-        this.updateLastModification();
-        this.notifyUpdate(this);
+        this.postCompute();
     }
 
     @Override

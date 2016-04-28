@@ -23,42 +23,41 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * Arc of circle segmentation calculation.
  *
  * @author HGdev
- *
  */
 public class CircularSegmentation extends Calculation {
 
-    public static final String  CIRCLE_CENTER         = "circle_center";
-    public static final String  CIRCLE_START_POINT    = "circle_start_point";
-    public static final String  CIRCLE_END_POINT      = "circle_end_point";
-    public static final String  ARC_LENGTH            = "arc_length";
-    public static final String  NUMBER_OF_SEGMENTS    = "number_of_segments";
+    public static final String CIRCLE_CENTER = "circle_center";
+    public static final String CIRCLE_START_POINT = "circle_start_point";
+    public static final String CIRCLE_END_POINT = "circle_end_point";
+    public static final String ARC_LENGTH = "arc_length";
+    public static final String NUMBER_OF_SEGMENTS = "number_of_segments";
 
     private static final String CIRCULAR_SEGMENTATION = "Circular segmentation: ";
 
     /**
      * Center of the circle.
      */
-    private Point               circleCenter;
-    private Point               circleStartPoint;
-    private Point               circleEndPoint;
+    private Point circleCenter;
+    private Point circleStartPoint;
+    private Point circleEndPoint;
     /**
      * Radius of the circle.
      */
-    private double              circleRadius;
+    private double circleRadius;
     /**
      * Number of segments in which to partition the circle. This is used of the
      * length of an arc is not set.
      */
-    private int                 numberOfSegments;
+    private int numberOfSegments;
     /**
      * Length of an arc. This is used if the number of segments is not set.
      */
-    private double              arcLength;
+    private double arcLength;
 
     /**
      * Resulting points.
      */
-    private List<Point>         points;
+    private List<Point> points;
 
     public CircularSegmentation(long id, Date lastModification) {
         super(id,
@@ -73,9 +72,6 @@ public class CircularSegmentation extends Calculation {
                 App.getContext().getString(R.string.title_activity_circular_segmentation),
                 hasDAO);
         this.initAttributes();
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public CircularSegmentation() {
@@ -100,23 +96,17 @@ public class CircularSegmentation extends Calculation {
     /**
      * Perform some checks on given values and set class attributes.
      *
-     * @param center
-     *            Center of the circle.
-     * @param start
-     *            Start point on the border of the circle.
-     * @param end
-     *            End point on the border of the circle.
-     * @param numberOfSegments
-     *            Number of segments in which to segment. This value must be set
-     *            to MathUtils.IGNORE_INT if arcLength is specified.
-     * @param arcLength
-     *            Length of an arc. This value must be set to
-     *            MathUtils.IGNORE_DOUBLE if numberOfSegments is specified.
-     * @throws IllegalArgumentException
-     *             Raised when some given arguments are not consistent.
+     * @param center           Center of the circle.
+     * @param start            Start point on the border of the circle.
+     * @param end              End point on the border of the circle.
+     * @param numberOfSegments Number of segments in which to segment. This value must be set
+     *                         to MathUtils.IGNORE_INT if arcLength is specified.
+     * @param arcLength        Length of an arc. This value must be set to
+     *                         MathUtils.IGNORE_DOUBLE if numberOfSegments is specified.
+     * @throws IllegalArgumentException Raised when some given arguments are not consistent.
      */
     public void initAttributes(Point center, Point start, Point end,
-            int numberOfSegments, double arcLength) throws IllegalArgumentException {
+                               int numberOfSegments, double arcLength) throws IllegalArgumentException {
         Preconditions.checkNotNull(center);
         Preconditions.checkNotNull(start);
         Preconditions.checkNotNull(end);
@@ -155,9 +145,9 @@ public class CircularSegmentation extends Calculation {
         double radiusEnd = MathUtils.euclideanDistance(end, center);
         if (!(DoubleMath.fuzzyEquals(radiusStart, radiusEnd, App.getCoordinateTolerance()))) {
             String msg = String.format(Locale.ENGLISH, CircularSegmentation.CIRCULAR_SEGMENTATION
-                    + "the two points must be at the same distance from the center each."
-                    + "Radius according to the starting point is %f.\n"
-                    + "Radius according to the ending point is %f.\n",
+                            + "the two points must be at the same distance from the center each."
+                            + "Radius according to the starting point is %f.\n"
+                            + "Radius according to the ending point is %f.\n",
                     radiusStart, radiusEnd);
             Logger.log(Logger.ErrLabel.INPUT_ERROR, msg);
             throw new IllegalArgumentException(msg);
@@ -217,8 +207,7 @@ public class CircularSegmentation extends Calculation {
             this.points.add(p);
         }
 
-        this.updateLastModification();
-        this.notifyUpdate(this);
+        this.postCompute();
     }
 
     @Override

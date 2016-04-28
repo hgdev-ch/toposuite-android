@@ -10,7 +10,6 @@ import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.surface.SurfaceActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
@@ -47,10 +46,6 @@ public class Surface extends Calculation {
         this.points = new ArrayList<Surface.PointWithRadius>();
         this.surface = 0.0;
         this.perimeter = 0.0;
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     /**
@@ -70,7 +65,7 @@ public class Surface extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (!this.checkInput()) {
             return;
         }
@@ -112,10 +107,13 @@ public class Surface extends Calculation {
         }
         this.surface = Math.abs(this.surface);
 
-        this.updateLastModification();
-        this.setDescription(this.getCalculationName()
-                + (this.surfaceName.isEmpty() ? "" : " - " + this.surfaceName));
-        this.notifyUpdate(this);
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
+        this.setDescription(this.getCalculationName() + (this.surfaceName.isEmpty() ? "" : " - " + this.surfaceName));
+        super.postCompute();
     }
 
     @Override

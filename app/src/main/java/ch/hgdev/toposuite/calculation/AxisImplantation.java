@@ -61,10 +61,6 @@ public class AxisImplantation extends Calculation {
         this.measures = new ArrayList<Measure>();
         this.results = new ArrayList<AxisImplantation.Result>();
         this.initAttributes(station, unknownOrientation, origin, extremity);
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     /**
@@ -126,16 +122,20 @@ public class AxisImplantation extends Calculation {
                     m.getMeasureNumber(), p.getEast(), p.getNorth(), abscissa, ordinate);
             this.results.add(r);
 
-            this.updateLastModification();
-            this.setDescription(this.getCalculationName()
-                    + " - " + App.getContext().getString(R.string.station_label) + ": "
-                    + this.station.toString() + " / "
-                    + App.getContext().getString(R.string.origin_label) + ": "
-                    + this.orthogonalBase.getOrigin() + " / "
-                    + App.getContext().getString(R.string.extremity_label) + ": "
-                    + this.orthogonalBase.getExtremity());
-            this.notifyUpdate(this);
+            this.postCompute();
         }
+    }
+
+    @Override
+    protected void postCompute() {
+        this.setDescription(this.getCalculationName()
+                + " - " + App.getContext().getString(R.string.station_label) + ": "
+                + this.station.toString() + " / "
+                + App.getContext().getString(R.string.origin_label) + ": "
+                + this.orthogonalBase.getOrigin() + " / "
+                + App.getContext().getString(R.string.extremity_label) + ": "
+                + this.orthogonalBase.getExtremity());
+        super.postCompute();
     }
 
     @Override

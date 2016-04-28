@@ -1,12 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.polarimplantation;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -24,12 +17,21 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.Calculation;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
@@ -45,33 +47,33 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         AddPointWithSDialogFragment.AddPointWithSDialogListener,
         EditPointWithSDialogFragment.EditPointWithSDialogListener {
 
-    public static final String    STATION_NUMBER_LABEL       = "station_number";
-    public static final String    POINTS_WITH_S_NUMBER_LABEL = "points_with_s_number";
-    public static final String    POINTS_WITH_S_LABEL        = "points_with_s";
+    public static final String STATION_NUMBER_LABEL = "station_number";
+    public static final String POINTS_WITH_S_NUMBER_LABEL = "points_with_s_number";
+    public static final String POINTS_WITH_S_LABEL = "points_with_s";
 
-    private static final String   STATION_SELECTED_POSITION  = "station_selected_position";
-    public static final String    S                          = "s";
-    private Spinner               stationSpinner;
-    private int                   stationSelectedPosition;
-    private ArrayAdapter<Point>   stationAdapter;
-    private TextView              stationPointTextView;
-    private EditText              iEditText;
-    private EditText              unknownOrientEditText;
-    private ListView              pointsListView;
+    private static final String STATION_SELECTED_POSITION = "station_selected_position";
+    public static final String S = "s";
+    private Spinner stationSpinner;
+    private int stationSelectedPosition;
+    private ArrayAdapter<Point> stationAdapter;
+    private TextView stationPointTextView;
+    private EditText iEditText;
+    private EditText unknownOrientEditText;
+    private ListView pointsListView;
     private ArrayAdapter<Measure> adapter;
 
-    private Point                 station;
-    private PolarImplantation     polarImplantation;
+    private Point station;
+    private PolarImplantation polarImplantation;
 
-    private double                z0;
-    private Point                 z0Station;
-    private double                instrumentHeight;
+    private double z0;
+    private Point z0Station;
+    private double instrumentHeight;
 
     /**
      * Position of the calculation in the calculations list. Only used when open
      * from the history.
      */
-    private int                   position;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,17 +152,27 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         for (Calculation c : SharedResources.getCalculationsHistory()) {
             if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                 Abriss a = (Abriss) c;
-                a.compute();
-                this.z0 = a.getMean();
-                this.z0Station = a.getStation();
+                try {
+                    a.compute();
+                    this.z0 = a.getMean();
+                    this.z0Station = a.getStation();
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                }
                 break;
             }
             if ((c != null) && (c.getType() == CalculationType.FREESTATION)) {
                 FreeStation fs = (FreeStation) c;
-                fs.compute();
-                this.z0 = fs.getUnknownOrientation();
-                this.z0Station = fs.getStationResult();
-                this.instrumentHeight = fs.getI();
+                try {
+                    fs.compute();
+                    this.z0 = fs.getUnknownOrientation();
+                    this.z0Station = fs.getStationResult();
+                    this.instrumentHeight = fs.getI();
+                } catch (CalculationException e) {
+                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                }
                 break;
             }
         }
@@ -237,18 +249,18 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.add_point_button:
-            this.showAddPointDialog();
-            return true;
-        case R.id.run_calculation_button:
-            if (this.checkInputs()) {
-                this.showPolarImplantationResultActivity();
-            } else {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.add_point_button:
+                this.showAddPointDialog();
+                return true;
+            case R.id.run_calculation_button:
+                if (this.checkInputs()) {
+                    this.showPolarImplantationResultActivity();
+                } else {
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -264,47 +276,47 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.edit_point_with_s:
-            this.showEditPointWithSDialog(info.position);
-            return true;
-        case R.id.delete_point_with_s:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.edit_point_with_s:
+                this.showEditPointWithSDialog(info.position);
+                return true;
+            case R.id.delete_point_with_s:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
         switch (view.getId()) {
-        case R.id.checkbox_z0:
-            if (checked) {
-                if (MathUtils.isIgnorable(this.z0)) {
-                    ViewUtils.showToast(this,
-                            this.getString(R.string.error_no_suitable_calculation_found));
-                } else {
-                    this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
-                    this.unknownOrientEditText.setEnabled(false);
-                    this.stationSpinner.setSelection(
-                            this.stationAdapter.getPosition(this.z0Station));
-                    this.stationSpinner.setEnabled(false);
-                    if (!MathUtils.isIgnorable(this.instrumentHeight)) {
-                        this.iEditText.setText(
-                                DisplayUtils.toStringForEditText(this.instrumentHeight));
-                        this.iEditText.setEnabled(false);
+            case R.id.checkbox_z0:
+                if (checked) {
+                    if (MathUtils.isIgnorable(this.z0)) {
+                        ViewUtils.showToast(this,
+                                this.getString(R.string.error_no_suitable_calculation_found));
+                    } else {
+                        this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
+                        this.unknownOrientEditText.setEnabled(false);
+                        this.stationSpinner.setSelection(
+                                this.stationAdapter.getPosition(this.z0Station));
+                        this.stationSpinner.setEnabled(false);
+                        if (!MathUtils.isIgnorable(this.instrumentHeight)) {
+                            this.iEditText.setText(
+                                    DisplayUtils.toStringForEditText(this.instrumentHeight));
+                            this.iEditText.setEnabled(false);
+                        }
                     }
+                } else {
+                    this.unknownOrientEditText.setText("");
+                    this.unknownOrientEditText.setEnabled(true);
+                    this.stationSpinner.setSelection(0);
+                    this.stationSpinner.setEnabled(true);
+                    this.iEditText.setText("");
+                    this.iEditText.setEnabled(true);
                 }
-            } else {
-                this.unknownOrientEditText.setText("");
-                this.unknownOrientEditText.setEnabled(true);
-                this.stationSpinner.setSelection(0);
-                this.stationSpinner.setEnabled(true);
-                this.iEditText.setText("");
-                this.iEditText.setEnabled(true);
-            }
-            break;
+                break;
         }
     }
 
@@ -319,9 +331,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     }
 
     /**
-     *
-     * @param position
-     *            Position of the point with S to edit.
+     * @param position Position of the point with S to edit.
      */
     private void showEditPointWithSDialog(int position) {
         ViewUtils.lockScreenOrientation(this);

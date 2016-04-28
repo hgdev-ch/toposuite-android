@@ -60,10 +60,6 @@ public class FreeStation extends Calculation {
         this.i = _i;
         this.measures = new ArrayList<Measure>();
         this.results = new ArrayList<Result>();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public FreeStation(String _stationNumber, boolean hasDAO) {
@@ -84,9 +80,9 @@ public class FreeStation extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (this.measures.size() < 3) {
-            return;
+            throw new CalculationException("not enough measures provided");
         }
 
         // since we need to adjust some measures for the computation, use a copy
@@ -336,11 +332,15 @@ public class FreeStation extends Calculation {
             this.stationResult.setAltitude(MathUtils.IGNORE_DOUBLE);
         }
 
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.station_label)
                 + ": " + this.getStationNumber());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     /**

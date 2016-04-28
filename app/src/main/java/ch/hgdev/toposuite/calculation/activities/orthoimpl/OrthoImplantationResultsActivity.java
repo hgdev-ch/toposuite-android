@@ -4,18 +4,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
+import ch.hgdev.toposuite.utils.Logger;
+import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
-    private TextView                  baseTextView;
-    private ListView                  resultsListView;
+    private TextView baseTextView;
+    private ListView resultsListView;
 
     private ArrayListOfResultsAdapter adapter;
 
-    private OrthogonalImplantation    orthImpl;
+    private OrthogonalImplantation orthImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +34,19 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
             int position = bundle.getInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
             this.orthImpl = (OrthogonalImplantation) SharedResources.getCalculationsHistory().
                     get(position);
-            this.orthImpl.compute();
+            try {
+                this.orthImpl.compute();
+                StringBuilder builder = new StringBuilder();
+                builder.append(this.orthImpl.getOrthogonalBase().getOrigin());
+                builder.append("-");
+                builder.append(this.orthImpl.getOrthogonalBase().getExtremity());
 
-            StringBuilder builder = new StringBuilder();
-            builder.append(this.orthImpl.getOrthogonalBase().getOrigin());
-            builder.append("-");
-            builder.append(this.orthImpl.getOrthogonalBase().getExtremity());
-
-            this.baseTextView.setText(builder.toString());
-            this.drawList();
+                this.baseTextView.setText(builder.toString());
+                this.drawList();
+            } catch (CalculationException e) {
+                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+            }
         }
     }
 

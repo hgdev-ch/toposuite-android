@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -16,10 +16,10 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LeveOrthogonal extends Calculation {
-    public static final String                      ORTHOGONAL_BASE = "orthogonal_base";
-    public static final String                      MEASURES        = "measures";
+    public static final String ORTHOGONAL_BASE = "orthogonal_base";
+    public static final String MEASURES = "measures";
 
-    private OrthogonalBase                          orthogonalBase;
+    private OrthogonalBase orthogonalBase;
 
     private final ArrayList<LeveOrthogonal.Measure> measures;
 
@@ -33,10 +33,6 @@ public class LeveOrthogonal extends Calculation {
         this.orthogonalBase = new OrthogonalBase(origin, extremity, measuredDistance, 1.0);
         this.measures = new ArrayList<LeveOrthogonal.Measure>();
         this.results = new ArrayList<LeveOrthogonal.Measure>();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public LeveOrthogonal(Point origin, Point extremity, boolean hasDAO) {
@@ -51,10 +47,6 @@ public class LeveOrthogonal extends Calculation {
         this.orthogonalBase = new OrthogonalBase(1.0);
         this.measures = new ArrayList<LeveOrthogonal.Measure>();
         this.results = new ArrayList<LeveOrthogonal.Measure>();
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public LeveOrthogonal(long id, Date lastModification) {
@@ -68,7 +60,7 @@ public class LeveOrthogonal extends Calculation {
     }
 
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (this.measures.size() < 1) {
             return;
         }
@@ -102,13 +94,17 @@ public class LeveOrthogonal extends Calculation {
             this.results.add(newM);
         }
 
-        super.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.origin_label) + ": "
                 + this.orthogonalBase.getOrigin().toString()
                 + " / " + App.getContext().getString(R.string.extremity_label) + ": "
                 + this.orthogonalBase.getExtremity().toString());
-        super.notifyUpdate(this);
+        super.postCompute();
     }
 
     public OrthogonalBase getOrthogonalBase() {
@@ -176,25 +172,25 @@ public class LeveOrthogonal extends Calculation {
     }
 
     public static class Measure {
-        public static final String NUMBER   = "number";
+        public static final String NUMBER = "number";
         public static final String ABSCISSA = "abscissa";
         public static final String ORDINATE = "ordinate";
 
-        private String             number;
-        private double             abscissa;
-        private double             ordinate;
+        private String number;
+        private double abscissa;
+        private double ordinate;
 
         /**
          * If the points already exists, vE is the difference between the old
          * east value and the new one.
          */
-        private double             vE;
+        private double vE;
 
         /**
          * If the points already exists, vN is the difference between the old
          * north value and the new one.
          */
-        private double             vN;
+        private double vN;
 
         public Measure(String _number, double _abscissa, double _ordinate, double _vE, double _vN) {
             this.number = _number;

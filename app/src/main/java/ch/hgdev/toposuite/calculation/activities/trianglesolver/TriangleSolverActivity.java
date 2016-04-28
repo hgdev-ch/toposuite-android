@@ -5,10 +5,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.TriangleSolver;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -17,38 +19,38 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class TriangleSolverActivity extends TopoSuiteActivity {
-    private double         a;
-    private double         b;
-    private double         c;
-    private double         alpha;
-    private double         beta;
-    private double         gamma;
+    private double a;
+    private double b;
+    private double c;
+    private double alpha;
+    private double beta;
+    private double gamma;
 
-    private EditText       aEditText;
-    private EditText       bEditText;
-    private EditText       cEditText;
-    private EditText       alphaEditText;
-    private EditText       betaEditText;
-    private EditText       gammaEditText;
+    private EditText aEditText;
+    private EditText bEditText;
+    private EditText cEditText;
+    private EditText alphaEditText;
+    private EditText betaEditText;
+    private EditText gammaEditText;
 
-    private TextView       aBisTextView;
-    private TextView       bBisTextView;
-    private TextView       cBisTextView;
-    private TextView       alphaBisTextView;
-    private TextView       betaBisTextView;
-    private TextView       gammaBisTextView;
+    private TextView aBisTextView;
+    private TextView bBisTextView;
+    private TextView cBisTextView;
+    private TextView alphaBisTextView;
+    private TextView betaBisTextView;
+    private TextView gammaBisTextView;
 
-    private TextView       perimeterTextView;
-    private TextView       heightTextView;
-    private TextView       surfaceTextView;
-    private TextView       incircleRadiusTextView;
-    private TextView       excircleRadiusTextView;
+    private TextView perimeterTextView;
+    private TextView heightTextView;
+    private TextView surfaceTextView;
+    private TextView incircleRadiusTextView;
+    private TextView excircleRadiusTextView;
 
-    private TextView       perimeterBisTextView;
-    private TextView       heightBisTextView;
-    private TextView       surfaceBisTextView;
-    private TextView       incircleRadiusBisTextView;
-    private TextView       excircleRadiusBisTextView;
+    private TextView perimeterBisTextView;
+    private TextView heightBisTextView;
+    private TextView surfaceBisTextView;
+    private TextView incircleRadiusBisTextView;
+    private TextView excircleRadiusBisTextView;
 
     private TriangleSolver tS;
 
@@ -56,7 +58,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
      * Position of the calculation in the calculations list. Only used when open
      * from the history.
      */
-    private int            position;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,19 +105,19 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.clear_button:
-            this.clearInputs();
-            return true;
-        case R.id.run_calculation_button:
-            if (!this.chickenRun() || !this.areAllSidesAndAnglesPositives()) {
-                ViewUtils.showToast(this,
-                        this.getString(R.string.error_impossible_calculation));
-            } else {
-                this.updateResults();
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.clear_button:
+                this.clearInputs();
+                return true;
+            case R.id.run_calculation_button:
+                if (!this.chickenRun() || !this.areAllSidesAndAnglesPositives()) {
+                    ViewUtils.showToast(this,
+                            this.getString(R.string.error_impossible_calculation));
+                } else {
+                    this.updateResults();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -355,6 +357,10 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         } catch (IllegalArgumentException e) {
             this.clearResults();
             Logger.log(Logger.ErrLabel.INPUT_ERROR, "Some data input to the solver were not valid");
+            return false;
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
             return false;
         }
         return true;

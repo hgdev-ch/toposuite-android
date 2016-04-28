@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarSurvey;
 import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
@@ -80,11 +81,14 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
 
         this.registerForContextMenu(this.resultsListView);
 
-        this.polarSurvey.compute();
-
-        this.saveCounter = this.polarSurvey.getResults().size();
-
-        this.displayResults();
+        try {
+            this.polarSurvey.compute();
+            this.saveCounter = this.polarSurvey.getResults().size();
+            this.displayResults();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+        }
     }
 
     @Override

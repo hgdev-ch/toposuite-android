@@ -28,6 +28,7 @@ import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -606,13 +607,12 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
         try {
             this.lineCircleIntersection.compute();
+            this.intersectionOne = this.lineCircleIntersection.getFirstIntersection();
+            this.intersectionTwo = this.lineCircleIntersection.getSecondIntersection();
         } catch (CalculationException e) {
-            ViewUtils.showToast(this, e.getMessage());
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
         }
-
-        this.intersectionOne = this.lineCircleIntersection.getFirstIntersection();
-        this.intersectionTwo = this.lineCircleIntersection.getSecondIntersection();
-
     }
 
     /**

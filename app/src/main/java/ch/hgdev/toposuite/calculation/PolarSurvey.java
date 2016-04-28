@@ -68,10 +68,6 @@ public class PolarSurvey extends Calculation {
         this.station = _station;
         this.unknownOrientation = MathUtils.gradToRad(MathUtils.modulo400(_unknownOrientation));
         this.instrumentHeight = _instrumentHeight;
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     /**
@@ -79,9 +75,9 @@ public class PolarSurvey extends Calculation {
      * results.
      */
     @Override
-    public void compute() {
+    public void compute() throws CalculationException {
         if (this.determinations.size() == 0) {
-            return;
+            throw new CalculationException("no measures provided");
         }
 
         // clear any previously computed results
@@ -118,12 +114,15 @@ public class PolarSurvey extends Calculation {
             this.results.add(r);
         }
 
-        // update the calculation last modification date
-        this.updateLastModification();
+        this.postCompute();
+    }
+
+    @Override
+    protected void postCompute() {
         this.setDescription(this.getCalculationName()
                 + " - " + App.getContext().getString(R.string.station_label) + ": "
                 + this.getStation().toString());
-        this.notifyUpdate(this);
+        super.postCompute();
     }
 
     @Override

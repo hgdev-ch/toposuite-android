@@ -1,8 +1,8 @@
 package ch.hgdev.toposuite.calculation.activities.cheminortho;
 
-import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -12,33 +12,36 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal.Result;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CheminementOrthoResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
-    private TextView                  baseTextView;
-    private TextView                  scaleTextView;
-    private TextView                  fsTextView;
-    private TextView                  fLatTextView;
-    private TextView                  fLonTextView;
+    private TextView baseTextView;
+    private TextView scaleTextView;
+    private TextView fsTextView;
+    private TextView fLatTextView;
+    private TextView fLonTextView;
 
-    private ListView                  resultsListView;
+    private ListView resultsListView;
 
     private ArrayListOfResultsAdapter adapter;
 
-    private CheminementOrthogonal     cheminOrtho;
+    private CheminementOrthogonal cheminOrtho;
 
-    private int                       saveCounter;
-    private int                       mergeDialogCounter;
+    private int saveCounter;
+    private int mergeDialogCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,27 +63,31 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
             this.cheminOrtho = (CheminementOrthogonal) SharedResources.getCalculationsHistory()
                     .get(position);
             this.cheminOrtho.getResults().clear();
-            this.cheminOrtho.compute();
+            try {
+                this.cheminOrtho.compute();
+                StringBuilder builder = new StringBuilder();
+                builder.append(this.cheminOrtho.getOrthogonalBase().getOrigin());
+                builder.append("-");
+                builder.append(this.cheminOrtho.getOrthogonalBase().getExtremity());
 
-            StringBuilder builder = new StringBuilder();
-            builder.append(this.cheminOrtho.getOrthogonalBase().getOrigin());
-            builder.append("-");
-            builder.append(this.cheminOrtho.getOrthogonalBase().getExtremity());
+                this.baseTextView.setText(builder.toString());
+                this.scaleTextView.setText(DisplayUtils.formatDistance(
+                        this.cheminOrtho.getScale()));
+                this.fsTextView.setText(DisplayUtils.formatDifferences(
+                        MathUtils.mToCm(this.cheminOrtho.getFs())));
+                this.fLonTextView.setText(DisplayUtils.formatDifferences(
+                        MathUtils.mToCm(this.cheminOrtho.getfE())));
+                this.fLatTextView.setText(DisplayUtils.formatDifferences(
+                        MathUtils.mToCm(this.cheminOrtho.getfN())));
 
-            this.baseTextView.setText(builder.toString());
-            this.scaleTextView.setText(DisplayUtils.formatDistance(
-                    this.cheminOrtho.getScale()));
-            this.fsTextView.setText(DisplayUtils.formatDifferences(
-                    MathUtils.mToCm(this.cheminOrtho.getFs())));
-            this.fLonTextView.setText(DisplayUtils.formatDifferences(
-                    MathUtils.mToCm(this.cheminOrtho.getfE())));
-            this.fLatTextView.setText(DisplayUtils.formatDifferences(
-                    MathUtils.mToCm(this.cheminOrtho.getfN())));
+                this.registerForContextMenu(this.resultsListView);
+                this.drawList();
 
-            this.registerForContextMenu(this.resultsListView);
-            this.drawList();
-
-            this.saveCounter = this.cheminOrtho.getResults().size() - 1;
+                this.saveCounter = this.cheminOrtho.getResults().size() - 1;
+            } catch (CalculationException e) {
+                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+            }
         }
     }
 
@@ -99,11 +106,11 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.save_points:
-            this.saveAllPoints();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.save_points:
+                this.saveAllPoints();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -119,19 +126,19 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.save_point:
-            if (this.savePoint(info.position)) {
-                ViewUtils.showToast(this,
-                        this.getText(R.string.point_add_success));
-            }
-            this.adapter.notifyDataSetChanged();
-            return true;
-        case R.id.delete_point:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.save_point:
+                if (this.savePoint(info.position)) {
+                    ViewUtils.showToast(this,
+                            this.getText(R.string.point_add_success));
+                }
+                this.adapter.notifyDataSetChanged();
+                return true;
+            case R.id.delete_point:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -166,9 +173,8 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
 
     /**
      * Save a point to the database of points.
-     * 
-     * @param position
-     *            Position of the point in the list of points.
+     *
+     * @param position Position of the point in the list of points.
      * @return True if it was a success, false otherwise.
      */
     private boolean savePoint(int position) {

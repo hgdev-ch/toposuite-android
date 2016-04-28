@@ -1,9 +1,9 @@
 package ch.hgdev.toposuite.calculation;
 
-import java.util.Date;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Date;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -13,31 +13,31 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LimitDisplacement extends Calculation {
-    private final static String POINT_A        = "point_a";
-    private final static String POINT_B        = "point_b";
-    private final static String POINT_C        = "point_c";
-    private final static String POINT_D        = "point_d";
-    private final static String SURFACE        = "surface";
+    private final static String POINT_A = "point_a";
+    private final static String POINT_B = "point_b";
+    private final static String POINT_C = "point_c";
+    private final static String POINT_D = "point_d";
+    private final static String SURFACE = "surface";
     private final static String POINT_X_NUMBER = "point_x_number";
     private final static String POINT_Y_NUMBER = "point_y_number";
 
-    private Point               pointA;
-    private Point               pointB;
-    private Point               pointC;
-    private Point               pointD;
-    private double              surface;
-    private String              pointXNumber;
-    private String              pointYNumber;
+    private Point pointA;
+    private Point pointB;
+    private Point pointC;
+    private Point pointD;
+    private double surface;
+    private String pointXNumber;
+    private String pointYNumber;
 
-    private Point               newPointX;
-    private Point               newPointY;
-    private double              distanceToSouthLimitAD;
-    private double              distanceToWestLimitAX;
-    private double              distanceToEastLimitDY;
+    private Point newPointX;
+    private Point newPointY;
+    private double distanceToSouthLimitAD;
+    private double distanceToWestLimitAX;
+    private double distanceToEastLimitDY;
 
     public LimitDisplacement(Point _pointA, Point _pointB, Point _pointC,
-            Point _pointD, double _surface, String _pointXNumber,
-            String _pointYNumber, boolean hasDAO) {
+                             Point _pointD, double _surface, String _pointXNumber,
+                             String _pointYNumber, boolean hasDAO) {
         super(
                 CalculationType.LIMITDISPL,
                 App.getContext().getString(
@@ -51,10 +51,6 @@ public class LimitDisplacement extends Calculation {
         this.surface = _surface;
         this.pointXNumber = _pointXNumber;
         this.pointYNumber = _pointYNumber;
-
-        if (hasDAO) {
-            SharedResources.getCalculationsHistory().add(0, this);
-        }
     }
 
     public LimitDisplacement(long id, Date lastModification) {
@@ -103,8 +99,7 @@ public class LimitDisplacement extends Calculation {
         this.distanceToEastLimitDY = MathUtils.euclideanDistance(
                 this.pointD, this.newPointY);
 
-        this.updateLastModification();
-        this.notifyUpdate(this);
+        this.postCompute();
     }
 
     @Override

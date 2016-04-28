@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -12,16 +13,17 @@ import ch.hgdev.toposuite.calculation.LimitDisplacement;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LimitDisplacementResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
-    private TextView          limitDisplacementLabelTextView;
-    private TextView          pointWestTextView;
-    private TextView          pointEastTextView;
-    private TextView          distParaSouthTextView;
-    private TextView          distLonWestTextView;
-    private TextView          distLonEastTextView;
+    private TextView limitDisplacementLabelTextView;
+    private TextView pointWestTextView;
+    private TextView pointEastTextView;
+    private TextView distParaSouthTextView;
+    private TextView distLonWestTextView;
+    private TextView distLonEastTextView;
 
     private LimitDisplacement limDispl;
 
@@ -50,7 +52,8 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
             try {
                 this.limDispl.compute();
             } catch (CalculationException e) {
-                ViewUtils.showToast(this, e.getMessage());
+                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
                 return;
             }
 
@@ -82,12 +85,12 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.save_points:
-            this.savePoint(this.limDispl.getNewPointX());
-            this.savePoint(this.limDispl.getNewPointY());
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.save_points:
+                this.savePoint(this.limDispl.getNewPointX());
+                this.savePoint(this.limDispl.getNewPointY());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
