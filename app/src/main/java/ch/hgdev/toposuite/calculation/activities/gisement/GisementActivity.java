@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.gisement;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +7,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -22,28 +23,28 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
  * Activity providing an interface for calculating the Gisement / Distance.
- * 
+ *
  * @author HGdev
  */
 public class GisementActivity extends TopoSuiteActivity {
-    private static final String ORIGIN_SELECTED_POSITION      = "origin_selected_position";
+    private static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
     private static final String ORIENTATION_SELECTED_POSITION = "orientation_selected_position";
 
-    private Spinner             originSpinner;
-    private Spinner             orientationSpinner;
+    private Spinner originSpinner;
+    private Spinner orientationSpinner;
 
-    private TextView            originPoint;
-    private TextView            orientationPoint;
+    private TextView originPoint;
+    private TextView orientationPoint;
 
-    private TextView            gisementValue;
-    private TextView            distValue;
-    private TextView            altitudeValue;
-    private TextView            slopeValue;
+    private TextView gisementValue;
+    private TextView distValue;
+    private TextView altitudeValue;
+    private TextView slopeValue;
 
-    private Gisement            gisement;
+    private Gisement gisement;
 
-    private int                 originSelectedPosition;
-    private int                 orientationSelectedPosition;
+    private int originSelectedPosition;
+    private int orientationSelectedPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

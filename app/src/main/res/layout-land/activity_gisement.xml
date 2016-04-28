@@ -24,7 +24,7 @@
 	            <TextView
 	                android:id="@+id/origin_label"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.40"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -33,7 +33,7 @@
 	            <Spinner
 	                android:id="@+id/origin_spinner"
 	                android:layout_width="145dp"
-	                android:layout_height="match_parent" />
+	                android:layout_height="wrap_content" />
 	        </LinearLayout>
 
 	        <LinearLayout
@@ -44,7 +44,7 @@
 	            <TextView
 	                android:id="@+id/origin_point"
 	                android:layout_width="0dip"
-	                android:layout_height="30dp"
+	                android:layout_height="wrap_content"
 	                android:layout_gravity="center"
 	                android:layout_weight="0.86"
 	                android:gravity="center"
@@ -61,7 +61,7 @@
 	            <TextView
 	                android:id="@+id/orientation_label"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.94"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -70,7 +70,7 @@
 	            <Spinner
 	                android:id="@+id/orientation_spinner"
 	                android:layout_width="145dp"
-	                android:layout_height="50dp" />
+	                android:layout_height="wrap_content" />
 	        </LinearLayout>
 
 	        <LinearLayout
@@ -81,7 +81,7 @@
 	            <TextView
 	                android:id="@+id/orientation_point"
 	                android:layout_width="0dip"
-	                android:layout_height="31dp"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="center"
 	                android:text="" />
@@ -102,7 +102,7 @@
 	            <TextView
 	                android:id="@+id/gisement_label"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -111,7 +111,7 @@
 	            <TextView
 	                android:id="@+id/gisement_value"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -126,7 +126,7 @@
 	            <TextView
 	                android:id="@+id/distance_label"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -135,7 +135,7 @@
 	            <TextView
 	                android:id="@+id/distance_value"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -150,7 +150,7 @@
 	            <TextView
 	                android:id="@+id/altitude_label"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -159,7 +159,7 @@
 	            <TextView
 	                android:id="@+id/altitude_value"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -174,7 +174,7 @@
 	            <TextView
 	                android:id="@+id/slope_label"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -183,7 +183,7 @@
 	            <TextView
 	                android:id="@+id/slope_value"
 	                android:layout_width="0dip"
-	                android:layout_height="match_parent"
+	                android:layout_height="wrap_content"
 	                android:layout_weight="0.86"
 	                android:gravity="left|center_vertical"
 	                android:paddingLeft="@dimen/activity_horizontal_margin"
