@@ -85,7 +85,7 @@
 	<string name="disclaimer_text">Dieses Programm ist eine freie Software; Sie können ihn verteilen und / oder ihn unter den Bedingungen für die Lizenz GNU General Public License Version 2 ändern, so wie, von Free Software Foundation veröffentlicht. 
         
 Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, jedoch OHNE JEDWEDER GEWÄHRLEISTUNG; sogar ohne der implizierten Gewährleistung der MARKTFÄHIGKEIT oder der FÄHIGKEIT ZU EINEM BESONDEREN ZWECK bzw. VORSATZ. Weitere Details finden Sie in der GNU General Public License.</string>
-	<string name="displace_after">nach dem Punkt verschieben:</string>
+	<string name="displace_after">Nach dem Punkt verschieben:</string>
 	<string name="displacement_label">Bewegung</string>
 	<string name="dist_pt_1">Dist. Pkt. A</string>
 	<string name="distance_label">Distanz [m]</string>
@@ -215,8 +215,8 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="measure_header_hdist">Hz. Dist. [m]</string>
 	<string name="measure_header_s">S [m]</string>
 	<string name="measure_header_zenithal">Vz [g]</string>
-	<string name="measure_header_lat_depl">Längsverstellung [m]</string>
-	<string name="measure_header_lon_depl">seitliche Verlagerung [m]</string>
+	<string name="measure_header_lat_depl">Seitliche Verlagerung [m]</string>
+	<string name="measure_header_lon_depl">Längsverstellung [m]</string>
 	<string name="measured_distance_hint">Gemessene Distanz</string>
 	<string name="merge_points_label">Punkte zusammenfügen</string>
 	<string name="merge_type_label">Wenn durchschnittliche/ersetzen</string>

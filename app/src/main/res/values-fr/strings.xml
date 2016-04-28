@@ -82,12 +82,10 @@
 	<string name="differences_label">Ecarts [cm]</string>
 	<string name="disclaimer">Avis de non responsabilité</string>
 	<string name="disclaimer_notice">Ce programme de calcul est avant tout destiné aux apprentis géomaticiens/nes dans un but pédagogique. La CRAG décline toute responsabilité en cas d\'utilisation autre.</string>
-	<string name="disclaimer_text">        Ce programme est un logiciel libre; vous pouvez le redistribuer et/ou
-        le modifier sous les conditions de la licence GNU General Public License version 2
+	<string name="disclaimer_text">        Ce programme est un logiciel libre; vous pouvez le redistribuer et/ou le modifier sous les conditions de la licence GNU General Public License version 2
         telle que publiée par la Free Software Foundation.
         
-        Ce programme est distribué dans l\'espoir qu\'il sera utile,
-        mais SANS AUCUNE GARANTIE; sans même la garantie implicite de
+        Ce programme est distribué dans l\'espoir qu\'il sera utile, mais SANS AUCUNE GARANTIE; sans même la garantie implicite de
         COMMERCIALISATION ou D\'ADAPTATION À UN USAGE PARTICULIER. Lisez la licence
         GNU General Public License version 2 (dans le menu à propos dans les préférences) pour plus de détails.</string>
 	<string name="displace_after">Déplacer après le point:</string>
@@ -310,8 +308,8 @@
 	<string name="sector_surface_label">Surface secteur [m²]</string>
 	<string name="segment_surface_label">Surface segment [m²]</string>
 	<string name="select_files_3dots">Sélectionner un fichier…</string>
-	<string name="sides_label">Partager</string>
-	<string name="share">Côtés</string>
+	<string name="sides_label">Côtés</string>
+	<string name="share">Partager</string>
 	<string name="slope_label">Pente [%]</string>
 	<string name="sn_label">sN [cm]:</string>
 	<string name="solution_one">Première solution</string>
