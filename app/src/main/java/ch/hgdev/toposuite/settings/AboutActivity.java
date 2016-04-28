@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -56,7 +57,7 @@ public class AboutActivity extends TopoSuiteActivity {
     /**
      * Generate about webview with application information such as version
      * number.
-     * 
+     *
      * @return about webview
      */
     private WebView genAboutView() {
@@ -73,6 +74,7 @@ public class AboutActivity extends TopoSuiteActivity {
                 .append("</h1><p>")
                 .append(String.format(App.getContext().getString(R.string.app_version),
                         AppUtils.getVersionName()))
+                .append(" (rev ").append(AppUtils.getVersionCode()).append(")")
                 .append("</p><p>")
                 .append(String.format(App.getContext().getString(R.string.app_copyright),
                         AppUtils.getYear(),
@@ -86,7 +88,7 @@ public class AboutActivity extends TopoSuiteActivity {
 
     /**
      * Load the licenses webview from file.
-     * 
+     *
      * @return About webview
      */
     private WebView genLicencesView() {
