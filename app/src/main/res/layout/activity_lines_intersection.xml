@@ -25,14 +25,14 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/intersection_point_label"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/intersection_point"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:freezesText="true"
                 android:paddingLeft="8dp" />
         </LinearLayout>
@@ -44,7 +44,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -53,7 +53,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -91,7 +91,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/point_1"
@@ -100,7 +100,7 @@
             <Spinner
                 android:id="@+id/point_1_d1_spinner"
                 android:layout_width="145dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20" />
 
             <Space
@@ -132,7 +132,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/point_2"
@@ -141,7 +141,7 @@
             <Spinner
                 android:id="@+id/point_2_d1_spinner"
                 android:layout_width="145dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20" />
 
             <Space
@@ -159,7 +159,7 @@
             <TextView
                 android:id="@+id/point_2_d1"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.86"
                 android:gravity="center"
@@ -175,7 +175,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/gisement_label"
@@ -184,7 +184,7 @@
             <EditText
                 android:id="@+id/gisement_d1"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.50"
                 android:gravity="left|center_vertical"
                 android:inputType=""
@@ -212,7 +212,7 @@
             <TextView
                 android:id="@+id/dist_p1_d1_label"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:gravity="left|center_vertical"
                 android:text="@string/dist_pt_1"
@@ -221,7 +221,7 @@
             <EditText
                 android:id="@+id/dist_p1_d1"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.86"
                 android:enabled="false"
@@ -236,7 +236,7 @@
             <TextView
                 android:id="@+id/displacement_d1_label"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/displacement_label"
@@ -245,7 +245,7 @@
             <EditText
                 android:id="@+id/displacement_d1"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.40"
                 android:gravity="left|center_vertical"
                 android:inputType=""
@@ -264,7 +264,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -273,7 +273,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -311,7 +311,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/point_1"
@@ -320,7 +320,7 @@
             <Spinner
                 android:id="@+id/point_1_d2_spinner"
                 android:layout_width="145dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20" />
 
             <Space
@@ -337,7 +337,7 @@
             <TextView
                 android:id="@+id/point_1_d2"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.86"
                 android:gravity="center"
@@ -352,7 +352,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/point_2"
@@ -361,7 +361,7 @@
             <Spinner
                 android:id="@+id/point_2_d2_spinner"
                 android:layout_width="145dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20" />
 
             <Space
@@ -379,7 +379,7 @@
             <TextView
                 android:id="@+id/point_2_d2"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.86"
                 android:gravity="center"
@@ -395,7 +395,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.12"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -405,7 +405,7 @@
             <EditText
                 android:id="@+id/gisement_d2"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.50"
                 android:gravity="left|center_vertical"
                 android:inputType=""
@@ -433,7 +433,7 @@
             <TextView
                 android:id="@+id/dist_p1_d2_label"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:gravity="left|center_vertical"
                 android:text="@string/dist_pt_1"
@@ -442,7 +442,7 @@
             <EditText
                 android:id="@+id/dist_p1_d2"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.86"
                 android:enabled="false"
@@ -457,7 +457,7 @@
             <TextView
                 android:id="@+id/displacement_d2_label"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/displacement_label"
@@ -466,7 +466,7 @@
             <EditText
                 android:id="@+id/displacement_d2"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.40"
                 android:gravity="left|center_vertical"
                 android:inputType=""
@@ -485,7 +485,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:text="@string/point_number"
@@ -494,7 +494,7 @@
             <EditText
                 android:id="@+id/point_number"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.40"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
