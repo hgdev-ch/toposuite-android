@@ -371,8 +371,8 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="vertex_angle">Scheitelpunktwinkel (β) [g]</string>
 	<string name="vertex_number">Scheitelpunktnummer</string>
 	<string name="vn_label">vN [cm]</string>
-	<string name="warning_import_file">Achtung: Diese Aktion wird auf allen vorhandenen Punkten und Berechnungen auswirken.</string>
-	<string name="warning_import_file_without_warning_label">Diese Aktion wird auf allen vorhandenen Punkten und Berechnungen auswirken.</string>
+	<string name="warning_import_file">Achtung: Diese Aktion wird auf allen vorhandenen Punkten und Berechnungen löschen.</string>
+	<string name="warning_import_file_without_warning_label">Diese Aktion wird auf allen vorhandenen Punkten und Berechnungen löschen.</string>
 	<string name="warning_import_job">Achtung: Diese Aktion wird den aktuellen Job löschen</string>
 	<string name="warning_import_job_without_warning_label">Diese Aktion wird den aktuellen Job löschen</string>
 	<string name="with_support_from">Mit der Unterstützung von</string>
