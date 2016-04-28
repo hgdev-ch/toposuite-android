@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/delete_history_button"
-        android:icon="@drawable/ic_action_discard"
+        android:icon="@drawable/ic_action_delete"
         android:title="@string/delete_3dots"
         app:showAsAction="ifRoom|withText" />
 </menu>

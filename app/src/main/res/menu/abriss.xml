@@ -7,7 +7,7 @@
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/run_calculation_button"
-        android:icon="@drawable/ic_action_play"
+        android:icon="@drawable/ic_action_run"
         android:title="@string/calculate_3dots"
         app:showAsAction="ifRoom|withText" />
 </menu>
