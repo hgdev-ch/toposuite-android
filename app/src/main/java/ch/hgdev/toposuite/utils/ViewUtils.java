@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import java.text.ParseException;
 import java.util.regex.Pattern;
 
 import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**
@@ -179,5 +181,17 @@ public class ViewUtils {
     public static void unlockScreenOrientation(Activity currentActivity) {
         currentActivity.setRequestedOrientation(
                 ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
+    /**
+     * Return accent color based on current theme.
+     *
+     * @param context Context of the caller.
+     * @return Theme accent color.
+     */
+    public static int geAccentColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
+        return value.data;
     }
 }
