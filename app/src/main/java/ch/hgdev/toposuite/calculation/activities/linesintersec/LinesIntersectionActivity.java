@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.linesintersec;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -287,10 +288,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
         // setup blink animation
         this.blinkAnimation = new AnimationDrawable();
-        this.blinkAnimation.addFrame(this.getResources()
-                .getDrawable(android.R.color.holo_blue_light), 900);
-        this.blinkAnimation.addFrame(this.getResources()
-                .getDrawable(android.R.color.transparent), 900);
+        this.blinkAnimation.addFrame(new ColorDrawable(ViewUtils.geAccentColor(this)), 900);
+        this.blinkAnimation.addFrame(this.getResources().getDrawable(android.R.color.transparent), 900);
         this.blinkAnimation.setOneShot(true);
 
         int sdk = android.os.Build.VERSION.SDK_INT;
@@ -306,11 +305,11 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
     protected void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.adapter = new ArrayAdapter<Point>(
+        this.adapter = new ArrayAdapter<>(
                 this, R.layout.spinner_list_item, points);
         this.point1D1Spinner.setAdapter(this.adapter);
         this.point2D1Spinner.setAdapter(this.adapter);
@@ -706,7 +705,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         return true;
     }
 
-    private final void runCalculation() {
+    private void runCalculation() {
         if (!this.isComputable()) {
             ViewUtils.showToast(this, this.getString(R.string.error_impossible_calculation));
             return;
