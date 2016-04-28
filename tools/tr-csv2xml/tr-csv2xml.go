@@ -12,6 +12,7 @@
 //   * Column 2 contains the english translation
 //   * Column 3 contains the french translation
 //   * Column 4 contains the german translation
+//   * Column 5 contains the italian translation
 package main
 
 import (
@@ -32,6 +33,7 @@ const filename = "strings.xml"
 const (
 	LANG_FR = "fr" // French
 	LANG_DE = "de" // German
+	LANG_IT = "it" // Italian
 )
 
 const perm = 0755 // output directory permissions
@@ -107,6 +109,7 @@ func main() {
 		dirEn = *outputDir
 		dirFr = *outputDir + "-" + LANG_FR
 		dirDe = *outputDir + "-" + LANG_DE
+		dirIt = *outputDir + "-" + LANG_IT
 	)
 
 	// create output directories
@@ -117,6 +120,9 @@ func main() {
 		fatal(err)
 	}
 	if err := os.MkdirAll(dirDe, perm); err != nil {
+		fatal(err)
+	}
+	if err := os.MkdirAll(dirIt, perm); err != nil {
 		fatal(err)
 	}
 
@@ -146,14 +152,16 @@ func main() {
 	en := make([]attr, numEntries, numEntries)
 	fr := make([]attr, numEntries, numEntries)
 	de := make([]attr, numEntries, numEntries)
+	it := make([]attr, numEntries, numEntries)
 
 	for idx, entry := range records[1:] {
-		if len(entry) != 4 {
+		if len(entry) != 5 {
 			fatalf("malformed CSV entry at line %d", idx+2)
 		}
 		en[idx] = attr{Name: entry[0], Value: escapeApostrophe(entry[1])}
 		fr[idx] = attr{Name: entry[0], Value: escapeApostrophe(entry[2])}
 		de[idx] = attr{Name: entry[0], Value: escapeApostrophe(entry[3])}
+		it[idx] = attr{Name: entry[0], Value: escapeApostrophe(entry[4])}
 	}
 
 	// render template for each language
@@ -188,6 +196,17 @@ func main() {
 	defer outputDe.Close()
 
 	if err := render(dirDe, outputDe, de); err != nil {
+		fatal(err)
+	}
+
+	// render italian translations
+	outputIt, err := os.Create(filepath.Join(dirIt, filename))
+	if err != nil {
+		fatal(err)
+	}
+	defer outputIt.Close()
+
+	if err := render(dirIt, outputIt, it); err != nil {
 		fatal(err)
 	}
 
