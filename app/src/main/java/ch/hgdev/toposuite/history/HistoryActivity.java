@@ -122,7 +122,7 @@ public class HistoryActivity extends TopoSuiteActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.delete_all_history)
                 .setMessage(R.string.loose_history)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.delete_all,
                         new DialogInterface.OnClickListener() {
 

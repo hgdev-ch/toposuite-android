@@ -324,7 +324,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.delete_all_points)
                 .setMessage(R.string.loose_calculations)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.delete_all,
                         new DialogInterface.OnClickListener() {
 
@@ -406,7 +406,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     public void onImportDialogError(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.error_import_label)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_dialog_error)
                 .setMessage(message)
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {

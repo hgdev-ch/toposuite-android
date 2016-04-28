@@ -217,7 +217,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.save_points)
                 .setMessage(R.string.save_all_points)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.save_all,
                         new DialogInterface.OnClickListener() {
                             @Override

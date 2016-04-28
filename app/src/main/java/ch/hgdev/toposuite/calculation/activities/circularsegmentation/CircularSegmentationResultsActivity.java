@@ -1,10 +1,8 @@
 package ch.hgdev.toposuite.calculation.activities.circularsegmentation;
 
-import java.util.ArrayList;
-
-import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -14,6 +12,9 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -206,7 +207,7 @@ MergePointsDialog.MergePointsDialogListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.save_points)
         .setMessage(R.string.save_all_points)
-        .setIcon(android.R.drawable.ic_dialog_alert)
+        .setIcon(R.drawable.ic_dialog_warning)
         .setPositiveButton(R.string.save_all,
                 new DialogInterface.OnClickListener() {
             @Override

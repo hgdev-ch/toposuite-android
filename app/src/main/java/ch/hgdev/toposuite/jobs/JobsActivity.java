@@ -206,7 +206,7 @@ public class JobsActivity extends TopoSuiteActivity implements
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.job_import)
                 .setMessage(R.string.warning_import_job_without_warning_label)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.import_label,
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -305,7 +305,7 @@ public class JobsActivity extends TopoSuiteActivity implements
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.delete_job)
                 .setMessage(R.string.loose_job)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.delete,
                         new DialogInterface.OnClickListener() {
 
