@@ -325,8 +325,8 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="surface_label">Superficie [m²]</string>
 	<string name="tangent_label">Tangente [m]</string>
 	<string name="target_point">Punto mirato</string>
-	<string name="title_activity_abriss">Abriss</string>
-	<string name="title_activity_abriss_results">Abriss - risultati</string>
+	<string name="title_activity_abriss">Orient. alla stazione</string>
+	<string name="title_activity_abriss_results">Orient. alla stazione - risultati</string>
 	<string name="title_activity_axis_implantation">Tracciamento di un asse</string>
 	<string name="title_activity_axis_implantation_results">Tracciamento di un asse - risultati</string>
 	<string name="title_activity_cheminement_ortho">Camminamento ortogonale</string>
@@ -341,7 +341,7 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="title_activity_gisement">Azimut / distanza</string>
 	<string name="title_activity_help">Help</string>
 	<string name="title_activity_history">Storico</string>
-	<string name="title_activity_jobs">Lavori</string>
+	<string name="title_activity_jobs">Jobs</string>
 	<string name="title_activity_leve_ortho">Rilievo ortogonale</string>
 	<string name="title_activity_leve_ortho_results">Rilievo ortogonale - risultato</string>
 	<string name="title_activity_limit_displacement">Spostamento punto di confine</string>
