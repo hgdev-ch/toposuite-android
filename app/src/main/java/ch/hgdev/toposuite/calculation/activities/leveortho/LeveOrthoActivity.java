@@ -387,6 +387,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
+        this.leveOrtho.recordToHistory();
         int leveOrthoPos = SharedResources.getCalculationsHistory().indexOf(this.leveOrtho);
 
         Bundle bundle = new Bundle();

@@ -129,7 +129,8 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
     }
 
     /**
-     * Record calculation to the history.
+     * Record calculation to the history. The calculation is only added if not already
+     * in the history.
      */
     public void recordToHistory() {
         if (this.hasDAO) {
