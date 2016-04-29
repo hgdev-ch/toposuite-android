@@ -131,14 +131,20 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
     /**
      * Record calculation to the history. The calculation is only added if not already
      * in the history.
+     *
+     * @return Position of the calculation in the history.
      */
-    public void recordToHistory() {
+    public int recordToHistory() {
+        DAOMapperArrayList<Calculation> calculationsHistory = SharedResources.getCalculationsHistory();
+        int position = calculationsHistory.indexOf(this);
+
         if (this.hasDAO) {
-            DAOMapperArrayList<Calculation> calculationsHistory = SharedResources.getCalculationsHistory();
-            if (calculationsHistory.find(this) == null) {
-                calculationsHistory.add(0, this);
+            if (position < 0) {
+                position = 0;
+                calculationsHistory.add(position, this);
             }
         }
+        return position;
     }
 
     /**
