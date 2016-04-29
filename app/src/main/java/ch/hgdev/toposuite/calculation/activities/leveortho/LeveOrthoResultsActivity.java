@@ -49,8 +49,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
             int position = bundle.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
-            this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(
-                    position);
+            this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(position);
             this.leveOrtho.getResults().clear();
             try {
                 this.leveOrtho.compute();
