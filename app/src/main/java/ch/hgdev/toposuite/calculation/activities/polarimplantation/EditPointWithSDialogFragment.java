@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.calculation.activities.polarimplantation;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
@@ -59,7 +60,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
     private EditText sEditText;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(@NonNull Bundle savedInstanceState) {
         this.initAttributes();
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
@@ -160,14 +161,14 @@ public class EditPointWithSDialogFragment extends DialogFragment {
             }
         });
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+        ArrayAdapter<Point> a = new ArrayAdapter<>(
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
 
-        int pointNumber = bundle.getInt(PolarImplantationActivity.POINTS_WITH_S_NUMBER_LABEL);
+        String pointNumber = bundle.getString(PolarImplantationActivity.POINTS_WITH_S_NUMBER_LABEL);
         this.pointSpinner.setSelection(a.getPosition(
                 SharedResources.getSetOfPoints().find(pointNumber)));
     }
@@ -190,10 +191,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
      * otherwise.
      */
     protected boolean checkDialogInputs() {
-        if (this.pointSpinner.getSelectedItemPosition() < 1) {
-            return false;
-        }
-        return true;
+        return this.pointSpinner.getSelectedItemPosition() > 0;
     }
 
     public Point getPoint() {
