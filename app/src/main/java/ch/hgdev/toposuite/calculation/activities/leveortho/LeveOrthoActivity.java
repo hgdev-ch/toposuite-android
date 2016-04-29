@@ -268,9 +268,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                     return true;
                 }
 
-                this.leveOrtho.recordToHistory();
-                int position = SharedResources.getCalculationsHistory().indexOf(this.leveOrtho);
-
+                int position = this.leveOrtho.recordToHistory();
                 Bundle bundle = new Bundle();
                 bundle.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, position);
 
@@ -380,8 +378,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
-        this.leveOrtho.recordToHistory();
-        int leveOrthoPos = SharedResources.getCalculationsHistory().indexOf(this.leveOrtho);
+        int leveOrthoPos = this.leveOrtho.recordToHistory();
 
         Bundle bundle = new Bundle();
         bundle.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, leveOrthoPos);
