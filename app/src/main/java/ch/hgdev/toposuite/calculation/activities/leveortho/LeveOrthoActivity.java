@@ -226,14 +226,8 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         outState.putDouble(LeveOrthoActivity.MEASURED_DISTANCE,
                 this.measuredDist);
 
-        if (this.leveOrtho != null) {
-            int index = SharedResources.getCalculationsHistory().indexOf(this.leveOrtho);
-            outState.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION,
-                    index);
-        } else {
-            outState.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION,
-                    -1);
-        }
+        int index = SharedResources.getCalculationsHistory().indexOf(this.leveOrtho);
+        outState.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, index);
     }
 
     @Override
@@ -242,12 +236,11 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
         if (savedInstanceState != null) {
             int index = savedInstanceState.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
-            if (index != -1) {
+            if (index >= 0) {
                 if (this.adapter != null) {
                     this.adapter.clear();
                 }
-                this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory()
-                        .get(index);
+                this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(index);
                 this.drawList();
             } else {
                 this.originSelectedPosition = savedInstanceState
