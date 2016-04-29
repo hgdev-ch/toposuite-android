@@ -33,7 +33,6 @@ import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.activities.axisimpl.MeasureDialogFragment.MeasureDialogListener;
-import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -215,7 +214,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
             this.unknownOrientationEditText.setText(DisplayUtils.toStringForEditText(
                     this.axisImpl.getUnknownOrientation()));
         } else {
-            this.axisImpl = new AxisImplantation(null, MathUtils.IGNORE_DOUBLE, null, null, true);
+            this.axisImpl = new AxisImplantation(true);
         }
 
         this.drawList();
@@ -286,17 +285,17 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            int index = savedInstanceState.getInt(
-                    OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
-            this.adapter.clear();
-
-            this.axisImpl = (AxisImplantation) SharedResources
-                    .getCalculationsHistory().get(index);
-            ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(AxisImplantationActivity.MEASURES_LIST);
-            if ((measures != null) && (!measures.isEmpty())) {
-                this.axisImpl.getMeasures().addAll(measures);
+            int index = savedInstanceState.getInt(AxisImplantationActivity.AXIS_IMPL_POSITION);
+            if (index >= 0) {
+                this.adapter.clear();
+                this.axisImpl = (AxisImplantation) SharedResources
+                        .getCalculationsHistory().get(index);
+                ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(AxisImplantationActivity.MEASURES_LIST);
+                if ((measures != null) && (!measures.isEmpty())) {
+                    this.axisImpl.getMeasures().addAll(measures);
+                }
+                this.drawList();
             }
-            this.drawList();
 
             this.stationSelectedPosition = savedInstanceState
                     .getInt(AxisImplantationActivity.STATION_SELECTED_POSITION);
@@ -490,10 +489,10 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
         // At this point we are sure that the axis implantation calculation
         // has been instantiated.
+        int position = this.axisImpl.recordToHistory();
         bundle.putInt(
                 AxisImplantationActivity.AXIS_IMPL_POSITION,
-                SharedResources.getCalculationsHistory().indexOf(
-                        this.axisImpl));
+                position);
 
         Intent resultsActivityIntent = new Intent(
                 this, AxisImplantationResultsActivity.class);

@@ -1,7 +1,5 @@
 package ch.hgdev.toposuite.calculation;
 
-import android.support.annotation.NonNull;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,8 +51,8 @@ public class AxisImplantation extends Calculation {
         this(null, MathUtils.IGNORE_DOUBLE, null, null, hasDAO);
     }
 
-    public AxisImplantation(@NonNull Point station, double unknownOrientation,
-                            @NonNull Point origin, @NonNull Point extremity, boolean hasDAO) {
+    public AxisImplantation(Point station, double unknownOrientation,
+                            Point origin, Point extremity, boolean hasDAO) {
         super(CalculationType.AXISIMPLANTATION,
                 App.getContext().getString(R.string.title_activity_axis_implantation),
                 hasDAO);
