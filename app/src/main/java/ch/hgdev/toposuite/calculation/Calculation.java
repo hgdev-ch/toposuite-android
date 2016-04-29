@@ -124,9 +124,15 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
      */
     protected void postCompute() {
         this.updateLastModification();
+        this.notifyUpdate(this);
+        this.recordToHistory();
+    }
 
+    /**
+     * Record calculation to the history.
+     */
+    public void recordToHistory() {
         if (this.hasDAO) {
-            this.notifyUpdate(this);
             DAOMapperArrayList<Calculation> calculationsHistory = SharedResources.getCalculationsHistory();
             if (calculationsHistory.find(this) == null) {
                 calculationsHistory.add(0, this);
