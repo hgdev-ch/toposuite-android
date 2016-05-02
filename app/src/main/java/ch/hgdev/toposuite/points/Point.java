@@ -5,6 +5,7 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ch.hgdev.toposuite.App;
@@ -21,22 +22,21 @@ import ch.hgdev.toposuite.utils.MathUtils;
 /**
  * A point is defined by a number, its distance to the east and the north and
  * its altitude.
- * 
+ *
  * @author HGdev
- * 
  */
-public class Point implements DAOUpdater, DataExporter, DataImporter {
-    public static final String   NUMBER     = "number";
-    public static final String   EAST       = "east";
-    public static final String   NORTH      = "north";
-    public static final String   ALTITUDE   = "altitude";
-    public static final String   BASE_POINT = "base_point";
+public class Point implements DAOUpdater, DataExporter, DataImporter, Serializable {
+    public static final String NUMBER = "number";
+    public static final String EAST = "east";
+    public static final String NORTH = "north";
+    public static final String ALTITUDE = "altitude";
+    public static final String BASE_POINT = "base_point";
 
-    private String               number;
-    private double               east;
-    private double               north;
-    private double               altitude;
-    private final boolean        basePoint;
+    private String number;
+    private double east;
+    private double north;
+    private double altitude;
+    private final boolean basePoint;
 
     /**
      * List of DAO linked.
@@ -46,21 +46,15 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     /**
      * A point is characterized by its number, distance to the east and north
      * and its altitude.
-     * 
-     * @param number
-     *            Point number.
-     * @param east
-     *            Point distance to the east.
-     * @param north
-     *            Point distance to the north.
-     * @param altitude
-     *            Point altitude.
-     * @param basePoint
-     *            Determine if this point is a base point. A base point is a
-     *            point that has been added as is and NOT computed.
+     *
+     * @param number    Point number.
+     * @param east      Point distance to the east.
+     * @param north     Point distance to the north.
+     * @param altitude  Point altitude.
+     * @param basePoint Determine if this point is a base point. A base point is a
+     *                  point that has been added as is and NOT computed.
      */
-    public Point(String number, double east, double north, double altitude, boolean basePoint,
-            boolean hasDAO) {
+    public Point(String number, double east, double north, double altitude, boolean basePoint,                 boolean hasDAO) {
         // FIXME adapt the check according to the new point number format
         // Preconditions.checkArgument(number >= 0,
         // "A point number must be a positive integer: %s", number);
@@ -173,7 +167,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
 
     /**
      * Serialize Point to JSON.
-     * 
+     *
      * @return A JSON representation of the point.
      * @throws JSONException
      */
@@ -190,9 +184,8 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
 
     /**
      * Create a new Point object from a given JSON string.
-     * 
-     * @param json
-     *            JSON string that contains a serialized version of a Point.
+     *
+     * @param json JSON string that contains a serialized version of a Point.
      * @return A new Point object mapped in the DB using the DAO.
      * @throws JSONException
      */
@@ -350,10 +343,10 @@ public class Point implements DAOUpdater, DataExporter, DataImporter {
     /**
      * Clone a point. Since a point must be unique, the point number will not be
      * cloned.
-     * 
+     * <p/>
      * The created point is <b>not</b> stored in the
      * {@link SharedResources#getSetOfPoints()}.
-     * 
+     *
      * @return A clone of the current point.
      */
     @Override
