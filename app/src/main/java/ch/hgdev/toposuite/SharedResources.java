@@ -36,7 +36,7 @@ public class SharedResources {
                     new Searcher<Calculation>() {
                         @Override
                         public boolean isFound(Calculation currentElement, Object expectedElement) {
-                            return expectedElement.equals(currentElement);
+                            return currentElement.getId() == ((Calculation) expectedElement).getId();
                         }
                     });
             SharedResources.calculationsHistory.registerDAO(CalculationsDataSource.getInstance());
@@ -56,8 +56,7 @@ public class SharedResources {
                     new Searcher<Point>() {
                         @Override
                         public boolean isFound(Point currentElement, Object expectedElement) {
-                            String expectedNumber = (String) expectedElement;
-                            return currentElement.getNumber().equals(expectedNumber);
+                            return currentElement.getNumber().equals((String) expectedElement);
                         }
                     });
             SharedResources.setOfPoints.registerDAO(PointsDataSource.getInstance());
