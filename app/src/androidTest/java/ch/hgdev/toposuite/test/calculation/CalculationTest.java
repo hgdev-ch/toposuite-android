@@ -20,6 +20,7 @@ public class CalculationTest extends AndroidTestCase {
     protected DecimalFormat df2;
     protected DecimalFormat df3;
     protected DecimalFormat df4;
+    protected DecimalFormat df5;
     protected  DecimalFormat df8;
 
     @Override
@@ -35,6 +36,8 @@ public class CalculationTest extends AndroidTestCase {
         this.df3.setRoundingMode(RoundingMode.HALF_UP);
         this.df4 = new DecimalFormat("0.0000");
         this.df4.setRoundingMode(RoundingMode.HALF_UP);
+        this.df5 = new DecimalFormat("0.00000");
+        this.df5.setRoundingMode(RoundingMode.HALF_UP);
         this.df8 = new DecimalFormat("0.00000000");
         this.df8.setRoundingMode(RoundingMode.HALF_UP);
 
