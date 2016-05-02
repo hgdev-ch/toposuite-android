@@ -1,6 +1,8 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarImplantation;
 import ch.hgdev.toposuite.calculation.PolarImplantation.Result;
@@ -54,7 +56,11 @@ public class TestPolarImplantation extends CalculationTest {
         pi.getMeasures().add(m3);
         pi.getMeasures().add(m4);
 
-        pi.compute();
+        try {
+            pi.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Result r2 = pi.getResults().get(0);
         Result r3 = pi.getResults().get(1);

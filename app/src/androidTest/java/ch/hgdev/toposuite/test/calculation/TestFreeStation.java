@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
 
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
@@ -25,7 +26,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("542543.93", this.df2.format(
                 fs.getStationResult().getEast()));
@@ -68,7 +73,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("609.999", this.df3.format(fs.getStationResult().getEast()));
         Assert.assertEquals("185.004", this.df3.format(fs.getStationResult().getNorth()));
@@ -96,7 +105,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("600.009", this.df3.format(
                 fs.getStationResult().getEast()));
@@ -146,7 +159,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m6);
         fs.getMeasures().add(m7);
         fs.getMeasures().add(m8);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("559724.59", this.df2.format(
                 fs.getStationResult().getEast()));
@@ -178,9 +195,13 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
-        fs.compute();
-        m5.deactivate();
-        fs.compute();
+        try {
+            fs.compute();
+            m5.deactivate();
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("542543.93", this.df2.format(
                 fs.getStationResult().getEast()));
@@ -230,7 +251,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
         fs.getMeasures().add(m6);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("529117.495", this.df3.format(fs.getStationResult().getEast()));
         Assert.assertEquals("182651.405", this.df3.format(fs.getStationResult().getNorth()));
@@ -269,7 +294,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(0).getvE()));
         Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(0).getvN()));
@@ -314,7 +343,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("649.001", this.df3.format(fs.getStationResult().getEast()));
         Assert.assertEquals("780.023", this.df3.format(fs.getStationResult().getNorth()));
@@ -346,8 +379,12 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("3.4", this.df1.format(fs.getResults().get(3).getfS()));
         Assert.assertEquals("2.0", this.df1.format(fs.getResults().get(3).getvA()));
 
-        // Results NEED to be the same when re-computing again
-        fs.compute();
+        try {
+            // Results NEED to be the same when re-computing again
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("649.001", this.df3.format(fs.getStationResult().getEast()));
         Assert.assertEquals("780.023", this.df3.format(fs.getStationResult().getNorth()));
@@ -397,7 +434,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(0).getvE()));
         Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(0).getvN()));
@@ -452,7 +493,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
         fs.getMeasures().add(m6);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(0).getvE()));
         Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(0).getvN()));
@@ -498,7 +543,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m8);
         fs.getMeasures().add(m9);
         fs.getMeasures().add(m10);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.8", this.df1.format(fs.getResults().get(0).getvE()));
         Assert.assertEquals("1.4", this.df1.format(fs.getResults().get(0).getvN()));
@@ -555,7 +604,11 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
-        fs.compute();
+        try {
+            fs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.0", this.df1.format(fs.getResults().get(0).getvE()));
         Assert.assertEquals("-0.0", this.df1.format(fs.getResults().get(0).getvN()));

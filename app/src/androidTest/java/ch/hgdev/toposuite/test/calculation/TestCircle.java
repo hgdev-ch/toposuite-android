@@ -1,6 +1,8 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Circle;
 import ch.hgdev.toposuite.points.Point;
 
@@ -13,8 +15,11 @@ public class TestCircle extends CalculationTest {
         Point p3 = new Point("5", 113.2040, 37.4110, 0.0, true, false);
 
         Circle c = new Circle(p1, p2, p3, "42", false);
-        c.compute();
-
+        try {
+            c.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
         // center
         Assert.assertEquals("68.347", this.df3.format(c.getCenter().getEast()));
         Assert.assertEquals("42.421", this.df3.format(c.getCenter().getNorth()));

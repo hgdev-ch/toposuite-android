@@ -1,6 +1,8 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Surface;
 
 public class TestSurface extends CalculationTest {
@@ -16,7 +18,11 @@ public class TestSurface extends CalculationTest {
         s1.getPoints().add(new Surface.PointWithRadius("5", 833.0305, -58.4981, 5));
         s1.getPoints().add(new Surface.PointWithRadius("6", 881.3163, 142.5448, 6));
 
-        s1.compute();
+        try {
+            s1.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("60795.8488", this.df4.format(s1.getSurface()));
         Assert.assertEquals("1216.4939", this.df4.format(s1.getPerimeter()));
@@ -30,7 +36,11 @@ public class TestSurface extends CalculationTest {
         s2.getPoints().add(new Surface.PointWithRadius("5", 1298.2327, 533.1563, 5));
         s2.getPoints().add(new Surface.PointWithRadius("6", 1215.047, 690.6177, 6));
 
-        s2.compute();
+        try {
+            s2.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("73339.6805", this.df4.format(s2.getSurface()));
         Assert.assertEquals("1018.3747", this.df4.format(s2.getPerimeter()));
@@ -48,7 +58,11 @@ public class TestSurface extends CalculationTest {
         s.getPoints().add(new Surface.PointWithRadius("7", 148.7747, 171.5047, 7));
         s.getPoints().add(new Surface.PointWithRadius("8", 73.7387, 126.699, 8));
 
-        s.compute();
+        try {
+            s.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("39662.5883", this.df4.format(s.getSurface()));
         Assert.assertEquals("932.7163", this.df4.format(s.getPerimeter()));

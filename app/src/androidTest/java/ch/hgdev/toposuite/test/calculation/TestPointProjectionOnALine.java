@@ -1,6 +1,8 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.PointProjectionOnALine;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
@@ -17,7 +19,12 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         double dist = 10.05;
         PointProjectionOnALine pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
-        pp.compute();
+        try {
+            pp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
         Assert.assertEquals("97.128", this.df3.format(pp.getProjPt().getEast()));
         Assert.assertEquals("74.954", this.df3.format(pp.getProjPt().getNorth()));
         Assert.assertEquals("40.840", this.df3.format(pp.getDistPtToLine()));
@@ -26,7 +33,12 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         dist = -5.08;
         pp = new PointProjectionOnALine("42", p1, 74.243, ptToProj, dist, false);
-        pp.compute();
+        try {
+            pp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
         Assert.assertEquals("91.172", this.df3.format(pp.getProjPt().getEast()));
         Assert.assertEquals("88.862", this.df3.format(pp.getProjPt().getNorth()));
         Assert.assertEquals("55.970", this.df3.format(pp.getDistPtToLine()));
@@ -35,7 +47,12 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         dist = MathUtils.IGNORE_DOUBLE;
         pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
-        pp.compute();
+        try {
+            pp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
         Assert.assertEquals("93.172", this.df3.format(pp.getProjPt().getEast()));
         Assert.assertEquals("84.192", this.df3.format(pp.getProjPt().getNorth()));
         Assert.assertEquals("50.890", this.df3.format(pp.getDistPtToLine()));
@@ -51,7 +68,12 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         double dist = MathUtils.IGNORE_DOUBLE;
         PointProjectionOnALine pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
-        pp.compute();
+        try {
+            pp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
         Assert.assertEquals("134.665", this.df3.format(pp.getProjPt().getEast()));
         Assert.assertEquals("200.491", this.df3.format(pp.getProjPt().getNorth()));
         Assert.assertEquals("43.518", this.df3.format(pp.getDistPtToLine()));
@@ -60,7 +82,12 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         dist = -5.8940;
         pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
-        pp.compute();
+        try {
+            pp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
         Assert.assertEquals("136.710", this.df3.format(pp.getProjPt().getEast()));
         Assert.assertEquals("206.019", this.df3.format(pp.getProjPt().getNorth()));
         Assert.assertEquals("37.624", this.df3.format(pp.getDistPtToLine()));
@@ -69,7 +96,12 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         dist = 17.8900;
         pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
-        pp.compute();
+        try {
+            pp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
         Assert.assertEquals("128.461", this.df3.format(pp.getProjPt().getEast()));
         Assert.assertEquals("183.712", this.df3.format(pp.getProjPt().getNorth()));
         Assert.assertEquals("61.408", this.df3.format(pp.getDistPtToLine()));
@@ -85,7 +117,12 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         double dist = -2;
         PointProjectionOnALine pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
-        pp.compute();
+        try {
+            pp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
         Assert.assertEquals("615.000", this.df3.format(pp.getProjPt().getEast()));
         Assert.assertEquals("202.000", this.df3.format(pp.getProjPt().getNorth()));
         Assert.assertEquals("8.000", this.df3.format(pp.getDistPtToLine()));

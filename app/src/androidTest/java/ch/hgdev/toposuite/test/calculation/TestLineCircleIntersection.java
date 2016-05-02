@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LineCircleIntersection;
 import ch.hgdev.toposuite.points.Point;
@@ -20,7 +21,7 @@ public class TestLineCircleIntersection extends CalculationTest {
         try {
             lci.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
         Assert.assertEquals("92.978", this.df3.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("176.341", this.df3.format(lci.getFirstIntersection().getNorth()));
@@ -32,7 +33,7 @@ public class TestLineCircleIntersection extends CalculationTest {
         try {
             lci.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
         Assert.assertEquals("92.212", this.df3.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("176.765", this.df3.format(lci.getFirstIntersection().getNorth()));
@@ -44,7 +45,7 @@ public class TestLineCircleIntersection extends CalculationTest {
         try {
             lci.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
         Assert.assertEquals("102.045",
                 this.df3.format(lci.getFirstIntersection().getEast()));
@@ -60,7 +61,7 @@ public class TestLineCircleIntersection extends CalculationTest {
         try {
             lci.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
         Assert.assertEquals("112.916",
                 this.df3.format(lci.getFirstIntersection().getEast()));
@@ -77,7 +78,7 @@ public class TestLineCircleIntersection extends CalculationTest {
         try {
             lci.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
         Assert.assertEquals("42.19",
                 this.df2.format(lci.getFirstIntersection().getEast()));
@@ -105,7 +106,7 @@ public class TestLineCircleIntersection extends CalculationTest {
         try {
             lci.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
         Assert.assertEquals("614.986", this.df3.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("203.244", this.df3.format(lci.getFirstIntersection().getNorth()));
@@ -129,7 +130,7 @@ public class TestLineCircleIntersection extends CalculationTest {
         try {
             lci.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
         Assert.assertEquals("13.5675", this.df4.format(lci.getSecondIntersection().getEast()));
         Assert.assertEquals("11.6927", this.df4.format(lci.getSecondIntersection().getNorth()));
@@ -153,7 +154,7 @@ public class TestLineCircleIntersection extends CalculationTest {
         try {
             lci.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
         Assert.assertEquals("598.297", this.df3.format(lci.getSecondIntersection().getEast()));
         Assert.assertEquals("209.854", this.df3.format(lci.getSecondIntersection().getNorth()));

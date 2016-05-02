@@ -1,6 +1,8 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
 import ch.hgdev.toposuite.points.Point;
 
@@ -17,7 +19,11 @@ public class TestCheminementOrthogonal extends CalculationTest {
         co.getMeasures().add(new CheminementOrthogonal.Measure("14", 3.02));
         co.getMeasures().add(new CheminementOrthogonal.Measure("2", 10.01));
 
-        co.compute();
+        try {
+            co.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("601.614", this.df3.format(co.getResults().get(0).getEast()));
         Assert.assertEquals("231.879", this.df3.format(co.getResults().get(0).getNorth()));

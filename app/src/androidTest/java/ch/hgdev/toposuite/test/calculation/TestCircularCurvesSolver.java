@@ -1,6 +1,8 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CircularCurvesSolver;
 
 public class TestCircularCurvesSolver extends CalculationTest {
@@ -10,7 +12,11 @@ public class TestCircularCurvesSolver extends CalculationTest {
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
         ccs.setAlphaAngle(120.0);
-        ccs.compute();
+        try {
+            ccs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("40.0000", this.df4.format(ccs.getRadius()));
         Assert.assertEquals("120.0000", this.df4.format(ccs.getAlphaAngle()));
@@ -33,7 +39,11 @@ public class TestCircularCurvesSolver extends CalculationTest {
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
         ccs.setTangent(55.0553);
-        ccs.compute();
+        try {
+            ccs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("40.0000", this.df4.format(ccs.getRadius()));
         Assert.assertEquals("120.0000", this.df4.format(ccs.getAlphaAngle()));
@@ -56,7 +66,11 @@ public class TestCircularCurvesSolver extends CalculationTest {
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
         ccs.setArrow(16.4886);
-        ccs.compute();
+        try {
+            ccs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("40.0000", this.df4.format(ccs.getRadius()));
         Assert.assertEquals("120.0000", this.df4.format(ccs.getAlphaAngle()));
@@ -79,7 +93,11 @@ public class TestCircularCurvesSolver extends CalculationTest {
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
         ccs.setChordOF(64.7214);
-        ccs.compute();
+        try {
+            ccs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("40.000", this.df3.format(ccs.getRadius()));
         Assert.assertEquals("120.000", this.df3.format(ccs.getAlphaAngle()));
@@ -102,7 +120,11 @@ public class TestCircularCurvesSolver extends CalculationTest {
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
         ccs.setAlphaAngle(120.0);
-        ccs.compute();
+        try {
+            ccs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("40.000", this.df3.format(ccs.getRadius()));
         Assert.assertEquals("120.000", this.df3.format(ccs.getAlphaAngle()));
@@ -125,7 +147,11 @@ public class TestCircularCurvesSolver extends CalculationTest {
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
         ccs.setTangent(55.0553);
-        ccs.compute();
+        try {
+            ccs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("40.000", this.df3.format(ccs.getRadius()));
         Assert.assertEquals("120.000", this.df3.format(ccs.getAlphaAngle()));
@@ -148,7 +174,11 @@ public class TestCircularCurvesSolver extends CalculationTest {
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
         ccs.setArrow(16.4886);
-        ccs.compute();
+        try {
+            ccs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("40.000", this.df3.format(ccs.getRadius()));
         Assert.assertEquals("120.000", this.df3.format(ccs.getAlphaAngle()));
@@ -171,7 +201,11 @@ public class TestCircularCurvesSolver extends CalculationTest {
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setTangent(55.0553);
         ccs.setAlphaAngle(120.0);
-        ccs.compute();
+        try {
+            ccs.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("40.000", this.df3.format(ccs.getRadius()));
         Assert.assertEquals("120.000", this.df3.format(ccs.getAlphaAngle()));

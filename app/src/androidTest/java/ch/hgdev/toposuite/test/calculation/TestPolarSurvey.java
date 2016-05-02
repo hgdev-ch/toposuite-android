@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
 
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarSurvey;
 import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
@@ -39,7 +40,11 @@ public class TestPolarSurvey extends CalculationTest {
         lp.getDeterminations().add(m5);
         lp.getDeterminations().add(m6);
 
-        lp.compute();
+        try {
+            lp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Result r2 = lp.getResults().get(0);
         Result r3 = lp.getResults().get(1);
@@ -92,7 +97,11 @@ public class TestPolarSurvey extends CalculationTest {
         lp.getDeterminations().add(m4);
         lp.getDeterminations().add(m5);
 
-        lp.compute();
+        try {
+            lp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Result r1 = lp.getResults().get(0);
         Result r2 = lp.getResults().get(1);
@@ -130,7 +139,11 @@ public class TestPolarSurvey extends CalculationTest {
 
         PolarSurvey lp = new PolarSurvey(station, z0, MathUtils.IGNORE_DOUBLE, false);
         lp.getDeterminations().add(m1);
-        lp.compute();
+        try {
+            lp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Result r1 = lp.getResults().get(0);
         Assert.assertEquals("1225.347", this.df3.format(r1.getEast()));
@@ -143,7 +156,11 @@ public class TestPolarSurvey extends CalculationTest {
 
         lp = new PolarSurvey(station, z0, MathUtils.IGNORE_DOUBLE, false);
         lp.getDeterminations().add(m1);
-        lp.compute();
+        try {
+            lp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         r1 = lp.getResults().get(0);
         Assert.assertEquals("1225.347", this.df3.format(r1.getEast()));

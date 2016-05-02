@@ -19,7 +19,7 @@ public class TestLimitDisplacement extends CalculationTest {
         try {
             ld.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("96319.0953",
@@ -38,9 +38,5 @@ public class TestLimitDisplacement extends CalculationTest {
                 ld.getDistanceToWestLimitAX()));
         Assert.assertEquals("2.053", this.df3.format(
                 ld.getDistanceToEastLimitDY()));
-    }
-
-    public void testLimitDisplacement2() {
-        Assert.assertTrue(true);
     }
 }

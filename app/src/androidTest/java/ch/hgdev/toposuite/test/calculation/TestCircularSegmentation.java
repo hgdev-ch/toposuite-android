@@ -1,8 +1,9 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import junit.framework.Assert;
+
 import java.util.List;
 
-import junit.framework.Assert;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CircularSegmentation;
 import ch.hgdev.toposuite.points.Point;
@@ -23,7 +24,7 @@ public class TestCircularSegmentation extends CalculationTest {
                     circleCenter, startPoint, endPoint, nbOfSegments, MathUtils.IGNORE_DOUBLE);
             cs.compute();
         } catch (CalculationException e) {
-            Assert.fail("A calculation exception should not be thrown here");
+            Assert.fail(e.getMessage());
         } catch (IllegalArgumentException e) {
             Assert.fail("An illegal argument exception should not be thrown here");
         }
@@ -54,7 +55,7 @@ public class TestCircularSegmentation extends CalculationTest {
             cs.initAttributes(circleCenter, startPoint, endPoint, MathUtils.IGNORE_INT, arcLength);
             cs.compute();
         } catch (CalculationException e) {
-            Assert.fail("A calculation exception should not be thrown here");
+            Assert.fail(e.getMessage());
         } catch (IllegalArgumentException e) {
             Assert.fail("An illegal argument exception should not be thrown here");
         }
@@ -85,7 +86,7 @@ public class TestCircularSegmentation extends CalculationTest {
                     circleCenter, startPoint, endPoint, nbOfSegments, MathUtils.IGNORE_DOUBLE);
             cs.compute();
         } catch (CalculationException e) {
-            Assert.fail("A calculation exception should not be thrown here");
+            Assert.fail(e.getMessage());
         } catch (IllegalArgumentException e) {
             Assert.fail("An illegal argument exception should not be thrown here");
         }

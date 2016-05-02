@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.test.calculation;
 import junit.framework.Assert;
 
 import ch.hgdev.toposuite.calculation.Abriss;
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
@@ -23,7 +24,11 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p3, 254.558));
         a.getMeasures().add(new Measure(p4, 247.655));
 
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("328.465", this.df3.format(
                 a.getResults().get(0).getDistance()));
@@ -74,7 +79,11 @@ public class TestAbriss extends CalculationTest {
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p45, 0.0, 91.6892, 23.277, 1.63));
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         // test intermediate values with point 45
         Assert.assertEquals("233.2405",
@@ -106,7 +115,11 @@ public class TestAbriss extends CalculationTest {
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p45, 0.0, 91.6892, 23.277, 1.63));
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         // test intermediate values with point 45
         Assert.assertEquals("233.2405",
@@ -146,7 +159,11 @@ public class TestAbriss extends CalculationTest {
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
         a.getMeasures().add(new Measure(p9002, 216.0699, 97.2887, 20.360));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         // test intermediate values for point 9001
         Assert.assertEquals("399.9012",
@@ -178,7 +195,11 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
         a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
 
@@ -189,7 +210,11 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
         a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
 
@@ -200,7 +225,11 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
         a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
         a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
     }
@@ -214,10 +243,14 @@ public class TestAbriss extends CalculationTest {
         Measure m1 = new Measure(p45, 0.0, 91.6892, 23.277, 1.63);
         a.getMeasures().add(m1);
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
-        // simulate a deactivation
-        a.compute();
-        m1.deactivate();
-        a.compute();
+        try {
+            // simulate a deactivation
+            a.compute();
+            m1.deactivate();
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         // test intermediate values with point 45
         Assert.assertEquals("233.2405",
@@ -248,10 +281,14 @@ public class TestAbriss extends CalculationTest {
         Measure m2 = new Measure(p46, 280.3215, 92.7781, 24.123, 1.63);
         a.getMeasures().add(m2);
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
-        // simulate a deactivation
-        a.compute();
-        m2.deactivate();
-        a.compute();
+        try {
+            // simulate a deactivation
+            a.compute();
+            m2.deactivate();
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         // test intermediate values with point 45
         Assert.assertEquals("233.2405",
@@ -279,7 +316,7 @@ public class TestAbriss extends CalculationTest {
      * This is a regression test for issue #762.
      * If the user does not provide any distance in the measures, then there cannot be any longitudinal
      * errors.
-     *
+     * <p/>
      * Test values are from NK document, ex 1.1.5.2.
      */
     public void testWithoutDistanceInMeasures() {
@@ -295,7 +332,11 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p1138, 101.218, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
         a.getMeasures().add(new Measure(p1139, 219.3067, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
         a.getMeasures().add(new Measure(p1140, 315.113, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("386", this.df0.format(a.getResults().get(0).getErrAngle()));
         Assert.assertEquals("3.2", this.df1.format(a.getResults().get(0).getErrTrans()));
@@ -332,8 +373,11 @@ public class TestAbriss extends CalculationTest {
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
         a.getMeasures().add(new Measure(p9002, 216.0699, 97.2887, 20.360));
-        a.compute();
-
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
         // test intermediate values for point 9001
         Assert.assertEquals("399.9012",
                 this.df4.format(a.getResults().get(0).getUnknownOrientation()));
@@ -364,7 +408,11 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9003, 107.000, MathUtils.IGNORE_DOUBLE, 22.00));
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
         a.getMeasures().add(new Measure(p9004, 215.700, MathUtils.IGNORE_DOUBLE, 20.00));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
 
@@ -375,7 +423,11 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9003, 107.000, MathUtils.IGNORE_DOUBLE, 22.00));
         a.getMeasures().add(new Measure(p9004, 215.700, MathUtils.IGNORE_DOUBLE, 20.00));
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
 
@@ -386,7 +438,11 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
         a.getMeasures().add(new Measure(p9003, 107.000, MathUtils.IGNORE_DOUBLE, 22.00));
         a.getMeasures().add(new Measure(p9004, 215.700, MathUtils.IGNORE_DOUBLE, 20.00));
-        a.compute();
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
     }

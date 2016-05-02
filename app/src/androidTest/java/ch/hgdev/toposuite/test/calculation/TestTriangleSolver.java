@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
 
+import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.TriangleSolver;
 import ch.hgdev.toposuite.utils.MathUtils;
 
@@ -134,7 +135,11 @@ public class TestTriangleSolver extends CalculationTest {
         double gamma = 72.25;
 
         TriangleSolver t = new TriangleSolver(a, 0.0, c, 0.0, 0.0, gamma, false);
-        t.compute();
+        try {
+            t.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("20.0", this.df1.format(t.getA()));
         Assert.assertEquals("35.0", this.df1.format(t.getC()));
@@ -154,7 +159,11 @@ public class TestTriangleSolver extends CalculationTest {
      * @param t
      */
     private void assertT(TriangleSolver t) {
-        t.compute();
+        try {
+            t.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("7.46", this.df2.format(t.getPerimeter().first));
         Assert.assertEquals("0.9362", this.df4.format(t.getHeight().first));
@@ -164,7 +173,11 @@ public class TestTriangleSolver extends CalculationTest {
     }
 
     private void assertT2A(TriangleSolver t) {
-        t.compute();
+        try {
+            t.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("8.62", this.df2.format(t.getPerimeter().second));
         Assert.assertEquals("1.345", this.df3.format(t.getHeight().second));
@@ -174,7 +187,11 @@ public class TestTriangleSolver extends CalculationTest {
     }
 
     private void assertT2B(TriangleSolver t) {
-        t.compute();
+        try {
+            t.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("5.515", this.df3.format(t.getPerimeter().second));
         Assert.assertEquals("0.936", this.df3.format(t.getHeight().second));
@@ -184,7 +201,11 @@ public class TestTriangleSolver extends CalculationTest {
     }
 
     private void assertT2C(TriangleSolver t) {
-        t.compute();
+        try {
+            t.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertEquals("9.74", this.df2.format(t.getPerimeter().second));
         Assert.assertEquals("2.517", this.df3.format(t.getHeight().second));
@@ -194,7 +215,11 @@ public class TestTriangleSolver extends CalculationTest {
     }
 
     private void assertT2Ignorable(TriangleSolver t) {
-        t.compute();
+        try {
+            t.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
 
         Assert.assertTrue(MathUtils.isIgnorable(t.getPerimeter().second));
         Assert.assertTrue(MathUtils.isIgnorable(t.getHeight().second));

@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.test.calculation;
 
 import junit.framework.Assert;
+
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.points.Point;
@@ -38,7 +39,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("60.484", this.df3.format(
@@ -54,7 +55,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("76.697", this.df3.format(
@@ -70,7 +71,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("44.271", this.df3.format(
@@ -86,7 +87,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("45.344", this.df3.format(
@@ -102,7 +103,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("75.623", this.df3.format(
@@ -118,7 +119,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("-0.306", this.df3.format(
@@ -134,7 +135,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("60.354", this.df3.format(
@@ -150,7 +151,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("74.929", this.df3.format(
@@ -166,7 +167,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("70.373", this.df3.format(
@@ -182,7 +183,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("39.140", this.df3.format(
@@ -203,7 +204,7 @@ public class TestLinesIntersection extends CalculationTest {
         try {
             li.compute();
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
 
         Assert.assertEquals("614.324", this.df3.format(

@@ -28,7 +28,7 @@ public class TestCirclesIntersection extends CalculationTest {
         } catch (IllegalArgumentException e) {
             Assert.fail("An illegal argument exception should not be thrown here.");
         } catch (CalculationException e) {
-            Assert.fail("The calculation should be possible!");
+            Assert.fail(e.getMessage());
         }
     }
 }
