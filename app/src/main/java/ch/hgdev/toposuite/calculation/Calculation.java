@@ -136,8 +136,9 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
      */
     private void recordToHistory() {
         DAOMapperArrayList<Calculation> calculationsHistory = SharedResources.getCalculationsHistory();
-        if (this.hasDAO && (calculationsHistory.find(this) == null)) {
+        if (this.hasDAO && (calculationsHistory.find(this) == null) && (this.id <= 0)) {
             calculationsHistory.add(0, this);
+            this.notifyUpdate(this);
         }
     }
 
@@ -234,8 +235,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
         Date lastModification = AppUtils.parseSerializedDate(jo.getString(Calculation.LAST_MODIFICATION));
         String jsonInputArgs = jo.getString(Calculation.INPUT_DATA);
 
-        Calculation c = CalculationFactory.createCalculation(type, id, description,
-                lastModification, jsonInputArgs);
+        Calculation c = CalculationFactory.createCalculation(type, id, description, lastModification, jsonInputArgs);
         SharedResources.getCalculationsHistory().add(c);
 
         return c;
