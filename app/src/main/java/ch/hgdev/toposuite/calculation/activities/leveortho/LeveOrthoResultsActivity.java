@@ -47,26 +47,23 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
-        if (bundle != null) {
-            int position = bundle.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
-            this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(position);
-            this.leveOrtho.getResults().clear();
-            try {
-                this.leveOrtho.compute();
-                StringBuilder builder = new StringBuilder();
-                builder.append(this.leveOrtho.getOrthogonalBase().getOrigin());
-                builder.append("-");
-                builder.append(this.leveOrtho.getOrthogonalBase().getExtremity());
+        this.leveOrtho = (LeveOrthogonal) bundle.getSerializable(LeveOrthoActivity.ORTHOGONAL_SURVEY);
+        this.leveOrtho.getResults().clear();
+        try {
+            this.leveOrtho.compute();
+            StringBuilder builder = new StringBuilder();
+            builder.append(this.leveOrtho.getOrthogonalBase().getOrigin());
+            builder.append("-");
+            builder.append(this.leveOrtho.getOrthogonalBase().getExtremity());
 
-                this.baseTextView.setText(builder.toString());
-                this.registerForContextMenu(this.resultsListView);
-                this.drawList();
+            this.baseTextView.setText(builder.toString());
+            this.registerForContextMenu(this.resultsListView);
+            this.drawList();
 
-                this.saveCounter = this.leveOrtho.getResults().size();
-            } catch (CalculationException e) {
-                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
-                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
-            }
+            this.saveCounter = this.leveOrtho.getResults().size();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
         }
     }
 

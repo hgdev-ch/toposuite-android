@@ -41,8 +41,9 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class AxisImplantationActivity extends TopoSuiteActivity implements MeasureDialogListener {
+    public static final String AXIS_IMPLANTATION = "axis_implantation";
+
     private static final String AXIS_IMPL_ACTIVITY = "AxisImplantationActivity: ";
-    private static final String AXIS_IMPL_POSITION = "axis_impl_position";
     private static final String STATION_SELECTED_POSITION = "station_selected_position";
     private static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
     private static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
@@ -275,8 +276,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         outState.putInt(AxisImplantationActivity.EXTREMITY_SELECTED_POSITION,
                 this.extremitySelectedPosition);
 
-        int index = SharedResources.getCalculationsHistory().indexOf(this.axisImpl);
-        outState.putInt(AxisImplantationActivity.AXIS_IMPL_POSITION, index);
+        outState.putSerializable(AxisImplantationActivity.AXIS_IMPLANTATION, this.axisImpl);
         outState.putSerializable(AxisImplantationActivity.MEASURES_LIST, new ArrayList(this.axisImpl.getMeasures()));
     }
 
@@ -285,11 +285,9 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            int index = savedInstanceState.getInt(AxisImplantationActivity.AXIS_IMPL_POSITION);
-            if (index >= 0) {
+            this.axisImpl = (AxisImplantation) savedInstanceState.getSerializable(AxisImplantationActivity.AXIS_IMPLANTATION);
+            if (this.axisImpl != null) {
                 this.adapter.clear();
-                this.axisImpl = (AxisImplantation) SharedResources
-                        .getCalculationsHistory().get(index);
                 ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(AxisImplantationActivity.MEASURES_LIST);
                 if ((measures != null) && (!measures.isEmpty())) {
                     this.axisImpl.getMeasures().addAll(measures);
@@ -489,13 +487,9 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
         // At this point we are sure that the axis implantation calculation
         // has been instantiated.
-        int position = this.axisImpl.recordToHistory();
-        bundle.putInt(
-                AxisImplantationActivity.AXIS_IMPL_POSITION,
-                position);
+        bundle.putSerializable(AxisImplantationActivity.AXIS_IMPLANTATION, this.axisImpl);
 
-        Intent resultsActivityIntent = new Intent(
-                this, AxisImplantationResultsActivity.class);
+        Intent resultsActivityIntent = new Intent(this, AxisImplantationResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);
         this.startActivity(resultsActivityIntent);
     }

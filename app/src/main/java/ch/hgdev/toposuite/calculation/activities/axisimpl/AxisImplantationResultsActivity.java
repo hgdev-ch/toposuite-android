@@ -5,11 +5,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.AxisImplantation;
 import ch.hgdev.toposuite.calculation.CalculationException;
-import ch.hgdev.toposuite.calculation.activities.orthoimpl.OrthogonalImplantationActivity;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -33,24 +31,20 @@ public class AxisImplantationResultsActivity extends TopoSuiteActivity {
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
-        if (bundle != null) {
-            int position = bundle.getInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
-            this.axisImpl = (AxisImplantation) SharedResources.getCalculationsHistory().
-                    get(position);
-            try {
-                this.axisImpl.compute();
-                StringBuilder builder = new StringBuilder();
-                builder.append(this.axisImpl.getOrthogonalBase().getOrigin());
-                builder.append("-");
-                builder.append(this.axisImpl.getOrthogonalBase().getExtremity());
-                this.axisImplantationPointsTextView.setText(builder.toString());
-                this.axisImplantationStationTextView.setText(this.axisImpl.getStation().toString());
-            } catch (CalculationException e) {
-                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
-                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
-            }
-            this.drawList();
+        this.axisImpl = (AxisImplantation) bundle.getSerializable(AxisImplantationActivity.AXIS_IMPLANTATION);
+        try {
+            this.axisImpl.compute();
+            StringBuilder builder = new StringBuilder();
+            builder.append(this.axisImpl.getOrthogonalBase().getOrigin());
+            builder.append("-");
+            builder.append(this.axisImpl.getOrthogonalBase().getExtremity());
+            this.axisImplantationPointsTextView.setText(builder.toString());
+            this.axisImplantationStationTextView.setText(this.axisImpl.getStation().toString());
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
         }
+        this.drawList();
     }
 
     @Override

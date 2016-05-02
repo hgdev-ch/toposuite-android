@@ -41,7 +41,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
     public static final String ORIGIN_SELECTED_POSITION = "origine_selected_position";
     public static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
     public static final String MEASURED_DISTANCE = "measured_distance";
-    public static final String LEVE_ORTHO_POSITION = "leve_ortho_position";
+    public static final String ORTHOGONAL_SURVEY = "orthogonal_survey";
     public static final String MEASURE_POSITION = "measure_position";
 
     private Spinner originSpinner;
@@ -170,7 +170,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         this.drawList();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
         ArrayAdapter<Point> a = new ArrayAdapter<Point>(
@@ -226,8 +226,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         outState.putDouble(LeveOrthoActivity.MEASURED_DISTANCE,
                 this.measuredDist);
 
-        int index = SharedResources.getCalculationsHistory().indexOf(this.leveOrtho);
-        outState.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, index);
+        outState.putSerializable(LeveOrthoActivity.ORTHOGONAL_SURVEY, this.leveOrtho);
     }
 
     @Override
@@ -235,12 +234,11 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            int index = savedInstanceState.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
-            if (index >= 0) {
+            this.leveOrtho = (LeveOrthogonal) savedInstanceState.getSerializable(LeveOrthoActivity.ORTHOGONAL_SURVEY);
+            if (this.leveOrtho != null) {
                 if (this.adapter != null) {
                     this.adapter.clear();
                 }
-                this.leveOrtho = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(index);
                 this.drawList();
             } else {
                 this.originSelectedPosition = savedInstanceState
@@ -268,12 +266,10 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                     return true;
                 }
 
-                int position = this.leveOrtho.recordToHistory();
                 Bundle bundle = new Bundle();
-                bundle.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, position);
+                bundle.putSerializable(LeveOrthoActivity.ORTHOGONAL_SURVEY, this.leveOrtho);
 
-                Intent resultsActivityIntent = new Intent(this,
-                        LeveOrthoResultsActivity.class);
+                Intent resultsActivityIntent = new Intent(this, LeveOrthoResultsActivity.class);
                 resultsActivityIntent.putExtras(bundle);
                 this.startActivity(resultsActivityIntent);
 
@@ -378,10 +374,8 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
-        int leveOrthoPos = this.leveOrtho.recordToHistory();
-
         Bundle bundle = new Bundle();
-        bundle.putInt(LeveOrthoActivity.LEVE_ORTHO_POSITION, leveOrthoPos);
+        bundle.putSerializable(LeveOrthoActivity.ORTHOGONAL_SURVEY, this.leveOrtho);
         bundle.putInt(LeveOrthoActivity.MEASURE_POSITION, pos);
 
         dialog.setArguments(bundle);

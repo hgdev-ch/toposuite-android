@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -264,7 +265,7 @@ public class AxisImplantation extends Calculation {
         return this.results;
     }
 
-    public static class Result {
+    public static class Result implements Serializable {
         private String number;
         private double east;
         private double north;

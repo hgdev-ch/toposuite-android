@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -171,7 +172,7 @@ public class LeveOrthogonal extends Calculation {
         return App.getContext().getString(R.string.title_activity_leve_ortho);
     }
 
-    public static class Measure {
+    public static class Measure implements Serializable {
         public static final String NUMBER = "number";
         public static final String ABSCISSA = "abscissa";
         public static final String ORDINATE = "ordinate";

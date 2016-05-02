@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation.activities.leveortho;
 
 import android.app.Activity;
-import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -121,10 +120,8 @@ public class EditMeasureDialogFragment extends DialogFragment {
     private void initAttributes() {
         this.bundle = this.getArguments();
 
-        int leveOrthoPos = this.bundle.getInt(LeveOrthoActivity.LEVE_ORTHO_POSITION);
         this.measurePosition = this.bundle.getInt(LeveOrthoActivity.MEASURE_POSITION);
-        LeveOrthogonal lo = (LeveOrthogonal) SharedResources.getCalculationsHistory().get(
-                leveOrthoPos);
+        LeveOrthogonal lo = (LeveOrthogonal) this.bundle.getSerializable(LeveOrthoActivity.ORTHOGONAL_SURVEY);
         LeveOrthogonal.Measure m = lo.getMeasures().get(this.measurePosition);
         this.number = m.getNumber();
         this.abscissa = m.getAbscissa();
