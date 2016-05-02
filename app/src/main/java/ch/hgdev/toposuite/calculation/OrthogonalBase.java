@@ -5,12 +5,14 @@ import android.support.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class OrthogonalBase {
+public class OrthogonalBase implements Serializable {
     public static final String ORIGIN = "origin";
     public static final String EXTREMITY = "extremity";
     public static final String MEASURED_DISTANCE = "measured_distance";

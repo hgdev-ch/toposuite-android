@@ -7,6 +7,7 @@ import android.util.Log;
 
 import org.json.JSONException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,7 +25,7 @@ import ch.hgdev.toposuite.utils.Logger;
  *
  * @author HGdev
  */
-public class CalculationsDataSource implements DAO {
+public class CalculationsDataSource implements DAO, Serializable {
     private static final String ERROR_CREATE = "Unable to create a new calculation!";
     private static final String ERROR_DELETE = "Unable to delete the calculation!";
     private static final String ERROR_UPDATE = "Unable to update the calculation!";

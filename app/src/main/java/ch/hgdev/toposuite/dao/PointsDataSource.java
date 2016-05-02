@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ch.hgdev.toposuite.App;
@@ -17,7 +18,7 @@ import ch.hgdev.toposuite.utils.Logger;
  *
  * @author HGdev
  */
-public class PointsDataSource implements DAO {
+public class PointsDataSource implements DAO, Serializable {
     private static final String ERROR_CREATE = "Unable to create a new point!";
     private static final String ERROR_DELETE = "Unable to delete a point!";
     private static final String ERROR_UPDATE = "Unable to update a point!";
