@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -276,7 +277,7 @@ public class Abriss extends Calculation {
         return false;
     }
 
-    public class Result {
+    public class Result implements Serializable {
         private final Point orientation;
         private final double distance;
         private final double unknownOrientation;

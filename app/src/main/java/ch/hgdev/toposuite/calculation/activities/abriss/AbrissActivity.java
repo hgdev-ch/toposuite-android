@@ -16,8 +16,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,14 +27,13 @@ import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
-import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class AbrissActivity extends TopoSuiteActivity implements
         AddOrientationDialogFragment.AddOrientationDialogListener,
         EditOrientationDialogFragment.EditOrientationDialogListener {
 
-    public static final String CALCULATION_POSITION_LABEL = "calculation_position";
+    public static final String ABRISS_CALCULATION = "abriss_calculation";
     public static final String STATION_NUMBER_LABEL = "station_number";
     public static final String ORIENTATIONS_LABEL = "orientations";
 
@@ -48,18 +45,10 @@ public class AbrissActivity extends TopoSuiteActivity implements
     private Abriss abriss;
     private ArrayAdapter<Measure> adapter;
 
-    /**
-     * Position of the calculation in the calculations list. Only used when open
-     * from the history.
-     */
-    private int position;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_abriss);
-
-        this.position = -1;
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.orientationsListView = (ListView) this.findViewById(R.id.orientations_list);
@@ -87,17 +76,15 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
         ArrayList<Measure> list = new ArrayList<>();
 
-        // check if we create a new abriss calculation or if we modify an
-        // existing one.
+        // check if we create a new abriss calculation or if we modify an existing one.
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(this.position);
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
             list = this.abriss.getMeasures();
         }
 
-        this.adapter = new ArrayListOfOrientationsAdapter(
-                this, R.layout.orientations_list_item, list);
+        this.adapter = new ArrayListOfOrientationsAdapter(this, R.layout.orientations_list_item, list);
         this.drawList();
 
         this.registerForContextMenu(this.orientationsListView);
@@ -108,20 +95,17 @@ public class AbrissActivity extends TopoSuiteActivity implements
         super.onResume();
 
         List<Point> points = new ArrayList<>();
-        points.add(new Point("", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        ArrayAdapter<Point> a = new ArrayAdapter<>(
-                this, R.layout.spinner_list_item, points);
+        ArrayAdapter<Point> a = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(a);
 
         if (this.abriss != null) {
-            this.stationSpinner.setSelection(
-                    a.getPosition(this.abriss.getStation()));
+            this.stationSpinner.setSelection(a.getPosition(this.abriss.getStation()));
         } else {
             if (this.stationSelectedPosition > 0) {
-                this.stationSpinner.setSelection(
-                        this.stationSelectedPosition);
+                this.stationSpinner.setSelection(this.stationSelectedPosition);
             }
         }
     }
@@ -179,22 +163,11 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 }
 
                 Bundle bundle = new Bundle();
-                bundle.putInt(AbrissActivity.CALCULATION_POSITION_LABEL,
-                        this.position);
-
-                bundle.putString(AbrissActivity.STATION_NUMBER_LABEL, station.getNumber());
-
-                JSONArray json = new JSONArray();
-                for (int i = 0; i < this.adapter.getCount(); i++) {
-                    json.put(this.adapter.getItem(i).toJSONObject());
-                }
-
-                bundle.putString(AbrissActivity.ORIENTATIONS_LABEL, json.toString());
+                bundle.putSerializable(AbrissActivity.ABRISS_CALCULATION, this.abriss);
 
                 Intent resultsActivityIntent = new Intent(this, AbrissResultsActivity.class);
                 resultsActivityIntent.putExtras(bundle);
                 this.startActivity(resultsActivityIntent);
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

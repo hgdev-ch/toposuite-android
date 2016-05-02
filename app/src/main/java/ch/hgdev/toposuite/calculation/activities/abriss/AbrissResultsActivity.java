@@ -12,19 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
-import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -54,32 +46,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
                 R.id.mean_error_compensated);
 
         Bundle bundle = this.getIntent().getExtras();
-        Point station = SharedResources.getSetOfPoints().find(
-                bundle.getString(AbrissActivity.STATION_NUMBER_LABEL));
-        int position = bundle.getInt(AbrissActivity.CALCULATION_POSITION_LABEL);
-
-        if (position != -1) {
-            this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
-            this.abriss.setStation(station);
-        } else {
-            this.abriss = new Abriss(station, true);
-
-            ArrayList<Measure> orientationsList = new ArrayList<Measure>();
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(bundle.getString(AbrissActivity.ORIENTATIONS_LABEL));
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject json = (JSONObject) jsonArray.get(i);
-                    Measure m = Measure.getMeasureFromJSON(json.toString());
-                    orientationsList.add(m);
-                }
-            } catch (JSONException e) {
-                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
-            }
-
-            this.abriss.getMeasures().addAll(orientationsList);
-        }
-
+        this.abriss = (Abriss) bundle.getSerializable(AbrissActivity.ABRISS_CALCULATION);
         try {
             this.abriss.compute();
             this.displayResults();
@@ -123,7 +90,6 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-
         switch (item.getItemId()) {
             case R.id.toggle_measure:
                 this.abriss.getResults().get(info.position).toggle();
