@@ -1,9 +1,9 @@
 package ch.hgdev.toposuite.history;
 
-import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -15,6 +15,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -22,12 +23,12 @@ import ch.hgdev.toposuite.calculation.Calculation;
 
 /**
  * Activity for visualizing the calculations history.
- * 
+ *
  * @author HGdev
  */
 public class HistoryActivity extends TopoSuiteActivity {
-    public static final String        CALCULATION_POSITION = "calculation_position";
-    private ListView                  list;
+    public static final String CALCULATION_POSITION = "calculation_position";
+    private ListView list;
     private ArrayAdapter<Calculation> adapter;
 
     @Override
@@ -39,8 +40,7 @@ public class HistoryActivity extends TopoSuiteActivity {
         this.list.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Class<?> activityClass = SharedResources.getCalculationsHistory().get(position)
-                        .getActivityClass();
+                Class<?> activityClass = SharedResources.getCalculationsHistory().get(position).getActivityClass();
 
                 Bundle bundle = new Bundle();
                 bundle.putInt(HistoryActivity.CALCULATION_POSITION, position);
@@ -77,11 +77,11 @@ public class HistoryActivity extends TopoSuiteActivity {
         int id = item.getItemId();
 
         switch (id) {
-        case R.id.delete_history_button:
-            this.clearHistory();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.delete_history_button:
+                this.clearHistory();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -97,15 +97,15 @@ public class HistoryActivity extends TopoSuiteActivity {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.delete_calculation:
-            Calculation calc = SharedResources.getCalculationsHistory().get((int) info.id);
-            this.adapter.remove(calc);
-            this.adapter.notifyDataSetChanged();
-            SharedResources.getCalculationsHistory().remove(info.id);
+            case R.id.delete_calculation:
+                Calculation calc = SharedResources.getCalculationsHistory().get((int) info.id);
+                this.adapter.remove(calc);
+                this.adapter.notifyDataSetChanged();
+                SharedResources.getCalculationsHistory().remove(info.id);
 
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -113,8 +113,7 @@ public class HistoryActivity extends TopoSuiteActivity {
      * Draw the list.
      */
     public void drawList() {
-        this.adapter = new ArrayAdapter<Calculation>(
-                this, R.layout.history_list_item, SharedResources.getCalculationsHistory());
+        this.adapter = new ArrayAdapter<Calculation>(this, R.layout.history_list_item, SharedResources.getCalculationsHistory());
         this.list.setAdapter(this.adapter);
     }
 
