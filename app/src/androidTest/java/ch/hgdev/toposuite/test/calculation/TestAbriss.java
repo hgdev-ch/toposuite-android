@@ -79,6 +79,7 @@ public class TestAbriss extends CalculationTest {
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p45, 0.0, 91.6892, 23.277, 1.63));
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -115,6 +116,7 @@ public class TestAbriss extends CalculationTest {
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p45, 0.0, 91.6892, 23.277, 1.63));
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -159,6 +161,7 @@ public class TestAbriss extends CalculationTest {
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
         a.getMeasures().add(new Measure(p9002, 216.0699, 97.2887, 20.360));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -195,6 +198,7 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
         a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -210,6 +214,7 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
         a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -225,6 +230,7 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
         a.getMeasures().add(new Measure(p9003, 107.000, 100.000, 22.00));
         a.getMeasures().add(new Measure(p9004, 215.700, 100.00, 20.00));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -243,6 +249,7 @@ public class TestAbriss extends CalculationTest {
         Measure m1 = new Measure(p45, 0.0, 91.6892, 23.277, 1.63);
         a.getMeasures().add(m1);
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
+
         try {
             // simulate a deactivation
             a.compute();
@@ -281,6 +288,7 @@ public class TestAbriss extends CalculationTest {
         Measure m2 = new Measure(p46, 280.3215, 92.7781, 24.123, 1.63);
         a.getMeasures().add(m2);
         a.getMeasures().add(new Measure(p47, 281.3521, 100.0471, 108.384, 1.63));
+
         try {
             // simulate a deactivation
             a.compute();
@@ -332,6 +340,7 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p1138, 101.218, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
         a.getMeasures().add(new Measure(p1139, 219.3067, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
         a.getMeasures().add(new Measure(p1140, 315.113, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -373,11 +382,13 @@ public class TestAbriss extends CalculationTest {
         a.removeDAO(CalculationsDataSource.getInstance());
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
         a.getMeasures().add(new Measure(p9002, 216.0699, 97.2887, 20.360));
+
         try {
             a.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         // test intermediate values for point 9001
         Assert.assertEquals("399.9012",
                 this.df4.format(a.getResults().get(0).getUnknownOrientation()));
@@ -423,6 +434,7 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9003, 107.000, MathUtils.IGNORE_DOUBLE, 22.00));
         a.getMeasures().add(new Measure(p9004, 215.700, MathUtils.IGNORE_DOUBLE, 20.00));
         a.getMeasures().add(new Measure(p9001, 106.3770, 112.4151, 20.890));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -438,6 +450,7 @@ public class TestAbriss extends CalculationTest {
         a.getMeasures().add(new Measure(p9002, 216.0600, 97.2887, 20.360));
         a.getMeasures().add(new Measure(p9003, 107.000, MathUtils.IGNORE_DOUBLE, 22.00));
         a.getMeasures().add(new Measure(p9004, 215.700, MathUtils.IGNORE_DOUBLE, 20.00));
+
         try {
             a.compute();
         } catch (CalculationException e) {
@@ -445,5 +458,91 @@ public class TestAbriss extends CalculationTest {
         }
 
         Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
+    }
+
+    // TD-NK_1.1.1
+    public void testTDNK111() {
+        Point p1101 = new Point("1101", 649.0, 780.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1102 = new Point("1102", 615.0, 740.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1103 = new Point("1103", 615.0, 810.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1104 = new Point("1104", 687.0, 804.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1105 = new Point("1105", 676.0, 743.0, MathUtils.IGNORE_DOUBLE, true);
+
+        Abriss a = new Abriss(p1101, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p1102, 0.0, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+        a.getMeasures().add(new Measure(p1103, 101.1768, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+        a.getMeasures().add(new Measure(p1104, 219.2887, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+        a.getMeasures().add(new Measure(p1105, 315.0179, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE));
+
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        Assert.assertEquals("-0", this.df0.format(a.getResults().get(0).getErrAngle()));
+        Assert.assertEquals("-0.0", this.df1.format(a.getResults().get(0).getErrTrans()));
+        Assert.assertEquals("0.0", this.df1.format(a.getResults().get(0).getErrLong()));
+
+        Assert.assertEquals("0", this.df0.format(a.getResults().get(1).getErrAngle()));
+        Assert.assertEquals("0.0", this.df1.format(a.getResults().get(1).getErrTrans()));
+        Assert.assertEquals("0.0", this.df1.format(a.getResults().get(1).getErrLong()));
+
+        Assert.assertEquals("-0", this.df0.format(a.getResults().get(2).getErrAngle()));
+        Assert.assertEquals("-0.0", this.df1.format(a.getResults().get(2).getErrTrans()));
+        Assert.assertEquals("0.0", this.df1.format(a.getResults().get(2).getErrLong()));
+
+        Assert.assertEquals("0", this.df0.format(a.getResults().get(3).getErrAngle()));
+        Assert.assertEquals("0.0", this.df1.format(a.getResults().get(3).getErrTrans()));
+        Assert.assertEquals("0.0", this.df1.format(a.getResults().get(3).getErrLong()));
+
+        // test final results
+        Assert.assertEquals("244.8495", this.df4.format(a.getMean()));
+        Assert.assertEquals("0", this.df0.format(a.getMSE()));
+        Assert.assertEquals("0", this.df0.format(a.getMeanErrComp()));
+    }
+
+    // TD-NK_1.1.2
+    public void testTDNK112() {
+        Point p1106 = new Point("1106", 649.0, 780.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1107 = new Point("1107", 615.0, 740.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1108 = new Point("1108", 615.0, 810.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1109 = new Point("1109", 687.0, 804.0, MathUtils.IGNORE_DOUBLE, true);
+        Point p1110 = new Point("1110", 676.0, 743.0, MathUtils.IGNORE_DOUBLE, true);
+
+        Abriss a = new Abriss(p1106, false);
+        a.removeDAO(CalculationsDataSource.getInstance());
+        a.getMeasures().add(new Measure(p1107, 0.0, MathUtils.IGNORE_DOUBLE, 52.618));
+        a.getMeasures().add(new Measure(p1108, 101.2180, MathUtils.IGNORE_DOUBLE, 45.353));
+        a.getMeasures().add(new Measure(p1109, 219.3067, MathUtils.IGNORE_DOUBLE, 44.984));
+        a.getMeasures().add(new Measure(p1110, 315.1130, MathUtils.IGNORE_DOUBLE, 45.924));
+
+        try {
+            a.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        Assert.assertEquals("386", this.df0.format(a.getResults().get(0).getErrAngle()));
+        Assert.assertEquals("3.2", this.df1.format(a.getResults().get(0).getErrTrans()));
+        Assert.assertEquals("-12.0", this.df1.format(a.getResults().get(0).getErrLong()));
+
+        Assert.assertEquals("-26", this.df0.format(a.getResults().get(1).getErrAngle()));
+        Assert.assertEquals("-0.2", this.df1.format(a.getResults().get(1).getErrTrans()));
+        Assert.assertEquals("-1.0", this.df1.format(a.getResults().get(1).getErrLong()));
+
+        Assert.assertEquals("206", this.df0.format(a.getResults().get(2).getErrAngle()));
+        Assert.assertEquals("1.5", this.df1.format(a.getResults().get(2).getErrTrans()));
+        Assert.assertEquals("-4.0", this.df1.format(a.getResults().get(2).getErrLong()));
+
+        Assert.assertEquals("-565", this.df0.format(a.getResults().get(3).getErrAngle()));
+        Assert.assertEquals("-4.1", this.df1.format(a.getResults().get(3).getErrTrans()));
+        Assert.assertEquals("-12.0", this.df1.format(a.getResults().get(3).getErrLong()));
+
+        // test final results
+        Assert.assertEquals("244.8109", this.df4.format(a.getMean()));
+        Assert.assertEquals("413", this.df0.format(a.getMSE()));
+        Assert.assertEquals("206", this.df0.format(a.getMeanErrComp()));
     }
 }
