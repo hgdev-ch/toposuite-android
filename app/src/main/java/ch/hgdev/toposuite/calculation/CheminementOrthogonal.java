@@ -115,7 +115,7 @@ public class CheminementOrthogonal extends Calculation {
 
         // gisement of the temporary base
         Gisement g = new Gisement(this.orthogonalBase.getOrigin(),
-                new Point("42", eastExt, northExt, 0.0, false, false), false);
+                new Point("42", eastExt, northExt, MathUtils.IGNORE_DOUBLE, false, false), false);
         g.compute();
         gis = g.getGisement();
 
@@ -134,7 +134,7 @@ public class CheminementOrthogonal extends Calculation {
         gis += rot;
         dist = MathUtils.euclideanDistance(
                 this.orthogonalBase.getOrigin(),
-                new Point(CheminementOrthogonal.DUMMY_POINT_NUMBER_3, eastExt, northExt, 0.0,
+                new Point(CheminementOrthogonal.DUMMY_POINT_NUMBER_3, eastExt, northExt, MathUtils.IGNORE_DOUBLE,
                         false, false));
 
         double deltaMeasEast = MathUtils.pointLanceEast(currEast, gis, dist) - currEast;
@@ -145,7 +145,7 @@ public class CheminementOrthogonal extends Calculation {
         this.fs = MathUtils.pythagoras(this.fE, this.fN);
 
         this.scale = this.orthogonalBase.getScaleFactor();
-        if (MathUtils.isZero(this.scale)) {
+        if (MathUtils.isIgnorable(this.scale)) {
             // automatic scale factor determination
             this.scale = MathUtils.euclideanDistance(this.orthogonalBase.getOrigin(),
                     this.orthogonalBase.getExtremity()) / dist;
@@ -154,9 +154,9 @@ public class CheminementOrthogonal extends Calculation {
         // calculation of the final coordinates
         for (CheminementOrthogonal.Result r : tmpResults) {
             Point p1 = new Point(CheminementOrthogonal.DUMMY_POINT_NUMBER_1, currEast, currNorth,
-                    0.0, false, false);
+                    MathUtils.IGNORE_DOUBLE, false, false);
             Point p2 = new Point(CheminementOrthogonal.DUMMY_POINT_NUMBER_2, r.getEast(),
-                    r.getNorth(), 0.0, false, false);
+                    r.getNorth(), MathUtils.IGNORE_DOUBLE, false, false);
 
             g = new Gisement(p1, p2, false);
             g.compute();

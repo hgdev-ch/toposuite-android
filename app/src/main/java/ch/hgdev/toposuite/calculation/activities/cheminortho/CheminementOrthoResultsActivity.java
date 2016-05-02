@@ -60,8 +60,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
         if (bundle != null) {
             int position = bundle.getInt(
                     CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION);
-            this.cheminOrtho = (CheminementOrthogonal) SharedResources.getCalculationsHistory()
-                    .get(position);
+            this.cheminOrtho = (CheminementOrthogonal) SharedResources.getCalculationsHistory().get(position);
             this.cheminOrtho.getResults().clear();
             try {
                 this.cheminOrtho.compute();

@@ -35,7 +35,7 @@ public class OrthogonalBase {
     }
 
     public OrthogonalBase(@NonNull Point _origin, @NonNull Point _extremity, double _measuredDistance) {
-        this(_origin, _extremity, _measuredDistance, 0.0);
+        this(_origin, _extremity, _measuredDistance, MathUtils.IGNORE_DOUBLE);
     }
 
     public OrthogonalBase(@NonNull Point _origin, @NonNull Point _extremity) {
@@ -43,7 +43,7 @@ public class OrthogonalBase {
     }
 
     public OrthogonalBase() {
-        this.DEFAULT_SCALE_FACTOR = 0.0;
+        this.DEFAULT_SCALE_FACTOR = MathUtils.IGNORE_DOUBLE;
     }
 
     public OrthogonalBase(double defaultScaleFactor) {
