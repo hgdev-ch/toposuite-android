@@ -11,18 +11,18 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class OrthogonalBase {
-    public static final String ORIGIN             = "origin";
-    public static final String EXTREMITY          = "extremity";
-    public static final String MEASURED_DISTANCE  = "measured_distance";
+    public static final String ORIGIN = "origin";
+    public static final String EXTREMITY = "extremity";
+    public static final String MEASURED_DISTANCE = "measured_distance";
     public static final String SCALE_FACTOR_LABEL = "default_scale_factor";
 
-    private Point              origin;
-    private Point              extremity;
-    private double             calculatedDistance;
-    private double             measuredDistance;
-    private double             scaleFactor;
+    private Point origin;
+    private Point extremity;
+    private double calculatedDistance;
+    private double measuredDistance;
+    private double scaleFactor;
 
-    private final double       DEFAULT_SCALE_FACTOR;
+    private final double DEFAULT_SCALE_FACTOR;
 
     public OrthogonalBase(@NonNull Point _origin, @NonNull Point _extremity, double _measuredDistance,
                           double defaultScaleFactor) {
@@ -56,10 +56,9 @@ public class OrthogonalBase {
             return;
         }
 
-        this.calculatedDistance = MathUtils.euclideanDistance(
-                this.origin, this.extremity);
+        this.calculatedDistance = MathUtils.euclideanDistance(this.origin, this.extremity);
 
-        if (!MathUtils.isZero(this.measuredDistance)) {
+        if (!MathUtils.isZero(this.measuredDistance) || !MathUtils.isIgnorable(this.measuredDistance)) {
             this.scaleFactor = this.calculatedDistance / this.measuredDistance;
         } else {
             this.scaleFactor = this.DEFAULT_SCALE_FACTOR;
@@ -141,5 +140,9 @@ public class OrthogonalBase {
 
     public double getScaleFactor() {
         return this.scaleFactor;
+    }
+
+    public int getScaleFactorPPM() {
+        return MathUtils.scaleToPPM(this.scaleFactor);
     }
 }
