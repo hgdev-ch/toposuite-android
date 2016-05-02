@@ -122,7 +122,7 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     /**
      * Setter for notifyOnChange flag.
      * 
-     * @param notifyOnChange
+     * @param _notifyOnChange
      *            the notifyOnChange to set
      */
     public void setNotifyOnChange(boolean _notifyOnChange) {

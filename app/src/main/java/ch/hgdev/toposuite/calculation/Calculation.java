@@ -124,7 +124,9 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
      */
     protected void postCompute() {
         this.updateLastModification();
-        this.notifyUpdate(this);
+        if (this.hasDAO) {
+            this.notifyUpdate(this);
+        }
         this.recordToHistory();
     }
 
