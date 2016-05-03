@@ -26,15 +26,14 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.StringUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class CircularSegmentationResultsActivity extends TopoSuiteActivity implements
-MergePointsDialog.MergePointsDialogListener {
-    private ArrayList<Point>         points;
+public class CircularSegmentationResultsActivity extends TopoSuiteActivity implements MergePointsDialog.MergePointsDialogListener {
+    private ArrayList<Point> points;
 
-    private ListView                 resultsListView;
+    private ListView resultsListView;
     private ArrayListOfPointsAdapter adapter;
 
-    private int                      saveCounter;
-    private int                      mergeDialogCounter;
+    private int saveCounter;
+    private int mergeDialogCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +45,13 @@ MergePointsDialog.MergePointsDialogListener {
 
         Bundle bundle = this.getIntent().getExtras();
 
-        Point center = SharedResources.getSetOfPoints().find(
-                bundle.getString(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER));
-        Point start = SharedResources.getSetOfPoints().find(
-                bundle.getString(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER));
-        Point end = SharedResources.getSetOfPoints().find(
-                bundle.getString(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER));
+        Point center = SharedResources.getSetOfPoints().find(bundle.getString(CircularSegmentationActivity.CIRCLE_CENTER_POINT_NUMBER));
+        Point start = SharedResources.getSetOfPoints().find(bundle.getString(CircularSegmentationActivity.CIRCLE_START_POINT_NUMBER));
+        Point end = SharedResources.getSetOfPoints().find(bundle.getString(CircularSegmentationActivity.CIRCLE_END_POINT_NUMBER));
         int numberOfSegments = bundle.getInt(CircularSegmentationActivity.NUMBER_OF_SEGMENTS);
         double arcLength = bundle.getDouble(CircularSegmentationActivity.ARC_LENGTH);
 
-        String resultPointNumber = bundle.getString(
-                CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER);
+        String resultPointNumber = bundle.getString(CircularSegmentationActivity.FIRST_RESULT_POINT_NUMBER);
 
         CircularSegmentation circularSegmentation = new CircularSegmentation();
         try {
@@ -67,8 +62,7 @@ MergePointsDialog.MergePointsDialogListener {
             ViewUtils.showToast(this, this.getString(R.string.error_impossible_calculation));
         }
 
-        circleRadiusTextView.setText(
-                DisplayUtils.formatDistance(circularSegmentation.getCircleRadius()));
+        circleRadiusTextView.setText(DisplayUtils.formatDistance(circularSegmentation.getCircleRadius()));
 
         this.points = (ArrayList<Point>) circularSegmentation.getPoints();
 
@@ -95,11 +89,11 @@ MergePointsDialog.MergePointsDialogListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-        case R.id.save_points:
-            this.saveAllPoints();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+            case R.id.save_points:
+                this.saveAllPoints();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -115,11 +109,11 @@ MergePointsDialog.MergePointsDialogListener {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.save_point:
-            this.savePoint(info.position);
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.save_point:
+                this.savePoint(info.position);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -161,8 +155,7 @@ MergePointsDialog.MergePointsDialogListener {
     /**
      * Save a point to the database of points.
      *
-     * @param position
-     *            Position of the point in the list of points.
+     * @param position Position of the point in the list of points.
      * @return True if it was a success, false otherwise.
      */
     private boolean savePoint(int position) {
@@ -182,16 +175,11 @@ MergePointsDialog.MergePointsDialogListener {
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putString(
-                    MergePointsDialog.POINT_NUMBER,
-                    r.getNumber());
+            args.putString(MergePointsDialog.POINT_NUMBER, r.getNumber());
 
-            args.putDouble(MergePointsDialog.NEW_EAST,
-                    r.getEast());
-            args.putDouble(MergePointsDialog.NEW_NORTH,
-                    r.getNorth());
-            args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                    r.getAltitude());
+            args.putDouble(MergePointsDialog.NEW_EAST, r.getEast());
+            args.putDouble(MergePointsDialog.NEW_NORTH, r.getNorth());
+            args.putDouble(MergePointsDialog.NEW_ALTITUDE, r.getAltitude());
 
             dialog.setArguments(args);
             dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
@@ -206,24 +194,24 @@ MergePointsDialog.MergePointsDialogListener {
     private void saveAllPoints() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.save_points)
-        .setMessage(R.string.save_all_points)
-        .setIcon(R.drawable.ic_dialog_warning)
-        .setPositiveButton(R.string.save_all,
-                new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                CircularSegmentationResultsActivity.this.savePoints();
-                CircularSegmentationResultsActivity.this.adapter
-                .notifyDataSetChanged();
-            }
-        })
-        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setMessage(R.string.save_all_points)
+                .setIcon(R.drawable.ic_dialog_warning)
+                .setPositiveButton(R.string.save_all,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                CircularSegmentationResultsActivity.this.savePoints();
+                                CircularSegmentationResultsActivity.this.adapter
+                                        .notifyDataSetChanged();
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // do nothing
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
         builder.create().show();
     }
 
