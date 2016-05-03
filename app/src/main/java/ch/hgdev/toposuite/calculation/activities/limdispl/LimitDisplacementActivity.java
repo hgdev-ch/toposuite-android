@@ -27,7 +27,7 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LimitDisplacementActivity extends TopoSuiteActivity {
-    public final static String LIMIT_DISPLACEMENT_POSITION = "limit_displacement_position";
+    public final static String LIMIT_DISPLACEMENT = "limit_displacement_position";
     private final static String POINT_A_SELECTED_POSITION = "point_a_selected_position";
     private final static String POINT_B_SELECTED_POSITION = "point_b_selected_position";
     private final static String POINT_C_SELECTED_POSITION = "point_c_selected_position";
@@ -80,11 +80,9 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LimitDisplacementActivity.this.pointASelectedPosition = pos;
 
-                Point pt = (Point) LimitDisplacementActivity.this.pointASpinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LimitDisplacementActivity.this.pointASpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LimitDisplacementActivity.this.pointATextView.setText(
-                            DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
+                    LimitDisplacementActivity.this.pointATextView.setText(DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
                 } else {
                     LimitDisplacementActivity.this.pointATextView.setText("");
                 }
@@ -101,11 +99,9 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LimitDisplacementActivity.this.pointBSelectedPosition = pos;
 
-                Point pt = (Point) LimitDisplacementActivity.this.pointBSpinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LimitDisplacementActivity.this.pointBSpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LimitDisplacementActivity.this.pointBTextView.setText(
-                            DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
+                    LimitDisplacementActivity.this.pointBTextView.setText(DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
                 } else {
                     LimitDisplacementActivity.this.pointBTextView.setText("");
                 }
@@ -122,11 +118,9 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LimitDisplacementActivity.this.pointCSelectedPosition = pos;
 
-                Point pt = (Point) LimitDisplacementActivity.this.pointCSpinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LimitDisplacementActivity.this.pointCSpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LimitDisplacementActivity.this.pointCTextView.setText(
-                            DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
+                    LimitDisplacementActivity.this.pointCTextView.setText(DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
                 } else {
                     LimitDisplacementActivity.this.pointCTextView.setText("");
                 }
@@ -143,11 +137,9 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LimitDisplacementActivity.this.pointDSelectedPosition = pos;
 
-                Point pt = (Point) LimitDisplacementActivity.this.pointDSpinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LimitDisplacementActivity.this.pointDSpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LimitDisplacementActivity.this.pointDTextView.setText(
-                            DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
+                    LimitDisplacementActivity.this.pointDTextView.setText(DisplayUtils.formatPoint(LimitDisplacementActivity.this, pt));
                 } else {
                     LimitDisplacementActivity.this.pointDTextView.setText("");
                 }
@@ -169,15 +161,11 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.limDispl = (LimitDisplacement) SharedResources.getCalculationsHistory().get(
-                    position);
+            this.limDispl = (LimitDisplacement) SharedResources.getCalculationsHistory().get(position);
 
-            this.imposedSurfaceEditText.setText(
-                    DisplayUtils.toStringForEditText(this.limDispl.getSurface()));
-            this.pointWestNumberEditText.setText(
-                    String.valueOf(this.limDispl.getPointXNumber()));
-            this.pointEastNumberEditText.setText(
-                    String.valueOf(this.limDispl.getPointYNumber()));
+            this.imposedSurfaceEditText.setText(DisplayUtils.toStringForEditText(this.limDispl.getSurface()));
+            this.pointWestNumberEditText.setText(String.valueOf(this.limDispl.getPointXNumber()));
+            this.pointEastNumberEditText.setText(String.valueOf(this.limDispl.getPointYNumber()));
         }
     }
 
@@ -185,27 +173,21 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
     protected void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point(
-                "", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.adapter = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
+        this.adapter = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.pointASpinner.setAdapter(this.adapter);
         this.pointBSpinner.setAdapter(this.adapter);
         this.pointCSpinner.setAdapter(this.adapter);
         this.pointDSpinner.setAdapter(this.adapter);
 
         if (this.limDispl != null) {
-            this.pointASelectedPosition = this.adapter.getPosition(
-                    this.limDispl.getPointA());
-            this.pointBSelectedPosition = this.adapter.getPosition(
-                    this.limDispl.getPointB());
-            this.pointCSelectedPosition = this.adapter.getPosition(
-                    this.limDispl.getPointC());
-            this.pointDSelectedPosition = this.adapter.getPosition(
-                    this.limDispl.getPointD());
+            this.pointASelectedPosition = this.adapter.getPosition(this.limDispl.getPointA());
+            this.pointBSelectedPosition = this.adapter.getPosition(this.limDispl.getPointB());
+            this.pointCSelectedPosition = this.adapter.getPosition(this.limDispl.getPointC());
+            this.pointDSelectedPosition = this.adapter.getPosition(this.limDispl.getPointD());
         }
 
         this.pointASpinner.setSelection(this.pointASelectedPosition);
@@ -232,8 +214,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
                         || (ViewUtils.readString(this.pointWestNumberEditText).isEmpty())
                         || (ViewUtils.readString(this.pointEastNumberEditText).isEmpty())
                         || (ViewUtils.readDouble(this.imposedSurfaceEditText) == MathUtils.IGNORE_DOUBLE)) {
-                    ViewUtils.showToast(this,
-                            this.getText(R.string.error_fill_data));
+                    ViewUtils.showToast(this, this.getText(R.string.error_fill_data));
                     return true;
                 }
 
@@ -246,9 +227,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
                 String pointYNumber = ViewUtils.readString(this.pointEastNumberEditText);
 
                 if (this.limDispl == null) {
-                    this.limDispl = new LimitDisplacement(
-                            pointA, pointB, pointC, pointD, surface,
-                            pointXNumber, pointYNumber, true);
+                    this.limDispl = new LimitDisplacement(pointA, pointB, pointC, pointD, surface, pointXNumber, pointYNumber, true);
                 } else {
                     this.limDispl.setPointA(pointA);
                     this.limDispl.setPointB(pointB);
@@ -271,14 +250,10 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(LimitDisplacementActivity.POINT_A_SELECTED_POSITION,
-                this.pointASelectedPosition);
-        outState.putInt(LimitDisplacementActivity.POINT_B_SELECTED_POSITION,
-                this.pointBSelectedPosition);
-        outState.putInt(LimitDisplacementActivity.POINT_C_SELECTED_POSITION,
-                this.pointCSelectedPosition);
-        outState.putInt(LimitDisplacementActivity.POINT_D_SELECTED_POSITION,
-                this.pointDSelectedPosition);
+        outState.putInt(LimitDisplacementActivity.POINT_A_SELECTED_POSITION, this.pointASelectedPosition);
+        outState.putInt(LimitDisplacementActivity.POINT_B_SELECTED_POSITION, this.pointBSelectedPosition);
+        outState.putInt(LimitDisplacementActivity.POINT_C_SELECTED_POSITION, this.pointCSelectedPosition);
+        outState.putInt(LimitDisplacementActivity.POINT_D_SELECTED_POSITION, this.pointDSelectedPosition);
     }
 
     @Override
@@ -286,14 +261,10 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.pointASelectedPosition = savedInstanceState.getInt(
-                    LimitDisplacementActivity.POINT_A_SELECTED_POSITION);
-            this.pointBSelectedPosition = savedInstanceState.getInt(
-                    LimitDisplacementActivity.POINT_B_SELECTED_POSITION);
-            this.pointCSelectedPosition = savedInstanceState.getInt(
-                    LimitDisplacementActivity.POINT_C_SELECTED_POSITION);
-            this.pointDSelectedPosition = savedInstanceState.getInt(
-                    LimitDisplacementActivity.POINT_D_SELECTED_POSITION);
+            this.pointASelectedPosition = savedInstanceState.getInt(LimitDisplacementActivity.POINT_A_SELECTED_POSITION);
+            this.pointBSelectedPosition = savedInstanceState.getInt(LimitDisplacementActivity.POINT_B_SELECTED_POSITION);
+            this.pointCSelectedPosition = savedInstanceState.getInt(LimitDisplacementActivity.POINT_C_SELECTED_POSITION);
+            this.pointDSelectedPosition = savedInstanceState.getInt(LimitDisplacementActivity.POINT_D_SELECTED_POSITION);
         }
     }
 
@@ -304,9 +275,7 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
 
     private void startLimitDisplacementResultsActivity() {
         Bundle bundle = new Bundle();
-
-        bundle.putInt(LimitDisplacementActivity.LIMIT_DISPLACEMENT_POSITION,
-                SharedResources.getCalculationsHistory().indexOf(this.limDispl));
+        bundle.putSerializable(LimitDisplacementActivity.LIMIT_DISPLACEMENT, this.limDispl);
 
         Intent resultsActivityIntent = new Intent(this, LimitDisplacementResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);

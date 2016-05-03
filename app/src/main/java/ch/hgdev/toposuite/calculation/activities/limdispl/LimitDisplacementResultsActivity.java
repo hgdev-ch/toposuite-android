@@ -16,8 +16,7 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class LimitDisplacementResultsActivity extends TopoSuiteActivity implements
-        MergePointsDialog.MergePointsDialogListener {
+public class LimitDisplacementResultsActivity extends TopoSuiteActivity implements MergePointsDialog.MergePointsDialogListener {
     private TextView limitDisplacementLabelTextView;
     private TextView pointWestTextView;
     private TextView pointEastTextView;
@@ -32,23 +31,16 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_limit_displacement_results);
 
-        this.limitDisplacementLabelTextView = (TextView) this.findViewById(
-                R.id.limit_displ_results_label);
+        this.limitDisplacementLabelTextView = (TextView) this.findViewById(R.id.limit_displ_results_label);
         this.pointWestTextView = (TextView) this.findViewById(R.id.point_west);
         this.pointEastTextView = (TextView) this.findViewById(R.id.point_east);
-        this.distParaSouthTextView = (TextView) this.findViewById(
-                R.id.distance_para_south);
-        this.distLonWestTextView = (TextView) this.findViewById(
-                R.id.distance_lon_west);
-        this.distLonEastTextView = (TextView) this.findViewById(
-                R.id.distance_lon_east);
+        this.distParaSouthTextView = (TextView) this.findViewById(R.id.distance_para_south);
+        this.distLonWestTextView = (TextView) this.findViewById(R.id.distance_lon_west);
+        this.distLonEastTextView = (TextView) this.findViewById(R.id.distance_lon_east);
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            int position = bundle.getInt(
-                    LimitDisplacementActivity.LIMIT_DISPLACEMENT_POSITION);
-            this.limDispl = (LimitDisplacement) SharedResources.getCalculationsHistory()
-                    .get(position);
+            this.limDispl = (LimitDisplacement) bundle.getSerializable(LimitDisplacementActivity.LIMIT_DISPLACEMENT);
             try {
                 this.limDispl.compute();
             } catch (CalculationException e) {
@@ -57,21 +49,15 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
                 return;
             }
 
-            this.limitDisplacementLabelTextView.setText(
-                    String.format(this.getString(
-                            R.string.limit_displ_results_label),
-                            DisplayUtils.formatSurface(
-                                    this.limDispl.getSurface())));
+            this.limitDisplacementLabelTextView.setText(String.format(this.getString(
+                    R.string.limit_displ_results_label),
+                    DisplayUtils.formatSurface(this.limDispl.getSurface())));
             this.pointWestTextView.setText(
                     DisplayUtils.formatPoint(this, this.limDispl.getNewPointX()));
-            this.pointEastTextView.setText(
-                    DisplayUtils.formatPoint(this, this.limDispl.getNewPointY()));
-            this.distParaSouthTextView.setText(DisplayUtils.formatDistance(
-                    this.limDispl.getDistanceToSouthLimitAD()));
-            this.distLonWestTextView.setText(DisplayUtils.formatDistance(
-                    this.limDispl.getDistanceToWestLimitAX()));
-            this.distLonEastTextView.setText(DisplayUtils.formatDistance(
-                    this.limDispl.getDistanceToEastLimitDY()));
+            this.pointEastTextView.setText(DisplayUtils.formatPoint(this, this.limDispl.getNewPointY()));
+            this.distParaSouthTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToSouthLimitAD()));
+            this.distLonWestTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToWestLimitAX()));
+            this.distLonEastTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToEastLimitDY()));
         }
     }
 
@@ -110,15 +96,10 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putString(
-                    MergePointsDialog.POINT_NUMBER,
-                    pt.getNumber());
-            args.putDouble(MergePointsDialog.NEW_EAST,
-                    pt.getEast());
-            args.putDouble(MergePointsDialog.NEW_NORTH,
-                    pt.getNorth());
-            args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                    pt.getAltitude());
+            args.putString(MergePointsDialog.POINT_NUMBER, pt.getNumber());
+            args.putDouble(MergePointsDialog.NEW_EAST, pt.getEast());
+            args.putDouble(MergePointsDialog.NEW_NORTH, pt.getNorth());
+            args.putDouble(MergePointsDialog.NEW_ALTITUDE, pt.getAltitude());
 
             dialog.setArguments(args);
             dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
