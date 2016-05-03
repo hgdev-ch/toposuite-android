@@ -18,7 +18,6 @@ import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
-import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 /**
@@ -69,8 +68,7 @@ public class GisementActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) GisementActivity.this.originSpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    GisementActivity.this.originPoint.setText(DisplayUtils.formatPoint(
-                            GisementActivity.this, pt));
+                    GisementActivity.this.originPoint.setText(DisplayUtils.formatPoint(GisementActivity.this, pt));
                 } else {
                     GisementActivity.this.originPoint.setText("");
                 }
@@ -90,8 +88,7 @@ public class GisementActivity extends TopoSuiteActivity {
 
                 Point pt = (Point) GisementActivity.this.orientationSpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    GisementActivity.this.orientationPoint.setText(DisplayUtils.formatPoint(
-                            GisementActivity.this, pt));
+                    GisementActivity.this.orientationPoint.setText(DisplayUtils.formatPoint(GisementActivity.this, pt));
                 } else {
                     GisementActivity.this.orientationPoint.setText("");
                 }
@@ -117,31 +114,24 @@ public class GisementActivity extends TopoSuiteActivity {
     protected void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point(
-                "", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
-                MathUtils.IGNORE_DOUBLE, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
+        ArrayAdapter<Point> a = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.originSpinner.setAdapter(a);
         this.orientationSpinner.setAdapter(a);
 
         if (this.gisement != null) {
-            this.originSpinner.setSelection(
-                    a.getPosition(this.gisement.getOrigin()));
-            this.orientationSpinner.setSelection(
-                    a.getPosition(this.gisement.getOrientation()));
+            this.originSpinner.setSelection(a.getPosition(this.gisement.getOrigin()));
+            this.orientationSpinner.setSelection(a.getPosition(this.gisement.getOrientation()));
         } else {
             if (this.originSelectedPosition > 0) {
-                this.originSpinner.setSelection(
-                        this.originSelectedPosition);
+                this.originSpinner.setSelection(this.originSelectedPosition);
             }
 
             if (this.orientationSelectedPosition > 0) {
-                this.orientationSpinner.setSelection(
-                        this.orientationSelectedPosition);
+                this.orientationSpinner.setSelection(this.orientationSelectedPosition);
             }
         }
     }
@@ -155,10 +145,8 @@ public class GisementActivity extends TopoSuiteActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(GisementActivity.ORIGIN_SELECTED_POSITION,
-                this.originSelectedPosition);
-        outState.putInt(GisementActivity.ORIENTATION_SELECTED_POSITION,
-                this.orientationSelectedPosition);
+        outState.putInt(GisementActivity.ORIGIN_SELECTED_POSITION, this.originSelectedPosition);
+        outState.putInt(GisementActivity.ORIENTATION_SELECTED_POSITION, this.orientationSelectedPosition);
     }
 
     @Override
@@ -166,10 +154,8 @@ public class GisementActivity extends TopoSuiteActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.originSelectedPosition = savedInstanceState.getInt(
-                    GisementActivity.ORIGIN_SELECTED_POSITION);
-            this.orientationSelectedPosition = savedInstanceState.getInt(
-                    GisementActivity.ORIENTATION_SELECTED_POSITION);
+            this.originSelectedPosition = savedInstanceState.getInt(GisementActivity.ORIGIN_SELECTED_POSITION);
+            this.orientationSelectedPosition = savedInstanceState.getInt(GisementActivity.ORIENTATION_SELECTED_POSITION);
         }
     }
 
@@ -194,11 +180,9 @@ public class GisementActivity extends TopoSuiteActivity {
                 this.gisement.setOrientation(p2);
             }
 
-            this.gisementValue
-                    .setText(DisplayUtils.formatAngle(this.gisement.getGisement()));
+            this.gisementValue.setText(DisplayUtils.formatAngle(this.gisement.getGisement()));
             this.distValue.setText(DisplayUtils.formatDistance(this.gisement.getHorizDist()));
-            this.altitudeValue
-                    .setText(DisplayUtils.formatCoordinate(this.gisement.getAltitude()));
+            this.altitudeValue.setText(DisplayUtils.formatCoordinate(this.gisement.getAltitude()));
             this.slopeValue.setText(DisplayUtils.formatAngle(this.gisement.getSlope()));
         }
     }
