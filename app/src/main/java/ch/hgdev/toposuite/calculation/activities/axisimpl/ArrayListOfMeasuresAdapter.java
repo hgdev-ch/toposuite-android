@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.hgdev.toposuite.R;
@@ -51,5 +52,13 @@ class ArrayListOfMeasuresAdapter extends ArrayAdapter<Measure> {
         }
 
         return view;
+    }
+
+    public ArrayList<Measure> getMeasures() {
+        ArrayList<Measure> measures = new ArrayList<>();
+        for (int i = 0; i < this.getCount(); i++) {
+            measures.add(this.getItem(i));
+        }
+        return measures;
     }
 }

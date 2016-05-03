@@ -47,7 +47,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
     private static final String STATION_SELECTED_POSITION = "station_selected_position";
     private static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
     private static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
-    private static final String MEASURES_LIST = "measures_list";
+    private static final String MEASURES_LIST_LABEL = "measures_list";
 
     private CheckBox checkboxZ0;
 
@@ -158,29 +158,24 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
             }
         });
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.pointsAdapter = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
+        this.pointsAdapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.axisImpl = (AxisImplantation) SharedResources.getCalculationsHistory().get(position);
 
-            this.stationSelectedPosition = this.pointsAdapter.getPosition(
-                    this.axisImpl.getStation());
-            this.originSelectedPosition = this.pointsAdapter.getPosition(
-                    this.axisImpl.getOrthogonalBase().getOrigin());
-            this.extremitySelectedPosition = this.pointsAdapter.getPosition(
-                    this.axisImpl.getOrthogonalBase().getExtremity());
+            this.stationSelectedPosition = this.pointsAdapter.getPosition(this.axisImpl.getStation());
+            this.originSelectedPosition = this.pointsAdapter.getPosition(this.axisImpl.getOrthogonalBase().getOrigin());
+            this.extremitySelectedPosition = this.pointsAdapter.getPosition(this.axisImpl.getOrthogonalBase().getExtremity());
 
             // the user has retrieved his z0 from last calculation previously
             if (this.axisImpl.getZ0CalculationId() > 0) {
-                Calculation c = SharedResources.getCalculationsHistory().find(
-                        this.axisImpl.getZ0CalculationId());
+                Calculation c = SharedResources.getCalculationsHistory().find(this.axisImpl.getZ0CalculationId());
 
                 if ((c != null) && (c.getType() == CalculationType.ABRISS)) {
                     Abriss a = (Abriss) c;
@@ -212,14 +207,14 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
                 this.unknownOrientationEditText.setEnabled(false);
             }
 
-            this.unknownOrientationEditText.setText(DisplayUtils.toStringForEditText(
-                    this.axisImpl.getUnknownOrientation()));
+            this.unknownOrientationEditText.setText(DisplayUtils.toStringForEditText(this.axisImpl.getUnknownOrientation()));
         } else {
             this.axisImpl = new AxisImplantation(true);
         }
 
-        this.drawList();
-
+        this.adapter = new ArrayListOfMeasuresAdapter(
+                this, R.layout.axis_implantation_list_item,
+                new ArrayList<>(this.axisImpl.getMeasures()));
         this.registerForContextMenu(this.measuresListView);
     }
 
@@ -245,6 +240,8 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
             this.extremitySpinner.setSelection(
                     this.extremitySelectedPosition);
         }
+
+        this.drawList();
     }
 
     @Override
@@ -276,8 +273,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         outState.putInt(AxisImplantationActivity.EXTREMITY_SELECTED_POSITION,
                 this.extremitySelectedPosition);
 
-        outState.putSerializable(AxisImplantationActivity.AXIS_IMPLANTATION, this.axisImpl);
-        outState.putSerializable(AxisImplantationActivity.MEASURES_LIST, new ArrayList(this.axisImpl.getMeasures()));
+        outState.putSerializable(AxisImplantationActivity.MEASURES_LIST_LABEL, this.adapter.getMeasures());
     }
 
     @Override
@@ -285,22 +281,17 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.axisImpl = (AxisImplantation) savedInstanceState.getSerializable(AxisImplantationActivity.AXIS_IMPLANTATION);
-            if (this.axisImpl != null) {
-                this.adapter.clear();
-                ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(AxisImplantationActivity.MEASURES_LIST);
-                if ((measures != null) && (!measures.isEmpty())) {
-                    this.axisImpl.getMeasures().addAll(measures);
-                }
-                this.drawList();
-            }
-
             this.stationSelectedPosition = savedInstanceState
                     .getInt(AxisImplantationActivity.STATION_SELECTED_POSITION);
             this.originSelectedPosition = savedInstanceState
                     .getInt(AxisImplantationActivity.ORIGIN_SELECTED_POSITION);
             this.extremitySelectedPosition = savedInstanceState
                     .getInt(AxisImplantationActivity.EXTREMITY_SELECTED_POSITION);
+
+            ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(AxisImplantationActivity.MEASURES_LIST_LABEL);
+            this.adapter.clear();
+            this.adapter.addAll(measures);
+            this.drawList();
         }
     }
 
@@ -331,16 +322,16 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
             case R.id.run_calculation_button:
                 if (this.checkInputs()) {
                     // update I and station number
-                    this.axisImpl.setStation(
-                            this.pointsAdapter.getItem(this.stationSelectedPosition));
+                    this.axisImpl.setStation(this.pointsAdapter.getItem(this.stationSelectedPosition));
                     this.axisImpl.getOrthogonalBase().setOrigin(
                             this.pointsAdapter.getItem(this.originSelectedPosition));
                     this.axisImpl.getOrthogonalBase().setExtremity(
                             this.pointsAdapter.getItem(this.extremitySelectedPosition));
 
-                    this.axisImpl.setUnknownOrientation(
-                            ViewUtils.readDouble(
-                                    this.unknownOrientationEditText));
+                    this.axisImpl.getMeasures().clear();
+                    this.axisImpl.getMeasures().addAll(this.adapter.getMeasures());
+
+                    this.axisImpl.setUnknownOrientation(ViewUtils.readDouble(this.unknownOrientationEditText));
 
                     this.startAxisImplantationResultsActivity();
                 } else {
@@ -369,13 +360,14 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
     private void showEditMeasureDialog(int position) {
         ViewUtils.lockScreenOrientation(this);
 
-        Measure m = this.axisImpl.getMeasures().get(position);
+        Measure m = this.adapter.getItem(position);
         MeasureDialogFragment dialog = MeasureDialogFragment.newInstance(m);
         dialog.show(this.getSupportFragmentManager(), "MeasureDialogFragment");
     }
 
     @Override
     public void onDialogAdd(MeasureDialogFragment dialog) {
+        //FIXME: avoid this hardcoded 100 value here
         Measure m = new Measure(
                 null,
                 dialog.getHorizDir(),
@@ -389,9 +381,9 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
     @Override
     public void onDialogEdit(MeasureDialogFragment dialog) {
-        int position = this.axisImpl.getMeasures().indexOf(dialog.getMeasure());
+        int position = this.adapter.getMeasures().indexOf(dialog.getMeasure());
 
-        Measure m = this.axisImpl.getMeasures().get(position);
+        Measure m = this.adapter.getMeasures().get(position);
         m.setMeasureNumber(dialog.getMeasureNumber());
         m.setHorizDir(dialog.getHorizDir());
         m.setDistance(dialog.getDistance());
@@ -411,7 +403,6 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
      */
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
-
         switch (view.getId()) {
             case R.id.checkbox_z0:
                 if (checked) {
@@ -420,11 +411,9 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
                         ViewUtils.showToast(this,
                                 this.getString(R.string.error_no_suitable_calculation_found));
                     } else {
-                        this.unknownOrientationEditText.setText(DisplayUtils
-                                .toStringForEditText(this.axisImpl.getUnknownOrientation()));
+                        this.unknownOrientationEditText.setText(DisplayUtils.toStringForEditText(this.axisImpl.getUnknownOrientation()));
                         this.unknownOrientationEditText.setEnabled(false);
-                        this.stationSpinner.setSelection(
-                                this.pointsAdapter.getPosition(this.axisImpl.getStation()));
+                        this.stationSpinner.setSelection(this.pointsAdapter.getPosition(this.axisImpl.getStation()));
                         this.stationSpinner.setEnabled(false);
                     }
                 } else {
@@ -438,9 +427,6 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
     }
 
     private void drawList() {
-        this.adapter = new ArrayListOfMeasuresAdapter(
-                this, R.layout.axis_implantation_list_item,
-                this.axisImpl.getMeasures());
         this.measuresListView.setAdapter(this.adapter);
     }
 
@@ -499,7 +485,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
                 && (this.originSelectedPosition > 0)
                 && (this.extremitySelectedPosition > 0)
                 && (this.unknownOrientationEditText.length() > 0)
-                && (this.axisImpl.getMeasures().size() >= 1));
+                && (this.adapter.getMeasures().size() >= 1));
     }
 
     private void orthogonalBasePointsSelected() {

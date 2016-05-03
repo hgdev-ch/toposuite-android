@@ -133,6 +133,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         if (savedInstanceState != null) {
             this.stationSelectedPosition = savedInstanceState.getInt(AbrissActivity.STATION_SELECTED_POSITION);
             this.stationSpinner.setSelection(this.stationSelectedPosition);
+
             ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(AbrissActivity.MEASURES_LIST_LABEL);
             this.adapter.clear();
             this.adapter.addAll(measures);
