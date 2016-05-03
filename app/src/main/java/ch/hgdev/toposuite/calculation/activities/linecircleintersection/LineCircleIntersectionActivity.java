@@ -83,12 +83,6 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     private ArrayAdapter<Point> adapter;
     private LineCircleIntersection lineCircleIntersection;
 
-    /**
-     * Position of the calculation in the calculations list. Only used when open
-     * from the history.
-     */
-    private int position;
-
     private enum Mode {
         LINE,
         GISEMENT
@@ -106,8 +100,6 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         this.point1SelectedPosition = 0;
         this.point2SelectedPosition = 0;
 
-        this.position = -1;
-
         this.mapViews();
         this.initViews();
     }
@@ -117,7 +109,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         super.onResume();
 
         List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, false, false));
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
         this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
@@ -128,14 +120,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.lineCircleIntersection = (LineCircleIntersection) SharedResources
-                    .getCalculationsHistory().get(this.position);
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.lineCircleIntersection = (LineCircleIntersection) SharedResources.getCalculationsHistory().get(position);
 
-            this.point1SelectedPosition = this.adapter.getPosition(
-                    this.lineCircleIntersection.getP1L());
-            this.point2SelectedPosition = this.adapter.getPosition(
-                    this.lineCircleIntersection.getP2L());
+            this.point1SelectedPosition = this.adapter.getPosition(this.lineCircleIntersection.getP1L());
+            this.point2SelectedPosition = this.adapter.getPosition(this.lineCircleIntersection.getP2L());
             double distance = this.lineCircleIntersection.getDistanceL();
             if (MathUtils.isPositive(distance)) {
                 this.isLinePerpendicular = true;
@@ -149,8 +138,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
             double displacement = this.lineCircleIntersection.getDisplacementL();
             if (!MathUtils.isZero(displacement)) {
-                this.displacementEditText.setText(
-                        DisplayUtils.toStringForEditText(displacement));
+                this.displacementEditText.setText(DisplayUtils.toStringForEditText(displacement));
             }
             this.displacementTextView.setEnabled(!this.isLinePerpendicular);
             this.displacementEditText.setEnabled(!this.isLinePerpendicular);
@@ -159,18 +147,15 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             if (MathUtils.isPositive(gisement)) {
                 this.modeGisementRadio.setChecked(true);
                 this.setModeGisement();
-                this.gisementEditText.setText(
-                        DisplayUtils.toStringForEditText(gisement));
+                this.gisementEditText.setText(DisplayUtils.toStringForEditText(gisement));
             } else {
                 this.modeGisementRadio.setChecked(false);
                 this.setModeLine();
                 this.gisementEditText.setText("");
             }
 
-            this.centerCSelectedPosition = this.adapter.getPosition(
-                    this.lineCircleIntersection.getCenterC());
-            this.radiusCEditText.setText(
-                    DisplayUtils.toStringForEditText(this.lineCircleIntersection.getRadiusC()));
+            this.centerCSelectedPosition = this.adapter.getPosition(this.lineCircleIntersection.getCenterC());
+            this.radiusCEditText.setText(DisplayUtils.toStringForEditText(this.lineCircleIntersection.getRadiusC()));
         }
 
         this.point1Spinner.setSelection(this.point1SelectedPosition);
@@ -196,15 +181,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(LineCircleIntersectionActivity.LINE_POINT_ONE_SELECTED_POSITION,
-                this.point1SelectedPosition);
-        outState.putInt(LineCircleIntersectionActivity.LINE_POINT_TWO_SELECTED_POSITION,
-                this.point2SelectedPosition);
+        outState.putInt(LineCircleIntersectionActivity.LINE_POINT_ONE_SELECTED_POSITION, this.point1SelectedPosition);
+        outState.putInt(LineCircleIntersectionActivity.LINE_POINT_TWO_SELECTED_POSITION, this.point2SelectedPosition);
 
-        outState.putInt(LineCircleIntersectionActivity.CIRCLE_CENTER_SELECTED_POSITION,
-                this.centerCSelectedPosition);
-        outState.putInt(LineCircleIntersectionActivity.CIRCLE_BY_POINT_SELECTED_POSITION,
-                this.byPointSelectedPosition);
+        outState.putInt(LineCircleIntersectionActivity.CIRCLE_CENTER_SELECTED_POSITION, this.centerCSelectedPosition);
+        outState.putInt(LineCircleIntersectionActivity.CIRCLE_BY_POINT_SELECTED_POSITION, this.byPointSelectedPosition);
     }
 
     @Override
@@ -212,15 +193,10 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.point1SelectedPosition = savedInstanceState.getInt(
-                    LineCircleIntersectionActivity.LINE_POINT_ONE_SELECTED_POSITION);
-            this.point2SelectedPosition = savedInstanceState.getInt(
-                    LineCircleIntersectionActivity.LINE_POINT_TWO_SELECTED_POSITION);
-
-            this.centerCSelectedPosition = savedInstanceState.getInt(
-                    LineCircleIntersectionActivity.CIRCLE_CENTER_SELECTED_POSITION);
-            this.byPointSelectedPosition = savedInstanceState.getInt(
-                    LineCircleIntersectionActivity.CIRCLE_BY_POINT_SELECTED_POSITION);
+            this.point1SelectedPosition = savedInstanceState.getInt(LineCircleIntersectionActivity.LINE_POINT_ONE_SELECTED_POSITION);
+            this.point2SelectedPosition = savedInstanceState.getInt(LineCircleIntersectionActivity.LINE_POINT_TWO_SELECTED_POSITION);
+            this.centerCSelectedPosition = savedInstanceState.getInt(LineCircleIntersectionActivity.CIRCLE_CENTER_SELECTED_POSITION);
+            this.byPointSelectedPosition = savedInstanceState.getInt(LineCircleIntersectionActivity.CIRCLE_BY_POINT_SELECTED_POSITION);
         }
     }
 
@@ -242,8 +218,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                     return true;
                 }
 
-                if ((this.intersectionOneEditText.length() < 1)
-                        && (this.intersectionTwoEditText.length() < 1)) {
+                if ((this.intersectionOneEditText.length() < 1) && (this.intersectionTwoEditText.length() < 1)) {
                     ViewUtils.showToast(this, this.getString(R.string.error_no_points_saved));
                     return true;
                 }
@@ -252,11 +227,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 if (this.intersectionOneEditText.length() > 0) {
                     this.intersectionOne.setNumber(ViewUtils.readString(this.intersectionOneEditText));
 
-                    if (MathUtils.isZero(this.intersectionOne.getEast())
-                            && MathUtils.isZero(this.intersectionOne.getNorth())) {
+                    if (MathUtils.isZero(this.intersectionOne.getEast()) && MathUtils.isZero(this.intersectionOne.getNorth())) {
                         ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                    } else if (SharedResources.getSetOfPoints().find(
-                            this.intersectionOne.getNumber()) == null) {
+                    } else if (SharedResources.getSetOfPoints().find(this.intersectionOne.getNumber()) == null) {
                         SharedResources.getSetOfPoints().add(this.intersectionOne);
                         this.intersectionOne.registerDAO(PointsDataSource.getInstance());
 
@@ -266,16 +239,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                         MergePointsDialog dialog = new MergePointsDialog();
 
                         Bundle args = new Bundle();
-                        args.putString(
-                                MergePointsDialog.POINT_NUMBER,
-                                this.intersectionOne.getNumber());
+                        args.putString(MergePointsDialog.POINT_NUMBER, this.intersectionOne.getNumber());
 
-                        args.putDouble(MergePointsDialog.NEW_EAST,
-                                this.intersectionOne.getEast());
-                        args.putDouble(MergePointsDialog.NEW_NORTH,
-                                this.intersectionOne.getNorth());
-                        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                                this.intersectionOne.getAltitude());
+                        args.putDouble(MergePointsDialog.NEW_EAST, this.intersectionOne.getEast());
+                        args.putDouble(MergePointsDialog.NEW_NORTH, this.intersectionOne.getNorth());
+                        args.putDouble(MergePointsDialog.NEW_ALTITUDE, this.intersectionOne.getAltitude());
 
                         dialog.setArguments(args);
                         dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
@@ -288,11 +256,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 if (this.intersectionTwoEditText.length() > 0) {
                     this.intersectionTwo.setNumber(ViewUtils.readString(this.intersectionTwoEditText));
 
-                    if (MathUtils.isZero(this.intersectionTwo.getEast())
-                            && MathUtils.isZero(this.intersectionTwo.getNorth())) {
+                    if (MathUtils.isZero(this.intersectionTwo.getEast()) && MathUtils.isZero(this.intersectionTwo.getNorth())) {
                         ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                    } else if (SharedResources.getSetOfPoints().find(
-                            this.intersectionTwo.getNumber()) == null) {
+                    } else if (SharedResources.getSetOfPoints().find(this.intersectionTwo.getNumber()) == null) {
                         SharedResources.getSetOfPoints().add(this.intersectionTwo);
                         this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
 
@@ -302,16 +268,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                         MergePointsDialog dialog = new MergePointsDialog();
 
                         Bundle args = new Bundle();
-                        args.putString(
-                                MergePointsDialog.POINT_NUMBER,
-                                this.intersectionTwo.getNumber());
+                        args.putString(MergePointsDialog.POINT_NUMBER, this.intersectionTwo.getNumber());
 
-                        args.putDouble(MergePointsDialog.NEW_EAST,
-                                this.intersectionTwo.getEast());
-                        args.putDouble(MergePointsDialog.NEW_NORTH,
-                                this.intersectionTwo.getNorth());
-                        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                                this.intersectionTwo.getAltitude());
+                        args.putDouble(MergePointsDialog.NEW_EAST, this.intersectionTwo.getEast());
+                        args.putDouble(MergePointsDialog.NEW_NORTH, this.intersectionTwo.getNorth());
+                        args.putDouble(MergePointsDialog.NEW_ALTITUDE, this.intersectionTwo.getAltitude());
 
                         dialog.setArguments(args);
                         dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
@@ -376,11 +337,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LineCircleIntersectionActivity.this.point1SelectedPosition = pos;
 
-                Point pt = (Point) LineCircleIntersectionActivity.this.point1Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LineCircleIntersectionActivity.this.point1Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LineCircleIntersectionActivity.this.point1TextView.setText(DisplayUtils
-                            .formatPoint(LineCircleIntersectionActivity.this, pt));
+                    LineCircleIntersectionActivity.this.point1TextView.setText(DisplayUtils.formatPoint(LineCircleIntersectionActivity.this, pt));
                 } else {
                     LineCircleIntersectionActivity.this.point1TextView.setText("");
                 }
@@ -396,11 +355,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LineCircleIntersectionActivity.this.point2SelectedPosition = pos;
 
-                Point pt = (Point) LineCircleIntersectionActivity.this.point2Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LineCircleIntersectionActivity.this.point2Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LineCircleIntersectionActivity.this.point2TextView.setText(DisplayUtils
-                            .formatPoint(LineCircleIntersectionActivity.this, pt));
+                    LineCircleIntersectionActivity.this.point2TextView.setText(DisplayUtils.formatPoint(LineCircleIntersectionActivity.this, pt));
                 } else {
                     LineCircleIntersectionActivity.this.point2TextView.setText("");
                 }
@@ -418,12 +375,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LineCircleIntersectionActivity.this.centerCSelectedPosition = pos;
 
-                LineCircleIntersectionActivity.this.centerCPoint = (Point) LineCircleIntersectionActivity.this.centerCSpinner
-                        .getItemAtPosition(pos);
+                LineCircleIntersectionActivity.this.centerCPoint = (Point) LineCircleIntersectionActivity.this.centerCSpinner.getItemAtPosition(pos);
                 if (!LineCircleIntersectionActivity.this.centerCPoint.getNumber().isEmpty()) {
-                    LineCircleIntersectionActivity.this.centerCTextView.setText(DisplayUtils
-                            .formatPoint(LineCircleIntersectionActivity.this,
-                                    LineCircleIntersectionActivity.this.centerCPoint));
+                    LineCircleIntersectionActivity.this.centerCTextView.setText(DisplayUtils.formatPoint(LineCircleIntersectionActivity.this, LineCircleIntersectionActivity.this.centerCPoint));
                 } else {
                     LineCircleIntersectionActivity.this.centerCTextView.setText("");
                 }
@@ -443,9 +397,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                 LineCircleIntersectionActivity.this.byPoint = (Point) LineCircleIntersectionActivity.this.byPointSpinner
                         .getItemAtPosition(pos);
                 if (!LineCircleIntersectionActivity.this.byPoint.getNumber().isEmpty()) {
-                    LineCircleIntersectionActivity.this.byPointTextView.setText(DisplayUtils
-                            .formatPoint(LineCircleIntersectionActivity.this,
-                                    LineCircleIntersectionActivity.this.byPoint));
+                    LineCircleIntersectionActivity.this.byPointTextView.setText(DisplayUtils.formatPoint(LineCircleIntersectionActivity.this, LineCircleIntersectionActivity.this.byPoint));
                 } else {
                     LineCircleIntersectionActivity.this.byPointTextView.setText("");
                 }
@@ -467,8 +419,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     private void fillRadiusC() {
         if ((this.centerCSelectedPosition > 0) && (this.byPointSelectedPosition > 0)) {
             if ((this.centerCPoint != null) && (this.byPoint != null)) {
-                this.radiusCEditText.setText(DisplayUtils.toStringForEditText(
-                        MathUtils.euclideanDistance(this.centerCPoint, this.byPoint)));
+                this.radiusCEditText.setText(DisplayUtils.toStringForEditText(MathUtils.euclideanDistance(this.centerCPoint, this.byPoint)));
                 this.radiusCEditText.setEnabled(false);
             }
         } else {
@@ -598,12 +549,10 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
             displacement = ViewUtils.readDouble(this.displacementEditText);
         }
 
-        this.centerCPoint = (Point) this.centerCSpinner
-                .getItemAtPosition(this.centerCSelectedPosition);
+        this.centerCPoint = (Point) this.centerCSpinner.getItemAtPosition(this.centerCSelectedPosition);
         this.radiusC = ViewUtils.readDouble(this.radiusCEditText);
 
-        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1,
-                this.centerCPoint, this.radiusC);
+        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1, this.centerCPoint, this.radiusC);
 
         try {
             this.lineCircleIntersection.compute();
@@ -619,10 +568,8 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
      * Update the results view.
      */
     private void updateResults() {
-        this.intersectionOneTextView.setText(
-                DisplayUtils.formatPoint(this, this.intersectionOne));
-        this.intersectionTwoTextView.setText(
-                DisplayUtils.formatPoint(this, this.intersectionTwo));
+        this.intersectionOneTextView.setText(DisplayUtils.formatPoint(this, this.intersectionOne));
+        this.intersectionTwoTextView.setText(DisplayUtils.formatPoint(this, this.intersectionTwo));
     }
 
     @Override
