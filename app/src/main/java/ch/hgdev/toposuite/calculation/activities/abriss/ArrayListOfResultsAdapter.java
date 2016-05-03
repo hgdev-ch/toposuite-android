@@ -1,7 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.abriss;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -16,12 +17,10 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
-    private final ArrayList<Abriss.Result> results;
 
     public ArrayListOfResultsAdapter(Context context, int textViewResourceId,
-            ArrayList<Abriss.Result> results) {
+                                     ArrayList<Abriss.Result> results) {
         super(context, textViewResourceId, results);
-        this.results = results;
     }
 
     @Override
@@ -33,8 +32,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             view = inflater.inflate(R.layout.abriss_results_list_item, null);
         }
 
-        Abriss.Result result = this.results.get(position);
-
+        Abriss.Result result = this.getItem(position);
         if (result != null) {
             if (result.isDeactivated()) {
                 view.setEnabled(false);
@@ -53,14 +51,12 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             }
 
             if (calcDistTextView != null) {
-                calcDistTextView.setText(
-                        DisplayUtils.formatDistance(result.getCalculatedDistance()));
+                calcDistTextView.setText(DisplayUtils.formatDistance(result.getCalculatedDistance()));
                 this.colorizeTextView(calcDistTextView, result);
             }
 
             if (unknOrientTextView != null) {
-                unknOrientTextView.setText(
-                        DisplayUtils.formatAngle(result.getUnknownOrientation()));
+                unknOrientTextView.setText(DisplayUtils.formatAngle(result.getUnknownOrientation()));
                 this.colorizeTextView(unknOrientTextView, result);
             }
 
@@ -70,14 +66,12 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
             }
 
             if (errTransTextView != null) {
-                errTransTextView.setText(
-                        DisplayUtils.formatGap(result.getErrTrans()));
+                errTransTextView.setText(DisplayUtils.formatGap(result.getErrTrans()));
                 this.colorizeTextView(errTransTextView, result);
             }
 
             if ((errLonTextView != null) && !MathUtils.isZero(result.getDistance())) {
-                errLonTextView.setText(
-                        DisplayUtils.formatGap(result.getErrLong()));
+                errLonTextView.setText(DisplayUtils.formatGap(result.getErrLong()));
                 this.colorizeTextView(errLonTextView, result);
             }
         }
@@ -87,11 +81,9 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
 
     /**
      * Colorize the TextView according to the Abriss.Result state.
-     * 
-     * @param tv
-     *            A TextView
-     * @param r
-     *            An Abriss.Result
+     *
+     * @param tv A TextView
+     * @param r  An Abriss.Result
      */
     private void colorizeTextView(TextView tv, Abriss.Result r) {
         if (r.isDeactivated()) {

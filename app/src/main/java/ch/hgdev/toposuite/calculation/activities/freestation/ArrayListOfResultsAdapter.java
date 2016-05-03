@@ -1,7 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.freestation;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.FreeStation;
@@ -17,13 +18,11 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> {
-    private final ArrayList<FreeStation.Result> results;
-    private final boolean                       hasAltimetry;
+    private final boolean hasAltimetry;
 
     public ArrayListOfResultsAdapter(Context context, int textViewResourceId,
-            ArrayList<FreeStation.Result> results, boolean _hasAltimetry) {
+                                     ArrayList<FreeStation.Result> results, boolean _hasAltimetry) {
         super(context, textViewResourceId, results);
-        this.results = results;
         this.hasAltimetry = _hasAltimetry;
     }
 
@@ -31,12 +30,11 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.free_station_results_list_item, null);
         }
 
-        FreeStation.Result result = this.results.get(position);
+        FreeStation.Result result = this.getItem(position);
         if (result != null) {
             TextView numberTextView = (TextView) view.findViewById(R.id.number_item);
             TextView vETextView = (TextView) view.findViewById(R.id.ve_item);
@@ -45,8 +43,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
             TextView vATextView = (TextView) view.findViewById(R.id.va_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(
-                        result.getPoint().getNumber());
+                numberTextView.setText(result.getPoint().getNumber());
                 this.colorizeTextView(numberTextView, result);
             }
 
@@ -67,15 +64,13 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
 
             if (vATextView != null) {
                 if (this.hasAltimetry) {
-                	if (MathUtils.isIgnorable(result.getPoint().getAltitude())) {
-                		vATextView.setText(
-                                App.getContext().getString(R.string.no_value));
-                	} else {
-                		vATextView.setText(DisplayUtils.formatGap(result.getvA()));
-                	}
+                    if (MathUtils.isIgnorable(result.getPoint().getAltitude())) {
+                        vATextView.setText(App.getContext().getString(R.string.no_value));
+                    } else {
+                        vATextView.setText(DisplayUtils.formatGap(result.getvA()));
+                    }
                 } else {
-                    vATextView.setText(
-                            App.getContext().getString(R.string.no_value));
+                    vATextView.setText(App.getContext().getString(R.string.no_value));
                 }
                 this.colorizeTextView(vATextView, result);
             }
@@ -86,11 +81,9 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<FreeStation.Result> 
 
     /**
      * Colorize the TextView according to the FreeStation.Result state.
-     * 
-     * @param tv
-     *            A TextView
-     * @param r
-     *            A FreeStation.Result
+     *
+     * @param tv A TextView
+     * @param r  A FreeStation.Result
      */
     private void colorizeTextView(TextView tv, FreeStation.Result r) {
         if (r.isDeactivated()) {

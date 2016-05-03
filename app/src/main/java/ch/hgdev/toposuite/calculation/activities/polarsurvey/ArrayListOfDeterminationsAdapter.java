@@ -1,36 +1,34 @@
 package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfDeterminationsAdapter extends ArrayAdapter<Measure> {
-    private final ArrayList<Measure> determinations;
 
     public ArrayListOfDeterminationsAdapter(Context context, int textViewResourceId,
-            ArrayList<Measure> orientations) {
-        super(context, textViewResourceId, orientations);
-        this.determinations = orientations;
+                                            ArrayList<Measure> determinations) {
+        super(context, textViewResourceId, determinations);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.determinations_list_item, null);
         }
 
-        Measure determination = this.determinations.get(position);
+        Measure determination = this.getItem(position);
         if (determination != null) {
             TextView numberTextView = (TextView) view.findViewById(R.id.measure_number_item);
             TextView horizOrientTextView = (TextView) view.findViewById(R.id.horiz_orient_item);
@@ -61,15 +59,11 @@ public class ArrayListOfDeterminationsAdapter extends ArrayAdapter<Measure> {
             }
 
             if (latDeplTextView != null) {
-                latDeplTextView.setText(
-						DisplayUtils.formatDistance(
-							determination.getLatDepl()));
+                latDeplTextView.setText(DisplayUtils.formatDistance(determination.getLatDepl()));
             }
 
             if (lonDeplTextView != null) {
-                lonDeplTextView.setText(
-						DisplayUtils.formatDistance(
-							determination.getLonDepl()));
+                lonDeplTextView.setText(DisplayUtils.formatDistance(determination.getLonDepl()));
             }
         }
 

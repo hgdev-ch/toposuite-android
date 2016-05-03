@@ -1,36 +1,34 @@
 package ch.hgdev.toposuite.calculation.activities.leveortho;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<LeveOrthogonal.Measure> {
-    private final ArrayList<LeveOrthogonal.Measure> results;
 
     public ArrayListOfResultsAdapter(Context context, int textViewResourceId,
-            ArrayList<LeveOrthogonal.Measure> results) {
+                                     ArrayList<LeveOrthogonal.Measure> results) {
         super(context, textViewResourceId, results);
-        this.results = results;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.leve_ortho_results_list_item, null);
         }
 
-        LeveOrthogonal.Measure result = this.results.get(position);
+        LeveOrthogonal.Measure result = this.getItem(position);
         if (result != null) {
             TextView numberTextView = (TextView) view.findViewById(R.id.number_item);
             TextView abscissaTextView = (TextView) view.findViewById(R.id.abscissa_item);

@@ -1,36 +1,32 @@
 package ch.hgdev.toposuite.calculation.activities.axisimpl;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.List;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.AxisImplantation;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfResultsAdapter extends ArrayAdapter<AxisImplantation.Result> {
-    private final List<AxisImplantation.Result> results;
-
-    public ArrayListOfResultsAdapter(Context context, int textViewResourceId,
-            List<AxisImplantation.Result> results) {
+    public ArrayListOfResultsAdapter(Context context, int textViewResourceId, List<AxisImplantation.Result> results) {
         super(context, textViewResourceId, results);
-        this.results = results;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.orth_impl_results_list_item, null);
         }
 
-        AxisImplantation.Result result = this.results.get(position);
+        AxisImplantation.Result result = this.getItem(position);
         if (result != null) {
             TextView numberTextView = (TextView) view.findViewById(R.id.number_item);
             TextView eastTextView = (TextView) view.findViewById(R.id.east_item);

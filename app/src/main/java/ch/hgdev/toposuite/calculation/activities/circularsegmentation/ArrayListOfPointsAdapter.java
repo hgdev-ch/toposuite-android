@@ -1,13 +1,14 @@
 package ch.hgdev.toposuite.calculation.activities.circularsegmentation;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
@@ -15,16 +16,13 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 /**
  * Adapter to correctly format a list of points to display without their
  * altitude nor class.
- * 
+ *
  * @author HGdev
- * 
  */
 public class ArrayListOfPointsAdapter extends ArrayAdapter<Point> {
-    private final ArrayList<Point> points;
 
     public ArrayListOfPointsAdapter(Context context, int textViewResourceId, ArrayList<Point> points) {
         super(context, textViewResourceId, points);
-        this.points = points;
     }
 
     @Override
@@ -36,7 +34,7 @@ public class ArrayListOfPointsAdapter extends ArrayAdapter<Point> {
             view = inflater.inflate(R.layout.points_without_altitude_and_class_list_item, null);
         }
 
-        Point point = this.points.get(position);
+        Point point = this.getItem(position);
         if (point != null) {
             TextView numberTextView = (TextView) view.findViewById(R.id.point_number_item);
             TextView eastTextView = (TextView) view.findViewById(R.id.point_east_item);
