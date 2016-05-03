@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -300,7 +301,7 @@ public class CheminementOrthogonal extends Calculation {
      *
      * @author HGdev
      */
-    public static class Result {
+    public static class Result implements Serializable {
         private String number;
         private double east;
         private double north;
@@ -365,7 +366,7 @@ public class CheminementOrthogonal extends Calculation {
      *
      * @author HGdev
      */
-    public static class Measure {
+    public static class Measure implements Serializable {
         public static final String NUMBER = "number";
         public static final String DISTANCE = "distance";
 

@@ -58,9 +58,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            int position = bundle.getInt(
-                    CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION);
-            this.cheminOrtho = (CheminementOrthogonal) SharedResources.getCalculationsHistory().get(position);
+            this.cheminOrtho = (CheminementOrthogonal) bundle.getSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO);
             this.cheminOrtho.getResults().clear();
             try {
                 this.cheminOrtho.compute();
@@ -70,14 +68,10 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
                 builder.append(this.cheminOrtho.getOrthogonalBase().getExtremity());
 
                 this.baseTextView.setText(builder.toString());
-                this.scaleTextView.setText(DisplayUtils.formatDistance(
-                        this.cheminOrtho.getScale()));
-                this.fsTextView.setText(DisplayUtils.formatDifferences(
-                        MathUtils.mToCm(this.cheminOrtho.getFs())));
-                this.fLonTextView.setText(DisplayUtils.formatDifferences(
-                        MathUtils.mToCm(this.cheminOrtho.getfE())));
-                this.fLatTextView.setText(DisplayUtils.formatDifferences(
-                        MathUtils.mToCm(this.cheminOrtho.getfN())));
+                this.scaleTextView.setText(DisplayUtils.formatDistance(this.cheminOrtho.getScale()));
+                this.fsTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getFs())));
+                this.fLonTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getfE())));
+                this.fLatTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getfN())));
 
                 this.registerForContextMenu(this.resultsListView);
                 this.drawList();
@@ -142,8 +136,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
     }
 
     private void drawList() {
-        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.leve_ortho_results_list_item,
-                this.cheminOrtho.getResults());
+        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.leve_ortho_results_list_item, this.cheminOrtho.getResults());
         this.resultsListView.setAdapter(this.adapter);
     }
 
@@ -183,7 +176,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
                     r.getNumber(),
                     r.getEast(),
                     r.getNorth(),
-                    0.0,
+                    MathUtils.IGNORE_DOUBLE,
                     false);
             SharedResources.getSetOfPoints().add(point);
             return true;
@@ -203,7 +196,7 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
             args.putDouble(MergePointsDialog.NEW_NORTH,
                     r.getNorth());
             args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                    0.0);
+                    MathUtils.IGNORE_DOUBLE);
 
             dialog.setArguments(args);
             dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");

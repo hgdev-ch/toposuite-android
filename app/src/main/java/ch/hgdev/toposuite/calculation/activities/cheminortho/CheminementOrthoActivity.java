@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.cheminortho;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -18,6 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -33,24 +34,24 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class CheminementOrthoActivity extends TopoSuiteActivity implements
         AddMeasureDialogListener, EditMeasureDialogListener {
 
-    public static final String         ORIGIN_SELECTED_POSITION    = "origine_selected_position";
-    public static final String         EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
-    public static final String         CHEMINEMENT_ORTHO_POSITION  = "leve_ortho_position";
-    public static final String         MEASURE_POSITION            = "measure_position";
+    public static final String ORIGIN_SELECTED_POSITION = "origine_selected_position";
+    public static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
+    public static final String CHEMINEMENT_ORTHO = "leve_ortho_position";
+    public static final String MEASURE_POSITION = "measure_position";
 
-    private Spinner                    originSpinner;
-    private Spinner                    extremitySpinner;
+    private Spinner originSpinner;
+    private Spinner extremitySpinner;
 
-    private TextView                   originPointTextView;
-    private TextView                   extremityPointTextView;
-    private TextView                   calcDistTextView;
+    private TextView originPointTextView;
+    private TextView extremityPointTextView;
+    private TextView calcDistTextView;
 
-    private ListView                   measuresListView;
+    private ListView measuresListView;
 
-    private int                        originSelectedPosition;
-    private int                        extremitySelectedPosition;
+    private int originSelectedPosition;
+    private int extremitySelectedPosition;
 
-    private CheminementOrthogonal      cheminOrtho;
+    private CheminementOrthogonal cheminOrtho;
 
     private ArrayListOfMeasuresAdapter adapter;
 
@@ -80,8 +81,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
                 if (!pt.getNumber().isEmpty()) {
                     CheminementOrthoActivity.this.originPointTextView.setText
                             (DisplayUtils.formatPoint(CheminementOrthoActivity.this, pt));
-                }
-                else {
+                } else {
                     CheminementOrthoActivity.this.originPointTextView.setText("");
                 }
                 CheminementOrthoActivity.this.itemSelected();
@@ -103,8 +103,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
                 if (!pt.getNumber().isEmpty()) {
                     CheminementOrthoActivity.this.extremityPointTextView.setText
                             (DisplayUtils.formatPoint(CheminementOrthoActivity.this, pt));
-                }
-                else {
+                } else {
                     CheminementOrthoActivity.this.extremityPointTextView.setText("");
                 }
                 CheminementOrthoActivity.this.itemSelected();
@@ -119,8 +118,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.cheminOrtho = (CheminementOrthogonal) SharedResources.getCalculationsHistory()
-                    .get(position);
+            this.cheminOrtho = (CheminementOrthogonal) SharedResources.getCalculationsHistory().get(position);
         } else {
             this.cheminOrtho = new CheminementOrthogonal(true);
         }
@@ -136,29 +134,23 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
                 R.layout.determinations_list_item, this.cheminOrtho.getMeasures());
         this.drawList();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
+        ArrayAdapter<Point> a = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.originSpinner.setAdapter(a);
         this.extremitySpinner.setAdapter(a);
 
         if (this.cheminOrtho != null) {
-            this.originSpinner.setSelection(
-                    a.getPosition(this.cheminOrtho.getOrthogonalBase().getOrigin()));
-            this.extremitySpinner.setSelection(
-                    a.getPosition(this.cheminOrtho.getOrthogonalBase().getExtremity()));
+            this.originSpinner.setSelection(a.getPosition(this.cheminOrtho.getOrthogonalBase().getOrigin()));
+            this.extremitySpinner.setSelection(a.getPosition(this.cheminOrtho.getOrthogonalBase().getExtremity()));
         } else {
             if (this.originSelectedPosition > 0) {
-                this.originSpinner.setSelection(
-                        this.originSelectedPosition);
+                this.originSpinner.setSelection(this.originSelectedPosition);
             }
-
             if (this.extremitySelectedPosition > 0) {
-                this.extremitySpinner.setSelection(
-                        this.extremitySelectedPosition);
+                this.extremitySpinner.setSelection(this.extremitySelectedPosition);
             }
         }
     }
@@ -178,17 +170,9 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(CheminementOrthoActivity.ORIGIN_SELECTED_POSITION,
-                this.originSelectedPosition);
-        outState.putInt(CheminementOrthoActivity.EXTREMITY_SELECTED_POSITION,
-                this.extremitySelectedPosition);
-
-        if (this.cheminOrtho != null) {
-            int index = SharedResources.getCalculationsHistory().indexOf(this.cheminOrtho);
-            outState.putInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION, index);
-        } else {
-            outState.putInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION, -1);
-        }
+        outState.putInt(CheminementOrthoActivity.ORIGIN_SELECTED_POSITION, this.originSelectedPosition);
+        outState.putInt(CheminementOrthoActivity.EXTREMITY_SELECTED_POSITION, this.extremitySelectedPosition);
+        outState.putSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO, this.cheminOrtho);
     }
 
     @Override
@@ -196,53 +180,39 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            int index = savedInstanceState
-                    .getInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION);
-            if (index != -1) {
-                this.cheminOrtho = (CheminementOrthogonal) SharedResources.getCalculationsHistory()
-                        .get(index);
-                this.drawList();
-            } else {
-                this.originSelectedPosition = savedInstanceState
-                        .getInt(CheminementOrthoActivity.ORIGIN_SELECTED_POSITION);
-                this.extremitySelectedPosition = savedInstanceState
-                        .getInt(CheminementOrthoActivity.EXTREMITY_SELECTED_POSITION);
-            }
+            this.cheminOrtho = (CheminementOrthogonal) savedInstanceState.getSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO);
+            this.drawList();
+            this.originSelectedPosition = savedInstanceState.getInt(CheminementOrthoActivity.ORIGIN_SELECTED_POSITION);
+            this.extremitySelectedPosition = savedInstanceState.getInt(CheminementOrthoActivity.EXTREMITY_SELECTED_POSITION);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
-        case R.id.add_point_button:
-            this.showAddMeasureDialog();
-            return true;
-        case R.id.run_calculation_button:
-            Point p1 = (Point) this.originSpinner.getSelectedItem();
-            Point p2 = (Point) this.extremitySpinner.getSelectedItem();
-
-            if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty()) ||
-                    (this.adapter.getCount() < 2)) {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+            case R.id.add_point_button:
+                this.showAddMeasureDialog();
                 return true;
-            }
+            case R.id.run_calculation_button:
+                Point p1 = (Point) this.originSpinner.getSelectedItem();
+                Point p2 = (Point) this.extremitySpinner.getSelectedItem();
 
-            int position = SharedResources.getCalculationsHistory()
-                    .indexOf(this.cheminOrtho);
+                if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty()) || (this.adapter.getCount() < 2)) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                    return true;
+                }
 
-            Bundle bundle = new Bundle();
-            bundle.putInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION, position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO, this.cheminOrtho);
 
-            Intent resultsActivityIntent = new Intent(this,
-                    CheminementOrthoResultsActivity.class);
-            resultsActivityIntent.putExtras(bundle);
-            this.startActivity(resultsActivityIntent);
+                Intent resultsActivityIntent = new Intent(this, CheminementOrthoResultsActivity.class);
+                resultsActivityIntent.putExtras(bundle);
+                this.startActivity(resultsActivityIntent);
 
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -258,15 +228,15 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.edit_measure:
-            this.showEditMeasureDialog(info.position);
-            return true;
-        case R.id.delete_measure:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.edit_measure:
+                this.showEditMeasureDialog(info.position);
+                return true;
+            case R.id.delete_measure:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -312,10 +282,8 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
-        int leveOrthoPos = SharedResources.getCalculationsHistory().indexOf(this.cheminOrtho);
-
         Bundle bundle = new Bundle();
-        bundle.putInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION, leveOrthoPos);
+        bundle.putSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO, this.cheminOrtho);
         bundle.putInt(CheminementOrthoActivity.MEASURE_POSITION, pos);
 
         dialog.setArguments(bundle);

@@ -1,11 +1,11 @@
 package ch.hgdev.toposuite.calculation.activities.cheminortho;
 
 import android.app.Activity;
-import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -118,12 +117,9 @@ public class EditMeasureDialogFragment extends DialogFragment {
     private void initAttributes() {
         this.bundle = this.getArguments();
 
-        int cheminOrthoPos = this.bundle
-                .getInt(CheminementOrthoActivity.CHEMINEMENT_ORTHO_POSITION);
+        CheminementOrthogonal co = (CheminementOrthogonal) this.bundle.getSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO);
         this.measurePosition = this.bundle.getInt(CheminementOrthoActivity.MEASURE_POSITION);
-        CheminementOrthogonal lo = (CheminementOrthogonal) SharedResources.getCalculationsHistory()
-                .get(cheminOrthoPos);
-        CheminementOrthogonal.Measure m = lo.getMeasures().get(this.measurePosition);
+        CheminementOrthogonal.Measure m = co.getMeasures().get(this.measurePosition);
         this.number = m.getNumber();
         this.distance = m.getDistance();
 
