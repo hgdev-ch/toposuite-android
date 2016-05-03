@@ -38,6 +38,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
     public static final String ORIENTATIONS_LABEL = "orientations";
 
     private static final String STATION_SELECTED_POSITION = "station_selected_position";
+
     private TextView stationPointTextView;
     private Spinner stationSpinner;
     private ListView orientationsListView;
@@ -61,8 +62,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
                 Point pt = (Point) AbrissActivity.this.stationSpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    AbrissActivity.this.stationPointTextView.setText(DisplayUtils.formatPoint(
-                            AbrissActivity.this, pt));
+                    AbrissActivity.this.stationPointTextView.setText(DisplayUtils.formatPoint(AbrissActivity.this, pt));
                 } else {
                     AbrissActivity.this.stationPointTextView.setText("");
                 }
@@ -125,8 +125,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(AbrissActivity.STATION_SELECTED_POSITION,
-                this.stationSelectedPosition);
+        outState.putInt(AbrissActivity.STATION_SELECTED_POSITION, this.stationSelectedPosition);
     }
 
     @Override
@@ -134,8 +133,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.stationSelectedPosition = savedInstanceState.getInt(
-                    AbrissActivity.STATION_SELECTED_POSITION);
+            this.stationSelectedPosition = savedInstanceState.getInt(AbrissActivity.STATION_SELECTED_POSITION);
         }
     }
 
@@ -151,14 +149,12 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 Point station = (Point) this.stationSpinner.getSelectedItem();
 
                 if (station.getNumber().isEmpty()) {
-                    ViewUtils.showToast(this,
-                            this.getString(R.string.error_no_station_selected));
+                    ViewUtils.showToast(this, this.getString(R.string.error_no_station_selected));
                     return true;
                 }
 
                 if (this.orientationsListView.getChildCount() == 0) {
-                    ViewUtils.showToast(this,
-                            this.getString(R.string.error_at_least_one_orientation));
+                    ViewUtils.showToast(this, this.getString(R.string.error_at_least_one_orientation));
                     return true;
                 }
 

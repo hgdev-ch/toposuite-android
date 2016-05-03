@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.calculation.activities.abriss;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
@@ -61,8 +62,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
     public static final String HORIZONTAL_DISTANCE = "Horizontal distance";
     public static final String ZENITHAL_ANGLE = "Zenithal angle";
     public static final String ORIENTATION_POSITION = "Orientation position";
+
     private Bundle bundle;
-    EditOrientationDialogListener listener;
+    private EditOrientationDialogListener listener;
     private Spinner orientationSpinner;
     private TextView orientationView;
     private Point orientation;
@@ -82,7 +84,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
     private int orientationPosition;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(@NonNull Bundle savedInstanceState) {
         this.initAttributes();
         this.genAddOrientationView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
@@ -106,8 +108,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(final DialogInterface dialog) {
-                Button editButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
+                Button editButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -118,10 +119,8 @@ public class EditOrientationDialogFragment extends DialogFragment {
                             EditOrientationDialogFragment.this.listener.onDialogEdit(EditOrientationDialogFragment.this);
                             dialog.dismiss();
                         } else {
-                            ViewUtils.showToast(
-                                    EditOrientationDialogFragment.this.getActivity(),
-                                    EditOrientationDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
+                            ViewUtils.showToast(EditOrientationDialogFragment.this.getActivity(), EditOrientationDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
                         }
                     }
                 });
@@ -136,8 +135,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
         try {
             this.listener = (EditOrientationDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement EditOrientationDialogListener");
+            throw new ClassCastException(activity.toString() + " must implement EditOrientationDialogListener");
         }
     }
 
@@ -147,8 +145,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
     private void initAttributes() {
         this.bundle = this.getArguments();
 
-        this.orientationPosition = this.bundle
-                .getInt(EditOrientationDialogFragment.ORIENTATION_POSITION);
+        this.orientationPosition = this.bundle.getInt(EditOrientationDialogFragment.ORIENTATION_POSITION);
 
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
@@ -156,10 +153,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.orientationView = new TextView(this.getActivity());
 
         this.orientationSpinner = new Spinner(this.getActivity());
-        List<Point> points = new ArrayList<Point>();
+        List<Point> points = new ArrayList<>();
         points.addAll(SharedResources.getSetOfPoints());
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this.getActivity(), R.layout.spinner_list_item, points);
+        ArrayAdapter<Point> a = new ArrayAdapter<>(this.getActivity(), R.layout.spinner_list_item, points);
 
         this.orientationSpinner.setAdapter(a);
         this.orientationSpinner.setSelection(a.getPosition(SharedResources.getSetOfPoints().find(
@@ -168,11 +164,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point point = (Point) EditOrientationDialogFragment.this.orientationSpinner
-                        .getItemAtPosition(pos);
+                Point point = (Point) EditOrientationDialogFragment.this.orientationSpinner.getItemAtPosition(pos);
                 if (!point.getNumber().isEmpty()) {
-                    EditOrientationDialogFragment.this.orientationView.setText(
-                            DisplayUtils.formatPoint(EditOrientationDialogFragment.this.getActivity(), point));
+                    EditOrientationDialogFragment.this.orientationView.setText(DisplayUtils.formatPoint(EditOrientationDialogFragment.this.getActivity(), point));
                 } else {
                     EditOrientationDialogFragment.this.orientationView.setText("");
                 }
@@ -188,20 +182,16 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.orientation = (Point) this.orientationSpinner.getSelectedItem();
 
         this.itemSelected();
-        this.horizontalDirection = this.bundle
-                .getDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION);
-        this.horizontalDistance = this.bundle
-                .getDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE);
+        this.horizontalDirection = this.bundle.getDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION);
+        this.horizontalDistance = this.bundle.getDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE);
         this.zenithalAngle = this.bundle.getDouble(EditOrientationDialogFragment.ZENITHAL_ANGLE);
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
-        this.horizontalDirectionEditText.setText(DisplayUtils
-                .toStringForEditText(this.horizontalDirection));
+        this.horizontalDirectionEditText.setText(DisplayUtils.toStringForEditText(this.horizontalDirection));
         this.horizontalDirectionEditText.setInputType(App.getInputTypeCoordinate());
 
         this.horizontalDistanceEditText = new EditText(this.getActivity());
-        this.horizontalDistanceEditText.setText(DisplayUtils
-                .toStringForEditText(this.horizontalDistance));
+        this.horizontalDistanceEditText.setText(DisplayUtils.toStringForEditText(this.horizontalDistance));
         this.horizontalDistanceEditText.setInputType(App.getInputTypeCoordinate());
 
         this.zenithalAngleEditText = new EditText(this.getActivity());
@@ -216,8 +206,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
     private void itemSelected() {
         this.orientation = (Point) this.orientationSpinner.getSelectedItem();
         if (this.orientation != null) {
-            this.orientationView.setText(
-                    DisplayUtils.formatPoint(this.getActivity(), this.orientation));
+            this.orientationView.setText(DisplayUtils.formatPoint(this.getActivity(), this.orientation));
         }
     }
 
@@ -238,8 +227,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.horizontalDirectionEditText.length() == 0)
-                || (this.orientation.getNumber().isEmpty())) {
+        if ((this.horizontalDirectionEditText.length() == 0) || (this.orientation.getNumber().isEmpty())) {
             return false;
         }
         return true;
