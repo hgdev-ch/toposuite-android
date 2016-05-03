@@ -36,6 +36,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
     public static final String ABRISS_CALCULATION = "abriss_calculation";
 
     private static final String STATION_SELECTED_POSITION = "station_selected_position";
+    private static final String MEASURES_LIST_LABEL = "measures_list";
 
     private TextView stationPointTextView;
     private Spinner stationSpinner;
@@ -81,6 +82,9 @@ public class AbrissActivity extends TopoSuiteActivity implements
             this.abriss = new Abriss(true);
         }
 
+        this.adapter = new ArrayListOfOrientationsAdapter(
+                this, R.layout.orientations_list_item,
+                new ArrayList<>(this.abriss.getMeasures()));
         this.registerForContextMenu(this.orientationsListView);
     }
 
@@ -95,12 +99,10 @@ public class AbrissActivity extends TopoSuiteActivity implements
         ArrayAdapter<Point> a = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(a);
 
-        if (this.abriss != null) {
-            this.stationSpinner.setSelection(a.getPosition(this.abriss.getStation()));
+        if (this.stationSelectedPosition > 0) {
+            this.stationSpinner.setSelection(this.stationSelectedPosition);
         } else {
-            if (this.stationSelectedPosition > 0) {
-                this.stationSpinner.setSelection(this.stationSelectedPosition);
-            }
+            this.stationSpinner.setSelection(a.getPosition(this.abriss.getStation()));
         }
 
         this.drawList();
@@ -121,11 +123,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        this.abriss.getMeasures().clear();
-        for (int i = 0; i < this.adapter.getCount(); i++) {
-            this.abriss.getMeasures().add(this.adapter.getItem(i));
-        }
-
+        outState.putSerializable(AbrissActivity.MEASURES_LIST_LABEL, this.adapter.getMeasures());
         outState.putInt(AbrissActivity.STATION_SELECTED_POSITION, this.stationSelectedPosition);
     }
 
@@ -135,6 +133,9 @@ public class AbrissActivity extends TopoSuiteActivity implements
         if (savedInstanceState != null) {
             this.stationSelectedPosition = savedInstanceState.getInt(AbrissActivity.STATION_SELECTED_POSITION);
             this.stationSpinner.setSelection(this.stationSelectedPosition);
+            ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(AbrissActivity.MEASURES_LIST_LABEL);
+            this.adapter.clear();
+            this.adapter.addAll(measures);
             this.drawList();
         }
     }
@@ -161,9 +162,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
                 this.abriss.setStation(station);
                 this.abriss.getMeasures().clear();
-                for (int i = 0; i < this.adapter.getCount(); i++) {
-                    this.abriss.getMeasures().add(this.adapter.getItem(i));
-                }
+                this.abriss.getMeasures().addAll(this.adapter.getMeasures());
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(AbrissActivity.ABRISS_CALCULATION, this.abriss);
@@ -234,7 +233,6 @@ public class AbrissActivity extends TopoSuiteActivity implements
      * Draw the main table containing all the orientations.
      */
     private void drawList() {
-        this.adapter = new ArrayListOfOrientationsAdapter(this, R.layout.orientations_list_item, new ArrayList<>(this.abriss.getMeasures()));
         this.orientationsListView.setAdapter(this.adapter);
     }
 
