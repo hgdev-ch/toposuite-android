@@ -88,7 +88,7 @@ modificarlo alle condizioni della licenza GNU General Public License version 2, 
 Questo programma viene distribuito nella speranza che sia utile,
 ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZAZIONE o DI UN ADATTAMENTO AD UN USO PARTICOLARE. Trovate maggiori dettagli nella licenza GNU General Public License version 2 (nel menu sotto le impostazione).</string>
 	<string name="displace_after">Spostare dopo il punto:</string>
-	<string name="displacement_label">Spostamento</string>
+	<string name="displacement_label">Spostamento [m]</string>
 	<string name="dist_pt_1">Dist. pto. A</string>
 	<string name="distance_label">Distanza [m]</string>
 	<string name="distance_angled_label">Dist. incl. [m]</string>

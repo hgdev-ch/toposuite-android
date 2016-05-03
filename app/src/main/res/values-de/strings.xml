@@ -86,7 +86,7 @@
         
 Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, jedoch OHNE JEDWEDER GEWÄHRLEISTUNG; sogar ohne der implizierten Gewährleistung der MARKTFÄHIGKEIT oder der FÄHIGKEIT ZU EINEM BESONDEREN ZWECK bzw. VORSATZ. Weitere Details finden Sie in der GNU General Public License.</string>
 	<string name="displace_after">Nach dem Punkt verschieben:</string>
-	<string name="displacement_label">Bewegung</string>
+	<string name="displacement_label">Bewegung [m]</string>
 	<string name="dist_pt_1">Dist. Pkt. A</string>
 	<string name="distance_label">Distanz [m]</string>
 	<string name="distance_angled_label">Schräge Distanz [m]</string>

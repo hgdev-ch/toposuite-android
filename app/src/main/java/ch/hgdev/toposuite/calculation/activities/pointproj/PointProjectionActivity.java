@@ -27,14 +27,14 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
-import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PointProjectionActivity extends TopoSuiteActivity {
     public static final String POINT_PROJ_POSITION = "point_proj_position";
+    public static final String POINT_SELECTED_POSITION = "point_selected_position";
     public static final String POINT_1_SELECTED_POSITION = "point_1_selected_position";
     public static final String POINT_2_SELECTED_POSITION = "point_2_selected_position";
-    public static final String POINT_SELECTED_POSITION = "point_selected_position";
+    public static final String POINT_PROJ_CALCULATION = "point_projection_calculation";
     public static final String DISPLACEMENT = "displacement";
     public static final String POINT_NUMBER = "point_number";
     public static final String GISEMENT = "gisement";
@@ -103,11 +103,10 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 PointProjectionActivity.this.point1SelectedPosition = pos;
 
-                Point pt = (Point) PointProjectionActivity.this.point1Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) PointProjectionActivity.this.point1Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    PointProjectionActivity.this.point1TextView.setText(DisplayUtils.formatPoint(
-                            PointProjectionActivity.this, pt));
+                    PointProjectionActivity.this.point1TextView.setText(
+                            DisplayUtils.formatPoint(PointProjectionActivity.this, pt));
                 } else {
                     PointProjectionActivity.this.point1TextView.setText("");
                 }
@@ -124,11 +123,10 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 PointProjectionActivity.this.point2SelectedPosition = pos;
 
-                Point pt = (Point) PointProjectionActivity.this.point2Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) PointProjectionActivity.this.point2Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    PointProjectionActivity.this.point2TextView.setText(DisplayUtils.formatPoint(
-                            PointProjectionActivity.this, pt));
+                    PointProjectionActivity.this.point2TextView.setText(
+                            DisplayUtils.formatPoint(PointProjectionActivity.this, pt));
                 } else {
                     PointProjectionActivity.this.point2TextView.setText("");
                 }
@@ -145,11 +143,10 @@ public class PointProjectionActivity extends TopoSuiteActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 PointProjectionActivity.this.pointSelectedPosition = pos;
 
-                Point pt = (Point) PointProjectionActivity.this.point1Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) PointProjectionActivity.this.point1Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    PointProjectionActivity.this.pointTextView.setText(DisplayUtils.formatPoint(
-                            PointProjectionActivity.this, pt));
+                    PointProjectionActivity.this.pointTextView.setText(
+                            DisplayUtils.formatPoint(PointProjectionActivity.this, pt));
                 } else {
                     PointProjectionActivity.this.pointTextView.setText("");
                 }
@@ -160,19 +157,12 @@ public class PointProjectionActivity extends TopoSuiteActivity {
                 // actually nothing
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point(
-                "", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
+        ArrayAdapter<Point> a = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.point1Spinner.setAdapter(a);
         this.point2Spinner.setAdapter(a);
         this.pointSpinner.setAdapter(a);
@@ -180,41 +170,37 @@ public class PointProjectionActivity extends TopoSuiteActivity {
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            PointProjectionOnALine ppoal = (PointProjectionOnALine)
-                    SharedResources.getCalculationsHistory().get(position);
+            PointProjectionOnALine ppoal = (PointProjectionOnALine) SharedResources.getCalculationsHistory().get(position);
 
-            // this.point1SelectedPosition = a.getPosition(ppoal.getP1());
-            // this.point2SelectedPosition = a.getPosition(ppoal.getP2());
             this.pointSelectedPosition = a.getPosition(ppoal.getPtToProj());
+            this.selectedMode = ppoal.getMode();
+            if (this.selectedMode == Mode.GISEMENT) {
+                this.modeGisementRadio.toggle();
+            }
 
             // TODO find a more "elegant" solution
             for (int i = 1; i < a.getCount(); i++) {
-                if ((ppoal.getP1() != null) && a.getItem(i).getNumber().equals(
-                        ppoal.getP1().getNumber())) {
+                if ((ppoal.getP1() != null) && a.getItem(i).getNumber().equals(ppoal.getP1().getNumber())) {
                     this.point1SelectedPosition = i;
-                    continue;
                 }
-
-                if ((ppoal.getP2() != null) && a.getItem(i).getNumber().equals(
-                        ppoal.getP2().getNumber())) {
+                if ((ppoal.getP2() != null) && a.getItem(i).getNumber().equals(ppoal.getP2().getNumber())) {
                     this.point2SelectedPosition = i;
-                    continue;
                 }
             }
 
-            this.gisementEditText.setText(DisplayUtils.toStringForEditText(
-                    ppoal.getGisement()));
-
-            this.displacementEditText.setText(DisplayUtils.toStringForEditText(
-                    ppoal.getDisplacement()));
-
+            this.gisementEditText.setText(DisplayUtils.toStringForEditText(ppoal.getGisement()));
+            this.displacementEditText.setText(DisplayUtils.toStringForEditText(ppoal.getDisplacement()));
             this.pointNumberEditText.setText(ppoal.getNumber());
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         this.point1Spinner.setSelection(this.point1SelectedPosition);
         this.point2Spinner.setSelection(this.point2SelectedPosition);
         this.pointSpinner.setSelection(this.pointSelectedPosition);
-
         this.modeGisementRadio.callOnClick();
     }
 
@@ -287,8 +273,6 @@ public class PointProjectionActivity extends TopoSuiteActivity {
                     return true;
                 }
 
-                PointProjectionOnALine ppoal;
-
                 Point p1 = (Point) this.point1Spinner.getItemAtPosition(this.point1SelectedPosition);
 
                 double displ = ViewUtils.readDouble(this.displacementEditText);
@@ -296,19 +280,17 @@ public class PointProjectionActivity extends TopoSuiteActivity {
 
                 Point p = (Point) this.pointSpinner.getItemAtPosition(this.pointSelectedPosition);
 
+                PointProjectionOnALine ppoal;
                 if (this.selectedMode == Mode.GISEMENT) {
                     double gisement = ViewUtils.readDouble(this.gisementEditText);
-                    ppoal = new PointProjectionOnALine(ptNumber, p1, gisement, p, displ, true);
+                    ppoal = new PointProjectionOnALine(ptNumber, p1, gisement, p, displ, this.selectedMode, true);
                 } else {
-                    Point p2 = (Point) this.point2Spinner.getItemAtPosition(
-                            this.point2SelectedPosition);
-                    ppoal = new PointProjectionOnALine(ptNumber, p1, p2, p, displ, true);
+                    Point p2 = (Point) this.point2Spinner.getItemAtPosition(this.point2SelectedPosition);
+                    ppoal = new PointProjectionOnALine(ptNumber, p1, p2, p, displ, this.selectedMode, true);
                 }
 
-                int position = SharedResources.getCalculationsHistory().indexOf(ppoal);
-
                 Bundle bundle = new Bundle();
-                bundle.putInt(PointProjectionActivity.POINT_SELECTED_POSITION, position);
+                bundle.putSerializable(PointProjectionActivity.POINT_PROJ_CALCULATION, ppoal);
 
                 Intent resultsActivityIntent = new Intent(this, PointProjectionResultActivity.class);
                 resultsActivityIntent.putExtras(bundle);
@@ -341,7 +323,7 @@ public class PointProjectionActivity extends TopoSuiteActivity {
                 }
                 break;
             default:
-                Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
+                Logger.log(Logger.ErrLabel.INPUT_ERROR, "unknown mode selected");
         }
     }
 }

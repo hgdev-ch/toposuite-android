@@ -38,30 +38,29 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
                 R.id.distance_projpoint_point_2);
 
         Bundle bundle = this.getIntent().getExtras();
-        int position = bundle.getInt(PointProjectionActivity.POINT_PROJ_POSITION);
-        this.ppoal = (PointProjectionOnALine)
-                SharedResources.getCalculationsHistory().get(position);
+        this.ppoal = (PointProjectionOnALine) bundle.getSerializable(PointProjectionActivity.POINT_PROJ_CALCULATION);
         try {
             this.ppoal.compute();
-            pointNumberTextView.setText(this.ppoal.getNumber());
-            eastTextView.setText(DisplayUtils.formatCoordinate(
-                    this.ppoal.getProjPt().getEast()));
-            northTextView.setText(DisplayUtils.formatCoordinate(
-                    this.ppoal.getProjPt().getNorth()));
-
-            projPointLineDistTextView.setText(DisplayUtils.formatDistance(
-                    this.ppoal.getDistPtToLine()));
-            projPointP1DistTextView.setText(DisplayUtils.formatDistance(
-                    this.ppoal.getDistPtToP1()));
-            if (!this.ppoal.getP2().getNumber().equals(PointProjectionOnALine.DUMMY_POINT_NUMBER)) {
-                projPointP2DistTextView.setText(DisplayUtils.formatDistance(
-                        this.ppoal.getDistPtToP2()));
-            } else {
-                projPointP2DistTextView.setText(R.string.no_value);
-            }
         } catch (CalculationException e) {
             Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
             ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+        }
+
+        pointNumberTextView.setText(this.ppoal.getNumber());
+        eastTextView.setText(DisplayUtils.formatCoordinate(
+                this.ppoal.getProjPt().getEast()));
+        northTextView.setText(DisplayUtils.formatCoordinate(
+                this.ppoal.getProjPt().getNorth()));
+
+        projPointLineDistTextView.setText(DisplayUtils.formatDistance(
+                this.ppoal.getDistPtToLine()));
+        projPointP1DistTextView.setText(DisplayUtils.formatDistance(
+                this.ppoal.getDistPtToP1()));
+        if (!this.ppoal.getP2().getNumber().isEmpty()) {
+            projPointP2DistTextView.setText(DisplayUtils.formatDistance(
+                    this.ppoal.getDistPtToP2()));
+        } else {
+            projPointP2DistTextView.setText(R.string.no_value);
         }
     }
 

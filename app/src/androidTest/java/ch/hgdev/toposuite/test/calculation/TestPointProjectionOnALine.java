@@ -32,7 +32,7 @@ public class TestPointProjectionOnALine extends CalculationTest {
         Assert.assertEquals("4.367", this.df3.format(pp.getDistPtToP2()));
 
         dist = -5.08;
-        pp = new PointProjectionOnALine("42", p1, 74.243, ptToProj, dist, false);
+        pp = new PointProjectionOnALine("42", p1, 74.243, ptToProj, dist, PointProjectionOnALine.Mode.LINE, false);
         try {
             pp.compute();
         } catch (CalculationException e) {

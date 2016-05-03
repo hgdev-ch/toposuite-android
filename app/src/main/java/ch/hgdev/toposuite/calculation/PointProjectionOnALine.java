@@ -25,7 +25,6 @@ public class PointProjectionOnALine extends Calculation {
     public static final String DISPLACEMENT = "displacement";
     public static final String GISEMENT = "gisement";
     public static final String MODE = "mode";
-    public static final String DUMMY_POINT_NUMBER = String.valueOf(Integer.MAX_VALUE);
 
     private static final double DISTANCE = 20.0;
 
@@ -43,8 +42,7 @@ public class PointProjectionOnALine extends Calculation {
     private double distPtToP2;
 
     public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj,
-                                  double _displacement,
-                                  PointProjectionOnALine.Mode _mode, boolean hasDAO) {
+                                  double _displacement, PointProjectionOnALine.Mode _mode, boolean hasDAO) {
         super(CalculationType.PROJPT,
                 App.getContext().getString(R.string.title_activity_point_projection),
                 hasDAO);
@@ -58,14 +56,14 @@ public class PointProjectionOnALine extends Calculation {
     }
 
     public PointProjectionOnALine(String _number, Point _p1, double gisement, Point _ptToProj,
-                                  double _displacement, boolean hasDAO) {
+                                  double _displacement, PointProjectionOnALine.Mode _mode, boolean hasDAO) {
         this(
                 _number,
                 _p1,
                 PointProjectionOnALine.pointFromGisement(_p1, gisement),
                 _ptToProj,
                 _displacement,
-                PointProjectionOnALine.Mode.LINE,
+                _mode,
                 hasDAO);
     }
 
@@ -77,12 +75,12 @@ public class PointProjectionOnALine extends Calculation {
                 _p2,
                 _ptToProj,
                 _displacement,
-                PointProjectionOnALine.Mode.LINE, hasDAO);
+                PointProjectionOnALine.Mode.LINE,
+                hasDAO);
     }
 
-    public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj,
-                                  boolean hasDAO) {
-        this(_number, _p1, _p2, _ptToProj, MathUtils.IGNORE_DOUBLE, hasDAO);
+    public PointProjectionOnALine(String _number, Point _p1, Point _p2, Point _ptToProj, boolean hasDAO) {
+        this(_number, _p1, _p2, _ptToProj, MathUtils.IGNORE_DOUBLE, PointProjectionOnALine.Mode.LINE, hasDAO);
     }
 
     public PointProjectionOnALine(long id, Date lastModification) {
@@ -130,12 +128,9 @@ public class PointProjectionOnALine extends Calculation {
         g = new Gisement(this.p1, this.p2, false);
         displGis = g.getGisement() + 100;
 
-        Point tmpPt = new Point(
-                PointProjectionOnALine.DUMMY_POINT_NUMBER,
-                MathUtils.pointLanceEast(this.ptToProj.getEast(), displGis,
-                        PointProjectionOnALine.DISTANCE),
-                MathUtils.pointLanceNorth(this.ptToProj.getNorth(), displGis,
-                        PointProjectionOnALine.DISTANCE),
+        Point tmpPt = new Point("",
+                MathUtils.pointLanceEast(this.ptToProj.getEast(), displGis, PointProjectionOnALine.DISTANCE),
+                MathUtils.pointLanceNorth(this.ptToProj.getNorth(), displGis, PointProjectionOnALine.DISTANCE),
                 MathUtils.IGNORE_DOUBLE, false, false);
 
         // calculation of the triangle angles according to the following schema:
@@ -204,12 +199,20 @@ public class PointProjectionOnALine extends Calculation {
     @Override
     public String exportToJSON() throws JSONException {
         JSONObject jo = new JSONObject();
+        jo.put(PointProjectionOnALine.MODE, this.mode.toString());
         jo.put(PointProjectionOnALine.NUMBER, this.number);
-        jo.put(PointProjectionOnALine.P1_NUMBER, this.p1.getNumber());
-        jo.put(PointProjectionOnALine.P2_NUMBER, this.p2.getNumber());
+        if (this.p1 != null) {
+            jo.put(PointProjectionOnALine.P1_NUMBER, this.p1.getNumber());
+        } else {
+            jo.put(PointProjectionOnALine.P1_NUMBER, "");
+        }
+        if (this.p2 != null) {
+            jo.put(PointProjectionOnALine.P2_NUMBER, this.p2.getNumber());
+        } else {
+            jo.put(PointProjectionOnALine.P2_NUMBER, "");
+        }
         jo.put(PointProjectionOnALine.DISPLACEMENT, this.displacement);
         jo.put(PointProjectionOnALine.GISEMENT, this.gisement);
-        jo.put(PointProjectionOnALine.MODE, this.mode.toString());
         jo.put(PointProjectionOnALine.PT_TO_PROJ_NUMBER, this.ptToProj);
 
         return jo.toString();
@@ -230,8 +233,7 @@ public class PointProjectionOnALine extends Calculation {
         this.mode = Mode.valueOf(jo.getString(PointProjectionOnALine.MODE));
 
         if (this.mode == Mode.GISEMENT) {
-            this.p2 = PointProjectionOnALine.pointFromGisement(
-                    this.p1, this.gisement);
+            this.p2 = PointProjectionOnALine.pointFromGisement(this.p1, this.gisement);
         } else {
             this.p2 = SharedResources.getSetOfPoints().find(
                     jo.getString(PointProjectionOnALine.P2_NUMBER));
@@ -251,7 +253,7 @@ public class PointProjectionOnALine extends Calculation {
     /**
      * Create a point from a given gisement and a point. The new point is
      * determined using the "point lancé".
-     * <p>
+     * <p/>
      * Note that the created point is not stored in the global list of points.
      *
      * @param p1       a point
@@ -259,12 +261,9 @@ public class PointProjectionOnALine extends Calculation {
      * @return a new point
      */
     public static Point pointFromGisement(Point p1, double gisement) {
-        double east = MathUtils.pointLanceEast(p1.getEast(), gisement,
-                PointProjectionOnALine.DISTANCE);
-        double north = MathUtils.pointLanceNorth(p1.getNorth(), gisement,
-                PointProjectionOnALine.DISTANCE);
-        return new Point(PointProjectionOnALine.DUMMY_POINT_NUMBER, east, north,
-                MathUtils.IGNORE_DOUBLE, false, false);
+        double east = MathUtils.pointLanceEast(p1.getEast(), gisement, PointProjectionOnALine.DISTANCE);
+        double north = MathUtils.pointLanceNorth(p1.getNorth(), gisement, PointProjectionOnALine.DISTANCE);
+        return new Point("", east, north, MathUtils.IGNORE_DOUBLE, false, false);
     }
 
     public Point getP1() {
