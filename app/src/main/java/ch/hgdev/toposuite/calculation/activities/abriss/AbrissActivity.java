@@ -72,20 +72,14 @@ public class AbrissActivity extends TopoSuiteActivity implements
             }
         });
 
-        ArrayList<Measure> list = new ArrayList<>();
-
         // check if we create a new abriss calculation or if we modify an existing one.
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
-            list = new ArrayList<>(this.abriss.getMeasures());
         } else {
             this.abriss = new Abriss(true);
         }
-
-        this.adapter = new ArrayListOfOrientationsAdapter(this, R.layout.orientations_list_item, list);
-        this.drawList();
 
         this.registerForContextMenu(this.orientationsListView);
     }
@@ -108,6 +102,8 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 this.stationSpinner.setSelection(this.stationSelectedPosition);
             }
         }
+
+        this.drawList();
     }
 
     @Override
@@ -124,6 +120,12 @@ public class AbrissActivity extends TopoSuiteActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        this.abriss.getMeasures().clear();
+        for (int i = 0; i < this.adapter.getCount(); i++) {
+            this.abriss.getMeasures().add(this.adapter.getItem(i));
+        }
+
         outState.putInt(AbrissActivity.STATION_SELECTED_POSITION, this.stationSelectedPosition);
     }
 
@@ -133,6 +135,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         if (savedInstanceState != null) {
             this.stationSelectedPosition = savedInstanceState.getInt(AbrissActivity.STATION_SELECTED_POSITION);
             this.stationSpinner.setSelection(this.stationSelectedPosition);
+            this.drawList();
         }
     }
 
@@ -231,6 +234,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
      * Draw the main table containing all the orientations.
      */
     private void drawList() {
+        this.adapter = new ArrayListOfOrientationsAdapter(this, R.layout.orientations_list_item, new ArrayList<>(this.abriss.getMeasures()));
         this.orientationsListView.setAdapter(this.adapter);
     }
 
