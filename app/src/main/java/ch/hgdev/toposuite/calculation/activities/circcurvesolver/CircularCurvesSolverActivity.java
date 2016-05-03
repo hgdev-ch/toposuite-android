@@ -69,8 +69,7 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.ccs = (CircularCurvesSolver) SharedResources.getCalculationsHistory()
-                    .get(position);
+            this.ccs = (CircularCurvesSolver) SharedResources.getCalculationsHistory().get(position);
             this.initEditTexts();
         }
     }
@@ -164,17 +163,13 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
 
         this.bisectorTextView.setText(DisplayUtils.formatDistance(this.ccs.getBisector()));
         this.arcTextView.setText(DisplayUtils.formatDistance(this.ccs.getArc()));
-        this.circumferenceTextView.setText(DisplayUtils.formatDistance(
-                this.ccs.getCircumference()));
+        this.circumferenceTextView.setText(DisplayUtils.formatDistance(this.ccs.getCircumference()));
         this.chordOMTextView.setText(DisplayUtils.formatDistance(this.ccs.getChordOM()));
 
         this.betaAngleTextView.setText(DisplayUtils.formatAngle(this.ccs.getBetaAngle()));
-        this.circleSurfaceTextView.setText(DisplayUtils.formatSurface(
-                this.ccs.getCircleSurface()));
-        this.sectorSurfaceTextView.setText(DisplayUtils.formatSurface(
-                this.ccs.getSectorSurface()));
-        this.segmentSurfaceTextView.setText(DisplayUtils.formatSurface(
-                this.ccs.getSegmentSurface()));
+        this.circleSurfaceTextView.setText(DisplayUtils.formatSurface(this.ccs.getCircleSurface()));
+        this.sectorSurfaceTextView.setText(DisplayUtils.formatSurface(this.ccs.getSectorSurface()));
+        this.segmentSurfaceTextView.setText(DisplayUtils.formatSurface(this.ccs.getSegmentSurface()));
     }
 
     /**
