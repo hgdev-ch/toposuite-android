@@ -9,9 +9,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -25,16 +26,15 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class FreeStationActivity extends TopoSuiteActivity implements MeasureDialogFragment.MeasureDialogListener {
 
-    /**
-     * Position of this free station calculation in the calculation history.
-     */
     public static final String FREE_STATION = "free_station_position";
+
+    private static final String MEASURES_LIST_LABEL = "measures_list";
 
     private EditText stationEditText;
     private EditText iEditText;
     private ListView measuresListView;
 
-    private ArrayAdapter<Measure> adapter;
+    private ArrayListOfMeasuresAdapter adapter;
     private FreeStation freeStation;
 
     @Override
@@ -60,8 +60,13 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
             if (MathUtils.isPositive(this.freeStation.getI())) {
                 this.iEditText.setText(String.valueOf(this.freeStation.getI()));
             }
+        } else {
+            this.freeStation = new FreeStation(true);
         }
 
+        this.adapter = new ArrayListOfMeasuresAdapter(
+                this, R.layout.determinations_list_item,
+                new ArrayList<>(this.freeStation.getMeasures()));
         this.registerForContextMenu(this.measuresListView);
     }
 
@@ -69,18 +74,13 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
     protected void onResume() {
         super.onResume();
 
-        if (this.freeStation == null) {
-            this.freeStation = new FreeStation(true);
-        }
-
-        this.adapter = new ArrayListOfMeasuresAdapter(this, R.layout.determinations_list_item, this.freeStation.getMeasures());
         this.drawList();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(FreeStationActivity.FREE_STATION, this.freeStation);
+        outState.putSerializable(FreeStationActivity.MEASURES_LIST_LABEL, this.adapter.getMeasures());
     }
 
     @Override
@@ -88,7 +88,10 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.freeStation = (FreeStation) savedInstanceState.getSerializable(FreeStationActivity.FREE_STATION);
+            ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(FreeStationActivity.MEASURES_LIST_LABEL);
+            this.adapter.clear();
+            this.adapter.addAll(measures);
+            this.drawList();
         }
     }
 
@@ -140,6 +143,9 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
                     this.freeStation.setI(ViewUtils.readDouble(this.iEditText));
                     this.freeStation.setStationNumber(ViewUtils.readString(this.stationEditText));
 
+                    this.freeStation.getMeasures().clear();
+                    this.freeStation.getMeasures().addAll(this.adapter.getMeasures());
+
                     this.startFreeStationResultsActivity();
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
@@ -169,7 +175,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
 
         boolean isSMandatory = !((this.iEditText.length() == 0) || MathUtils.isIgnorable(ViewUtils.readDouble(this.iEditText)));
 
-        Measure m = this.freeStation.getMeasures().get(position);
+        Measure m = this.adapter.getItem(position);
         MeasureDialogFragment dialog = MeasureDialogFragment.newInstance(m, isSMandatory);
         dialog.show(this.getSupportFragmentManager(), "MeasureDialogFragment");
     }
@@ -180,9 +186,6 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
      */
     private void startFreeStationResultsActivity() {
         Bundle bundle = new Bundle();
-
-        // At this point we are sure that the free station calculation
-        // has been instantiated.
         bundle.putSerializable(FreeStationActivity.FREE_STATION, this.freeStation);
 
         Intent resultsActivityIntent = new Intent(this, FreeStationResultsActivity.class);
@@ -201,9 +204,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
      * Check user inputs.
      */
     private boolean checkInputs() {
-        return ((this.freeStation != null)
-                && (this.stationEditText.length() > 0)
-                && (this.freeStation.getMeasures().size() >= 3));
+        return (this.stationEditText.length() > 0) && (this.adapter.getCount() >= 3);
     }
 
     @Override
@@ -223,9 +224,9 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
 
     @Override
     public void onDialogEdit(MeasureDialogFragment dialog) {
-        int position = this.freeStation.getMeasures().indexOf(dialog.getMeasure());
+        int position = this.adapter.getMeasures().indexOf(dialog.getMeasure());
 
-        Measure m = this.freeStation.getMeasures().get(position);
+        Measure m = this.adapter.getMeasures().get(position);
         m.setPoint(dialog.getPoint());
         m.setHorizDir(dialog.getHorizDir());
         m.setZenAngle(dialog.getZenAngle());

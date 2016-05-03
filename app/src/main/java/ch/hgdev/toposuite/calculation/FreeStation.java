@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -483,7 +484,7 @@ public class FreeStation extends Calculation {
         return false;
     }
 
-    public static class Result {
+    public static class Result implements Serializable {
         /**
          * The target point.
          */
