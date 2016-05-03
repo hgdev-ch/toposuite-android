@@ -1,8 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.orthoimpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -18,6 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
@@ -32,26 +33,26 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class OrthogonalImplantationActivity extends TopoSuiteActivity
         implements AddMeasureDialogFragment.AddMeasureDialogListener,
         EditMeasureDialogFragment.EditMeasureDialogListener {
-    public static final String     ORIGIN_SELECTED_POSITION    = "origin_selected_position";
-    public static final String     EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
-    public static final String     ORTHO_IMPL_POSITION         = "ortho_impl_position";
-    public static final String     MEASURE_POSITION            = "measure_position";
+    public static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
+    public static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
+    public static final String ORTHO_IMPL_POSITION = "ortho_impl_position";
+    public static final String MEASURE_POSITION = "measure_position";
 
-    private Spinner                originSpinner;
-    private Spinner                extremitySpinner;
+    private Spinner originSpinner;
+    private Spinner extremitySpinner;
 
-    private TextView               originPointTextView;
-    private TextView               extremityPointTextView;
-    private TextView               calcDistTextView;
+    private TextView originPointTextView;
+    private TextView extremityPointTextView;
+    private TextView calcDistTextView;
 
-    private ListView               measuresListView;
+    private ListView measuresListView;
 
-    private int                    originSelectedPosition;
-    private int                    extremitySelectedPosition;
+    private int originSelectedPosition;
+    private int extremitySelectedPosition;
 
     private OrthogonalImplantation orthoImpl;
 
-    private ArrayAdapter<Point>    adapter;
+    private ArrayAdapter<Point> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +73,10 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 OrthogonalImplantationActivity.this.originSelectedPosition = pos;
 
-                Point pt = (Point)
-                        OrthogonalImplantationActivity.this.originSpinner.getItemAtPosition(pos);
+                Point pt = (Point) OrthogonalImplantationActivity.this.originSpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    OrthogonalImplantationActivity.this.originPointTextView.setText
-                            (DisplayUtils.formatPoint(OrthogonalImplantationActivity.this, pt));
-                }
-                else {
+                    OrthogonalImplantationActivity.this.originPointTextView.setText(DisplayUtils.formatPoint(OrthogonalImplantationActivity.this, pt));
+                } else {
                     OrthogonalImplantationActivity.this.originPointTextView.setText("");
                 }
                 OrthogonalImplantationActivity.this.itemSelected();
@@ -95,13 +93,10 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 OrthogonalImplantationActivity.this.extremitySelectedPosition = pos;
 
-                Point pt = (Point)
-                        OrthogonalImplantationActivity.this.extremitySpinner.getItemAtPosition(pos);
+                Point pt = (Point) OrthogonalImplantationActivity.this.extremitySpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    OrthogonalImplantationActivity.this.extremityPointTextView.setText
-                            (DisplayUtils.formatPoint(OrthogonalImplantationActivity.this, pt));
-                }
-                else {
+                    OrthogonalImplantationActivity.this.extremityPointTextView.setText(DisplayUtils.formatPoint(OrthogonalImplantationActivity.this, pt));
+                } else {
                     OrthogonalImplantationActivity.this.extremityPointTextView.setText("");
                 }
                 OrthogonalImplantationActivity.this.itemSelected();
@@ -116,8 +111,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.orthoImpl = (OrthogonalImplantation) SharedResources
-                    .getCalculationsHistory().get(position);
+            this.orthoImpl = (OrthogonalImplantation) SharedResources.getCalculationsHistory().get(position);
         }
 
         this.drawList();
@@ -135,29 +129,24 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     protected void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
+        ArrayAdapter<Point> a = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.originSpinner.setAdapter(a);
         this.extremitySpinner.setAdapter(a);
 
         if (this.orthoImpl != null) {
-            this.originSpinner.setSelection(
-                    a.getPosition(this.orthoImpl.getOrthogonalBase().getOrigin()));
-            this.extremitySpinner.setSelection(
-                    a.getPosition(this.orthoImpl.getOrthogonalBase().getExtremity()));
+            this.originSpinner.setSelection(a.getPosition(this.orthoImpl.getOrthogonalBase().getOrigin()));
+            this.extremitySpinner.setSelection(a.getPosition(this.orthoImpl.getOrthogonalBase().getExtremity()));
         } else {
             if (this.originSelectedPosition > 0) {
-                this.originSpinner.setSelection(
-                        this.originSelectedPosition);
+                this.originSpinner.setSelection(this.originSelectedPosition);
             }
 
             if (this.extremitySelectedPosition > 0) {
-                this.extremitySpinner.setSelection(
-                        this.extremitySelectedPosition);
+                this.extremitySpinner.setSelection(this.extremitySelectedPosition);
             }
         }
     }
@@ -179,15 +168,15 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-        case R.id.edit_measure:
-            this.showEditMeasureDialog(info.position);
-            return true;
-        case R.id.delete_measure:
-            this.adapter.remove(this.adapter.getItem(info.position));
-            this.adapter.notifyDataSetChanged();
-            return true;
-        default:
-            return super.onContextItemSelected(item);
+            case R.id.edit_measure:
+                this.showEditMeasureDialog(info.position);
+                return true;
+            case R.id.delete_measure:
+                this.adapter.remove(this.adapter.getItem(info.position));
+                this.adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -195,18 +184,14 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION,
-                this.originSelectedPosition);
-        outState.putInt(OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION,
-                this.extremitySelectedPosition);
+        outState.putInt(OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION, this.originSelectedPosition);
+        outState.putInt(OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION, this.extremitySelectedPosition);
 
         if (this.orthoImpl != null) {
             int index = SharedResources.getCalculationsHistory().indexOf(this.orthoImpl);
-            outState.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION,
-                    index);
+            outState.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION, index);
         } else {
-            outState.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION,
-                    -1);
+            outState.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION, -1);
         }
     }
 
@@ -215,21 +200,17 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            int index = savedInstanceState.getInt(
-                    OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
+            int index = savedInstanceState.getInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
             if (index != -1) {
                 if (this.adapter != null) {
                     this.adapter.clear();
                 }
 
-                this.orthoImpl = (OrthogonalImplantation) SharedResources
-                        .getCalculationsHistory().get(index);
+                this.orthoImpl = (OrthogonalImplantation) SharedResources.getCalculationsHistory().get(index);
                 this.drawList();
             } else {
-                this.originSelectedPosition = savedInstanceState
-                        .getInt(OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION);
-                this.extremitySelectedPosition = savedInstanceState
-                        .getInt(OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION);
+                this.originSelectedPosition = savedInstanceState.getInt(OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION);
+                this.extremitySelectedPosition = savedInstanceState.getInt(OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION);
             }
         }
     }
@@ -237,40 +218,34 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
-        case R.id.add_point_button:
-            this.showAddMeasureDialog();
-            return true;
-        case R.id.run_calculation_button:
-            if ((this.originSelectedPosition == 0) || (this.extremitySelectedPosition == 0)
-                    || (this.adapter.getCount() == 0)) {
-                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+            case R.id.add_point_button:
+                this.showAddMeasureDialog();
                 return true;
-            }
+            case R.id.run_calculation_button:
+                if ((this.originSelectedPosition == 0) || (this.extremitySelectedPosition == 0) || (this.adapter.getCount() == 0)) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                    return true;
+                }
 
-            int position = SharedResources.getCalculationsHistory()
-                    .indexOf(this.orthoImpl);
+                int position = SharedResources.getCalculationsHistory().indexOf(this.orthoImpl);
 
-            Bundle bundle = new Bundle();
-            bundle.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION,
-                    position);
+                Bundle bundle = new Bundle();
+                bundle.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION, position);
 
-            Intent resultsActivityIntent = new Intent(this,
-                    OrthoImplantationResultsActivity.class);
-            resultsActivityIntent.putExtras(bundle);
-            this.startActivity(resultsActivityIntent);
+                Intent resultsActivityIntent = new Intent(this, OrthoImplantationResultsActivity.class);
+                resultsActivityIntent.putExtras(bundle);
+                this.startActivity(resultsActivityIntent);
 
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
     private void drawList() {
         if (this.orthoImpl != null) {
-            this.adapter = new ArrayAdapter<Point>(this, R.layout.history_list_item,
-                    this.orthoImpl.getMeasures());
+            this.adapter = new ArrayAdapter<Point>(this, R.layout.history_list_item, this.orthoImpl.getMeasures());
         } else {
             this.adapter = new ArrayAdapter<Point>(this, R.layout.history_list_item);
         }
@@ -298,8 +273,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
                 }
             }
 
-            this.calcDistTextView.setText(DisplayUtils.formatGap(
-                    MathUtils.euclideanDistance(p1, p2)));
+            this.calcDistTextView.setText(DisplayUtils.formatGap(MathUtils.euclideanDistance(p1, p2)));
         }
     }
 
@@ -319,8 +293,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
 
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
-        int orthImplPos = SharedResources.getCalculationsHistory().indexOf(
-                this.orthoImpl);
+        int orthImplPos = SharedResources.getCalculationsHistory().indexOf(this.orthoImpl);
 
         Bundle bundle = new Bundle();
         bundle.putInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION, orthImplPos);

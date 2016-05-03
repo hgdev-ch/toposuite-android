@@ -1,7 +1,6 @@
 package ch.hgdev.toposuite.calculation.activities.orthoimpl;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,8 +31,7 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
             int position = bundle.getInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
-            this.orthImpl = (OrthogonalImplantation) SharedResources.getCalculationsHistory().
-                    get(position);
+            this.orthImpl = (OrthogonalImplantation) SharedResources.getCalculationsHistory().get(position);
             try {
                 this.orthImpl.compute();
                 StringBuilder builder = new StringBuilder();
@@ -55,16 +53,8 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
         return this.getString(R.string.title_activity_ortho_implantation_results);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // this.getMenuInflater().inflate(R.menu.ortho_implantation_results,
-        // menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
     private void drawList() {
-        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.orth_impl_results_list_item,
-                this.orthImpl.getResults());
+        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.orth_impl_results_list_item, this.orthImpl.getResults());
         this.resultsListView.setAdapter(this.adapter);
     }
 }
