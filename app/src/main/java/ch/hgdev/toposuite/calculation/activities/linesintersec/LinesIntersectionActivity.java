@@ -38,8 +38,7 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 @SuppressLint("NewApi")
-public class LinesIntersectionActivity extends TopoSuiteActivity implements
-        MergePointsDialog.MergePointsDialogListener {
+public class LinesIntersectionActivity extends TopoSuiteActivity implements MergePointsDialog.MergePointsDialogListener {
     private static final String LINES_INTERSEC_POSITION = "lines_intersec_position";
     private static final String P1D1_SELECTED_POSITION = "p1d1_selected_position";
     private static final String P2D1_SELECTED_POSITION = "p2d1_selected_position";
@@ -129,13 +128,10 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         this.point2D2TextView = (TextView) this.findViewById(R.id.point_2_d2);
         this.distP1D1TexView = (TextView) this.findViewById(R.id.dist_p1_d1_label);
         this.distP1D2TexView = (TextView) this.findViewById(R.id.dist_p1_d2_label);
-        this.intersectionPointTextView = (TextView) this.findViewById(
-                R.id.intersection_point);
+        this.intersectionPointTextView = (TextView) this.findViewById(R.id.intersection_point);
 
-        this.perpendicularD1CheckBox = (CheckBox) this.findViewById(
-                R.id.is_d1_perpendicular);
-        this.perpendicularD2CheckBox = (CheckBox) this.findViewById(
-                R.id.is_d2_perpendicular);
+        this.perpendicularD1CheckBox = (CheckBox) this.findViewById(R.id.is_d1_perpendicular);
+        this.perpendicularD2CheckBox = (CheckBox) this.findViewById(R.id.is_d2_perpendicular);
 
         if (this.perpendicularD1CheckBox.isChecked()) {
             this.distP1D1EditText.setEnabled(true);
@@ -171,8 +167,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         this.distP1D2EditText.setInputType(App.getInputTypeCoordinate());
         this.distP1D2EditText.setText("0.0");
 
-        this.point2D1SpinnerLayout = (LinearLayout) this
-                .findViewById(R.id.point2_d1_spinner_layout);
+        this.point2D1SpinnerLayout = (LinearLayout) this.findViewById(R.id.point2_d1_spinner_layout);
         if (this.findViewById(R.id.point2_d1_layout) != null) {
             // this layout does not exists in landscape mode
             this.point2D1Layout = (LinearLayout) this.findViewById(R.id.point2_d1_layout);
@@ -202,12 +197,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LinesIntersectionActivity.this.point1D1SelectedPosition = pos;
 
-                Point pt = (Point) LinesIntersectionActivity.this.point1D1Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LinesIntersectionActivity.this.point1D1Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LinesIntersectionActivity.this.point1D1TextView.setText(DisplayUtils
-                            .formatPoint(
-                                    LinesIntersectionActivity.this, pt));
+                    LinesIntersectionActivity.this.point1D1TextView.setText(DisplayUtils.formatPoint(LinesIntersectionActivity.this, pt));
                 } else {
                     LinesIntersectionActivity.this.point1D1TextView.setText("");
                 }
@@ -224,12 +216,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LinesIntersectionActivity.this.point2D1SelectedPosition = pos;
 
-                Point pt = (Point) LinesIntersectionActivity.this.point2D1Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LinesIntersectionActivity.this.point2D1Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LinesIntersectionActivity.this.point2D1TextView.setText(DisplayUtils
-                            .formatPoint(
-                                    LinesIntersectionActivity.this, pt));
+                    LinesIntersectionActivity.this.point2D1TextView.setText(DisplayUtils.formatPoint(LinesIntersectionActivity.this, pt));
                 } else {
                     LinesIntersectionActivity.this.point2D1TextView.setText("");
                 }
@@ -246,12 +235,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LinesIntersectionActivity.this.point1D2SelectedPosition = pos;
 
-                Point pt = (Point) LinesIntersectionActivity.this.point1D2Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LinesIntersectionActivity.this.point1D2Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LinesIntersectionActivity.this.point1D2TextView.setText(DisplayUtils
-                            .formatPoint(
-                                    LinesIntersectionActivity.this, pt));
+                    LinesIntersectionActivity.this.point1D2TextView.setText(DisplayUtils.formatPoint(LinesIntersectionActivity.this, pt));
                 } else {
                     LinesIntersectionActivity.this.point1D2TextView.setText("");
                 }
@@ -268,12 +254,9 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 LinesIntersectionActivity.this.point2D2SelectedPosition = pos;
 
-                Point pt = (Point) LinesIntersectionActivity.this.point2D2Spinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) LinesIntersectionActivity.this.point2D2Spinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
-                    LinesIntersectionActivity.this.point2D2TextView.setText(DisplayUtils
-                            .formatPoint(
-                                    LinesIntersectionActivity.this, pt));
+                    LinesIntersectionActivity.this.point2D2TextView.setText(DisplayUtils.formatPoint(LinesIntersectionActivity.this, pt));
                 } else {
                     LinesIntersectionActivity.this.point2D2TextView.setText("");
                 }
@@ -308,8 +291,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.adapter = new ArrayAdapter<>(
-                this, R.layout.spinner_list_item, points);
+        this.adapter = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.point1D1Spinner.setAdapter(this.adapter);
         this.point2D1Spinner.setAdapter(this.adapter);
         this.point1D2Spinner.setAdapter(this.adapter);
@@ -318,68 +300,56 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.lineIntersec = (LinesIntersection)
-                    SharedResources.getCalculationsHistory().get(position);
+            this.lineIntersec = (LinesIntersection) SharedResources.getCalculationsHistory().get(position);
 
-            Point tmpPoint = SharedResources.getSetOfPoints().find(
-                    this.lineIntersec.getP1D1().getNumber());
+            Point tmpPoint = SharedResources.getSetOfPoints().find(this.lineIntersec.getP1D1().getNumber());
             this.point1D1SelectedPosition = this.adapter.getPosition(tmpPoint);
 
             if (this.lineIntersec.getP2D1() != null) {
-                tmpPoint = SharedResources.getSetOfPoints().find(
-                        this.lineIntersec.getP2D1().getNumber());
+                tmpPoint = SharedResources.getSetOfPoints().find(this.lineIntersec.getP2D1().getNumber());
                 this.point2D1SelectedPosition = this.adapter.getPosition(tmpPoint);
             }
 
-            tmpPoint = SharedResources.getSetOfPoints().find(
-                    this.lineIntersec.getP1D2().getNumber());
+            tmpPoint = SharedResources.getSetOfPoints().find(this.lineIntersec.getP1D2().getNumber());
             this.point1D2SelectedPosition = this.adapter.getPosition(tmpPoint);
 
             if (this.lineIntersec.getP2D2() != null) {
-                tmpPoint = SharedResources.getSetOfPoints().find(
-                        this.lineIntersec.getP2D2().getNumber());
+                tmpPoint = SharedResources.getSetOfPoints().find(this.lineIntersec.getP2D2().getNumber());
                 this.point2D2SelectedPosition = this.adapter.getPosition(tmpPoint);
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getGisementD1())) {
-                this.gisementD1EditText.setText(DisplayUtils.toStringForEditText(
-                        this.lineIntersec.getGisementD1()));
+                this.gisementD1EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getGisementD1()));
 
                 if (this.point2D1SelectedPosition == 0) {
-                    RadioButton rb = (RadioButton) this.findViewById(
-                            R.id.mode_d1_gisement);
+                    RadioButton rb = (RadioButton) this.findViewById(R.id.mode_d1_gisement);
                     rb.setChecked(true);
                 }
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getGisementD2())) {
-                this.gisementD2EditText.setText(DisplayUtils.toStringForEditText(
-                        this.lineIntersec.getGisementD2()));
+                this.gisementD2EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getGisementD2()));
 
                 if (this.point2D2SelectedPosition == 0) {
-                    RadioButton rb = (RadioButton) this.findViewById(
-                            R.id.mode_d2_gisement);
+                    RadioButton rb = (RadioButton) this.findViewById(R.id.mode_d2_gisement);
                     rb.setChecked(true);
                 }
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getDisplacementD1())) {
-                this.displacementD1EditText.setText(DisplayUtils.toStringForEditText(
-                        this.lineIntersec.getDisplacementD1()));
+                this.displacementD1EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getDisplacementD1()));
             }
             this.displacementD1TextView.setEnabled(!this.isD1Perpendicular);
             this.displacementD1EditText.setEnabled(!this.isD1Perpendicular);
 
             if (!MathUtils.isZero(this.lineIntersec.getDisplacementD2())) {
-                this.displacementD2EditText.setText(DisplayUtils.toStringForEditText(
-                        this.lineIntersec.getDisplacementD2()));
+                this.displacementD2EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getDisplacementD2()));
             }
             this.displacementD2TextView.setEnabled(!this.isD2Perpendicular);
             this.displacementD2EditText.setEnabled(!this.isD2Perpendicular);
 
             if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D1())) {
-                this.distP1D1EditText.setText(DisplayUtils.toStringForEditText(
-                        this.lineIntersec.getDistanceP1D1()));
+                this.distP1D1EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getDistanceP1D1()));
                 this.perpendicularD1CheckBox.setChecked(true);
                 this.distP1D1EditText.setEnabled(true);
                 this.distP1D1TexView.setEnabled(true);
@@ -387,16 +357,14 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
             }
 
             if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D2())) {
-                this.distP1D2EditText.setText(DisplayUtils.toStringForEditText(
-                        this.lineIntersec.getDistanceP1D2()));
+                this.distP1D2EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getDistanceP1D2()));
                 this.perpendicularD2CheckBox.setChecked(true);
                 this.distP1D2EditText.setEnabled(true);
                 this.distP1D2TexView.setEnabled(true);
                 this.isD2Perpendicular = true;
             }
 
-            this.pointNumberEditText.setText(
-                    this.lineIntersec.getPointNumber());
+            this.pointNumberEditText.setText(this.lineIntersec.getPointNumber());
 
         }
 
@@ -426,24 +394,16 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
         int position = -1;
         if (this.lineIntersec != null) {
-            position = SharedResources.getCalculationsHistory().indexOf(
-                    this.lineIntersec);
+            position = SharedResources.getCalculationsHistory().indexOf(this.lineIntersec);
         }
 
-        outState.putInt(LinesIntersectionActivity.LINES_INTERSEC_POSITION,
-                position);
-        outState.putInt(LinesIntersectionActivity.P1D1_SELECTED_POSITION,
-                this.point1D1SelectedPosition);
-        outState.putInt(LinesIntersectionActivity.P2D1_SELECTED_POSITION,
-                this.point2D1SelectedPosition);
-        outState.putInt(LinesIntersectionActivity.P1D2_SELECTED_POSITION,
-                this.point1D2SelectedPosition);
-        outState.putInt(LinesIntersectionActivity.P2D2_SELECTED_POSITION,
-                this.point2D2SelectedPosition);
-        outState.putBoolean(LinesIntersectionActivity.D1_IS_PERPENDICULAR,
-                this.isD1Perpendicular);
-        outState.putBoolean(LinesIntersectionActivity.D2_IS_PERPENDICULAR,
-                this.isD2Perpendicular);
+        outState.putInt(LinesIntersectionActivity.LINES_INTERSEC_POSITION, position);
+        outState.putInt(LinesIntersectionActivity.P1D1_SELECTED_POSITION, this.point1D1SelectedPosition);
+        outState.putInt(LinesIntersectionActivity.P2D1_SELECTED_POSITION, this.point2D1SelectedPosition);
+        outState.putInt(LinesIntersectionActivity.P1D2_SELECTED_POSITION, this.point1D2SelectedPosition);
+        outState.putInt(LinesIntersectionActivity.P2D2_SELECTED_POSITION, this.point2D2SelectedPosition);
+        outState.putBoolean(LinesIntersectionActivity.D1_IS_PERPENDICULAR, this.isD1Perpendicular);
+        outState.putBoolean(LinesIntersectionActivity.D2_IS_PERPENDICULAR, this.isD2Perpendicular);
     }
 
     @Override
@@ -451,26 +411,18 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            int position = savedInstanceState.getInt(
-                    LinesIntersectionActivity.LINES_INTERSEC_POSITION);
+            int position = savedInstanceState.getInt(LinesIntersectionActivity.LINES_INTERSEC_POSITION);
             if (position != -1) {
-                this.lineIntersec = (LinesIntersection) SharedResources
-                        .getCalculationsHistory().get(position);
+                this.lineIntersec = (LinesIntersection) SharedResources.getCalculationsHistory().get(position);
                 this.resultLayout.setVisibility(View.VISIBLE);
             }
 
-            this.point1D1SelectedPosition = savedInstanceState.getInt(
-                    LinesIntersectionActivity.P1D1_SELECTED_POSITION);
-            this.point2D1SelectedPosition = savedInstanceState.getInt(
-                    LinesIntersectionActivity.P2D1_SELECTED_POSITION);
-            this.point1D2SelectedPosition = savedInstanceState.getInt(
-                    LinesIntersectionActivity.P1D2_SELECTED_POSITION);
-            this.point2D2SelectedPosition = savedInstanceState.getInt(
-                    LinesIntersectionActivity.P2D2_SELECTED_POSITION);
-            this.isD1Perpendicular = savedInstanceState.getBoolean(
-                    LinesIntersectionActivity.D1_IS_PERPENDICULAR);
-            this.isD2Perpendicular = savedInstanceState.getBoolean(
-                    LinesIntersectionActivity.D2_IS_PERPENDICULAR);
+            this.point1D1SelectedPosition = savedInstanceState.getInt(LinesIntersectionActivity.P1D1_SELECTED_POSITION);
+            this.point2D1SelectedPosition = savedInstanceState.getInt(LinesIntersectionActivity.P2D1_SELECTED_POSITION);
+            this.point1D2SelectedPosition = savedInstanceState.getInt(LinesIntersectionActivity.P1D2_SELECTED_POSITION);
+            this.point2D2SelectedPosition = savedInstanceState.getInt(LinesIntersectionActivity.P2D2_SELECTED_POSITION);
+            this.isD1Perpendicular = savedInstanceState.getBoolean(LinesIntersectionActivity.D1_IS_PERPENDICULAR);
+            this.isD2Perpendicular = savedInstanceState.getBoolean(LinesIntersectionActivity.D2_IS_PERPENDICULAR);
         }
     }
 
@@ -492,18 +444,14 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                 // make sure that the computation has been done before
                 this.runCalculation();
 
-                if (MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getEast())
-                        || MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getNorth())) {
+                if (MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getEast()) || MathUtils.isZero(this.lineIntersec.getIntersectionPoint().getNorth())) {
                     ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
                     return true;
                 }
 
-                if (SharedResources.getSetOfPoints().find(
-                        this.lineIntersec.getPointNumber()) == null) {
-                    SharedResources.getSetOfPoints().add(
-                            this.lineIntersec.getIntersectionPoint());
-                    this.lineIntersec.getIntersectionPoint().registerDAO(
-                            PointsDataSource.getInstance());
+                if (SharedResources.getSetOfPoints().find(this.lineIntersec.getPointNumber()) == null) {
+                    SharedResources.getSetOfPoints().add(this.lineIntersec.getIntersectionPoint());
+                    this.lineIntersec.getIntersectionPoint().registerDAO(PointsDataSource.getInstance());
 
                     ViewUtils.showToast(this, this.getString(R.string.point_add_success));
                 } else {
@@ -511,16 +459,11 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
                     MergePointsDialog dialog = new MergePointsDialog();
 
                     Bundle args = new Bundle();
-                    args.putString(
-                            MergePointsDialog.POINT_NUMBER,
-                            this.lineIntersec.getPointNumber());
+                    args.putString(MergePointsDialog.POINT_NUMBER, this.lineIntersec.getPointNumber());
 
-                    args.putDouble(MergePointsDialog.NEW_EAST,
-                            this.lineIntersec.getIntersectionPoint().getEast());
-                    args.putDouble(MergePointsDialog.NEW_NORTH,
-                            this.lineIntersec.getIntersectionPoint().getNorth());
-                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                            this.lineIntersec.getIntersectionPoint().getAltitude());
+                    args.putDouble(MergePointsDialog.NEW_EAST, this.lineIntersec.getIntersectionPoint().getEast());
+                    args.putDouble(MergePointsDialog.NEW_NORTH, this.lineIntersec.getIntersectionPoint().getNorth());
+                    args.putDouble(MergePointsDialog.NEW_ALTITUDE, this.lineIntersec.getIntersectionPoint().getAltitude());
 
                     dialog.setArguments(args);
                     dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
@@ -616,8 +559,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements
 
     private void displayResult() {
         this.blinkAnimation.stop();
-        this.intersectionPointTextView.setText(DisplayUtils.formatPoint(
-                this, this.lineIntersec.getIntersectionPoint()));
+        this.intersectionPointTextView.setText(DisplayUtils.formatPoint(this, this.lineIntersec.getIntersectionPoint()));
         this.resultLayout.setVisibility(View.VISIBLE);
         this.scrollView.scrollTo(0, 0);
         this.blinkAnimation.start();
