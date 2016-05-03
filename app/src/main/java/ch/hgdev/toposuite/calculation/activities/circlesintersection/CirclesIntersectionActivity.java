@@ -29,8 +29,7 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class CirclesIntersectionActivity extends TopoSuiteActivity implements
-        MergePointsDialog.MergePointsDialogListener {
+public class CirclesIntersectionActivity extends TopoSuiteActivity implements MergePointsDialog.MergePointsDialogListener {
 
     private static final String CENTER_ONE_SELECTED_POSITION = "center_one_selected_position";
     private static final String BY_ONE_SELECTED_POSITION = "by_one_selected_position";
@@ -71,12 +70,6 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
     private EditText intersectionTwoEditText;
     private Point intersectionTwo;
 
-    /**
-     * Position of the calculation in the calculations list. Only used when open
-     * from the history.
-     */
-    private int position;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +78,8 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
         this.mapViews();
         this.initViews();
 
-        this.position = -1;
-
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, false, false));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
         this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
@@ -99,17 +90,12 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.circlesIntersection = (CirclesIntersection) SharedResources
-                    .getCalculationsHistory().get(this.position);
-            this.centerOneSelectedPosition = this.adapter.getPosition(
-                    this.circlesIntersection.getCenterFirst());
-            this.centerTwoSelectedPosition = this.adapter.getPosition(
-                    this.circlesIntersection.getCenterSecond());
-            this.radiusOneEditText.setText(
-                    DisplayUtils.toStringForEditText(this.circlesIntersection.getRadiusFirst()));
-            this.radiusTwoEditText.setText(
-                    DisplayUtils.toStringForEditText(this.circlesIntersection.getRadiusSecond()));
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.circlesIntersection = (CirclesIntersection) SharedResources.getCalculationsHistory().get(position);
+            this.centerOneSelectedPosition = this.adapter.getPosition(this.circlesIntersection.getCenterFirst());
+            this.centerTwoSelectedPosition = this.adapter.getPosition(this.circlesIntersection.getCenterSecond());
+            this.radiusOneEditText.setText(DisplayUtils.toStringForEditText(this.circlesIntersection.getRadiusFirst()));
+            this.radiusTwoEditText.setText(DisplayUtils.toStringForEditText(this.circlesIntersection.getRadiusSecond()));
         }
     }
 
@@ -132,14 +118,10 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(CirclesIntersectionActivity.CENTER_ONE_SELECTED_POSITION,
-                this.centerOneSelectedPosition);
-        outState.putInt(CirclesIntersectionActivity.CENTER_TWO_SELECTED_POSITION,
-                this.centerTwoSelectedPosition);
-        outState.putInt(CirclesIntersectionActivity.BY_ONE_SELECTED_POSITION,
-                this.byPointOneSelectedPosition);
-        outState.putInt(CirclesIntersectionActivity.BY_TWO_SELECTED_POSITION,
-                this.byPointTwoSelectedPosition);
+        outState.putInt(CirclesIntersectionActivity.CENTER_ONE_SELECTED_POSITION, this.centerOneSelectedPosition);
+        outState.putInt(CirclesIntersectionActivity.CENTER_TWO_SELECTED_POSITION, this.centerTwoSelectedPosition);
+        outState.putInt(CirclesIntersectionActivity.BY_ONE_SELECTED_POSITION, this.byPointOneSelectedPosition);
+        outState.putInt(CirclesIntersectionActivity.BY_TWO_SELECTED_POSITION, this.byPointTwoSelectedPosition);
 
     }
 
@@ -148,14 +130,10 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.centerOneSelectedPosition = savedInstanceState.getInt(
-                    CirclesIntersectionActivity.CENTER_ONE_SELECTED_POSITION);
-            this.centerTwoSelectedPosition = savedInstanceState.getInt(
-                    CirclesIntersectionActivity.CENTER_TWO_SELECTED_POSITION);
-            this.byPointOneSelectedPosition = savedInstanceState.getInt(
-                    CirclesIntersectionActivity.BY_ONE_SELECTED_POSITION);
-            this.byPointTwoSelectedPosition = savedInstanceState.getInt(
-                    CirclesIntersectionActivity.BY_TWO_SELECTED_POSITION);
+            this.centerOneSelectedPosition = savedInstanceState.getInt(CirclesIntersectionActivity.CENTER_ONE_SELECTED_POSITION);
+            this.centerTwoSelectedPosition = savedInstanceState.getInt(CirclesIntersectionActivity.CENTER_TWO_SELECTED_POSITION);
+            this.byPointOneSelectedPosition = savedInstanceState.getInt(CirclesIntersectionActivity.BY_ONE_SELECTED_POSITION);
+            this.byPointTwoSelectedPosition = savedInstanceState.getInt(CirclesIntersectionActivity.BY_TWO_SELECTED_POSITION);
             this.centerOnePoint = this.adapter.getItem(this.centerOneSelectedPosition);
             this.centerTwoPoint = this.adapter.getItem(this.centerTwoSelectedPosition);
             this.byPointOne = this.adapter.getItem(this.byPointOneSelectedPosition);
@@ -175,10 +153,8 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
         switch (id) {
             case R.id.run_calculation_button:
                 if (this.checkInputs()) {
-                    if (!MathUtils.isPositive(ViewUtils.readDouble(this.radiusOneEditText))
-                            || !MathUtils.isPositive(ViewUtils.readDouble(this.radiusTwoEditText))) {
-                        ViewUtils.showToast(this,
-                                this.getString(R.string.error_radius_must_be_positive));
+                    if (!MathUtils.isPositive(ViewUtils.readDouble(this.radiusOneEditText)) || !MathUtils.isPositive(ViewUtils.readDouble(this.radiusTwoEditText))) {
+                        ViewUtils.showToast(this, this.getString(R.string.error_radius_must_be_positive));
                     } else {
                         this.runCalculations();
                         this.updateResults();
@@ -193,8 +169,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
                     return true;
                 }
 
-                if ((this.intersectionOneEditText.length() < 1)
-                        && (this.intersectionTwoEditText.length() < 1)) {
+                if ((this.intersectionOneEditText.length() < 1) && (this.intersectionTwoEditText.length() < 1)) {
                     ViewUtils.showToast(this, this.getString(R.string.error_no_points_saved));
                     return true;
                 }
@@ -203,11 +178,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
                 if (this.intersectionOneEditText.length() > 0) {
                     this.intersectionOne.setNumber(ViewUtils.readString(this.intersectionOneEditText));
 
-                    if (MathUtils.isZero(this.intersectionOne.getEast())
-                            && MathUtils.isZero(this.intersectionOne.getNorth())) {
+                    if (MathUtils.isZero(this.intersectionOne.getEast()) && MathUtils.isZero(this.intersectionOne.getNorth())) {
                         ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                    } else if (SharedResources.getSetOfPoints().find(
-                            this.intersectionOne.getNumber()) == null) {
+                    } else if (SharedResources.getSetOfPoints().find(this.intersectionOne.getNumber()) == null) {
                         SharedResources.getSetOfPoints().add(this.intersectionOne);
                         this.intersectionOne.registerDAO(PointsDataSource.getInstance());
 
@@ -217,16 +190,11 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
                         MergePointsDialog dialog = new MergePointsDialog();
 
                         Bundle args = new Bundle();
-                        args.putString(
-                                MergePointsDialog.POINT_NUMBER,
-                                this.intersectionOne.getNumber());
+                        args.putString(MergePointsDialog.POINT_NUMBER, this.intersectionOne.getNumber());
 
-                        args.putDouble(MergePointsDialog.NEW_EAST,
-                                this.intersectionOne.getEast());
-                        args.putDouble(MergePointsDialog.NEW_NORTH,
-                                this.intersectionOne.getNorth());
-                        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                                this.intersectionOne.getAltitude());
+                        args.putDouble(MergePointsDialog.NEW_EAST, this.intersectionOne.getEast());
+                        args.putDouble(MergePointsDialog.NEW_NORTH, this.intersectionOne.getNorth());
+                        args.putDouble(MergePointsDialog.NEW_ALTITUDE, this.intersectionOne.getAltitude());
 
                         dialog.setArguments(args);
                         dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
@@ -239,11 +207,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
                 if (this.intersectionTwoEditText.length() > 0) {
                     this.intersectionTwo.setNumber(ViewUtils.readString(this.intersectionTwoEditText));
 
-                    if (MathUtils.isZero(this.intersectionTwo.getEast())
-                            && MathUtils.isZero(this.intersectionTwo.getNorth())) {
+                    if (MathUtils.isZero(this.intersectionTwo.getEast()) && MathUtils.isZero(this.intersectionTwo.getNorth())) {
                         ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
-                    } else if (SharedResources.getSetOfPoints().find(
-                            this.intersectionTwo.getNumber()) == null) {
+                    } else if (SharedResources.getSetOfPoints().find(this.intersectionTwo.getNumber()) == null) {
                         SharedResources.getSetOfPoints().add(this.intersectionTwo);
                         this.intersectionTwo.registerDAO(PointsDataSource.getInstance());
 
@@ -253,16 +219,11 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
                         MergePointsDialog dialog = new MergePointsDialog();
 
                         Bundle args = new Bundle();
-                        args.putString(
-                                MergePointsDialog.POINT_NUMBER,
-                                this.intersectionTwo.getNumber());
+                        args.putString(MergePointsDialog.POINT_NUMBER, this.intersectionTwo.getNumber());
 
-                        args.putDouble(MergePointsDialog.NEW_EAST,
-                                this.intersectionTwo.getEast());
-                        args.putDouble(MergePointsDialog.NEW_NORTH,
-                                this.intersectionTwo.getNorth());
-                        args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                                this.intersectionTwo.getAltitude());
+                        args.putDouble(MergePointsDialog.NEW_EAST, this.intersectionTwo.getEast());
+                        args.putDouble(MergePointsDialog.NEW_NORTH, this.intersectionTwo.getNorth());
+                        args.putDouble(MergePointsDialog.NEW_ALTITUDE, this.intersectionTwo.getAltitude());
 
                         dialog.setArguments(args);
                         dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
@@ -280,10 +241,8 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
      * Update the results view.
      */
     private void updateResults() {
-        this.intersectionOneTextView.setText(
-                DisplayUtils.formatPoint(this, this.intersectionOne));
-        this.intersectionTwoTextView.setText(
-                DisplayUtils.formatPoint(this, this.intersectionTwo));
+        this.intersectionOneTextView.setText(DisplayUtils.formatPoint(this, this.intersectionOne));
+        this.intersectionTwoTextView.setText(DisplayUtils.formatPoint(this, this.intersectionTwo));
     }
 
     /**
@@ -318,12 +277,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 CirclesIntersectionActivity.this.centerOneSelectedPosition = pos;
 
-                CirclesIntersectionActivity.this.centerOnePoint = (Point) CirclesIntersectionActivity.this.centerOneSpinner
-                        .getItemAtPosition(pos);
+                CirclesIntersectionActivity.this.centerOnePoint = (Point) CirclesIntersectionActivity.this.centerOneSpinner.getItemAtPosition(pos);
                 if (!CirclesIntersectionActivity.this.centerOnePoint.getNumber().isEmpty()) {
-                    CirclesIntersectionActivity.this.centerOneTextView.setText(DisplayUtils
-                            .formatPoint(CirclesIntersectionActivity.this,
-                                    CirclesIntersectionActivity.this.centerOnePoint));
+                    CirclesIntersectionActivity.this.centerOneTextView.setText(DisplayUtils.formatPoint(CirclesIntersectionActivity.this, CirclesIntersectionActivity.this.centerOnePoint));
                 } else {
                     CirclesIntersectionActivity.this.centerOneTextView.setText("");
                 }
@@ -341,12 +297,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 CirclesIntersectionActivity.this.byPointOneSelectedPosition = pos;
 
-                CirclesIntersectionActivity.this.byPointOne = (Point) CirclesIntersectionActivity.this.byPointOneSpinner
-                        .getItemAtPosition(pos);
+                CirclesIntersectionActivity.this.byPointOne = (Point) CirclesIntersectionActivity.this.byPointOneSpinner.getItemAtPosition(pos);
                 if (!CirclesIntersectionActivity.this.byPointOne.getNumber().isEmpty()) {
-                    CirclesIntersectionActivity.this.byPointOneTextView.setText(DisplayUtils
-                            .formatPoint(CirclesIntersectionActivity.this,
-                                    CirclesIntersectionActivity.this.byPointOne));
+                    CirclesIntersectionActivity.this.byPointOneTextView.setText(DisplayUtils.formatPoint(CirclesIntersectionActivity.this, CirclesIntersectionActivity.this.byPointOne));
                 } else {
                     CirclesIntersectionActivity.this.byPointOneTextView.setText("");
                 }
@@ -364,12 +317,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 CirclesIntersectionActivity.this.centerTwoSelectedPosition = pos;
 
-                CirclesIntersectionActivity.this.centerTwoPoint = (Point) CirclesIntersectionActivity.this.centerTwoSpinner
-                        .getItemAtPosition(pos);
+                CirclesIntersectionActivity.this.centerTwoPoint = (Point) CirclesIntersectionActivity.this.centerTwoSpinner.getItemAtPosition(pos);
                 if (!CirclesIntersectionActivity.this.centerTwoPoint.getNumber().isEmpty()) {
-                    CirclesIntersectionActivity.this.centerTwoTextView.setText(DisplayUtils
-                            .formatPoint(CirclesIntersectionActivity.this,
-                                    CirclesIntersectionActivity.this.centerTwoPoint));
+                    CirclesIntersectionActivity.this.centerTwoTextView.setText(DisplayUtils.formatPoint(CirclesIntersectionActivity.this, CirclesIntersectionActivity.this.centerTwoPoint));
                 } else {
                     CirclesIntersectionActivity.this.centerTwoTextView.setText("");
                 }
@@ -387,12 +337,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 CirclesIntersectionActivity.this.byPointTwoSelectedPosition = pos;
 
-                CirclesIntersectionActivity.this.byPointTwo = (Point) CirclesIntersectionActivity.this.byPointTwoSpinner
-                        .getItemAtPosition(pos);
+                CirclesIntersectionActivity.this.byPointTwo = (Point) CirclesIntersectionActivity.this.byPointTwoSpinner.getItemAtPosition(pos);
                 if (!CirclesIntersectionActivity.this.byPointTwo.getNumber().isEmpty()) {
-                    CirclesIntersectionActivity.this.byPointTwoTextView.setText(DisplayUtils
-                            .formatPoint(CirclesIntersectionActivity.this,
-                                    CirclesIntersectionActivity.this.byPointTwo));
+                    CirclesIntersectionActivity.this.byPointTwoTextView.setText(DisplayUtils.formatPoint(CirclesIntersectionActivity.this, CirclesIntersectionActivity.this.byPointTwo));
                 } else {
                     CirclesIntersectionActivity.this.byPointTwoTextView.setText("");
                 }
@@ -415,8 +362,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
      */
     private void fillRadiusOne() {
         if ((this.centerOneSelectedPosition > 0) && (this.byPointOneSelectedPosition > 0)) {
-            this.radiusOneEditText.setText(DisplayUtils.toStringForEditText(
-                    MathUtils.euclideanDistance(this.centerOnePoint, this.byPointOne)));
+            this.radiusOneEditText.setText(DisplayUtils.toStringForEditText(MathUtils.euclideanDistance(this.centerOnePoint, this.byPointOne)));
             this.radiusOneEditText.setEnabled(false);
         } else {
             this.radiusOneEditText.setEnabled(true);
@@ -429,8 +375,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
      */
     private void fillRadiusTwo() {
         if ((this.centerTwoSelectedPosition > 0) && (this.byPointTwoSelectedPosition > 0)) {
-            this.radiusTwoEditText.setText(DisplayUtils.toStringForEditText(
-                    MathUtils.euclideanDistance(this.centerTwoPoint, this.byPointTwo)));
+            this.radiusTwoEditText.setText(DisplayUtils.toStringForEditText(MathUtils.euclideanDistance(this.centerTwoPoint, this.byPointTwo)));
             this.radiusTwoEditText.setEnabled(false);
         } else {
             this.radiusTwoEditText.setEnabled(true);
@@ -464,11 +409,9 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements
             this.circlesIntersection = new CirclesIntersection();
         }
 
-        this.centerOnePoint = (Point) this.centerOneSpinner
-                .getItemAtPosition(this.centerOneSelectedPosition);
+        this.centerOnePoint = (Point) this.centerOneSpinner.getItemAtPosition(this.centerOneSelectedPosition);
         this.radiusOne = ViewUtils.readDouble(this.radiusOneEditText);
-        this.centerTwoPoint = (Point) this.centerTwoSpinner
-                .getItemAtPosition(this.centerTwoSelectedPosition);
+        this.centerTwoPoint = (Point) this.centerTwoSpinner.getItemAtPosition(this.centerTwoSelectedPosition);
         this.radiusTwo = ViewUtils.readDouble(this.radiusTwoEditText);
 
         this.circlesIntersection.setCenterFirst(this.centerOnePoint);
