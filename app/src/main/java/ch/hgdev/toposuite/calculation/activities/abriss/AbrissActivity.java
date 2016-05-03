@@ -34,8 +34,6 @@ public class AbrissActivity extends TopoSuiteActivity implements
         EditOrientationDialogFragment.EditOrientationDialogListener {
 
     public static final String ABRISS_CALCULATION = "abriss_calculation";
-    public static final String STATION_NUMBER_LABEL = "station_number";
-    public static final String ORIENTATIONS_LABEL = "orientations";
 
     private static final String STATION_SELECTED_POSITION = "station_selected_position";
 
@@ -44,7 +42,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
     private ListView orientationsListView;
     private int stationSelectedPosition;
     private Abriss abriss;
-    private ArrayAdapter<Measure> adapter;
+    private ArrayListOfOrientationsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +79,9 @@ public class AbrissActivity extends TopoSuiteActivity implements
         if ((bundle != null)) {
             int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
             this.abriss = (Abriss) SharedResources.getCalculationsHistory().get(position);
-            list = this.abriss.getMeasures();
+            list = new ArrayList<>(this.abriss.getMeasures());
+        } else {
+            this.abriss = new Abriss(true);
         }
 
         this.adapter = new ArrayListOfOrientationsAdapter(this, R.layout.orientations_list_item, list);
@@ -124,23 +124,21 @@ public class AbrissActivity extends TopoSuiteActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putInt(AbrissActivity.STATION_SELECTED_POSITION, this.stationSelectedPosition);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
         if (savedInstanceState != null) {
             this.stationSelectedPosition = savedInstanceState.getInt(AbrissActivity.STATION_SELECTED_POSITION);
+            this.stationSpinner.setSelection(this.stationSelectedPosition);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
             case R.id.add_orientation_button:
                 this.showAddOrientationDialog();
@@ -156,6 +154,12 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 if (this.orientationsListView.getChildCount() == 0) {
                     ViewUtils.showToast(this, this.getString(R.string.error_at_least_one_orientation));
                     return true;
+                }
+
+                this.abriss.setStation(station);
+                this.abriss.getMeasures().clear();
+                for (int i = 0; i < this.adapter.getCount(); i++) {
+                    this.abriss.getMeasures().add(this.adapter.getItem(i));
                 }
 
                 Bundle bundle = new Bundle();

@@ -33,19 +33,18 @@ public class Abriss extends Calculation {
     private double meanErrComp;
 
     public Abriss(boolean hasDAO) {
+        this(null, hasDAO);
+    }
+
+    public Abriss(Point station, boolean hasDAO) {
         super(CalculationType.ABRISS,
                 App.getContext().getString(R.string.title_activity_abriss),
                 hasDAO);
-
+        this.station = station;
         this.orientations = new ArrayList<Measure>();
         this.results = new ArrayList<Abriss.Result>();
         this.mean = 0.0;
         this.mse = 0.0;
-    }
-
-    public Abriss(Point station, boolean hasDAO) {
-        this(hasDAO);
-        this.station = station;
     }
 
     public Abriss(long id, Date lastModification) {
@@ -66,6 +65,9 @@ public class Abriss extends Calculation {
     public void compute() throws CalculationException {
         if (this.orientations.size() == 0) {
             throw new CalculationException("no measures provided");
+        }
+        if (this.station == null) {
+            throw new CalculationException("no station provided");
         }
 
         // if some measures have been deactivated, then we have to keep them

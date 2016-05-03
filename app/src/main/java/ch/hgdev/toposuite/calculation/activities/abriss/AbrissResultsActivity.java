@@ -43,16 +43,15 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         this.meanErrorDirectionTextView = (TextView) this.findViewById(R.id.mean_error_direction);
         this.meanErrorCompensatedTextView = (TextView) this.findViewById(R.id.mean_error_compensated);
 
-        if (savedInstanceState != null) {
-            this.abriss = (Abriss) savedInstanceState.getSerializable(AbrissActivity.ABRISS_CALCULATION);
-            try {
-                this.abriss.compute();
-                this.displayResults();
-                this.registerForContextMenu(this.resultsListView);
-            } catch (CalculationException e) {
-                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
-                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
-            }
+        Bundle bundle = this.getIntent().getExtras();
+        this.abriss = (Abriss) bundle.getSerializable(AbrissActivity.ABRISS_CALCULATION);
+        try {
+            this.abriss.compute();
+            this.displayResults();
+            this.registerForContextMenu(this.resultsListView);
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
         }
     }
 
@@ -134,7 +133,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
 
         this.stationNumberTextView.setText(builder.toString());
 
-        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.abriss_results_list_item,                this.abriss.getResults());
+        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.abriss_results_list_item, this.abriss.getResults());
         this.resultsListView.setAdapter(this.adapter);
 
         this.meanTextView.setText(DisplayUtils.formatAngle(this.abriss.getMean()));
