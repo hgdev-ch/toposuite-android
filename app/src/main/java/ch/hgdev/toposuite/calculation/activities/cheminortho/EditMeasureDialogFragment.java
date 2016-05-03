@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -41,19 +42,18 @@ public class EditMeasureDialogFragment extends DialogFragment {
         void onDialogEdit(EditMeasureDialogFragment dialog);
     }
 
-    private Bundle bundle;
     private EditMeasureDialogListener listener;
 
+    private int measurePosition;
     private String number;
     private double distance;
-    private int measurePosition;
 
     private LinearLayout layout;
     private EditText numberEditText;
     private EditText distanceEditText;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
         this.genEditMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
@@ -115,13 +115,12 @@ public class EditMeasureDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
-        this.bundle = this.getArguments();
+        Bundle bundle = this.getArguments();
 
-        CheminementOrthogonal co = (CheminementOrthogonal) this.bundle.getSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO);
-        this.measurePosition = this.bundle.getInt(CheminementOrthoActivity.MEASURE_POSITION);
-        CheminementOrthogonal.Measure m = co.getMeasures().get(this.measurePosition);
+        CheminementOrthogonal.Measure m = (CheminementOrthogonal.Measure) bundle.getSerializable(CheminementOrthoActivity.MEASURE_LABEL);
         this.number = m.getNumber();
         this.distance = m.getDistance();
+        this.measurePosition = bundle.getInt(CheminementOrthoActivity.MEASURE_POSITION);
 
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
@@ -151,11 +150,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
      * otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.distanceEditText.length() == 0)) {
-            return false;
-        }
-
-        return true;
+        return this.distanceEditText.length() > 0;
     }
 
     public String getNumber() {
@@ -167,6 +162,6 @@ public class EditMeasureDialogFragment extends DialogFragment {
     }
 
     public int getMeasurePosition() {
-        return this.measurePosition;
+        return measurePosition;
     }
 }

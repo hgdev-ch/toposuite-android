@@ -34,10 +34,13 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class CheminementOrthoActivity extends TopoSuiteActivity implements
         AddMeasureDialogListener, EditMeasureDialogListener {
 
-    public static final String ORIGIN_SELECTED_POSITION = "origine_selected_position";
+    public static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
     public static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
-    public static final String CHEMINEMENT_ORTHO = "leve_ortho_position";
+    public static final String CHEMINEMENT_ORTHO = "cheminement_ortho";
+    public static final String MEASURE_LABEL = "measure";
     public static final String MEASURE_POSITION = "measure_position";
+
+    private static final String MEASURES_LIST_LABEL = "measures_list";
 
     private Spinner originSpinner;
     private Spinner extremitySpinner;
@@ -123,16 +126,15 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             this.cheminOrtho = new CheminementOrthogonal(true);
         }
 
+        this.adapter = new ArrayListOfMeasuresAdapter(
+                this, R.layout.determinations_list_item,
+                new ArrayList<>(this.cheminOrtho.getMeasures()));
         this.registerForContextMenu(this.measuresListView);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        this.adapter = new ArrayListOfMeasuresAdapter(this,
-                R.layout.determinations_list_item, this.cheminOrtho.getMeasures());
-        this.drawList();
 
         List<Point> points = new ArrayList<>();
         points.add(new Point(false));
@@ -142,17 +144,18 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         this.originSpinner.setAdapter(a);
         this.extremitySpinner.setAdapter(a);
 
-        if (this.cheminOrtho != null) {
-            this.originSpinner.setSelection(a.getPosition(this.cheminOrtho.getOrthogonalBase().getOrigin()));
-            this.extremitySpinner.setSelection(a.getPosition(this.cheminOrtho.getOrthogonalBase().getExtremity()));
+        if (this.originSelectedPosition > 0) {
+            this.originSpinner.setSelection(this.originSelectedPosition);
         } else {
-            if (this.originSelectedPosition > 0) {
-                this.originSpinner.setSelection(this.originSelectedPosition);
-            }
-            if (this.extremitySelectedPosition > 0) {
-                this.extremitySpinner.setSelection(this.extremitySelectedPosition);
-            }
+            this.originSpinner.setSelection(a.getPosition(this.cheminOrtho.getOrthogonalBase().getOrigin()));
         }
+        if (this.extremitySelectedPosition > 0) {
+            this.extremitySpinner.setSelection(this.extremitySelectedPosition);
+        } else {
+            this.extremitySpinner.setSelection(a.getPosition(this.cheminOrtho.getOrthogonalBase().getExtremity()));
+        }
+
+        this.drawList();
     }
 
     @Override
@@ -172,7 +175,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
         outState.putInt(CheminementOrthoActivity.ORIGIN_SELECTED_POSITION, this.originSelectedPosition);
         outState.putInt(CheminementOrthoActivity.EXTREMITY_SELECTED_POSITION, this.extremitySelectedPosition);
-        outState.putSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO, this.cheminOrtho);
+        outState.putSerializable(CheminementOrthoActivity.MEASURES_LIST_LABEL, this.adapter.getMeasures());
     }
 
     @Override
@@ -180,10 +183,14 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.cheminOrtho = (CheminementOrthogonal) savedInstanceState.getSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO);
-            this.drawList();
             this.originSelectedPosition = savedInstanceState.getInt(CheminementOrthoActivity.ORIGIN_SELECTED_POSITION);
             this.extremitySelectedPosition = savedInstanceState.getInt(CheminementOrthoActivity.EXTREMITY_SELECTED_POSITION);
+
+            ArrayList<CheminementOrthogonal.Measure> measures =
+                    (ArrayList<CheminementOrthogonal.Measure>) savedInstanceState.getSerializable(CheminementOrthoActivity.MEASURES_LIST_LABEL);
+            this.adapter.clear();
+            this.adapter.addAll(measures);
+            this.drawList();
         }
     }
 
@@ -202,6 +209,9 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
                     ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                     return true;
                 }
+
+                this.cheminOrtho.getMeasures().clear();
+                this.cheminOrtho.getMeasures().addAll(this.adapter.getMeasures());
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO, this.cheminOrtho);
@@ -283,10 +293,10 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO, this.cheminOrtho);
+        bundle.putSerializable(CheminementOrthoActivity.MEASURE_LABEL, this.adapter.getItem(pos));
         bundle.putInt(CheminementOrthoActivity.MEASURE_POSITION, pos);
-
         dialog.setArguments(bundle);
+
         dialog.show(this.getSupportFragmentManager(), "EditMeasureDialogFragment");
     }
 
@@ -296,7 +306,6 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         double distance = dialog.getDistance();
 
         CheminementOrthogonal.Measure m = new CheminementOrthogonal.Measure(number, distance);
-
         this.adapter.add(m);
         this.adapter.notifyDataSetChanged();
 
@@ -310,9 +319,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditMeasureDialogFragment dialog) {
-        CheminementOrthogonal.Measure m = this.cheminOrtho.getMeasures().get(
-                dialog.getMeasurePosition());
-
+        CheminementOrthogonal.Measure m = this.adapter.getItem(dialog.getMeasurePosition());
         m.setNumber(dialog.getNumber());
         m.setDistance(dialog.getDistance());
         this.adapter.notifyDataSetChanged();

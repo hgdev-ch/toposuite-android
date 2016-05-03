@@ -43,4 +43,12 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<CheminementOrthogon
 
         return view;
     }
+
+    public ArrayList<CheminementOrthogonal.Measure> getMeasures() {
+        ArrayList<CheminementOrthogonal.Measure> measures = new ArrayList<>();
+        for (int i = 0; i < this.getCount(); i++) {
+            measures.add(this.getItem(i));
+        }
+        return measures;
+    }
 }
