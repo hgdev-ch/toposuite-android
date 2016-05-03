@@ -23,8 +23,7 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class FreeStationResultsActivity extends TopoSuiteActivity implements
-        MergePointsDialog.MergePointsDialogListener {
+public class FreeStationResultsActivity extends TopoSuiteActivity implements MergePointsDialog.MergePointsDialogListener {
 
     private TextView freeStationTextView;
     private TextView freeStationPointTextView;
@@ -42,23 +41,18 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_free_station_results);
 
-        this.freeStationTextView = (TextView) this.findViewById(
-                R.id.free_station);
-        this.freeStationPointTextView = (TextView) this.findViewById(
-                R.id.free_station_point);
+        this.freeStationTextView = (TextView) this.findViewById(R.id.free_station);
+        this.freeStationPointTextView = (TextView) this.findViewById(R.id.free_station_point);
         this.sETextView = (TextView) this.findViewById(R.id.se);
         this.sNTextView = (TextView) this.findViewById(R.id.sn);
         this.sATextView = (TextView) this.findViewById(R.id.sa);
-        this.unknownOrientationTextView = (TextView) this.findViewById(
-                R.id.unknown_orientation);
+        this.unknownOrientationTextView = (TextView) this.findViewById(R.id.unknown_orientation);
 
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            int position = bundle.getInt(FreeStationActivity.FREE_STATION_POSITION);
-            this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
-                    position);
+            this.freeStation = (FreeStation) bundle.getSerializable(FreeStationActivity.FREE_STATION);
             try {
                 this.freeStation.compute();
                 this.drawList();
@@ -101,8 +95,8 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
                     }
                 }
                 try {
-                this.freeStation.compute();
-                this.refreshResults();
+                    this.freeStation.compute();
+                    this.refreshResults();
                 } catch (CalculationException e) {
                     Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
                     ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
@@ -133,8 +127,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
     }
 
     private void drawList() {
-        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.free_station_results_list_item,
-                this.freeStation.getResults(), !MathUtils.isIgnorable(this.freeStation.getI()));
+        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.free_station_results_list_item, this.freeStation.getResults(), !MathUtils.isIgnorable(this.freeStation.getI()));
         this.resultsListView.setAdapter(this.adapter);
     }
 
@@ -149,15 +142,10 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
             MergePointsDialog dialog = new MergePointsDialog();
 
             Bundle args = new Bundle();
-            args.putString(
-                    MergePointsDialog.POINT_NUMBER,
-                    st.getNumber());
-            args.putDouble(MergePointsDialog.NEW_EAST,
-                    st.getEast());
-            args.putDouble(MergePointsDialog.NEW_NORTH,
-                    st.getNorth());
-            args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                    st.getAltitude());
+            args.putString(MergePointsDialog.POINT_NUMBER, st.getNumber());
+            args.putDouble(MergePointsDialog.NEW_EAST, st.getEast());
+            args.putDouble(MergePointsDialog.NEW_NORTH, st.getNorth());
+            args.putDouble(MergePointsDialog.NEW_ALTITUDE, st.getAltitude());
 
             dialog.setArguments(args);
             dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
@@ -178,27 +166,20 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements
     }
 
     private void refreshResults() {
-        this.freeStationTextView.setText(String.valueOf(
-                this.freeStation.getStationNumber()));
+        this.freeStationTextView.setText(String.valueOf(this.freeStation.getStationNumber()));
 
-        this.freeStationPointTextView.setText(
-                DisplayUtils.formatPoint(
-                        this, this.freeStation.getStationResult()));
+        this.freeStationPointTextView.setText(DisplayUtils.formatPoint(this, this.freeStation.getStationResult()));
 
-        this.sETextView.setText(
-                DisplayUtils.formatDifferences(this.freeStation.getsE()));
-        this.sNTextView.setText(
-                DisplayUtils.formatDifferences(this.freeStation.getsN()));
+        this.sETextView.setText(DisplayUtils.formatDifferences(this.freeStation.getsE()));
+        this.sNTextView.setText(DisplayUtils.formatDifferences(this.freeStation.getsN()));
 
         if (!MathUtils.isIgnorable(this.freeStation.getI())) {
-            this.sATextView.setText(
-                    DisplayUtils.formatDifferences(this.freeStation.getsA()));
+            this.sATextView.setText(DisplayUtils.formatDifferences(this.freeStation.getsA()));
         } else {
             this.sATextView.setText(this.getString(R.string.no_value));
         }
 
-        this.unknownOrientationTextView.setText(
-                DisplayUtils.formatAngle(this.freeStation.getUnknownOrientation()));
+        this.unknownOrientationTextView.setText(DisplayUtils.formatAngle(this.freeStation.getUnknownOrientation()));
 
         this.adapter.notifyDataSetChanged();
     }

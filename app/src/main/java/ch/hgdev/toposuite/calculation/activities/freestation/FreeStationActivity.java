@@ -23,13 +23,12 @@ import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-public class FreeStationActivity extends TopoSuiteActivity implements
-        MeasureDialogFragment.MeasureDialogListener {
+public class FreeStationActivity extends TopoSuiteActivity implements MeasureDialogFragment.MeasureDialogListener {
 
     /**
      * Position of this free station calculation in the calculation history.
      */
-    public static final String FREE_STATION_POSITION = "free_station_position";
+    public static final String FREE_STATION = "free_station_position";
 
     private EditText stationEditText;
     private EditText iEditText;
@@ -38,32 +37,24 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     private ArrayAdapter<Measure> adapter;
     private FreeStation freeStation;
 
-    private int position;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_free_station);
 
-        this.position = 0;
-
-        this.stationEditText = (EditText) this.findViewById(
-                R.id.station_edit_text);
+        this.stationEditText = (EditText) this.findViewById(R.id.station_edit_text);
         this.iEditText = (EditText) this.findViewById(R.id.i);
-        this.measuresListView = (ListView) this.findViewById(
-                R.id.determinations_list);
+        this.measuresListView = (ListView) this.findViewById(R.id.determinations_list);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
-                    this.position);
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(position);
 
             if (!this.freeStation.getStationNumber().isEmpty()) {
-                this.stationEditText.setText(String.valueOf(
-                        this.freeStation.getStationNumber()));
+                this.stationEditText.setText(String.valueOf(this.freeStation.getStationNumber()));
             }
 
             if (MathUtils.isPositive(this.freeStation.getI())) {
@@ -82,18 +73,14 @@ public class FreeStationActivity extends TopoSuiteActivity implements
             this.freeStation = new FreeStation(true);
         }
 
-        this.adapter = new ArrayListOfMeasuresAdapter(this,
-                R.layout.determinations_list_item, this.freeStation.getMeasures());
+        this.adapter = new ArrayListOfMeasuresAdapter(this, R.layout.determinations_list_item, this.freeStation.getMeasures());
         this.drawList();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        outState.putInt(FreeStationActivity.FREE_STATION_POSITION,
-                SharedResources.getCalculationsHistory().indexOf(
-                        this.freeStation));
+        outState.putSerializable(FreeStationActivity.FREE_STATION, this.freeStation);
     }
 
     @Override
@@ -101,9 +88,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(
-                    savedInstanceState.getInt(
-                            FreeStationActivity.FREE_STATION_POSITION));
+            this.freeStation = (FreeStation) savedInstanceState.getSerializable(FreeStationActivity.FREE_STATION);
         }
     }
 
@@ -171,8 +156,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     private void showAddMeasureDialog() {
         ViewUtils.lockScreenOrientation(this);
 
-        boolean isSMandatory = ((this.iEditText.length() == 0) ||
-                MathUtils.isZero(ViewUtils.readDouble(this.iEditText))) ? false : true;
+        boolean isSMandatory = !((this.iEditText.length() == 0) || MathUtils.isIgnorable(ViewUtils.readDouble(this.iEditText)));
         MeasureDialogFragment dialog = MeasureDialogFragment.newInstance(isSMandatory);
         dialog.show(this.getSupportFragmentManager(), "MeasureDialogFragment");
     }
@@ -183,8 +167,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements
     private void showEditMeasureDialog(int position) {
         ViewUtils.lockScreenOrientation(this);
 
-        boolean isSMandatory = ((this.iEditText.length() == 0) ||
-                MathUtils.isZero(ViewUtils.readDouble(this.iEditText))) ? false : true;
+        boolean isSMandatory = !((this.iEditText.length() == 0) || MathUtils.isIgnorable(ViewUtils.readDouble(this.iEditText)));
 
         Measure m = this.freeStation.getMeasures().get(position);
         MeasureDialogFragment dialog = MeasureDialogFragment.newInstance(m, isSMandatory);
@@ -200,13 +183,9 @@ public class FreeStationActivity extends TopoSuiteActivity implements
 
         // At this point we are sure that the free station calculation
         // has been instantiated.
-        bundle.putInt(
-                FreeStationActivity.FREE_STATION_POSITION,
-                SharedResources.getCalculationsHistory().indexOf(
-                        this.freeStation));
+        bundle.putSerializable(FreeStationActivity.FREE_STATION, this.freeStation);
 
-        Intent resultsActivityIntent = new Intent(
-                this, FreeStationResultsActivity.class);
+        Intent resultsActivityIntent = new Intent(this, FreeStationResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);
         this.startActivity(resultsActivityIntent);
     }
