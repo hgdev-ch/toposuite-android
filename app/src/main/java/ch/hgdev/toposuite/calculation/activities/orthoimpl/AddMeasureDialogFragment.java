@@ -1,14 +1,12 @@
 package ch.hgdev.toposuite.calculation.activities.orthoimpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
-import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -17,6 +15,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.points.Point;
@@ -28,37 +30,36 @@ public class AddMeasureDialogFragment extends DialogFragment {
      * The activity that creates an instance of AddPointDialogFragment must
      * implement this interface in order to receive event callbacks. Each method
      * passes the DialogFragment in case the host needs to query it.
-     * 
+     *
      * @author HGdev
-     * 
      */
     public interface AddMeasureDialogListener {
         /**
          * Define what to do when the "Cancel" button is clicked
-         * 
-         * @param dialog
-         *            Dialog with NO useful information to fetch from.
+         *
+         * @param dialog Dialog with NO useful information to fetch from.
          */
         void onDialogCancel(AddMeasureDialogFragment dialog);
 
         /**
          * Define what to do when the "Add" button is clicked.
-         * 
-         * @param dialog
-         *            Dialog to fetch information from.
+         *
+         * @param dialog Dialog to fetch information from.
          */
         void onDialogAdd(AddMeasureDialogFragment dialog);
     }
 
     AddMeasureDialogListener listener;
 
-    private LinearLayout     layout;
-    private Point            point;
-    private Spinner          pointSpinner;
-    private TextView         pointTextView;
+    private LinearLayout layout;
+    private Point point;
+    private Spinner pointSpinner;
+    private TextView pointTextView;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public
+    @NonNull
+    Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
@@ -72,27 +73,22 @@ public class AddMeasureDialogFragment extends DialogFragment {
                         // without closing the dialog otherwise
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AddMeasureDialogFragment.this.listener
-                                .onDialogCancel(AddMeasureDialogFragment.this);
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                AddMeasureDialogFragment.this.listener.onDialogCancel(AddMeasureDialogFragment.this);
+            }
+        });
         Dialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
+                Button addButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (AddMeasureDialogFragment.this.checkDialogInputs()) {
-                            AddMeasureDialogFragment.this.point =
-                                    (Point) AddMeasureDialogFragment.this.pointSpinner
-                                            .getSelectedItem();
-                            AddMeasureDialogFragment.this.listener
-                                    .onDialogAdd(AddMeasureDialogFragment.this);
+                            AddMeasureDialogFragment.this.point = (Point) AddMeasureDialogFragment.this.pointSpinner.getSelectedItem();
+                            AddMeasureDialogFragment.this.listener.onDialogAdd(AddMeasureDialogFragment.this);
                             dialog.dismiss();
                         } else {
                             ViewUtils.showToast(
@@ -114,8 +110,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
         try {
             this.listener = (AddMeasureDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement AddPointDialogListener");
+            throw new ClassCastException(activity.toString() + " must implement AddPointDialogListener");
         }
     }
 
@@ -133,11 +128,10 @@ public class AddMeasureDialogFragment extends DialogFragment {
         this.pointSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Point point = (Point) AddMeasureDialogFragment.this.pointSpinner
-                        .getItemAtPosition(pos);
+                Point point = (Point) AddMeasureDialogFragment.this.pointSpinner.getItemAtPosition(pos);
                 if (!point.getNumber().isEmpty()) {
-                    AddMeasureDialogFragment.this.pointTextView.setText(DisplayUtils
-                            .formatPoint(AddMeasureDialogFragment.this.getActivity(), point));
+                    AddMeasureDialogFragment.this.pointTextView.setText(
+                            DisplayUtils.formatPoint(AddMeasureDialogFragment.this.getActivity(), point));
                 } else {
                     AddMeasureDialogFragment.this.pointTextView.setText("");
                 }
@@ -149,18 +143,16 @@ public class AddMeasureDialogFragment extends DialogFragment {
             }
         });
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, true));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
-                this.getActivity(), R.layout.spinner_list_item, points);
+        ArrayAdapter<Point> a = new ArrayAdapter<>(this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
     }
 
     /**
      * Create a view to get number, abscissa, ordinate and altitude of a point
      * from the user.
-     * 
      */
     private void genAddMeasureView() {
         this.layout.addView(this.pointSpinner);
@@ -170,15 +162,12 @@ public class AddMeasureDialogFragment extends DialogFragment {
     /**
      * Verify that the user has entered all required data. Note that the
      * altitude is not required and should be set to 0 if no data was inserted.
-     * 
+     *
      * @return True if every EditTexts of the dialog have been filled, false
-     *         otherwise.
+     * otherwise.
      */
     private boolean checkDialogInputs() {
-        if (this.pointSpinner.getSelectedItemPosition() == 0) {
-            return false;
-        }
-        return true;
+        return this.pointSpinner.getSelectedItemPosition() > 0;
     }
 
     public Point getPoint() {

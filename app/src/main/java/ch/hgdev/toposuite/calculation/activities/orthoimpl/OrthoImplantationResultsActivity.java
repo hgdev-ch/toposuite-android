@@ -5,7 +5,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import ch.hgdev.toposuite.R;
-import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
@@ -30,8 +29,7 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            int position = bundle.getInt(OrthogonalImplantationActivity.ORTHO_IMPL_POSITION);
-            this.orthImpl = (OrthogonalImplantation) SharedResources.getCalculationsHistory().get(position);
+            this.orthImpl = (OrthogonalImplantation) bundle.getSerializable(OrthogonalImplantationActivity.ORTHO_IMPLANTATION);
             try {
                 this.orthImpl.compute();
                 StringBuilder builder = new StringBuilder();

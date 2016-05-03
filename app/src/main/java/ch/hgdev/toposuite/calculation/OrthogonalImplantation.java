@@ -1,9 +1,12 @@
 package ch.hgdev.toposuite.calculation;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,24 +28,18 @@ public class OrthogonalImplantation extends Calculation {
     private ArrayList<Point> measures;
     private ArrayList<OrthogonalImplantation.Result> results;
 
-    public OrthogonalImplantation(Point origin, Point extremity, boolean hasDAO) {
+    public OrthogonalImplantation(@NonNull OrthogonalBase base, boolean hasDAO) {
         super(CalculationType.ORTHOIMPL,
                 App.getContext().getString(R.string.title_activity_orthogonal_implantation),
                 hasDAO);
 
-        this.orthogonalBase = new OrthogonalBase(origin, extremity);
+        this.orthogonalBase = base;
         this.measures = new ArrayList<Point>();
         this.results = new ArrayList<OrthogonalImplantation.Result>();
     }
 
     public OrthogonalImplantation(boolean hasDAO) {
-        super(CalculationType.ORTHOIMPL,
-                App.getContext().getString(R.string.title_activity_orthogonal_implantation),
-                hasDAO);
-
-        this.orthogonalBase = new OrthogonalBase();
-        this.measures = new ArrayList<Point>();
-        this.results = new ArrayList<OrthogonalImplantation.Result>();
+        this(new OrthogonalBase(), true);
     }
 
     public OrthogonalImplantation(long id, Date lastModification) {
@@ -61,6 +58,11 @@ public class OrthogonalImplantation extends Calculation {
     public void compute() throws CalculationException {
         if (this.measures.size() == 0) {
             throw new CalculationException("no measure provided");
+        }
+        if ((this.orthogonalBase == null)
+                || (this.orthogonalBase.getOrigin() == null)
+                || (this.orthogonalBase.getExtremity() == null)) {
+            throw new CalculationException("orthogonal base is missing origin, extremity or both points");
         }
 
         this.results.clear();
@@ -174,7 +176,7 @@ public class OrthogonalImplantation extends Calculation {
         this.results = _results;
     }
 
-    public static class Result {
+    public static class Result implements Serializable {
         private Point point;
         private double abscissa;
         private double ordinate;

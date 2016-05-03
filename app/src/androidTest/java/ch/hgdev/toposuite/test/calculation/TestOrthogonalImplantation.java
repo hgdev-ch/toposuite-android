@@ -3,23 +3,26 @@ package ch.hgdev.toposuite.test.calculation;
 import junit.framework.Assert;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
+import ch.hgdev.toposuite.calculation.OrthogonalBase;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.utils.MathUtils;
 
 public class TestOrthogonalImplantation extends CalculationTest {
 
     public void testOrthogonalImplantation() {
-        Point origin = new Point("210", 556490.077, 172508.822, 0.0, true, false);
-        Point extremity = new Point("211", 556517.541, 172491.482, 0.0, true, false);
+        Point origin = new Point("210", 556490.077, 172508.822, MathUtils.IGNORE_DOUBLE, true, false);
+        Point extremity = new Point("211", 556517.541, 172491.482, MathUtils.IGNORE_DOUBLE, true, false);
+        OrthogonalBase base = new OrthogonalBase(origin, extremity);
 
-        OrthogonalImplantation oi = new OrthogonalImplantation(origin, extremity, false);
+        OrthogonalImplantation oi = new OrthogonalImplantation(base, false);
 
-        oi.getMeasures().add(new Point("111", 556500.900, 172489.700, 0.0, true, false));
-        oi.getMeasures().add(new Point("222", 556488.900, 172523.100, 0.0, true, false));
-        oi.getMeasures().add(new Point("333", 556474.900, 172504.700, 0.0, true, false));
-        oi.getMeasures().add(new Point("444", 556524.300, 172477.900, 0.0, true, false));
-        oi.getMeasures().add(new Point("555", 556528.454, 172491.952, 0.0, true, false));
-        oi.getMeasures().add(new Point("666", 556502.300, 172504.500, 0.0, true, false));
+        oi.getMeasures().add(new Point("111", 556500.900, 172489.700, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("222", 556488.900, 172523.100, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("333", 556474.900, 172504.700, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("444", 556524.300, 172477.900, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("555", 556528.454, 172491.952, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("666", 556502.300, 172504.500, MathUtils.IGNORE_DOUBLE, true, false));
 
         try {
             oi.compute();
