@@ -38,6 +38,8 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     public static final String ORTHO_IMPLANTATION = "ortho_impl_position";
     public static final String MEASURE_POSITION = "measure_position";
 
+    private static final String MEASURES_LIST_LABEL = "measures_list";
+
     private Spinner originSpinner;
     private Spinner extremitySpinner;
 
@@ -52,7 +54,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
 
     private OrthogonalImplantation orthoImpl;
 
-    private ArrayAdapter<Point> adapter;
+    private ArrayListOfPointsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +126,9 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             this.orthoImpl = new OrthogonalImplantation(true);
         }
 
+        this.adapter = new ArrayListOfPointsAdapter(
+                this, R.layout.history_list_item,
+                new ArrayList<>(this.orthoImpl.getMeasures()));
         this.registerForContextMenu(this.measuresListView);
     }
 
@@ -188,14 +193,15 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        this.orthoImpl.getMeasures().clear();
-        for (int i = 0; i < this.adapter.getCount(); i++) {
-            this.orthoImpl.getMeasures().add(this.adapter.getItem(i));
-        }
-
-        outState.putInt(OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION, this.originSelectedPosition);
-        outState.putInt(OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION, this.extremitySelectedPosition);
-        outState.putSerializable(OrthogonalImplantationActivity.ORTHO_IMPLANTATION, this.orthoImpl);
+        outState.putInt(
+                OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION,
+                this.originSelectedPosition);
+        outState.putInt(
+                OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION,
+                this.extremitySelectedPosition);
+        outState.putSerializable(
+                OrthogonalImplantationActivity.MEASURES_LIST_LABEL,
+                this.adapter.getPoints());
     }
 
     @Override
@@ -203,9 +209,15 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.orthoImpl = (OrthogonalImplantation) savedInstanceState.getSerializable(OrthogonalImplantationActivity.ORTHO_IMPLANTATION);
-            this.originSelectedPosition = savedInstanceState.getInt(OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION);
-            this.extremitySelectedPosition = savedInstanceState.getInt(OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION);
+            this.originSelectedPosition = savedInstanceState.getInt(
+                    OrthogonalImplantationActivity.ORIGIN_SELECTED_POSITION);
+            this.extremitySelectedPosition = savedInstanceState.getInt(
+                    OrthogonalImplantationActivity.EXTREMITY_SELECTED_POSITION);
+
+            ArrayList<Point> measures = (ArrayList<Point>) savedInstanceState.getSerializable(
+                    OrthogonalImplantationActivity.MEASURES_LIST_LABEL);
+            this.adapter.clear();
+            this.adapter.addAll(measures);
             this.drawList();
         }
     }
@@ -218,15 +230,15 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
                 this.showAddMeasureDialog();
                 return true;
             case R.id.run_calculation_button:
-                if ((this.originSelectedPosition == 0) || (this.extremitySelectedPosition == 0) || (this.adapter.getCount() == 0)) {
+                if ((this.originSelectedPosition == 0)
+                        || (this.extremitySelectedPosition == 0)
+                        || (this.adapter.getCount() == 0)) {
                     ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                     return true;
                 }
 
                 this.orthoImpl.getMeasures().clear();
-                for (int i = 0; i < this.adapter.getCount(); i++) {
-                    this.orthoImpl.getMeasures().add(this.adapter.getItem(i));
-                }
+                this.orthoImpl.getMeasures().addAll(this.adapter.getPoints());
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(OrthogonalImplantationActivity.ORTHO_IMPLANTATION, this.orthoImpl);
@@ -242,7 +254,6 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     }
 
     private void drawList() {
-        this.adapter = new ArrayAdapter<Point>(this, R.layout.history_list_item, new ArrayList<>(this.orthoImpl.getMeasures()));
         this.measuresListView.setAdapter(this.adapter);
     }
 
