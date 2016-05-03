@@ -49,4 +49,12 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<LeveOrthogonal.Meas
 
         return view;
     }
+
+    public ArrayList<LeveOrthogonal.Measure> getMeasures() {
+        ArrayList<LeveOrthogonal.Measure> measures = new ArrayList<>();
+        for (int i = 0; i < this.getCount(); i++) {
+            measures.add(this.getItem(i));
+        }
+        return measures;
+    }
 }

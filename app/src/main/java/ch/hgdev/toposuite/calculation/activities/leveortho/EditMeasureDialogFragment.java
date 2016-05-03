@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -41,7 +42,6 @@ public class EditMeasureDialogFragment extends DialogFragment {
         void onDialogEdit(EditMeasureDialogFragment dialog);
     }
 
-    private Bundle bundle;
     private EditMeasureDialogListener listener;
 
     private String number;
@@ -55,7 +55,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
     private EditText ordinateEditText;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
         this.genEditMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
@@ -118,11 +118,10 @@ public class EditMeasureDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
-        this.bundle = this.getArguments();
+        Bundle bundle = this.getArguments();
 
-        this.measurePosition = this.bundle.getInt(LeveOrthoActivity.MEASURE_POSITION);
-        LeveOrthogonal lo = (LeveOrthogonal) this.bundle.getSerializable(LeveOrthoActivity.ORTHOGONAL_SURVEY);
-        LeveOrthogonal.Measure m = lo.getMeasures().get(this.measurePosition);
+        this.measurePosition = bundle.getInt(LeveOrthoActivity.MEASURE_POSITION);
+        LeveOrthogonal.Measure m = (LeveOrthogonal.Measure) bundle.getSerializable(LeveOrthoActivity.MEASURE_LABEL);
         this.number = m.getNumber();
         this.abscissa = m.getAbscissa();
         this.ordinate = m.getOrdinate();
@@ -163,7 +162,6 @@ public class EditMeasureDialogFragment extends DialogFragment {
         if ((this.abscissaEditText.length() == 0) || (this.ordinateEditText.length() == 0)) {
             return false;
         }
-
         return true;
     }
 
