@@ -1,6 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.linesintersec;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -37,9 +36,8 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
-@SuppressLint("NewApi")
 public class LinesIntersectionActivity extends TopoSuiteActivity implements MergePointsDialog.MergePointsDialogListener {
-    private static final String LINES_INTERSEC_POSITION = "lines_intersec_position";
+    private static final String LINES_INTERSEC = "lines_intersec";
     private static final String P1D1_SELECTED_POSITION = "p1d1_selected_position";
     private static final String P2D1_SELECTED_POSITION = "p2d1_selected_position";
     private static final String P1D2_SELECTED_POSITION = "p1d2_selected_position";
@@ -281,12 +279,6 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
             this.resultLayout.setBackground(this.blinkAnimation);
         }
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
         List<Point> points = new ArrayList<>();
         points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
@@ -318,7 +310,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
                 this.point2D2SelectedPosition = this.adapter.getPosition(tmpPoint);
             }
 
-            if (!MathUtils.isZero(this.lineIntersec.getGisementD1())) {
+            if (!MathUtils.isIgnorable(this.lineIntersec.getGisementD1())) {
                 this.gisementD1EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getGisementD1()));
 
                 if (this.point2D1SelectedPosition == 0) {
@@ -327,7 +319,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
                 }
             }
 
-            if (!MathUtils.isZero(this.lineIntersec.getGisementD2())) {
+            if (!MathUtils.isIgnorable(this.lineIntersec.getGisementD2())) {
                 this.gisementD2EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getGisementD2()));
 
                 if (this.point2D2SelectedPosition == 0) {
@@ -336,7 +328,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
                 }
             }
 
-            if (!MathUtils.isZero(this.lineIntersec.getDisplacementD1())) {
+            if (!MathUtils.isIgnorable(this.lineIntersec.getDisplacementD1())) {
                 this.displacementD1EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getDisplacementD1()));
             }
             this.displacementD1TextView.setEnabled(!this.isD1Perpendicular);
@@ -348,7 +340,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
             this.displacementD2TextView.setEnabled(!this.isD2Perpendicular);
             this.displacementD2EditText.setEnabled(!this.isD2Perpendicular);
 
-            if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D1())) {
+            if (!MathUtils.isIgnorable(this.lineIntersec.getDistanceP1D1())) {
                 this.distP1D1EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getDistanceP1D1()));
                 this.perpendicularD1CheckBox.setChecked(true);
                 this.distP1D1EditText.setEnabled(true);
@@ -356,7 +348,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
                 this.isD1Perpendicular = true;
             }
 
-            if (!MathUtils.isZero(this.lineIntersec.getDistanceP1D2())) {
+            if (!MathUtils.isIgnorable(this.lineIntersec.getDistanceP1D2())) {
                 this.distP1D2EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getDistanceP1D2()));
                 this.perpendicularD2CheckBox.setChecked(true);
                 this.distP1D2EditText.setEnabled(true);
@@ -365,8 +357,12 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
             }
 
             this.pointNumberEditText.setText(this.lineIntersec.getPointNumber());
-
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         this.point1D1Spinner.setSelection(this.point1D1SelectedPosition);
         this.point2D1Spinner.setSelection(this.point2D1SelectedPosition);
@@ -392,12 +388,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        int position = -1;
-        if (this.lineIntersec != null) {
-            position = SharedResources.getCalculationsHistory().indexOf(this.lineIntersec);
-        }
-
-        outState.putInt(LinesIntersectionActivity.LINES_INTERSEC_POSITION, position);
+        outState.putSerializable(LinesIntersectionActivity.LINES_INTERSEC, this.lineIntersec);
         outState.putInt(LinesIntersectionActivity.P1D1_SELECTED_POSITION, this.point1D1SelectedPosition);
         outState.putInt(LinesIntersectionActivity.P2D1_SELECTED_POSITION, this.point2D1SelectedPosition);
         outState.putInt(LinesIntersectionActivity.P1D2_SELECTED_POSITION, this.point1D2SelectedPosition);
@@ -411,9 +402,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            int position = savedInstanceState.getInt(LinesIntersectionActivity.LINES_INTERSEC_POSITION);
-            if (position != -1) {
-                this.lineIntersec = (LinesIntersection) SharedResources.getCalculationsHistory().get(position);
+            this.lineIntersec = (LinesIntersection) savedInstanceState.getSerializable(LinesIntersectionActivity.LINES_INTERSEC);
+            if (this.lineIntersec != null) {
                 this.resultLayout.setVisibility(View.VISIBLE);
             }
 
