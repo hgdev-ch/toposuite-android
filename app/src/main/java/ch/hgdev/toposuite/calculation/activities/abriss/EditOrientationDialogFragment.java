@@ -63,7 +63,6 @@ public class EditOrientationDialogFragment extends DialogFragment {
     public static final String ZENITHAL_ANGLE = "Zenithal angle";
     public static final String ORIENTATION_POSITION = "Orientation position";
 
-    private Bundle bundle;
     private EditOrientationDialogListener listener;
     private Spinner orientationSpinner;
     private TextView orientationView;
@@ -84,7 +83,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
     private int orientationPosition;
 
     @Override
-    public @NonNull Dialog onCreateDialog(@NonNull Bundle savedInstanceState) {
+    public
+    @NonNull
+    Dialog onCreateDialog(@NonNull Bundle savedInstanceState) {
         this.initAttributes();
         this.genAddOrientationView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
@@ -143,9 +144,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
-        this.bundle = this.getArguments();
+        Bundle bundle = this.getArguments();
 
-        this.orientationPosition = this.bundle.getInt(EditOrientationDialogFragment.ORIENTATION_POSITION);
+        this.orientationPosition = bundle.getInt(EditOrientationDialogFragment.ORIENTATION_POSITION);
 
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
@@ -158,8 +159,8 @@ public class EditOrientationDialogFragment extends DialogFragment {
         ArrayAdapter<Point> a = new ArrayAdapter<>(this.getActivity(), R.layout.spinner_list_item, points);
 
         this.orientationSpinner.setAdapter(a);
-        this.orientationSpinner.setSelection(a.getPosition(SharedResources.getSetOfPoints().find(
-                this.bundle.getString(EditOrientationDialogFragment.ORIENTATION_NUMBER))));
+        this.orientationSpinner.setSelection(a.getPosition(
+                SharedResources.getSetOfPoints().find(bundle.getString(EditOrientationDialogFragment.ORIENTATION_NUMBER))));
 
         this.orientationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -182,9 +183,9 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.orientation = (Point) this.orientationSpinner.getSelectedItem();
 
         this.itemSelected();
-        this.horizontalDirection = this.bundle.getDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION);
-        this.horizontalDistance = this.bundle.getDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE);
-        this.zenithalAngle = this.bundle.getDouble(EditOrientationDialogFragment.ZENITHAL_ANGLE);
+        this.horizontalDirection = bundle.getDouble(EditOrientationDialogFragment.HORIZONTAL_DIRECTION);
+        this.horizontalDistance = bundle.getDouble(EditOrientationDialogFragment.HORIZONTAL_DISTANCE);
+        this.zenithalAngle = bundle.getDouble(EditOrientationDialogFragment.ZENITHAL_ANGLE);
 
         this.horizontalDirectionEditText = new EditText(this.getActivity());
         this.horizontalDirectionEditText.setText(DisplayUtils.toStringForEditText(this.horizontalDirection));
