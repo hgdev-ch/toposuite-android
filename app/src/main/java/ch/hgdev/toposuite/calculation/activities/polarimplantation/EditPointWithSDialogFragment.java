@@ -58,6 +58,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
     private TextView pointTextView;
     private double s;
     private EditText sEditText;
+    private int position;
 
     @Override
     public @NonNull Dialog onCreateDialog(@NonNull Bundle savedInstanceState) {
@@ -126,6 +127,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
         Bundle bundle = this.getArguments();
 
         this.s = bundle.getDouble(PolarImplantationActivity.S);
+        this.position = bundle.getInt(PolarImplantationActivity.POINT_WITH_S_POSITION);
 
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
@@ -168,7 +170,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
 
-        String pointNumber = bundle.getString(PolarImplantationActivity.POINTS_WITH_S_NUMBER_LABEL);
+        String pointNumber = bundle.getString(PolarImplantationActivity.POINT_WITH_S_NUMBER_LABEL);
         this.pointSpinner.setSelection(a.getPosition(
                 SharedResources.getSetOfPoints().find(pointNumber)));
     }
@@ -200,5 +202,9 @@ public class EditPointWithSDialogFragment extends DialogFragment {
 
     public double getS() {
         return this.s;
+    }
+
+    public int getPosition() {
+        return this.position;
     }
 }

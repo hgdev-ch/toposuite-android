@@ -18,10 +18,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,12 +43,13 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         AddPointWithSDialogFragment.AddPointWithSDialogListener,
         EditPointWithSDialogFragment.EditPointWithSDialogListener {
 
-    public static final String STATION_NUMBER_LABEL = "station_number";
-    public static final String POINTS_WITH_S_NUMBER_LABEL = "points_with_s_number";
-    public static final String POINTS_WITH_S_LABEL = "points_with_s";
+    public static final String POLAR_IMPLANT_CALCULATION = "polar_implantation_calculation";
+    public static final String POINT_WITH_S_NUMBER_LABEL = "points_with_s_number";
+    public static final String POINT_WITH_S_POSITION = "point_with_s_position";
+    public static final String S = "s";
 
     private static final String STATION_SELECTED_POSITION = "station_selected_position";
-    public static final String S = "s";
+    private static final String POINTS_WITH_S_LABEL = "points_with_s";
     private Spinner stationSpinner;
     private int stationSelectedPosition;
     private ArrayAdapter<Point> stationAdapter;
@@ -60,7 +57,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     private EditText iEditText;
     private EditText unknownOrientEditText;
     private ListView pointsListView;
-    private ArrayAdapter<Measure> adapter;
+    private ArrayListOfPointsWithSAdapter adapter;
 
     private Point station;
     private PolarImplantation polarImplantation;
@@ -69,18 +66,11 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     private Point z0Station;
     private double instrumentHeight;
 
-    /**
-     * Position of the calculation in the calculations list. Only used when open
-     * from the history.
-     */
-    private int position;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_polar_implantation);
 
-        this.position = -1;
         this.z0 = MathUtils.IGNORE_DOUBLE;
         this.instrumentHeight = MathUtils.IGNORE_DOUBLE;
 
@@ -98,12 +88,10 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 PolarImplantationActivity.this.stationSelectedPosition = pos;
 
-                PolarImplantationActivity.this.station = (Point) PolarImplantationActivity.this.stationSpinner
-                        .getItemAtPosition(pos);
+                PolarImplantationActivity.this.station = (Point) PolarImplantationActivity.this.stationSpinner.getItemAtPosition(pos);
                 if (!PolarImplantationActivity.this.station.getNumber().isEmpty()) {
-                    PolarImplantationActivity.this.stationPointTextView.setText(DisplayUtils
-                            .formatPoint(PolarImplantationActivity.this,
-                                    PolarImplantationActivity.this.station));
+                    PolarImplantationActivity.this.stationPointTextView.setText(
+                            DisplayUtils.formatPoint(PolarImplantationActivity.this, PolarImplantationActivity.this.station));
                 } else {
                     PolarImplantationActivity.this.stationPointTextView.setText("");
                 }
@@ -115,25 +103,20 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             }
         });
 
-        ArrayList<Measure> list = new ArrayList<Measure>();
+        ArrayList<Measure> list = new ArrayList<>();
 
-        // check if we create a new polar implantation calculation or if we
-        // modify an
-        // existing one.
+        // check if we create a new polar implantation calculation or if we modify an existing one.
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.polarImplantation = (PolarImplantation) SharedResources.getCalculationsHistory()
-                    .get(
-                            this.position);
-            list = this.polarImplantation.getMeasures();
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.polarImplantation = (PolarImplantation) SharedResources.getCalculationsHistory().get(position);
+        } else {
+            this.polarImplantation = new PolarImplantation(null, true);
         }
 
-        this.adapter = new ArrayListOfPointsWithSAdapter(this,
-                R.layout.points_with_s_list_item, list);
-
-        this.drawList();
-
+        this.adapter = new ArrayListOfPointsWithSAdapter(
+                this, R.layout.points_with_s_list_item,
+                new ArrayList<Measure>(this.polarImplantation.getMeasures()));
         this.registerForContextMenu(this.pointsListView);
     }
 
@@ -141,12 +124,11 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     public void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
-        points.add(new Point("", 0.0, 0.0, 0.0, false));
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.stationAdapter = new ArrayAdapter<Point>(
-                this, R.layout.spinner_list_item, points);
+        this.stationAdapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(this.stationAdapter);
 
         for (Calculation c : SharedResources.getCalculationsHistory()) {
@@ -191,6 +173,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                         this.stationSelectedPosition);
             }
         }
+
+        this.drawList();
     }
 
     @Override
@@ -208,15 +192,12 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(PolarImplantationActivity.STATION_SELECTED_POSITION,
+        outState.putInt(
+                PolarImplantationActivity.STATION_SELECTED_POSITION,
                 this.stationSelectedPosition);
-
-        JSONArray json = new JSONArray();
-        for (int i = 0; i < this.adapter.getCount(); i++) {
-            json.put(this.adapter.getItem(i).toJSONObject());
-        }
-
-        outState.putString(PolarImplantationActivity.POINTS_WITH_S_LABEL, json.toString());
+        outState.putSerializable(
+                PolarImplantationActivity.POINTS_WITH_S_LABEL,
+                this.adapter.getMeasures());
     }
 
     @Override
@@ -224,23 +205,13 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
-            this.adapter.clear();
             this.stationSelectedPosition = savedInstanceState.getInt(
                     PolarImplantationActivity.STATION_SELECTED_POSITION);
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(
-                        savedInstanceState
-                                .getString(PolarImplantationActivity.POINTS_WITH_S_LABEL));
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject json = (JSONObject) jsonArray.get(i);
-                    Measure m = Measure.getMeasureFromJSON(json.toString());
-                    this.adapter.add(m);
-                }
-            } catch (JSONException e) {
-                Logger.log(Logger.ErrLabel.PARSE_ERROR,
-                        "PolarImplantationActivity: cannot restore saved instance.");
-            }
+
+            ArrayList<Measure> measures = (ArrayList<Measure>) savedInstanceState.getSerializable(
+                    PolarImplantationActivity.POINTS_WITH_S_LABEL);
+            this.adapter.clear();
+            this.adapter.addAll(measures);
             this.drawList();
         }
     }
@@ -337,12 +308,10 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         ViewUtils.lockScreenOrientation(this);
 
         EditPointWithSDialogFragment dialog = new EditPointWithSDialogFragment();
-
-        this.position = position;
         Measure m = this.adapter.getItem(position);
         Bundle args = new Bundle();
-        args.putString(PolarImplantationActivity.POINTS_WITH_S_NUMBER_LABEL, m.getPoint()
-                .getNumber());
+        args.putInt(PolarImplantationActivity.POINT_WITH_S_POSITION, position);
+        args.putString(PolarImplantationActivity.POINT_WITH_S_NUMBER_LABEL, m.getPoint().getNumber());
         args.putDouble(PolarImplantationActivity.S, m.getS());
 
         dialog.setArguments(args);
@@ -383,23 +352,22 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         if (!ViewUtils.isEmpty(this.unknownOrientEditText)) {
             this.z0 = ViewUtils.readDouble(this.unknownOrientEditText);
         } else {
-            ViewUtils.showToast(this,
-                    this.getString(R.string.error_choose_unknown_orientation));
+            ViewUtils.showToast(this, this.getString(R.string.error_choose_unknown_orientation));
             return;
         }
 
-        Bundle bundle = new Bundle();
-        bundle.putString(PolarImplantationActivity.STATION_NUMBER_LABEL, this.station.getNumber());
-
-        JSONArray json = new JSONArray();
-        for (int j = 0; j < this.adapter.getCount(); j++) {
-            Measure m = this.adapter.getItem(j);
+        this.polarImplantation.setStation(this.station);
+        this.polarImplantation.getMeasures().clear();
+        for (Measure m: this.adapter.getMeasures()) {
             m.setI(this.instrumentHeight);
             m.setUnknownOrientation(this.z0);
-            json.put(m.toJSONObject());
+            this.polarImplantation.getMeasures().add(m);
         }
 
-        bundle.putString(PolarImplantationActivity.POINTS_WITH_S_LABEL, json.toString());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(
+                PolarImplantationActivity.POLAR_IMPLANT_CALCULATION,
+                this.polarImplantation);
 
         Intent resultsActivityIntent = new Intent(this, PolarImplantationResultsActivity.class);
         resultsActivityIntent.putExtras(bundle);
@@ -427,17 +395,9 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditPointWithSDialogFragment dialog) {
-
-        this.adapter.remove(this.adapter.getItem(this.position));
-        Measure m = new Measure(
-                dialog.getPoint(),
-                MathUtils.IGNORE_DOUBLE,
-                MathUtils.IGNORE_DOUBLE,
-                MathUtils.IGNORE_DOUBLE,
-                dialog.getS());
-
-        this.position = -1;
-        this.adapter.add(m);
+        Measure m = this.adapter.getItem(dialog.getPosition());
+        m.setPoint(dialog.getPoint());
+        m.setS(dialog.getS());
         this.adapter.notifyDataSetChanged();
 
         ViewUtils.unlockScreenOrientation(this);

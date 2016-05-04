@@ -1,9 +1,12 @@
 package ch.hgdev.toposuite.calculation;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -59,6 +62,9 @@ public class PolarImplantation extends Calculation {
         if (this.measures.isEmpty()) {
             throw new CalculationException("no measures provided");
         }
+        if (this.station == null) {
+            throw new CalculationException("no station provided");
+        }
 
         this.results.clear();
         for (Measure d : this.measures) {
@@ -74,10 +80,8 @@ public class PolarImplantation extends Calculation {
 
             double zenAngle, distance;
             if (!MathUtils.isZero(altitude)) {
-                zenAngle = MathUtils.modulo200(MathUtils.radToGrad(
-                        (Math.atan(horizDist / altitude))));
-                distance = (horizDist * (MathUtils.EARTH_RADIUS + d.getPoint().getAltitude()))
-                        / MathUtils.EARTH_RADIUS;
+                zenAngle = MathUtils.modulo200(MathUtils.radToGrad((Math.atan(horizDist / altitude))));
+                distance = (horizDist * (MathUtils.EARTH_RADIUS + d.getPoint().getAltitude())) / MathUtils.EARTH_RADIUS;
             } else {
                 zenAngle = 100.0;
                 distance = horizDist;
@@ -85,8 +89,7 @@ public class PolarImplantation extends Calculation {
 
             distance /= Math.sin(MathUtils.gradToRad(zenAngle));
 
-            Result r = new Result(d.getPoint().getNumber(), horizDir, horizDist, distance,
-                    zenAngle, g.getGisement(), d.getS());
+            Result r = new Result(d.getPoint().getNumber(), horizDir, horizDist, distance, zenAngle, g.getGisement(), d.getS());
             this.results.add(r);
         }
 
@@ -171,13 +174,17 @@ public class PolarImplantation extends Calculation {
         return this.station;
     }
 
+    public void setStation(@NonNull Point station) {
+        this.station = station;
+    }
+
     /**
      * Class to store the results of the polar implantation calculation for each
      * points.
      *
      * @author HGdev
      */
-    public class Result {
+    public class Result implements Serializable {
         private final String pointNumber;
         private final double horizDir;
         private final double horizDist;

@@ -61,4 +61,12 @@ public class ArrayListOfPointsWithSAdapter extends ArrayAdapter<Measure> {
 
         return view;
     }
+
+    public ArrayList<Measure> getMeasures() {
+        ArrayList<Measure> measures = new ArrayList<>();
+        for (int i = 0; i < this.getCount(); i++) {
+            measures.add(this.getItem(i));
+        }
+        return measures;
+    }
 }
