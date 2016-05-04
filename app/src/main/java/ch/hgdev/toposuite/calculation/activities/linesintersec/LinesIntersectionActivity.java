@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.linesintersec;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -109,8 +110,8 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
         this.isD1Perpendicular = false;
         this.isD2Perpendicular = false;
 
-        this.d1Mode = LinesIntersectionActivity.Mode.LINE;
-        this.d2Mode = LinesIntersectionActivity.Mode.LINE;
+        this.d1Mode = Mode.LINE;
+        this.d2Mode = Mode.LINE;
 
         this.point1D1SelectedPosition = 0;
         this.point2D1SelectedPosition = 0;
@@ -272,11 +273,10 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
         this.blinkAnimation.addFrame(this.getResources().getDrawable(android.R.color.transparent), 900);
         this.blinkAnimation.setOneShot(true);
 
-        int sdk = android.os.Build.VERSION.SDK_INT;
-        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            this.resultLayout.setBackgroundDrawable(this.blinkAnimation);
-        } else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             this.resultLayout.setBackground(this.blinkAnimation);
+        } else {
+            this.resultLayout.setBackgroundDrawable(this.blinkAnimation);
         }
 
         List<Point> points = new ArrayList<>();
