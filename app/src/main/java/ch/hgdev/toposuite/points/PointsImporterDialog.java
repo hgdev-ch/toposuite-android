@@ -207,6 +207,8 @@ public class PointsImporterDialog extends DialogFragment {
         progress.show();
         progress.setContentView(new ProgressBar(this.getActivity()));
 
+        final Activity callingActivity = this.getActivity();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -216,7 +218,7 @@ public class PointsImporterDialog extends DialogFragment {
                 if (SupportedPointsFileTypes.isSupported(ext)) {
                     Job.deleteCurrentJob();
                     try {
-                        InputStream inputStream = new FileInputStream(new File(AppUtils.publicDataDirectory(PointsImporterDialog.this.getActivity()), filename));
+                        InputStream inputStream = new FileInputStream(new File(AppUtils.publicDataDirectory(callingActivity), filename));
                         List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                         if (!errors.isEmpty()) {
                             PointsImporterDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
