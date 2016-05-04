@@ -159,19 +159,19 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             }
         }
 
-        if (this.polarImplantation != null) {
-            this.stationSpinner.setSelection(
-                    this.stationAdapter.getPosition(this.polarImplantation.getStation()));
-            Measure m = this.polarImplantation.getMeasures().get(0);
-
-            this.iEditText.setText(DisplayUtils.toStringForEditText(m.getI()));
-            this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(m
-                    .getUnknownOrientation()));
+        Point station = this.polarImplantation.getStation();
+        if (station != null) {
+            this.stationSpinner.setSelection(this.stationAdapter.getPosition(station));
         } else {
             if (this.stationSelectedPosition > 0) {
-                this.stationSpinner.setSelection(
-                        this.stationSelectedPosition);
+                this.stationSpinner.setSelection(this.stationSelectedPosition);
             }
+        }
+
+        Measure m = this.polarImplantation.getMeasures().get(0);
+        if (m != null) {
+            this.iEditText.setText(DisplayUtils.toStringForEditText(m.getI()));
+            this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(m.getUnknownOrientation()));
         }
 
         this.drawList();
@@ -358,7 +358,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
         this.polarImplantation.setStation(this.station);
         this.polarImplantation.getMeasures().clear();
-        for (Measure m: this.adapter.getMeasures()) {
+        for (Measure m : this.adapter.getMeasures()) {
             m.setI(this.instrumentHeight);
             m.setUnknownOrientation(this.z0);
             this.polarImplantation.getMeasures().add(m);
