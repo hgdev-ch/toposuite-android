@@ -1,8 +1,8 @@
 package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
-import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -12,15 +12,10 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CalculationException;
-import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarSurvey;
 import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
 import ch.hgdev.toposuite.calculation.activities.MergePointsDialog;
@@ -46,40 +41,10 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         this.setContentView(R.layout.activity_polar_survey_results);
 
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
+        this.registerForContextMenu(this.resultsListView);
 
         Bundle bundle = this.getIntent().getExtras();
-
-        int pos = bundle.getInt(PolarSurveyActivity.POLAR_SURVEY_POSITION);
-        if (pos != -1) {
-            this.polarSurvey = (PolarSurvey) SharedResources
-                    .getCalculationsHistory().get(pos);
-        } else {
-            Point station = SharedResources.getSetOfPoints().find(
-                    bundle.getString(PolarSurveyActivity.STATION_NUMBER_LABEL));
-            double z0 = bundle.getDouble(PolarSurveyActivity.UNKNOWN_ORIENTATION_LABEL);
-            double instrumentHeight = bundle.getDouble(PolarSurveyActivity.INSTRUMENT_HEIGHT_LABEL);
-            long z0CalculationId = bundle.getLong(
-                    PolarSurveyActivity.UNKNOWN_ORIENTATION_CALCULATION_ID_LABEL_);
-
-            this.polarSurvey = new PolarSurvey(station, z0, instrumentHeight, z0CalculationId, true);
-
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(
-                        bundle.getString(PolarSurveyActivity.DETERMINATIONS_LABEL));
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject json = (JSONObject) jsonArray.get(i);
-                    Measure m = Measure.getMeasureFromJSON(json.toString());
-                    this.polarSurvey.getDeterminations().add(m);
-                }
-            } catch (JSONException e) {
-                Logger.log(Logger.ErrLabel.PARSE_ERROR,
-                        PolarSurveyResultsActivity.POLAR_SURVEY_RESULTS_ACTIVITY
-                                + "error retrieving list of determinations from JSON");
-            }
-        }
-
-        this.registerForContextMenu(this.resultsListView);
+        this.polarSurvey = (PolarSurvey) bundle.getSerializable(PolarSurveyActivity.POLAR_SURVEY_CALCULATION);
 
         try {
             this.polarSurvey.compute();

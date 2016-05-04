@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,7 +25,9 @@ import ch.hgdev.toposuite.utils.MathUtils;
 public class PolarSurvey extends Calculation {
     public static final String STATION_NUMBER = "station_number";
     public static final String DETERMINATIONS_LIST = "determinations_list";
+    public static final String UNKNOWN_ORIENTATION = "unknown_orientation";
     public static final String Z0_CALCULATION_ID = "z0_calculation_id";
+    public static final String INSTRUMENT_HEIGHT = "instrument_height";
 
     private Point station;
     private double unknownOrientation;
@@ -46,8 +49,12 @@ public class PolarSurvey extends Calculation {
                 lastModification,
                 true);
 
-        this.determinations = new ArrayList<Measure>();
-        this.results = new ArrayList<Result>();
+        this.determinations = new ArrayList<>();
+        this.results = new ArrayList<>();
+    }
+
+    public PolarSurvey(boolean hasDAO) {
+        this(null, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_LONG, hasDAO);
     }
 
     public PolarSurvey(Point _station, double _unknownOrientation, double _instrumentHeight,
@@ -63,8 +70,8 @@ public class PolarSurvey extends Calculation {
                 App.getContext().getString(R.string.title_activity_polar_survey),
                 hasDAO);
 
-        this.determinations = new ArrayList<Measure>();
-        this.results = new ArrayList<Result>();
+        this.determinations = new ArrayList<>();
+        this.results = new ArrayList<>();
         this.station = _station;
         this.unknownOrientation = MathUtils.gradToRad(MathUtils.modulo400(_unknownOrientation));
         this.instrumentHeight = _instrumentHeight;
@@ -78,6 +85,12 @@ public class PolarSurvey extends Calculation {
     public void compute() throws CalculationException {
         if (this.determinations.size() == 0) {
             throw new CalculationException("no measures provided");
+        }
+        if (this.station == null) {
+            throw new CalculationException("no station provided");
+        }
+        if (MathUtils.isIgnorable(this.unknownOrientation)) {
+            throw new CalculationException("no unknown orientation provided");
         }
 
         // clear any previously computed results
@@ -97,15 +110,12 @@ public class PolarSurvey extends Calculation {
             hz = hz + Math.atan(m.getLatDepl() / horizDist);
             horizDist = MathUtils.pythagoras(horizDist, m.getLatDepl());
 
-            double east = this.station.getEast()
-                    + (Math.sin(this.unknownOrientation + hz) * horizDist);
-            double north = this.station.getNorth()
-                    + (Math.cos(this.unknownOrientation + hz) * horizDist);
+            double east = this.station.getEast() + (Math.sin(this.unknownOrientation + hz) * horizDist);
+            double north = this.station.getNorth() + (Math.cos(this.unknownOrientation + hz) * horizDist);
 
             double altitude;
             if (!MathUtils.isIgnorable(this.instrumentHeight) && !MathUtils.isIgnorable(m.getS())) {
-                altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle))
-                        + this.instrumentHeight) - m.getS();
+                altitude = (this.station.getAltitude() + (m.getDistance() * Math.cos(zenAngle)) + this.instrumentHeight) - m.getS();
             } else {
                 altitude = MathUtils.IGNORE_DOUBLE;
             }
@@ -130,9 +140,13 @@ public class PolarSurvey extends Calculation {
         JSONObject json = new JSONObject();
         if (this.station != null) {
             json.put(PolarSurvey.STATION_NUMBER, this.station.getNumber());
+        } else {
+            json.put(PolarSurvey.STATION_NUMBER, null);
         }
 
         json.put(PolarSurvey.Z0_CALCULATION_ID, this.z0CalculationId);
+        json.put(PolarSurvey.INSTRUMENT_HEIGHT, this.instrumentHeight);
+        json.put(PolarSurvey.UNKNOWN_ORIENTATION, this.unknownOrientation);
 
         if (this.determinations.size() > 0) {
             JSONArray determinationsArray = new JSONArray();
@@ -149,10 +163,11 @@ public class PolarSurvey extends Calculation {
     @Override
     public void importFromJSON(String jsonInputArgs) throws JSONException {
         JSONObject json = new JSONObject(jsonInputArgs);
-        this.station = SharedResources.getSetOfPoints().find(
-                json.getString(PolarSurvey.STATION_NUMBER));
+        this.station = SharedResources.getSetOfPoints().find(json.getString(PolarSurvey.STATION_NUMBER));
 
         this.z0CalculationId = json.getLong(PolarSurvey.Z0_CALCULATION_ID);
+        this.instrumentHeight = json.getDouble(PolarSurvey.INSTRUMENT_HEIGHT);
+        this.unknownOrientation = json.getDouble(PolarSurvey.UNKNOWN_ORIENTATION);
 
         JSONArray determinationsArray = json.getJSONArray(PolarSurvey.DETERMINATIONS_LIST);
 
@@ -195,16 +210,32 @@ public class PolarSurvey extends Calculation {
         return this.station;
     }
 
+    public void setStation(Point station) {
+        this.station = station;
+    }
+
     public double getUnknownOrientation() {
         return this.unknownOrientation;
+    }
+
+    public void setUnknownOrientation(double unknownOrientation) {
+        this.unknownOrientation = unknownOrientation;
     }
 
     public long getZ0CalculationId() {
         return this.z0CalculationId;
     }
 
+    public void setZ0CalculationId(long z0CalculationId) {
+        this.z0CalculationId = z0CalculationId;
+    }
+
     public double getInstrumentHeight() {
         return this.instrumentHeight;
+    }
+
+    public void setInstrumentHeight(double instrumentHeight) {
+        this.instrumentHeight = instrumentHeight;
     }
 
     /**
@@ -213,7 +244,7 @@ public class PolarSurvey extends Calculation {
      *
      * @author HGdev
      */
-    public class Result {
+    public class Result implements Serializable {
         private final String determinationNumber;
         private final double east;
         private final double north;

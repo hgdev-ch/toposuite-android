@@ -49,6 +49,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
     private double s;
     private double latDepl;
     private double lonDepl;
+    private int position;
 
     private LinearLayout layout;
     private ScrollView scrollView;
@@ -121,8 +122,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
         try {
             this.listener = (EditDeterminationDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement EditDeterminationDialogListener");
+            throw new ClassCastException(activity.toString() + " must implement EditDeterminationDialogListener");
         }
     }
 
@@ -132,6 +132,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
     private void initAttributes() {
         Bundle bundle = this.getArguments();
 
+        this.position = bundle.getInt(PolarSurveyActivity.DETERMINATION_POSITION);
         this.determinationNo = bundle.getString(PolarSurveyActivity.DETERMINATION_NUMBER);
         this.horizDir = bundle.getDouble(PolarSurveyActivity.HORIZ_DIR);
         this.distance = bundle.getDouble(PolarSurveyActivity.DISTANCE);
@@ -217,11 +218,9 @@ public class EditDeterminationDialogFragment extends DialogFragment {
      * @return True if every required data has been filled, false otherwise.
      */
     private boolean checkDialogInputs() {
-        if ((this.determinationNoEditText.length() == 0) || (this.horizDirEditText.length() == 0)
-                || (this.distanceEditText.length() == 0)) {
-            return false;
-        }
-        return true;
+        return (this.determinationNoEditText.length() > 0)
+                && (this.horizDirEditText.length() > 0)
+                && (this.distanceEditText.length() > 0);
     }
 
     public String getDeterminationNo() {
@@ -250,5 +249,9 @@ public class EditDeterminationDialogFragment extends DialogFragment {
 
     public double getLonDepl() {
         return this.lonDepl;
+    }
+
+    public int getPosition() {
+        return this.position;
     }
 }
