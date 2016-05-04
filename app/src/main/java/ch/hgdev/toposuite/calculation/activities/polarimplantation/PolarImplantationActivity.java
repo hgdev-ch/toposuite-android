@@ -168,8 +168,8 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             }
         }
 
-        Measure m = this.polarImplantation.getMeasures().get(0);
-        if (m != null) {
+        if (!this.polarImplantation.getMeasures().isEmpty()) {
+            Measure m = this.polarImplantation.getMeasures().get(0);
             this.iEditText.setText(DisplayUtils.toStringForEditText(m.getI()));
             this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(m.getUnknownOrientation()));
         }
