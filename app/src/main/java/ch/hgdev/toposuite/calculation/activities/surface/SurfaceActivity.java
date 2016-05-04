@@ -8,14 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -34,14 +29,12 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class SurfaceActivity extends TopoSuiteActivity implements
         AddPointWithRadiusDialogFragment.AddPointWithRadiusDialogListener,
         EditPointWithRadiusDialogFragment.EditPointWithRadiusDialogListener {
+    public static final String POINT_POSITION_LABEL = "point_position";
     public static final String POINT_WITH_RADIUS_NUMBER_LABEL = "point_with_radius_number";
     public static final String RADIUS_LABEL = "radius";
     public static final String SURFACE_CALCULATION = "surface_calculation";
-    private static final String POINT_WITH_RADIUS_LABEL = "points_with_radius";
-    private static final String SURFACE_NAME_LABEL = "surface_name";
-    private static final String SURFACE_DESCRIPTION_LABEL = "surface_description";
-    private static final String PERIMETER_LABEL = "perimeter_label";
-    private static final String SURFACE_LABEL = "surface_label";
+    public static final String POINT_WITH_RADIUS_LABEL = "points_with_radius";
+
     private ListView pointsListView;
     private EditText nameEditText;
     private EditText descriptionEditText;
@@ -52,21 +45,14 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     private String description;
     private double surface;
     private double perimeter;
-    private ArrayAdapter<Surface.PointWithRadius> adapter;
+    private ArrayListOfPointsWithRadiusAdapter adapter;
     private Surface surfaceCalculation;
-
-    /**
-     * Position of the calculation in the calculations list. Only used when open
-     * from the history.
-     */
-    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_surface);
 
-        this.position = -1;
         this.surface = MathUtils.IGNORE_DOUBLE;
         this.perimeter = MathUtils.IGNORE_DOUBLE;
         this.name = "";
@@ -87,24 +73,19 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         // existing one.
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
-            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.surfaceCalculation = (Surface) SharedResources.getCalculationsHistory()
-                    .get(this.position);
-            if (this.surfaceCalculation != null) {
-                this.name = this.surfaceCalculation.getSurfaceName();
-                this.description = this.surfaceCalculation.getSurfaceDescription();
-                this.surface = this.surfaceCalculation.getSurface();
-                this.perimeter = this.surfaceCalculation.getPerimeter();
-            }
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.surfaceCalculation = (Surface) SharedResources.getCalculationsHistory().get(position);
+            this.name = this.surfaceCalculation.getSurfaceName();
+            this.description = this.surfaceCalculation.getSurfaceDescription();
+            this.surface = this.surfaceCalculation.getSurface();
+            this.perimeter = this.surfaceCalculation.getPerimeter();
         } else {
             this.surfaceCalculation = new Surface(this.name, this.description, true);
         }
 
         this.adapter = new ArrayListOfPointsWithRadiusAdapter(this,
                 R.layout.points_with_radius_list_item,
-                (ArrayList<Surface.PointWithRadius>) this.surfaceCalculation.getPoints());
-
-        this.drawList();
+                new ArrayList<>(this.surfaceCalculation.getPoints()));
 
         this.registerForContextMenu(this.pointsListView);
     }
@@ -127,6 +108,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         if (!MathUtils.isZero(this.surface) && !MathUtils.isZero(this.perimeter)) {
             this.updateResults();
         }
+
+        this.drawList();
     }
 
     @Override
@@ -195,15 +178,9 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        JSONArray json = new JSONArray();
-        for (int i = 0; i < this.adapter.getCount(); i++) {
-            json.put(this.adapter.getItem(i).toJSONObject());
-        }
-        outState.putString(SurfaceActivity.POINT_WITH_RADIUS_LABEL, json.toString());
-        outState.putString(SurfaceActivity.SURFACE_DESCRIPTION_LABEL, this.description);
-        outState.putString(SurfaceActivity.SURFACE_NAME_LABEL, this.name);
-        outState.putDouble(SurfaceActivity.PERIMETER_LABEL, this.perimeter);
-        outState.putDouble(SurfaceActivity.SURFACE_LABEL, this.surface);
+        outState.putSerializable(
+                SurfaceActivity.POINT_WITH_RADIUS_LABEL,
+                this.adapter.getPoints());
     }
 
     @Override
@@ -211,25 +188,10 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         super.onRestoreInstanceState(savedInstanceState);
 
         if (savedInstanceState != null) {
+            ArrayList<Surface.PointWithRadius> points = (ArrayList<PointWithRadius>) savedInstanceState.getSerializable(
+                    SurfaceActivity.POINT_WITH_RADIUS_LABEL);
             this.adapter.clear();
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(
-                        savedInstanceState.getString(SurfaceActivity.POINT_WITH_RADIUS_LABEL));
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject json = (JSONObject) jsonArray.get(i);
-                    PointWithRadius p = PointWithRadius.getPointFromJSON(json.toString());
-                    this.adapter.add(p);
-                }
-            } catch (JSONException e) {
-                Logger.log(Logger.ErrLabel.PARSE_ERROR,
-                        "SurfaceActivity: cannot restore saved instance.");
-            }
-            this.name = savedInstanceState.getString(SurfaceActivity.SURFACE_NAME_LABEL);
-            this.description = savedInstanceState
-                    .getString(SurfaceActivity.SURFACE_DESCRIPTION_LABEL);
-            this.perimeter = savedInstanceState.getDouble(SurfaceActivity.PERIMETER_LABEL);
-            this.surface = savedInstanceState.getDouble(SurfaceActivity.SURFACE_LABEL);
+            this.adapter.addAll(points);
             this.drawList();
         }
     }
@@ -243,6 +205,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
         this.surfaceCalculation.setSurfaceName(this.name);
         this.surfaceCalculation.setSurfaceDescription(this.description);
+        this.surfaceCalculation.getPoints().clear();
+        this.surfaceCalculation.getPoints().addAll(this.adapter.getPoints());
 
         try {
             this.surfaceCalculation.compute();
@@ -271,10 +235,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
      * @return True if input is OK, false otherwise.
      */
     private boolean checkInputs() {
-        if (this.adapter.getCount() < 3) {
-            return false;
-        }
-        return true;
+        return this.adapter.getCount() > 2;
     }
 
     /**
@@ -300,12 +261,12 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     private void showEditPointDialog(int position) {
         EditPointWithRadiusDialogFragment dialog = new EditPointWithRadiusDialogFragment();
 
-        this.position = position;
         Surface.PointWithRadius p = this.adapter.getItem(position);
         Bundle args = new Bundle();
+        args.putInt(SurfaceActivity.POINT_POSITION_LABEL, position);
         args.putString(SurfaceActivity.POINT_WITH_RADIUS_NUMBER_LABEL, p.getNumber());
         args.putDouble(SurfaceActivity.RADIUS_LABEL, p.getRadius());
-        args.putSerializable(SURFACE_CALCULATION, this.surfaceCalculation);
+        args.putSerializable(SurfaceActivity.POINT_WITH_RADIUS_LABEL, this.adapter.getPoints());
 
         dialog.setArguments(args);
         dialog.show(this.getSupportFragmentManager(), "EditPointWithRadiusDialogFragment");
@@ -318,7 +279,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 dialog.getPoint().getEast(),
                 dialog.getPoint().getNorth(),
                 dialog.getRadius(),
-                this.surfaceCalculation.getPoints().size() + 1);
+                this.adapter.getPoints().size() + 1);
         this.adapter.add(p);
         this.adapter.notifyDataSetChanged();
         this.showAddPointDialog();
@@ -331,15 +292,14 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     @Override
     public void onDialogEdit(EditPointWithRadiusDialogFragment dialog) {
-        Surface.PointWithRadius p = this.adapter.getItem(this.position);
+        Surface.PointWithRadius p = this.adapter.getItem(dialog.getPosition());
         p.setNumber(dialog.getPoint().getNumber());
         p.setEast(dialog.getPoint().getEast());
         p.setNorth(dialog.getPoint().getNorth());
         p.setRadius(dialog.getRadius());
 
         if (!dialog.getPositionAfter().isEmpty()) {
-            ArrayList<Surface.PointWithRadius> newPoints =
-                    new ArrayList<Surface.PointWithRadius>();
+            ArrayList<Surface.PointWithRadius> newPoints = new ArrayList<>();
 
             int vertexNumber = 1;
             for (int i = 0; i < this.adapter.getCount(); i++) {
@@ -360,7 +320,8 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 vertexNumber++;
             }
 
-            this.surfaceCalculation.setPoints(newPoints);
+            this.adapter.clear();
+            this.adapter.addAll(newPoints);
         }
 
         this.adapter.notifyDataSetChanged();

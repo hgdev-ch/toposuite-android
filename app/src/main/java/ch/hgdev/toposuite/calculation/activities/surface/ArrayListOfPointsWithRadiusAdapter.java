@@ -55,4 +55,12 @@ public class ArrayListOfPointsWithRadiusAdapter extends ArrayAdapter<Surface.Poi
         }
         return view;
     }
+
+    public ArrayList<Surface.PointWithRadius> getPoints() {
+        ArrayList<Surface.PointWithRadius> points = new ArrayList<>();
+        for (int i = 0; i < this.getCount(); i++) {
+            points.add(this.getItem(i));
+        }
+        return points;
+    }
 }
