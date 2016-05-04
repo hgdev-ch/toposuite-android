@@ -600,7 +600,7 @@ public class FreeStation extends Calculation {
      *
      * @author HGdev
      */
-    private class IntermediateResults {
+    private class IntermediateResults implements Serializable {
         /**
          * Fictive gisement. (this attribute is used from the outside)
          */
