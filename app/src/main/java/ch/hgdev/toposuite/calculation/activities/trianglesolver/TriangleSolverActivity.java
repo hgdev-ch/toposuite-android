@@ -54,19 +54,11 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     private TriangleSolver tS;
 
-    /**
-     * Position of the calculation in the calculations list. Only used when open
-     * from the history.
-     */
-    private int position;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.activity_triangle_solver);
-
-        this.position = -1;
 
         this.initViews();
         this.initAttributes();
@@ -75,9 +67,8 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         // existing one.
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            this.position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
-            this.tS = (TriangleSolver) SharedResources.getCalculationsHistory()
-                    .get(this.position);
+            int position = bundle.getInt(HistoryActivity.CALCULATION_POSITION);
+            this.tS = (TriangleSolver) SharedResources.getCalculationsHistory().get(position);
             if (this.tS != null) {
                 this.updateAnglesAndSides();
                 this.a = this.tS.getA();
@@ -343,8 +334,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
         this.getInputs();
         try {
             if (this.tS == null) {
-                this.tS = new TriangleSolver(
-                        this.a, this.b, this.c, this.alpha, this.beta, this.gamma, true);
+                this.tS = new TriangleSolver(this.a, this.b, this.c, this.alpha, this.beta, this.gamma, true);
             } else {
                 this.tS.setA(this.a);
                 this.tS.setB(this.b);
