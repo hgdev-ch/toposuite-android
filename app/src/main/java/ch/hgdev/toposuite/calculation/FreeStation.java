@@ -33,6 +33,9 @@ public class FreeStation extends Calculation {
     private Point stationResult;
     private final ArrayList<Result> results;
     private double unknownOrientation;
+    private double meanRotation;
+    private double scaleFactor;
+
     /**
      * Mean east error.
      */
@@ -59,8 +62,10 @@ public class FreeStation extends Calculation {
 
         this.stationNumber = _stationNumber;
         this.i = _i;
-        this.measures = new ArrayList<Measure>();
-        this.results = new ArrayList<Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
+        this.meanRotation = MathUtils.IGNORE_DOUBLE;
+        this.scaleFactor = MathUtils.IGNORE_DOUBLE;
     }
 
     public FreeStation(String _stationNumber, boolean hasDAO) {
@@ -76,8 +81,10 @@ public class FreeStation extends Calculation {
                 R.string.title_activity_free_station),
                 lastModification, true);
 
-        this.measures = new ArrayList<Measure>();
-        this.results = new ArrayList<Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
+        this.meanRotation = MathUtils.IGNORE_DOUBLE;
+        this.scaleFactor = MathUtils.IGNORE_DOUBLE;
     }
 
     @Override
@@ -88,7 +95,7 @@ public class FreeStation extends Calculation {
 
         // since we need to adjust some measures for the computation, use a copy
         // this prevents future calls to compute() to modify the measures (see #731)
-        ArrayList<Measure> measuresCopy = new ArrayList<Measure>(this.measures.size());
+        ArrayList<Measure> measuresCopy = new ArrayList<>(this.measures.size());
         for (Measure m : this.measures) {
             // zenithal angle value is optional, needs to be 100.0 by default
             if (MathUtils.isIgnorable(m.getZenAngle())) {
@@ -175,7 +182,6 @@ public class FreeStation extends Calculation {
             } else {
                 // just used as tmp variable for modifying the pointed value of
                 // the current result
-                @SuppressWarnings("unused")
                 Result oldResult = this.results.get(index);
                 oldResult = new Result(res, weight);
             }
@@ -194,13 +200,13 @@ public class FreeStation extends Calculation {
         centroidCadast = new Point("", centroidYCadast / n, centroidXCadast / n,
                 MathUtils.IGNORE_DOUBLE, false, false);
 
-        List<IntermediateResults> intermRes = new ArrayList<IntermediateResults>();
-        double meanRotations = 0.0;
-        double meanConstants = 0.0;
+        List<IntermediateResults> intermRes = new ArrayList<>();
+        this.meanRotation = 0.0;
+        this.scaleFactor = 0.0;
 
         for (int i = 0; i < this.results.size(); i++) {
             if (measuresCopy.get(i).isDeactivated()) {
-                // dummy intermediate results in order to avoid indexes problems
+                // dummy intermediate results in order to avoid index problems
                 intermRes.add(new IntermediateResults(
                         MathUtils.IGNORE_DOUBLE,
                         MathUtils.IGNORE_DOUBLE,
@@ -208,10 +214,8 @@ public class FreeStation extends Calculation {
                         MathUtils.IGNORE_DOUBLE));
                 continue;
             }
-            Gisement g1 = new Gisement(
-                    centroidFict, this.results.get(i).getPoint(), false);
-            Gisement g2 = new Gisement(
-                    centroidCadast, measuresCopy.get(i).getPoint(), false);
+            Gisement g1 = new Gisement(centroidFict, this.results.get(i).getPoint(), false);
+            Gisement g2 = new Gisement(centroidCadast, measuresCopy.get(i).getPoint(), false);
             intermRes.add(
                     new IntermediateResults(
                             g1.getGisement(), g1.getHorizDist(),
@@ -227,7 +231,7 @@ public class FreeStation extends Calculation {
             // dist_cadastral / dist_fictive
             double constant = g2.getHorizDist() / g1.getHorizDist();
             intermRes.get(i).constant = constant;
-            meanConstants += constant;
+            this.scaleFactor += constant;
         }
         double minRotation = this.getMinRotation(intermRes);
         for (IntermediateResults res : intermRes) {
@@ -242,11 +246,11 @@ public class FreeStation extends Calculation {
                     App.getAngleTolerance()) > 0) {
                 rotation -= 400.0;
             }
-            meanRotations += rotation;
+            this.meanRotation += rotation;
         }
 
-        meanRotations = MathUtils.modulo400(meanRotations / n);
-        meanConstants /= n;
+        this.meanRotation = MathUtils.modulo400(this.meanRotation / n);
+        this.scaleFactor /= n;
 
         // calculation of the gisement/distance between the fictive centroid and
         // the station (which is actually at the coordinates 0;0).
@@ -256,8 +260,8 @@ public class FreeStation extends Calculation {
         double distFictiveGToSt = g.getHorizDist(); // distance g-St
 
         // calculation of the station coordinates
-        double tmp1 = MathUtils.gradToRad(gisFictiveGToSt + meanRotations);
-        double tmp2 = distFictiveGToSt * meanConstants;
+        double tmp1 = MathUtils.gradToRad(gisFictiveGToSt + this.meanRotation);
+        double tmp2 = distFictiveGToSt * this.scaleFactor;
         this.stationResult.setEast((Math.sin(tmp1) * tmp2) + centroidCadast.getEast());
         this.stationResult.setNorth((Math.cos(tmp1) * tmp2) + centroidCadast.getNorth());
         double altitude = MathUtils.IGNORE_DOUBLE;
@@ -276,8 +280,8 @@ public class FreeStation extends Calculation {
                 continue;
             }
 
-            double newGis = MathUtils.modulo400(meanRotations + measuresCopy.get(i).getHorizDir());
-            double newDist = meanConstants * measuresCopy.get(i).getDistance();
+            double newGis = MathUtils.modulo400(this.meanRotation + measuresCopy.get(i).getHorizDir());
+            double newDist = this.scaleFactor * measuresCopy.get(i).getDistance();
 
             // vE [cm]
             double newE = MathUtils.pointLanceEast(this.stationResult.getEast(), newGis, newDist);
@@ -326,7 +330,7 @@ public class FreeStation extends Calculation {
         }
         this.meanFS /= (this.results.size() - numberOfDeactivatedOrientations);
 
-        this.unknownOrientation = MathUtils.modulo400(meanRotations);
+        this.unknownOrientation = MathUtils.modulo400(this.meanRotation);
 
         // if I is not provided, there is no altimetry
         if (MathUtils.isIgnorable(this.i)) {
@@ -445,6 +449,14 @@ public class FreeStation extends Calculation {
 
     public final void setUnknownOrientation(double _unknownOrientation) {
         this.unknownOrientation = _unknownOrientation;
+    }
+
+    public double getMeanRotation() {
+        return meanRotation;
+    }
+
+    public double getScaleFactor() {
+        return scaleFactor;
     }
 
     public final double getI() {
