@@ -345,13 +345,11 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
                 this.orthoSurvey.getOrthogonalBase().setMeasuredDistance(this.measuredDist);
 
                 double scaleFactor = this.orthoSurvey.getOrthogonalBase().getScaleFactor();
+                int scaleFactorPPM = this.orthoSurvey.getOrthogonalBase().getScaleFactorPPM();
 
-                StringBuilder builder = new StringBuilder();
-                builder.append(DisplayUtils.formatDistance(scaleFactor));
-                builder.append(" (");
-                builder.append(this.orthoSurvey.getOrthogonalBase().getScaleFactorPPM());
-                builder.append("ppm)");
-                this.scaleTextView.setText(builder.toString());
+                String scale = DisplayUtils.formatScaleFactor(scaleFactor)
+                        + " (" + scaleFactorPPM + " ppm)";
+                this.scaleTextView.setText(scale);
             }
         }
     }
