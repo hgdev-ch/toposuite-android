@@ -16,7 +16,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="left|center_vertical"
                 android:text="@string/line"
@@ -24,7 +24,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="left|center_vertical"
                 android:text="@string/mode_label"
@@ -61,7 +61,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:text="@string/point_1"
                 android:textStyle="bold" />
@@ -69,7 +69,7 @@
             <Spinner
                 android:id="@+id/point_1_spinner"
                 android:layout_width="145dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20" />
 
             <Space
@@ -101,7 +101,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:text="@string/point_2"
                 android:textStyle="bold" />
@@ -109,7 +109,7 @@
             <Spinner
                 android:id="@+id/point_2_spinner"
                 android:layout_width="145dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20" />
 
             <Space
@@ -143,7 +143,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:text="@string/gisement_label"
                 android:textStyle="bold" />
@@ -151,7 +151,7 @@
             <EditText
                 android:id="@+id/gisement"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.50"
                 android:gravity="left|center_vertical"
                 android:inputType="" />
@@ -178,7 +178,7 @@
             <TextView
                 android:id="@+id/dist_p1_label"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:gravity="left|center_vertical"
                 android:text="@string/dist_pt_1"
@@ -187,7 +187,7 @@
             <EditText
                 android:id="@+id/dist_p1"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.86"
                 android:enabled="false"
@@ -202,7 +202,7 @@
             <TextView
                 android:id="@+id/displacement_label"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:text="@string/displacement_label"
                 android:textStyle="bold" />
@@ -210,7 +210,7 @@
             <EditText
                 android:id="@+id/displacement"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.40"
                 android:gravity="left|center_vertical"
                 android:inputType="" />
@@ -228,7 +228,7 @@
 
             <TextView
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
                 android:text="@string/circle_label"
@@ -242,7 +242,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20"
                 android:gravity="left|center_vertical"
                 android:text="@string/center_label" />
@@ -250,7 +250,7 @@
             <Spinner
                 android:id="@+id/center_spinner"
                 android:layout_width="64dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.15" />
 
             <Space
@@ -282,7 +282,7 @@
 
             <TextView
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="left|center_vertical"
                 android:text="@string/radius_label" />
@@ -290,7 +290,7 @@
             <EditText
                 android:id="@+id/radius"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20"
                 android:gravity="right|center_vertical"
                 android:hint="@string/radius_label"
@@ -299,7 +299,7 @@
 
             <TextView
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.20"
                 android:gravity="left|center_vertical"
                 android:text="@string/by_point_label" />
@@ -307,7 +307,7 @@
             <Spinner
                 android:id="@+id/by_point_spinner"
                 android:layout_width="64dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.15" />
         </LinearLayout>
 
@@ -334,7 +334,7 @@
 
             <TextView
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
                 android:text="@string/intersection_one_label"
@@ -365,7 +365,7 @@
             <EditText
                 android:id="@+id/intersection_one_number"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="right|center_vertical"
                 android:hint="@string/point_number_3dots"
@@ -386,7 +386,7 @@
 
             <TextView
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.86"
                 android:gravity="left|center_vertical"
                 android:text="@string/intersection_two_label"
@@ -417,7 +417,7 @@
             <EditText
                 android:id="@+id/intersection_two_number"
                 android:layout_width="0dip"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:gravity="right|center_vertical"
                 android:hint="@string/point_number_3dots"
