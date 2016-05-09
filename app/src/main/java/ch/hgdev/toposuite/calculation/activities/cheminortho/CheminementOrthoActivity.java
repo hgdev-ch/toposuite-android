@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.cheminortho;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
 import ch.hgdev.toposuite.calculation.OrthogonalBase;
+import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.AddMeasureDialogFragment.AddMeasureDialogListener;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.EditMeasureDialogFragment.EditMeasureDialogListener;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -50,6 +52,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
     private TextView calcDistTextView;
 
     private ListView measuresListView;
+    private FloatingActionButton addButton;
 
     private int originSelectedPosition;
     private int extremitySelectedPosition;
@@ -73,6 +76,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         this.extremityPointTextView = (TextView) this.findViewById(R.id.extremity_point);
         this.calcDistTextView = (TextView) this.findViewById(R.id.calculated_distance);
         this.measuresListView = (ListView) this.findViewById(R.id.points_list);
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
 
         this.originSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -117,6 +121,14 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
                 // actually nothing
             }
         });
+
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  CheminementOrthoActivity.this.showAddMeasureDialog();
+                                              }
+                                          }
+        );
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
@@ -198,9 +210,6 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.add_point_button:
-                this.showAddMeasureDialog();
-                return true;
             case R.id.run_calculation_button:
                 Point p1 = (Point) this.originSpinner.getSelectedItem();
                 Point p2 = (Point) this.extremitySpinner.getSelectedItem();
