@@ -13,7 +13,6 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.linecircleintersection.LineCircleIntersectionActivity;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
-import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LineCircleIntersection extends Calculation {
@@ -179,14 +178,10 @@ public class LineCircleIntersection extends Calculation {
         if (MathUtils.isPositive((-proj * proj) + 1)) {
             beta = MathUtils.radToGrad(Math.atan(proj / Math.sqrt((-proj * proj) + 1)));
         } else {
-            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
-                    LineCircleIntersection.LINE_CIRCLE_INTERSECTION
-                            + "No line-circle crossing. The radius should be longer than "
-                            + DisplayUtils.formatDistance(minRadius)
-                            + " (" + DisplayUtils.formatDistance(this.radiusC) + " given).");
             this.setIgnorableResults();
-            throw new CalculationException(App.getContext().getString(
-                    R.string.error_impossible_calculation));
+            throw new CalculationException("no line-circle crossing: the radius should be longer than "
+                    + DisplayUtils.formatDistance(minRadius)
+                    + " (" + DisplayUtils.formatDistance(this.radiusC) + " given).");
         }
 
         double stPtIntersecGis1 = new Gisement(this.p1L, this.p2L, false).getGisement();
