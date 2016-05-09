@@ -5,11 +5,11 @@
         android:id="@+id/run_calculation_button"
         android:icon="@drawable/ic_action_run"
         android:title="@string/calculate_3dots"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/clear_button"
         android:icon="@drawable/ic_action_backspace"
         android:title="@string/clear_3dots"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom" />
 
 </menu>
