@@ -12,7 +12,6 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.activities.circlesintersection.CirclesIntersectionActivity;
 import ch.hgdev.toposuite.points.Point;
-import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CirclesIntersection extends Calculation {
@@ -119,10 +118,8 @@ public class CirclesIntersection extends Calculation {
     public void compute() throws CalculationException {
         double distCenters = MathUtils.euclideanDistance(this.centerFirst, this.centerSecond);
         if (MathUtils.isZero(distCenters)) {
-            Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
-                    "The two circles have the same center!");
-            throw new CalculationException(App.getContext().getString(
-                    R.string.error_impossible_calculation));
+            this.setIgnorableResults();
+            throw new CalculationException("impossible calculation: the two circles have the same center");
         }
 
         double alpha = ((Math.pow(distCenters, 2) + Math.pow(this.radiusFirst, 2)) - Math.pow(
@@ -130,37 +127,26 @@ public class CirclesIntersection extends Calculation {
         // make sure there is an intersection
         if (((-alpha * alpha) + 1) <= 0) {
             // radius to small => circles are next to each another
-            if ((this.radiusFirst + this.radiusSecond) < distCenters) {
-                Logger.log(Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
-                        CirclesIntersection.CIRCLE_INTERSECTION
-                                + "the circles are next to each another (no intersection).");
-            } else {
-                Logger.log(
-                        Logger.WarnLabel.CALCULATION_IMPOSSIBLE,
-                        CirclesIntersection.CIRCLE_INTERSECTION
-                                + "one of the circle is included in the other one (no intersection).");
-            }
             this.setIgnorableResults();
-            throw new CalculationException(App.getContext().getString(
-                    R.string.error_impossible_calculation));
+            if ((this.radiusFirst + this.radiusSecond) < distCenters) {
+                throw new CalculationException("the circles are next to each another (no intersection)");
+            } else {
+                throw new CalculationException("one of the circle is included in the other one (no intersection)");
+            }
         }
         alpha = Math.atan(-alpha / Math.sqrt((-alpha * alpha) + 1)) + (2 * Math.atan(1));
 
         double gisement = MathUtils.gradToRad(
                 new Gisement(this.centerFirst, this.centerSecond, false).getGisement());
 
-        this.firstIntersection.setEast(
-                this.centerFirst.getEast()
-                        + (this.radiusFirst * Math.sin(gisement + alpha)));
-        this.firstIntersection.setNorth(
-                this.centerFirst.getNorth()
-                        + (this.radiusFirst * Math.cos(gisement + alpha)));
-        this.secondIntersection.setEast(
-                this.centerFirst.getEast()
-                        + (this.radiusFirst * Math.sin(gisement - alpha)));
-        this.secondIntersection.setNorth(
-                this.centerFirst.getNorth()
-                        + (this.radiusFirst * Math.cos(gisement - alpha)));
+        this.firstIntersection.setEast(this.centerFirst.getEast()
+                + (this.radiusFirst * Math.sin(gisement + alpha)));
+        this.firstIntersection.setNorth(this.centerFirst.getNorth()
+                + (this.radiusFirst * Math.cos(gisement + alpha)));
+        this.secondIntersection.setEast(this.centerFirst.getEast()
+                + (this.radiusFirst * Math.sin(gisement - alpha)));
+        this.secondIntersection.setNorth(this.centerFirst.getNorth()
+                + (this.radiusFirst * Math.cos(gisement - alpha)));
 
         this.postCompute();
     }
