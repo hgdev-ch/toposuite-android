@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.EditText;
@@ -163,13 +164,16 @@ public class ViewUtils {
      * @param currentActivity Activity that request the lock.
      */
     public static void lockScreenOrientation(Activity currentActivity) {
-        int currentOrientation = currentActivity.getResources().getConfiguration().orientation;
-        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-            currentActivity.setRequestedOrientation(
-                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         } else {
-            currentActivity.setRequestedOrientation(
-                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            // well, do our best
+            int currentOrientation = currentActivity.getResources().getConfiguration().orientation;
+            if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            } else {
+                currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            }
         }
     }
 
@@ -179,8 +183,7 @@ public class ViewUtils {
      * @param currentActivity Activity that request the unlock.
      */
     public static void unlockScreenOrientation(Activity currentActivity) {
-        currentActivity.setRequestedOrientation(
-                ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
     /**
