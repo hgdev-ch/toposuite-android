@@ -33,7 +33,6 @@ public class FreeStation extends Calculation {
     private Point stationResult;
     private final ArrayList<Result> results;
     private double unknownOrientation;
-    private double meanRotation;
     private double scaleFactor;
 
     /**
@@ -64,7 +63,6 @@ public class FreeStation extends Calculation {
         this.i = _i;
         this.measures = new ArrayList<>();
         this.results = new ArrayList<>();
-        this.meanRotation = MathUtils.IGNORE_DOUBLE;
         this.scaleFactor = MathUtils.IGNORE_DOUBLE;
     }
 
@@ -83,7 +81,6 @@ public class FreeStation extends Calculation {
 
         this.measures = new ArrayList<>();
         this.results = new ArrayList<>();
-        this.meanRotation = MathUtils.IGNORE_DOUBLE;
         this.scaleFactor = MathUtils.IGNORE_DOUBLE;
     }
 
@@ -201,7 +198,7 @@ public class FreeStation extends Calculation {
                 MathUtils.IGNORE_DOUBLE, false, false);
 
         List<IntermediateResults> intermRes = new ArrayList<>();
-        this.meanRotation = 0.0;
+        double meanRotation = 0.0;
         this.scaleFactor = 0.0;
 
         for (int i = 0; i < this.results.size(); i++) {
@@ -246,10 +243,10 @@ public class FreeStation extends Calculation {
                     App.getAngleTolerance()) > 0) {
                 rotation -= 400.0;
             }
-            this.meanRotation += rotation;
+            meanRotation += rotation;
         }
 
-        this.meanRotation = MathUtils.modulo400(this.meanRotation / n);
+        meanRotation = MathUtils.modulo400(meanRotation / n);
         this.scaleFactor /= n;
 
         // calculation of the gisement/distance between the fictive centroid and
@@ -260,7 +257,7 @@ public class FreeStation extends Calculation {
         double distFictiveGToSt = g.getHorizDist(); // distance g-St
 
         // calculation of the station coordinates
-        double tmp1 = MathUtils.gradToRad(gisFictiveGToSt + this.meanRotation);
+        double tmp1 = MathUtils.gradToRad(gisFictiveGToSt + meanRotation);
         double tmp2 = distFictiveGToSt * this.scaleFactor;
         this.stationResult.setEast((Math.sin(tmp1) * tmp2) + centroidCadast.getEast());
         this.stationResult.setNorth((Math.cos(tmp1) * tmp2) + centroidCadast.getNorth());
@@ -280,7 +277,7 @@ public class FreeStation extends Calculation {
                 continue;
             }
 
-            double newGis = MathUtils.modulo400(this.meanRotation + measuresCopy.get(i).getHorizDir());
+            double newGis = MathUtils.modulo400(meanRotation + measuresCopy.get(i).getHorizDir());
             double newDist = this.scaleFactor * measuresCopy.get(i).getDistance();
 
             // vE [cm]
@@ -330,7 +327,7 @@ public class FreeStation extends Calculation {
         }
         this.meanFS /= (this.results.size() - numberOfDeactivatedOrientations);
 
-        this.unknownOrientation = MathUtils.modulo400(this.meanRotation);
+        this.unknownOrientation = MathUtils.modulo400(meanRotation);
 
         // if I is not provided, there is no altimetry
         if (MathUtils.isIgnorable(this.i)) {
@@ -451,12 +448,12 @@ public class FreeStation extends Calculation {
         this.unknownOrientation = _unknownOrientation;
     }
 
-    public double getMeanRotation() {
-        return meanRotation;
+    public double getScaleFactor() {
+        return this.scaleFactor;
     }
 
-    public double getScaleFactor() {
-        return scaleFactor;
+    public int getScaleFactorPPM() {
+        return MathUtils.scaleToPPM(this.scaleFactor);
     }
 
     public final double getI() {
