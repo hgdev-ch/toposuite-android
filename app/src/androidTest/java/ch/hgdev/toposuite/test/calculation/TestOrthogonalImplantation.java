@@ -48,4 +48,76 @@ public class TestOrthogonalImplantation extends CalculationTest {
         Assert.assertEquals("12.643", this.df3.format(oi.getResults().get(5).getAbscissa()));
         Assert.assertEquals("-2.871", this.df3.format(oi.getResults().get(5).getOrdinate()));
     }
+
+    // TD-NK_2.3.1
+    public void testTDNK231() {
+        Point origin = new Point("2301", 600.000, 200.000, MathUtils.IGNORE_DOUBLE, true, false);
+        Point extremity = new Point("2302", 665.000, 200.000, MathUtils.IGNORE_DOUBLE, true, false);
+        OrthogonalBase base = new OrthogonalBase(origin, extremity);
+
+        OrthogonalImplantation oi = new OrthogonalImplantation(base, false);
+
+        oi.getMeasures().add(new Point("2303", 593.750, 205.000, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2304", 605.000, 207.500, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2305", 620.000, 215.000, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2306", 637.350, 210.000, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2307", 652.500, 220.000, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2308", 660.000, 212.500, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2309", 666.250, 267.500, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2310", 672.500, 193.750, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2311", 655.000, 190.000, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2312", 640.000, 185.000, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2313", 630.000, 195.000, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2314", 617.500, 197.500, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2315", 610.000, 190.000, MathUtils.IGNORE_DOUBLE, true, false));
+        oi.getMeasures().add(new Point("2316", 601.250, 195.000, MathUtils.IGNORE_DOUBLE, true, false));
+
+        try {
+            oi.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        Assert.assertEquals("-6.250", this.df3.format(oi.getResults().get(0).getAbscissa()));
+        Assert.assertEquals("-5.000", this.df3.format(oi.getResults().get(0).getOrdinate()));
+
+        Assert.assertEquals("5.000", this.df3.format(oi.getResults().get(1).getAbscissa()));
+        Assert.assertEquals("-7.500", this.df3.format(oi.getResults().get(1).getOrdinate()));
+
+        Assert.assertEquals("20.000", this.df3.format(oi.getResults().get(2).getAbscissa()));
+        Assert.assertEquals("-15.000", this.df3.format(oi.getResults().get(2).getOrdinate()));
+
+        Assert.assertEquals("37.350", this.df3.format(oi.getResults().get(3).getAbscissa()));
+        Assert.assertEquals("-10.000", this.df3.format(oi.getResults().get(3).getOrdinate()));
+
+        Assert.assertEquals("52.500", this.df3.format(oi.getResults().get(4).getAbscissa()));
+        Assert.assertEquals("-20.000", this.df3.format(oi.getResults().get(4).getOrdinate()));
+
+        Assert.assertEquals("60.000", this.df3.format(oi.getResults().get(5).getAbscissa()));
+        Assert.assertEquals("-12.500", this.df3.format(oi.getResults().get(5).getOrdinate()));
+
+        Assert.assertEquals("66.250", this.df3.format(oi.getResults().get(6).getAbscissa()));
+        Assert.assertEquals("-67.500", this.df3.format(oi.getResults().get(6).getOrdinate()));
+
+        Assert.assertEquals("72.500", this.df3.format(oi.getResults().get(7).getAbscissa()));
+        Assert.assertEquals("6.250", this.df3.format(oi.getResults().get(7).getOrdinate()));
+
+        Assert.assertEquals("55.000", this.df3.format(oi.getResults().get(8).getAbscissa()));
+        Assert.assertEquals("10.000", this.df3.format(oi.getResults().get(8).getOrdinate()));
+
+        Assert.assertEquals("40.000", this.df3.format(oi.getResults().get(9).getAbscissa()));
+        Assert.assertEquals("15.000", this.df3.format(oi.getResults().get(9).getOrdinate()));
+
+        Assert.assertEquals("30.000", this.df3.format(oi.getResults().get(10).getAbscissa()));
+        Assert.assertEquals("5.000", this.df3.format(oi.getResults().get(10).getOrdinate()));
+
+        Assert.assertEquals("17.500", this.df3.format(oi.getResults().get(11).getAbscissa()));
+        Assert.assertEquals("2.500", this.df3.format(oi.getResults().get(11).getOrdinate()));
+
+        Assert.assertEquals("10.000", this.df3.format(oi.getResults().get(12).getAbscissa()));
+        Assert.assertEquals("10.000", this.df3.format(oi.getResults().get(12).getOrdinate()));
+
+        Assert.assertEquals("1.250", this.df3.format(oi.getResults().get(13).getAbscissa()));
+        Assert.assertEquals("5.000", this.df3.format(oi.getResults().get(13).getOrdinate()));
+    }
 }
