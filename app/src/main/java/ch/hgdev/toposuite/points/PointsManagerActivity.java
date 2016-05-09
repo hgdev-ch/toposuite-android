@@ -141,7 +141,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.points_manager, menu);
 
-        MenuItem itemSearch =  menu.findItem(R.id.search_point_button);
+        MenuItem itemSearch = menu.findItem(R.id.search_point_button);
         SearchManager sm = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
         SearchView sv = (SearchView) MenuItemCompat.getActionView(itemSearch);
         sv.setSearchableInfo(sm.getSearchableInfo(getComponentName()));
@@ -188,11 +188,12 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         }
         this.showAddPointDialog();
         this.updateShareIntent();
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
     public void onDialogCancel(AddPointDialogFragment dialog) {
-        // do nothing
+        ViewUtils.unlockScreenOrientation(this);
     }
 
     @Override
@@ -280,6 +281,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
      * Display a dialog to allow the user to insert a new point.
      */
     private void showAddPointDialog() {
+        ViewUtils.lockScreenOrientation(this);
         AddPointDialogFragment dialog = new AddPointDialogFragment();
         dialog.show(this.getSupportFragmentManager(), "AddPointDialogFragment");
     }
