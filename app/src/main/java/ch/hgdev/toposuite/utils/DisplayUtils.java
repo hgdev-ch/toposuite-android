@@ -278,6 +278,12 @@ public class DisplayUtils {
      * @return formatted Point
      */
     public static String formatPoint(@NonNull Context context, Point pt) {
+        if (pt == null) {
+            return String.format("%s: -, %s: -, %s: -",
+                    context.getString(R.string.east),
+                    context.getString(R.string.north),
+                    context.getString(R.string.altitude));
+        }
         return String.format("%s: %s, %s: %s, %s: %s", context.getString(R.string.east),
                 DisplayUtils.formatCoordinate(pt.getEast()), context.getString(R.string.north),
                 DisplayUtils.formatCoordinate(pt.getNorth()),
@@ -292,7 +298,12 @@ public class DisplayUtils {
      * @param pt      a 2D Point (altitude = 0.0)
      * @return formatted Point
      */
-    public static String format2DPoint(@NonNull Context context, @NonNull Point pt) {
+    public static String format2DPoint(@NonNull Context context, Point pt) {
+        if (pt == null) {
+            return String.format("%s: -, %s: -",
+                    context.getString(R.string.east),
+                    context.getString(R.string.north));
+        }
         return String.format("%s: %s, %s: %s", context.getString(R.string.east),
                 DisplayUtils.formatCoordinate(pt.getEast()), context.getString(R.string.north),
                 DisplayUtils.formatCoordinate(pt.getNorth()));
