@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.freestation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -33,6 +35,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
     private EditText stationEditText;
     private EditText iEditText;
     private ListView measuresListView;
+    private FloatingActionButton addButton;
 
     private ArrayListOfMeasuresAdapter adapter;
     private FreeStation freeStation;
@@ -45,8 +48,17 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
         this.stationEditText = (EditText) this.findViewById(R.id.station_edit_text);
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.measuresListView = (ListView) this.findViewById(R.id.determinations_list);
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_determination_button);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
+
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  FreeStationActivity.this.showAddMeasureDialog();
+                                              }
+                                          }
+        );
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
@@ -134,9 +146,6 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.add_determination_button:
-                this.showAddMeasureDialog();
-                return true;
             case R.id.run_calculation_button:
                 if (this.checkInputs()) {
                     // update I and station number
