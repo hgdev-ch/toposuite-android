@@ -48,7 +48,7 @@ import ch.hgdev.toposuite.settings.SettingsActivity;
 /**
  * TopoSuiteActivity is the base class for all activities created in TopoSuite.
  * It automatically provides an action bar with left and right sliding menus.
- * 
+ *
  * @author HGdev
  */
 public abstract class TopoSuiteActivity extends AppCompatActivity {
@@ -56,17 +56,17 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
      * The drawer layout that contains the left/right sliding menus and the
      * activity layout.
      */
-    private DrawerLayout          drawerLayout;
+    private DrawerLayout drawerLayout;
 
     /**
      * The left items list that contains the app main menus.
      */
-    private ListView              drawerListLeftMenu;
+    private ListView drawerListLeftMenu;
 
     /**
      * The right items list that contains the list of available calculations.
      */
-    private ExpandableListView    drawerListRightMenu;
+    private ExpandableListView drawerListRightMenu;
 
     /**
      * The action bar drawer toggle.
@@ -82,9 +82,9 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
         // set the content of the left sliding menu
         this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
-        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<ActivityItem>(this,
+        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<>(this,
                 R.layout.drawer_list_item,
-                new ActivityItem[] {
+                new ActivityItem[]{
                         new ActivityItem(this.getString(R.string.home), MainActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_points_manager),
                                 PointsManagerActivity.class),
@@ -95,7 +95,7 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
                         new ActivityItem(this.getString(R.string.title_activity_settings),
                                 SettingsActivity.class),
                         new ActivityItem(this.getString(R.string.title_activity_help),
-                                HelpActivity.class) }));
+                                HelpActivity.class)}));
 
         // set the content of the right sliding menu
         this.drawerListRightMenu = (ExpandableListView) this.findViewById(R.id.right_drawer);
@@ -156,19 +156,19 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
         }
 
         switch (item.getItemId()) {
-        case R.id.toggle_right_menu:
-            if (this.drawerLayout.isDrawerVisible(Gravity.LEFT)) {
-                this.drawerLayout.closeDrawer(Gravity.LEFT);
-            }
+            case R.id.toggle_right_menu:
+                if (this.drawerLayout.isDrawerVisible(Gravity.LEFT)) {
+                    this.drawerLayout.closeDrawer(Gravity.LEFT);
+                }
 
-            if (this.drawerLayout.isDrawerVisible(Gravity.RIGHT)) {
-                this.drawerLayout.closeDrawer(Gravity.RIGHT);
-            } else {
-                this.drawerLayout.openDrawer(Gravity.RIGHT);
-            }
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+                if (this.drawerLayout.isDrawerVisible(Gravity.RIGHT)) {
+                    this.drawerLayout.closeDrawer(Gravity.RIGHT);
+                } else {
+                    this.drawerLayout.openDrawer(Gravity.RIGHT);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -176,22 +176,22 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
      * Create items in the right menu.
      */
     public final void createRightMenuItems() {
-        SparseArray<CalculationGroup> groups = new SparseArray<CalculationGroup>();
+        SparseArray<CalculationGroup> groups = new SparseArray<>();
 
         CalculationGroup polarCalculation = new CalculationGroup(
                 this.getString(R.string.group_polar_calculation));
-        polarCalculation.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_abriss),
-                        AbrissActivity.class));
-        polarCalculation.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_polar_survey),
-                        PolarSurveyActivity.class));
         polarCalculation.getChildren().add(new ActivityItem(
-                this.getString(R.string.title_activity_polar_implantation),
-                PolarImplantationActivity.class));
+                this.getString(R.string.title_activity_abriss),
+                AbrissActivity.class));
         polarCalculation.getChildren().add(new ActivityItem(
                 this.getString(R.string.title_activity_free_station),
                 FreeStationActivity.class));
+        polarCalculation.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_polar_survey),
+                PolarSurveyActivity.class));
+        polarCalculation.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_polar_implantation),
+                PolarImplantationActivity.class));
         polarCalculation.getChildren().add(new ActivityItem(
                 this.getString(R.string.title_activity_axis_implantation),
                 AxisImplantationActivity.class));
@@ -199,64 +199,64 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
         CalculationGroup orthoCalculation = new CalculationGroup(
                 this.getString(R.string.group_orthogonal_calculation));
-        orthoCalculation.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_leve_ortho),
-                        LeveOrthoActivity.class));
-        orthoCalculation.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_cheminement_ortho),
-                        CheminementOrthoActivity.class));
-        orthoCalculation.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_orthogonal_implantation),
-                        OrthogonalImplantationActivity.class));
+        orthoCalculation.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_leve_ortho),
+                LeveOrthoActivity.class));
+        orthoCalculation.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_cheminement_ortho),
+                CheminementOrthoActivity.class));
+        orthoCalculation.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_orthogonal_implantation),
+                OrthogonalImplantationActivity.class));
         groups.append(1, orthoCalculation);
 
         CalculationGroup intersections = new CalculationGroup(
                 this.getString(R.string.group_intersections));
-        intersections.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_lines_intersection),
-                        LinesIntersectionActivity.class));
-        intersections.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_circles_intersection),
-                        CirclesIntersectionActivity.class));
-        intersections.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_line_circle_intersection),
-                        LineCircleIntersectionActivity.class));
+        intersections.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_lines_intersection),
+                LinesIntersectionActivity.class));
+        intersections.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_circles_intersection),
+                CirclesIntersectionActivity.class));
+        intersections.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_line_circle_intersection),
+                LineCircleIntersectionActivity.class));
         groups.append(2, intersections);
 
         CalculationGroup surfaces = new CalculationGroup(
                 this.getString(R.string.group_surfaces));
-        surfaces.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_surface),
-                        SurfaceActivity.class));
-        surfaces.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_limit_displacement),
-                        LimitDisplacementActivity.class));
+        surfaces.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_surface),
+                SurfaceActivity.class));
+        surfaces.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_limit_displacement),
+                LimitDisplacementActivity.class));
         groups.append(3, surfaces);
 
         CalculationGroup various = new CalculationGroup(
                 this.getString(R.string.group_various));
-        various.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_gisement),
-                        GisementActivity.class));
-        various.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_circle),
-                        CircleActivity.class));
-        various.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_point_projection),
-                        PointProjectionActivity.class));
-        various.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_circular_segmentation),
-                        CircularSegmentationActivity.class));
+        various.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_gisement),
+                GisementActivity.class));
+        various.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_circle),
+                CircleActivity.class));
+        various.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_point_projection),
+                PointProjectionActivity.class));
+        various.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_circular_segmentation),
+                CircularSegmentationActivity.class));
         groups.append(4, various);
 
         CalculationGroup mathematics = new CalculationGroup(
                 this.getString(R.string.group_mathematics));
-        mathematics.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_triangle_solver),
-                        TriangleSolverActivity.class));
-        mathematics.getChildren().add(
-                new ActivityItem(this.getString(R.string.title_activity_circular_curve_solver),
-                        CircularCurvesSolverActivity.class));
+        mathematics.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_triangle_solver),
+                TriangleSolverActivity.class));
+        mathematics.getChildren().add(new ActivityItem(
+                this.getString(R.string.title_activity_circular_curve_solver),
+                CircularCurvesSolverActivity.class));
         groups.append(5, mathematics);
 
         ExpandableRightMenuAdapter a = new ExpandableRightMenuAdapter(this,
@@ -266,9 +266,8 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
     /**
      * Starts a new activity.
-     * 
-     * @param activityClass
-     *            Activity class
+     *
+     * @param activityClass Activity class
      */
     public void startActivity(Class<?> activityClass) {
         Intent newActivityIntent = new Intent(this, activityClass);
@@ -277,14 +276,14 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
     /**
      * The subclass must return the activity title with this method.
-     * 
+     *
      * @return Activity title.
      */
     protected abstract String getActivityTitle();
 
     /**
      * Click listener for a drawer items list.
-     * 
+     *
      * @author HGdev
      */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -292,9 +291,8 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
         /**
          * Constructs a new DrawerItemClickListener.
-         * 
-         * @param _list
-         *            the items list
+         *
+         * @param _list the items list
          */
         public DrawerItemClickListener(ListView _list) {
             this.list = _list;
@@ -309,14 +307,14 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
     /**
      * ActivityItem holds a pair of activity's title/class.
-     * 
+     *
      * @author HGdev
      */
     public static class ActivityItem {
         /**
          * The title that will appear in the left or right sliding menu.
          */
-        private final String   title;
+        private final String title;
 
         /**
          * The activity class to start on item click.
@@ -325,11 +323,9 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
         /**
          * Constructs a new ActivityItem.
-         * 
-         * @param _title
-         *            Activity title
-         * @param activityClass
-         *            Activity class
+         *
+         * @param _title        Activity title
+         * @param activityClass Activity class
          */
         public ActivityItem(String _title, Class<?> activityClass) {
             this.title = _title;
@@ -343,7 +339,7 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
         /**
          * Getter for activityClass.
-         * 
+         *
          * @return the activity class
          */
         public Class<?> getActivityClass() {
@@ -352,7 +348,7 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
     }
 
     public static class CalculationGroup {
-        private final String             groupName;
+        private final String groupName;
         private final List<ActivityItem> children;
 
         public CalculationGroup(String _groupName) {
