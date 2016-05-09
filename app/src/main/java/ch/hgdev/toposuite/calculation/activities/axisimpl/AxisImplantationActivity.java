@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.axisimpl;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -64,6 +65,8 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
     private ListView measuresListView;
 
+    private FloatingActionButton addButton;
+
     private AxisImplantation axisImpl;
 
     private ArrayListOfMeasuresAdapter adapter;
@@ -88,6 +91,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         this.stationTextView = (TextView) this.findViewById(R.id.station_point);
         this.measuresListView = (ListView) this.findViewById(R.id.measures_list);
         this.unknownOrientationEditText = (EditText) this.findViewById(R.id.unknown_orientation);
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
 
         this.unknownOrientationEditText.setInputType(App.getInputTypeCoordinate());
 
@@ -117,8 +121,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 AxisImplantationActivity.this.originSelectedPosition = pos;
 
-                Point pt = (Point) AxisImplantationActivity.this.originSpinner
-                        .getItemAtPosition(pos);
+                Point pt = (Point) AxisImplantationActivity.this.originSpinner.getItemAtPosition(pos);
                 if (!pt.getNumber().isEmpty()) {
                     AxisImplantationActivity.this.originTextView.setText
                             (DisplayUtils.formatPoint(AxisImplantationActivity.this, pt));
@@ -157,6 +160,14 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
                 // nothing
             }
         });
+
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  AxisImplantationActivity.this.showAddMeasureDialog();
+                                              }
+                                          }
+        );
 
         List<Point> points = new ArrayList<>();
         points.add(new Point(false));
@@ -316,9 +327,6 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.add_measure_button:
-                this.showAddMeasureDialog();
-                return true;
             case R.id.run_calculation_button:
                 if (this.checkInputs()) {
                     // update I and station number
