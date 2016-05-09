@@ -139,6 +139,7 @@ public class TestPolarSurvey extends CalculationTest {
 
         PolarSurvey lp = new PolarSurvey(station, z0, MathUtils.IGNORE_DOUBLE, false);
         lp.getDeterminations().add(m1);
+
         try {
             lp.compute();
         } catch (CalculationException e) {
@@ -166,5 +167,87 @@ public class TestPolarSurvey extends CalculationTest {
         Assert.assertEquals("1225.347", this.df3.format(r1.getEast()));
         Assert.assertEquals("2440.301", this.df3.format(r1.getNorth()));
         Assert.assertTrue(MathUtils.isIgnorable(r1.getAltitude()));
+    }
+
+    // TD-NK_1.2.1.1
+    public void testTDNK1211() {
+        Point station = new Point("1201", 600.000, 200.000, MathUtils.IGNORE_DOUBLE, true);
+        double i = 1.63;
+        double z0 = 344.0897;
+
+        Measure m2 = new Measure(
+                null, 35.2973, 102.2463, 29.675, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, -0.07);
+        Measure m3 = new Measure(
+                null, 21.695, 101.2956, 18.597, MathUtils.IGNORE_DOUBLE, -1.63, MathUtils.IGNORE_DOUBLE);
+        Measure m4 = new Measure(
+                null, 395.7896, 104.5542, 28.263, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        Measure m5 = new Measure(
+                null, 390.2218, 96.2145, 33.514, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, 0.1);
+        Measure m6 = new Measure(
+                null, 382.6538, 98.2586, 44.784, MathUtils.IGNORE_DOUBLE, 0.39, MathUtils.IGNORE_DOUBLE);
+        Measure m7 = new Measure(
+                null, 399.0187, 99.9143, 50.312, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        Measure m8 = new Measure(
+                null, 9.0583, 97.1589, 40.697, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+        Measure m9 = new Measure(
+                null, 15.9901, 101.1111, 36.362, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE);
+
+        PolarSurvey lp = new PolarSurvey(station, z0, i, false);
+
+        lp.getDeterminations().add(m2);
+        lp.getDeterminations().add(m3);
+        lp.getDeterminations().add(m4);
+        lp.getDeterminations().add(m5);
+        lp.getDeterminations().add(m6);
+        lp.getDeterminations().add(m7);
+        lp.getDeterminations().add(m8);
+        lp.getDeterminations().add(m9);
+
+        try {
+            lp.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        Result r2 = lp.getResults().get(0);
+        Result r3 = lp.getResults().get(1);
+        Result r4 = lp.getResults().get(2);
+        Result r5 = lp.getResults().get(3);
+        Result r6 = lp.getResults().get(4);
+        Result r7 = lp.getResults().get(5);
+        Result r8 = lp.getResults().get(6);
+        Result r9 = lp.getResults().get(7);
+
+        Assert.assertEquals("590.587", this.df3.format(r2.getEast()));
+        Assert.assertEquals("228.049", this.df3.format(r2.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r2.getAltitude());
+
+        Assert.assertEquals("589.081", this.df3.format(r3.getEast()));
+        Assert.assertEquals("215.137", this.df3.format(r3.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r3.getAltitude());
+
+        Assert.assertEquals("577.162", this.df3.format(r4.getEast()));
+        Assert.assertEquals("216.527", this.df3.format(r4.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r4.getAltitude());
+
+        Assert.assertEquals("571.202", this.df3.format(r5.getEast()));
+        Assert.assertEquals("217.222", this.df3.format(r5.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r5.getAltitude());
+
+        Assert.assertEquals("559.284", this.df3.format(r6.getEast()));
+        Assert.assertEquals("218.614", this.df3.format(r6.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r6.getAltitude());
+
+        Assert.assertEquals("560.789", this.df3.format(r7.getEast()));
+        Assert.assertEquals("231.524", this.df3.format(r7.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r7.getAltitude());
+
+        Assert.assertEquals("572.708", this.df3.format(r8.getEast()));
+        Assert.assertEquals("230.134", this.df3.format(r8.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r8.getAltitude());
+
+        Assert.assertEquals("578.667", this.df3.format(r9.getEast()));
+        Assert.assertEquals("229.440", this.df3.format(r9.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r9.getAltitude());
     }
 }
