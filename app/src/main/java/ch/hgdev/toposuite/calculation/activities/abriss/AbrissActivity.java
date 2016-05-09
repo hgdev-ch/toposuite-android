@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.abriss;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -41,6 +42,8 @@ public class AbrissActivity extends TopoSuiteActivity implements
     private TextView stationPointTextView;
     private Spinner stationSpinner;
     private ListView orientationsListView;
+    private FloatingActionButton addButton;
+
     private int stationSelectedPosition;
     private Abriss abriss;
     private ArrayListOfOrientationsAdapter adapter;
@@ -53,6 +56,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.orientationsListView = (ListView) this.findViewById(R.id.orientations_list);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_orientation_button);
 
         this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -72,6 +76,14 @@ public class AbrissActivity extends TopoSuiteActivity implements
                 // actually nothing
             }
         });
+
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  AbrissActivity.this.showAddOrientationDialog();
+                                              }
+                                          }
+        );
 
         // check if we create a new abriss calculation or if we modify an existing one.
         Bundle bundle = this.getIntent().getExtras();
@@ -145,9 +157,6 @@ public class AbrissActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.add_orientation_button:
-                this.showAddOrientationDialog();
-                return true;
             case R.id.run_calculation_button:
                 Point station = (Point) this.stationSpinner.getSelectedItem();
 
