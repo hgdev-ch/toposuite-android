@@ -35,6 +35,7 @@ public class DisplayUtils {
         DISTANCE,
         AVERAGE,
         GAP,
+        SCALE_FACTOR,
         SURFACE,
         CC
     }
@@ -109,6 +110,9 @@ public class DisplayUtils {
                     break;
                 case GAP:
                     precision = App.getDecimalPrecisionForGap();
+                    break;
+                case SCALE_FACTOR:
+                    precision = 6; // TODO: make it a configuration option
                     break;
                 case SURFACE:
                     precision = App.getDecimalPrecisionForSurface();
@@ -190,6 +194,16 @@ public class DisplayUtils {
      */
     public static String formatSurface(double value) {
         return DisplayUtils.format(value, valueType.SURFACE);
+    }
+
+    /**
+     * Format a scale factor.
+     *
+     * @param value scale factor to format.
+     * @return Formatted scale factor.
+     */
+    public static String formatScaleFactor(double value) {
+        return DisplayUtils.format(value, valueType.SCALE_FACTOR);
     }
 
     /**
