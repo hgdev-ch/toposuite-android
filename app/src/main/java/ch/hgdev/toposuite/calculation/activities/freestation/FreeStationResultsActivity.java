@@ -30,6 +30,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
     private TextView sETextView;
     private TextView sNTextView;
     private TextView sATextView;
+    private TextView scaleFactorTextView;
     private TextView unknownOrientationTextView;
 
     private ListView resultsListView;
@@ -46,6 +47,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
         this.sETextView = (TextView) this.findViewById(R.id.se);
         this.sNTextView = (TextView) this.findViewById(R.id.sn);
         this.sATextView = (TextView) this.findViewById(R.id.sa);
+        this.scaleFactorTextView = (TextView) this.findViewById(R.id.scale_factor);
         this.unknownOrientationTextView = (TextView) this.findViewById(R.id.unknown_orientation);
 
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
@@ -178,6 +180,10 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
         } else {
             this.sATextView.setText(this.getString(R.string.no_value));
         }
+
+        String scale = DisplayUtils.formatScaleFactor(this.freeStation.getScaleFactor())
+                + " (" + this.freeStation.getScaleFactorPPM() + "ppm)";
+        this.scaleFactorTextView.setText(scale);
 
         this.unknownOrientationTextView.setText(DisplayUtils.formatAngle(this.freeStation.getUnknownOrientation()));
 

@@ -11,7 +11,7 @@
         
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/free_station_label" />
@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/free_station"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
             android:freezesText="true"
@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/free_station_point"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin" />
@@ -49,7 +49,7 @@
         
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/mean_error_without_unit_label"
@@ -64,7 +64,7 @@
         
 	    <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/se_label" />
@@ -72,7 +72,7 @@
         <TextView
             android:id="@+id/se"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
             android:freezesText="true"
@@ -80,7 +80,7 @@
         
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -89,7 +89,7 @@
         <TextView
             android:id="@+id/sn"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
             android:freezesText="true"
@@ -97,7 +97,7 @@
         
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:freezesText="true"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -106,7 +106,7 @@
         <TextView
             android:id="@+id/sa"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
             android:freezesText="true"
@@ -121,7 +121,7 @@
         
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="@string/unknown_orientation_label"
@@ -130,7 +130,23 @@
         <TextView
             android:id="@+id/unknown_orientation"
             android:layout_width="0dip"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.41"
+            android:gravity="left|center_vertical"
+            android:freezesText="true"
+            android:paddingLeft="@dimen/activity_horizontal_margin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/scale_factor_label" />
+
+        <TextView
+            android:id="@+id/scale_factor"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
             android:layout_weight="0.41"
             android:gravity="left|center_vertical"
             android:freezesText="true"
