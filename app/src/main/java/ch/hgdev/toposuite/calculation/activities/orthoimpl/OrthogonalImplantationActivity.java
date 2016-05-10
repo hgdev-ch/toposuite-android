@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.orthoimpl;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -48,6 +49,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     private TextView calcDistTextView;
 
     private ListView measuresListView;
+    private FloatingActionButton addButton;
 
     private int originSelectedPosition;
     private int extremitySelectedPosition;
@@ -69,6 +71,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         this.calcDistTextView = (TextView) this.findViewById(R.id.calculated_distance);
 
         this.measuresListView = (ListView) this.findViewById(R.id.points_list);
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
 
         this.originSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -109,6 +112,14 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
                 // actually nothing
             }
         });
+
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  OrthogonalImplantationActivity.this.showAddMeasureDialog();
+                                              }
+                                          }
+        );
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {
@@ -226,9 +237,6 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.add_point_button:
-                this.showAddMeasureDialog();
-                return true;
             case R.id.run_calculation_button:
                 if ((this.originSelectedPosition == 0)
                         || (this.extremitySelectedPosition == 0)
