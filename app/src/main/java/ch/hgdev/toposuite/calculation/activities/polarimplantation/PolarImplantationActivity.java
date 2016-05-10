@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.polarimplantation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -57,6 +58,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     private EditText iEditText;
     private EditText unknownOrientEditText;
     private ListView pointsListView;
+    private FloatingActionButton addButton;
     private ArrayListOfPointsWithSAdapter adapter;
 
     private Point station;
@@ -79,6 +81,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.unknownOrientEditText = (EditText) this.findViewById(R.id.unknown_orientation);
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.pointsListView = (ListView) this.findViewById(R.id.list_of_points);
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
         this.unknownOrientEditText.setInputType(App.getInputTypeCoordinate());
@@ -102,6 +105,14 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
                 // actually nothing
             }
         });
+
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  PolarImplantationActivity.this.showAddPointDialog();
+                                              }
+                                          }
+        );
 
         ArrayList<Measure> list = new ArrayList<>();
 
@@ -184,7 +195,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.polar_implantation, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -220,9 +231,6 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.add_point_button:
-                this.showAddPointDialog();
-                return true;
             case R.id.run_calculation_button:
                 if (this.checkInputs()) {
                     this.showPolarImplantationResultActivity();

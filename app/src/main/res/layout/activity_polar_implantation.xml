@@ -1,171 +1,191 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp" >
-
-        <CheckBox
-            android:id="@+id/checkbox_z0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onCheckboxClicked"
-            android:text="@string/retrieve_z0"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/station_label"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/station_spinner"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:gravity="right|center_vertical" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/station_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.86"
-            android:gravity="center"
-            android:text="" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/unknown_orientation_label"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/unknown_orientation"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:inputType=""
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/i_label"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/i"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.86"
-            android:gravity="right|center_vertical"
-            android:inputType=""
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:textSize="12sp" />
-    </LinearLayout>
+    android:layout_height="fill_parent"
+    android:layout_gravity="end|bottom">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical">
 
-        <!-- table of points header -->
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/point_number"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
 
-        <TextView
+            <CheckBox
+                android:id="@+id/checkbox_z0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/retrieve_z0"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/east_label"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            android:orientation="horizontal">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/station_label"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/station_spinner"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="right|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/north_label"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            android:orientation="horizontal">
 
-        <TextView
+            <TextView
+                android:id="@+id/station_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.86"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/altitude_label"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/unknown_orientation_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/unknown_orientation"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:inputType=""
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/prism_height"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/i_label"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/i"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.86"
+                android:gravity="right|center_vertical"
+                android:inputType=""
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- table of points header -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/point_number"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/east_label"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/north_label"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/altitude_label"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/prism_height"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/list_of_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"></ListView>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/add_point_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_new"
+                app:useCompatPadding="true" />
+        </RelativeLayout>
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/list_of_points"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp" >
-    </ListView>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
