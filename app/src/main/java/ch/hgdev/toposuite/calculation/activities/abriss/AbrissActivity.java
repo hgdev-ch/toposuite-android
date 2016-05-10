@@ -54,9 +54,16 @@ public class AbrissActivity extends TopoSuiteActivity implements
         this.setContentView(R.layout.activity_abriss);
 
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
-        this.orientationsListView = (ListView) this.findViewById(R.id.orientations_list);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
+        this.orientationsListView = (ListView) this.findViewById(R.id.orientations_list);
         this.addButton = (FloatingActionButton) this.findViewById(R.id.add_orientation_button);
+
+        this.orientationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AbrissActivity.this.showEditOrientationDialog(position);
+            }
+        });
 
         this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -198,9 +205,6 @@ public class AbrissActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.edit_orientation:
-                this.showEditOrientationDialog(info.position);
-                return true;
             case R.id.delete_calculation:
                 this.adapter.remove(this.adapter.getItem(info.position));
                 this.adapter.notifyDataSetChanged();
