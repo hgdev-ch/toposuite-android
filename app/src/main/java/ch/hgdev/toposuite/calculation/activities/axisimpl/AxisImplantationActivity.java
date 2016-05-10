@@ -33,7 +33,6 @@ import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
-import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.axisimpl.MeasureDialogFragment.MeasureDialogListener;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -265,7 +264,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation_action, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

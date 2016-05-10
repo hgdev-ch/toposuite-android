@@ -195,7 +195,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation_action, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

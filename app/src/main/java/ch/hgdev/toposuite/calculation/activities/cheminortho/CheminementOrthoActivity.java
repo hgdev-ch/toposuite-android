@@ -25,7 +25,6 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
 import ch.hgdev.toposuite.calculation.OrthogonalBase;
-import ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.AddMeasureDialogFragment.AddMeasureDialogListener;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.EditMeasureDialogFragment.EditMeasureDialogListener;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -184,7 +183,7 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation_action, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
