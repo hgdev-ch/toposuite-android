@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.calculation.activities.surface;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -36,6 +37,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     public static final String POINT_WITH_RADIUS_LABEL = "points_with_radius";
 
     private ListView pointsListView;
+    private FloatingActionButton addButton;
     private EditText nameEditText;
     private EditText descriptionEditText;
     private TextView surfaceTextView;
@@ -68,6 +70,16 @@ public class SurfaceActivity extends TopoSuiteActivity implements
                 this.getString(R.string.name) + this.getString(R.string.optional_prths));
         this.descriptionEditText.setHint(
                 this.getString(R.string.description) + this.getString(R.string.optional_prths));
+
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
+
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  SurfaceActivity.this.showAddPointDialog();
+                                              }
+                                          }
+        );
 
         // check if we create a new surface calculation or if we modify an
         // existing one.
@@ -119,7 +131,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.surface, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -127,9 +139,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.add_point_button:
-                this.showAddPointDialog();
-                return true;
             case R.id.run_calculation_button:
                 if (this.checkInputs()) {
                     this.runCalculation();
