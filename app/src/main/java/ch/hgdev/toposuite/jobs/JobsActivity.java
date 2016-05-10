@@ -83,9 +83,9 @@ public class JobsActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.jobs, menu);
+        this.getMenuInflater().inflate(R.menu.action_jobs, menu);
 
-        MenuItem item = menu.findItem(R.id.menu_item_share);
+        MenuItem item = menu.findItem(R.id.share_job_button);
         this.shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         this.updateShareIntent();
 
@@ -96,7 +96,7 @@ public class JobsActivity extends TopoSuiteActivity implements
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.jobs_list_row_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_delete, menu);
     }
 
     @Override
@@ -104,10 +104,10 @@ public class JobsActivity extends TopoSuiteActivity implements
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.rename_job:
+            case R.id.rename_job_button:
                 this.renameJob();
                 return true;
-            case R.id.save_job:
+            case R.id.save_job_button:
                 if (Job.getCurrentJobName() == null) {
                     ViewUtils.showToast(this, this.getString(R.string.error_job_no_name));
                     return true;
@@ -119,7 +119,7 @@ public class JobsActivity extends TopoSuiteActivity implements
                             String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
                 }
                 return true;
-            case R.id.clear_job:
+            case R.id.clear_job_button:
                 this.clearJob();
                 return true;
             default:
@@ -132,7 +132,7 @@ public class JobsActivity extends TopoSuiteActivity implements
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int position = (int) info.id;
         switch (item.getItemId()) {
-            case R.id.delete_job:
+            case R.id.delete_button:
                 if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
                     JobsActivity.this.deleteJob(position);
                 } else {

@@ -168,7 +168,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.line_circle_intersection, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -212,7 +212,7 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
                     ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 }
                 return true;
-            case R.id.save_points:
+            case R.id.save_button:
                 if ((this.intersectionOne == null) || (this.intersectionTwo == null)) {
                     ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));
                     return true;

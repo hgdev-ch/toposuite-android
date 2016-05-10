@@ -63,7 +63,7 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.limit_displacement_results, menu);
+        this.getMenuInflater().inflate(R.menu.action_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -71,7 +71,7 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.save_points:
+            case R.id.save_button:
                 this.savePoint(this.limDispl.getNewPointX());
                 this.savePoint(this.limDispl.getNewPointY());
                 return true;

@@ -81,7 +81,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.circular_segmentation_results, menu);
+        this.getMenuInflater().inflate(R.menu.action_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -89,7 +89,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.save_points:
+            case R.id.save_button:
                 this.saveAllPoints();
                 return true;
             default:
@@ -101,7 +101,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.circular_segmentation_results_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_save, menu);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.save_point:
+            case R.id.save_button:
                 this.savePoint(info.position);
                 return true;
             default:

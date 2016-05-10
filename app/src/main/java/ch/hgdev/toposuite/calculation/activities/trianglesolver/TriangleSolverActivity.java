@@ -88,7 +88,7 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.triangle_solver_menu, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation_clear, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

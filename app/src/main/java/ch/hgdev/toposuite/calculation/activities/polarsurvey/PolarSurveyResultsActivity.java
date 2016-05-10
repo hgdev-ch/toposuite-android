@@ -63,7 +63,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
+        this.getMenuInflater().inflate(R.menu.action_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -71,7 +71,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.save_points:
+            case R.id.save_button:
                 this.saveAllPoints();
                 return true;
             default:
@@ -83,7 +83,7 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.calculations_points_list_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_delete_save, menu);
     }
 
     @Override
@@ -91,14 +91,14 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.save_point:
+            case R.id.save_button:
                 if (this.savePoint(info.position)) {
                     ViewUtils.showToast(this,
                             this.getString(R.string.point_add_success));
                 }
                 this.adapter.notifyDataSetChanged();
                 return true;
-            case R.id.delete_point:
+            case R.id.delete_button:
                 this.adapter.remove(this.adapter.getItem(info.position));
                 this.adapter.notifyDataSetChanged();
                 return true;

@@ -155,6 +155,13 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         });
 
 
+        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LeveOrthoActivity.this.showEditMeasureDialog(position);
+            }
+        });
+
         this.addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
@@ -223,7 +230,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.run_calculation_action, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -287,7 +294,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.leve_ortho_measures_list_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_delete, menu);
     }
 
     @Override
@@ -295,10 +302,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.edit_measure:
-                this.showEditMeasureDialog(info.position);
-                return true;
-            case R.id.delete_measure:
+            case R.id.delete_button:
                 this.adapter.remove(this.adapter.getItem(info.position));
                 this.adapter.notifyDataSetChanged();
                 return true;

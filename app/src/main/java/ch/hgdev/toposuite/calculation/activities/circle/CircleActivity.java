@@ -176,7 +176,7 @@ public class CircleActivity extends TopoSuiteActivity implements MergePointsDial
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
+        this.getMenuInflater().inflate(R.menu.action_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -211,7 +211,7 @@ public class CircleActivity extends TopoSuiteActivity implements MergePointsDial
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.save_points:
+            case R.id.save_button:
                 if ((this.pointASelectedPosition == 0)
                         || (this.pointBSelectedPosition == 0)
                         || (this.pointCSelectedPosition == 0)

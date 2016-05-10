@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -50,6 +51,13 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
         this.addButton = (FloatingActionButton) this.findViewById(R.id.add_determination_button);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
+
+        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FreeStationActivity.this.showEditMeasureDialog(position);
+            }
+        });
 
         this.addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
@@ -108,7 +116,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.run_calculation_action, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -121,7 +129,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.leve_ortho_measures_list_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_delete, menu);
     }
 
     @Override
@@ -129,10 +137,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.edit_measure:
-                this.showEditMeasureDialog(info.position);
-                return true;
-            case R.id.delete_measure:
+            case R.id.delete_button:
                 this.adapter.remove(this.adapter.getItem(info.position));
                 this.adapter.notifyDataSetChanged();
                 return true;

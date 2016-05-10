@@ -71,7 +71,7 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.calculation_results_points_menu, menu);
+        this.getMenuInflater().inflate(R.menu.action_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -80,7 +80,7 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.save_points:
+            case R.id.save_button:
                 if (SharedResources.getSetOfPoints().find(
                         this.ppoal.getProjPt().getNumber()) == null) {
                     SharedResources.getSetOfPoints().add(this.ppoal.getProjPt());

@@ -137,7 +137,7 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.main, menu);
+        this.getMenuInflater().inflate(R.menu.action_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -156,7 +156,7 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
         }
 
         switch (item.getItemId()) {
-            case R.id.toggle_right_menu:
+            case R.id.toggle_right_menu_button:
                 if (this.drawerLayout.isDrawerVisible(Gravity.LEFT)) {
                     this.drawerLayout.closeDrawer(Gravity.LEFT);
                 }

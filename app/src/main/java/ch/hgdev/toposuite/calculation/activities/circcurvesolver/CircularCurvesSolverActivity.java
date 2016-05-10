@@ -82,7 +82,7 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        this.getMenuInflater().inflate(R.menu.circular_curves_solver, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation_clear, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

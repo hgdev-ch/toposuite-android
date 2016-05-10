@@ -380,7 +380,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.lines_intersection, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -424,7 +424,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
             case R.id.run_calculation_button:
                 this.runCalculation();
                 return true;
-            case R.id.save_point:
+            case R.id.save_button:
                 // check if the user has supplied a point number
                 if ((this.lineIntersec == null) || (this.pointNumberEditText.length() == 0)) {
                     ViewUtils.showToast(this, this.getString(R.string.error_no_points_to_save));

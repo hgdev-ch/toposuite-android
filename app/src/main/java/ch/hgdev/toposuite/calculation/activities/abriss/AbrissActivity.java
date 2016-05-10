@@ -58,13 +58,6 @@ public class AbrissActivity extends TopoSuiteActivity implements
         this.orientationsListView = (ListView) this.findViewById(R.id.orientations_list);
         this.addButton = (FloatingActionButton) this.findViewById(R.id.add_orientation_button);
 
-        this.orientationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AbrissActivity.this.showEditOrientationDialog(position);
-            }
-        });
-
         this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -81,6 +74,13 @@ public class AbrissActivity extends TopoSuiteActivity implements
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // actually nothing
+            }
+        });
+
+        this.orientationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AbrissActivity.this.showEditOrientationDialog(position);
             }
         });
 
@@ -134,7 +134,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.run_calculation_action, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -197,7 +197,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.orientations_list_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_delete, menu);
     }
 
     @Override
@@ -205,7 +205,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.delete_calculation:
+            case R.id.delete_button:
                 this.adapter.remove(this.adapter.getItem(info.position));
                 this.adapter.notifyDataSetChanged();
                 return true;

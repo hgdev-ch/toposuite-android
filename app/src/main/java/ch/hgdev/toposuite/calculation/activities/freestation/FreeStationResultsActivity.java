@@ -70,7 +70,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.free_station_results, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -78,14 +78,14 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.abriss_results_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_toggle, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.save_points:
+            case R.id.save_button:
                 this.savePoint(this.freeStation.getStationResult());
                 return true;
             case R.id.run_calculation_button:
@@ -114,7 +114,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.toggle_measure:
+            case R.id.toggle_button:
                 this.freeStation.getResults().get(info.position).toggle();
                 this.adapter.notifyDataSetChanged();
                 return true;

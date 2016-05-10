@@ -139,7 +139,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.points_manager, menu);
+        this.getMenuInflater().inflate(R.menu.action_points_manager, menu);
 
         MenuItem itemSearch = menu.findItem(R.id.search_point_button);
         SearchManager sm = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
@@ -168,7 +168,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             }
         });
 
-        MenuItem itemShare = menu.findItem(R.id.menu_item_share);
+        MenuItem itemShare = menu.findItem(R.id.share_job_button);
         this.shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(itemShare);
         this.updateShareIntent();
 
@@ -215,7 +215,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.points_list_row_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_delete, menu);
     }
 
     @Override
@@ -223,7 +223,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         Point point;
         switch (item.getItemId()) {
-            case R.id.delete_point:
+            case R.id.delete_button:
                 point = SharedResources.getSetOfPoints().get((int) info.id);
                 this.adapter.remove(point);
                 this.adapter.notifyDataSetChanged();

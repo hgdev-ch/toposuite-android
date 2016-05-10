@@ -68,7 +68,7 @@ public class HistoryActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.history, menu);
+        this.getMenuInflater().inflate(R.menu.action_delete, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -77,7 +77,7 @@ public class HistoryActivity extends TopoSuiteActivity {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.delete_history_button:
+            case R.id.delete_button:
                 this.clearHistory();
                 return true;
             default:
@@ -89,7 +89,7 @@ public class HistoryActivity extends TopoSuiteActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.history_table_row_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_delete, menu);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class HistoryActivity extends TopoSuiteActivity {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.delete_calculation:
+            case R.id.delete_button:
                 Calculation calc = SharedResources.getCalculationsHistory().get((int) info.id);
                 this.adapter.remove(calc);
                 this.adapter.notifyDataSetChanged();

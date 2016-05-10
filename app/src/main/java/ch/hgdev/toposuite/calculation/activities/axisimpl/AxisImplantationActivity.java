@@ -264,7 +264,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.run_calculation_action, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -272,7 +272,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.leve_ortho_measures_list_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_delete, menu);
     }
 
     @Override
@@ -318,7 +318,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.delete_measure:
+            case R.id.delete_button:
                 this.adapter.remove(this.adapter.getItem(info.position));
                 this.adapter.notifyDataSetChanged();
                 return true;

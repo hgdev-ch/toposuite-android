@@ -74,7 +74,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.run_calculation_action, menu);
+        this.getMenuInflater().inflate(R.menu.action_run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -82,14 +82,14 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.abriss_results_context_menu, menu);
+        inflater.inflate(R.menu.context_list_row_toggle, menu);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.toggle_measure:
+            case R.id.toggle_button:
                 this.abriss.getResults().get(info.position).toggle();
                 this.adapter.notifyDataSetChanged();
                 return true;
