@@ -33,6 +33,7 @@ import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CalculationType;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.calculation.activities.axisimpl.MeasureDialogFragment.MeasureDialogListener;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.points.Point;
@@ -158,6 +159,13 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // nothing
+            }
+        });
+
+        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AxisImplantationActivity.this.showEditMeasureDialog(position);
             }
         });
 
@@ -311,9 +319,6 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.edit_measure:
-                this.showEditMeasureDialog(info.position);
-                return true;
             case R.id.delete_measure:
                 this.adapter.remove(this.adapter.getItem(info.position));
                 this.adapter.notifyDataSetChanged();
