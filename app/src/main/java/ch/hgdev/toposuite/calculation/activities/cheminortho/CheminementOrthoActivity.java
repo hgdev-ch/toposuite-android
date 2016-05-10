@@ -25,6 +25,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
 import ch.hgdev.toposuite.calculation.OrthogonalBase;
+import ch.hgdev.toposuite.calculation.activities.axisimpl.AxisImplantationActivity;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.AddMeasureDialogFragment.AddMeasureDialogListener;
 import ch.hgdev.toposuite.calculation.activities.cheminortho.EditMeasureDialogFragment.EditMeasureDialogListener;
 import ch.hgdev.toposuite.history.HistoryActivity;
@@ -118,6 +119,13 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // actually nothing
+            }
+        });
+
+        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CheminementOrthoActivity.this.showEditMeasureDialog(position);
             }
         });
 
@@ -246,9 +254,6 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
-            case R.id.edit_measure:
-                this.showEditMeasureDialog(info.position);
-                return true;
             case R.id.delete_measure:
                 this.adapter.remove(this.adapter.getItem(info.position));
                 this.adapter.notifyDataSetChanged();
