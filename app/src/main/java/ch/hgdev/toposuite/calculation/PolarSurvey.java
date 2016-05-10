@@ -106,9 +106,13 @@ public class PolarSurvey extends Calculation {
             double hz = MathUtils.gradToRad(MathUtils.modulo400(m.getHorizDir()));
 
             double horizDist = Math.sin(zenAngle) * m.getDistance();
-            horizDist += m.getLonDepl();
-            hz = hz + Math.atan(m.getLatDepl() / horizDist);
-            horizDist = MathUtils.pythagoras(horizDist, m.getLatDepl());
+            if (!MathUtils.isIgnorable(m.getLonDepl())) {
+                horizDist += m.getLonDepl();
+            }
+            if (!MathUtils.isIgnorable(m.getLatDepl())) {
+                hz += Math.atan(m.getLatDepl() / horizDist);
+                horizDist = MathUtils.pythagoras(horizDist, m.getLatDepl());
+            }
 
             double east = this.station.getEast() + (Math.sin(this.unknownOrientation + hz) * horizDist);
             double north = this.station.getNorth() + (Math.cos(this.unknownOrientation + hz) * horizDist);
