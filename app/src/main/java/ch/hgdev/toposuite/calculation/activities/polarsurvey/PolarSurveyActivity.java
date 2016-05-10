@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.calculation.activities.polarsurvey;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -69,6 +70,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     private EditText iEditText;
     private EditText unknownOrientEditText;
     private ListView determinationsListView;
+    private FloatingActionButton addButton;
     private ArrayListOfDeterminationsAdapter adapter;
     private CheckBox z0CheckBox;
 
@@ -95,6 +97,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         this.unknownOrientEditText = (EditText) this.findViewById(R.id.unknown_orientation);
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.determinationsListView = (ListView) this.findViewById(R.id.determinations_list);
+        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_orientation_button);
         this.z0CheckBox = (CheckBox) this.findViewById(R.id.checkbox_z0);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
@@ -120,6 +123,15 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                 // actually nothing
             }
         });
+
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  PolarSurveyActivity.this.showAddDeterminationDialog();
+                                              }
+                                          }
+        );
+
 
         // check if we create a new polar survey calculation or if we modify an
         // existing one.
@@ -211,7 +223,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.polar_survey, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -247,9 +259,6 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.add_determination_button:
-                this.showAddDeterminationDialog();
-                return true;
             case R.id.run_calculation_button:
                 if (this.checkInputs()) {
                     this.showPolarSurveyResultActivity();
