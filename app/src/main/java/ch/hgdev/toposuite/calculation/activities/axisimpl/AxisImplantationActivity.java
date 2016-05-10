@@ -257,7 +257,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.axis_implantation, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

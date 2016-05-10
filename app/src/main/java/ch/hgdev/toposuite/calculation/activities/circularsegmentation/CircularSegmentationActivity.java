@@ -133,7 +133,7 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.circular_segmentation, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

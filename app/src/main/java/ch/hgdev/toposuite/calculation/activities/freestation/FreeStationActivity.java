@@ -21,7 +21,6 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
-import ch.hgdev.toposuite.calculation.activities.abriss.AbrissActivity;
 import ch.hgdev.toposuite.history.HistoryActivity;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -109,7 +108,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.free_station, menu);
+        this.getMenuInflater().inflate(R.menu.run_calculation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
