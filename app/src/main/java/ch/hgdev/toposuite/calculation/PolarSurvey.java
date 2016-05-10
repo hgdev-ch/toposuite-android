@@ -73,7 +73,7 @@ public class PolarSurvey extends Calculation {
         this.determinations = new ArrayList<>();
         this.results = new ArrayList<>();
         this.station = _station;
-        this.unknownOrientation = MathUtils.gradToRad(MathUtils.modulo400(_unknownOrientation));
+        this.unknownOrientation = _unknownOrientation;
         this.instrumentHeight = _instrumentHeight;
     }
 
@@ -96,6 +96,8 @@ public class PolarSurvey extends Calculation {
         // clear any previously computed results
         this.results.clear();
 
+        double z0 = MathUtils.gradToRad(MathUtils.modulo400(this.unknownOrientation));
+
         for (Measure m : this.determinations) {
             // zenithal angle value is optional, needs to be 100.0 by default
             if (MathUtils.isIgnorable(m.getZenAngle())) {
@@ -114,8 +116,8 @@ public class PolarSurvey extends Calculation {
                 horizDist = MathUtils.pythagoras(horizDist, m.getLatDepl());
             }
 
-            double east = this.station.getEast() + (Math.sin(this.unknownOrientation + hz) * horizDist);
-            double north = this.station.getNorth() + (Math.cos(this.unknownOrientation + hz) * horizDist);
+            double east = this.station.getEast() + (Math.sin(z0 + hz) * horizDist);
+            double north = this.station.getNorth() + (Math.cos(z0 + hz) * horizDist);
 
             double altitude;
             if (!MathUtils.isIgnorable(this.instrumentHeight) && !MathUtils.isIgnorable(m.getS())) {

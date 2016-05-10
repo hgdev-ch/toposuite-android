@@ -250,4 +250,49 @@ public class TestPolarSurvey extends CalculationTest {
         Assert.assertEquals("229.440", this.df3.format(r9.getNorth()));
         Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r9.getAltitude());
     }
+
+    /**
+     * This is a regression test. We want to make sure that we obtain the same results when we use
+     * setters and a parameterless constructor as when we use a comprehensive constructor.
+     */
+    public void testSetters() {
+        Point station = new Point("1", 600.0, 200.0, MathUtils.IGNORE_DOUBLE, true);
+        double i = MathUtils.IGNORE_DOUBLE;
+        double z0 = 59.03;
+
+        Measure m = new Measure(null, 120.01, MathUtils.IGNORE_DOUBLE, 20.002);
+
+        PolarSurvey ps = new PolarSurvey(false);
+        ps.setStation(station);
+        ps.setInstrumentHeight(i);
+        ps.setUnknownOrientation(z0);
+        ps.getDeterminations().add(m);
+
+        try {
+            ps.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        Result r = ps.getResults().get(0);
+
+        Assert.assertEquals("606.467", this.df3.format(r.getEast()));
+        Assert.assertEquals("181.072", this.df3.format(r.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r.getAltitude());
+
+        ps = new PolarSurvey(station, z0, i, false);
+        ps.getDeterminations().add(m);
+
+        try {
+            ps.compute();
+        } catch (CalculationException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        r = ps.getResults().get(0);
+
+        Assert.assertEquals("606.467", this.df3.format(r.getEast()));
+        Assert.assertEquals("181.072", this.df3.format(r.getNorth()));
+        Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r.getAltitude());
+    }
 }
