@@ -84,9 +84,15 @@ public class Circle extends Calculation {
     @Override
     public String exportToJSON() throws JSONException {
         JSONObject jo = new JSONObject();
-        jo.put(Circle.POINT_A, this.pointA.getNumber());
-        jo.put(Circle.POINT_B, this.pointB.getNumber());
-        jo.put(Circle.POINT_C, this.pointC.getNumber());
+        if (this.pointA != null) {
+            jo.put(Circle.POINT_A, this.pointA.getNumber());
+        }
+        if (this.pointB != null) {
+            jo.put(Circle.POINT_B, this.pointB.getNumber());
+        }
+        if (this.pointC != null) {
+            jo.put(Circle.POINT_C, this.pointC.getNumber());
+        }
         jo.put(Circle.POINT_NUMBER, this.pointNumber);
 
         return jo.toString();

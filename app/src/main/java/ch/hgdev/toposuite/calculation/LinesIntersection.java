@@ -234,10 +234,18 @@ public class LinesIntersection extends Calculation {
     public String exportToJSON() throws JSONException {
         JSONObject jo = new JSONObject();
 
-        jo.put(LinesIntersection.P1D1_NUMBER, this.p1D1.getNumber());
-        jo.put(LinesIntersection.P2D1_NUMBER, this.p2D1.getNumber());
-        jo.put(LinesIntersection.P1D2_NUMBER, this.p1D2.getNumber());
-        jo.put(LinesIntersection.P2D2_NUMBER, this.p2D2.getNumber());
+        if (this.p1D1 != null) {
+            jo.put(LinesIntersection.P1D1_NUMBER, this.p1D1.getNumber());
+        }
+        if (this.p2D1 != null) {
+            jo.put(LinesIntersection.P2D1_NUMBER, this.p2D1.getNumber());
+        }
+        if (this.p1D2 != null) {
+            jo.put(LinesIntersection.P1D2_NUMBER, this.p1D2.getNumber());
+        }
+        if (this.p2D2 != null) {
+            jo.put(LinesIntersection.P2D2_NUMBER, this.p2D2.getNumber());
+        }
         jo.put(LinesIntersection.DISPL_D1, this.displacementD1);
         jo.put(LinesIntersection.DISPL_D2, this.displacementD2);
         jo.put(LinesIntersection.DIST_D1, this.distanceP1D1);

@@ -105,10 +105,18 @@ public class LimitDisplacement extends Calculation {
     @Override
     public String exportToJSON() throws JSONException {
         JSONObject jo = new JSONObject();
-        jo.put(LimitDisplacement.POINT_A, this.pointA.getNumber());
-        jo.put(LimitDisplacement.POINT_B, this.pointB.getNumber());
-        jo.put(LimitDisplacement.POINT_C, this.pointC.getNumber());
-        jo.put(LimitDisplacement.POINT_D, this.pointD.getNumber());
+        if (this.pointA != null) {
+            jo.put(LimitDisplacement.POINT_A, this.pointA.getNumber());
+        }
+        if (this.pointB != null) {
+            jo.put(LimitDisplacement.POINT_B, this.pointB.getNumber());
+        }
+        if (this.pointC != null) {
+            jo.put(LimitDisplacement.POINT_C, this.pointC.getNumber());
+        }
+        if (this.pointD != null) {
+            jo.put(LimitDisplacement.POINT_D, this.pointD.getNumber());
+        }
         jo.put(LimitDisplacement.SURFACE, this.surface);
         jo.put(LimitDisplacement.POINT_X_NUMBER, this.pointXNumber);
         jo.put(LimitDisplacement.POINT_Y_NUMBER, this.pointYNumber);

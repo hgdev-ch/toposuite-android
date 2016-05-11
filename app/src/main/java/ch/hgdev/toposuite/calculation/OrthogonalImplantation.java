@@ -116,7 +116,9 @@ public class OrthogonalImplantation extends Calculation {
         if (this.measures.size() > 0) {
             JSONArray measuresArray = new JSONArray();
             for (Point p : this.measures) {
-                measuresArray.put(p.getNumber());
+                if (p != null) {
+                    measuresArray.put(p.getNumber());
+                }
             }
 
             json.put(OrthogonalImplantation.MEASURES, measuresArray);

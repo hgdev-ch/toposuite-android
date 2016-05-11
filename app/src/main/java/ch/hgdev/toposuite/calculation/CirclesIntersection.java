@@ -181,8 +181,12 @@ public class CirclesIntersection extends Calculation {
 
         json.put(CirclesIntersection.FIRST_RADIUS, this.radiusFirst);
         json.put(CirclesIntersection.SECOND_RADIUS, this.radiusSecond);
-        json.put(CirclesIntersection.CENTER_FIRST_NUMBER, this.centerFirst.getNumber());
-        json.put(CirclesIntersection.CENTER_SECOND_NUMBER, this.centerSecond.getNumber());
+        if (this.centerFirst != null) {
+            json.put(CirclesIntersection.CENTER_FIRST_NUMBER, this.centerFirst.getNumber());
+        }
+        if (this.centerSecond != null) {
+            json.put(CirclesIntersection.CENTER_SECOND_NUMBER, this.centerSecond.getNumber());
+        }
 
         return json.toString();
     }

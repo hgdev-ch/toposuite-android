@@ -254,12 +254,18 @@ public class LineCircleIntersection extends Calculation {
     public String exportToJSON() throws JSONException {
         JSONObject json = new JSONObject();
 
-        json.put(LineCircleIntersection.LINE_POINT_ONE_NUMBER, this.p1L.getNumber());
-        json.put(LineCircleIntersection.LINE_POINT_TWO_NUMBER, this.p2L.getNumber());
+        if (this.p1L != null) {
+            json.put(LineCircleIntersection.LINE_POINT_ONE_NUMBER, this.p1L.getNumber());
+        }
+        if (this.p2L != null) {
+            json.put(LineCircleIntersection.LINE_POINT_TWO_NUMBER, this.p2L.getNumber());
+        }
         json.put(LineCircleIntersection.LINE_DISPLACEMENT, this.displacementL);
         json.put(LineCircleIntersection.LINE_GISEMENT, this.gisementL);
         json.put(LineCircleIntersection.LINE_DISTANCE, this.distanceL);
-        json.put(LineCircleIntersection.CIRCLE_POINT_CENTER_NUMBER, this.centerC.getNumber());
+        if (this.centerC != null) {
+            json.put(LineCircleIntersection.CIRCLE_POINT_CENTER_NUMBER, this.centerC.getNumber());
+        }
         json.put(LineCircleIntersection.CIRCLE_RADIUS, this.radiusC);
 
         return json.toString();
