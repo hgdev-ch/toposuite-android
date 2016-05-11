@@ -41,7 +41,7 @@ public class HelpActivity extends TopoSuiteActivity {
     private String getHelpFileName() {
         InputStream stream = null;
         try {
-            String helpFile = "help_" + App.locale.getLanguage() + ".html";
+            String helpFile = "help_" + App.getLocale().getLanguage() + ".html";
             stream = this.getAssets().open("help/" + helpFile);
             return helpFile;
         } catch (IOException exception) {

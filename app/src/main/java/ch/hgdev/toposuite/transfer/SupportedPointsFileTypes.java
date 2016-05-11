@@ -40,7 +40,7 @@ public enum SupportedPointsFileTypes {
      */
     public static boolean isSupported(String format) {
         try {
-            SupportedPointsFileTypes.valueOf(format.toUpperCase(App.locale));
+            SupportedPointsFileTypes.valueOf(format.toUpperCase(App.getLocale()));
         } catch (IllegalArgumentException e) {
             return false;
         }
@@ -59,7 +59,7 @@ public enum SupportedPointsFileTypes {
         SupportedPointsFileTypes type = null;
 
         try {
-            type = SupportedPointsFileTypes.valueOf(format.toUpperCase(App.locale));
+            type = SupportedPointsFileTypes.valueOf(format.toUpperCase(App.getLocale()));
         } catch (IllegalArgumentException e) {
             // nothing
         }

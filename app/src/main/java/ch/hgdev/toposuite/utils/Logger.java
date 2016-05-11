@@ -93,7 +93,7 @@ public class Logger {
      * @return formatted point
      */
     public static String formatPoint(Point point) {
-        return String.format(App.locale,
+        return String.format(App.getLocale(),
                 "Point: {No: %s,  E: %f, N: %f, A: %f, BP: %b}",
                 point.getNumber(), point.getEast(), point.getNorth(),
                 point.getAltitude(), point.isBasePoint());
@@ -116,7 +116,7 @@ public class Logger {
         }
 
         return String
-                .format(App.locale,
+                .format(App.getLocale(),
                         "Calculation: {ID: %d, Type: %s,  Description: %s, LastModification: %s, Input: '%s'}",
                         calculation.getId(), calculation.getType(),
                         calculation.getDescription(),

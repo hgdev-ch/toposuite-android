@@ -66,11 +66,6 @@ public class App extends Application {
     public static final String ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 
     /**
-     * Default locale (language).
-     */
-    public static final Locale locale = Locale.getDefault();
-
-    /**
      * Identify the current job name.
      */
     public static String currentJobName;
@@ -204,6 +199,10 @@ public class App extends Application {
 
     public static Context getContext() {
         return App.context;
+    }
+
+    public static Locale getLocale() {
+        return Locale.getDefault();
     }
 
     /*

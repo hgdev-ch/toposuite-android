@@ -227,7 +227,7 @@ public class DisplayUtils {
      * @return formatted centimeters.
      */
     public static String formatDifferences(double cm) {
-        return String.format(App.locale, "%.1f", cm);
+        return String.format(App.getLocale(), "%.1f", cm);
     }
 
     /**
@@ -254,7 +254,7 @@ public class DisplayUtils {
         if (d == null) {
             return "-";
         }
-        SimpleDateFormat df = new SimpleDateFormat(App.DATE_FORMAT, App.locale);
+        SimpleDateFormat df = new SimpleDateFormat(App.DATE_FORMAT, App.getLocale());
         return df.format(d);
     }
 
@@ -269,7 +269,7 @@ public class DisplayUtils {
         if (MathUtils.isIgnorable(d)) {
             return "-";
         }
-        SimpleDateFormat df = new SimpleDateFormat(App.DATE_FORMAT, App.locale);
+        SimpleDateFormat df = new SimpleDateFormat(App.DATE_FORMAT, App.getLocale());
         return df.format(d);
     }
 

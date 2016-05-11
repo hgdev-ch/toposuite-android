@@ -56,7 +56,7 @@ public class ViewUtils {
             DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
             symbols.setDecimalSeparator('.');
 
-            DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(App.locale);
+            DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(App.getLocale());
             df.setDecimalFormatSymbols(symbols);
 
             String input = ViewUtils.readString(editText);

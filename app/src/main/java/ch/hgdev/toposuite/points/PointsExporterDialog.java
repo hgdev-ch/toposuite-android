@@ -124,8 +124,8 @@ public class PointsExporterDialog extends DialogFragment {
 
         // at this point we are sure that the user has selected an format
         String ext = Files.getFileExtension(filename);
-        if (ext.isEmpty() || !ext.equals(format.toLowerCase(App.locale))) {
-            filename += "." + format.toLowerCase(App.locale);
+        if (ext.isEmpty() || !ext.equals(format.toLowerCase(App.getLocale()))) {
+            filename += "." + format.toLowerCase(App.getLocale());
             this.filenameEditText.setText(filename);
         }
 
