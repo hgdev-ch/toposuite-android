@@ -314,8 +314,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
                 this.gisementD1EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getGisementD1()));
 
                 if (this.point2D1SelectedPosition == 0) {
-                    RadioButton rb = (RadioButton) this.findViewById(R.id.mode_d1_gisement);
-                    rb.setChecked(true);
+                    this.modeGisementD1Radio.setChecked(true);
                 }
             }
 
@@ -323,8 +322,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
                 this.gisementD2EditText.setText(DisplayUtils.toStringForEditText(this.lineIntersec.getGisementD2()));
 
                 if (this.point2D2SelectedPosition == 0) {
-                    RadioButton rb = (RadioButton) this.findViewById(R.id.mode_d2_gisement);
-                    rb.setChecked(true);
+                    this.modeGisementD2Radio.setChecked(true);
                 }
             }
 
