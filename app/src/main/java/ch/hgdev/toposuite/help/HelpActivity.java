@@ -13,13 +13,20 @@ import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.utils.Logger;
 
 public class HelpActivity extends TopoSuiteActivity {
+    private ViewGroup layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_help);
-        ViewGroup layout = (ViewGroup) this.findViewById(R.id.help_layout);
-        layout.addView(this.loadHelp());
+        this.layout = (ViewGroup) this.findViewById(R.id.help_layout);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.layout.removeAllViews();
+        this.layout.addView(this.loadHelp());
     }
 
     @Override
