@@ -46,6 +46,7 @@ public class SettingsActivity extends TopoSuiteActivity {
             implements OnSharedPreferenceChangeListener {
         private static final String DIALOG_FRAGMENT_TAG = "android.support.v7.preference.PreferenceFragment.DIALOG";
         private static final String KEY_ABOUT = "screen_about_toposuite";
+        public static final String KEY_PREF_CSV_SEPARATOR = "csv_separator";
         public static final String KEY_PREF_NEGATIVE_COORDINATES = "switch_negative_coordinates";
         public static final String KEY_PREF_COORDINATES_DECIMAL_PRECISION = "coordinates_decimal_precision";
         public static final String KEY_PREF_COORDINATES_DISPLAY_PRECISION = "coordinates_display_precision";
@@ -98,6 +99,9 @@ public class SettingsActivity extends TopoSuiteActivity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            if (key.equals(SettingsFragment.KEY_PREF_CSV_SEPARATOR)) {
+                App.setCSVSeparator(prefs.getString(SettingsFragment.KEY_PREF_CSV_SEPARATOR, ","));
+            }
             if (key.equals(SettingsFragment.KEY_PREF_NEGATIVE_COORDINATES)) {
                 App.toggleNegativeCoordinates();
             }

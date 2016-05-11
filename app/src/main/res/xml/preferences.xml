@@ -2,6 +2,12 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.preference.PreferenceCategory android:title="@string/pref_general_title">
+        <ListPreference
+            android:defaultValue=","
+            android:entries="@array/csv_separator"
+            android:entryValues="@array/csv_separator"
+            android:key="csv_separator"
+            android:title="@string/pref_csv_separator"/>
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="switch_negative_coordinates"

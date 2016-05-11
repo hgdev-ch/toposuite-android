@@ -207,13 +207,13 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
     public String toCSV() {
         StringBuilder builder = new StringBuilder();
         builder.append("\"" + this.getNumber() + "\"");
-        builder.append(App.CSV_SEPARATOR);
+        builder.append(App.getCSVSeparator());
         builder.append(this.getEast());
-        builder.append(App.CSV_SEPARATOR);
+        builder.append(App.getCSVSeparator());
         builder.append(this.getNorth());
 
         if (!MathUtils.isZero(this.getAltitude())) {
-            builder.append(App.CSV_SEPARATOR);
+            builder.append(App.getCSVSeparator());
             builder.append(this.getAltitude());
         }
 
@@ -222,7 +222,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
 
     @Override
     public void createPointFromCSV(String csvLine) throws InvalidFormatException {
-        String[] tmp = csvLine.split(App.CSV_SEPARATOR);
+        String[] tmp = csvLine.split(App.getCSVSeparator());
 
         if (tmp.length >= 3) {
             try {

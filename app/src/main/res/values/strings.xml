@@ -284,6 +284,7 @@
 	<string name="pref_averages_display_precision">Decimals for averages</string>
 	<string name="pref_coordinates_decimal_precision">Decimal precision for coordinates</string>
 	<string name="pref_coordinates_display_precision">Decimals for coordinates</string>
+	<string name="pref_csv_separator">CSV separator</string>
 	<string name="pref_display_title">Display settings</string>
 	<string name="pref_distances_display_precision">Decimals for distances</string>
 	<string name="pref_gaps_display_precision">Decimals for gaps</string>

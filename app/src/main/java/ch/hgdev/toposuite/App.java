@@ -46,9 +46,8 @@ public class App extends Application {
 
     /**
      * CSV separator.
-     * TODO: use locale dependent separator but add an option in settings to override.
      */
-    public static final String CSV_SEPARATOR = ";";
+    private static String csvSeparator = ",";
 
     /**
      * Number of decimal to display with dealing with numbers.
@@ -175,6 +174,10 @@ public class App extends Application {
                 .getAbsolutePath() + "/" + App.PUBLIC_DIR;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        App.csvSeparator = prefs.getString(
+                SettingsActivity.SettingsFragment.KEY_PREF_CSV_SEPARATOR, ",");
+
         boolean allowNegativeCoordinate = prefs.getBoolean(
                 SettingsActivity.SettingsFragment.KEY_PREF_NEGATIVE_COORDINATES, true);
         if (allowNegativeCoordinate) {
@@ -228,6 +231,14 @@ public class App extends Application {
 
     public static void setCurrentJobName(String name) {
         App.currentJobName = name;
+    }
+
+    public static String getCSVSeparator() {
+        return App.csvSeparator;
+    }
+
+    public static void setCSVSeparator(String separator) {
+        App.csvSeparator = separator;
     }
 
     public static int getInputTypeCoordinate() {

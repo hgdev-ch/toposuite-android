@@ -282,6 +282,7 @@
 	<string name="pref_averages_display_precision">Décimales des moyennes</string>
 	<string name="pref_coordinates_decimal_precision">Précision décimale des coordonnées</string>
 	<string name="pref_coordinates_display_precision">Décimales des coordonnées</string>
+	<string name="pref_csv_separator">Séparateur CSV</string>
 	<string name="pref_display_title">Paramètres d\'affichage</string>
 	<string name="pref_distances_display_precision">Paramètres généraux</string>
 	<string name="pref_gaps_display_precision">Décimales des distances</string>
