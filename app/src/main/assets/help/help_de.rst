@@ -221,11 +221,14 @@ vN = Restfehler Nord auf den betreffenden Punkt
 
 vH = Restfehler der Höhe auf den betreffenden Punkt
 
-vα = Restfehler des Winkels auf den betreffenden Punkt
+.. vα = Restfehler des Winkels auf den betreffenden Punkt
 
-sZo = mittlerer Fehler einer Orientierungsunbekannten  
+.. sZo = mittlerer Fehler einer Orientierungsunbekannten
 
-vZo = mittlerer Fehler einer kompensierten Richtung  
+.. vZo = mittlerer Fehler einer kompensierten Richtung
+
+Maßstab = Massstabsfaktor der Berechnung der freien Station (Bruchteil und ppm).
+Der Massstabsfaktor bleibt aber bei 1 für alle weiteren Polarberechnungen.
 
 Polaraufnahme
 ^^^^^^^^^^^^^

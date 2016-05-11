@@ -221,11 +221,14 @@ vN = Erreur résiduelle Nord sur le point concerné
 
 vH = Erreur résiduelle en altimétrie sur le point concerné
 
-vα = Erreur résiduelle angulaire sur le point concerné
+.. vα = Erreur résiduelle angulaire sur le point concerné
 
-sZo = Erreur moyenne sur l'inconnue d'orientation
+.. sZo = Erreur moyenne sur l'inconnue d'orientation
 
-vZo = Erreur moyenne d'une direction compensée
+.. vZo = Erreur moyenne d'une direction compensée
+
+Echelle = Facteur d'échelle du calcul de la station libre (fraction et ppm).
+Ce facteur d'échelle reste à 1 pour tous les autres calculs polaires.
 
 Levé polaire
 ^^^^^^^^^^^^
