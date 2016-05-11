@@ -3,7 +3,6 @@ package ch.hgdev.toposuite.calculation.activities.abriss;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,12 +72,6 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.action_run_calculation, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = this.getMenuInflater();
@@ -92,35 +85,10 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
             case R.id.toggle_button:
                 this.abriss.getResults().get(info.position).toggle();
                 this.adapter.notifyDataSetChanged();
+                this.runCalculation();
                 return true;
             default:
                 return super.onContextItemSelected(item);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.run_calculation_button:
-                for (int i = 0; i < this.abriss.getResults().size(); i++) {
-                    if (this.abriss.getResults().get(i).isDeactivated()) {
-                        this.abriss.getMeasures().get(i).deactivate();
-                    } else {
-                        this.abriss.getMeasures().get(i).reactivate();
-                    }
-                }
-                try {
-                    this.abriss.compute();
-                    this.displayResults();
-                } catch (CalculationException e) {
-                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
-                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -139,5 +107,22 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         this.meanTextView.setText(DisplayUtils.formatAngle(this.abriss.getMean()));
         this.meanErrorDirectionTextView.setText("±" + DisplayUtils.formatCC(this.abriss.getMSE()));
         this.meanErrorCompensatedTextView.setText("±" + DisplayUtils.formatCC(this.abriss.getMeanErrComp()));
+    }
+
+    private void runCalculation() {
+        for (int i = 0; i < this.abriss.getResults().size(); i++) {
+            if (this.abriss.getResults().get(i).isDeactivated()) {
+                this.abriss.getMeasures().get(i).deactivate();
+            } else {
+                this.abriss.getMeasures().get(i).reactivate();
+            }
+        }
+        try {
+            this.abriss.compute();
+            this.displayResults();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+        }
     }
 }
