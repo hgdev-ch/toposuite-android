@@ -313,6 +313,7 @@ public class JobsActivity extends TopoSuiteActivity implements
                             public void onClick(DialogInterface dialog, int which) {
                                 Job.deleteCurrentJob();
                                 JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
+                                JobsActivity.this.updateShareIntent();
                             }
                         })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -333,6 +334,7 @@ public class JobsActivity extends TopoSuiteActivity implements
     public void onRenameCurrentJobSuccess(String message) {
         this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
         ViewUtils.showToast(this, message);
+        this.updateShareIntent();
     }
 
     @Override
@@ -351,7 +353,9 @@ public class JobsActivity extends TopoSuiteActivity implements
                     Logger.log(Logger.ErrLabel.IO_ERROR, "failed to create directory " + tmpTpstPath.getAbsolutePath());
                 }
             }
-            final File tmpTpstFile = new File(tmpTpstPath, "job.tpst");
+            String currentJobName = Job.getCurrentJobName();
+            String name = (currentJobName == null) || (currentJobName.isEmpty()) ? "job" : currentJobName;
+            final File tmpTpstFile = new File(tmpTpstPath, name + "." + Job.EXTENSION);
             FileOutputStream outputStream = new FileOutputStream(tmpTpstFile);
             outputStream.write(Job.getCurrentJobAsJson().getBytes());
             outputStream.close();
