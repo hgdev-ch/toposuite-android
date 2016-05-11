@@ -70,7 +70,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.getMenuInflater().inflate(R.menu.action_run_calculation_save, menu);
+        this.getMenuInflater().inflate(R.menu.action_save, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -88,22 +88,6 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
             case R.id.save_button:
                 this.savePoint(this.freeStation.getStationResult());
                 return true;
-            case R.id.run_calculation_button:
-                for (int i = 0; i < this.freeStation.getResults().size(); i++) {
-                    if (this.freeStation.getResults().get(i).isDeactivated()) {
-                        this.freeStation.getMeasures().get(i).deactivate();
-                    } else {
-                        this.freeStation.getMeasures().get(i).reactivate();
-                    }
-                }
-                try {
-                    this.freeStation.compute();
-                    this.refreshResults();
-                } catch (CalculationException e) {
-                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
-                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
-                }
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -117,6 +101,7 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
             case R.id.toggle_button:
                 this.freeStation.getResults().get(info.position).toggle();
                 this.adapter.notifyDataSetChanged();
+                this.runCalculation();
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -188,5 +173,22 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
         this.unknownOrientationTextView.setText(DisplayUtils.formatAngle(this.freeStation.getUnknownOrientation()));
 
         this.adapter.notifyDataSetChanged();
+    }
+
+    private void runCalculation() {
+        for (int i = 0; i < this.freeStation.getResults().size(); i++) {
+            if (this.freeStation.getResults().get(i).isDeactivated()) {
+                this.freeStation.getMeasures().get(i).deactivate();
+            } else {
+                this.freeStation.getMeasures().get(i).reactivate();
+            }
+        }
+        try {
+            this.freeStation.compute();
+            this.refreshResults();
+        } catch (CalculationException e) {
+            Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+            ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+        }
     }
 }
