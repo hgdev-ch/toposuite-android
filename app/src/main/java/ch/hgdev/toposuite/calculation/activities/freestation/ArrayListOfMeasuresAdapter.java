@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfMeasuresAdapter extends ArrayAdapter<Measure> {
@@ -43,7 +44,10 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<Measure> {
             TextView lonDeplTextView = (TextView) view.findViewById(R.id.lon_depl_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(determination.getPoint().getNumber());
+                Point p = determination.getPoint();
+                if (p != null) {
+                    numberTextView.setText(p.getNumber());
+                }
             }
 
             if (horizOrientTextView != null) {
