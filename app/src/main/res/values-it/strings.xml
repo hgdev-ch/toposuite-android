@@ -283,9 +283,9 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="pref_coordinates_display_precision">Decimali delle coordinate</string>
 	<string name="pref_csv_separator">Separatore CSV</string>
 	<string name="pref_display_title">Parametri di visualizzazione</string>
-	<string name="pref_distances_display_precision">Parametri generali</string>
-	<string name="pref_gaps_display_precision">Decimali delle distanze</string>
-	<string name="pref_general_title">Decimali degli scarti</string>
+	<string name="pref_distances_display_precision">Decimali delle distanze</string>
+	<string name="pref_gaps_display_precision">Decimali degli scarti</string>
+	<string name="pref_general_title">Parametri generali</string>
 	<string name="pref_negative_coordinates">Autorizzare coordinate negative</string>
 	<string name="pref_surfaces_display_precision">Decimali delle superfici</string>
 	<string name="prism_height">Altezza del prisma (S)</string>

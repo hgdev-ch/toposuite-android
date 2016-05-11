@@ -281,9 +281,9 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="pref_coordinates_display_precision">Anzahl Dezimale Koordinaten</string>
 	<string name="pref_csv_separator">CSV Separator</string>
 	<string name="pref_display_title">Anzeigeeinstellungen</string>
-	<string name="pref_distances_display_precision">Allgemeine Einstellungen</string>
-	<string name="pref_gaps_display_precision">Dezimalen der Distanzen</string>
-	<string name="pref_general_title">Dezimalen von Abweichungen</string>
+	<string name="pref_distances_display_precision">Dezimalen der Distanzen</string>
+	<string name="pref_gaps_display_precision">Dezimalen von Abweichungen</string>
+	<string name="pref_general_title">Allgemeine Einstellungen</string>
 	<string name="pref_negative_coordinates">Negative Koordinaten zu ermöglichen</string>
 	<string name="pref_surfaces_display_precision">Dezimalen der Oberflächen</string>
 	<string name="prism_height">Prismenhöhe (S)</string>
