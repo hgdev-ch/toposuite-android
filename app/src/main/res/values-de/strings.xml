@@ -256,7 +256,7 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="perpendicular">Senkrechte</string>
 	<string name="pgs_webpage_url">http://www.pro-geo.ch/</string>
 	<string name="pgs_webpage_url_short">www.pro-geo.ch</string>
-	<string name="pgsso">Professionnels Géomatique Suisse - Section Suisse Occidentale (PGS-SO)</string>
+	<string name="pgsso">Fachleute Geomatik Schweiz - Westschweiz Sektion (PGS-SO)</string>
 	<string name="point_already_exist">Der Punkt, den Sie registrieren wollen, existiert schon!</string>
 	<string name="point_to_project">Punkt zu projizieren</string>
 	<string name="point_1">Punkt A</string>
