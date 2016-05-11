@@ -177,6 +177,7 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="job_clear">Cancellare il lavoro corrente</string>
 	<string name="job_export">Esportare il lavoro corrente</string>
 	<string name="job_import">Importare un lavoro</string>
+	<string name="job_name">Nome del lavoro</string>
 	<string name="job_rename">Rinominare il lavoro corrente</string>
 	<string name="job_save">Salvare il lavoro corrente</string>
 	<string name="job_share">Dividere il lavoro corrente</string>

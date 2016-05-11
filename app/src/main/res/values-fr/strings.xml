@@ -178,6 +178,7 @@
 	<string name="job_clear">Effacer le job courant</string>
 	<string name="job_export">Exporter le job courant</string>
 	<string name="job_import">Importer un job</string>
+	<string name="job_name">Nom du job</string>
 	<string name="job_rename">Renommer le job courant</string>
 	<string name="job_save">Sauvegarder le job courant</string>
 	<string name="job_share">Partager le job courant</string>

@@ -180,6 +180,7 @@
 	<string name="job_clear">Clear current job</string>
 	<string name="job_export">Export current job</string>
 	<string name="job_import">Import job</string>
+	<string name="job_name">Job name</string>
 	<string name="job_rename">Rename current job</string>
 	<string name="job_save">Save current job</string>
 	<string name="job_share">Share current job</string>
