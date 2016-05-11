@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 public class ArrayListOfOrientationsAdapter extends ArrayAdapter<Measure> {
@@ -35,7 +36,10 @@ public class ArrayListOfOrientationsAdapter extends ArrayAdapter<Measure> {
             TextView zenAngleTextView = (TextView) view.findViewById(R.id.zen_angle_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(orientation.getPoint().getNumber());
+                Point p = orientation.getPoint();
+                if (p != null) {
+                    numberTextView.setText(p.getNumber());
+                }
             }
 
             if (horizOrientTextView != null) {
