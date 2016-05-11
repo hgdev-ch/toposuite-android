@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.calculation.Measure;
+import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 
 /**
@@ -42,7 +43,10 @@ public class ArrayListOfPointsWithSAdapter extends ArrayAdapter<Measure> {
             TextView sTextView = (TextView) view.findViewById(R.id.s_item);
 
             if (numberTextView != null) {
-                numberTextView.setText(m.getPoint().getNumber());
+                Point p = m.getPoint();
+                if (p != null) {
+                    numberTextView.setText(p.getNumber());
+                }
             }
             if (eastTextView != null) {
                 eastTextView.setText(DisplayUtils.formatCoordinate(m.getPoint().getEast()));
