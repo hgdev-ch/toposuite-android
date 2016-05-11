@@ -372,7 +372,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                     Logger.log(Logger.ErrLabel.IO_ERROR, "failed to create directory " + tmpPointsPath.getAbsolutePath());
                 }
             }
-            final File tmpPointsFile = new File(tmpPointsPath, "points.csv");
+            String currentJobName = Job.getCurrentJobName();
+            String name = (currentJobName == null) || (currentJobName.isEmpty()) ? "points" : currentJobName;
+            final File tmpPointsFile = new File(tmpPointsPath, name + ".csv");
             SharedResources.getSetOfPoints().saveAsCSV(this, tmpPointsFile);
             final Uri uri = FileProvider.getUriForFile(this, this.getPackageName(), tmpPointsFile);
             final Intent sendIntent = ShareCompat.IntentBuilder.from(this)
