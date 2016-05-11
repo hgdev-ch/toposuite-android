@@ -23,6 +23,7 @@ import java.util.List;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ExportDialogListener;
 import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
 import ch.hgdev.toposuite.utils.AppUtils;
@@ -84,6 +85,10 @@ public class PointsExporterDialog extends DialogFragment {
         this.formatSpinner.setAdapter(adapter);
 
         this.filenameEditText = (EditText) view.findViewById(R.id.filename_edit_text);
+        String name = Job.getCurrentJobName();
+        if ((name != null) && (!name.isEmpty())) {
+            this.filenameEditText.setText(name);
+        }
 
         return view;
     }
