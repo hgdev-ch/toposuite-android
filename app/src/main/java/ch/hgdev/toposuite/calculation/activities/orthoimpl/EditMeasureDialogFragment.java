@@ -21,7 +21,6 @@ import java.util.List;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
-import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
@@ -151,11 +150,9 @@ public class EditMeasureDialogFragment extends DialogFragment {
         ArrayAdapter<Point> a = new ArrayAdapter<>(this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
 
-        OrthogonalImplantation lo = (OrthogonalImplantation) bundle.getSerializable(OrthogonalImplantationActivity.ORTHO_IMPLANTATION);
 
         this.measurePosition = bundle.getInt(OrthogonalImplantationActivity.MEASURE_POSITION);
-        this.point = lo.getMeasures().get(this.measurePosition);
-
+        this.point = (Point) bundle.getSerializable(OrthogonalImplantationActivity.MEASURE_LABEL);
         this.layout = new LinearLayout(this.getActivity());
         this.layout.setOrientation(LinearLayout.VERTICAL);
     }

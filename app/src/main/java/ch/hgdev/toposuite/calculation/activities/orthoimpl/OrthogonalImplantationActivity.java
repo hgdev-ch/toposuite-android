@@ -37,6 +37,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     public static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
     public static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
     public static final String ORTHO_IMPLANTATION = "ortho_impl_position";
+    public static final String MEASURE_LABEL = "measure";
     public static final String MEASURE_POSITION = "measure_position";
 
     private static final String MEASURES_LIST_LABEL = "measures_list";
@@ -307,7 +308,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         EditMeasureDialogFragment dialog = new EditMeasureDialogFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable(OrthogonalImplantationActivity.ORTHO_IMPLANTATION, this.orthoImpl);
+        bundle.putSerializable(OrthogonalImplantationActivity.MEASURE_LABEL, this.adapter.getItem(pos));
         bundle.putInt(OrthogonalImplantationActivity.MEASURE_POSITION, pos);
 
         dialog.setArguments(bundle);
@@ -329,7 +330,8 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     @Override
     public void onDialogEdit(EditMeasureDialogFragment dialog) {
         Point p = this.adapter.getItem(dialog.getMeasurePosition());
-        p = dialog.getPoint();
+        this.adapter.remove(p);
+        this.adapter.insert(dialog.getPoint(), dialog.getMeasurePosition());
         this.adapter.notifyDataSetChanged();
 
         ViewUtils.unlockScreenOrientation(this);
