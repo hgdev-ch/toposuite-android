@@ -61,7 +61,6 @@ public class JobsActivity extends TopoSuiteActivity implements
         this.registerForContextMenu(this.jobsListView);
 
         this.jobNameTextView = (TextView) this.findViewById(R.id.current_job);
-        this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
 
         this.progress = new ProgressDialog(this);
         this.progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -73,6 +72,7 @@ public class JobsActivity extends TopoSuiteActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
         this.drawList();
     }
 
