@@ -26,12 +26,11 @@ import ch.hgdev.toposuite.utils.MathUtils;
  */
 public class CircularSegmentation extends Calculation {
 
-    public static final String CIRCLE_CENTER = "circle_center";
-    public static final String CIRCLE_START_POINT = "circle_start_point";
-    public static final String CIRCLE_END_POINT = "circle_end_point";
-    public static final String ARC_LENGTH = "arc_length";
-    public static final String NUMBER_OF_SEGMENTS = "number_of_segments";
-
+    private static final String CIRCLE_CENTER = "circle_center";
+    private static final String CIRCLE_START_POINT = "circle_start_point";
+    private static final String CIRCLE_END_POINT = "circle_end_point";
+    private static final String ARC_LENGTH = "arc_length";
+    private static final String NUMBER_OF_SEGMENTS = "number_of_segments";
     private static final String CIRCULAR_SEGMENTATION = "Circular segmentation: ";
 
     /**

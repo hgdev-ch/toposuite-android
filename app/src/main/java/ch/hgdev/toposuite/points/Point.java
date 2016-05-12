@@ -26,11 +26,11 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class Point implements DAOUpdater, DataExporter, DataImporter, Serializable {
-    public static final String NUMBER = "number";
-    public static final String EAST = "east";
-    public static final String NORTH = "north";
-    public static final String ALTITUDE = "altitude";
-    public static final String BASE_POINT = "base_point";
+    private static final String NUMBER = "number";
+    private static final String EAST = "east";
+    private static final String NORTH = "north";
+    private static final String ALTITUDE = "altitude";
+    private static final String BASE_POINT = "base_point";
 
     private String number;
     private double east;

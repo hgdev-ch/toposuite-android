@@ -17,7 +17,7 @@ import ch.hgdev.toposuite.utils.Logger;
  * @author HGdev
  */
 public class CalculationFactory {
-    public static final String CALCULATION_NOT_FOUND = "Calculation not found. Probably none existent or not implemented.";
+    private static final String CALCULATION_NOT_FOUND = "Calculation not found. Probably none existent or not implemented.";
 
     /**
      * Create a new calculation object and fill the input arguments with a

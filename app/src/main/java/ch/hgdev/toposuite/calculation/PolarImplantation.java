@@ -25,9 +25,9 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class PolarImplantation extends Calculation {
-    public static final String STATION_NUMBER = "station_number";
-    public static final String POINT_NUMBER = "station_number";
-    public static final String POINT_WITH_S_LIST = "points_with_s_list";
+    private static final String STATION_NUMBER = "station_number";
+    private static final String POINT_NUMBER = "station_number";
+    private static final String POINT_WITH_S_LIST = "points_with_s_list";
 
     private Point station;
     private Point point;

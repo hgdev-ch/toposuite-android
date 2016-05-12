@@ -30,15 +30,17 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class PointProjectionActivity extends TopoSuiteActivity {
+
     public static final String POINT_PROJ_POSITION = "point_proj_position";
-    public static final String POINT_SELECTED_POSITION = "point_selected_position";
-    public static final String POINT_1_SELECTED_POSITION = "point_1_selected_position";
-    public static final String POINT_2_SELECTED_POSITION = "point_2_selected_position";
     public static final String POINT_PROJ_CALCULATION = "point_projection_calculation";
-    public static final String DISPLACEMENT = "displacement";
-    public static final String POINT_NUMBER = "point_number";
-    public static final String GISEMENT = "gisement";
-    public static final String IS_MODE_LINE = "is_mode_line";
+
+    private static final String POINT_SELECTED_POSITION = "point_selected_position";
+    private static final String POINT_1_SELECTED_POSITION = "point_1_selected_position";
+    private static final String POINT_2_SELECTED_POSITION = "point_2_selected_position";
+    private static final String DISPLACEMENT = "displacement";
+    private static final String POINT_NUMBER = "point_number";
+    private static final String GISEMENT = "gisement";
+    private static final String IS_MODE_LINE = "is_mode_line";
 
     private Spinner point1Spinner;
     private Spinner point2Spinner;

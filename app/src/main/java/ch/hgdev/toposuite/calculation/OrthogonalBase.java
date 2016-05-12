@@ -13,10 +13,10 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class OrthogonalBase implements Serializable {
-    public static final String ORIGIN = "origin";
-    public static final String EXTREMITY = "extremity";
-    public static final String MEASURED_DISTANCE = "measured_distance";
-    public static final String SCALE_FACTOR_LABEL = "default_scale_factor";
+    private static final String ORIGIN = "origin";
+    private static final String EXTREMITY = "extremity";
+    private static final String MEASURED_DISTANCE = "measured_distance";
+    private static final String SCALE_FACTOR_LABEL = "default_scale_factor";
 
     private Point origin;
     private Point extremity;

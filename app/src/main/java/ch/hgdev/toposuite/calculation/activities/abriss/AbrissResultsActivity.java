@@ -92,7 +92,7 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
         }
     }
 
-    public void displayResults() {
+    private void displayResults() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.abriss.getStation().getNumber());
         builder.append(" (");

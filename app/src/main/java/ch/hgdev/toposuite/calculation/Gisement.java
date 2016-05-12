@@ -21,8 +21,8 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class Gisement extends Calculation {
-    public static final String ORIGIN_POINT_NUMBER = "origin_point_number";
-    public static final String ORIENTATION_POINT_NUMBER = "orientation_point_number";
+    private static final String ORIGIN_POINT_NUMBER = "origin_point_number";
+    private static final String ORIENTATION_POINT_NUMBER = "orientation_point_number";
 
     /**
      * The origin.

@@ -49,7 +49,7 @@ public class AddMeasureDialogFragment extends DialogFragment {
         void onDialogAdd(AddMeasureDialogFragment dialog);
     }
 
-    AddMeasureDialogListener listener;
+    private AddMeasureDialogListener listener;
 
     private LinearLayout layout;
     private Point point;

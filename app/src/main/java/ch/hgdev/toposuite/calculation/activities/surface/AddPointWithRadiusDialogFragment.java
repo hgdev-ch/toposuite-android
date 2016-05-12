@@ -54,7 +54,7 @@ public class AddPointWithRadiusDialogFragment extends DialogFragment {
         void onDialogAdd(AddPointWithRadiusDialogFragment dialog);
     }
 
-    AddPointWithRadiusDialogListener listener;
+    private AddPointWithRadiusDialogListener listener;
     private LinearLayout             layout;
     private Point                    point;
     private Spinner                  pointSpinner;

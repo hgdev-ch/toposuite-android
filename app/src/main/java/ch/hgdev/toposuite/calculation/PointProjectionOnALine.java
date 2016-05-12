@@ -18,13 +18,13 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class PointProjectionOnALine extends Calculation {
-    public static final String NUMBER = "number";
-    public static final String P1_NUMBER = "p1_number";
-    public static final String P2_NUMBER = "p2_number";
-    public static final String PT_TO_PROJ_NUMBER = "pt_to_proj_number";
-    public static final String DISPLACEMENT = "displacement";
-    public static final String GISEMENT = "gisement";
-    public static final String MODE = "mode";
+    private static final String NUMBER = "number";
+    private static final String P1_NUMBER = "p1_number";
+    private static final String P2_NUMBER = "p2_number";
+    private static final String PT_TO_PROJ_NUMBER = "pt_to_proj_number";
+    private static final String DISPLACEMENT = "displacement";
+    private static final String GISEMENT = "gisement";
+    private static final String MODE = "mode";
 
     private static final double DISTANCE = 20.0;
 

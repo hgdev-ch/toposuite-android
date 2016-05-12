@@ -22,11 +22,11 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class AxisImplantation extends Calculation {
-    public static final String STATION_NUMBER = "station_number";
-    public static final String ORIGIN_NUMBER = "origin_number";
-    public static final String EXTREMITY_NUMBER = "extremity_number";
-    public static final String Z0_CALCULATION_ID = "z0_calculation_id";
-    public static final String MEASURES_LIST = "measures_list";
+    private static final String STATION_NUMBER = "station_number";
+    private static final String ORIGIN_NUMBER = "origin_number";
+    private static final String EXTREMITY_NUMBER = "extremity_number";
+    private static final String Z0_CALCULATION_ID = "z0_calculation_id";
+    private static final String MEASURES_LIST = "measures_list";
 
     private long z0CalculationId;
 

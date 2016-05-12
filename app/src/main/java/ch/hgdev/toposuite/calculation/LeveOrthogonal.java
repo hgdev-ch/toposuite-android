@@ -17,8 +17,8 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class LeveOrthogonal extends Calculation {
-    public static final String ORTHOGONAL_BASE = "orthogonal_base";
-    public static final String MEASURES = "measures";
+    private static final String ORTHOGONAL_BASE = "orthogonal_base";
+    private static final String MEASURES = "measures";
 
     private OrthogonalBase orthogonalBase;
 

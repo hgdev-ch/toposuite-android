@@ -17,9 +17,8 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CheminementOrthogonal extends Calculation {
-    public static final String ORTHOGONAL_BASE = "orthogonal_base";
-    public static final String MEASURES = "measures";
-
+    private static final String ORTHOGONAL_BASE = "orthogonal_base";
+    private static final String MEASURES = "measures";
     private static final String DUMMY_POINT_NUMBER_1 = "42";
     private static final String DUMMY_POINT_NUMBER_2 = "22";
     private static final String DUMMY_POINT_NUMBER_3 = "3232";

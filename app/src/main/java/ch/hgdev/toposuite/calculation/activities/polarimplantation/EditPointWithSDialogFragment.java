@@ -51,7 +51,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
         void onDialogEdit(EditPointWithSDialogFragment dialog);
     }
 
-    EditPointWithSDialogListener listener;
+    private EditPointWithSDialogListener listener;
     private LinearLayout layout;
     private Point point;
     private Spinner pointSpinner;
@@ -192,7 +192,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
      * @return True if every EditTexts of the dialog have been filled, false
      * otherwise.
      */
-    protected boolean checkDialogInputs() {
+    private boolean checkDialogInputs() {
         return this.pointSpinner.getSelectedItemPosition() > 0;
     }
 

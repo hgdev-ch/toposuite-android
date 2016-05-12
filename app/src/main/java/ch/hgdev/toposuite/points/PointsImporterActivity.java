@@ -36,8 +36,8 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
     private Uri dataUri;
     private String errMsg;
     private String successMsg;
-    String mime;
-    String filename;
+    private String mime;
+    private String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

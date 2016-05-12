@@ -23,11 +23,11 @@ import ch.hgdev.toposuite.utils.MathUtils;
  * @author HGdev
  */
 public class PolarSurvey extends Calculation {
-    public static final String STATION_NUMBER = "station_number";
-    public static final String DETERMINATIONS_LIST = "determinations_list";
-    public static final String UNKNOWN_ORIENTATION = "unknown_orientation";
-    public static final String Z0_CALCULATION_ID = "z0_calculation_id";
-    public static final String INSTRUMENT_HEIGHT = "instrument_height";
+    private static final String STATION_NUMBER = "station_number";
+    private static final String DETERMINATIONS_LIST = "determinations_list";
+    private static final String UNKNOWN_ORIENTATION = "unknown_orientation";
+    private static final String Z0_CALCULATION_ID = "z0_calculation_id";
+    private static final String INSTRUMENT_HEIGHT = "instrument_height";
 
     private Point station;
     private double unknownOrientation;

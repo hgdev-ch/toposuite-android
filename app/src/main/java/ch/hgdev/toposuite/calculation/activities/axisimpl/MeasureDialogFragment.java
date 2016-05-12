@@ -19,8 +19,8 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class MeasureDialogFragment extends DialogFragment {
-    public static final String MEASURE = "measure";
-    public static final String IS_EDITION = "is_edition";
+    private static final String MEASURE = "measure";
+    private static final String IS_EDITION = "is_edition";
 
 
     /**
@@ -48,7 +48,7 @@ public class MeasureDialogFragment extends DialogFragment {
         void onDialogCancel();
     }
 
-    MeasureDialogListener listener;
+    private MeasureDialogListener listener;
     private String measureNumber;
     private double horizDir;
     private double distance;

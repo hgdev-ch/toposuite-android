@@ -42,7 +42,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
         void onDialogEdit(EditDeterminationDialogFragment dialog);
     }
 
-    EditDeterminationDialogListener listener;
+    private EditDeterminationDialogListener listener;
     private String determinationNo;
     private double horizDir;
     private double distance;

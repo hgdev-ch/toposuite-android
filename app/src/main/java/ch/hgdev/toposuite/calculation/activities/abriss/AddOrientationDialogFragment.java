@@ -58,7 +58,7 @@ public class AddOrientationDialogFragment extends DialogFragment {
         void onDialogAdd(AddOrientationDialogFragment dialog);
     }
 
-    AddOrientationDialogListener listener;
+    private AddOrientationDialogListener listener;
     private Spinner orientationSpinner;
     private TextView orientationView;
     private Point orientation;

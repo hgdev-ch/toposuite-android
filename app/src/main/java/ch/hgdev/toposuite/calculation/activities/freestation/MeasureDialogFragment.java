@@ -30,9 +30,9 @@ import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class MeasureDialogFragment extends DialogFragment {
-    public static final String IS_EDITION = "is_edition";
-    public static final String IS_MANDATORY = "is_mandatory";
-    public static final String MEASURE = "measure";
+    private static final String IS_EDITION = "is_edition";
+    private static final String IS_MANDATORY = "is_mandatory";
+    private static final String MEASURE = "measure";
 
     /**
      * The activity that creates an instance of MeasureDialogFragment must
@@ -59,7 +59,7 @@ public class MeasureDialogFragment extends DialogFragment {
         void onDialogCancel();
     }
 
-    MeasureDialogListener listener;
+    private MeasureDialogListener listener;
     private Point point;
     private double horizDir;
     private double distance;

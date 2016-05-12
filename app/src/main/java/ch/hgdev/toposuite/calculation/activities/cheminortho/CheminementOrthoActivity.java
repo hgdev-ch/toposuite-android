@@ -35,12 +35,12 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class CheminementOrthoActivity extends TopoSuiteActivity implements
         AddMeasureDialogListener, EditMeasureDialogListener {
 
-    public static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
-    public static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
     public static final String CHEMINEMENT_ORTHO = "cheminement_ortho";
     public static final String MEASURE_LABEL = "measure";
     public static final String MEASURE_POSITION = "measure_position";
 
+    private static final String ORIGIN_SELECTED_POSITION = "origin_selected_position";
+    private static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
     private static final String MEASURES_LIST_LABEL = "measures_list";
 
     private Spinner originSpinner;

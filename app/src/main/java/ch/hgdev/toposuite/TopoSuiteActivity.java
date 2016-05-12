@@ -175,7 +175,7 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
     /**
      * Create items in the right menu.
      */
-    public final void createRightMenuItems() {
+    private void createRightMenuItems() {
         SparseArray<CalculationGroup> groups = new SparseArray<>();
 
         CalculationGroup polarCalculation = new CalculationGroup(
@@ -269,7 +269,7 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
      *
      * @param activityClass Activity class
      */
-    public void startActivity(Class<?> activityClass) {
+    private void startActivity(Class<?> activityClass) {
         Intent newActivityIntent = new Intent(this, activityClass);
         this.startActivity(newActivityIntent);
     }

@@ -11,11 +11,11 @@ import ch.hgdev.toposuite.calculation.activities.circcurvesolver.CircularCurvesS
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class CircularCurvesSolver extends Calculation {
-    public static final String RADIUS = "radius";
-    public static final String ALPHA_ANGLE = "alpha_angle";
-    public static final String CHORD_OF = "chord_of";
-    public static final String TANGENT = "tangent";
-    public static final String ARROW = "arrow";
+    private static final String RADIUS = "radius";
+    private static final String ALPHA_ANGLE = "alpha_angle";
+    private static final String CHORD_OF = "chord_of";
+    private static final String TANGENT = "tangent";
+    private static final String ARROW = "arrow";
 
     private double radius;
     /**

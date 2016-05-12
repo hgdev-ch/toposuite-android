@@ -53,7 +53,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
         void onDialogEdit(EditPointWithRadiusDialogFragment dialog);
     }
 
-    EditPointWithRadiusDialogListener listener;
+    private EditPointWithRadiusDialogListener listener;
     private LinearLayout layout;
     private Point point;
     private Spinner pointSpinner;
@@ -65,10 +65,9 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
     private String positionAfter;
     private int position;
 
-    @Override
-    public
     @NonNull
-    Dialog onCreateDialog(Bundle savedInstanceState) {
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());

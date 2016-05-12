@@ -112,7 +112,7 @@ public class HistoryActivity extends TopoSuiteActivity {
     /**
      * Draw the list.
      */
-    public void drawList() {
+    private void drawList() {
         this.adapter = new ArrayAdapter<>(this, R.layout.history_list_item, SharedResources.getCalculationsHistory());
         this.list.setAdapter(this.adapter);
     }

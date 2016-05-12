@@ -28,11 +28,11 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  * @author HGdev
  */
 public abstract class Calculation implements Exportable, Importable, DAOUpdater, Serializable {
-    public static final String ID = "id";
-    public static final String TYPE = "type";
-    public static final String DESCRIPTION = "description";
-    public static final String LAST_MODIFICATION = "last_modification";
-    public static final String INPUT_DATA = "input_data";
+    private static final String ID = "id";
+    private static final String TYPE = "type";
+    private static final String DESCRIPTION = "description";
+    private static final String LAST_MODIFICATION = "last_modification";
+    private static final String INPUT_DATA = "input_data";
 
     /**
      * The ID used by the database.

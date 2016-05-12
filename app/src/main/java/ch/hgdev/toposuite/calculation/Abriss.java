@@ -16,8 +16,8 @@ import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 public class Abriss extends Calculation {
-    public static final String STATION_NUMBER = "station_number";
-    public static final String ORIENTATIONS_LIST = "orientations_list";
+    private static final String STATION_NUMBER = "station_number";
+    private static final String ORIENTATIONS_LIST = "orientations_list";
 
     private Point station;
     private final ArrayList<Measure> orientations;
