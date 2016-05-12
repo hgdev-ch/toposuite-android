@@ -32,7 +32,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.text.ParseException;
 import java.util.List;
 
 import ch.hgdev.toposuite.R;
@@ -243,7 +242,7 @@ public class JobsActivity extends TopoSuiteActivity implements
                     Job.renameCurrentJob(Files.getNameWithoutExtension(f.getName()));
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                } catch (JSONException | ParseException e) {
+                } catch (JSONException e) {
                     Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
                 } catch (SQLiteTopoSuiteException e) {
                     Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());

@@ -12,7 +12,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -134,7 +133,7 @@ public class Job {
         return jo.toString();
     }
 
-    public static void loadJobFromJSON(String json) throws JSONException, ParseException {
+    public static void loadJobFromJSON(String json) throws JSONException {
         JSONObject jo = new JSONObject(json);
 
         JSONObject settingsObject = jo.getJSONObject(Job.SETTINGS_KEY);

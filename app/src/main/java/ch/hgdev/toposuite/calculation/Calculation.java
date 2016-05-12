@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -226,7 +225,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
      * @param json JSON string that represents a Calculation.
      * @return A new Calculation.
      */
-    public static Calculation createCalculationFromJSON(String json) throws JSONException, ParseException {
+    public static Calculation createCalculationFromJSON(String json) throws JSONException {
         JSONObject jo = new JSONObject(json);
         long id = jo.getLong(Calculation.ID);
         String description = jo.getString(Calculation.DESCRIPTION);

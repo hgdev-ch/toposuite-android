@@ -18,7 +18,6 @@ import org.json.JSONException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.text.ParseException;
 import java.util.List;
 
 import ch.hgdev.toposuite.R;
@@ -134,7 +133,7 @@ public class JobImporterActivity extends TopoSuiteActivity implements ImportDial
                     Job.renameCurrentJob(Files.getNameWithoutExtension(jsonFile.getName()));
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                } catch (JSONException | ParseException e) {
+                } catch (JSONException e) {
                     Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
                 } catch (SQLiteTopoSuiteException e) {
                     Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
