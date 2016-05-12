@@ -25,7 +25,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<PolarImplantation.Re
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.polar_implantation_results_list_item, null);
+            view = inflater.inflate(R.layout.polar_implantation_results_list_item, parent, false);
         }
         PolarImplantation.Result result = this.getItem(position);
 

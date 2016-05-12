@@ -25,7 +25,7 @@ public class ArrayListOfDeterminationsAdapter extends ArrayAdapter<Measure> {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.determinations_list_item, null);
+            view = inflater.inflate(R.layout.determinations_list_item, parent, false);
         }
 
         Measure determination = this.getItem(position);

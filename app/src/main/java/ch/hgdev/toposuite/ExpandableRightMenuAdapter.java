@@ -49,7 +49,7 @@ public class ExpandableRightMenuAdapter extends BaseExpandableListAdapter {
 
         TextView text = null;
         if (convertView == null) {
-            convertView = this.inflater.inflate(R.layout.group_child_item, null);
+            convertView = this.inflater.inflate(R.layout.group_child_item, parent, false);
         }
 
         text = (TextView) convertView.findViewById(R.id.text_item);
@@ -111,7 +111,7 @@ public class ExpandableRightMenuAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = this.inflater.inflate(R.layout.group_item, null);
+            convertView = this.inflater.inflate(R.layout.group_item, parent, false);
         }
 
         TopoSuiteActivity.CalculationGroup group = (TopoSuiteActivity.CalculationGroup) this.getGroup(groupPosition);

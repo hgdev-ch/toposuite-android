@@ -25,7 +25,7 @@ public class ArrayListOfMeasuresAdapter extends ArrayAdapter<LeveOrthogonal.Meas
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.leve_ortho_measures_list_item, null);
+            view = inflater.inflate(R.layout.leve_ortho_measures_list_item, parent, false);
         }
 
         LeveOrthogonal.Measure measure = this.getItem(position);

@@ -29,7 +29,7 @@ public class ArrayListOfResultsAdapter extends ArrayAdapter<Abriss.Result> {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.abriss_results_list_item, null);
+            view = inflater.inflate(R.layout.abriss_results_list_item, parent, false);
         }
 
         Abriss.Result result = this.getItem(position);

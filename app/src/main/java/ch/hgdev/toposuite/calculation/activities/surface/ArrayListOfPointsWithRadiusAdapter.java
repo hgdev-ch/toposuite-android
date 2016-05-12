@@ -26,7 +26,7 @@ public class ArrayListOfPointsWithRadiusAdapter extends ArrayAdapter<Surface.Poi
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.points_with_radius_list_item, null);
+            view = inflater.inflate(R.layout.points_with_radius_list_item, parent, false);
         }
 
         PointWithRadius p = this.getItem(position);

@@ -33,7 +33,7 @@ public class ArrayListOfJobsAdapter extends ArrayAdapter<Job> {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.jobs_list_item, null);
+            view = inflater.inflate(R.layout.jobs_list_item, parent, false);
         }
 
         if (!this.jobs.isEmpty()) {

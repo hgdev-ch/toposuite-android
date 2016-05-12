@@ -29,9 +29,8 @@ public class ArrayListOfPointsAdapter extends ArrayAdapter<Point> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.points_without_altitude_and_class_list_item, null);
+            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.points_without_altitude_and_class_list_item, parent, false);
         }
 
         Point point = this.getItem(position);

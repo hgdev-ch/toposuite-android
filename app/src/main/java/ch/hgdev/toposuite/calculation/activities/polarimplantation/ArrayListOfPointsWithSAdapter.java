@@ -31,7 +31,7 @@ public class ArrayListOfPointsWithSAdapter extends ArrayAdapter<Measure> {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.points_with_s_list_item, null);
+            view = inflater.inflate(R.layout.points_with_s_list_item, parent, false);
         }
 
         Measure m = this.getItem(position);
