@@ -362,10 +362,8 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="vertex_angle">Angolo al vertice (β) [g]</string>
 	<string name="vertex_number">Vertice No</string>
 	<string name="vn_label">vN [cm]</string>
-	<string name="warning_import_file">Attenzione: Questa azione cancellerà tutti i punti e calcoli esistenti.</string>
-	<string name="warning_import_file_without_warning_label">Questa azione cancellerà tutti i punti e calcoli esistenti.</string>
-	<string name="warning_import_job">Attenzione: Questa azione cancellerà il job corrente</string>
-	<string name="warning_import_job_without_warning_label">Questa azione cancellerà il job corrente</string>
+	<string name="warning_import">Attenzione: Questa azione cancellerà il job corrente quindi cancellerà tutti i punti e calcoli esistenti.</string>
+	<string name="warning_import_without_warning">Questa azione cancellerà il job corrente quindi cancellerà tutti i punti e calcoli esistenti.</string>
 	<string name="with_support_from">Con l\'aiuto di</string>
 	<string name="yes">Si</string>
 	<string name="zenithal_angle_3dots">Angolo zenitale…</string>

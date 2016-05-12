@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/warning_import_file"
+            android:text="@string/warning_import"
             android:textColor="@color/warning" />
 
     </LinearLayout>

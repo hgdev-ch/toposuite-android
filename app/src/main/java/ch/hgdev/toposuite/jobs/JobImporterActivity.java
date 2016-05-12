@@ -95,7 +95,7 @@ public class JobImporterActivity extends TopoSuiteActivity implements ImportDial
     private void importJob() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.job_import)
-                .setMessage(R.string.warning_import_job_without_warning_label)
+                .setMessage(R.string.warning_import_without_warning)
                 .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.import_label,
                         new DialogInterface.OnClickListener() {

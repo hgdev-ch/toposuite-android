@@ -135,7 +135,7 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
     private void importFromExternalFile() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.import_label)
-                .setMessage(R.string.warning_import_file_without_warning_label)
+                .setMessage(R.string.warning_import_without_warning)
                 .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.import_label,
                         new DialogInterface.OnClickListener() {
