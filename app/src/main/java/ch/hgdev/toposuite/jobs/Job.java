@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
@@ -36,6 +37,7 @@ public class Job {
     private static final String APP_VERSION_NAME_KEY = "toposuite_name_version";
     private static final String APP_VERSION_CODE_KEY = "toposuite_code_version";
     private static final String SETTINGS_KEY = "settings";
+    private static final String CSV_SEPARATOR = "csv_separator";
     private static final String COORDINATE_PRECISION_KEY = "coordinate_precision";
     private static final String ANGLE_PRECISION_KEY = "angle_precision";
     private static final String DISTANCE_PRECISION_KEY = "distance_precision";
@@ -95,6 +97,8 @@ public class Job {
         jo.put(Job.APP_VERSION_CODE_KEY, AppUtils.getVersionCode());
 
         JSONObject settingsObject = new JSONObject();
+        settingsObject.put(Job.CSV_SEPARATOR,
+                App.getCSVSeparator());
         settingsObject.put(Job.COORDINATE_PRECISION_KEY,
                 App.getDecimalPrecisionForCoordinate());
         settingsObject.put(Job.ANGLE_PRECISION_KEY,
@@ -133,6 +137,20 @@ public class Job {
         JSONObject jo = new JSONObject(json);
 
         JSONObject settingsObject = jo.getJSONObject(Job.SETTINGS_KEY);
+
+        try {
+            String sep = settingsObject.getString(Job.CSV_SEPARATOR);
+            if (sep.length() == 1) {
+                for (String s : App.getContext().getResources().getStringArray(R.array.csv_separator)) {
+                    if (sep.equals(s)) {
+                        App.setCSVSeparator(sep);
+                        break;
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.RESOURCE_NOT_FOUND, e.getMessage());
+        }
 
         try {
             App.setDecimalPrecisionForCoordinate(
@@ -182,6 +200,8 @@ public class Job {
         // update the shared preferences with the new settings values
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(
                 App.getContext()).edit();
+        editor.putString(SettingsActivity.SettingsFragment.KEY_PREF_CSV_SEPARATOR,
+                App.getCSVSeparator());
         editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_COORDINATES_DISPLAY_PRECISION,
                 App.getDecimalPrecisionForCoordinate());
         editor.putInt(SettingsActivity.SettingsFragment.KEY_PREF_ANGLES_DISPLAY_PRECISION,
