@@ -73,7 +73,7 @@
 
             <EditText
                 android:id="@+id/unknown_orientation"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.86"
                 android:gravity="right|center_vertical"

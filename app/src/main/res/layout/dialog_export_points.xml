@@ -12,7 +12,7 @@
 
         <Spinner
             android:id="@+id/format_spinner"
-            android:layout_width="64dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.18" />
     </LinearLayout>
