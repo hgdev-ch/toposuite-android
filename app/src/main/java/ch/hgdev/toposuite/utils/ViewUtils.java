@@ -7,6 +7,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.EditText;
@@ -51,7 +53,7 @@ public class ViewUtils {
      * @param editText An EditText object
      * @return The value contained in the edit text as double.
      */
-    public static double readDouble(EditText editText) {
+    public static double readDouble(@Nullable EditText editText) {
         if ((editText != null) && (editText.length() > 0)) {
             DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
             symbols.setDecimalSeparator('.');
@@ -96,7 +98,7 @@ public class ViewUtils {
      * @param editText An EditText object
      * @return The value contained in the edit text as int.
      */
-    public static int readInt(EditText editText) {
+    public static int readInt(@Nullable EditText editText) {
         if ((editText != null) && (editText.length() > 0)) {
             String input = ViewUtils.readString(editText);
             // +4 should be parsed as 4 but Integer.parseInt does not handle this case...
@@ -119,7 +121,8 @@ public class ViewUtils {
      * @param editText An EditText object
      * @return The value in the edit text as a string or an empty string if it is empty.
      */
-    public static String readString(EditText editText) {
+    @NonNull
+    public static String readString(@Nullable EditText editText) {
         if ((editText != null) && (editText.length() > 0)) {
             return editText.getText().toString();
         }
@@ -129,11 +132,11 @@ public class ViewUtils {
     /**
      * Check if an EditText is empty or not.
      *
-     * @param editText The EditText to check.
+     * @param editText The EditText to check. If null, true is returned.
      * @return True if empty, false otherwise.
      */
-    public static boolean isEmpty(EditText editText) {
-        return editText.length() == 0;
+    public static boolean isEmpty(@Nullable EditText editText) {
+        return editText == null || editText.length() == 0;
     }
 
     /**
@@ -142,7 +145,7 @@ public class ViewUtils {
      * @param context      Calling context.
      * @param errorMessage Error message to display in the toast.
      */
-    public static void showToast(Context context, CharSequence errorMessage) {
+    public static void showToast(@NonNull Context context, @Nullable CharSequence errorMessage) {
         Toast toast = Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
@@ -153,7 +156,7 @@ public class ViewUtils {
      *
      * @param currentActivity Activity that performs the redirection.
      */
-    public static void redirectToPointsManagerActivity(Activity currentActivity) {
+    public static void redirectToPointsManagerActivity(@NonNull Activity currentActivity) {
         Intent pointsManagerIntent = new Intent(currentActivity, PointsManagerActivity.class);
         currentActivity.startActivity(pointsManagerIntent);
     }
@@ -163,7 +166,7 @@ public class ViewUtils {
      *
      * @param currentActivity Activity that request the lock.
      */
-    public static void lockScreenOrientation(Activity currentActivity) {
+    public static void lockScreenOrientation(@NonNull Activity currentActivity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         } else {
@@ -182,7 +185,7 @@ public class ViewUtils {
      *
      * @param currentActivity Activity that request the unlock.
      */
-    public static void unlockScreenOrientation(Activity currentActivity) {
+    public static void unlockScreenOrientation(@NonNull Activity currentActivity) {
         currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
@@ -192,7 +195,7 @@ public class ViewUtils {
      * @param context Context of the caller.
      * @return Theme accent color.
      */
-    public static int geAccentColor(final Context context) {
+    public static int geAccentColor(@NonNull final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
         return value.data;
