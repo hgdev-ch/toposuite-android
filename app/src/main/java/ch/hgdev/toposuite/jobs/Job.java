@@ -25,6 +25,7 @@ import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.settings.SettingsActivity;
 import ch.hgdev.toposuite.utils.AppUtils;
+import ch.hgdev.toposuite.utils.Logger;
 
 public class Job {
     public static final String EXTENSION = "tpst";
@@ -132,20 +133,51 @@ public class Job {
         JSONObject jo = new JSONObject(json);
 
         JSONObject settingsObject = jo.getJSONObject(Job.SETTINGS_KEY);
-        App.setDecimalPrecisionForCoordinate(
-                settingsObject.getInt(Job.COORDINATE_PRECISION_KEY));
-        App.setDecimalPrecisionForAngle(
-                settingsObject.getInt(Job.ANGLE_PRECISION_KEY));
-        App.setDecimalPrecisionForDistance(
-                settingsObject.getInt(Job.DISTANCE_PRECISION_KEY));
-        App.setDecimalPrecisionForAverage(
-                settingsObject.getInt(Job.AVERAGE_PRECISION_KEY));
-        App.setDecimalPrecisionForGap(
-                settingsObject.getInt(Job.GAP_PRECISION_KEY));
-        App.setDecimalPrecisionForSurface(
-                settingsObject.getInt(Job.SURFACE_PRECISION_KEY));
-        App.setCoordinateDecimalRounding(
-                settingsObject.getInt(Job.COORDINATE_ROUNDING));
+
+        try {
+            App.setDecimalPrecisionForCoordinate(
+                    settingsObject.getInt(Job.COORDINATE_PRECISION_KEY));
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.RESOURCE_NOT_FOUND, e.getMessage());
+        }
+
+        try {
+            App.setDecimalPrecisionForAngle
+                    (settingsObject.getInt(Job.ANGLE_PRECISION_KEY));
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.RESOURCE_NOT_FOUND, e.getMessage());
+        }
+
+        try {
+            App.setDecimalPrecisionForDistance(
+                    settingsObject.getInt(Job.DISTANCE_PRECISION_KEY));
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.RESOURCE_NOT_FOUND, e.getMessage());
+        }
+
+        try {
+            App.setDecimalPrecisionForAverage(
+                    settingsObject.getInt(Job.AVERAGE_PRECISION_KEY));
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.RESOURCE_NOT_FOUND, e.getMessage());
+        }
+
+        try {
+            App.setDecimalPrecisionForGap(
+                    settingsObject.getInt(Job.GAP_PRECISION_KEY));
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.RESOURCE_NOT_FOUND, e.getMessage());
+        }
+
+        try {
+            App.setDecimalPrecisionForSurface(
+                    settingsObject.getInt(Job.SURFACE_PRECISION_KEY));
+        } catch (JSONException e) {
+            Logger.log(Logger.WarnLabel.RESOURCE_NOT_FOUND, e.getMessage());
+        }
+
+        // this setting is mandatory
+        App.setCoordinateDecimalRounding(settingsObject.getInt(Job.COORDINATE_ROUNDING));
 
         // update the shared preferences with the new settings values
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(
