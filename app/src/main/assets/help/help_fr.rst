@@ -22,7 +22,7 @@ Toutes les distances à introduire doivent être en "Mètres".
 
 Les distances que le programme attend sont toutes des distances inclinées.
 Si l'angle zénithal n'est pas indiqué, le programme considère que c'est une
-distance horizontale.
+distance horizontale (angle à 100 [g] par défaut).
 
 ATTENTION à valider vos dernières valeurs dans les masques de saisies pour que
 le programme prenne en compte cette valeur. Pour cela, il faut placer le curseur
@@ -32,52 +32,30 @@ avec "Suiv." ou "OK" ou "Enter".
 Gestion des points
 ~~~~~~~~~~~~~~~~~~
 
-Pour modifier ou supprimer un seul point, il suffit d'un appui prolongé sur le
-point souhaité dans la liste des points. Ceci a pour effet de faire apparaître
-un menu contextuel.
+Pour modifier un point, un clic ouvre la fenêtre d'édition.  Afin de ne pas
+affecter de précédents calculs, **il n'est pas possible de modifier un numéro
+de point.** Le numéro de point servant à identifier un point, cela modifierait
+les calculs repris depuis l'historique.
 
-Le bouton "Rechercher" permet de retrouver un point souhaité. Le bouton
-"Supprimer" permet de supprimer tous les points en même temps.  Afin de ne pas
-affecter de précédents calculs, **il n'est pas possible de modifier un numéro de
-point.** Le numéro de point servant à identifier un point, cela modifierait les
-calculs repris depuis l'historique.
-
-Jobs
-^^^^
-
-Toute action dans TopoSuite est enregistrée dans une base de données.  Ainsi
-tous les calculs et points sont directement récupérés lors d'une ouverture
-ultérieure de TopoSuite.
-
-Il est possible via le menu "Job" (disponible depuis le volet gauche de
-TopoSuite) d'exporter le job courant vers un fichier \*.tpst, d'importer un job
-depuis un fichier \*.tpst ou même d'effacer le job courant.  L'exportation d'un
-job sauvegarde: les préférences, l'historique des calculs et les points. Lors de
-l'import de job, il est évident que Toposuite reprend les mêmes données que
-celles exportées.
-
-A l'instar de l'import de points, il est possible d'importer les fichiers
-\*.tpst qui se trouvent dans le répertoire Toposuite/. Tous les fichiers
-exportés se trouvent également dans ce même répertoire (qui est accessible
-depuis l'explorateur de fichier).
-
-Il est possible d'ouvrir directement un fichier \*.tpst depuis l'explorateur de
-fichier (Voir section Importation pour les explorateurs supportés).
+Pour supprimer un point, il suffit d'un appui prolongé sur le point
+souhaité dans la liste des points. Ceci a pour effet de faire apparaître un
+menu contextuel.
 
 Importation
 ^^^^^^^^^^^
 
 Il est possible soit d'ajouter les points manuellement, soit d'importer
-directement tous les points, à l'aide d'un fichier CSV, LTOP ou PTP.
+directement tous les points à l'aide d'un fichier CSV, LTOP ou PTP.
 
 Depuis Gmail, il n'est pas possible d'ouvrir directement un fichier de point. Il
 faut d'abord le sauvegarder sur le téléphone et ensuite l'ouvrir depuis
-l'explorateur de fichiers.
+un explorateur de fichiers.
 
 Le programme Cyanogenmod file manager est à proscrire car il ne gère pas bien
-les fichiers autre que le CSV.  Les programmes suivant sont bien supporté:
+les fichiers autre que CSV. Les programmes suivant sont bien supportés:
 
  - Celui par défaut sur les tablettes Samsung
+ - Amaze File Manager
  - ASTRO
  - ES File Explorer
  - Google Drive
@@ -101,6 +79,8 @@ CSV
 Le fichier doit être structuré de la manière suivante::
 
         N° Point ; Coordonnée Est ; Coordonnée Nord ; Altitude
+
+À noter que le séparateur peut indifféremment être "," ou ";".
 
 LTOP
 ''''
@@ -149,14 +129,39 @@ L'historique permet de reprendre n'importe quel calcul déjà effectué.
 
 Une touche permet également d'effacer toutes les données stockées.
 
+Jobs
+~~~~
+
+Toute action dans TopoSuite est enregistrée dans une base de données.  Ainsi
+tous les calculs et points sont directement récupérés lors d'une ouverture
+ultérieure de TopoSuite.
+
+Il est possible via le menu "Job" (disponible depuis le volet gauche de
+TopoSuite) d'exporter le job courant vers un fichier \*.tpst, d'importer un job
+depuis un fichier \*.tpst ou même d'effacer le job courant.  L'exportation d'un
+job sauvegarde: les préférences, l'historique des calculs et les points. Lors de
+l'import de job, il est évident que Toposuite reprend les mêmes données que
+celles exportées.
+
+A l'instar de l'import de points, il est possible d'importer les fichiers
+\*.tpst qui se trouvent dans le répertoire Toposuite/. Tous les fichiers
+exportés se trouvent également dans ce même répertoire (qui est accessible
+depuis l'explorateur de fichier).
+
+Il est possible d'ouvrir directement un fichier \*.tpst depuis l'explorateur de
+fichier (Voir section Importation pour les explorateurs supportés).
+
 Préférences
 ~~~~~~~~~~~
 
-Dans les préférences, plusieurs options sont possibles:
+Dans les préférences, plusieurs options sont possibles.
 
- - Autoriser ou non la saisie des coordonnées négatives
- - La précision avec laquelle le programme utilise les coordonnées pour les
-   calculs (nombre de décimales après le mètre)
+Via les paramètres généraux, il est possible de:
+
+ - Spécifier le séparateur pour les fichiers CSV;
+ - Autoriser ou non la saisie des coordonnées négatives;
+ - Spécifier la précision avec laquelle le programme utilise les coordonnées
+   pour les calculs (nombre de décimales après le mètre);
 
 Les paramètres d'affichage permettent de choisir le nombre de décimales à
 afficher pour:

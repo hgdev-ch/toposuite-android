@@ -345,18 +345,18 @@ ul.auto-toc {
 <ul class="auto-toc simple">
 <li><a class="reference internal" href="#aide-generale" id="id1">1&nbsp;&nbsp;&nbsp;Aide générale</a><ul class="auto-toc">
 <li><a class="reference internal" href="#gestion-des-points" id="id2">1.1&nbsp;&nbsp;&nbsp;Gestion des points</a><ul class="auto-toc">
-<li><a class="reference internal" href="#jobs" id="id3">1.1.1&nbsp;&nbsp;&nbsp;Jobs</a></li>
-<li><a class="reference internal" href="#importation" id="id4">1.1.2&nbsp;&nbsp;&nbsp;Importation</a><ul class="auto-toc">
-<li><a class="reference internal" href="#csv" id="id5">1.1.2.1&nbsp;&nbsp;&nbsp;CSV</a></li>
-<li><a class="reference internal" href="#ltop" id="id6">1.1.2.2&nbsp;&nbsp;&nbsp;LTOP</a></li>
-<li><a class="reference internal" href="#ptp" id="id7">1.1.2.3&nbsp;&nbsp;&nbsp;PTP</a></li>
+<li><a class="reference internal" href="#importation" id="id3">1.1.1&nbsp;&nbsp;&nbsp;Importation</a><ul class="auto-toc">
+<li><a class="reference internal" href="#csv" id="id4">1.1.1.1&nbsp;&nbsp;&nbsp;CSV</a></li>
+<li><a class="reference internal" href="#ltop" id="id5">1.1.1.2&nbsp;&nbsp;&nbsp;LTOP</a></li>
+<li><a class="reference internal" href="#ptp" id="id6">1.1.1.3&nbsp;&nbsp;&nbsp;PTP</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#exportation" id="id8">1.1.3&nbsp;&nbsp;&nbsp;Exportation</a></li>
+<li><a class="reference internal" href="#exportation" id="id7">1.1.2&nbsp;&nbsp;&nbsp;Exportation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#historique" id="id9">1.2&nbsp;&nbsp;&nbsp;Historique</a></li>
-<li><a class="reference internal" href="#preferences" id="id10">1.3&nbsp;&nbsp;&nbsp;Préférences</a></li>
+<li><a class="reference internal" href="#historique" id="id8">1.2&nbsp;&nbsp;&nbsp;Historique</a></li>
+<li><a class="reference internal" href="#jobs" id="id9">1.3&nbsp;&nbsp;&nbsp;Jobs</a></li>
+<li><a class="reference internal" href="#preferences" id="id10">1.4&nbsp;&nbsp;&nbsp;Préférences</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#calculs" id="id11">2&nbsp;&nbsp;&nbsp;Calculs</a><ul class="auto-toc">
@@ -408,51 +408,33 @@ ul.auto-toc {
 <p>Toutes les distances à introduire doivent être en &quot;Mètres&quot;.</p>
 <p>Les distances que le programme attend sont toutes des distances inclinées.
 Si l'angle zénithal n'est pas indiqué, le programme considère que c'est une
-distance horizontale.</p>
+distance horizontale (angle à 100 [g] par défaut).</p>
 <p>ATTENTION à valider vos dernières valeurs dans les masques de saisies pour que
 le programme prenne en compte cette valeur. Pour cela, il faut placer le curseur
 sur la case du numéro de point à sauvegarder ou valider votre dernière valeur
 avec &quot;Suiv.&quot; ou &quot;OK&quot; ou &quot;Enter&quot;.</p>
 <div class="section" id="gestion-des-points">
 <h2><a class="toc-backref" href="#id2">1.1&nbsp;&nbsp;&nbsp;Gestion des points</a></h2>
-<p>Pour modifier ou supprimer un seul point, il suffit d'un appui prolongé sur le
-point souhaité dans la liste des points. Ceci a pour effet de faire apparaître
-un menu contextuel.</p>
-<p>Le bouton &quot;Rechercher&quot; permet de retrouver un point souhaité. Le bouton
-&quot;Supprimer&quot; permet de supprimer tous les points en même temps.  Afin de ne pas
-affecter de précédents calculs, <strong>il n'est pas possible de modifier un numéro de
-point.</strong> Le numéro de point servant à identifier un point, cela modifierait les
-calculs repris depuis l'historique.</p>
-<div class="section" id="jobs">
-<h3><a class="toc-backref" href="#id3">1.1.1&nbsp;&nbsp;&nbsp;Jobs</a></h3>
-<p>Toute action dans TopoSuite est enregistrée dans une base de données.  Ainsi
-tous les calculs et points sont directement récupérés lors d'une ouverture
-ultérieure de TopoSuite.</p>
-<p>Il est possible via le menu &quot;Job&quot; (disponible depuis le volet gauche de
-TopoSuite) d'exporter le job courant vers un fichier *.tpst, d'importer un job
-depuis un fichier *.tpst ou même d'effacer le job courant.  L'exportation d'un
-job sauvegarde: les préférences, l'historique des calculs et les points. Lors de
-l'import de job, il est évident que Toposuite reprend les mêmes données que
-celles exportées.</p>
-<p>A l'instar de l'import de points, il est possible d'importer les fichiers
-*.tpst qui se trouvent dans le répertoire Toposuite/. Tous les fichiers
-exportés se trouvent également dans ce même répertoire (qui est accessible
-depuis l'explorateur de fichier).</p>
-<p>Il est possible d'ouvrir directement un fichier *.tpst depuis l'explorateur de
-fichier (Voir section Importation pour les explorateurs supportés).</p>
-</div>
+<p>Pour modifier un point, un clic ouvre la fenêtre d'édition.  Afin de ne pas
+affecter de précédents calculs, <strong>il n'est pas possible de modifier un numéro
+de point.</strong> Le numéro de point servant à identifier un point, cela modifierait
+les calculs repris depuis l'historique.</p>
+<p>Pour supprimer un point, il suffit d'un appui prolongé sur le point
+souhaité dans la liste des points. Ceci a pour effet de faire apparaître un
+menu contextuel.</p>
 <div class="section" id="importation">
-<h3><a class="toc-backref" href="#id4">1.1.2&nbsp;&nbsp;&nbsp;Importation</a></h3>
+<h3><a class="toc-backref" href="#id3">1.1.1&nbsp;&nbsp;&nbsp;Importation</a></h3>
 <p>Il est possible soit d'ajouter les points manuellement, soit d'importer
-directement tous les points, à l'aide d'un fichier CSV, LTOP ou PTP.</p>
+directement tous les points à l'aide d'un fichier CSV, LTOP ou PTP.</p>
 <p>Depuis Gmail, il n'est pas possible d'ouvrir directement un fichier de point. Il
 faut d'abord le sauvegarder sur le téléphone et ensuite l'ouvrir depuis
-l'explorateur de fichiers.</p>
+un explorateur de fichiers.</p>
 <p>Le programme Cyanogenmod file manager est à proscrire car il ne gère pas bien
-les fichiers autre que le CSV.  Les programmes suivant sont bien supporté:</p>
+les fichiers autre que CSV. Les programmes suivant sont bien supportés:</p>
 <blockquote>
 <ul class="simple">
 <li>Celui par défaut sur les tablettes Samsung</li>
+<li>Amaze File Manager</li>
 <li>ASTRO</li>
 <li>ES File Explorer</li>
 <li>Google Drive</li>
@@ -470,14 +452,15 @@ dont &quot;TopoSuite&quot;. En choisissant TopoSuite dans la liste, l'applicatio
 s'ouvrir et importer la liste des points en demandant une confirmation au
 travers d'une popup.</p>
 <div class="section" id="csv">
-<h4><a class="toc-backref" href="#id5">1.1.2.1&nbsp;&nbsp;&nbsp;CSV</a></h4>
+<h4><a class="toc-backref" href="#id4">1.1.1.1&nbsp;&nbsp;&nbsp;CSV</a></h4>
 <p>Le fichier doit être structuré de la manière suivante:</p>
 <pre class="literal-block">
 N° Point ; Coordonnée Est ; Coordonnée Nord ; Altitude
 </pre>
+<p>À noter que le séparateur peut indifféremment être &quot;,&quot; ou &quot;;&quot;.</p>
 </div>
 <div class="section" id="ltop">
-<h4><a class="toc-backref" href="#id6">1.1.2.2&nbsp;&nbsp;&nbsp;LTOP</a></h4>
+<h4><a class="toc-backref" href="#id5">1.1.1.2&nbsp;&nbsp;&nbsp;LTOP</a></h4>
 <p>Le fichier LTOP ne doit pas être modifié. Il doit bien commencer avec $$PK!</p>
 <p>Les colonnes 1 à 14 sont consacrées au numéro de point;</p>
 <p>Les colonnes 33 à 44 correspondent à la coordonnée Est,</p>
@@ -485,7 +468,7 @@ N° Point ; Coordonnée Est ; Coordonnée Nord ; Altitude
 <p>Les colonnes 61 à 70 contiennent l'altitude (optionnel).</p>
 </div>
 <div class="section" id="ptp">
-<h4><a class="toc-backref" href="#id7">1.1.2.3&nbsp;&nbsp;&nbsp;PTP</a></h4>
+<h4><a class="toc-backref" href="#id6">1.1.1.3&nbsp;&nbsp;&nbsp;PTP</a></h4>
 <p>Le fichier PTP ne doit pas comporter de lignes autres que celles contenant les
 points à importer.</p>
 <p>Les colonnes 11 à 22 sont pour le numéro de point</p>
@@ -499,7 +482,7 @@ fichier.  Attention aux éventuelles lignes de titre en début de fichier.</p>
 </div>
 </div>
 <div class="section" id="exportation">
-<h3><a class="toc-backref" href="#id8">1.1.3&nbsp;&nbsp;&nbsp;Exportation</a></h3>
+<h3><a class="toc-backref" href="#id7">1.1.2&nbsp;&nbsp;&nbsp;Exportation</a></h3>
 <p>Il est également possible d'exporter le fichier de point avec le bouton
 &quot;Partager&quot;, ou le bouton &quot;Exporter&quot;. Ce dernier permet d'exporter le ficher dans
 le dossier interne de TopoSuite et peut être récupéré dans le logiciel avec la
@@ -507,18 +490,38 @@ fonction &quot;Importer&quot;.</p>
 </div>
 </div>
 <div class="section" id="historique">
-<h2><a class="toc-backref" href="#id9">1.2&nbsp;&nbsp;&nbsp;Historique</a></h2>
+<h2><a class="toc-backref" href="#id8">1.2&nbsp;&nbsp;&nbsp;Historique</a></h2>
 <p>L'historique permet de reprendre n'importe quel calcul déjà effectué.</p>
 <p>Une touche permet également d'effacer toutes les données stockées.</p>
 </div>
+<div class="section" id="jobs">
+<h2><a class="toc-backref" href="#id9">1.3&nbsp;&nbsp;&nbsp;Jobs</a></h2>
+<p>Toute action dans TopoSuite est enregistrée dans une base de données.  Ainsi
+tous les calculs et points sont directement récupérés lors d'une ouverture
+ultérieure de TopoSuite.</p>
+<p>Il est possible via le menu &quot;Job&quot; (disponible depuis le volet gauche de
+TopoSuite) d'exporter le job courant vers un fichier *.tpst, d'importer un job
+depuis un fichier *.tpst ou même d'effacer le job courant.  L'exportation d'un
+job sauvegarde: les préférences, l'historique des calculs et les points. Lors de
+l'import de job, il est évident que Toposuite reprend les mêmes données que
+celles exportées.</p>
+<p>A l'instar de l'import de points, il est possible d'importer les fichiers
+*.tpst qui se trouvent dans le répertoire Toposuite/. Tous les fichiers
+exportés se trouvent également dans ce même répertoire (qui est accessible
+depuis l'explorateur de fichier).</p>
+<p>Il est possible d'ouvrir directement un fichier *.tpst depuis l'explorateur de
+fichier (Voir section Importation pour les explorateurs supportés).</p>
+</div>
 <div class="section" id="preferences">
-<h2><a class="toc-backref" href="#id10">1.3&nbsp;&nbsp;&nbsp;Préférences</a></h2>
-<p>Dans les préférences, plusieurs options sont possibles:</p>
+<h2><a class="toc-backref" href="#id10">1.4&nbsp;&nbsp;&nbsp;Préférences</a></h2>
+<p>Dans les préférences, plusieurs options sont possibles.</p>
+<p>Via les paramètres généraux, il est possible de:</p>
 <blockquote>
 <ul class="simple">
-<li>Autoriser ou non la saisie des coordonnées négatives</li>
-<li>La précision avec laquelle le programme utilise les coordonnées pour les
-calculs (nombre de décimales après le mètre)</li>
+<li>Spécifier le séparateur pour les fichiers CSV;</li>
+<li>Autoriser ou non la saisie des coordonnées négatives;</li>
+<li>Spécifier la précision avec laquelle le programme utilise les coordonnées
+pour les calculs (nombre de décimales après le mètre);</li>
 </ul>
 </blockquote>
 <p>Les paramètres d'affichage permettent de choisir le nombre de décimales à
