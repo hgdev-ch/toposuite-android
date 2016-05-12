@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.points;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +55,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
      * @param basePoint Determine if this point is a base point. A base point is a
      *                  point that has been added as is and NOT computed.
      */
-    public Point(String number, double east, double north, double altitude, boolean basePoint,                 boolean hasDAO) {
+    public Point(String number, double east, double north, double altitude, boolean basePoint, boolean hasDAO) {
         // FIXME adapt the check according to the new point number format
         // Preconditions.checkArgument(number >= 0,
         // "A point number must be a positive integer: %s", number);
@@ -221,38 +222,48 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
     }
 
     @Override
-    public void createPointFromCSV(String csvLine) throws InvalidFormatException {
+    public void createPointFromCSV(@NonNull String csvLine) throws InvalidFormatException {
         String[] tmp = csvLine.split(App.getCSVSeparator());
 
-        if (tmp.length >= 3) {
-            try {
-                String number = tmp[0].replace("\"", "");
-                double east = Double.parseDouble(tmp[1]);
-                double north = Double.parseDouble(tmp[2]);
-                double altitude = MathUtils.IGNORE_DOUBLE;
-
-                if (tmp.length == 4) {
-                    altitude = Double.parseDouble(tmp[3]);
+        // well, attempt parsing with other separators then
+        if (tmp.length < 3) {
+            String[] separators = App.getContext().getResources().getStringArray(R.array.csv_separator);
+            for (String sep : separators) {
+                tmp = csvLine.split(sep);
+                if (tmp.length >= 3) {
+                    break;
                 }
-
-                this.number = number;
-                this.east = east;
-                this.north = north;
-                this.altitude = altitude;
-
-                this.notifyUpdate(this);
-            } catch (NumberFormatException e) {
-                throw new InvalidFormatException(App.getContext().getString(
-                        R.string.exception_invalid_format_values));
             }
-        } else {
+            if (tmp.length < 3) {
+                throw new InvalidFormatException(App.getContext().getString(
+                        R.string.exception_invalid_format_values_number));
+            }
+        }
+
+        try {
+            String number = tmp[0].replace("\"", "");
+            double east = Double.parseDouble(tmp[1]);
+            double north = Double.parseDouble(tmp[2]);
+            double altitude = MathUtils.IGNORE_DOUBLE;
+
+            if (tmp.length == 4) {
+                altitude = Double.parseDouble(tmp[3]);
+            }
+
+            this.number = number;
+            this.east = east;
+            this.north = north;
+            this.altitude = altitude;
+
+            this.notifyUpdate(this);
+        } catch (NumberFormatException e) {
             throw new InvalidFormatException(App.getContext().getString(
-                    R.string.exception_invalid_format_values_number));
+                    R.string.exception_invalid_format_values));
         }
     }
 
     @Override
-    public void createPointFromLTOP(String ltopLine) throws InvalidFormatException {
+    public void createPointFromLTOP(@NonNull String ltopLine) throws InvalidFormatException {
         if (ltopLine.length() < 56) {
             throw new InvalidFormatException(App.getContext().getString(
                     R.string.exception_invalid_format_values_number));
@@ -285,7 +296,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
     }
 
     @Override
-    public void createPointFromPTP(String ptpLine) throws InvalidFormatException {
+    public void createPointFromPTP(@NonNull String ptpLine) throws InvalidFormatException {
         if (ptpLine.length() < 55) {
             throw new InvalidFormatException(App.getContext().getString(
                     R.string.exception_invalid_format_values_number));
