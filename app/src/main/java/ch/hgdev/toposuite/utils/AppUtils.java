@@ -77,7 +77,7 @@ public class AppUtils {
 
         private final int value;
         private final String name;
-        private static final Map<Integer, Permission> lookup = new HashMap<Integer, Permission>();
+        private static final Map<Integer, Permission> lookup = new HashMap<>();
 
         static {
             for (Permission p : EnumSet.allOf(Permission.class))

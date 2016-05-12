@@ -39,8 +39,8 @@ public class CheminementOrthogonal extends Calculation {
                 hasDAO);
 
         this.orthogonalBase = new OrthogonalBase(origin, extremity);
-        this.measures = new ArrayList<CheminementOrthogonal.Measure>();
-        this.results = new ArrayList<CheminementOrthogonal.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     public CheminementOrthogonal(long id, Date lastModification) {
@@ -49,8 +49,8 @@ public class CheminementOrthogonal extends Calculation {
                 lastModification,
                 true);
         this.orthogonalBase = new OrthogonalBase();
-        this.measures = new ArrayList<CheminementOrthogonal.Measure>();
-        this.results = new ArrayList<CheminementOrthogonal.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     public CheminementOrthogonal(boolean hasDAO) {
@@ -59,8 +59,8 @@ public class CheminementOrthogonal extends Calculation {
                 hasDAO);
 
         this.orthogonalBase = new OrthogonalBase();
-        this.measures = new ArrayList<CheminementOrthogonal.Measure>();
-        this.results = new ArrayList<CheminementOrthogonal.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class CheminementOrthogonal extends Calculation {
         double currNorth = this.orthogonalBase.getOrigin().getNorth();
 
         ArrayList<CheminementOrthogonal.Result> tmpResults =
-                new ArrayList<CheminementOrthogonal.Result>();
+                new ArrayList<>();
 
         double dist = 0.0;
 

@@ -90,7 +90,7 @@ public class CircularSegmentation extends Calculation {
         this.arcLength = MathUtils.IGNORE_DOUBLE;
         this.circleRadius = MathUtils.IGNORE_DOUBLE;
 
-        this.points = new ArrayList<Point>();
+        this.points = new ArrayList<>();
     }
 
     /**
@@ -165,7 +165,7 @@ public class CircularSegmentation extends Calculation {
         this.numberOfSegments = numberOfSegments;
         this.arcLength = arcLength;
 
-        this.points = new ArrayList<Point>();
+        this.points = new ArrayList<>();
     }
 
     @Override

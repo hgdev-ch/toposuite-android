@@ -180,7 +180,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.pointsAdapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
+        this.pointsAdapter = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
 
         Bundle bundle = this.getIntent().getExtras();
         if ((bundle != null)) {

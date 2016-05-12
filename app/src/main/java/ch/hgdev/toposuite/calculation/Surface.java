@@ -34,7 +34,7 @@ public class Surface extends Calculation {
                 App.getContext().getString(R.string.title_activity_surface),
                 lastModification,
                 true);
-        this.points = new ArrayList<Surface.PointWithRadius>();
+        this.points = new ArrayList<>();
     }
 
     public Surface(String _surfaceName, String _surfaceDescription, boolean hasDAO) {
@@ -43,7 +43,7 @@ public class Surface extends Calculation {
                 hasDAO);
         this.setSurfaceName(_surfaceName);
         this.setSurfaceDescription(_surfaceDescription);
-        this.points = new ArrayList<Surface.PointWithRadius>();
+        this.points = new ArrayList<>();
         this.surface = 0.0;
         this.perimeter = 0.0;
     }

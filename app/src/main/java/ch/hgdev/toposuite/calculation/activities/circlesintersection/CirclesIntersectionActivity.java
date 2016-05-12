@@ -82,7 +82,7 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements Me
         points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
+        this.adapter = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.centerOneSpinner.setAdapter(this.adapter);
         this.centerTwoSpinner.setAdapter(this.adapter);
         this.byPointOneSpinner.setAdapter(this.adapter);

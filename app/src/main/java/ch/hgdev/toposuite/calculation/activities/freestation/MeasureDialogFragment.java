@@ -243,10 +243,10 @@ public class MeasureDialogFragment extends DialogFragment {
             }
         });
 
-        List<Point> points = new ArrayList<Point>();
+        List<Point> points = new ArrayList<>();
         points.add(new Point("", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
-        this.adapter = new ArrayAdapter<Point>(
+        this.adapter = new ArrayAdapter<>(
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(this.adapter);
 

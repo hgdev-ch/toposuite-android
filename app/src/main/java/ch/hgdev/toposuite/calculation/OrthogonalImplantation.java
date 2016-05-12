@@ -34,8 +34,8 @@ public class OrthogonalImplantation extends Calculation {
                 hasDAO);
 
         this.orthogonalBase = base;
-        this.measures = new ArrayList<Point>();
-        this.results = new ArrayList<OrthogonalImplantation.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     public OrthogonalImplantation(boolean hasDAO) {
@@ -50,8 +50,8 @@ public class OrthogonalImplantation extends Calculation {
                 true);
 
         this.orthogonalBase = new OrthogonalBase();
-        this.measures = new ArrayList<Point>();
-        this.results = new ArrayList<OrthogonalImplantation.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     @Override

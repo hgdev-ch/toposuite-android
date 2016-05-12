@@ -46,7 +46,7 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
      */
     public DAOMapperArrayList(Searcher<? super E> _searcher) {
         super();
-        this.daoList = new ArrayList<DAO>();
+        this.daoList = new ArrayList<>();
         this.notifyOnChange = true;
         this.searcher = _searcher;
     }

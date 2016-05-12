@@ -64,7 +64,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
         this.altitude = MathUtils.roundCoordinate(altitude);
         this.basePoint = basePoint;
 
-        this.daoList = new ArrayList<DAO>();
+        this.daoList = new ArrayList<>();
 
         if (hasDAO) {
             this.registerDAO(PointsDataSource.getInstance());
@@ -76,7 +76,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
     }
 
     public Point(boolean hasDAO) {
-        this.daoList = new ArrayList<DAO>();
+        this.daoList = new ArrayList<>();
         this.basePoint = false;
 
         this.number = "";
@@ -90,7 +90,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
     }
 
     public Point() {
-        this.daoList = new ArrayList<DAO>();
+        this.daoList = new ArrayList<>();
         this.basePoint = true;
 
         this.registerDAO(PointsDataSource.getInstance());

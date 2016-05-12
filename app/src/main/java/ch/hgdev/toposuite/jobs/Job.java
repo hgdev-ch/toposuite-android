@@ -201,7 +201,7 @@ public class Job {
      * @return A list of jobs.
      */
     public static ArrayList<Job> getJobsList() {
-        ArrayList<Job> jobs = new ArrayList<Job>();
+        ArrayList<Job> jobs = new ArrayList<>();
         String[] filenameList = new File(App.publicDataDirectory).list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {

@@ -32,7 +32,7 @@ public class SharedResources {
      */
     public static DAOMapperArrayList<Calculation> getCalculationsHistory() {
         if (SharedResources.calculationsHistory == null) {
-            SharedResources.calculationsHistory = new DAOMapperArrayList<Calculation>(
+            SharedResources.calculationsHistory = new DAOMapperArrayList<>(
                     new Searcher<Calculation>() {
                         @Override
                         public boolean isFound(Calculation currentElement, Object expectedElement) {
@@ -52,7 +52,7 @@ public class SharedResources {
      */
     public static DAOMapperTreeSet<Point> getSetOfPoints() {
         if (SharedResources.setOfPoints == null) {
-            SharedResources.setOfPoints = new DAOMapperTreeSet<Point>(new AlphanumComparator(),
+            SharedResources.setOfPoints = new DAOMapperTreeSet<>(new AlphanumComparator(),
                     new Searcher<Point>() {
                         @Override
                         public boolean isFound(Point currentElement, Object expectedElement) {

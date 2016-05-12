@@ -134,7 +134,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
 
         this.adapter = new ArrayListOfPointsWithSAdapter(
                 this, R.layout.points_with_s_list_item,
-                new ArrayList<Measure>(this.polarImplantation.getMeasures()));
+                new ArrayList<>(this.polarImplantation.getMeasures()));
         this.registerForContextMenu(this.pointsListView);
     }
 
@@ -146,7 +146,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.stationAdapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
+        this.stationAdapter = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.stationSpinner.setAdapter(this.stationAdapter);
 
         for (Calculation c : SharedResources.getCalculationsHistory()) {

@@ -77,11 +77,11 @@ public class PointsExporterDialog extends DialogFragment {
         // XXX since we only support export to CSV for now, we must keep only the
         // first element of the supported file types list.
         // TODO make a new SupportedPointsFileTypes for export only.
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add(SupportedPointsFileTypes.toList().get(0));
         list.add(0, this.getActivity().getString(R.string.format_3dots));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this.getActivity(), android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.formatSpinner.setAdapter(adapter);

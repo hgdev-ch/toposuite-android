@@ -44,8 +44,8 @@ public class AxisImplantation extends Calculation {
                 App.getContext().getString(R.string.title_activity_axis_implantation),
                 lastModification,
                 true);
-        this.measures = new ArrayList<Measure>();
-        this.results = new ArrayList<AxisImplantation.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     public AxisImplantation(boolean hasDAO) {
@@ -57,8 +57,8 @@ public class AxisImplantation extends Calculation {
         super(CalculationType.AXISIMPLANTATION,
                 App.getContext().getString(R.string.title_activity_axis_implantation),
                 hasDAO);
-        this.measures = new ArrayList<Measure>();
-        this.results = new ArrayList<AxisImplantation.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
         this.initAttributes(station, unknownOrientation, origin, extremity);
     }
 

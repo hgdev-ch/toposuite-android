@@ -32,8 +32,8 @@ public class LeveOrthogonal extends Calculation {
                 hasDAO);
 
         this.orthogonalBase = new OrthogonalBase(origin, extremity, measuredDistance, 1.0);
-        this.measures = new ArrayList<LeveOrthogonal.Measure>();
-        this.results = new ArrayList<LeveOrthogonal.Measure>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     public LeveOrthogonal(Point origin, Point extremity, boolean hasDAO) {
@@ -46,8 +46,8 @@ public class LeveOrthogonal extends Calculation {
                 hasDAO);
 
         this.orthogonalBase = new OrthogonalBase(1.0);
-        this.measures = new ArrayList<LeveOrthogonal.Measure>();
-        this.results = new ArrayList<LeveOrthogonal.Measure>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     public LeveOrthogonal(long id, Date lastModification) {
@@ -56,8 +56,8 @@ public class LeveOrthogonal extends Calculation {
                 lastModification,
                 true);
         this.orthogonalBase = new OrthogonalBase(1.0);
-        this.measures = new ArrayList<LeveOrthogonal.Measure>();
-        this.results = new ArrayList<LeveOrthogonal.Measure>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     @Override

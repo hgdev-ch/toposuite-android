@@ -34,7 +34,7 @@ public class PointsImporter {
         SupportedPointsFileTypes type = SupportedPointsFileTypes.fileTypeOf(ext);
 
         // List of errors
-        List<Pair<Integer, String>> errors = new ArrayList<Pair<Integer, String>>();
+        List<Pair<Integer, String>> errors = new ArrayList<>();
 
         int nbLines = 0;
 
@@ -65,7 +65,7 @@ public class PointsImporter {
                         break;
                 }
             } catch (InvalidFormatException e) {
-                errors.add(new Pair<Integer, String>(nbLines, e.getMessage()));
+                errors.add(new Pair<>(nbLines, e.getMessage()));
                 Logger.log(Logger.ErrLabel.INPUT_ERROR, "line #" + nbLines + " => " + e.getMessage());
                 continue;
             }

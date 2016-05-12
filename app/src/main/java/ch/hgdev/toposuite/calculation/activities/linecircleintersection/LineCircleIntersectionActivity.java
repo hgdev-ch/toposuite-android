@@ -108,11 +108,11 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     public void onResume() {
         super.onResume();
 
-        List<Point> points = new ArrayList<Point>();
+        List<Point> points = new ArrayList<>();
         points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
 
-        this.adapter = new ArrayAdapter<Point>(this, R.layout.spinner_list_item, points);
+        this.adapter = new ArrayAdapter<>(this, R.layout.spinner_list_item, points);
         this.point1Spinner.setAdapter(this.adapter);
         this.point2Spinner.setAdapter(this.adapter);
         this.centerCSpinner.setAdapter(this.adapter);

@@ -40,8 +40,8 @@ public class PolarImplantation extends Calculation {
                 App.getContext().getString(R.string.title_activity_polar_implantation),
                 lastModification,
                 true);
-        this.measures = new ArrayList<Measure>();
-        this.results = new ArrayList<PolarImplantation.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     public PolarImplantation(Point _station, boolean hasDAO) {
@@ -50,8 +50,8 @@ public class PolarImplantation extends Calculation {
                 hasDAO);
 
         this.station = _station;
-        this.measures = new ArrayList<Measure>();
-        this.results = new ArrayList<PolarImplantation.Result>();
+        this.measures = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     /**

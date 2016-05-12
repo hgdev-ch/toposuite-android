@@ -84,7 +84,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
         }
 
         this.hasDAO = hasDAO;
-        this.daoList = new ArrayList<DAO>();
+        this.daoList = new ArrayList<>();
         if (this.hasDAO) {
             this.registerDAO(CalculationsDataSource.getInstance());
         }

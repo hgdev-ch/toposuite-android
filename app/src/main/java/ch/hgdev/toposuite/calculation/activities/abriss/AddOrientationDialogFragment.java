@@ -160,10 +160,10 @@ public class AddOrientationDialogFragment extends DialogFragment {
                 // do nothing
             }
         });
-        List<Point> points = new ArrayList<Point>();
+        List<Point> points = new ArrayList<>();
         points.add(new Point("", MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, true));
         points.addAll(SharedResources.getSetOfPoints());
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+        ArrayAdapter<Point> a = new ArrayAdapter<>(
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.orientationSpinner.setAdapter(a);
 

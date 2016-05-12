@@ -353,7 +353,7 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
 
         public CalculationGroup(String _groupName) {
             this.groupName = _groupName;
-            this.children = new ArrayList<TopoSuiteActivity.ActivityItem>();
+            this.children = new ArrayList<>();
         }
 
         public String getGroupName() {

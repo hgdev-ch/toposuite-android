@@ -23,7 +23,7 @@ public enum SupportedPointsFileTypes {
      * @return a list
      */
     public static List<String> toList() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (SupportedPointsFileTypes sft : SupportedPointsFileTypes.values()) {
             list.add(sft.toString());
         }

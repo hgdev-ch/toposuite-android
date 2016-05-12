@@ -165,10 +165,10 @@ public class AddPointWithSDialogFragment extends DialogFragment {
             }
         });
 
-        List<Point> points = new ArrayList<Point>();
+        List<Point> points = new ArrayList<>();
         points.add(new Point("", 0.0, 0.0, 0.0, true));
         points.addAll(SharedResources.getSetOfPoints());
-        ArrayAdapter<Point> a = new ArrayAdapter<Point>(
+        ArrayAdapter<Point> a = new ArrayAdapter<>(
                 this.getActivity(), R.layout.spinner_list_item, points);
         this.pointSpinner.setAdapter(a);
 

@@ -41,8 +41,8 @@ public class Abriss extends Calculation {
                 App.getContext().getString(R.string.title_activity_abriss),
                 hasDAO);
         this.station = station;
-        this.orientations = new ArrayList<Measure>();
-        this.results = new ArrayList<Abriss.Result>();
+        this.orientations = new ArrayList<>();
+        this.results = new ArrayList<>();
         this.mean = 0.0;
         this.mse = 0.0;
     }
@@ -54,8 +54,8 @@ public class Abriss extends Calculation {
                 lastModification,
                 true);
 
-        this.orientations = new ArrayList<Measure>();
-        this.results = new ArrayList<Abriss.Result>();
+        this.orientations = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     /**
