@@ -22,6 +22,7 @@ import java.util.List;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
@@ -180,8 +181,8 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
 
                 // make sure the file format is supported
                 if (SupportedPointsFileTypes.isSupported(ext)) {
-                    Job.deleteCurrentJob();
                     try {
+                        Job.deleteCurrentJob();
                         InputStream inputStream = cr.openInputStream(PointsImporterActivity.this.dataUri);
                         List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                         if (!errors.isEmpty()) {
@@ -189,6 +190,9 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
                         }
                     } catch (IOException e) {
                         Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                        PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
+                    } catch (SQLiteTopoSuiteException e) {
+                        Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
                         PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
                     }
                 } else {

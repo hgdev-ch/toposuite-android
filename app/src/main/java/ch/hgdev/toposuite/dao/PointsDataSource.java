@@ -100,7 +100,7 @@ public class PointsDataSource implements DAO, Serializable {
     }
 
     @Override
-    public void update(Object obj) {
+    public void update(Object obj) throws SQLiteTopoSuiteException {
         Point point = (Point) obj;
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
 
@@ -150,7 +150,7 @@ public class PointsDataSource implements DAO, Serializable {
      * Delete all Points.
      */
     @Override
-    public void deleteAll() {
+    public void deleteAll() throws SQLiteTopoSuiteException {
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
         db.delete(PointsTable.TABLE_NAME_POINTS, null, null);
     }
@@ -158,7 +158,7 @@ public class PointsDataSource implements DAO, Serializable {
     /**
      * Truncate table.
      */
-    public void truncate() {
+    public void truncate() throws SQLiteTopoSuiteException {
         this.deleteAll();
 
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();

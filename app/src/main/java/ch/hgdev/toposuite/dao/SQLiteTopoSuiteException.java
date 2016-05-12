@@ -1,8 +1,6 @@
 package ch.hgdev.toposuite.dao;
 
-import android.database.sqlite.SQLiteException;
-
-public class SQLiteTopoSuiteException extends SQLiteException {
+public class SQLiteTopoSuiteException extends DAOException {
 
     /**
      * Serial UID.

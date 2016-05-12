@@ -37,6 +37,7 @@ import java.util.List;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.DisplayUtils;
 import ch.hgdev.toposuite.utils.Logger;
@@ -232,8 +233,8 @@ public class JobsActivity extends TopoSuiteActivity implements
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Job.deleteCurrentJob();
                 try {
+                    Job.deleteCurrentJob();
                     Job job = JobsActivity.this.adapter.getItem(pos);
                     File f = job.getTpst();
                     List<String> lines = Files.readLines(f, Charset.defaultCharset());
@@ -244,6 +245,8 @@ public class JobsActivity extends TopoSuiteActivity implements
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 } catch (JSONException | ParseException e) {
                     Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
+                } catch (SQLiteTopoSuiteException e) {
+                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
                 }
 
                 JobsActivity.this.runOnUiThread(new Runnable() {
@@ -312,7 +315,11 @@ public class JobsActivity extends TopoSuiteActivity implements
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Job.deleteCurrentJob();
+                                try {
+                                    Job.deleteCurrentJob();
+                                } catch (SQLiteTopoSuiteException e) {
+                                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
+                                }
                                 JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
                                 JobsActivity.this.updateShareIntent();
                             }

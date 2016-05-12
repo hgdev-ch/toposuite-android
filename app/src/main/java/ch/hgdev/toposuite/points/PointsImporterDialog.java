@@ -36,6 +36,7 @@ import java.util.List;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
+import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
@@ -216,8 +217,8 @@ public class PointsImporterDialog extends DialogFragment {
                 String ext = Files.getFileExtension(filename);
 
                 if (SupportedPointsFileTypes.isSupported(ext)) {
-                    Job.deleteCurrentJob();
                     try {
+                        Job.deleteCurrentJob();
                         InputStream inputStream = new FileInputStream(new File(AppUtils.publicDataDirectory(callingActivity), filename));
                         List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                         if (!errors.isEmpty()) {
@@ -225,6 +226,9 @@ public class PointsImporterDialog extends DialogFragment {
                         }
                     } catch (IOException e) {
                         Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                        PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
+                    } catch (SQLiteTopoSuiteException e) {
+                        Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
                         PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
                     }
                 } else {

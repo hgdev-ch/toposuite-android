@@ -13,10 +13,12 @@ import java.util.List;
 import java.util.TreeSet;
 
 import ch.hgdev.toposuite.App;
+import ch.hgdev.toposuite.dao.DAOException;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
 import ch.hgdev.toposuite.transfer.DataExporter;
 import ch.hgdev.toposuite.transfer.SaveStrategy;
+import ch.hgdev.toposuite.utils.Logger;
 
 /**
  * DAOMapperTreeSet is a TreeSet that is synchronized with the database through
@@ -68,7 +70,11 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     public boolean add(E obj) {
         boolean status = super.add(obj);
         if (status && this.notifyOnChange) {
-            this.notifyCreation(obj);
+            try {
+                this.notifyCreation(obj);
+            } catch (DAOException e) {
+                Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+            }
         }
         return status;
     }
@@ -77,7 +83,11 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     public boolean remove(Object obj) {
         boolean status = super.remove(obj);
         if (status && this.notifyOnChange) {
-            this.notifyDeletion(obj);
+            try {
+                this.notifyDeletion(obj);
+            } catch (DAOException e) {
+                Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+            }
         }
         return status;
     }
@@ -86,7 +96,11 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     public void clear() {
         super.clear();
         if (this.notifyOnChange) {
-            this.notifyClear();
+            try {
+                this.notifyClear();
+            } catch (DAOException e) {
+                Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+            }
         }
     }
 
@@ -144,7 +158,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     }
 
     @Override
-    public void notifyCreation(Object obj) {
+    public void notifyCreation(Object obj) throws DAOException {
         App.arePointsExported = false;
         for (DAO dao : this.daoList) {
             dao.create(obj);
@@ -152,7 +166,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     }
 
     @Override
-    public void notifyDeletion(Object obj) {
+    public void notifyDeletion(Object obj) throws DAOException {
         App.arePointsExported = false;
         for (DAO dao : this.daoList) {
             dao.delete(obj);
@@ -160,7 +174,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     }
 
     @Override
-    public void notifyClear() {
+    public void notifyClear() throws DAOException {
         App.arePointsExported = false;
         for (DAO dao : this.daoList) {
             dao.deleteAll();

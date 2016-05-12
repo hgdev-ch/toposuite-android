@@ -3,8 +3,10 @@ package ch.hgdev.toposuite.dao.collections;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hgdev.toposuite.dao.DAOException;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOMapper;
+import ch.hgdev.toposuite.utils.Logger;
 
 /**
  * DAOMapperArrayList is an ArrayList that is synchronized with the database
@@ -55,7 +57,11 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     public boolean add(E obj) {
         boolean status = super.add(obj);
         if (status && this.notifyOnChange) {
-            this.notifyCreation(obj);
+            try {
+                this.notifyCreation(obj);
+            } catch (DAOException e) {
+                Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+            }
         }
         return status;
     }
@@ -64,7 +70,11 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     public void add(int index, E obj) {
         super.add(index, obj);
         if (this.notifyOnChange) {
-            this.notifyCreation(obj);
+            try {
+                this.notifyCreation(obj);
+            } catch (DAOException e) {
+                Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+            }
         }
     }
 
@@ -72,7 +82,11 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     public E remove(int index) {
         E obj = super.remove(index);
         if (this.notifyOnChange) {
-            this.notifyDeletion(obj);
+            try {
+                this.notifyDeletion(obj);
+            } catch (DAOException e) {
+                Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+            }
         }
         return obj;
     }
@@ -81,7 +95,11 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     public boolean remove(Object obj) {
         boolean status = super.remove(obj);
         if (status && this.notifyOnChange) {
-            this.notifyDeletion(obj);
+            try {
+                this.notifyDeletion(obj);
+            } catch (DAOException e) {
+                Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+            }
         }
         return status;
     }
@@ -90,7 +108,11 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     public void clear() {
         super.clear();
         if (this.notifyOnChange) {
-            this.notifyClear();
+            try {
+                this.notifyClear();
+            } catch (DAOException e) {
+                Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+            }
         }
     }
 
@@ -140,21 +162,21 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     }
 
     @Override
-    public void notifyCreation(Object obj) {
+    public void notifyCreation(Object obj) throws DAOException {
         for (DAO dao : this.daoList) {
             dao.create(obj);
         }
     }
 
     @Override
-    public void notifyDeletion(Object obj) {
+    public void notifyDeletion(Object obj) throws DAOException {
         for (DAO dao : this.daoList) {
             dao.delete(obj);
         }
     }
 
     @Override
-    public void notifyClear() {
+    public void notifyClear() throws DAOException {
         for (DAO dao : this.daoList) {
             dao.deleteAll();
         }

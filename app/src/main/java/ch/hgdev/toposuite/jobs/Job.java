@@ -23,6 +23,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.Calculation;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.PointsDataSource;
+import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.settings.SettingsActivity;
 import ch.hgdev.toposuite.utils.AppUtils;
@@ -283,7 +284,7 @@ public class Job {
         return true;
     }
 
-    public static void deleteCurrentJob() {
+    public static void deleteCurrentJob() throws SQLiteTopoSuiteException {
         // remove previous points and calculations from the SQLite DB
         PointsDataSource.getInstance().truncate();
         CalculationsDataSource.getInstance().truncate();

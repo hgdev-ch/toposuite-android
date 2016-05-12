@@ -13,6 +13,7 @@ import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.calculation.interfaces.Exportable;
 import ch.hgdev.toposuite.calculation.interfaces.Importable;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
+import ch.hgdev.toposuite.dao.DAOException;
 import ch.hgdev.toposuite.dao.collections.DAOMapperArrayList;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
@@ -259,7 +260,7 @@ public abstract class Calculation implements Exportable, Importable, DAOUpdater,
     }
 
     @Override
-    public void notifyUpdate(Object obj) {
+    public void notifyUpdate(Object obj) throws DAOException {
         for (DAO dao : this.daoList) {
             dao.update(obj);
         }

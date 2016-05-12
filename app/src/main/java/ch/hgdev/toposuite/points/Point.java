@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
+import ch.hgdev.toposuite.dao.DAOException;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.interfaces.DAO;
 import ch.hgdev.toposuite.dao.interfaces.DAOUpdater;
 import ch.hgdev.toposuite.transfer.DataExporter;
 import ch.hgdev.toposuite.transfer.DataImporter;
 import ch.hgdev.toposuite.transfer.InvalidFormatException;
+import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
@@ -136,7 +138,11 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
 
     public void setEast(double _east) {
         this.east = MathUtils.roundCoordinate(_east);
-        this.notifyUpdate(this);
+        try {
+            this.notifyUpdate(this);
+        } catch (DAOException e) {
+            Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+        }
     }
 
     public double getNorth() {
@@ -145,7 +151,11 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
 
     public void setNorth(double _north) {
         this.north = MathUtils.roundCoordinate(_north);
-        this.notifyUpdate(this);
+        try {
+            this.notifyUpdate(this);
+        } catch (DAOException e) {
+            Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+        }
     }
 
     public double getAltitude() {
@@ -154,7 +164,11 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
 
     public void setAltitude(double _altitude) {
         this.altitude = MathUtils.roundCoordinate(_altitude);
-        this.notifyUpdate(this);
+        try {
+            this.notifyUpdate(this);
+        } catch (DAOException e) {
+            Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
+        }
     }
 
     public boolean isBasePoint() {
@@ -259,6 +273,8 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
         } catch (NumberFormatException e) {
             throw new InvalidFormatException(App.getContext().getString(
                     R.string.exception_invalid_format_values));
+        } catch (DAOException e) {
+            Logger.log(Logger.ErrLabel.DAO_ERROR, e.getMessage());
         }
     }
 
@@ -344,7 +360,7 @@ public class Point implements DAOUpdater, DataExporter, DataImporter, Serializab
     }
 
     @Override
-    public void notifyUpdate(Object obj) {
+    public void notifyUpdate(Object obj) throws DAOException {
         App.arePointsExported = false;
         for (DAO dao : this.daoList) {
             dao.update(obj);

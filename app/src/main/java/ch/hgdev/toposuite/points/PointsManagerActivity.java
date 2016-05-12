@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.SharedResources;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ExportDialogListener;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
@@ -332,7 +333,11 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Job.deleteCurrentJob();
+                                try {
+                                    Job.deleteCurrentJob();
+                                } catch (SQLiteTopoSuiteException e) {
+                                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
+                                }
                                 PointsManagerActivity.this.drawList();
                             }
                         })

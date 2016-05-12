@@ -1,29 +1,29 @@
 package ch.hgdev.toposuite.dao.interfaces;
 
+import ch.hgdev.toposuite.dao.DAOException;
+
 /**
  * Interface for mapping a collection to database table through a DAO.
- * 
+ *
  * @author HGdev
  */
 public interface DAOMapper extends DAOLinker {
     /**
      * Notify all the DAO that a new Object has been added.
-     * 
-     * @param obj
-     *            an object
+     *
+     * @param obj an object
      */
-    void notifyCreation(Object obj);
+    void notifyCreation(Object obj) throws DAOException;
 
     /**
      * Notify all the DAO that a new Object has been deleted.
-     * 
-     * @param obj
-     *            an object
+     *
+     * @param obj an object
      */
-    void notifyDeletion(Object obj);
+    void notifyDeletion(Object obj) throws DAOException;
 
     /**
      * Notify all that all elements from a table have been cleared.
      */
-    void notifyClear();
+    void notifyClear() throws DAOException;
 }

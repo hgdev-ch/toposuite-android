@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -135,7 +136,7 @@ public class CalculationsDataSource implements DAO, Serializable {
     }
 
     @Override
-    public void update(Object obj) {
+    public void update(Object obj) throws SQLiteTopoSuiteException {
         Calculation calculation = (Calculation) obj;
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
 
@@ -197,7 +198,7 @@ public class CalculationsDataSource implements DAO, Serializable {
      * Delete all Calculations.
      */
     @Override
-    public void deleteAll() {
+    public void deleteAll() throws SQLiteTopoSuiteException {
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
         db.delete(CalculationsTable.TABLE_NAME_CALCULATIONS, null, null);
     }
@@ -205,13 +206,17 @@ public class CalculationsDataSource implements DAO, Serializable {
     /**
      * Truncate table.
      */
-    public void truncate() {
+    public void truncate() throws SQLiteTopoSuiteException {
         this.deleteAll();
 
         SQLiteDatabase db = App.dbHelper.getWritableDatabase();
-        db.execSQL(
-                String.format(
-                        "DELETE FROM sqlite_sequence WHERE name = '%s'",
-                        CalculationsTable.TABLE_NAME_CALCULATIONS));
+        try {
+            db.execSQL(
+                    String.format(
+                            "DELETE FROM sqlite_sequence WHERE name = '%s'",
+                            CalculationsTable.TABLE_NAME_CALCULATIONS));
+        } catch (SQLException e) {
+            throw new SQLiteTopoSuiteException(e.getMessage());
+        }
     }
 }

@@ -23,6 +23,7 @@ import java.util.List;
 
 import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
+import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
@@ -123,8 +124,8 @@ public class JobImporterActivity extends TopoSuiteActivity implements ImportDial
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Job.deleteCurrentJob();
                 try {
+                    Job.deleteCurrentJob();
                     File jsonFile = new File(JobImporterActivity.this.path);
                     List<String> lines;
                     lines = Files.readLines(jsonFile, Charset.defaultCharset());
@@ -135,6 +136,8 @@ public class JobImporterActivity extends TopoSuiteActivity implements ImportDial
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
                 } catch (JSONException | ParseException e) {
                     Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
+                } catch (SQLiteTopoSuiteException e) {
+                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
                 }
 
                 JobImporterActivity.this.runOnUiThread(new Runnable() {
