@@ -252,6 +252,7 @@ public class JobsActivity extends TopoSuiteActivity implements
                         JobsActivity.this.progress.dismiss();
                         JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
                         JobsActivity.this.drawList();
+                        JobsActivity.this.updateShareIntent();
                         if (Job.getCurrentJobName() == null) {
                             ViewUtils.showToast(JobsActivity.this, JobsActivity.this.getString(R.string.error_impossible_to_import));
                         } else {
