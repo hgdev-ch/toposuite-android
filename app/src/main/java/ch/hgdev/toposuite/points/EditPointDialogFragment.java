@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.points;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
@@ -61,6 +62,7 @@ public class EditPointDialogFragment extends DialogFragment {
     private EditText northEditText;
     private EditText numberEditText;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();

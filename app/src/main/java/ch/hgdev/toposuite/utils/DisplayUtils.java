@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.common.base.Strings;
 
@@ -47,6 +48,7 @@ public class DisplayUtils {
      * @param value The value to convert to a String.
      * @return Value as a String.
      */
+    @NonNull
     public static String toStringForEditText(int value) {
         if (MathUtils.isIgnorable(value)) {
             return "";
@@ -62,6 +64,7 @@ public class DisplayUtils {
      * @param value The value to convert to a String.
      * @return Value as a String.
      */
+    @NonNull
     public static String toStringForEditText(double value) {
         if (MathUtils.isIgnorable(value)) {
             return "";
@@ -75,7 +78,8 @@ public class DisplayUtils {
      * @param s A string to display oon a view.
      * @return Formatted string s.
      */
-    public static String format(String s) {
+    @NonNull
+    public static String format(@Nullable String s) {
         if (s == null) {
             return "-";
         }
@@ -89,6 +93,7 @@ public class DisplayUtils {
      * @param type  The type of the value.
      * @return Value formatted according to type.
      */
+    @NonNull
     private static String format(double value, @NonNull DisplayUtils.valueType type) {
         int precision;
 
@@ -142,6 +147,7 @@ public class DisplayUtils {
      * @param value Coordinate to format.
      * @return Formatted coordinate.
      */
+    @NonNull
     public static String formatCoordinate(double value) {
         return DisplayUtils.format(value, valueType.COORDINATE);
     }
@@ -152,6 +158,7 @@ public class DisplayUtils {
      * @param value Angle to format.
      * @return Formatted angle.
      */
+    @NonNull
     public static String formatAngle(double value) {
         return DisplayUtils.format(value, valueType.ANGLE);
     }
@@ -162,6 +169,7 @@ public class DisplayUtils {
      * @param value Distance to format.
      * @return Formatted distance.
      */
+    @NonNull
     public static String formatDistance(double value) {
         return DisplayUtils.format(value, valueType.DISTANCE);
     }
@@ -172,6 +180,7 @@ public class DisplayUtils {
      * @param value Average value to format.
      * @return Formatted average value.
      */
+    @NonNull
     public static String formatAverage(double value) {
         return DisplayUtils.format(value, valueType.AVERAGE);
     }
@@ -182,6 +191,7 @@ public class DisplayUtils {
      * @param value Gap value to format.
      * @return Formatted gap value.
      */
+    @NonNull
     public static String formatGap(double value) {
         return DisplayUtils.format(value, valueType.GAP);
     }
@@ -192,6 +202,7 @@ public class DisplayUtils {
      * @param value Surface value to format.
      * @return Formatted surface value.
      */
+    @NonNull
     public static String formatSurface(double value) {
         return DisplayUtils.format(value, valueType.SURFACE);
     }
@@ -202,6 +213,7 @@ public class DisplayUtils {
      * @param value scale factor to format.
      * @return Formatted scale factor.
      */
+    @NonNull
     public static String formatScaleFactor(double value) {
         return DisplayUtils.format(value, valueType.SCALE_FACTOR);
     }
@@ -214,6 +226,7 @@ public class DisplayUtils {
      * @param value Input value in CC.
      * @return Formatted CC value.
      */
+    @NonNull
     public static String formatCC(double value) {
         return DisplayUtils.format(value, valueType.CC);
     }
@@ -250,7 +263,8 @@ public class DisplayUtils {
      * @param d a date
      * @return a formatted date
      */
-    public static String formatDate(Date d) {
+    @NonNull
+    public static String formatDate(@Nullable Date d) {
         if (d == null) {
             return "-";
         }
@@ -265,6 +279,7 @@ public class DisplayUtils {
      * @param d a date
      * @return a formatted date
      */
+    @NonNull
     public static String formatDate(long d) {
         if (MathUtils.isIgnorable(d)) {
             return "-";
@@ -291,6 +306,7 @@ public class DisplayUtils {
      * @param pt      a Point
      * @return formatted Point
      */
+    @NonNull
     public static String formatPoint(@NonNull Context context, Point pt) {
         if (pt == null) {
             return String.format("%s: -, %s: -, %s: -",
@@ -312,6 +328,7 @@ public class DisplayUtils {
      * @param pt      a 2D Point (altitude = 0.0)
      * @return formatted Point
      */
+    @NonNull
     public static String format2DPoint(@NonNull Context context, Point pt) {
         if (pt == null) {
             return String.format("%s: -, %s: -",

@@ -15,6 +15,8 @@ package ch.hgdev.toposuite.utils;
  * limitations under the License.
  */
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -105,7 +107,7 @@ public class UnicodeReader extends Reader {
     }
 
     @Override
-    public int read(char[] cbuf, int off, int len) throws IOException {
+    public int read(@NonNull char[] cbuf, int off, int len) throws IOException {
         return internalInputStreamReader.read(cbuf, off, len);
     }
 }

@@ -1,6 +1,7 @@
 package ch.hgdev.toposuite.calculation.activities.axisimpl;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
@@ -89,6 +90,7 @@ public class MeasureDialogFragment extends DialogFragment {
         return mdf;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.initAttributes();
