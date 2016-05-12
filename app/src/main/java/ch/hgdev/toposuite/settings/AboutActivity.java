@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,11 +41,6 @@ public class AboutActivity extends TopoSuiteActivity {
         layout.addView(this.genAboutView(), params);
         layout.addView(licensesTextView);
         layout.addView(this.genLicencesView(), params);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
