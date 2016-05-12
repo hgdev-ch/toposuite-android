@@ -11,6 +11,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -69,7 +70,7 @@ public class DisplayUtils {
         if (MathUtils.isIgnorable(value)) {
             return "";
         }
-        return String.format(App.numberOfDecimals, value);
+        return String.format(Locale.US, App.numberOfDecimals, value);
     }
 
     /**
@@ -132,9 +133,8 @@ public class DisplayUtils {
             String pattern = precision < 1 ? "#,##0" : "#,##0.";
             String decimalCount = Strings.repeat("0", precision);
             pattern += decimalCount;
-            DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
-            symbols.setDecimalSeparator('.');
-            symbols.setGroupingSeparator('\'');
+
+            DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance(Locale.US);
             DecimalFormat df = new DecimalFormat(pattern, symbols);
             df.setRoundingMode(RoundingMode.HALF_UP);
             return df.format(value);
@@ -240,7 +240,7 @@ public class DisplayUtils {
      * @return formatted centimeters.
      */
     public static String formatDifferences(double cm) {
-        return String.format(App.getLocale(), "%.1f", cm);
+        return String.format(Locale.US, "%.1f", cm);
     }
 
     /**
