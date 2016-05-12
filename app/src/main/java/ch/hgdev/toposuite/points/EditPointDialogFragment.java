@@ -51,7 +51,7 @@ public class EditPointDialogFragment extends DialogFragment {
 
     public static final String POINT_POSITION = "Point position";
     private Bundle bundle;
-    EditPointDialogListener listener;
+    private EditPointDialogListener listener;
     private String number;
     private double altitude;
     private double east;

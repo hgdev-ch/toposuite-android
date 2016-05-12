@@ -29,7 +29,7 @@ public class App extends Application {
     /**
      * App (public) directory.
      */
-    public static final String PUBLIC_DIR = "Toposuite";
+    private static final String PUBLIC_DIR = "Toposuite";
 
     /**
      * Database file name.
@@ -67,7 +67,7 @@ public class App extends Application {
     /**
      * Identify the current job name.
      */
-    public static String currentJobName;
+    private static String currentJobName;
 
     /**
      * This variable contains the path to the publicly accessible data directory

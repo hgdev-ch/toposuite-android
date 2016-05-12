@@ -46,7 +46,7 @@ public class AddPointDialogFragment extends DialogFragment {
         void onDialogAdd(AddPointDialogFragment dialog);
     }
 
-    AddPointDialogListener listener;
+    private AddPointDialogListener listener;
     private String number;
     private double altitude;
     private double east;
