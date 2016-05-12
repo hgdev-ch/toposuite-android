@@ -51,9 +51,9 @@ public class Job {
     private static final String VERSION = "2";
     private static final String GENERATOR = "TopoSuite Android";
 
-    private String name;
-    private long lastModified;
-    private File tpst;
+    private final String name;
+    private final long lastModified;
+    private final File tpst;
 
 
     public Job(@NonNull File tpst) {

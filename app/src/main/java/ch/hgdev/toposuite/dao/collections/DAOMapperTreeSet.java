@@ -42,7 +42,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     /**
      * List of observers.
      */
-    private List<DAO> daoList;
+    private final List<DAO> daoList;
 
     /**
      * Control whether methods that change the list automatically call the

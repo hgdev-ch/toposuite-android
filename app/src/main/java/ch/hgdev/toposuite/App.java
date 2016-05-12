@@ -52,7 +52,7 @@ public class App extends Application {
     /**
      * Number of decimal to display with dealing with numbers.
      */
-    public static String numberOfDecimals = "%.4f";
+    public static final String numberOfDecimals = "%.4f";
 
     /**
      * Old date format.
@@ -129,7 +129,7 @@ public class App extends Application {
     /**
      * Number of decimal used for value of type CC.
      */
-    private static int decimalPrecisionForCC = 0;
+    private static final int decimalPrecisionForCC = 0;
 
     /**
      * Determine an input type of type coordinate, that is a decimal signed

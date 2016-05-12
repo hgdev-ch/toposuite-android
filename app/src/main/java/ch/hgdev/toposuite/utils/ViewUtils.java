@@ -39,13 +39,13 @@ public class ViewUtils {
      * Regular expression pattern to check if a string can be transformed to a
      * double.
      */
-    private static Pattern doublePattern = Pattern.compile("^-?\\d+(\\.\\d*)?$");
+    private static final Pattern doublePattern = Pattern.compile("^-?\\d+(\\.\\d*)?$");
 
     /**
      * Regular expression pattern to check if a string can be transformed to an
      * integer.
      */
-    private static Pattern intPattern = Pattern.compile("^-?\\d+$");
+    private static final Pattern intPattern = Pattern.compile("^-?\\d+$");
 
     /**
      * Convenient function for easily reading a double value from an EditText.

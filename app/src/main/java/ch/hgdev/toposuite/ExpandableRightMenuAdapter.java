@@ -16,11 +16,11 @@ import android.widget.TextView;
 import ch.hgdev.toposuite.TopoSuiteActivity.ActivityItem;
 
 public class ExpandableRightMenuAdapter extends BaseExpandableListAdapter {
-    private Activity activity;
+    private final Activity activity;
     private final SparseArray<TopoSuiteActivity.CalculationGroup> groups;
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     private int lastExpandedGroupPosition;
-    private ExpandableListView listView;
+    private final ExpandableListView listView;
 
     public ExpandableRightMenuAdapter(Activity _activity, ExpandableListView _listView,
                                       SparseArray<TopoSuiteActivity.CalculationGroup> _groups) {
