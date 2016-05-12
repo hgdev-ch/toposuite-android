@@ -182,7 +182,7 @@ public class AxisImplantation extends Calculation {
             Measure m = new Measure(
                     null,
                     jo.getDouble(Measure.HORIZ_DIR),
-                    jo.getDouble(Measure.ZEN_ANGLE),
+                    MathUtils.IGNORE_DOUBLE,
                     jo.getDouble(Measure.DISTANCE),
                     MathUtils.IGNORE_DOUBLE,
                     MathUtils.IGNORE_DOUBLE,

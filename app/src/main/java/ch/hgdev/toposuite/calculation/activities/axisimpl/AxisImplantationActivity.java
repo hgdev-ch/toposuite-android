@@ -379,11 +379,10 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
 
     @Override
     public void onDialogAdd(MeasureDialogFragment dialog) {
-        //FIXME: avoid this hardcoded 100 value here
         Measure m = new Measure(
                 null,
                 dialog.getHorizDir(),
-                100,
+                MathUtils.IGNORE_DOUBLE,
                 dialog.getDistance());
         m.setMeasureNumber(dialog.getMeasureNumber());
         this.adapter.add(m);
