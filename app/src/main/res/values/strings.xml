@@ -7,12 +7,9 @@
 	<string name="abscissa">Abscissa</string>
 	<string name="abscissa_label">Abscissa [m]</string>
 	<string name="abscissa_3dots">Abscissa…</string>
-	<string name="about_title">About <xliff:g id="app_name">%s</xliff:g></string>
 	<string name="about_toposuite">About TopoSuite</string>
-	<string name="action_settings">Settings</string>
 	<string name="actual_label">Actual</string>
 	<string name="add">Add</string>
-	<string name="add_3dots">Add…</string>
 	<string name="altitude">Altitude</string>
 	<string name="altitude_3dots">Altitude…</string>
 	<string name="altitude_label">Altitude [m]</string>
@@ -26,7 +23,6 @@
 	<string name="app_name">TopoSuite</string>
 	<string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
 	<string name="app_website">Official website:</string>
-	<string name="application_settings">Application settings</string>
 	<string name="arc_label">Arc [m]</string>
 	<string name="arc_length_label">Arc length</string>
 	<string name="arrow_label">Arrow [m]</string>
@@ -118,7 +114,6 @@
 	<string name="error_computation_exception">The calculation generated an error!</string>
 	<string name="error_choose_unknown_orientation">You must select an unknown orientation!</string>
 	<string name="error_choose_file">Please, select a file to import!</string>
-	<string name="error_enter_point_number">You need to enter points numbers!</string>
 	<string name="error_file_already_exists">File already exists!</string>
 	<string name="error_fill_data">Every mandatory field must be field!</string>
 	<string name="error_import_label">Import error</string>
@@ -154,7 +149,6 @@
 	<string name="from_station">from station</string>
 	<string name="fs_label">FS [cm]</string>
 	<string name="fs_without_unit_label">FS</string>
-	<string name="general_settings">General settings</string>
 	<string name="gisement_label">Gisement [g]</string>
 	<string name="group_polar_calculation">Polar calculations</string>
 	<string name="group_orthogonal_calculation">Orthogonal calculations</string>
@@ -163,12 +157,9 @@
 	<string name="group_various">Various</string>
 	<string name="group_mathematics">Mathematics</string>
 	<string name="height_label">Height [m]</string>
-	<string name="heavy_checkmark">✔</string>
-	<string name="heavy_ballot">✘</string>
 	<string name="home">Home</string>
 	<string name="horiz_direction_3dots">Horizontal direction…</string>
 	<string name="i_label">Instrument height (I) [m]</string>
-	<string name="import_confirmation">Press the \'Import\' button again to confirm the action.</string>
 	<string name="import_label">Import</string>
 	<string name="import_3dots">Import…</string>
 	<string name="imposed_surface_label">Imposed surface [m²]</string>
@@ -178,7 +169,6 @@
 	<string name="intersection_two_label">Second intersection point:</string>
 	<string name="job_label">Job</string>
 	<string name="job_clear">Clear current job</string>
-	<string name="job_export">Export current job</string>
 	<string name="job_import">Import job</string>
 	<string name="job_name">Job name</string>
 	<string name="job_rename">Rename current job</string>
@@ -252,8 +242,7 @@
 	<string name="ordinate">Ordinate</string>
 	<string name="ordinate_label">Ordinate [m]</string>
 	<string name="ordinate_3dots">Ordinate…</string>
-	<string name="oriented_direction_label">Orient. Dir. [g]</string>
-	<string name="orientation_label">Orientation</string>
+	<string name="orientation_label">Orientation [g]</string>
 	<string name="origin_label">Origin</string>
 	<string name="origin_only_label">Origin</string>
 	<string name="orthogonal_implantation_label">Orthogonal implantation from the base</string>
@@ -275,7 +264,6 @@
 	<string name="point_number">Point No</string>
 	<string name="point_number_3dots">Point No…</string>
 	<string name="point_provided">Provided</string>
-	<string name="point_search">Search for a point</string>
 	<string name="point_one_not_saved">First point was NOT saved!</string>
 	<string name="point_two_not_saved">Second point was NOT saved!</string>
 	<string name="points_import">Import points</string>
@@ -307,7 +295,6 @@
 	<string name="save_points">Save points</string>
 	<string name="scale_factor_label">Scale</string>
 	<string name="se_label">sE [cm]:</string>
-	<string name="search">Search</string>
 	<string name="search_3dots">Search…</string>
 	<string name="sector_surface_label">Sector surface [m²]</string>
 	<string name="segment_surface_label">Segment surface [m²]</string>

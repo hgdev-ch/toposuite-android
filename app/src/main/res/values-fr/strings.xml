@@ -7,12 +7,9 @@
 	<string name="abscissa">Abscisse</string>
 	<string name="abscissa_label">Abscisse [m]</string>
 	<string name="abscissa_3dots">Abscisse…</string>
-	<string name="about_title">À propos <xliff:g id="app_name">%s</xliff:g></string>
 	<string name="about_toposuite">À propos de TopoSuite</string>
-	<string name="action_settings">Paramètres</string>
 	<string name="actual_label">Actuel</string>
 	<string name="add">Ajouter</string>
-	<string name="add_3dots">Ajouter…</string>
 	<string name="altitude">Altitude</string>
 	<string name="altitude_3dots">Altitude…</string>
 	<string name="altitude_label">Altitude [m]</string>
@@ -26,7 +23,6 @@
 	<string name="app_name">TopoSuite</string>
 	<string name="app_version">Version: <xliff:g id="version">%s</xliff:g></string>
 	<string name="app_website">Site officiel:</string>
-	<string name="application_settings">Préférences de l\'application</string>
 	<string name="arc_label">Arc [m]</string>
 	<string name="arc_length_label">Longueur d\'un arc</string>
 	<string name="arrow_label">Flèche [m]</string>
@@ -116,7 +112,6 @@
 	<string name="error_computation_exception">Le calcul a généré une erreur!</string>
 	<string name="error_choose_unknown_orientation">Vous devez choisir une inconnue d\'orientation!</string>
 	<string name="error_choose_file">Veuillez choisir un fichier à importer!</string>
-	<string name="error_enter_point_number">Vous devez entrer des numéros de points!</string>
 	<string name="error_file_already_exists">Le fichier existe déjà!</string>
 	<string name="error_fill_data">Tous les champs obligatoires doivent être remplis!</string>
 	<string name="error_import_label">Erreur d\'importation</string>
@@ -152,7 +147,6 @@
 	<string name="from_station">depuis la station</string>
 	<string name="fs_label">FS [cm]</string>
 	<string name="fs_without_unit_label">FS</string>
-	<string name="general_settings">Préférences générales</string>
 	<string name="gisement_label">Gisement [g]</string>
 	<string name="group_polar_calculation">Calculs polaires</string>
 	<string name="group_orthogonal_calculation">Calculs orthogonaux</string>
@@ -161,12 +155,9 @@
 	<string name="group_various">Divers</string>
 	<string name="group_mathematics">Mathématiques</string>
 	<string name="height_label">Hauteur [m]</string>
-	<string name="heavy_checkmark">✔</string>
-	<string name="heavy_ballot">✘</string>
 	<string name="home">Accueil</string>
 	<string name="horiz_direction_3dots">Direction horizontale…</string>
 	<string name="i_label">Hauteur de l\'instrument (I) [m]</string>
-	<string name="import_confirmation">Appuyer à nouveau sur \'Import\' pour confirmer cette action.</string>
 	<string name="import_label">Importer</string>
 	<string name="import_3dots">Importer…</string>
 	<string name="imposed_surface_label">Surface imposée [m²]</string>
@@ -176,7 +167,6 @@
 	<string name="intersection_two_label">Second point d\'intersection:</string>
 	<string name="job_label">Job</string>
 	<string name="job_clear">Effacer le job courant</string>
-	<string name="job_export">Exporter le job courant</string>
 	<string name="job_import">Importer un job</string>
 	<string name="job_name">Nom du job</string>
 	<string name="job_rename">Renommer le job courant</string>
@@ -250,7 +240,6 @@
 	<string name="ordinate">Ordonnée</string>
 	<string name="ordinate_label">Ordonnée [m]</string>
 	<string name="ordinate_3dots">Ordonnée…</string>
-	<string name="oriented_direction_label">Orientation</string>
 	<string name="orientation_label">Dir. Orient. [g]</string>
 	<string name="origin_label">Origine</string>
 	<string name="origin_only_label">Origine</string>
@@ -273,7 +262,6 @@
 	<string name="point_number">No du point</string>
 	<string name="point_number_3dots">Point No…</string>
 	<string name="point_provided">Saisi</string>
-	<string name="point_search">Rechercher un point</string>
 	<string name="point_one_not_saved">Le premier point n\'a pas été sauvegardé!</string>
 	<string name="point_two_not_saved">Le second point n\'a pas été sauvegardé!</string>
 	<string name="points_import">Import des points</string>
@@ -305,7 +293,6 @@
 	<string name="save_points">Sauvegarder les points</string>
 	<string name="scale_factor_label">Echelle</string>
 	<string name="se_label">sE [cm]:</string>
-	<string name="search">Rechercher</string>
 	<string name="search_3dots">Rechercher…</string>
 	<string name="sector_surface_label">Surface secteur [m²]</string>
 	<string name="segment_surface_label">Surface segment [m²]</string>

@@ -7,12 +7,9 @@
 	<string name="abscissa">Ascissa</string>
 	<string name="abscissa_label">Ascissa [m]</string>
 	<string name="abscissa_3dots">Ascissa…</string>
-	<string name="about_title">In merito <xliff:g id="app_name">%s</xliff:g></string>
 	<string name="about_toposuite">In merito a TopoSuite</string>
-	<string name="action_settings">Parametri</string>
 	<string name="actual_label">Attuale</string>
 	<string name="add">Aggiungere</string>
-	<string name="add_3dots">Aggiungere…</string>
 	<string name="altitude">Quota</string>
 	<string name="altitude_3dots">Quota…</string>
 	<string name="altitude_label">Quota [m]</string>
@@ -26,7 +23,6 @@
 	<string name="app_name">TopoSuite</string>
 	<string name="app_version">Versione: <xliff:g id="versione">%s</xliff:g></string>
 	<string name="app_website">Sito ufficiale:</string>
-	<string name="application_settings">Impostazione dell\'applicazione</string>
 	<string name="arc_label">Arco [m]</string>
 	<string name="arc_length_label">Lungezza dell\' arco</string>
 	<string name="arrow_label">Freccia [m]</string>
@@ -115,7 +111,6 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="error_computation_exception">Il calcolo ha generato un errore!</string>
 	<string name="error_choose_unknown_orientation">Dovete scegliere una incognita di orientamento!</string>
 	<string name="error_choose_file">Scegliete un file da importare!</string>
-	<string name="error_enter_point_number">Dovete inserire la numerica dei punti!</string>
 	<string name="error_file_already_exists">Il file esiste già!</string>
 	<string name="error_fill_data">Tutti i campi obbligatori vanno compilati!</string>
 	<string name="error_import_label">Errore d\'importazione</string>
@@ -151,7 +146,6 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="from_station">Dalla stazione</string>
 	<string name="fs_label">FS [cm]</string>
 	<string name="fs_without_unit_label">FS</string>
-	<string name="general_settings">Impostazioni generali</string>
 	<string name="gisement_label">Azimut [g]</string>
 	<string name="group_polar_calculation">Calcolo polare</string>
 	<string name="group_orthogonal_calculation">Calcolo ortogonale</string>
@@ -160,12 +154,9 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="group_various">Vari</string>
 	<string name="group_mathematics">Matematica</string>
 	<string name="height_label">Altezza [m]</string>
-	<string name="heavy_checkmark">✔</string>
-	<string name="heavy_ballot">✘</string>
 	<string name="home">Home</string>
 	<string name="horiz_direction_3dots">Direzione orizzontale…</string>
 	<string name="i_label">Altezza strumento (I) [m]</string>
-	<string name="import_confirmation">Digittare nuovamente \'Importa\' per confermare questa azione.</string>
 	<string name="import_label">Importare</string>
 	<string name="import_3dots">Importare…</string>
 	<string name="imposed_surface_label">Superficie imposta [m²]</string>
@@ -175,7 +166,6 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="intersection_two_label">Secondo punto di intersezione:</string>
 	<string name="job_label">Job</string>
 	<string name="job_clear">Cancellare il lavoro corrente</string>
-	<string name="job_export">Esportare il lavoro corrente</string>
 	<string name="job_import">Importare un lavoro</string>
 	<string name="job_name">Nome del lavoro</string>
 	<string name="job_rename">Rinominare il lavoro corrente</string>
@@ -249,7 +239,6 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="ordinate">Ordinate</string>
 	<string name="ordinate_label">Ordinate [m]</string>
 	<string name="ordinate_3dots">Ordinate…</string>
-	<string name="oriented_direction_label">Orientamento</string>
 	<string name="orientation_label">Dir. Orient. [g]</string>
 	<string name="origin_label">Origine</string>
 	<string name="origin_only_label">Origine</string>
@@ -272,7 +261,6 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="point_number">No del punto</string>
 	<string name="point_number_3dots">Punto No…</string>
 	<string name="point_provided">Inserimento</string>
-	<string name="point_search">Cerca un punto</string>
 	<string name="point_one_not_saved">Il primo punto non è stato salvato!</string>
 	<string name="point_two_not_saved">Il secondo punto non è stato salvato!</string>
 	<string name="points_import">Importazione dei punti</string>
@@ -304,7 +292,6 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="save_points">Salvare i punti</string>
 	<string name="scale_factor_label">Scala</string>
 	<string name="se_label">sE [cm]:</string>
-	<string name="search">Cerca</string>
 	<string name="search_3dots">Cerca…</string>
 	<string name="sector_surface_label">Superficie settore [m²]</string>
 	<string name="segment_surface_label">Superficie segmento [m²]</string>
