@@ -48,7 +48,7 @@ public class Job {
     private static final String POINTS_KEY = "points";
     private static final String CALCULATIONS_KEY = "calculations";
 
-    private static final String VERSION = "1"; // TODO update before release 1.1.0
+    private static final String VERSION = "2";
     private static final String GENERATOR = "TopoSuite Android";
 
     private String name;
