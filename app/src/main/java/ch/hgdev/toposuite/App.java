@@ -132,6 +132,10 @@ public class App extends Application {
     private static final int decimalPrecisionForCC = 0;
 
     /**
+     * Number of decimals to use for difference.
+     */
+    private static final int decimalPrecisionForDifference = 1;
+
      * Determine an input type of type coordinate, that is a decimal signed
      * number.
      */
@@ -295,6 +299,10 @@ public class App extends Application {
 
     public static int getDecimalPrecisionForCC() {
         return App.decimalPrecisionForCC;
+    }
+
+    public static int getDecimalPrecisionForDifference() {
+        return decimalPrecisionForDifference;
     }
 
     public static int getCoordinateDecimalRounding() {

@@ -32,14 +32,15 @@ public class DisplayUtils {
      * @author HGdev
      */
     private enum valueType {
-        COORDINATE,
         ANGLE,
-        DISTANCE,
         AVERAGE,
+        CC,
+        COORDINATE,
+        DIFFERENCE,
+        DISTANCE,
         GAP,
         SCALE_FACTOR,
-        SURFACE,
-        CC
+        SURFACE
     }
 
     /**
@@ -107,6 +108,9 @@ public class DisplayUtils {
                     break;
                 case ANGLE:
                     precision = App.getDecimalPrecisionForAngle();
+                    break;
+                case DIFFERENCE:
+                    precision = App.getDecimalPrecisionForDifference();
                     break;
                 case DISTANCE:
                     precision = App.getDecimalPrecisionForDistance();
@@ -233,14 +237,12 @@ public class DisplayUtils {
 
     /**
      * Format given centimeters in order to display them in a TextView.
-     * <p/>
-     * FIXME: use DisplayUtils.format
      *
      * @param cm centimeters.
      * @return formatted centimeters.
      */
     public static String formatDifferences(double cm) {
-        return String.format(Locale.US, "%.1f", cm);
+        return DisplayUtils.format(cm, valueType.DIFFERENCE);
     }
 
     /**
