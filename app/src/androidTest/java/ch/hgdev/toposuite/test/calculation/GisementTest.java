@@ -1,14 +1,30 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.Gisement;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 
-public class TestGisement extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class GisementTest extends CalculationTestRunner {
 
-    public void testCompute() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple() {
         Point p1 = new Point("1", 600.245, 200.729, 100.776, true);
         Point p2 = new Point("2", 634.087, 257.975, 134.876, true);
 

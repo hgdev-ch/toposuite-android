@@ -1,13 +1,23 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LinesIntersection;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestLinesIntersection extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class LinesIntersectionTest extends CalculationTestRunner {
     private Point p1;
     private Point p3;
     private Point p4;
@@ -17,8 +27,8 @@ public class TestLinesIntersection extends CalculationTest {
     private Point p30;
     private Point p40;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() {
         super.setUp();
 
         this.p1 = new Point("1", 25.0, 55.0, 0.0, true, false);
@@ -32,7 +42,8 @@ public class TestLinesIntersection extends CalculationTest {
         this.p40 = new Point("40", -29.2174, 39.2745, 0.0, true, false);
     }
 
-    public void testCompute1() {
+    @Test
+    public void simple1() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.0, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 0.0, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -48,7 +59,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute2() {
+    @Test
+    public void simple2() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 21.87, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -64,7 +76,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute3() {
+    @Test
+    public void simple3() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 -21.87, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -80,7 +93,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute4() {
+    @Test
+    public void simple4() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, 0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 -21.87, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -96,7 +110,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute5() {
+    @Test
+    public void simple5() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, 50.876, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 350.35,
                 21.87, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -112,7 +127,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute6() {
+    @Test
+    public void simple6() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p4, -0.763, MathUtils.IGNORE_DOUBLE, this.p3, 250.35,
                 21.87, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -128,7 +144,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute7() {
+    @Test
+    public void simple7() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p5, 0.0, MathUtils.IGNORE_DOUBLE, this.p3, this.p4,
                 0.0, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -144,7 +161,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute8() {
+    @Test
+    public void simple8() {
         LinesIntersection li = new LinesIntersection(
                 this.p1, this.p5, -0.65, MathUtils.IGNORE_DOUBLE, this.p3, this.p4,
                 -13.872, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -160,7 +178,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute9() {
+    @Test
+    public void simple9() {
         LinesIntersection li = new LinesIntersection(
                 this.p10, this.p20, 0.0, -21.954, this.p30,
                 this.p40, 0.0, -1.569, "42", false);
@@ -176,7 +195,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute10() {
+    @Test
+    public void simple10() {
         LinesIntersection li = new LinesIntersection(
                 this.p10, this.p20, 0.0, 1.697, this.p30,
                 this.p40, 0.0, MathUtils.IGNORE_DOUBLE, "42", false);
@@ -192,7 +212,8 @@ public class TestLinesIntersection extends CalculationTest {
                 li.getIntersectionPoint().getNorth()));
     }
 
-    public void testCompute11() {
+    @Test
+    public void simple11() {
         Point localP1 = new Point("1", 600, 200, 0.0, true, false);
         Point localP2 = new Point("2", 620, 215, 0.0, true, false);
         Point localP3 = new Point("3", 610, 185, 0.0, true, false);

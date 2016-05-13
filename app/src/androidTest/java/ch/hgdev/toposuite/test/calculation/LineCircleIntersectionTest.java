@@ -1,15 +1,31 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LineCircleIntersection;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestLineCircleIntersection extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class LineCircleIntersectionTest extends CalculationTestRunner {
 
-    public void testCorrectSolution() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple() {
         Point p1 = new Point("1", 25.0, 55.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point p3 = new Point("3", 50.177, 99.941, MathUtils.IGNORE_DOUBLE, true, false);
         double displacement = 0.0;
@@ -101,7 +117,8 @@ public class TestLineCircleIntersection extends CalculationTest {
     /**
      * Test for bug report #434
      */
-    public void testRealCase1() {
+    @Test
+    public void issue434() {
         Point p1 = new Point("1", 600, 200, MathUtils.IGNORE_DOUBLE, true, false);
         Point p4 = new Point("4", 638.9498, 198.0212, MathUtils.IGNORE_DOUBLE, true, false);
         Point p5 = new Point("5", 604, 203.8019, MathUtils.IGNORE_DOUBLE, true, false);
@@ -120,13 +137,13 @@ public class TestLineCircleIntersection extends CalculationTest {
         Assert.assertEquals("203.244", this.df3.format(lci.getFirstIntersection().getNorth()));
         Assert.assertEquals("593.0142", this.df4.format(lci.getSecondIntersection().getEast()));
         Assert.assertEquals("204.3601", this.df4.format(lci.getSecondIntersection().getNorth()));
-
     }
 
     /**
      * Test for bug report #476
      */
-    public void testRealCase2() {
+    @Test
+    public void issue476() {
         Point pA = new Point("1", 14.4172, 7.8539, MathUtils.IGNORE_DOUBLE, true, false);
         Point pB = new Point("4", 19.627, 12.659, MathUtils.IGNORE_DOUBLE, true, false);
         double distToPtL = 1.978;
@@ -149,7 +166,8 @@ public class TestLineCircleIntersection extends CalculationTest {
     /**
      * Test for bug report #622
      */
-    public void testRealCase3() {
+    @Test
+    public void issue622() {
         Point p1 = new Point("1", 600.0, 200.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point p2 = new Point("2", 630.0, 225.0, MathUtils.IGNORE_DOUBLE, true, false);
         double distance = 5.0;

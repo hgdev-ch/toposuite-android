@@ -1,17 +1,33 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.List;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CircularSegmentation;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestCircularSegmentation extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class CircularSegmentationTest extends CalculationTestRunner {
 
-    public void testCircularSegmentation1() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple1() {
         Point circleCenter = new Point("1", 444.1609, -713.9844, MathUtils.IGNORE_DOUBLE, true,
                 false);
         Point startPoint = new Point("2", 557.3641, -207.0243, MathUtils.IGNORE_DOUBLE, true, false);
@@ -42,7 +58,8 @@ public class TestCircularSegmentation extends CalculationTest {
         Assert.assertEquals("-737.8611", this.df4.format(points.get(3).getNorth()));
     }
 
-    public void testCircularSegmentation2() {
+    @Test
+    public void simple2() {
         Point circleCenter = new Point(
                 "1", 352.9166, 288.3151, MathUtils.IGNORE_DOUBLE, true, false);
         Point startPoint = new Point(
@@ -72,7 +89,8 @@ public class TestCircularSegmentation extends CalculationTest {
 
     }
 
-    public void testCircularSegmentation3() {
+    @Test
+    public void simple3() {
         Point circleCenter = new Point(
                 "1", 19863.9616, 1890.3261, MathUtils.IGNORE_DOUBLE, true, false);
         Point startPoint = new Point("2", 17473.4117, 2638.7761, MathUtils.IGNORE_DOUBLE, true,

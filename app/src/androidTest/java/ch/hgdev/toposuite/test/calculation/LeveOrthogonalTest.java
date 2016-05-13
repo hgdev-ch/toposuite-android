@@ -1,14 +1,30 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.LeveOrthogonal;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 
-public class TestLeveOrthogonal extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class LeveOrthogonalTest extends CalculationTestRunner {
 
-    public void testLeveOrthogonal() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple() {
         Point origin = new Point("45", 556495.160, 172493.912, 623.37, true);
         Point extremity = new Point("46", 556517.541, 172491.482, 624.14, true);
         double measuredDistance = 22.58;
@@ -37,7 +53,8 @@ public class TestLeveOrthogonal extends CalculationTest {
     }
 
     // TD-NK_2.1.1
-    public void testTDNK211() {
+    @Test
+    public void tdNK211() {
         Point origin = new Point("2101", 600.000, 200.000, 0.0, true);
         Point extremity = new Point("2102", 665.000, 200.000, 0.0, true);
         double measuredDistance = 65.00;
@@ -115,7 +132,8 @@ public class TestLeveOrthogonal extends CalculationTest {
     }
 
     // TD-NK_2.1.2
-    public void testTDNK212() {
+    @Test
+    public void tdNK212() {
         Point origin = new Point("2117", 600.000, 200.000, 0.0, true);
         Point extremity = new Point("2118", 665.000, 200.000, 0.0, true);
         double measuredDistance = 65.40;

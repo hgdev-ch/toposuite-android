@@ -1,13 +1,29 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CircularCurvesSolver;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 
-public class TestCircularCurvesSolver extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class CircularCurvesSolverTest extends CalculationTestRunner {
 
-    public void testRadiusAlpha() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void radiusAlpha() {
         // radius / alpha (central angle)
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
@@ -34,7 +50,8 @@ public class TestCircularCurvesSolver extends CalculationTest {
         Assert.assertEquals("747.1193", this.df4.format(ccs.getSegmentSurface()));
     }
 
-    public void testRadiusTangent() {
+    @Test
+    public void radiusTangent() {
         // radius / tangent
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
@@ -61,7 +78,8 @@ public class TestCircularCurvesSolver extends CalculationTest {
         Assert.assertEquals("747.1197", this.df4.format(ccs.getSegmentSurface()));
     }
 
-    public void testRadiusArrow() {
+    @Test
+    public void radiusArrow() {
         // radius / arrow
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
@@ -88,7 +106,8 @@ public class TestCircularCurvesSolver extends CalculationTest {
         Assert.assertEquals("747.1199", this.df4.format(ccs.getSegmentSurface()));
     }
 
-    public void testRadiusChordOF() {
+    @Test
+    public void radiusChordOF() {
         // radius / chord OF
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setRadius(40.0);
@@ -115,7 +134,8 @@ public class TestCircularCurvesSolver extends CalculationTest {
         Assert.assertEquals("747.121", this.df3.format(ccs.getSegmentSurface()));
     }
 
-    public void testChordOFAlpha() {
+    @Test
+    public void chordOFAlpha() {
         // chord OF / alpha
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
@@ -142,7 +162,8 @@ public class TestCircularCurvesSolver extends CalculationTest {
         Assert.assertEquals("747.120", this.df3.format(ccs.getSegmentSurface()));
     }
 
-    public void testChordOFTengent() {
+    @Test
+    public void chordOFTengent() {
         // chord OF / tangent
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
@@ -169,7 +190,8 @@ public class TestCircularCurvesSolver extends CalculationTest {
         Assert.assertEquals("747.120", this.df3.format(ccs.getSegmentSurface()));
     }
 
-    public void testChordOFArrow() {
+    @Test
+    public void chordOFArrow() {
         // chord OF / arrow
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setChordOF(64.7214);
@@ -196,7 +218,8 @@ public class TestCircularCurvesSolver extends CalculationTest {
         Assert.assertEquals("747.120", this.df3.format(ccs.getSegmentSurface()));
     }
 
-    public void testTangentAlpha() {
+    @Test
+    public void tangentAlpha() {
         // tangent / alpha
         CircularCurvesSolver ccs = new CircularCurvesSolver(false);
         ccs.setTangent(55.0553);

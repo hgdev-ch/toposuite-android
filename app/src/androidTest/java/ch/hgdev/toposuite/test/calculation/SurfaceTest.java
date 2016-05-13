@@ -1,14 +1,29 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Surface;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 
-public class TestSurface extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class SurfaceTest extends CalculationTestRunner {
 
-    public void testSurfaceWithCurve() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
 
+    @Test
+    public void simpleWithCurve() {
         Surface s1 = new Surface("Test 1", "Surface with curves", false);
         s1.getPoints().add(new Surface.PointWithRadius(
                 "1", 612.8181, 246.3561, 152.8449, 1));
@@ -47,7 +62,8 @@ public class TestSurface extends CalculationTest {
 
     }
 
-    public void testSurfaceWithoutCurve() {
+    @Test
+    public void simpleWithoutCurve() {
         Surface s = new Surface("Test 3", "Surface without curve", false);
         s.getPoints().add(new Surface.PointWithRadius("1", 7.3959, 131.7282, 1));
         s.getPoints().add(new Surface.PointWithRadius("2", 9.226, 234.5983, 2));

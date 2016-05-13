@@ -1,16 +1,32 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.FreeStation;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestFreeStation extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class FreeStationTest extends CalculationTestRunner {
 
-    public void testFreeStation1() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple1() {
         Point p1 = new Point("1", 542430.11, 151989.66, 0.0, true, false);
         Point p2 = new Point("2", 542610.79, 151979.94, 0.0, true, false);
         Point p3 = new Point("3", 542624.36, 151873.24, 0.0, true, false);
@@ -26,6 +42,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -54,7 +71,8 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("1.3", this.df1.format(fs.getResults().get(3).getfS()));
     }
 
-    public void testFreeStation2() {
+    @Test
+    public void simple2() {
         Point p1 = new Point("1", 600.0, 200.0, 0.0, true, false);
         Point p2 = new Point("2", 620.0, 215.0, 416.3, true, false);
         Point p3 = new Point("3", 610.0, 185.0, 417.17, true, false);
@@ -73,6 +91,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -86,7 +105,8 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("0.3", this.df1.format(fs.getsE()));
     }
 
-    public void testFreeStation3() {
+    @Test
+    public void simple3() {
         Point p6 = new Point("6", 622.475, 210.990, 100.400, true, false);
         Point p7 = new Point("7", 636.236, 145.773, 99.964, true, false);
         Point p8 = new Point("8", 635.417, 177.289, 99.144, true, false);
@@ -105,6 +125,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -131,7 +152,8 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("60.443", this.df3.format(fs.getUnknownOrientation()));
     }
 
-    public void testFreeStation4() {
+    @Test
+    public void simple4() {
         Point p182 = new Point("182", 559729.53, 147799.62, 0.00, true, false);
         Point p188 = new Point("188", 559750.21, 147772.29, 0.00, true, false);
         Point p189 = new Point("189", 559748.07, 147775.80, 0.00, true, false);
@@ -159,6 +181,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m6);
         fs.getMeasures().add(m7);
         fs.getMeasures().add(m8);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -176,7 +199,8 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("0.352", this.df3.format(fs.getUnknownOrientation()));
     }
 
-    public void testFreeStationDeactivation1() {
+    @Test
+    public void deactivation() {
         Point p1 = new Point("1", 542430.11, 151989.66, 0.0, true, false);
         Point p2 = new Point("2", 542610.79, 151979.94, 0.0, true, false);
         Point p3 = new Point("3", 542624.36, 151873.24, 0.0, true, false);
@@ -195,6 +219,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
+
         try {
             fs.compute();
             m5.deactivate();
@@ -229,7 +254,8 @@ public class TestFreeStation extends CalculationTest {
      * This test is a regression test for bug #628 (wrong computation of the
      * horizontal distance).
      */
-    public void testFreeStation5() {
+    @Test
+    public void issue628() {
         Point p47 = new Point("47", 529076.015, 182644.074, 933.350, true, false);
         Point p48 = new Point("48", 529133.008, 182679.620, 918.950, true, false);
         Point p9001 = new Point("9001", 529137.864, 182649.391, 919.770, true, false);
@@ -251,6 +277,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
         fs.getMeasures().add(m6);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -280,7 +307,8 @@ public class TestFreeStation extends CalculationTest {
     /**
      * Test with Vz values provided.
      */
-    public void testFreeStationWithVz() {
+    @Test
+    public void withVz() {
         Point p2 = new Point("2", 634.6482, 236.0624, MathUtils.IGNORE_DOUBLE, true);
         Point p3 = new Point("3", 643.1335, 159.6949, MathUtils.IGNORE_DOUBLE, true);
         Point p4 = new Point("4", 576.2674, 169.0361, MathUtils.IGNORE_DOUBLE, true);
@@ -294,6 +322,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -327,7 +356,8 @@ public class TestFreeStation extends CalculationTest {
     /**
      * This is a regression test for bug #731.
      */
-    public void testFreeStation731() {
+    @Test
+    public void issue731() {
         Point p9000 = new Point("1436", 615.0, 740.0, 554.0, true);
         Point p9001 = new Point("1437", 615.0, 810.0, 556.34, true);
         Point p9002 = new Point("1438", 687.0, 804.0, 558.33, true);
@@ -343,6 +373,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -420,7 +451,8 @@ public class TestFreeStation extends CalculationTest {
     /**
      * This is a regression test for issue #759: calculation is wrong when DM1 and DM2 are provided.
      */
-    public void testFreeStation759() {
+    @Test
+    public void issue759() {
         Point p2 = new Point("2", 634.6482, 236.0624, MathUtils.IGNORE_DOUBLE, true);
         Point p3 = new Point("3", 643.1335, 159.6949, MathUtils.IGNORE_DOUBLE, true);
         Point p4 = new Point("4", 576.2674, 169.0361, MathUtils.IGNORE_DOUBLE, true);
@@ -434,6 +466,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -467,7 +500,8 @@ public class TestFreeStation extends CalculationTest {
     /**
      * This is a regression test for issue #769: altitude calculation with conditions.
      */
-    public void testFreeStation769() {
+    @Test
+    public void issue769() {
         Point p2 = new Point("2", 634.6482, 236.0624, 501.0, true);
         Point p3 = new Point("3", 643.1335, 159.6949, MathUtils.IGNORE_DOUBLE, true);
         Point p4 = new Point("4", 576.2674, 169.0361, 500.3772, true);
@@ -493,6 +527,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m4);
         fs.getMeasures().add(m5);
         fs.getMeasures().add(m6);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -524,7 +559,8 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("501.0734", this.df4.format(fs.getStationResult().getAltitude()));
     }
 
-    public void testFreeStation769bis() {
+    @Test
+    public void issue769bis() {
         Point p6 = new Point("6", 622.475, 210.99, 100.4, true);
         Point p77 = new Point("77", 635.223, 145.831, 99.931, true);
         Point p8 = new Point("8", 635.417, 177.289, 99.144, true);
@@ -543,6 +579,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m8);
         fs.getMeasures().add(m9);
         fs.getMeasures().add(m10);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -590,7 +627,8 @@ public class TestFreeStation extends CalculationTest {
      * This test is the same as testFreeStation750 but without using 100.0 for the zenithal angle
      * values of the measures.
      */
-    public void testFreeStation831() {
+    @Test
+    public void issue831() {
         Point p2 = new Point("2", 634.6482, 236.0624, MathUtils.IGNORE_DOUBLE, true);
         Point p3 = new Point("3", 643.1335, 159.6949, MathUtils.IGNORE_DOUBLE, true);
         Point p4 = new Point("4", 576.2674, 169.0361, MathUtils.IGNORE_DOUBLE, true);
@@ -604,6 +642,7 @@ public class TestFreeStation extends CalculationTest {
         fs.getMeasures().add(m2);
         fs.getMeasures().add(m3);
         fs.getMeasures().add(m4);
+
         try {
             fs.compute();
         } catch (CalculationException e) {
@@ -636,7 +675,8 @@ public class TestFreeStation extends CalculationTest {
 
 
     // TD-NK_1.4.1
-    public void testTDNK141() {
+    @Test
+    public void tdNK141() {
         Point p1 = new Point("1401", 615.0, 740.0, 0.0, true, false);
         Point p2 = new Point("1402", 615.0, 810.0, 0.0, true, false);
         Point p3 = new Point("1403", 687.0, 804.0, 0.0, true, false);
@@ -683,7 +723,8 @@ public class TestFreeStation extends CalculationTest {
     }
 
     // TD-NK_1.4.2
-    public void testTDNK142() {
+    @Test
+    public void tdNK142() {
         Point p1 = new Point("1406", 615.0, 740.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point p2 = new Point("1407", 615.0, 810.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point p3 = new Point("1408", 687.0, 804.0, MathUtils.IGNORE_DOUBLE, true, false);
@@ -726,6 +767,5 @@ public class TestFreeStation extends CalculationTest {
         Assert.assertEquals("-0.4", this.df1.format(fs.getResults().get(3).getvE()));
         Assert.assertEquals("-2.6", this.df1.format(fs.getResults().get(3).getvN()));
         Assert.assertEquals("2.6", this.df1.format(fs.getResults().get(3).getfS()));
-
     }
 }

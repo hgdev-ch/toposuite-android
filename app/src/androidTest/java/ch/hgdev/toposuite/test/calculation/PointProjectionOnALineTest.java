@@ -1,15 +1,31 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.PointProjectionOnALine;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestPointProjectionOnALine extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class PointProjectionOnALineTest extends CalculationTestRunner {
 
-    public void testPointProjectionOnALine1() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple1() {
         Point p1 = new Point("1", 25.0000, 55.0000, MathUtils.IGNORE_DOUBLE, false, false);
         Point p2 = new Point("2", 89.1570, 82.4730, MathUtils.IGNORE_DOUBLE, false, false);
 
@@ -19,6 +35,7 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         double dist = 10.05;
         PointProjectionOnALine pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
+
         try {
             pp.compute();
         } catch (CalculationException e) {
@@ -33,6 +50,7 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         dist = -5.08;
         pp = new PointProjectionOnALine("42", p1, 74.243, ptToProj, dist, PointProjectionOnALine.Mode.LINE, false);
+
         try {
             pp.compute();
         } catch (CalculationException e) {
@@ -47,6 +65,7 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         dist = MathUtils.IGNORE_DOUBLE;
         pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
+
         try {
             pp.compute();
         } catch (CalculationException e) {
@@ -60,7 +79,8 @@ public class TestPointProjectionOnALine extends CalculationTest {
         Assert.assertEquals("4.367", this.df3.format(pp.getDistPtToP2()));
     }
 
-    public void testPointProjectionOnALine2() {
+    @Test
+    public void simple2() {
         Point p1 = new Point("101", 35.8967, 237.0131, MathUtils.IGNORE_DOUBLE, false, false);
         Point p2 = new Point("102", 271.8654, 149.7584, MathUtils.IGNORE_DOUBLE, false, false);
 
@@ -68,6 +88,7 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         double dist = MathUtils.IGNORE_DOUBLE;
         PointProjectionOnALine pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
+
         try {
             pp.compute();
         } catch (CalculationException e) {
@@ -82,6 +103,7 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         dist = -5.8940;
         pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
+
         try {
             pp.compute();
         } catch (CalculationException e) {
@@ -96,6 +118,7 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         dist = 17.8900;
         pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
+
         try {
             pp.compute();
         } catch (CalculationException e) {
@@ -109,7 +132,8 @@ public class TestPointProjectionOnALine extends CalculationTest {
         Assert.assertEquals("146.279", this.df3.format(pp.getDistPtToP2()));
     }
 
-    public void testPointProjectionOnALine3() {
+    @Test
+    public void simple3() {
         Point p1 = new Point("101", 600, 200, MathUtils.IGNORE_DOUBLE, false, false);
         Point p2 = new Point("102", 630, 200, MathUtils.IGNORE_DOUBLE, false, false);
 
@@ -117,6 +141,7 @@ public class TestPointProjectionOnALine extends CalculationTest {
 
         double dist = -2;
         PointProjectionOnALine pp = new PointProjectionOnALine("42", p1, p2, ptToProj, dist, false);
+
         try {
             pp.compute();
         } catch (CalculationException e) {

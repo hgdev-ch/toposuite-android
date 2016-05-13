@@ -1,10 +1,8 @@
 package ch.hgdev.toposuite.test.testutils;
 
-import java.util.Locale;
-
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import ch.hgdev.toposuite.App;
+import android.support.test.InstrumentationRegistry;
 
 /**
  * Miscellaneous utility functions, useful for tests.
@@ -12,7 +10,7 @@ import ch.hgdev.toposuite.App;
  * @author HGdev
  *
  */
-public class Util {
+public class LocaleTestUtil {
 
     /**
      * Change the current locale.
@@ -23,9 +21,9 @@ public class Util {
      *            Country code (example: "CH", "FR", ...)
      */
     public static void setLocale(String language, String country) {
-        Locale locale = new Locale(language, country);
-        Locale.setDefault(locale);
-        Resources res = App.getContext().getResources();
+        java.util.Locale locale = new java.util.Locale(language, country);
+        java.util.Locale.setDefault(locale);
+        Resources res = InstrumentationRegistry.getTargetContext().getResources();
         Configuration config = res.getConfiguration();
         config.locale = locale;
         res.updateConfiguration(config, res.getDisplayMetrics());

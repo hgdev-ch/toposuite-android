@@ -1,13 +1,30 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CirclesIntersection;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 
-public class TestCirclesIntersection extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class CirclesIntersectionTest extends CalculationTestRunner {
 
-    public void testCorrectSolutionTwoPoints() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple() {
         Point p1 = new Point("1", 25.0, 55.0, 0.0, false);
         Point p3 = new Point("3", 50.177, 99.941, 0.0, false);
         double radius3 = 87.752;

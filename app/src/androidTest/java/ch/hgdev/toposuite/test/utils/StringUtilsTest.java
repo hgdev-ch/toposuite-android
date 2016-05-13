@@ -1,12 +1,28 @@
 package ch.hgdev.toposuite.test.utils;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import ch.hgdev.toposuite.test.testutils.UtilsTestRunner;
 import ch.hgdev.toposuite.utils.StringUtils;
 
-public class TestStringUtils extends UtilsTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class StringUtilsTest extends UtilsTestRunner {
 
-    public void testIncrementAsNumber() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void incrementAsNumber() {
         String validInput1 = "123.456";
         String validInput2 = "foo42";
         String validInput3 = "Foo42Bar42.123";

@@ -1,21 +1,34 @@
 package ch.hgdev.toposuite.test.utils;
 
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
 import android.widget.EditText;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import ch.hgdev.toposuite.test.testutils.UtilsTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 import ch.hgdev.toposuite.utils.ViewUtils;
-public class TestViewUtils extends UtilsTest {
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class ViewUtilsTest extends UtilsTestRunner {
 
     private EditText eT;
 
-    @Override
-    protected void setUp() {
-        this.eT = new EditText(this.getContext());
+    @Before
+    public void setUp() {
+        super.setUp();
+        this.eT = new EditText(InstrumentationRegistry.getTargetContext());
     }
 
-    public void testReadDouble() {
+    @Test
+    public void readDouble() {
         // test non valid strings
         this.eT.setText("");
         Assert.assertEquals(MathUtils.IGNORE_DOUBLE, ViewUtils.readDouble(this.eT));
@@ -78,7 +91,8 @@ public class TestViewUtils extends UtilsTest {
 
     }
 
-    public void testReadInt() {
+    @Test
+    public void readInt() {
         // test non valid strings
         this.eT.setText("");
         Assert.assertEquals(MathUtils.IGNORE_INT, ViewUtils.readInt(this.eT));

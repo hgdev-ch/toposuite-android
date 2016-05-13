@@ -1,15 +1,32 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import ch.hgdev.toposuite.calculation.AxisImplantation;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestAxisImplantation extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class AxisImplantationTest extends CalculationTestRunner {
 
-    public void test1() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple() {
         Point p210 = new Point("210", 556490.077, 172508.822, MathUtils.IGNORE_DOUBLE, true, false);
         Point p211 = new Point("211", 556517.541, 172491.482, MathUtils.IGNORE_DOUBLE, true, false);
         Point p111 = new Point("111", 556500.900, 172489.700, MathUtils.IGNORE_DOUBLE, true, false);

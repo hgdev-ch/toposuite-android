@@ -1,17 +1,33 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.Abriss;
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestAbriss extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class AbrissTest extends CalculationTestRunner {
 
-    public void testRandom() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void random() {
         Point p1 = new Point("1", 600.245, 200.729, 0.0, true);
         Point p2 = new Point("2", 623.487, 528.371, 0.0, true);
         Point p3 = new Point("3", 476.331, 534.228, 0.0, true);
@@ -71,7 +87,8 @@ public class TestAbriss extends CalculationTest {
                 a.getMeanErrComp() / 10000));
     }
 
-    public void testRealCase() {
+    @Test
+    public void realCase() {
         Point p34 = new Point("34", 556506.667, 172513.91, 620.34, true);
         Point p45 = new Point("45", 556495.16, 172493.912, 623.37, true);
         Point p47 = new Point("47", 556612.21, 172489.274, 0.0, true);
@@ -108,7 +125,8 @@ public class TestAbriss extends CalculationTest {
         Assert.assertEquals("30", this.df0.format(a.getMeanErrComp()));
     }
 
-    public void testRealCaseNegative() {
+    @Test
+    public void realCaseNegative() {
         Point p34 = new Point("34", -43493.333, -27486.090, 620.34, true);
         Point p45 = new Point("45", -43504.840, -27506.088, 623.37, true);
         Point p47 = new Point("47", -43387.790, -27510.726, 0.0, true);
@@ -150,7 +168,8 @@ public class TestAbriss extends CalculationTest {
     }
 
     // See bug #625
-    public void testRealCaseAngleCloseToZero() {
+    @Test
+    public void realCaseAngleCloseToZero() {
         Point p9000 = new Point("9000", 529117.518, 182651.404, 925.059, true);
         Point p9001 = new Point("9001", 529137.864, 182649.391, 919.810, true);
         Point p9002 = new Point("9002", 529112.403, 182631.705, 924.720, true);
@@ -240,7 +259,8 @@ public class TestAbriss extends CalculationTest {
         Assert.assertEquals("0.0795", this.df4.format(a.getMean()));
     }
 
-    public void testMeasureDeactivation() {
+    @Test
+    public void measureDeactivation() {
         Point p34 = new Point("34", 556506.667, 172513.91, 620.34, true);
         Point p45 = new Point("45", 556495.16, 172493.912, 623.37, true);
         Point p47 = new Point("47", 556612.21, 172489.274, 0.0, true);
@@ -277,7 +297,8 @@ public class TestAbriss extends CalculationTest {
         Assert.assertEquals("233.2466", this.df4.format(a.getMean()));
     }
 
-    public void testMeasureDeactivation2() {
+    @Test
+    public void measureDeactivation2() {
         Point p34 = new Point("34", 556506.667, 172513.91, 620.34, true);
         Point p45 = new Point("45", 556495.16, 172493.912, 623.37, true);
         Point p46 = new Point("46", 556517.541, 172491.482, 624.14, true);
@@ -327,7 +348,8 @@ public class TestAbriss extends CalculationTest {
      * <p/>
      * Test values are from NK document, ex 1.1.5.2.
      */
-    public void testWithoutDistanceInMeasures() {
+    @Test
+    public void withoutDistanceInMeasures() {
         Point p1136 = new Point("1136", 649.0, 780.0, MathUtils.IGNORE_DOUBLE, true);
         Point p1137 = new Point("1137", 615.0, 740.0, MathUtils.IGNORE_DOUBLE, true);
         Point p1138 = new Point("1138", 615.0, 810.0, MathUtils.IGNORE_DOUBLE, true);
@@ -371,7 +393,8 @@ public class TestAbriss extends CalculationTest {
 
     // This is a regression test for bug #830
     // The calculation must change the zenithal angle of measures to 100.0 if not provided.
-    public void testZenithalAngleNotProvided() {
+    @Test
+    public void zenithalAngleNotProvided() {
         Point p9000 = new Point("9000", 529117.518, 182651.404, 925.059, true);
         Point p9001 = new Point("9001", 529137.864, 182649.391, 919.810, true);
         Point p9002 = new Point("9002", 529112.403, 182631.705, 924.720, true);
@@ -461,7 +484,8 @@ public class TestAbriss extends CalculationTest {
     }
 
     // TD-NK_1.1.1
-    public void testTDNK111() {
+    @Test
+    public void tdNK111() {
         Point p1101 = new Point("1101", 649.0, 780.0, MathUtils.IGNORE_DOUBLE, true);
         Point p1102 = new Point("1102", 615.0, 740.0, MathUtils.IGNORE_DOUBLE, true);
         Point p1103 = new Point("1103", 615.0, 810.0, MathUtils.IGNORE_DOUBLE, true);
@@ -504,7 +528,8 @@ public class TestAbriss extends CalculationTest {
     }
 
     // TD-NK_1.1.2
-    public void testTDNK112() {
+    @Test
+    public void tdNK112() {
         Point p1106 = new Point("1106", 649.0, 780.0, MathUtils.IGNORE_DOUBLE, true);
         Point p1107 = new Point("1107", 615.0, 740.0, MathUtils.IGNORE_DOUBLE, true);
         Point p1108 = new Point("1108", 615.0, 810.0, MathUtils.IGNORE_DOUBLE, true);

@@ -1,12 +1,22 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.TriangleSolver;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestTriangleSolver extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class TriangleSolverTest extends CalculationTestRunner {
 
     private final double a = 3.4560;
     private final double b = 1.3500;
@@ -15,7 +25,13 @@ public class TestTriangleSolver extends CalculationTest {
     private final double beta = 22.9514;
     private final double gamma = 48.7865;
 
-    public void testOneSolutionCases() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void oneSolutionCases() {
         try {
             this.assertT(new TriangleSolver(this.a, this.b, this.c, 0.0, 0.0, 0.0, false));
             this.assertT(new TriangleSolver(this.a, this.b, 0.0, 0.0, 0.0, this.gamma, false));
@@ -36,7 +52,8 @@ public class TestTriangleSolver extends CalculationTest {
         }
     }
 
-    public void testTwoSolutionsCases() {
+    @Test
+    public void twoSolutionsCases() {
         try {
             this.assertT(new TriangleSolver(this.a, this.b, 0.0, this.alpha, 0.0, 0.0, false));
             this.assertT2Ignorable(new TriangleSolver(this.a, this.b, 0.0, this.alpha, 0.0, 0.0, false));
@@ -61,7 +78,8 @@ public class TestTriangleSolver extends CalculationTest {
         }
     }
 
-    public void testTriangleInvalidInput() {
+    @Test
+    public void invalidInput() {
         try {
             new TriangleSolver(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, false);
             Assert.fail("More than 3 values as zero should throw an IllegalArgumentException");
@@ -129,7 +147,8 @@ public class TestTriangleSolver extends CalculationTest {
     /**
      * This is a regression test for issue #760.
      */
-    public void testTriangle760() {
+    @Test
+    public void issue760() {
         double a = 20.0;
         double c = 35.0;
         double gamma = 72.25;

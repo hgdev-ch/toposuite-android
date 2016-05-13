@@ -1,12 +1,20 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.Measure;
 import ch.hgdev.toposuite.calculation.PolarSurvey;
 import ch.hgdev.toposuite.calculation.PolarSurvey.Result;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
 /**
@@ -14,9 +22,17 @@ import ch.hgdev.toposuite.utils.MathUtils;
  *
  * @author HGdev
  */
-public class TestPolarSurvey extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class PolarSurveyTest extends CalculationTestRunner {
 
-    public void test1() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple1() {
         Point station = new Point("34", 556506.667, 172513.91, 620.34, true);
         double i = 1.63;
         double z0 = 233.2435;
@@ -68,7 +84,8 @@ public class TestPolarSurvey extends CalculationTest {
         Assert.assertEquals(MathUtils.IGNORE_DOUBLE, r6.getAltitude());
     }
 
-    public void test2() {
+    @Test
+    public void simple2() {
         Point station = new Point("46", 556517.541, 172491.482, 624.14, true);
         double i = 1.58;
         double z0 = 371.2579;
@@ -131,7 +148,8 @@ public class TestPolarSurvey extends CalculationTest {
 
     // This is a regression test for bug #826
     // The calculation must change the zenithal angle of measures to 100.0 if not provided.
-    public void testZenithalAngleNotProvided() {
+    @Test
+    public void issue826() {
         Point station = new Point("station", 1205.0, 2470.0, MathUtils.IGNORE_DOUBLE, true);
         double z0 = 120.02;
 
@@ -157,6 +175,7 @@ public class TestPolarSurvey extends CalculationTest {
 
         lp = new PolarSurvey(station, z0, MathUtils.IGNORE_DOUBLE, false);
         lp.getDeterminations().add(m1);
+
         try {
             lp.compute();
         } catch (CalculationException e) {
@@ -170,7 +189,8 @@ public class TestPolarSurvey extends CalculationTest {
     }
 
     // TD-NK_1.2.1.1
-    public void testTDNK1211() {
+    @Test
+    public void tdNK1211() {
         Point station = new Point("1201", 600.000, 200.000, MathUtils.IGNORE_DOUBLE, true);
         double i = 1.63;
         double z0 = 344.0897;
@@ -255,6 +275,7 @@ public class TestPolarSurvey extends CalculationTest {
      * This is a regression test. We want to make sure that we obtain the same results when we use
      * setters and a parameterless constructor as when we use a comprehensive constructor.
      */
+    @Test
     public void testSetters() {
         Point station = new Point("1", 600.0, 200.0, MathUtils.IGNORE_DOUBLE, true);
         double i = MathUtils.IGNORE_DOUBLE;

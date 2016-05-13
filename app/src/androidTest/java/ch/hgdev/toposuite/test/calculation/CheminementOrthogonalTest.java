@@ -1,16 +1,31 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.CheminementOrthogonal;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestCheminementOrthogonal extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class CheminementOrthogonalTest extends CalculationTestRunner {
 
-    // TD-NK_2.2.1.1
-    public void testTDNK2211() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void tdNK2211() {
         Point origin = new Point("2201", 600.0, 360.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point extremity = new Point("2202", 616.0, 354.0, MathUtils.IGNORE_DOUBLE, true, false);
 
@@ -79,7 +94,8 @@ public class TestCheminementOrthogonal extends CalculationTest {
     }
 
     // TD-NK_2.2.1.2
-    public void testTDNK2212() {
+    @Test
+    public void tdNK2212() {
         Point origin = new Point("2214", 625.0, 360.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point extremity = new Point("2215", 630.0, 357.0, MathUtils.IGNORE_DOUBLE, true, false);
 
@@ -108,7 +124,8 @@ public class TestCheminementOrthogonal extends CalculationTest {
     }
 
     // TD-NK_2.2.2.1
-    public void testTDNK2221() {
+    @Test
+    public void tdNK2221() {
         Point origin = new Point("2217", 600.0, 360.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point extremity = new Point("2218", 616.0, 354.2, MathUtils.IGNORE_DOUBLE, true, false);
 
@@ -177,7 +194,8 @@ public class TestCheminementOrthogonal extends CalculationTest {
     }
 
     // TD-NK_2.2.2.2
-    public void testTDNK2222() {
+    @Test
+    public void tdNK2222() {
         Point origin = new Point("2230", 640.0, 360.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point extremity = new Point("2231", 645.0, 357.0, MathUtils.IGNORE_DOUBLE, true, false);
 
@@ -206,7 +224,8 @@ public class TestCheminementOrthogonal extends CalculationTest {
     }
 
     // TD-NK_2.2.2.3
-    public void testTDNK2223() {
+    @Test
+    public void tdNK2223() {
         Point origin = new Point("2233", 655.0, 360.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point extremity = new Point("2234", 660.0, 357.0, MathUtils.IGNORE_DOUBLE, true, false);
 

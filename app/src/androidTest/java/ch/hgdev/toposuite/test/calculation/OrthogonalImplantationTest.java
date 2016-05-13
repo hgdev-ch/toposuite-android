@@ -1,16 +1,32 @@
 package ch.hgdev.toposuite.test.calculation;
 
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import junit.framework.Assert;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import ch.hgdev.toposuite.calculation.CalculationException;
 import ch.hgdev.toposuite.calculation.OrthogonalBase;
 import ch.hgdev.toposuite.calculation.OrthogonalImplantation;
 import ch.hgdev.toposuite.points.Point;
+import ch.hgdev.toposuite.test.testutils.CalculationTestRunner;
 import ch.hgdev.toposuite.utils.MathUtils;
 
-public class TestOrthogonalImplantation extends CalculationTest {
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public class OrthogonalImplantationTest extends CalculationTestRunner {
 
-    public void testOrthogonalImplantation() {
+    @Before
+    public void setUp() {
+        super.setUp();
+    }
+
+    @Test
+    public void simple() {
         Point origin = new Point("210", 556490.077, 172508.822, MathUtils.IGNORE_DOUBLE, true, false);
         Point extremity = new Point("211", 556517.541, 172491.482, MathUtils.IGNORE_DOUBLE, true, false);
         OrthogonalBase base = new OrthogonalBase(origin, extremity);
@@ -50,7 +66,8 @@ public class TestOrthogonalImplantation extends CalculationTest {
     }
 
     // TD-NK_2.3.1
-    public void testTDNK231() {
+    @Test
+    public void tdNK231() {
         Point origin = new Point("2301", 600.000, 200.000, MathUtils.IGNORE_DOUBLE, true, false);
         Point extremity = new Point("2302", 665.000, 200.000, MathUtils.IGNORE_DOUBLE, true, false);
         OrthogonalBase base = new OrthogonalBase(origin, extremity);
