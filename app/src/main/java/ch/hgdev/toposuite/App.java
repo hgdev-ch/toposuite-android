@@ -97,37 +97,37 @@ public class App extends Application {
     private static int coordinateDecimalRounding = 3;
 
     /**
-     * Number of decimal used for value of type coordinate.
+     * Number of decimals to use for value of type coordinate.
      */
     private static int decimalPrecisionForCoordinate = 3;
 
     /**
-     * Number of decimal used for value of type angle.
+     * Number of decimals to use for value of type angle.
      */
     private static int decimalPrecisionForAngle = 4;
 
     /**
-     * Number of decimal used for value of type distance.
+     * Number of decimals to use for value of type distance.
      */
     private static int decimalPrecisionForDistance = 3;
 
     /**
-     * Number of decimal used for value of type average.
+     * Number of decimals to use for value of type average.
      */
     private static int decimalPrecisionForAverage = 3;
 
     /**
-     * Number of decimal used for value of type gap.
+     * Number of decimals to use for value of type gap.
      */
     private static int decimalPrecisionForGap = 1;
 
     /**
-     * Number of decimal used for value of type surface.
+     * Number of decimals used for value of type surface.
      */
     private static int decimalPrecisionForSurface = 4;
 
     /**
-     * Number of decimal used for value of type CC.
+     * Number of decimals to use for value of type CC.
      */
     private static final int decimalPrecisionForCC = 0;
 
