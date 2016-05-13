@@ -136,6 +136,12 @@ public class App extends Application {
      */
     private static final int decimalPrecisionForDifference = 1;
 
+    /**
+     * Numner of decimals to use for scale factor.
+     */
+    private static final int decimalPrecisionForScaleFactor = 6;
+
+    /**
      * Determine an input type of type coordinate, that is a decimal signed
      * number.
      */
@@ -303,6 +309,10 @@ public class App extends Application {
 
     public static int getDecimalPrecisionForDifference() {
         return decimalPrecisionForDifference;
+    }
+
+    public static int getDecimalPrecisionForScaleFactor() {
+        return decimalPrecisionForScaleFactor;
     }
 
     public static int getCoordinateDecimalRounding() {

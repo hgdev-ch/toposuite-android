@@ -122,7 +122,7 @@ public class DisplayUtils {
                     precision = App.getDecimalPrecisionForGap();
                     break;
                 case SCALE_FACTOR:
-                    precision = 6; // TODO: make it a configuration option
+                    precision = App.getDecimalPrecisionForScaleFactor();
                     break;
                 case SURFACE:
                     precision = App.getDecimalPrecisionForSurface();
