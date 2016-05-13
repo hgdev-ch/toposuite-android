@@ -12,17 +12,17 @@ public class TestLineCircleIntersection extends CalculationTest {
     public void testCorrectSolution() {
         Point p1 = new Point("1", 25.0, 55.0, MathUtils.IGNORE_DOUBLE, true, false);
         Point p3 = new Point("3", 50.177, 99.941, MathUtils.IGNORE_DOUBLE, true, false);
-        Point p4 = new Point("4", 67.0, 14.0, MathUtils.IGNORE_DOUBLE, true, false);
-        Point p5 = new Point("5", 113.204, 37.411, MathUtils.IGNORE_DOUBLE, true, false);
         double displacement = 0.0;
         double radius = 87.572;
 
         LineCircleIntersection lci = new LineCircleIntersection(p1, p3, displacement, p3, radius);
+
         try {
             lci.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         Assert.assertEquals("92.978", this.df3.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("176.341", this.df3.format(lci.getFirstIntersection().getNorth()));
         Assert.assertEquals("7.376", this.df3.format(lci.getSecondIntersection().getEast()));
@@ -30,23 +30,27 @@ public class TestLineCircleIntersection extends CalculationTest {
 
         displacement = -0.875;
         lci = new LineCircleIntersection(p1, p3, displacement, p3, radius);
+
         try {
             lci.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         Assert.assertEquals("92.212", this.df3.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("176.765", this.df3.format(lci.getFirstIntersection().getNorth()));
         Assert.assertEquals("6.615", this.df3.format(lci.getSecondIntersection().getEast()));
         Assert.assertEquals("23.973", this.df3.format(lci.getSecondIntersection().getNorth()));
 
         displacement = 10.765;
+
         lci = new LineCircleIntersection(p1, p3, displacement, p3, radius);
         try {
             lci.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         Assert.assertEquals("102.045",
                 this.df3.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("170.5",
@@ -58,11 +62,13 @@ public class TestLineCircleIntersection extends CalculationTest {
 
         displacement = 24.875;
         lci = new LineCircleIntersection(p1, p3, displacement, p3, radius);
+
         try {
             lci.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         Assert.assertEquals("112.916",
                 this.df3.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("161.036",
@@ -75,11 +81,13 @@ public class TestLineCircleIntersection extends CalculationTest {
         displacement = 10.0;
         radius = 20.0;
         lci = new LineCircleIntersection(p1, p3, displacement, p1, radius);
+
         try {
             lci.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         Assert.assertEquals("42.19",
                 this.df2.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("65.223",
@@ -100,14 +108,14 @@ public class TestLineCircleIntersection extends CalculationTest {
         double displacement = -4.0;
         double radius = 11.0;
 
-        LineCircleIntersection lci = new LineCircleIntersection(false);
-        lci.initAttributes(p1, p4, displacement, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
-                p5, radius);
+        LineCircleIntersection lci = new LineCircleIntersection(p1, p4, displacement, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, p5, radius, false);
+
         try {
             lci.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         Assert.assertEquals("614.986", this.df3.format(lci.getFirstIntersection().getEast()));
         Assert.assertEquals("203.244", this.df3.format(lci.getFirstIntersection().getNorth()));
         Assert.assertEquals("593.0142", this.df4.format(lci.getSecondIntersection().getEast()));
@@ -124,14 +132,14 @@ public class TestLineCircleIntersection extends CalculationTest {
         double distToPtL = 1.978;
         double radius = 3.9317;
 
-        LineCircleIntersection lci = new LineCircleIntersection(false);
-        lci.initAttributes(pA, pB, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE,
-                distToPtL, pA, radius);
+        LineCircleIntersection lci = new LineCircleIntersection(pA, pB, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, distToPtL, pA, radius, false);
+
         try {
             lci.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         Assert.assertEquals("13.5675", this.df4.format(lci.getSecondIntersection().getEast()));
         Assert.assertEquals("11.6927", this.df4.format(lci.getSecondIntersection().getNorth()));
         Assert.assertEquals("18.1749", this.df4.format(lci.getFirstIntersection().getEast()));
@@ -147,15 +155,14 @@ public class TestLineCircleIntersection extends CalculationTest {
         double distance = 5.0;
         double radius = 10.0;
 
-        LineCircleIntersection lci = new LineCircleIntersection(false);
-        lci.initAttributes(p1, p2, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, distance, p1,
-                radius);
+        LineCircleIntersection lci = new LineCircleIntersection(p1, p2, MathUtils.IGNORE_DOUBLE, MathUtils.IGNORE_DOUBLE, distance, p1, radius, false);
 
         try {
             lci.compute();
         } catch (CalculationException e) {
             Assert.fail(e.getMessage());
         }
+
         Assert.assertEquals("598.297", this.df3.format(lci.getSecondIntersection().getEast()));
         Assert.assertEquals("209.854", this.df3.format(lci.getSecondIntersection().getNorth()));
         Assert.assertEquals("609.385", this.df3.format(lci.getFirstIntersection().getEast()));
