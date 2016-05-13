@@ -9,6 +9,7 @@ CSV file must have the following format:
 * Column 2 contains the english translation
 * Column 3 contains the french translation
 * Column 4 contains the german translation
+* Column 5 contains the italian translation
 
 
 ## Dependencies
