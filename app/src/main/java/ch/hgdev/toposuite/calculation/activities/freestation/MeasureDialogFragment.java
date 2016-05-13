@@ -85,10 +85,6 @@ public class MeasureDialogFragment extends DialogFragment {
      */
     private boolean isEdition;
 
-    /**
-     * TODO make something cleaner and only use measure instead of this huge
-     * amount of attributes...
-     */
     private Measure measure;
 
     /**
