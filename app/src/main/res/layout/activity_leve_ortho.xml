@@ -196,7 +196,7 @@
                 android:id="@+id/points_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="1dp"></ListView>
+                android:layout_margin="1dp"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/add_measure_button"
