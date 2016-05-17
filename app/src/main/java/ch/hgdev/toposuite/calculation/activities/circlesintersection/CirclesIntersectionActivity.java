@@ -405,6 +405,8 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements Me
      * Do the actual calculation and update the results.
      */
     private void runCalculations() {
+        //TODO: use different constructors rather than this, especially wrt edge points being given
+        // (cf fillRadiusOne() and fillRadiusTwo())
         if (this.circlesIntersection == null) {
             this.circlesIntersection = new CirclesIntersection();
         }

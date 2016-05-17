@@ -78,6 +78,24 @@ public class CirclesIntersection extends Calculation {
         this.initAttributes(_centerFirst, _radiusFirst, _centerSecond, _radiusSecond);
     }
 
+    public CirclesIntersection(Point _centerFirst, Point _edgeFirst,
+                               Point _centerSecond,Point _edgeSecond, boolean hasDAO) {
+        this(_centerFirst, MathUtils.euclideanDistance(_centerFirst, _edgeFirst),
+                _centerSecond, MathUtils.euclideanDistance(_centerSecond, _edgeSecond), hasDAO);
+    }
+
+    public CirclesIntersection(Point _centerFirst, Point _edgeFirst,
+                               Point _centerSecond, double radiusSecond, boolean hasDAO) {
+        this(_centerFirst, MathUtils.euclideanDistance(_centerFirst, _edgeFirst),
+                _centerSecond, radiusSecond, hasDAO);
+    }
+
+    public CirclesIntersection(Point _centerFirst, double radiusFirst,
+                               Point _centerSecond, Point _edgeSecond, boolean hasDAO) {
+        this(_centerFirst, radiusFirst,
+                _centerSecond, MathUtils.euclideanDistance(_centerSecond, _edgeSecond), hasDAO);
+    }
+
     /**
      * Initialize class attributes.
      *
