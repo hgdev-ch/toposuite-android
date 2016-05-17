@@ -1,1 +1,868 @@
-<p>Siamo spiacenti, l'aiuto non è ancora disponibile in italiano.</p>
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Manuale d'uso di TopoSuite</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="manuale-d-uso-di-toposuite">
+<h1 class="title">Manuale d'uso di TopoSuite</h1>
+
+<meta http-equiv='content-type' content='text/html; charset=utf-8' /><div class="contents local topic" id="contents">
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#aiuto-generale" id="id1">1&nbsp;&nbsp;&nbsp;Aiuto generale</a><ul class="auto-toc">
+<li><a class="reference internal" href="#gestione-dei-punti" id="id2">1.1&nbsp;&nbsp;&nbsp;Gestione dei punti</a><ul class="auto-toc">
+<li><a class="reference internal" href="#importazione" id="id3">1.1.1&nbsp;&nbsp;&nbsp;Importazione</a><ul class="auto-toc">
+<li><a class="reference internal" href="#csv" id="id4">1.1.1.1&nbsp;&nbsp;&nbsp;CSV</a></li>
+<li><a class="reference internal" href="#ltop" id="id5">1.1.1.2&nbsp;&nbsp;&nbsp;LTOP</a></li>
+<li><a class="reference internal" href="#ptp" id="id6">1.1.1.3&nbsp;&nbsp;&nbsp;PTP</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#esportazione" id="id7">1.1.2&nbsp;&nbsp;&nbsp;Esportazione</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#storico" id="id8">1.2&nbsp;&nbsp;&nbsp;Storico</a></li>
+<li><a class="reference internal" href="#lavori" id="id9">1.3&nbsp;&nbsp;&nbsp;Lavori</a></li>
+<li><a class="reference internal" href="#preferenze" id="id10">1.4&nbsp;&nbsp;&nbsp;Preferenze</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#calcoli" id="id11">2&nbsp;&nbsp;&nbsp;Calcoli</a><ul class="auto-toc">
+<li><a class="reference internal" href="#calcoli-polari" id="id12">2.1&nbsp;&nbsp;&nbsp;Calcoli polari</a><ul class="auto-toc">
+<li><a class="reference internal" href="#orientamento-alla-stazione" id="id13">2.1.1&nbsp;&nbsp;&nbsp;Orientamento alla stazione</a></li>
+<li><a class="reference internal" href="#stazione-libera" id="id14">2.1.2&nbsp;&nbsp;&nbsp;Stazione libera</a></li>
+<li><a class="reference internal" href="#rilievo-polare" id="id15">2.1.3&nbsp;&nbsp;&nbsp;Rilievo polare</a></li>
+<li><a class="reference internal" href="#tracciamento-polare" id="id16">2.1.4&nbsp;&nbsp;&nbsp;Tracciamento polare</a></li>
+<li><a class="reference internal" href="#tracciamento-assi" id="id17">2.1.5&nbsp;&nbsp;&nbsp;Tracciamento assi</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#calcoli-ortogonali" id="id18">2.2&nbsp;&nbsp;&nbsp;Calcoli Ortogonali</a><ul class="auto-toc">
+<li><a class="reference internal" href="#rilievo-ortogonale" id="id19">2.2.1&nbsp;&nbsp;&nbsp;Rilievo ortogonale</a></li>
+<li><a class="reference internal" href="#camminamento-ortogonale" id="id20">2.2.2&nbsp;&nbsp;&nbsp;Camminamento ortogonale</a></li>
+<li><a class="reference internal" href="#tracciamento-ortogonale" id="id21">2.2.3&nbsp;&nbsp;&nbsp;Tracciamento ortogonale</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#intersezioni" id="id22">2.3&nbsp;&nbsp;&nbsp;Intersezioni</a><ul class="auto-toc">
+<li><a class="reference internal" href="#rette-e-o-direzioni" id="id23">2.3.1&nbsp;&nbsp;&nbsp;Rette (e/o direzioni)</a></li>
+<li><a class="reference internal" href="#intersezione-di-cerchi-distanze" id="id24">2.3.2&nbsp;&nbsp;&nbsp;Intersezione di cerchi (distanze)</a></li>
+<li><a class="reference internal" href="#retta-cerchio" id="id25">2.3.3&nbsp;&nbsp;&nbsp;Retta/Cerchio</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superfici" id="id26">2.4&nbsp;&nbsp;&nbsp;Superfici</a><ul class="auto-toc">
+<li><a class="reference internal" href="#calcolo-di-superficie-anche-con-archi" id="id27">2.4.1&nbsp;&nbsp;&nbsp;Calcolo di superficie (anche con archi)</a></li>
+<li><a class="reference internal" href="#spostamento-parallelo-di-un-confine-con-superficie-imposta" id="id28">2.4.2&nbsp;&nbsp;&nbsp;Spostamento parallelo di un confine con superficie imposta</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vari" id="id29">2.5&nbsp;&nbsp;&nbsp;Vari</a><ul class="auto-toc">
+<li><a class="reference internal" href="#azimut-distanza" id="id30">2.5.1&nbsp;&nbsp;&nbsp;Azimut/Distanza</a></li>
+<li><a class="reference internal" href="#proiezione-del-punto-sulla-retta" id="id31">2.5.2&nbsp;&nbsp;&nbsp;Proiezione del punto sulla retta</a></li>
+<li><a class="reference internal" href="#calcolo-di-un-cerchio-con-tre-punti" id="id32">2.5.3&nbsp;&nbsp;&nbsp;Calcolo di un cerchio con tre punti</a></li>
+<li><a class="reference internal" href="#segmentazione-di-un-arco" id="id33">2.5.4&nbsp;&nbsp;&nbsp;Segmentazione di un arco</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#matematica" id="id34">2.6&nbsp;&nbsp;&nbsp;Matematica</a><ul class="auto-toc">
+<li><a class="reference internal" href="#risoluzione-dei-triangoli" id="id35">2.6.1&nbsp;&nbsp;&nbsp;Risoluzione dei triangoli</a></li>
+<li><a class="reference internal" href="#risoluzione-di-elementi-circolari" id="id36">2.6.2&nbsp;&nbsp;&nbsp;Risoluzione di elementi circolari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="aiuto-generale">
+<h1><a class="toc-backref" href="#id1">1&nbsp;&nbsp;&nbsp;Aiuto generale</a></h1>
+<p>Unità del programma :</p>
+<p>Gli angoli devono essere espressi in &quot;GON&quot;.</p>
+<p>Le distanze devono essere espresse in &quot;Metri&quot;.</p>
+<p>Le distanze che il programma si aspetta sono distanze inclinate.
+Se l'angolo zenitale non è specificato, il programma presuppone che si tratta di una
+distanza orizzontale.</p>
+<p>Attenzione a convalidare gli ultimi valori nella maschera di acquisizione
+così che il programma possa tenerli in considerazione.
+Per fare ciò posizionare il cursore sulla casella del numero di punto da salvare
+o convalidare gli ultimi valori con &quot;Suiv.&quot; o &quot;OK&quot; o &quot;Enter&quot;.</p>
+<div class="section" id="gestione-dei-punti">
+<h2><a class="toc-backref" href="#id2">1.1&nbsp;&nbsp;&nbsp;Gestione dei punti</a></h2>
+<p>Per modificare o eliminare un punto è sufficiente selezionarlo nella lista punti
+e tenere premuto qualche secondo per fare comparire il menu contestuale.</p>
+<p>Il pulsante &quot;Cerca&quot; permette di ritrovare un punto. Il pulsante
+&quot;Cancella&quot; permette di eliminare tutti i punti contemporaneamente.  Affinché non vengano
+influenzati calcoli precedenti, <strong>non è possibile modificare un numero di punto.</strong>
+<em>Il numero del punto serve alla sua identificazione e questo modificherebbe i calcoli ripresi dallo storico.</em></p>
+<div class="section" id="importazione">
+<h3><a class="toc-backref" href="#id3">1.1.1&nbsp;&nbsp;&nbsp;Importazione</a></h3>
+<p>E' possibile aggiungere i punti manualmente o importare
+direttamente tutti i punti utilizzando un file CSV o PTP LTOP.</p>
+<p>Da Gmail (o casella mail) non è possibile aprire direttamente un file di punti. E' necessario
+prima salvarlo sul telefono/tablet e solo dopo aprirlo dal
+files explorer del programma.</p>
+<p>Il programma Cyanogenmod file manager non è consigliato perché gestisce bene solo i files CSV.
+I seguenti programmi sono ben supportati:</p>
+<blockquote>
+<ul class="simple">
+<li>Programma di default sui tablet Samsung</li>
+<li>Amaze File Manager</li>
+<li>ASTRO</li>
+<li>ES File Explorer</li>
+<li>Google Drive</li>
+<li>Dropbox</li>
+<li>Zarchiver</li>
+</ul>
+</blockquote>
+<p>Si noti che questo elenco non è esaustivo e che se un programma non è menzionato
+ciò non significa che non è supportato da TopoSuite.</p>
+<p>Dal dispositivo (senza connessione): E' necessario posizionare il file nella cartella
+dell'applicazione (/TopoSuite) per poter essere importata dal menu del programma.
+Un altra soluzione (con o senza connessione): Premendo sul file di punti,
+il dispositivo vi chiederà  con quale applicazione volete aprirlo,
+tra le applicazioni proposte troverete anche &quot;TopoSuite&quot;
+Scegliendo TopoSuite nella lista l'applicazione si aprirà e importerà i punti chiedendone conferma
+attraverso un popup.</p>
+<div class="section" id="csv">
+<h4><a class="toc-backref" href="#id4">1.1.1.1&nbsp;&nbsp;&nbsp;CSV</a></h4>
+<p>Il file deve essere strutturato come segue:</p>
+<pre class="literal-block">
+N° Punto ; Coordinata Est ; Coordinata Nord ; Quota
+</pre>
+</div>
+<div class="section" id="ltop">
+<h4><a class="toc-backref" href="#id5">1.1.1.2&nbsp;&nbsp;&nbsp;LTOP</a></h4>
+<p>Il file LTOP non deve essere modificato. Deve iniziare con $$PK!</p>
+<p>Le colonne da 1 a 14 sono dedicate al numero del punto;</p>
+<p>Le colonne da 33 a 44 corrispondono alla coordinate Est;</p>
+<p>Le colonne da 45 a 56 corrispondono alla coordinate Nord;</p>
+<p>Le colonne da 61 a 70 contengono la quota (opzionale).</p>
+</div>
+<div class="section" id="ptp">
+<h4><a class="toc-backref" href="#id6">1.1.1.3&nbsp;&nbsp;&nbsp;PTP</a></h4>
+<p>Il file PTP deve contenere solo linee con i punti da importare.</p>
+<p>Le colonne da 11 a 22 sono dedicate al numero del punto;</p>
+<p>Le colonne da 33 a 43 corrispondono alla coordinate Est;</p>
+<p>Le colonne da 45 a 55 corrispondono alla coordinate Nord;</p>
+<p>Le colonne da 57 a 64 contengono la quota (opzionale).</p>
+<p>Per il numero del punto, il programma tiene conto solo della colonna numero
+senza gestire il piano, il comune, ecc. Se ci fosse due volte lo stesso numero (su
+due piani differenti ad esempio), il programma terrà in memoria solo il primo punto letto.
+Attenzione ad eventuali linee di titolo all'inizio del file.</p>
+</div>
+</div>
+<div class="section" id="esportazione">
+<h3><a class="toc-backref" href="#id7">1.1.2&nbsp;&nbsp;&nbsp;Esportazione</a></h3>
+<p>E' possibile esportare il file dei punti con il tasto
+&quot;Condividi&quot; o il tasto &quot;Esporta&quot;. Quest'ultimo permette di esportare il file
+nella cartella interna di TopoSuite così da poterlo recuperare direttamente
+nel software con la funzione &quot;Importa&quot;.</p>
+</div>
+</div>
+<div class="section" id="storico">
+<h2><a class="toc-backref" href="#id8">1.2&nbsp;&nbsp;&nbsp;Storico</a></h2>
+<p>Lo storico permette di riprendere tutti i calcoli già effettuati.</p>
+<p>Un tasto permette di cancellare tutti dati registrati.</p>
+</div>
+<div class="section" id="lavori">
+<h2><a class="toc-backref" href="#id9">1.3&nbsp;&nbsp;&nbsp;Lavori</a></h2>
+<p>Qualsiasi azione in TopoSuite viene registrata in un database. In questo modo
+tutti i calcoli ed i punti sono direttamente recuperati in un'apertura
+successiva del programma.</p>
+<p>E' possibile tramite il menu &quot;Lavoro&quot; (disponibile dal pannello di sinistra di
+TopoSuite) esportare il lavoro corrente in un file *.tpst, importare un lavoro
+da un file *.tpst o eliminare il lavoro corrente. Con l' esportazione di un lavoro
+si salveranno: le preferenze, lo storico dei calcoli e i punti. Quando si
+importa un lavoro, Toposuite ovviamente riprende gli stessi dati di quelli esportati.</p>
+<p>Come per importazione di punti, è possibile importare files
+*.tpst che si trovano nella directory Toposuite/. Tutti i files
+esportati si trovano nella stessa directory (che è accessibile
+dal files explorer del programma).</p>
+<p>È possibile aprire direttamente un file *.tpst dal file explorer del programma
+(vedi sezione Importazione per gli explorer supportati).</p>
+</div>
+<div class="section" id="preferenze">
+<h2><a class="toc-backref" href="#id10">1.4&nbsp;&nbsp;&nbsp;Preferenze</a></h2>
+<p>Nelle preferenze sono disponibili diverse opzioni:</p>
+<blockquote>
+<ul class="simple">
+<li>Consentire o impedire l'ingresso di coordinate negative</li>
+<li>La precisione con cui il programma utilizza le coordinate nei calcoli (numero di decimali dopo il metro)</li>
+</ul>
+</blockquote>
+<p>Le impostazioni di visualizzazione permettono di scegliere il numero di decimali
+da mostrare per:</p>
+<blockquote>
+<ul class="simple">
+<li>Le coordinate (numero di decimali dopo il metro);</li>
+<li>Gli angoli (numero di decimali dopo il Gon);</li>
+<li>Le distanze (comprende anche i fattori di scala) (numero di decimali dopo il metro);</li>
+<li>Le medie (numero di decimali dopo il centimetro);</li>
+<li>Gli scarti (numero di decimali dopo il centimetro);</li>
+<li>Le superfici (numero di decimali dopo il metro quadro).</li>
+</ul>
+</blockquote>
+<p>L'opzione delle coordinate negative non pregiudica l'importazione dei punti o
+di punti già esistenti nell'applicazione o di punti calcolati.</p>
+</div>
+</div>
+<div class="section" id="calcoli">
+<h1><a class="toc-backref" href="#id11">2&nbsp;&nbsp;&nbsp;Calcoli</a></h1>
+<div class="section" id="calcoli-polari">
+<h2><a class="toc-backref" href="#id12">2.1&nbsp;&nbsp;&nbsp;Calcoli polari</a></h2>
+<div class="section" id="orientamento-alla-stazione">
+<h3><a class="toc-backref" href="#id13">2.1.1&nbsp;&nbsp;&nbsp;Orientamento alla stazione</a></h3>
+<p>Il calcolo dell'orientamento alla stazione permette di calcolare le incognite
+di orientamento. La modifica di un valore può essere fatta premendo qualche secondo
+su una misura</p>
+</div>
+<div class="section" id="stazione-libera">
+<h3><a class="toc-backref" href="#id14">2.1.2&nbsp;&nbsp;&nbsp;Stazione libera</a></h3>
+<p>Il calcolo della stazione libera fornisce le coordinate (3D) della stazione
+e risolve l'incognita di orientamento. Per calcolare la stazione libera con
+metodi classici, bisogna rispettare alcune condizioni :</p>
+<blockquote>
+<ul class="simple">
+<li>Misurare almeno 3 punti di orientamento;</li>
+<li>Misurare angoli e distanze per ogni punto di orientamento;</li>
+<li>Ripartire i punti di orientamento in maniera da inglobare la zona di lavoro;</li>
+<li>La stazione libera deve possibilmente essere posizionata all'interno del poligono
+che è descritto dai punti di orientamento;</li>
+<li>Scegliere i punti di orientamento coerenti con la precisione della zona
+di lavoro. Ad esempio, è inutile misurare dei PFP2 in una zona digitalizzata.
+In una zona numerico completa di buona qualità bisogna invece privilegiare
+i PFP3 come punti di orientamento;</li>
+<li>Non scegliere punti di orientamento troppo vicini l'uno dall'altro. Si potrebbe
+ottenere dei valori sfavorevoli per il fattore  di scala e l'angolo di rotazione;</li>
+<li>Privilegiare punti stabili con una materializzazione sicura
+(meglio scegliere un bullone che una termine leggermente inclinato).</li>
+</ul>
+</blockquote>
+<p>Il metodo utilizzato per il calcolo della stazione libera è la trasformazione Helmert.</p>
+<p>sE = sN = Errore medio della coordinata Est et Nord della stazione</p>
+<p>sH = Errore medio in quota sulle coordinate della stazione libera</p>
+<p>vE = Errore residuo Est sul punto in esame</p>
+<p>vN = Errore residuo Nord sul punto in esame</p>
+<p>vH = Errore residuo altimetrico sul punto in esame</p>
+<!-- vα = Errore residuo angolare sul punto in esame -->
+<!-- sZo = Errore medio dell'incognita di orientamento -->
+<!-- vZo = Errore medio di un orientamento compensato -->
+</div>
+<div class="section" id="rilievo-polare">
+<h3><a class="toc-backref" href="#id15">2.1.3&nbsp;&nbsp;&nbsp;Rilievo polare</a></h3>
+<p>Il valore dell'incognita di orientamento può essere recuperato con la spunta in alto a sinistra.</p>
+<p>La seguente condizione geometrica dovrebbe essere soddisfatta:</p>
+<blockquote>
+<ul class="simple">
+<li>La distanza dalla stazione al nuovo punto non deve superare 1,25 volte
+la lunghezza del vettore di orientamento più lungo (distanza dalla stazione
+al punto d'orientamento più distante).</li>
+</ul>
+</blockquote>
+<p>Per gli spostamenti, i seguenti simboli sono da rispettare:</p>
+<p><img alt="levé polaire" src="file:///android_asset/help/img/polar_survey.png" /></p>
+<p>ATTENZIONE: La quota di un punto con DM1 o DM2 non è alla posizione
+delle coordinate definitive.</p>
+<p>Se l'altimetria non è significativa bisogna rimuoverla dall' editor dei punti.</p>
+</div>
+<div class="section" id="tracciamento-polare">
+<h3><a class="toc-backref" href="#id16">2.1.4&nbsp;&nbsp;&nbsp;Tracciamento polare</a></h3>
+<p>Il calcolo del tracciamento polare permette (partendo da coordinate) d'ottenere
+i seguenti valori:</p>
+<blockquote>
+<ul class="simple">
+<li>l'angolo orizzontale,(Hz)</li>
+<li>la distanza orizzontale,</li>
+<li>la distanza inclinata,</li>
+<li>l'angolo zenitale,</li>
+<li>l'altezza del prisma,</li>
+<li>l'azimut (φ)</li>
+</ul>
+</blockquote>
+<p>La seguente condizione geometrica dovrebbe essere soddisfatta:</p>
+<blockquote>
+<ul class="simple">
+<li>La distanza dalla stazione al nuovo punto non deve superare 1,25 volte
+la lunghezza della vettore di orientamento più lungo (distanza dalla stazione
+al punto d'orientamento più distante).</li>
+</ul>
+<p><img alt="Implantation polaire" src="file:///android_asset/help/img/polar_implantation.png" /></p>
+</blockquote>
+</div>
+<div class="section" id="tracciamento-assi">
+<h3><a class="toc-backref" href="#id17">2.1.5&nbsp;&nbsp;&nbsp;Tracciamento assi</a></h3>
+<p>Il calcolo permette d'ottenere gli spostamenti trasversali e longitudinali rispetto ad un asse AB (partendo dal punto base &quot;A&quot;)</p>
+</div>
+</div>
+<div class="section" id="calcoli-ortogonali">
+<h2><a class="toc-backref" href="#id18">2.2&nbsp;&nbsp;&nbsp;Calcoli Ortogonali</a></h2>
+<div class="section" id="rilievo-ortogonale">
+<h3><a class="toc-backref" href="#id19">2.2.1&nbsp;&nbsp;&nbsp;Rilievo ortogonale</a></h3>
+<p>Il valore della misura della base (A-B) del rilievo ortogonale  deve essere inserito
+per il calcolo del fattore di scala.</p>
+<p>I valori delle ascisse (x) e ordinate (y) devono essere inseriti come
+nella seguente immagine:</p>
+<blockquote>
+<img alt="levé orthogonal" src="file:///android_asset/help/img/orthogonal_implantation.png" /></blockquote>
+<p>La seguente condizione geometrica dovrebbe essere soddisfatta:</p>
+<blockquote>
+<ul class="simple">
+<li>L'ascissa fuori della base non dovrebbe superare un quarto della
+lunghezza della base.</li>
+<li>L'ordinata non deve superare i 35 m (per un punto di confine).</li>
+<li>L'ordinata non dovrebbe superare la lunghezza della base.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="camminamento-ortogonale">
+<h3><a class="toc-backref" href="#id20">2.2.2&nbsp;&nbsp;&nbsp;Camminamento ortogonale</a></h3>
+<p>I segni da rispettare nel camminamento ortogonale sono:</p>
+<blockquote>
+<img alt="cheminement orthogonal" src="file:///android_asset/help/img/chem_ortho.png" /></blockquote>
+<p>La seguente condizione geometrica dovrebbe essere soddisfatta:</p>
+<blockquote>
+<ul class="simple">
+<li>La differenza tra AB calcolato e AB misurato non deve superare le tolleranze.</li>
+<li>La lunghezza totale del camminamento non deve superare 3 volte la distanza AB.</li>
+<li>I punti possono essere determinati &quot;fuori base&quot; (camminamento lanciato da
+ogni punto di raccordo), ma la distanza cumulata fuori base non
+deve superare ½ AB.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="tracciamento-ortogonale">
+<h3><a class="toc-backref" href="#id21">2.2.3&nbsp;&nbsp;&nbsp;Tracciamento ortogonale</a></h3>
+<p>Il calcolo del tracciamento ortogonale permette (partendo dalle coordinate) d'ottenere
+i valori delle ascisse ed ordinate per effettuare il tracciamento sul terreno.
+I valori delle ascisse (x) e ordinate (y) devono essere inseriti come
+nella seguente immagine:</p>
+<blockquote>
+<img alt="Implantation orthogonale" src="file:///android_asset/help/img/orthogonal_implantation.png" /></blockquote>
+<p>Le condizioni geometriche dovrebbero essere soddisfatte.</p>
+</div>
+</div>
+<div class="section" id="intersezioni">
+<h2><a class="toc-backref" href="#id22">2.3&nbsp;&nbsp;&nbsp;Intersezioni</a></h2>
+<div class="section" id="rette-e-o-direzioni">
+<h3><a class="toc-backref" href="#id23">2.3.1&nbsp;&nbsp;&nbsp;Rette (e/o direzioni)</a></h3>
+<p>La definizione delle rette può essere data:</p>
+<blockquote>
+<ul class="simple">
+<li>Con due punti;</li>
+<li>Con un punto e un angolo (φ).</li>
+</ul>
+</blockquote>
+<p>Può essere dato un offset alla retta d'intersezione o intersecarla perpendicolarmente alla retta definita.</p>
+<p>Per l'offset (valore X), con il segno positivo lo spostamento sarà a destra
+con il segno negativo lo spostamento sarà sulla sinistra.
+Se le rette sono perpendicolari una distanza A (valore Y)
+può essere inserita.</p>
+<p>Guardare l'immagine seguente:</p>
+<blockquote>
+<img alt="Intersection de lignes" src="file:///android_asset/help/img/lines_intersection.png" /></blockquote>
+</div>
+<div class="section" id="intersezione-di-cerchi-distanze">
+<h3><a class="toc-backref" href="#id24">2.3.2&nbsp;&nbsp;&nbsp;Intersezione di cerchi (distanze)</a></h3>
+<p>Per l'intersezione di cerchi ci sono due possibilità:</p>
+<blockquote>
+<ul class="simple">
+<li>Inserire manualmente le dimensioni dei raggi;</li>
+<li>Scegliere un punto sul cerchio, la dimensione del raggio sara calcolata
+automaticamente.</li>
+</ul>
+</blockquote>
+<p>Attenzione: Ci saranno quasi sempre due soluzioni.</p>
+<p>Ci sarà una unica soluzione solo se i due cerchi sono tangenti.</p>
+<p>Non ci saranno soluzione se i due cerchi non si intersecano.</p>
+<p>Definizione del primo cerchio ➜ Centro : A et Raggio : r1</p>
+<p>Definizione del secondo cerchio ➜ Centro : B et Raggio : r2</p>
+<blockquote>
+<img alt="Intersection de cercles" src="file:///android_asset/help/img/circles_intersection.png" /></blockquote>
+<p>I punti di intersezioni calcolati sono: I1 et I2.</p>
+</div>
+<div class="section" id="retta-cerchio">
+<h3><a class="toc-backref" href="#id25">2.3.3&nbsp;&nbsp;&nbsp;Retta/Cerchio</a></h3>
+<p>La definizione delle rette può essere data:</p>
+<blockquote>
+<ul class="simple">
+<li>Con due punti;</li>
+<li>Con un punto e un angolo (G).</li>
+</ul>
+</blockquote>
+<p>La definizione del cerchio può essere data:</p>
+<blockquote>
+<ul class="simple">
+<li>Inserendo manualmente le dimensioni dei raggi;</li>
+<li>Scegliendo un punto sul cerchio, la dimensione del raggio sarà calcolata
+automaticamente.</li>
+</ul>
+</blockquote>
+<p>Può essere dato un offset alla retta (segno positivo = a destra ; segno negativo = a
+sinistra).</p>
+<blockquote>
+<img alt="Intersection d'un cercle et d'une droite" src="file:///android_asset/help/img/line_circle_intersection.png" /></blockquote>
+<p>I due punti calcolati sono I1 et I2.</p>
+</div>
+</div>
+<div class="section" id="superfici">
+<h2><a class="toc-backref" href="#id26">2.4&nbsp;&nbsp;&nbsp;Superfici</a></h2>
+<div class="section" id="calcolo-di-superficie-anche-con-archi">
+<h3><a class="toc-backref" href="#id27">2.4.1&nbsp;&nbsp;&nbsp;Calcolo di superficie (anche con archi)</a></h3>
+<p>Per il calcolo di superficie gli elementi da inserire sono:</p>
+<blockquote>
+<ul class="simple">
+<li>I punti in senso orario.</li>
+</ul>
+</blockquote>
+<p>Così come l'immagine seguente:</p>
+<blockquote>
+<p><img alt="Surface" src="file:///android_asset/help/img/surface.png" /></p>
+<p>Punto 1</p>
+<p>Punto 2, Raggio +</p>
+<p>Punto 3,</p>
+<p>Punto 4,</p>
+<p>Punto 5, Raggio -</p>
+<p>Punto 6,</p>
+<p>Punto 7</p>
+</blockquote>
+</div>
+<div class="section" id="spostamento-parallelo-di-un-confine-con-superficie-imposta">
+<h3><a class="toc-backref" href="#id28">2.4.2&nbsp;&nbsp;&nbsp;Spostamento parallelo di un confine con superficie imposta</a></h3>
+<p>Lo scopo di questo calcolo è di trovare il valore dello spostamento del confine AD
+per ottenere la superficie desiderata (S).</p>
+<p>XY deve essere parallelo a AD</p>
+<p>Si ottengono i seguenti valori:</p>
+<p>d = lunghezza dello spostamento del confine AD</p>
+<p>S = Superficie imposta</p>
+<blockquote>
+<img alt="Déplacement parallèle de limite avec surface imposée" src="file:///android_asset/help/img/parallel_displacement.png" /></blockquote>
+</div>
+</div>
+<div class="section" id="vari">
+<h2><a class="toc-backref" href="#id29">2.5&nbsp;&nbsp;&nbsp;Vari</a></h2>
+<div class="section" id="azimut-distanza">
+<h3><a class="toc-backref" href="#id30">2.5.1&nbsp;&nbsp;&nbsp;Azimut/Distanza</a></h3>
+<p>Per il calcolo dell' azimut/distanza è sufficiente scegliere nella lista dei punti:</p>
+<blockquote>
+<ul class="simple">
+<li>il punto d'origine,</li>
+<li>il punto d'orientamento.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="proiezione-del-punto-sulla-retta">
+<h3><a class="toc-backref" href="#id31">2.5.2&nbsp;&nbsp;&nbsp;Proiezione del punto sulla retta</a></h3>
+<p>Per definire la retta esistono due possibilità:</p>
+<blockquote>
+<ul class="simple">
+<li>Con due punti;</li>
+<li>Con un punto e l'azimut.</li>
+</ul>
+</blockquote>
+<p>Dando un offset alla retta con segno positivo si effettuerà uno spostamento a destra
+e con un segno negativo a sinistra.</p>
+<p>Successivamente si sceglie il punto conosciuto da proiettare.</p>
+<p>Il N° del punto richiesto è quello proiettato sulla linea.</p>
+<blockquote>
+<img alt="Projection d'un point sur une droite" src="file:///android_asset/help/img/point_project_line.png" /></blockquote>
+<p>x = Distanza dal punto da proiettare (P) alla retta</p>
+<p>y = Distanza dal punto da proiettare al punto A</p>
+<p>z = Distanza dal punto da proiettare al punto B</p>
+</div>
+<div class="section" id="calcolo-di-un-cerchio-con-tre-punti">
+<h3><a class="toc-backref" href="#id32">2.5.3&nbsp;&nbsp;&nbsp;Calcolo di un cerchio con tre punti</a></h3>
+<p>Con tre punti conosciuti si possono calcolare le coordinate del centro del cerchio
+ed il suo raggio</p>
+<p>Si possono salvare le coordinate del centro del cerchio dando un N°al punto calcolato.</p>
+</div>
+<div class="section" id="segmentazione-di-un-arco">
+<h3><a class="toc-backref" href="#id33">2.5.4&nbsp;&nbsp;&nbsp;Segmentazione di un arco</a></h3>
+<p>Questo calcolo fornisce coordinate equidistanti distribuite lungo l'arco.</p>
+<p>La segmentazione può essere eseguita inserendo il numero di segmenti desiderati
+(Immagine A) o una lunghezza (a) inserita manualmente (Immagine B).</p>
+<p>Ovviamente, nel secondo caso, la lunghezza dell'ultimo segmento sarà diversa da
+quella impostata per il calcolo (?) .</p>
+<blockquote>
+<img alt="Segmentation d'un arc de cercle" src="file:///android_asset/help/img/circular_segmentation.png" /></blockquote>
+</div>
+</div>
+<div class="section" id="matematica">
+<h2><a class="toc-backref" href="#id34">2.6&nbsp;&nbsp;&nbsp;Matematica</a></h2>
+<div class="section" id="risoluzione-dei-triangoli">
+<h3><a class="toc-backref" href="#id35">2.6.1&nbsp;&nbsp;&nbsp;Risoluzione dei triangoli</a></h3>
+<p>Gli elementi necessari per la risoluzione di un triangolo sono i seguenti:</p>
+<blockquote>
+<ul class="simple">
+<li>3 Lati</li>
+<li>2 Lati e l' Angolo compreso</li>
+<li>1 Lato, 2 Angoli</li>
+</ul>
+<p><img alt="Triangle" src="file:///android_asset/help/img/triangle.png" /></p>
+</blockquote>
+<p>r = Raggio del cerchio inscritto</p>
+<p>R = Raggio del cerchio circoscritto</p>
+<p>h = Altezza calcolata</p>
+</div>
+<div class="section" id="risoluzione-di-elementi-circolari">
+<h3><a class="toc-backref" href="#id36">2.6.2&nbsp;&nbsp;&nbsp;Risoluzione di elementi circolari</a></h3>
+<p>Gli elementi da inserire per il calcolo sono:</p>
+<blockquote>
+<ul class="simple">
+<li>Raggio, Corda</li>
+<li>Raggio, Angolo al centro</li>
+<li>Raggio, Tangente</li>
+<li>Raggio, Freccia</li>
+<li>Corda, Angolo al centro</li>
+<li>Corda, Tangente</li>
+<li>Corda, Freccia</li>
+<li>Tangente, Angolo al centro</li>
+</ul>
+<p><img alt="Eléments circulaires" src="file:///android_asset/help/img/circular_curve.png" /></p>
+</blockquote>
+<p>S = Vertici</p>
+<p>C = Centro</p>
+<p>CO = CM = CF = Raggio</p>
+<p>OF = Corda (OF)</p>
+<p>OS = FS = Tangente</p>
+<p>MS = Bisettrice</p>
+<p>β = Angolo al vertice</p>
+<p>2α = Angolo al centro</p>
+<p>M = Mezzaria dell' arco</p>
+<p>MB = Freccia</p>
+<blockquote>
+<img alt="Eléments circulaires 2" src="file:///android_asset/help/img/circular_curve_2.png" /></blockquote>
+<p>L'immagine in alto rappresenta la superficie del settore.</p>
+<p>L'immagine in basso rappresenta la superficie del segmento.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
