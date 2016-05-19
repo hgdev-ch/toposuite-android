@@ -138,7 +138,7 @@ public class DisplayUtils {
             String decimalCount = Strings.repeat("0", precision);
             pattern += decimalCount;
 
-            DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance(Locale.US);
+            DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance(App.getLocale());
             DecimalFormat df = new DecimalFormat(pattern, symbols);
             df.setRoundingMode(RoundingMode.HALF_UP);
             return df.format(value);
