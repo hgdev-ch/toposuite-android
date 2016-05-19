@@ -16,8 +16,16 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            shrinkResources true
+            minifyEnabled true
+
+            // library specific proguard rules
+            proguardFile 'proguard-guava.pro'
+            proguardFile 'proguard-support-appcompat-v7.pro'
+            proguardFile 'proguard-support-design.pro'
+
+            // generic proguard rules
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             testCoverageEnabled = true
