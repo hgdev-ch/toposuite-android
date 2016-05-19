@@ -56,6 +56,7 @@
 	<string name="circle_surface_label">Kreisfläche [m²]</string>
 	<string name="circumference_label">Kreisumfang [m]</string>
 	<string name="clear_3dots">Löschen…</string>
+	<string name="contact">Kontakt:</string>
 	<string name="cpln">Centre professionnel du Littoral neuchâtelois (CPLN)</string>
 	<string name="cpln_webpage_url">http://www.cpln.ch/</string>
 	<string name="cpln_webpage_url_short">www.cpln.ch</string>

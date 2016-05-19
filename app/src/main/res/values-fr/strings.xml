@@ -56,6 +56,7 @@
 	<string name="circle_surface_label">Surface cercle [m²]</string>
 	<string name="circumference_label">Circonférence cercle [m]</string>
 	<string name="clear_3dots">Effacer…</string>
+	<string name="contact">Contact:</string>
 	<string name="cpln">Centre professionnel du Littoral neuchâtelois (CPLN)</string>
 	<string name="cpln_webpage_url">http://www.cpln.ch/</string>
 	<string name="cpln_webpage_url_short">www.cpln.ch</string>
