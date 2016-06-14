@@ -3,6 +3,19 @@
 Copyright(C) 2014-2016, CRAG (Commission paritaire  Romande d'Apprentissage de
 Géomaticien(ne)s)
 
+<a href="https://play.google.com/store/apps/details?id=ch.hgdev.toposuite">
+  <img
+    alt="TopoSuite on the Play Store"
+    src="https://toposuite.hgdev.ch/img/google-play.png"
+  />
+</a>
+<a href="https://f-droid.org/repository/browse/?fdid=ch.hgdev.toposuite">
+  <img
+    alt="TopoSuite on the F-Droid"
+    src="https://toposuite.hgdev.ch/img/f-droid.png"
+  />
+</a>
+
 TopoSuite for Android is an application developed by
 [hgdev](https://hgdev.ch/) and commissioned by the CRAG (Commission paritaire
 Romande d'Apprentissage de  Géomaticien(ne)s).
