@@ -164,7 +164,20 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String query) {
+                if ((query == null) || query.isEmpty()) {
+                    PointsManagerActivity.this.drawList();
+                    return false;
+                }
+
+                PointsManagerActivity.this.adapter.clear();
+                ArrayList<Point> points = new ArrayList<>(SharedResources.getSetOfPoints());
+                for (Point p:points) {
+                    if (p.getNumber().contains(query)) {
+                        PointsManagerActivity.this.adapter.add(p);
+                    }
+                }
+                PointsManagerActivity.this.pointsListView.setAdapter(PointsManagerActivity.this.adapter);
                 return false;
             }
         });
