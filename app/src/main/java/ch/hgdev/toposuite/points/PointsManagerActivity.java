@@ -216,6 +216,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         point.setEast(dialog.getEast());
         point.setNorth(dialog.getNorth());
         point.setAltitude(dialog.getAltitude());
+        this.editPoint(point);
         this.drawList();
         this.updateShareIntent();
     }
@@ -329,6 +330,19 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             ViewUtils.showToast(this, this.getString(R.string.error_point_number));
         } else {
             Point point = new Point(number, east, north, altitude, true);
+            SharedResources.getSetOfPoints().add(point);
+        }
+    }
+
+    /**
+     * Replace an existing point with the one provided as input.
+     */
+    private void editPoint(Point point) {
+        Point oldPoint = SharedResources.getSetOfPoints().find(point.getNumber());
+        if (oldPoint == null) {
+            ViewUtils.showToast(this, this.getString(R.string.error_point_number));
+        } else {
+            SharedResources.getSetOfPoints().remove(oldPoint);
             SharedResources.getSetOfPoints().add(point);
         }
     }
