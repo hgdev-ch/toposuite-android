@@ -15,8 +15,9 @@ public class PointsTable {
     public static final String COLUMN_NAME_ALTITUDE   = "altitude";
     public static final String COLUMN_NAME_BASE_POINT = "base_point";
 
+
     /**
-     * See {@link SQLiteDatabase#onCreate(SQLiteDatabase}
+     * See {@link android.database.sqlite.SQLiteOpenHelper#onCreate(SQLiteDatabase)}
      */
     public static void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + PointsTable.TABLE_NAME_POINTS + "(" +
@@ -28,7 +29,7 @@ public class PointsTable {
     }
 
     /**
-     * See {@link SQLiteDatabase#onUpgrade(SQLiteDatabase}
+     * See {@link android.database.sqlite.SQLiteOpenHelper#onUpgrade(SQLiteDatabase, int, int)}
      */
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + PointsTable.TABLE_NAME_POINTS);

@@ -16,7 +16,7 @@ public class CalculationsTable {
     public static final String COLUMN_NAME_SERIALIZED_INPUT_DATA = "serialized_input_data";
 
     /**
-     * See {@link SQLiteDatabase#onCreate(SQLiteDatabase}
+     * See {@link android.database.sqlite.SQLiteOpenHelper#onCreate(SQLiteDatabase)}
      */
     public static void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + CalculationsTable.TABLE_NAME_CALCULATIONS + "(" +
@@ -28,7 +28,7 @@ public class CalculationsTable {
     }
 
     /**
-     * See {@link SQLiteDatabase#onUpgrade(SQLiteDatabase}
+     * See {@link android.database.sqlite.SQLiteOpenHelper#onUpgrade(SQLiteDatabase, int, int)}
      */
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CalculationsTable.TABLE_NAME_CALCULATIONS);
