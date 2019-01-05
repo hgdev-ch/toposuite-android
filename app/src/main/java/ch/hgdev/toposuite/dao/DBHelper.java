@@ -3,6 +3,7 @@ package ch.hgdev.toposuite.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import ch.hgdev.toposuite.App;
 
 /**
