@@ -8,10 +8,10 @@
 *.log
 *.swp
 
+.DS_Store
 .checkstyle
 .classpath
 .codepro
-.DS_Store
 .directory
 .gradle
 .idea/
@@ -21,6 +21,7 @@
 .settings
 .workspace/
 
+Thumbs.db
 bin/
 build/
 captures/
@@ -34,7 +35,7 @@ libs/
 local.properties
 obj/
 proguard/
+release/
 stats/
 tags
-Thumbs.db
 workspace
