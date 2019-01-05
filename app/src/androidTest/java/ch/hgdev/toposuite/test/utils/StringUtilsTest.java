@@ -1,7 +1,7 @@
 package ch.hgdev.toposuite.test.utils;
 
+import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.SmallTest;
 
 import junit.framework.Assert;
 

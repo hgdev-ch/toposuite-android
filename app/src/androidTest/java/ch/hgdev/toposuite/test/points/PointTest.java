@@ -2,9 +2,9 @@ package ch.hgdev.toposuite.test.points;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.InstrumentationTestRunner;
-import android.test.suitebuilder.annotation.SmallTest;
+import android.support.test.runner.AndroidJUnitRunner;
 
 import junit.framework.Assert;
 
@@ -22,7 +22,7 @@ import ch.hgdev.toposuite.points.Point;
  */
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class PointTest extends InstrumentationTestRunner {
+public class PointTest extends AndroidJUnitRunner {
     private Context context;
 
     @Before
