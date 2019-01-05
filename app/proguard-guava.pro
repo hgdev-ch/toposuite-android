@@ -28,3 +28,15 @@
 -dontwarn java.lang.ClassValue
 -dontwarn com.google.j2objc.annotations.Weak
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# Guava 20.0+
+-dontwarn com.google.errorprone.annotations.CanIgnoreReturnValue
+-dontwarn com.google.errorprone.annotations.concurrent.LazyInit
+-dontwarn com.google.errorprone.annotations.ForOverride
+
+# Guava 25.0-android+
+-dontwarn afu.org.checkerframework.**
+-dontwarn org.checkerframework.**
+-dontwarn com.google.errorprone.**
+-dontwarn sun.misc.Unsafe
+-dontwarn java.lang.ClassValue
