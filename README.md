@@ -1,6 +1,6 @@
 # TOPOSUITE FOR ANDROID
 
-Copyright(C) 2014-2017, CRAG (Commission paritaire  Romande d'Apprentissage de
+Copyright(C) 2014-2019, CRAG (Commission paritaire  Romande d'Apprentissage de
 Géomaticien(ne)s)
 
 <a href="https://play.google.com/store/apps/details?id=ch.hgdev.toposuite">
