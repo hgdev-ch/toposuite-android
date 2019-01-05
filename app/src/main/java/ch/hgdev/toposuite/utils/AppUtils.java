@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.SparseArray;
 
 import java.io.File;
 import java.text.ParseException;
@@ -77,7 +78,7 @@ public class AppUtils {
 
         private final int value;
         private final String name;
-        private static final Map<Integer, Permission> lookup = new HashMap<>();
+        private static final SparseArray<Permission> lookup = new SparseArray<Permission>();
 
         static {
             for (Permission p : EnumSet.allOf(Permission.class))
