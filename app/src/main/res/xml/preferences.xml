@@ -1,7 +1,7 @@
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.preference.PreferenceCategory android:title="@string/pref_general_title">
+    <androidx.preference.PreferenceCategory android:title="@string/pref_general_title">
         <ListPreference
             android:defaultValue=","
             android:entries="@array/csv_separator"
@@ -20,8 +20,8 @@
             android:max="5"
             android:title="@string/pref_coordinates_decimal_precision"
             custom:min="1" />
-    </android.support.v7.preference.PreferenceCategory>
-    <android.support.v7.preference.PreferenceCategory android:title="@string/pref_display_title">
+    </androidx.preference.PreferenceCategory>
+    <androidx.preference.PreferenceCategory android:title="@string/pref_display_title">
         <ch.hgdev.toposuite.settings.NumberPickerDialogPreference
             android:defaultValue="3"
             android:dialogMessage="@string/choose_value"
@@ -64,13 +64,13 @@
             android:max="5"
             android:title="@string/pref_surfaces_display_precision"
             custom:min="1" />
-    </android.support.v7.preference.PreferenceCategory>
-    <android.support.v7.preference.PreferenceCategory
+    </androidx.preference.PreferenceCategory>
+    <androidx.preference.PreferenceCategory
         android:key="pref_key_storage_settings"
         android:title="@string/pref_about_title">
         <PreferenceScreen
             android:key="screen_about_toposuite"
             android:title="@string/about_toposuite" />
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

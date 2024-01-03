@@ -61,15 +61,15 @@ public class CalculationsDataSource implements DAO, Serializable {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 long id = cursor.getLong(
-                        cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_ID));
+                        cursor.getColumnIndexOrThrow(CalculationsTable.COLUMN_NAME_ID));
                 String type = cursor.getString(
-                        cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_TYPE));
+                        cursor.getColumnIndexOrThrow(CalculationsTable.COLUMN_NAME_TYPE));
                 String description = cursor.getString(
-                        cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_DESCRIPTION));
+                        cursor.getColumnIndexOrThrow(CalculationsTable.COLUMN_NAME_DESCRIPTION));
                 String lastModification = cursor.getString(
-                        cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_LAST_MODIFICATION));
+                        cursor.getColumnIndexOrThrow(CalculationsTable.COLUMN_NAME_LAST_MODIFICATION));
                 String serializedInputData = cursor.getString(
-                        cursor.getColumnIndex(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA));
+                        cursor.getColumnIndexOrThrow(CalculationsTable.COLUMN_NAME_SERIALIZED_INPUT_DATA));
 
                 Date d = AppUtils.parseSerializedDate(lastModification);
                 Calculation calculation = CalculationFactory.createCalculation(CalculationType.valueOf(type), id, description, d, serializedInputData);

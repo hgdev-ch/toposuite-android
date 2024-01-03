@@ -1,6 +1,6 @@
 package ch.hgdev.toposuite.calculation;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;

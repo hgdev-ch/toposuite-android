@@ -19,6 +19,6 @@
     <item
         android:id="@+id/share_job_button"
         android:title="@string/job_share"
-        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
+        app:actionProviderClass="androidx.appcompat.widget.ShareActionProvider"
         app:showAsAction="ifRoom" />
 </menu>

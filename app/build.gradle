@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    namespace "ch.hgdev.toposuite"
 
     defaultConfig {
         applicationId "ch.hgdev.toposuite"
-        minSdkVersion 15
-        targetSdkVersion 28
+        minSdkVersion 30
+        targetSdkVersion 34
+        compileSdk 34
 
         testApplicationId "ch.hgdev.toposuite.test"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
     }
 
@@ -18,33 +18,26 @@ android {
         release {
             shrinkResources true
             minifyEnabled true
-
-            // library specific proguard rules
-            proguardFile 'proguard-guava.pro'
-            proguardFile 'proguard-support-appcompat-v7.pro'
-            proguardFile 'proguard-support-design.pro'
-
-            // generic proguard rules
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             testCoverageEnabled = true
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:preference-v14:28.0.0'
-    implementation 'com.android.support:support-v13:28.0.0'
-    implementation 'com.google.guava:guava:27.0.1-android'
-    androidTestImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'com.google.guava:guava:33.0.0-android'
+    implementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 }
 
 task javadoc(type: Javadoc) {

@@ -1,6 +1,6 @@
 package ch.hgdev.toposuite.transfer;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Interface for importing data from a file.

@@ -7,8 +7,10 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.EditText;
@@ -167,17 +169,7 @@ public class ViewUtils {
      * @param currentActivity Activity that request the lock.
      */
     public static void lockScreenOrientation(@NonNull Activity currentActivity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        } else {
-            // well, do our best
-            int currentOrientation = currentActivity.getResources().getConfiguration().orientation;
-            if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-                currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-            } else {
-                currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-            }
-        }
+        currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
     }
 
     /**
@@ -197,7 +189,7 @@ public class ViewUtils {
      */
     public static int geAccentColor(@NonNull final Context context) {
         final TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
+        context.getTheme().resolveAttribute(androidx.preference.R.attr.colorAccent, value, true);
         return value.data;
     }
 }

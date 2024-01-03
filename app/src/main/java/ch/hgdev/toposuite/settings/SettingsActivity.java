@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 
 import ch.hgdev.toposuite.App;
 import ch.hgdev.toposuite.R;
@@ -44,7 +44,7 @@ public class SettingsActivity extends TopoSuiteActivity {
      */
     public static class SettingsFragment extends PreferenceFragmentCompat
             implements OnSharedPreferenceChangeListener {
-        private static final String DIALOG_FRAGMENT_TAG = "android.support.v7.preference.PreferenceFragment.DIALOG";
+        private static final String DIALOG_FRAGMENT_TAG = "androidx.preference.PreferenceFragment.DIALOG";
         private static final String KEY_ABOUT = "screen_about_toposuite";
         public static final String KEY_PREF_CSV_SEPARATOR = "csv_separator";
         public static final String KEY_PREF_NEGATIVE_COORDINATES = "switch_negative_coordinates";

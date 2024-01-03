@@ -51,15 +51,15 @@ public class PointsDataSource implements DAO, Serializable {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 String number = cursor.getString(
-                        cursor.getColumnIndex(PointsTable.COLUMN_NAME_NUMBER));
+                        cursor.getColumnIndexOrThrow(PointsTable.COLUMN_NAME_NUMBER));
                 double east = cursor.getDouble(
-                        cursor.getColumnIndex(PointsTable.COLUMN_NAME_EAST));
+                        cursor.getColumnIndexOrThrow(PointsTable.COLUMN_NAME_EAST));
                 double north = cursor.getDouble(
-                        cursor.getColumnIndex(PointsTable.COLUMN_NAME_NORTH));
+                        cursor.getColumnIndexOrThrow(PointsTable.COLUMN_NAME_NORTH));
                 double altitude = cursor.getDouble(cursor
-                        .getColumnIndex(PointsTable.COLUMN_NAME_ALTITUDE));
+                        .getColumnIndexOrThrow(PointsTable.COLUMN_NAME_ALTITUDE));
                 boolean isBasePoint = cursor.getInt(
-                        cursor.getColumnIndex(PointsTable.COLUMN_NAME_BASE_POINT)) == 1;
+                        cursor.getColumnIndexOrThrow(PointsTable.COLUMN_NAME_BASE_POINT)) == 1;
 
                 points.add(new Point(number, east, north, altitude, isBasePoint));
                 cursor.moveToNext();

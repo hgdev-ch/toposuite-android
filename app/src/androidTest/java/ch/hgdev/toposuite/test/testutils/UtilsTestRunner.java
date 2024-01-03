@@ -1,7 +1,7 @@
 package ch.hgdev.toposuite.test.testutils;
 
 
-import android.support.test.runner.AndroidJUnitRunner;
+import androidx.test.runner.AndroidJUnitRunner;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

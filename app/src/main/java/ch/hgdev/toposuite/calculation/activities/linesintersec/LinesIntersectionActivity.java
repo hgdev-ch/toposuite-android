@@ -4,7 +4,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -273,12 +273,7 @@ public class LinesIntersectionActivity extends TopoSuiteActivity implements Merg
         this.blinkAnimation.addFrame(new ColorDrawable(ViewUtils.geAccentColor(this)), 900);
         this.blinkAnimation.addFrame(ContextCompat.getDrawable(this, android.R.color.transparent), 900);
         this.blinkAnimation.setOneShot(true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            this.resultLayout.setBackground(this.blinkAnimation);
-        } else {
-            this.resultLayout.setBackgroundDrawable(this.blinkAnimation);
-        }
+        this.resultLayout.setBackground(this.blinkAnimation);
 
         List<Point> points = new ArrayList<>();
         points.add(new Point(false));

@@ -2,7 +2,7 @@ package ch.hgdev.toposuite.test.testutils;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.InstrumentationRegistry;
 
 /**
  * Miscellaneous utility functions, useful for tests.
