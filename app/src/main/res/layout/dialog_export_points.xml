@@ -26,6 +26,7 @@
 
         <EditText
             android:id="@+id/filename_edit_text"
+            android:inputType="textUri"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/filename" />

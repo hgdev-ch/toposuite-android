@@ -113,6 +113,7 @@
 	        
 	        <EditText
 	            android:id="@+id/point_number"
+				android:inputType="text"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
 	            android:layout_weight="0.28"

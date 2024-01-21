@@ -220,6 +220,7 @@
 
             <EditText
                 android:id="@+id/dist_p1_d1"
+                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -441,6 +442,7 @@
 
             <EditText
                 android:id="@+id/dist_p1_d2"
+                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -493,6 +495,7 @@
 
             <EditText
                 android:id="@+id/point_number"
+                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.40"

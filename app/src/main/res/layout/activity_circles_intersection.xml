@@ -269,7 +269,7 @@
                 android:layout_weight="0.25"
                 android:gravity="right|center_vertical"
                 android:hint="@string/point_number_3dots"
-                android:inputType=""
+                android:inputType="text"
                 android:singleLine="true"
                 android:textSize="12sp" />
 
@@ -321,7 +321,7 @@
                 android:layout_weight="0.25"
                 android:gravity="right|center_vertical"
                 android:hint="@string/point_number_3dots"
-                android:inputType=""
+                android:inputType="text"
                 android:singleLine="true"
                 android:textSize="12sp" />
 

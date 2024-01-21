@@ -212,7 +212,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.40"
                 android:gravity="left|center_vertical"
-                android:inputType=""
+                android:inputType="text"
                 android:paddingLeft="@dimen/activity_horizontal_margin" />
         </LinearLayout>
 
@@ -238,7 +238,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.40"
                 android:gravity="left|center_vertical"
-                android:inputType=""
+                android:inputType="text"
                 android:paddingLeft="@dimen/activity_horizontal_margin" />
         </LinearLayout>
     </LinearLayout>

@@ -215,6 +215,7 @@
 
             <EditText
                 android:id="@+id/point_number_west"
+                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.40"
@@ -245,6 +246,7 @@
 
             <EditText
                 android:id="@+id/point_number_east"
+                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.40"
