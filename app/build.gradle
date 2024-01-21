@@ -40,7 +40,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 }
 
-task javadoc(type: Javadoc) {
+tasks.register('javadoc', Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     destinationDir = file("../javadoc/")
