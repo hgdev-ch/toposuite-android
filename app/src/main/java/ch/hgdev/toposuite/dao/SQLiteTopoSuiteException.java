@@ -1,10 +1,13 @@
 package ch.hgdev.toposuite.dao;
 
+import java.io.Serial;
+
 public class SQLiteTopoSuiteException extends DAOException {
 
     /**
      * Serial UID.
      */
+    @Serial
     private static final long serialVersionUID = 5756139318913008377L;
 
     /**

@@ -7,6 +7,7 @@ import com.google.common.collect.Iterables;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -32,6 +33,7 @@ public class DAOMapperTreeSet<E extends DataExporter> extends TreeSet<E> impleme
     /**
      * Serial UID.
      */
+    @Serial
     private static final long serialVersionUID = 310907601029773320L;
 
     /**

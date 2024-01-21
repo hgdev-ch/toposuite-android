@@ -1,5 +1,6 @@
 package ch.hgdev.toposuite.dao.collections;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class DAOMapperArrayList<E> extends ArrayList<E> implements DAOMapper {
     /**
      * Serial UID.
      */
+    @Serial
     private static final long         serialVersionUID = -2385665453541274357L;
 
     /**
