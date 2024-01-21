@@ -144,7 +144,7 @@ public class MeasureDialogFragment extends DialogFragment {
         try {
             this.listener = (MeasureDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement MeasureDialogListener");
         }
     }

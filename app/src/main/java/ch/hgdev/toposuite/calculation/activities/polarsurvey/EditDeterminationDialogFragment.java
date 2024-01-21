@@ -110,7 +110,7 @@ public class EditDeterminationDialogFragment extends DialogFragment {
         try {
             this.listener = (EditDeterminationDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement EditDeterminationDialogListener");
+            throw new ClassCastException(activity + " must implement EditDeterminationDialogListener");
         }
     }
 

@@ -101,7 +101,7 @@ public class AddPointDialogFragment extends DialogFragment {
         try {
             this.listener = (AddPointDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement AddPointDialogListener");
         }
     }

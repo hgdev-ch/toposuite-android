@@ -165,7 +165,7 @@ public class PointsImporterDialog extends DialogFragment {
         try {
             this.listener = (ImportDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement ImportDialogListener");
         }
     }

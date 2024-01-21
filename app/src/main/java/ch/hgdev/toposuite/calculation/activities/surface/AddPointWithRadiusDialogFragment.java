@@ -111,7 +111,7 @@ public class AddPointWithRadiusDialogFragment extends DialogFragment {
         try {
             this.listener = (AddPointWithRadiusDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement AddPointWithRadiusDialogListener");
         }
     }

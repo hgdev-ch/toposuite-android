@@ -161,7 +161,7 @@ public class MergePointsDialog extends DialogFragment {
         try {
             this.listener = (MergePointsDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement MergePointsDialogListener");
         }
     }

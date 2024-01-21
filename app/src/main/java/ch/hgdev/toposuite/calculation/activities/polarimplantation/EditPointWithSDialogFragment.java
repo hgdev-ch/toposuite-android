@@ -101,7 +101,7 @@ public class EditPointWithSDialogFragment extends DialogFragment {
         try {
             this.listener = (EditPointWithSDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement EditPointWithSDialogListener");
         }
     }

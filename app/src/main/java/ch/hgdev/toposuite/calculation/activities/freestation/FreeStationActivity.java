@@ -62,7 +62,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
             this.freeStation = (FreeStation) SharedResources.getCalculationsHistory().get(position);
 
             if (!this.freeStation.getStationNumber().isEmpty()) {
-                this.stationEditText.setText(String.valueOf(this.freeStation.getStationNumber()));
+                this.stationEditText.setText(this.freeStation.getStationNumber());
             }
 
             if (MathUtils.isPositive(this.freeStation.getI())) {

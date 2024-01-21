@@ -91,7 +91,7 @@ public class PointsExporterDialog extends DialogFragment {
         try {
             this.listener = (ExportDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement ExportDialogListener");
         }
     }

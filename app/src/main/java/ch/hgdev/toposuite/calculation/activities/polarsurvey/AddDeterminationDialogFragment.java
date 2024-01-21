@@ -109,7 +109,7 @@ public class AddDeterminationDialogFragment extends DialogFragment {
         try {
             this.listener = (AddDeterminationDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement AddDeterminationDialogListener");
         }
     }

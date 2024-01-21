@@ -122,7 +122,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
         try {
             this.listener = (EditOrientationDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement EditOrientationDialogListener");
+            throw new ClassCastException(activity + " must implement EditOrientationDialogListener");
         }
     }
 

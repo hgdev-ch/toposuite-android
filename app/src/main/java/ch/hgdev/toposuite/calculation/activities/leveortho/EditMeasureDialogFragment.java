@@ -95,7 +95,7 @@ public class EditMeasureDialogFragment extends DialogFragment {
         try {
             this.listener = (EditMeasureDialogListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(activity
                     + " must implement EditMeasureDialogListener");
         }
     }
