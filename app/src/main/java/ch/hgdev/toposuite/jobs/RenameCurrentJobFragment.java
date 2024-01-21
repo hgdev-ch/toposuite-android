@@ -65,20 +65,12 @@ public class RenameCurrentJobFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_rename_job, container, false);
 
         Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RenameCurrentJobFragment.this.dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> RenameCurrentJobFragment.this.dismiss());
 
         Button renameButton = (Button) view.findViewById(R.id.rename_button);
-        renameButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RenameCurrentJobFragment.this.performRenameAction();
-                RenameCurrentJobFragment.this.dismiss();
-            }
+        renameButton.setOnClickListener(v -> {
+            RenameCurrentJobFragment.this.performRenameAction();
+            RenameCurrentJobFragment.this.dismiss();
         });
 
         this.nameEditText = (EditText) view.findViewById(R.id.filename_edit_text);

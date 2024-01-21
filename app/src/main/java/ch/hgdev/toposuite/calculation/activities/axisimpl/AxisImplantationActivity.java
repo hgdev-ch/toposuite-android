@@ -157,19 +157,9 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
             }
         });
 
-        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AxisImplantationActivity.this.showEditMeasureDialog(position);
-            }
-        });
+        this.measuresListView.setOnItemClickListener((parent, view, position, id) -> AxisImplantationActivity.this.showEditMeasureDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  AxisImplantationActivity.this.showAddMeasureDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> AxisImplantationActivity.this.showAddMeasureDialog()
         );
 
         List<Point> points = new ArrayList<>();

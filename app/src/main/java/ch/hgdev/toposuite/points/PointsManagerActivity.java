@@ -69,12 +69,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         this.registerForContextMenu(this.pointsListView);
 
         FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  PointsManagerActivity.this.showAddPointDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> PointsManagerActivity.this.showAddPointDialog()
         );
 
         this.shouldShowExportDialog = false;
@@ -269,22 +264,21 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (AppUtils.Permission.valueOf(requestCode)) {
-            case READ_EXTERNAL_STORAGE:
+            case READ_EXTERNAL_STORAGE -> {
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
                     this.shouldShowImportDialog = true;
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
                 }
-                break;
-            case WRITE_EXTERNAL_STORAGE:
+            }
+            case WRITE_EXTERNAL_STORAGE -> {
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
                     this.shouldShowExportDialog = true;
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
                 }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+            default -> super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
@@ -352,24 +346,16 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                 .setMessage(R.string.loose_calculations)
                 .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.delete_all,
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    Job.deleteCurrentJob();
-                                } catch (SQLiteTopoSuiteException e) {
-                                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
-                                }
-                                PointsManagerActivity.this.drawList();
+                        (dialog, which) -> {
+                            try {
+                                Job.deleteCurrentJob();
+                            } catch (SQLiteTopoSuiteException e) {
+                                Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
                             }
+                            PointsManagerActivity.this.drawList();
                         })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    // do nothing
                 });
         builder.create().show();
     }
@@ -381,12 +367,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         ArrayList<Point> points = new ArrayList<>(SharedResources.getSetOfPoints());
         this.adapter = new ArrayListOfPointsAdapter(this, R.layout.points_list_item, points);
         this.pointsListView.setAdapter(this.adapter);
-        this.pointsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PointsManagerActivity.this.showEditPointDialog(position);
-            }
-        });
+        this.pointsListView.setOnItemClickListener((parent, view, position, id) -> PointsManagerActivity.this.showEditPointDialog(position));
     }
 
     /**
@@ -441,12 +422,9 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                 .setIcon(R.drawable.ic_dialog_error)
                 .setMessage(message)
                 .setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                PointsManagerActivity.this.drawList();
-                                PointsManagerActivity.this.updateShareIntent();
-                            }
+                        (dialog, which) -> {
+                            PointsManagerActivity.this.drawList();
+                            PointsManagerActivity.this.updateShareIntent();
                         });
         builder.create().show();
     }

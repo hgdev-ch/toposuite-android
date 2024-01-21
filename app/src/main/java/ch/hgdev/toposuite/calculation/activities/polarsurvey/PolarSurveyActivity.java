@@ -122,19 +122,9 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.determinationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PolarSurveyActivity.this.showEditDeterminationDialog(position);
-            }
-        });
+        this.determinationsListView.setOnItemClickListener((parent, view, position, id) -> PolarSurveyActivity.this.showEditDeterminationDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  PolarSurveyActivity.this.showAddDeterminationDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> PolarSurveyActivity.this.showAddDeterminationDialog()
         );
 
 

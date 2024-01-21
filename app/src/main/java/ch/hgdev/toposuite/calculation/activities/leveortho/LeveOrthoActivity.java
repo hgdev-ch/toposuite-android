@@ -153,19 +153,9 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         });
 
 
-        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LeveOrthoActivity.this.showEditMeasureDialog(position);
-            }
-        });
+        this.measuresListView.setOnItemClickListener((parent, view, position, id) -> LeveOrthoActivity.this.showEditMeasureDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  LeveOrthoActivity.this.showAddMeasureDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> LeveOrthoActivity.this.showAddMeasureDialog()
         );
 
         Bundle bundle = this.getIntent().getExtras();

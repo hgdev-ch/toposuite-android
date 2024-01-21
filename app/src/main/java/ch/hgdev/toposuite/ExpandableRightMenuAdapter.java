@@ -56,33 +56,27 @@ public class ExpandableRightMenuAdapter extends BaseExpandableListAdapter {
         text.setText(children);
 
         // add an highlight effect when an item is touched
-        convertView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_HOVER_ENTER:
-                    case MotionEvent.ACTION_HOVER_MOVE:
-                        v.setActivated(true);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_HOVER_EXIT:
-                        v.setActivated(false);
-                }
-                return false;
+        convertView.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_HOVER_ENTER:
+                case MotionEvent.ACTION_HOVER_MOVE:
+                    v.setActivated(true);
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_HOVER_EXIT:
+                    v.setActivated(false);
             }
+            return false;
         });
 
-        convertView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent newActivityIntent = new Intent(
-                        ExpandableRightMenuAdapter.this.activity,
-                        activityItem.getActivityClass());
-                ExpandableRightMenuAdapter.this.activity.startActivity(
-                        newActivityIntent);
-            }
+        convertView.setOnClickListener(v -> {
+            Intent newActivityIntent = new Intent(
+                    ExpandableRightMenuAdapter.this.activity,
+                    activityItem.getActivityClass());
+            ExpandableRightMenuAdapter.this.activity.startActivity(
+                    newActivityIntent);
         });
 
         return convertView;

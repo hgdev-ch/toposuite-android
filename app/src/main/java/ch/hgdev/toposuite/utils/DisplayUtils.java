@@ -103,36 +103,19 @@ public class DisplayUtils {
             return "-";
         } else {
             switch (type) {
-                case COORDINATE:
-                    precision = App.getDecimalPrecisionForCoordinate();
-                    break;
-                case ANGLE:
-                    precision = App.getDecimalPrecisionForAngle();
-                    break;
-                case DIFFERENCE:
-                    precision = App.getDecimalPrecisionForDifference();
-                    break;
-                case DISTANCE:
-                    precision = App.getDecimalPrecisionForDistance();
-                    break;
-                case AVERAGE:
-                    precision = App.getDecimalPrecisionForAverage();
-                    break;
-                case GAP:
-                    precision = App.getDecimalPrecisionForGap();
-                    break;
-                case SCALE_FACTOR:
-                    precision = App.getDecimalPrecisionForScaleFactor();
-                    break;
-                case SURFACE:
-                    precision = App.getDecimalPrecisionForSurface();
-                    break;
-                case CC:
-                    precision = App.getDecimalPrecisionForCC();
-                    break;
-                default:
+                case COORDINATE -> precision = App.getDecimalPrecisionForCoordinate();
+                case ANGLE -> precision = App.getDecimalPrecisionForAngle();
+                case DIFFERENCE -> precision = App.getDecimalPrecisionForDifference();
+                case DISTANCE -> precision = App.getDecimalPrecisionForDistance();
+                case AVERAGE -> precision = App.getDecimalPrecisionForAverage();
+                case GAP -> precision = App.getDecimalPrecisionForGap();
+                case SCALE_FACTOR -> precision = App.getDecimalPrecisionForScaleFactor();
+                case SURFACE -> precision = App.getDecimalPrecisionForSurface();
+                case CC -> precision = App.getDecimalPrecisionForCC();
+                default -> {
                     Logger.log(Logger.ErrLabel.SETTINGS_ERROR, "unknown value type");
                     return "-";
+                }
             }
             String pattern = precision < 1 ? "#,##0" : "#,##0.";
             String decimalCount = Strings.repeat("0", precision);

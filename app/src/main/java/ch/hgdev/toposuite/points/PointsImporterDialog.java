@@ -84,20 +84,10 @@ public class PointsImporterDialog extends DialogFragment {
                 R.id.file_number_of_points);
 
         Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PointsImporterDialog.this.dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> PointsImporterDialog.this.dismiss());
 
         Button importButton = (Button) view.findViewById(R.id.import_button);
-        importButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PointsImporterDialog.this.doImportPoints();
-            }
-        });
+        importButton.setOnClickListener(v -> PointsImporterDialog.this.doImportPoints());
 
         this.filesListSpinner = (Spinner) view.findViewById(R.id.files_list_spinner);
 
@@ -105,13 +95,8 @@ public class PointsImporterDialog extends DialogFragment {
 
         String pubDir = AppUtils.publicDataDirectory(PointsImporterDialog.this.getActivity());
         if (pubDir != null) {
-            String[] filesList = new File(pubDir).list(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String filename) {
-                    return SupportedPointsFileTypes.isSupported(
-                            Files.getFileExtension(filename));
-                }
-            });
+            String[] filesList = new File(pubDir).list((dir, filename) -> SupportedPointsFileTypes.isSupported(
+                    Files.getFileExtension(filename)));
             Arrays.sort(filesList);
 
             if (filesList.length == 0) {
@@ -210,44 +195,38 @@ public class PointsImporterDialog extends DialogFragment {
 
         final Activity callingActivity = this.getActivity();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String filename = PointsImporterDialog.this.adapter.getItem(fileNamePosition);
-                String ext = Files.getFileExtension(filename);
+        new Thread(() -> {
+            String filename = PointsImporterDialog.this.adapter.getItem(fileNamePosition);
+            String ext = Files.getFileExtension(filename);
 
-                if (SupportedPointsFileTypes.isSupported(ext)) {
-                    try {
-                        Job.deleteCurrentJob();
-                        InputStream inputStream = new FileInputStream(new File(AppUtils.publicDataDirectory(callingActivity), filename));
-                        List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
-                        if (!errors.isEmpty()) {
-                            PointsImporterDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
-                        }
-                    } catch (IOException e) {
-                        Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                        PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
-                    } catch (SQLiteTopoSuiteException e) {
-                        Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
-                        PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
+            if (SupportedPointsFileTypes.isSupported(ext)) {
+                try {
+                    Job.deleteCurrentJob();
+                    InputStream inputStream = new FileInputStream(new File(AppUtils.publicDataDirectory(callingActivity), filename));
+                    List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
+                    if (!errors.isEmpty()) {
+                        PointsImporterDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);
                     }
-                } else {
-                    Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
-                    PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_unsupported_format);
+                } catch (IOException e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                    PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
+                } catch (SQLiteTopoSuiteException e) {
+                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
+                    PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_points_import);
                 }
-
-                act.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress.dismiss();
-                        if (PointsImporterDialog.this.errMsg.isEmpty()) {
-                            PointsImporterDialog.this.listener.onImportDialogSuccess(PointsImporterDialog.this.successMsg);
-                        } else {
-                            PointsImporterDialog.this.listener.onImportDialogError(PointsImporterDialog.this.errMsg);
-                        }
-                    }
-                });
+            } else {
+                Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
+                PointsImporterDialog.this.errMsg = App.getContext().getString(R.string.error_unsupported_format);
             }
+
+            act.runOnUiThread(() -> {
+                progress.dismiss();
+                if (PointsImporterDialog.this.errMsg.isEmpty()) {
+                    PointsImporterDialog.this.listener.onImportDialogSuccess(PointsImporterDialog.this.successMsg);
+                } else {
+                    PointsImporterDialog.this.listener.onImportDialogError(PointsImporterDialog.this.errMsg);
+                }
+            });
         }).start();
     }
 }

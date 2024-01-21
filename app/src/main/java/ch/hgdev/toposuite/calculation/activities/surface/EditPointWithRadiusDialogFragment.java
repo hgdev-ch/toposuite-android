@@ -72,52 +72,38 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(R.string.dialog_add_point).setView(this.layout)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                EditPointWithRadiusDialogFragment.this.listener
-                        .onDialogCancel(EditPointWithRadiusDialogFragment.this);
-            }
-        });
+                .setPositiveButton(R.string.add, (dialog, id) -> {
+                    // overridden below because the dialog dismiss itself
+                    // without a call to dialog.dismiss()...
+                    // thus, it is impossible to handle error on user input
+                    // without closing the dialog otherwise
+                }).setNegativeButton(R.string.cancel, (dialog, which) -> EditPointWithRadiusDialogFragment.this.listener
+                        .onDialogCancel(EditPointWithRadiusDialogFragment.this));
         Dialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (EditPointWithRadiusDialogFragment.this.checkDialogInputs()) {
-                            if (!ViewUtils.isEmpty(
-                                    EditPointWithRadiusDialogFragment.this.radiusEditText)) {
-                                EditPointWithRadiusDialogFragment.this.radius =
-                                        ViewUtils.readDouble(EditPointWithRadiusDialogFragment.this
-                                                .radiusEditText);
-                            }
-                            EditPointWithRadiusDialogFragment.this.point =
-                                    (Point) EditPointWithRadiusDialogFragment.this.pointSpinner
-                                            .getSelectedItem();
-                            EditPointWithRadiusDialogFragment.this.listener
-                                    .onDialogEdit(EditPointWithRadiusDialogFragment.this);
-                            dialog.dismiss();
-                        } else {
-                            ViewUtils.showToast(
-                                    EditPointWithRadiusDialogFragment.this.getActivity(),
-                                    EditPointWithRadiusDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
-                        }
+        dialog.setOnShowListener(dialog1 -> {
+            Button addButton = ((AlertDialog) dialog1)
+                    .getButton(DialogInterface.BUTTON_POSITIVE);
+            addButton.setOnClickListener(view -> {
+                if (EditPointWithRadiusDialogFragment.this.checkDialogInputs()) {
+                    if (!ViewUtils.isEmpty(
+                            EditPointWithRadiusDialogFragment.this.radiusEditText)) {
+                        EditPointWithRadiusDialogFragment.this.radius =
+                                ViewUtils.readDouble(EditPointWithRadiusDialogFragment.this
+                                        .radiusEditText);
                     }
-                });
-            }
+                    EditPointWithRadiusDialogFragment.this.point =
+                            (Point) EditPointWithRadiusDialogFragment.this.pointSpinner
+                                    .getSelectedItem();
+                    EditPointWithRadiusDialogFragment.this.listener
+                            .onDialogEdit(EditPointWithRadiusDialogFragment.this);
+                    dialog1.dismiss();
+                } else {
+                    ViewUtils.showToast(
+                            EditPointWithRadiusDialogFragment.this.getActivity(),
+                            EditPointWithRadiusDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
+                }
+            });
         });
 
         return dialog;
@@ -191,7 +177,7 @@ public class EditPointWithRadiusDialogFragment extends DialogFragment {
         this.positionSpinner = new Spinner(this.getActivity());
         final ArrayAdapter<String> positionAdapter = new ArrayAdapter<>(
                 this.getActivity(), R.layout.spinner_list_item,
-                new ArrayList<String>());
+                new ArrayList<>());
         this.positionSpinner.setAdapter(positionAdapter);
         positionAdapter.add(this.getActivity().getString(R.string.displace_after));
 

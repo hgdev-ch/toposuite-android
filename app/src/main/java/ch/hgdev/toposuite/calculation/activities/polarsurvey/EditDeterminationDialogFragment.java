@@ -70,50 +70,36 @@ public class EditDeterminationDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(this.getActivity().getString(R.string.measure_edit))
                 .setView(this.scrollView)
-                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
+                .setPositiveButton(R.string.edit, (dialog, which) -> {
+                    // overridden below because the dialog dismiss itself
+                    // without a call to dialog.dismiss()...
+                    // thus, it is impossible to handle error on user input
+                    // without closing the dialog otherwise
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditDeterminationDialogFragment.this.listener
-                                .onDialogCancel(EditDeterminationDialogFragment.this);
-                    }
-                });
+                .setNegativeButton(R.string.cancel, (dialog, which) -> EditDeterminationDialogFragment.this.listener
+                        .onDialogCancel(EditDeterminationDialogFragment.this));
         Dialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (EditDeterminationDialogFragment.this.checkDialogInputs()) {
-                            EditDeterminationDialogFragment.this.zenAngle = ViewUtils.readDouble(EditDeterminationDialogFragment.this.zenAngleEditText);
-                            EditDeterminationDialogFragment.this.s = ViewUtils.readDouble(EditDeterminationDialogFragment.this.sEditText);
-                            EditDeterminationDialogFragment.this.latDepl = ViewUtils.readDouble(EditDeterminationDialogFragment.this.latDeplEditText);
-                            EditDeterminationDialogFragment.this.lonDepl = ViewUtils.readDouble(EditDeterminationDialogFragment.this.lonDeplEditText);
-                            EditDeterminationDialogFragment.this.determinationNo = ViewUtils.readString(EditDeterminationDialogFragment.this.determinationNoEditText);
-                            EditDeterminationDialogFragment.this.horizDir = ViewUtils.readDouble(EditDeterminationDialogFragment.this.horizDirEditText);
-                            EditDeterminationDialogFragment.this.distance = ViewUtils.readDouble(EditDeterminationDialogFragment.this.distanceEditText);
-                            EditDeterminationDialogFragment.this.listener.onDialogEdit(EditDeterminationDialogFragment.this);
-                            dialog.dismiss();
-                        } else {
-                            ViewUtils.showToast(
-                                    EditDeterminationDialogFragment.this.getActivity(),
-                                    EditDeterminationDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
-                        }
-                    }
-                });
-            }
+        dialog.setOnShowListener(dialog1 -> {
+            Button addButton = ((AlertDialog) dialog1)
+                    .getButton(DialogInterface.BUTTON_POSITIVE);
+            addButton.setOnClickListener(v -> {
+                if (EditDeterminationDialogFragment.this.checkDialogInputs()) {
+                    EditDeterminationDialogFragment.this.zenAngle = ViewUtils.readDouble(EditDeterminationDialogFragment.this.zenAngleEditText);
+                    EditDeterminationDialogFragment.this.s = ViewUtils.readDouble(EditDeterminationDialogFragment.this.sEditText);
+                    EditDeterminationDialogFragment.this.latDepl = ViewUtils.readDouble(EditDeterminationDialogFragment.this.latDeplEditText);
+                    EditDeterminationDialogFragment.this.lonDepl = ViewUtils.readDouble(EditDeterminationDialogFragment.this.lonDeplEditText);
+                    EditDeterminationDialogFragment.this.determinationNo = ViewUtils.readString(EditDeterminationDialogFragment.this.determinationNoEditText);
+                    EditDeterminationDialogFragment.this.horizDir = ViewUtils.readDouble(EditDeterminationDialogFragment.this.horizDirEditText);
+                    EditDeterminationDialogFragment.this.distance = ViewUtils.readDouble(EditDeterminationDialogFragment.this.distanceEditText);
+                    EditDeterminationDialogFragment.this.listener.onDialogEdit(EditDeterminationDialogFragment.this);
+                    dialog1.dismiss();
+                } else {
+                    ViewUtils.showToast(
+                            EditDeterminationDialogFragment.this.getActivity(),
+                            EditDeterminationDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
+                }
+            });
         });
         return dialog;
     }

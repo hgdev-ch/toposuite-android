@@ -76,19 +76,9 @@ public class AbrissActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.orientationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AbrissActivity.this.showEditOrientationDialog(position);
-            }
-        });
+        this.orientationsListView.setOnItemClickListener((parent, view, position, id) -> AbrissActivity.this.showEditOrientationDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  AbrissActivity.this.showAddOrientationDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> AbrissActivity.this.showAddOrientationDialog()
         );
 
         // check if we create a new abriss calculation or if we modify an existing one.

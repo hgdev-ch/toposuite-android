@@ -105,19 +105,9 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.pointsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PolarImplantationActivity.this.showEditPointWithSDialog(position);
-            }
-        });
+        this.pointsListView.setOnItemClickListener((parent, view, position, id) -> PolarImplantationActivity.this.showEditPointWithSDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  PolarImplantationActivity.this.showAddPointDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> PolarImplantationActivity.this.showAddPointDialog()
         );
 
         ArrayList<Measure> list = new ArrayList<>();

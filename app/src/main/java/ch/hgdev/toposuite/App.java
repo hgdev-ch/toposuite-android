@@ -223,15 +223,12 @@ public class App extends Application {
      */
     public static void toggleNegativeCoordinates() {
         switch (App.inputTypeCoordinate) {
-            case App.coordinatesTypeStandard:
-                App.inputTypeCoordinate = App.coordinatesTypeAllowNegative;
-                break;
-            case App.coordinatesTypeAllowNegative:
-                App.inputTypeCoordinate = App.coordinatesTypeStandard;
-                break;
-            default:
-                Logger.log(Logger.ErrLabel.SETTINGS_ERROR,
-                        "The type of allowed input coordinate is non valid");
+            case App.coordinatesTypeStandard ->
+                    App.inputTypeCoordinate = App.coordinatesTypeAllowNegative;
+            case App.coordinatesTypeAllowNegative ->
+                    App.inputTypeCoordinate = App.coordinatesTypeStandard;
+            default -> Logger.log(Logger.ErrLabel.SETTINGS_ERROR,
+                    "The type of allowed input coordinate is non valid");
         }
     }
 

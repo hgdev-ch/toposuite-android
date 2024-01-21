@@ -147,20 +147,19 @@ public class JobsActivity extends TopoSuiteActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (AppUtils.Permission.valueOf(requestCode)) {
-            case READ_EXTERNAL_STORAGE:
+            case READ_EXTERNAL_STORAGE -> {
                 if (!AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
                 }
-                break;
-            case WRITE_EXTERNAL_STORAGE:
+            }
+            case WRITE_EXTERNAL_STORAGE -> {
                 if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
                     this.saveJob();
                 } else {
                     ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
                 }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+            default -> super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
@@ -182,17 +181,14 @@ public class JobsActivity extends TopoSuiteActivity implements
     private void drawJobsList() {
         this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
         this.jobsListView.setAdapter(this.adapter);
-        this.jobsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        this.jobsListView.setOnItemClickListener((parent, view, position, id) -> {
+            if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                JobsActivity.this.importJob(position);
+            } else {
+                AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                        String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
                 if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
                     JobsActivity.this.importJob(position);
-                } else {
-                    AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                            String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-                    if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                        JobsActivity.this.importJob(position);
-                    }
                 }
             }
         });
@@ -204,19 +200,13 @@ public class JobsActivity extends TopoSuiteActivity implements
                 .setMessage(R.string.warning_import_without_warning)
                 .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.import_label,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                JobsActivity.this.doImportJob(pos);
-                            }
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            JobsActivity.this.doImportJob(pos);
                         })
                 .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // nothing
-                            }
+                        (dialog, which) -> {
+                            // nothing
                         });
         builder.create().show();
     }
@@ -225,40 +215,34 @@ public class JobsActivity extends TopoSuiteActivity implements
         this.progress.show();
         this.progress.setContentView(new ProgressBar(this));
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Job.deleteCurrentJob();
-                    Job job = JobsActivity.this.adapter.getItem(pos);
-                    File f = job.getTpst();
-                    List<String> lines = Files.readLines(f, Charset.defaultCharset());
-                    String json = Joiner.on('\n').join(lines);
-                    Job.loadJobFromJSON(json);
-                    Job.renameCurrentJob(Files.getNameWithoutExtension(f.getName()));
-                } catch (IOException e) {
-                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                } catch (JSONException e) {
-                    Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
-                } catch (SQLiteTopoSuiteException e) {
-                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
-                }
-
-                JobsActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JobsActivity.this.progress.dismiss();
-                        JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
-                        JobsActivity.this.drawList();
-                        JobsActivity.this.updateShareIntent();
-                        if (Job.getCurrentJobName() == null) {
-                            ViewUtils.showToast(JobsActivity.this, JobsActivity.this.getString(R.string.error_impossible_to_import));
-                        } else {
-                            ViewUtils.showToast(JobsActivity.this, JobsActivity.this.getString(R.string.success_import_job_dialog));
-                        }
-                    }
-                });
+        new Thread(() -> {
+            try {
+                Job.deleteCurrentJob();
+                Job job = JobsActivity.this.adapter.getItem(pos);
+                File f = job.getTpst();
+                List<String> lines = Files.readLines(f, Charset.defaultCharset());
+                String json = Joiner.on('\n').join(lines);
+                Job.loadJobFromJSON(json);
+                Job.renameCurrentJob(Files.getNameWithoutExtension(f.getName()));
+            } catch (IOException e) {
+                Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+            } catch (JSONException e) {
+                Logger.log(Logger.ErrLabel.PARSE_ERROR, e.getMessage());
+            } catch (SQLiteTopoSuiteException e) {
+                Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
             }
+
+            JobsActivity.this.runOnUiThread(() -> {
+                JobsActivity.this.progress.dismiss();
+                JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
+                JobsActivity.this.drawList();
+                JobsActivity.this.updateShareIntent();
+                if (Job.getCurrentJobName() == null) {
+                    ViewUtils.showToast(JobsActivity.this, JobsActivity.this.getString(R.string.error_impossible_to_import));
+                } else {
+                    ViewUtils.showToast(JobsActivity.this, JobsActivity.this.getString(R.string.success_import_job_dialog));
+                }
+            });
         }).start();
     }
 
@@ -306,24 +290,17 @@ public class JobsActivity extends TopoSuiteActivity implements
                 .setMessage(R.string.loose_job)
                 .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.delete,
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    Job.deleteCurrentJob();
-                                } catch (SQLiteTopoSuiteException e) {
-                                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
-                                }
-                                JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
-                                JobsActivity.this.updateShareIntent();
+                        (dialog, which) -> {
+                            try {
+                                Job.deleteCurrentJob();
+                            } catch (SQLiteTopoSuiteException e) {
+                                Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
                             }
+                            JobsActivity.this.jobNameTextView.setText(DisplayUtils.format(Job.getCurrentJobName()));
+                            JobsActivity.this.updateShareIntent();
                         })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    // do nothing
                 });
         builder.create().show();
     }

@@ -154,7 +154,7 @@ public class NumberPickerDialogPreference extends DialogPreference {
             dest.writeInt(this.value);
         }
 
-        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<>() {
             @Override
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);

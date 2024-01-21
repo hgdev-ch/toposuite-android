@@ -59,45 +59,31 @@ public class AddMeasureDialogFragment extends DialogFragment {
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(R.string.measure_add).setView(this.layout)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                AddMeasureDialogFragment.this.listener
-                        .onDialogCancel(AddMeasureDialogFragment.this);
-            }
-        });
+                .setPositiveButton(R.string.add, (dialog, id) -> {
+                    // overridden below because the dialog dismiss itself
+                    // without a call to dialog.dismiss()...
+                    // thus, it is impossible to handle error on user input
+                    // without closing the dialog otherwise
+                }).setNegativeButton(R.string.cancel, (dialog, which) -> AddMeasureDialogFragment.this.listener
+                        .onDialogCancel(AddMeasureDialogFragment.this));
         Dialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (AddMeasureDialogFragment.this.checkDialogInputs()) {
-                            AddMeasureDialogFragment.this.number = ViewUtils.readString(AddMeasureDialogFragment.this.numberEditText);
-                            AddMeasureDialogFragment.this.abscissa = ViewUtils.readDouble(AddMeasureDialogFragment.this.abscissaEditText);
-                            AddMeasureDialogFragment.this.ordinate = ViewUtils.readDouble(AddMeasureDialogFragment.this.ordinateEditText);
-                            AddMeasureDialogFragment.this.listener.onDialogAdd(AddMeasureDialogFragment.this);
-                            dialog.dismiss();
-                        } else {
-                            ViewUtils.showToast(
-                                    AddMeasureDialogFragment.this.getActivity(),
-                                    AddMeasureDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
-                        }
-                    }
-                });
-            }
+        dialog.setOnShowListener(dialog1 -> {
+            Button addButton = ((AlertDialog) dialog1)
+                    .getButton(DialogInterface.BUTTON_POSITIVE);
+            addButton.setOnClickListener(view -> {
+                if (AddMeasureDialogFragment.this.checkDialogInputs()) {
+                    AddMeasureDialogFragment.this.number = ViewUtils.readString(AddMeasureDialogFragment.this.numberEditText);
+                    AddMeasureDialogFragment.this.abscissa = ViewUtils.readDouble(AddMeasureDialogFragment.this.abscissaEditText);
+                    AddMeasureDialogFragment.this.ordinate = ViewUtils.readDouble(AddMeasureDialogFragment.this.ordinateEditText);
+                    AddMeasureDialogFragment.this.listener.onDialogAdd(AddMeasureDialogFragment.this);
+                    dialog1.dismiss();
+                } else {
+                    ViewUtils.showToast(
+                            AddMeasureDialogFragment.this.getActivity(),
+                            AddMeasureDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
+                }
+            });
         });
 
         return dialog;

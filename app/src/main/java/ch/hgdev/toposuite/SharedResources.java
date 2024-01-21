@@ -33,12 +33,7 @@ public class SharedResources {
     public static DAOMapperArrayList<Calculation> getCalculationsHistory() {
         if (SharedResources.calculationsHistory == null) {
             SharedResources.calculationsHistory = new DAOMapperArrayList<>(
-                    new Searcher<Calculation>() {
-                        @Override
-                        public boolean isFound(Calculation currentElement, Object expectedElement) {
-                            return currentElement.equals(expectedElement);
-                        }
-                    });
+                    Object::equals);
             SharedResources.calculationsHistory.registerDAO(CalculationsDataSource.getInstance());
         }
 
@@ -53,12 +48,7 @@ public class SharedResources {
     public static DAOMapperTreeSet<Point> getSetOfPoints() {
         if (SharedResources.setOfPoints == null) {
             SharedResources.setOfPoints = new DAOMapperTreeSet<>(new AlphanumComparator(),
-                    new Searcher<Point>() {
-                        @Override
-                        public boolean isFound(Point currentElement, Object expectedElement) {
-                            return currentElement.getNumber().equals((String) expectedElement);
-                        }
-                    });
+                    (currentElement, expectedElement) -> currentElement.getNumber().equals((String) expectedElement));
             SharedResources.setOfPoints.registerDAO(PointsDataSource.getInstance());
         }
         return SharedResources.setOfPoints;

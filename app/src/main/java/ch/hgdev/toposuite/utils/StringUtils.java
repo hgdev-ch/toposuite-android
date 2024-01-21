@@ -35,6 +35,6 @@ public class StringUtils {
         String number = m.group(1);
         String prefix = str.substring(0, str.length() - number.length());
 
-        return prefix + String.valueOf(Integer.valueOf(number) + 1);
+        return prefix + String.valueOf(Integer.parseInt(number) + 1);
     }
 }

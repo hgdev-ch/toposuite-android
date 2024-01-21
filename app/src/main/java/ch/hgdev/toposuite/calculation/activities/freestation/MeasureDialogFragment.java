@@ -131,65 +131,51 @@ public class MeasureDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(this.getActivity().getString(R.string.measure_add))
                 .setView(this.layout)
-                .setPositiveButton(positiveButtonRes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
+                .setPositiveButton(positiveButtonRes, (dialog, which) -> {
+                    // overridden below because the dialog dismiss itself
+                    // without a call to dialog.dismiss()...
+                    // thus, it is impossible to handle error on user input
+                    // without closing the dialog otherwise
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MeasureDialogFragment.this.listener.onDialogCancel();
-                    }
-                });
+                .setNegativeButton(R.string.cancel, (dialog, which) -> MeasureDialogFragment.this.listener.onDialogCancel());
         Dialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (MeasureDialogFragment.this.checkDialogInputs()) {
-                            // TODO check that if S is set, I is set too and
-                            // pop-up an error
-                            if (!ViewUtils.isEmpty(MeasureDialogFragment.this.zenAngleEditText)) {
-                                MeasureDialogFragment.this.zenAngle = ViewUtils.readDouble(MeasureDialogFragment.this.zenAngleEditText);
-                            }
-                            MeasureDialogFragment.this.s = ViewUtils.readDouble(MeasureDialogFragment.this.sEditText);
-                            MeasureDialogFragment.this.latDepl = ViewUtils.readDouble(MeasureDialogFragment.this.latDeplEditText);
-                            MeasureDialogFragment.this.lonDepl = ViewUtils.readDouble(MeasureDialogFragment.this.lonDeplEditText);
-
-                            MeasureDialogFragment.this.point =
-                                    (Point) MeasureDialogFragment.this.pointSpinner
-                                            .getSelectedItem();
-                            MeasureDialogFragment.this.horizDir = ViewUtils
-                                    .readDouble(MeasureDialogFragment.this.horizDirEditText);
-                            MeasureDialogFragment.this.distance = ViewUtils
-                                    .readDouble(MeasureDialogFragment.this.distanceEditText);
-
-                            if (MeasureDialogFragment.this.isEdition) {
-                                MeasureDialogFragment.this.listener
-                                        .onDialogEdit(MeasureDialogFragment.this);
-                            } else {
-                                MeasureDialogFragment.this.listener
-                                        .onDialogAdd(MeasureDialogFragment.this);
-                            }
-                            dialog.dismiss();
-                        } else {
-                            ViewUtils.showToast(
-                                    MeasureDialogFragment.this.getActivity(),
-                                    MeasureDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
-                        }
+        dialog.setOnShowListener(dialog1 -> {
+            Button addButton = ((AlertDialog) dialog1)
+                    .getButton(DialogInterface.BUTTON_POSITIVE);
+            addButton.setOnClickListener(v -> {
+                if (MeasureDialogFragment.this.checkDialogInputs()) {
+                    // TODO check that if S is set, I is set too and
+                    // pop-up an error
+                    if (!ViewUtils.isEmpty(MeasureDialogFragment.this.zenAngleEditText)) {
+                        MeasureDialogFragment.this.zenAngle = ViewUtils.readDouble(MeasureDialogFragment.this.zenAngleEditText);
                     }
-                });
-            }
+                    MeasureDialogFragment.this.s = ViewUtils.readDouble(MeasureDialogFragment.this.sEditText);
+                    MeasureDialogFragment.this.latDepl = ViewUtils.readDouble(MeasureDialogFragment.this.latDeplEditText);
+                    MeasureDialogFragment.this.lonDepl = ViewUtils.readDouble(MeasureDialogFragment.this.lonDeplEditText);
+
+                    MeasureDialogFragment.this.point =
+                            (Point) MeasureDialogFragment.this.pointSpinner
+                                    .getSelectedItem();
+                    MeasureDialogFragment.this.horizDir = ViewUtils
+                            .readDouble(MeasureDialogFragment.this.horizDirEditText);
+                    MeasureDialogFragment.this.distance = ViewUtils
+                            .readDouble(MeasureDialogFragment.this.distanceEditText);
+
+                    if (MeasureDialogFragment.this.isEdition) {
+                        MeasureDialogFragment.this.listener
+                                .onDialogEdit(MeasureDialogFragment.this);
+                    } else {
+                        MeasureDialogFragment.this.listener
+                                .onDialogAdd(MeasureDialogFragment.this);
+                    }
+                    dialog1.dismiss();
+                } else {
+                    ViewUtils.showToast(
+                            MeasureDialogFragment.this.getActivity(),
+                            MeasureDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
+                }
+            });
         });
         return dialog;
     }

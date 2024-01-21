@@ -37,19 +37,16 @@ public class HistoryActivity extends TopoSuiteActivity {
         this.setContentView(R.layout.activity_history);
 
         this.list = (ListView) this.findViewById(R.id.history_list);
-        this.list.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Class<?> activityClass = SharedResources.getCalculationsHistory().get(position).getActivityClass();
+        this.list.setOnItemClickListener((parent, view, position, id) -> {
+            Class<?> activityClass = SharedResources.getCalculationsHistory().get(position).getActivityClass();
 
-                Bundle bundle = new Bundle();
-                bundle.putInt(HistoryActivity.CALCULATION_POSITION, position);
+            Bundle bundle = new Bundle();
+            bundle.putInt(HistoryActivity.CALCULATION_POSITION, position);
 
-                Intent newActivityIntent = new Intent(HistoryActivity.this, activityClass);
-                newActivityIntent.putExtras(bundle);
+            Intent newActivityIntent = new Intent(HistoryActivity.this, activityClass);
+            newActivityIntent.putExtras(bundle);
 
-                HistoryActivity.this.startActivity(newActivityIntent);
-            }
+            HistoryActivity.this.startActivity(newActivityIntent);
         });
 
         this.registerForContextMenu(this.list);
@@ -119,20 +116,12 @@ public class HistoryActivity extends TopoSuiteActivity {
                 .setMessage(R.string.loose_history)
                 .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.delete_all,
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedResources.getCalculationsHistory().clear();
-                                HistoryActivity.this.adapter.clear();
-                            }
+                        (dialog, which) -> {
+                            SharedResources.getCalculationsHistory().clear();
+                            HistoryActivity.this.adapter.clear();
                         })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    // do nothing
                 });
         builder.create().show();
     }

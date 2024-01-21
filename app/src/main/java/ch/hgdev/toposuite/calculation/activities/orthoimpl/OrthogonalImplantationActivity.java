@@ -114,19 +114,9 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             }
         });
 
-        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OrthogonalImplantationActivity.this.showEditMeasureDialog(position);
-            }
-        });
+        this.measuresListView.setOnItemClickListener((parent, view, position, id) -> OrthogonalImplantationActivity.this.showEditMeasureDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  OrthogonalImplantationActivity.this.showAddMeasureDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> OrthogonalImplantationActivity.this.showAddMeasureDialog()
         );
 
         Bundle bundle = this.getIntent().getExtras();

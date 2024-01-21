@@ -40,65 +40,27 @@ public class CalculationFactory {
         Calculation calculation = null;
 
         switch (type) {
-        case ABRISS:
-            calculation = new Abriss(id, lastModification);
-            break;
-        case AXISIMPLANTATION:
-            calculation = new AxisImplantation(id, lastModification);
-            break;
-        case CHEMINORTHO:
-            calculation = new CheminementOrthogonal(id, lastModification);
-            break;
-        case CIRCLE:
-            calculation = new Circle(id, lastModification);
-            break;
-        case CIRCLESINTERSEC:
-            calculation = new CirclesIntersection(id, lastModification);
-            break;
-        case CIRCCURVESOLVER:
-            calculation = new CircularCurvesSolver(id, lastModification);
-            break;
-        case CIRCULARSEGMENTATION:
-            calculation = new CircularSegmentation(id, lastModification);
-            break;
-        case FREESTATION:
-            calculation = new FreeStation(id, lastModification);
-            break;
-        case GISEMENT:
-            calculation = new Gisement(id, lastModification);
-            break;
-        case LEVEORTHO:
-            calculation = new LeveOrthogonal(id, lastModification);
-            break;
-        case LIMITDISPL:
-            calculation = new LimitDisplacement(id, lastModification);
-            break;
-        case LINECIRCINTERSEC:
-            calculation = new LineCircleIntersection(id, lastModification);
-            break;
-        case LINEINTERSEC:
-            calculation = new LinesIntersection(id, lastModification);
-            break;
-        case ORTHOIMPL:
-            calculation = new OrthogonalImplantation(id, lastModification);
-            break;
-        case POLARIMPLANT:
-            calculation = new PolarImplantation(id, lastModification);
-            break;
-        case POLARSURVEY:
-            calculation = new PolarSurvey(id, lastModification);
-            break;
-        case PROJPT:
-            calculation = new PointProjectionOnALine(id, lastModification);
-            break;
-        case SURFACE:
-            calculation = new Surface(id, lastModification);
-            break;
-        case TRIANGLESOLVER:
-            calculation = new TriangleSolver(id, lastModification);
-            break;
-        default:
-            Logger.log(Logger.ErrLabel.CALCULATION_IMPORT_ERROR,
+            case ABRISS -> calculation = new Abriss(id, lastModification);
+            case AXISIMPLANTATION -> calculation = new AxisImplantation(id, lastModification);
+            case CHEMINORTHO -> calculation = new CheminementOrthogonal(id, lastModification);
+            case CIRCLE -> calculation = new Circle(id, lastModification);
+            case CIRCLESINTERSEC -> calculation = new CirclesIntersection(id, lastModification);
+            case CIRCCURVESOLVER -> calculation = new CircularCurvesSolver(id, lastModification);
+            case CIRCULARSEGMENTATION ->
+                    calculation = new CircularSegmentation(id, lastModification);
+            case FREESTATION -> calculation = new FreeStation(id, lastModification);
+            case GISEMENT -> calculation = new Gisement(id, lastModification);
+            case LEVEORTHO -> calculation = new LeveOrthogonal(id, lastModification);
+            case LIMITDISPL -> calculation = new LimitDisplacement(id, lastModification);
+            case LINECIRCINTERSEC -> calculation = new LineCircleIntersection(id, lastModification);
+            case LINEINTERSEC -> calculation = new LinesIntersection(id, lastModification);
+            case ORTHOIMPL -> calculation = new OrthogonalImplantation(id, lastModification);
+            case POLARIMPLANT -> calculation = new PolarImplantation(id, lastModification);
+            case POLARSURVEY -> calculation = new PolarSurvey(id, lastModification);
+            case PROJPT -> calculation = new PointProjectionOnALine(id, lastModification);
+            case SURFACE -> calculation = new Surface(id, lastModification);
+            case TRIANGLESOLVER -> calculation = new TriangleSolver(id, lastModification);
+            default -> Logger.log(Logger.ErrLabel.CALCULATION_IMPORT_ERROR,
                     CalculationFactory.CALCULATION_NOT_FOUND);
         }
 

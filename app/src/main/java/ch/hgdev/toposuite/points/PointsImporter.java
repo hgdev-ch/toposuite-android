@@ -44,25 +44,17 @@ public class PointsImporter {
             Point newPt = new Point();
             try {
                 switch (type) {
-                    case CSV:
-                        newPt.createPointFromCSV(line);
-                        break;
-                    case COO:
-                    case KOO:
-                    case LTOP:
+                    case CSV -> newPt.createPointFromCSV(line);
+                    case COO, KOO, LTOP -> {
                         if (nbLines == 1) {
                             continue;
                         }
-
                         if (line.matches("^\\*\\*.*")) {
                             continue;
                         }
-
                         newPt.createPointFromLTOP(line);
-                        break;
-                    case PTP:
-                        newPt.createPointFromPTP(line);
-                        break;
+                    }
+                    case PTP -> newPt.createPointFromPTP(line);
                 }
             } catch (InvalidFormatException e) {
                 errors.add(new Pair<>(nbLines, e.getMessage()));

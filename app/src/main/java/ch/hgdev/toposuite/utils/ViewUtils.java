@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.Color;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +21,6 @@ import java.text.ParseException;
 import java.util.regex.Pattern;
 
 import ch.hgdev.toposuite.App;
-import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.points.PointsManagerActivity;
 
 /**

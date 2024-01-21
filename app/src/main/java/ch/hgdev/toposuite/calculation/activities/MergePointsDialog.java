@@ -122,28 +122,13 @@ public class MergePointsDialog extends DialogFragment {
         pointDifferencesTextView.setText(this.calculateDifferences());
 
         Button meanButton = (Button) view.findViewById(R.id.mean_button);
-        meanButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MergePointsDialog.this.performMergeByMeanAction();
-            }
-        });
+        meanButton.setOnClickListener(v -> MergePointsDialog.this.performMergeByMeanAction());
 
         Button replaceButton = (Button) view.findViewById(R.id.replace_button);
-        replaceButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MergePointsDialog.this.performMergeByReplaceAction();
-            }
-        });
+        replaceButton.setOnClickListener(v -> MergePointsDialog.this.performMergeByReplaceAction());
 
         Button keepButton = (Button) view.findViewById(R.id.keep_button);
-        keepButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MergePointsDialog.this.performMergeByKeepAction();
-            }
-        });
+        keepButton.setOnClickListener(v -> MergePointsDialog.this.performMergeByKeepAction());
 
         Spinner mergeTypeSpinner = (Spinner) view.findViewById(R.id.merge_type_spinner);
 

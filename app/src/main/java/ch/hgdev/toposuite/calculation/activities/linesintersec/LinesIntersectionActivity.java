@@ -2,7 +2,6 @@ package ch.hgdev.toposuite.calculation.activities.linesintersec;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import android.view.Menu;

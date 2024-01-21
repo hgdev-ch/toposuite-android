@@ -139,19 +139,13 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
                 .setMessage(R.string.warning_import_without_warning)
                 .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.import_label,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                PointsImporterActivity.this.doImportPoints();
-                            }
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                            PointsImporterActivity.this.doImportPoints();
                         })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        PointsImporterActivity.this.finish();
-                    }
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    dialog.dismiss();
+                    PointsImporterActivity.this.finish();
                 });
         builder.create().show();
     }
@@ -160,59 +154,53 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
         this.progress.show();
         this.progress.setContentView(new ProgressBar(this));
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ContentResolver cr = PointsImporterActivity.this.getContentResolver();
-                String ext = Files.getFileExtension(PointsImporterActivity.this.filename);
-                if (ext.isEmpty()) {
-                    // attempt to detect type via mime then
-                    ext = PointsImporterActivity.this.mime.substring(PointsImporterActivity.this.mime.lastIndexOf("/") + 1);
+        new Thread(() -> {
+            ContentResolver cr = PointsImporterActivity.this.getContentResolver();
+            String ext = Files.getFileExtension(PointsImporterActivity.this.filename);
+            if (ext.isEmpty()) {
+                // attempt to detect type via mime then
+                ext = PointsImporterActivity.this.mime.substring(PointsImporterActivity.this.mime.lastIndexOf("/") + 1);
 
-                    // ugly hack to support ES File Explorer and
-                    // Samsung's file explorer that set the MIME
-                    // type of a CSV file to
-                    // "text/comma-separated-values" instead of
-                    // "text/csv"
-                    if (ext.equalsIgnoreCase("comma-separated-values")) {
-                        ext = "csv";
-                    }
+                // ugly hack to support ES File Explorer and
+                // Samsung's file explorer that set the MIME
+                // type of a CSV file to
+                // "text/comma-separated-values" instead of
+                // "text/csv"
+                if (ext.equalsIgnoreCase("comma-separated-values")) {
+                    ext = "csv";
                 }
-
-                // make sure the file format is supported
-                if (SupportedPointsFileTypes.isSupported(ext)) {
-                    try {
-                        Job.deleteCurrentJob();
-                        InputStream inputStream = cr.openInputStream(PointsImporterActivity.this.dataUri);
-                        List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
-                        if (!errors.isEmpty()) {
-                            PointsImporterActivity.this.errMsg = PointsImporter.formatErrors(ext, errors);
-                        }
-                    } catch (IOException e) {
-                        Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                        PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
-                    } catch (SQLiteTopoSuiteException e) {
-                        Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
-                        PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
-                    }
-                } else {
-                    Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
-                    PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(
-                            R.string.error_unsupported_format);
-                }
-
-                PointsImporterActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        PointsImporterActivity.this.progress.dismiss();
-                        if (PointsImporterActivity.this.errMsg.isEmpty()) {
-                            PointsImporterActivity.this.onImportDialogSuccess(PointsImporterActivity.this.successMsg);
-                        } else {
-                            PointsImporterActivity.this.onImportDialogError(PointsImporterActivity.this.errMsg);
-                        }
-                    }
-                });
             }
+
+            // make sure the file format is supported
+            if (SupportedPointsFileTypes.isSupported(ext)) {
+                try {
+                    Job.deleteCurrentJob();
+                    InputStream inputStream = cr.openInputStream(PointsImporterActivity.this.dataUri);
+                    List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
+                    if (!errors.isEmpty()) {
+                        PointsImporterActivity.this.errMsg = PointsImporter.formatErrors(ext, errors);
+                    }
+                } catch (IOException e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                    PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
+                } catch (SQLiteTopoSuiteException e) {
+                    Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
+                    PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
+                }
+            } else {
+                Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
+                PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(
+                        R.string.error_unsupported_format);
+            }
+
+            PointsImporterActivity.this.runOnUiThread(() -> {
+                PointsImporterActivity.this.progress.dismiss();
+                if (PointsImporterActivity.this.errMsg.isEmpty()) {
+                    PointsImporterActivity.this.onImportDialogSuccess(PointsImporterActivity.this.successMsg);
+                } else {
+                    PointsImporterActivity.this.onImportDialogError(PointsImporterActivity.this.errMsg);
+                }
+            });
         }).start();
     }
 }

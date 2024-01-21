@@ -76,7 +76,7 @@ public class AppUtils {
 
         private final int value;
         private final String name;
-        private static final SparseArray<Permission> lookup = new SparseArray<Permission>();
+        private static final SparseArray<Permission> lookup = new SparseArray<>();
 
         static {
             for (Permission p : EnumSet.allOf(Permission.class))
@@ -86,80 +86,31 @@ public class AppUtils {
         Permission(int value) {
             this.value = value;
             switch (value) {
-                case 0x100:
-                    name = android.Manifest.permission.READ_CALENDAR;
-                    break;
-                case 0x101:
-                    name = android.Manifest.permission.WRITE_CALENDAR;
-                    break;
-                case 0x200:
-                    name = android.Manifest.permission.CAMERA;
-                    break;
-                case 0x300:
-                    name = android.Manifest.permission.READ_CONTACTS;
-                    break;
-                case 0x301:
-                    name = android.Manifest.permission.WRITE_CONTACTS;
-                    break;
-                case 0x302:
-                    name = android.Manifest.permission.GET_ACCOUNTS;
-                    break;
-                case 0x400:
-                    name = android.Manifest.permission.ACCESS_FINE_LOCATION;
-                    break;
-                case 0x401:
-                    name = android.Manifest.permission.ACCESS_COARSE_LOCATION;
-                    break;
-                case 0x500:
-                    name = android.Manifest.permission.RECORD_AUDIO;
-                    break;
-                case 0x600:
-                    name = android.Manifest.permission.READ_PHONE_STATE;
-                    break;
-                case 0x601:
-                    name = android.Manifest.permission.CALL_PHONE;
-                    break;
-                case 0x602:
-                    name = android.Manifest.permission.READ_CALL_LOG;
-                    break;
-                case 0x603:
-                    name = android.Manifest.permission.WRITE_CALL_LOG;
-                    break;
-                case 0x604:
-                    name = android.Manifest.permission.ADD_VOICEMAIL;
-                    break;
-                case 0x605:
-                    name = android.Manifest.permission.USE_SIP;
-                    break;
-                case 0x606:
-                    name = android.Manifest.permission.PROCESS_OUTGOING_CALLS;
-                    break;
-                case 0x700:
-                    name = android.Manifest.permission.BODY_SENSORS;
-                    break;
-                case 0x800:
-                    name = android.Manifest.permission.SEND_SMS;
-                    break;
-                case 0x801:
-                    name = android.Manifest.permission.RECEIVE_SMS;
-                    break;
-                case 0x802:
-                    name = android.Manifest.permission.READ_SMS;
-                    break;
-                case 0x803:
-                    name = android.Manifest.permission.RECEIVE_WAP_PUSH;
-                    break;
-                case 0x804:
-                    name = android.Manifest.permission.RECEIVE_MMS;
-                    break;
-                case 0x900:
-                    name = android.Manifest.permission.READ_EXTERNAL_STORAGE;
-                    break;
-                case 0x901:
-                    name = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-                    break;
-                default:
-                    name = ""; // this cannot happen anyway
+                case 0x100 -> name = android.Manifest.permission.READ_CALENDAR;
+                case 0x101 -> name = android.Manifest.permission.WRITE_CALENDAR;
+                case 0x200 -> name = android.Manifest.permission.CAMERA;
+                case 0x300 -> name = android.Manifest.permission.READ_CONTACTS;
+                case 0x301 -> name = android.Manifest.permission.WRITE_CONTACTS;
+                case 0x302 -> name = android.Manifest.permission.GET_ACCOUNTS;
+                case 0x400 -> name = android.Manifest.permission.ACCESS_FINE_LOCATION;
+                case 0x401 -> name = android.Manifest.permission.ACCESS_COARSE_LOCATION;
+                case 0x500 -> name = android.Manifest.permission.RECORD_AUDIO;
+                case 0x600 -> name = android.Manifest.permission.READ_PHONE_STATE;
+                case 0x601 -> name = android.Manifest.permission.CALL_PHONE;
+                case 0x602 -> name = android.Manifest.permission.READ_CALL_LOG;
+                case 0x603 -> name = android.Manifest.permission.WRITE_CALL_LOG;
+                case 0x604 -> name = android.Manifest.permission.ADD_VOICEMAIL;
+                case 0x605 -> name = android.Manifest.permission.USE_SIP;
+                case 0x606 -> name = android.Manifest.permission.PROCESS_OUTGOING_CALLS;
+                case 0x700 -> name = android.Manifest.permission.BODY_SENSORS;
+                case 0x800 -> name = android.Manifest.permission.SEND_SMS;
+                case 0x801 -> name = android.Manifest.permission.RECEIVE_SMS;
+                case 0x802 -> name = android.Manifest.permission.READ_SMS;
+                case 0x803 -> name = android.Manifest.permission.RECEIVE_WAP_PUSH;
+                case 0x804 -> name = android.Manifest.permission.RECEIVE_MMS;
+                case 0x900 -> name = android.Manifest.permission.READ_EXTERNAL_STORAGE;
+                case 0x901 -> name = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+                default -> name = ""; // this cannot happen anyway
             }
         }
 
@@ -239,18 +190,8 @@ public class AppUtils {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission.name)) {
             new AlertDialog.Builder(activity)
                     .setMessage(message)
-                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(activity, new String[]{permission.name}, permission.value);
-                        }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            activity.finish();
-                        }
-                    })
+                    .setPositiveButton(R.string.ok, (dialog, which) -> ActivityCompat.requestPermissions(activity, new String[]{permission.name}, permission.value))
+                    .setNegativeButton(R.string.cancel, (dialog, which) -> activity.finish())
                     .create()
                     .show();
         } else {

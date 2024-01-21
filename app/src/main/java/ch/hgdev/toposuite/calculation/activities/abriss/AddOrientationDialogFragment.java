@@ -78,44 +78,30 @@ public class AddOrientationDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(this.getActivity().getString(R.string.measure_add))
                 .setView(this.layout)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                AddOrientationDialogFragment.this.listener.onDialogCancel(AddOrientationDialogFragment.this);
-            }
-        });
+                .setPositiveButton(R.string.add, (dialog, which) -> {
+                    // overridden below because the dialog dismiss itself
+                    // without a call to dialog.dismiss()...
+                    // thus, it is impossible to handle error on user input
+                    // without closing the dialog otherwise
+                }).setNegativeButton(R.string.cancel, (dialog, which) -> AddOrientationDialogFragment.this.listener.onDialogCancel(AddOrientationDialogFragment.this));
         Dialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (AddOrientationDialogFragment.this.checkDialogInputs()) {
-                            AddOrientationDialogFragment.this.horizontalDistance = ViewUtils.readDouble(AddOrientationDialogFragment.this.horizontalDistanceEditText);
-                            AddOrientationDialogFragment.this.zenithalAngle = ViewUtils.readDouble(AddOrientationDialogFragment.this.zenithalAngleEditText);
-                            AddOrientationDialogFragment.this.horizontalDirection = ViewUtils.readDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText);
-                            AddOrientationDialogFragment.this.listener.onDialogAdd(AddOrientationDialogFragment.this);
-                            dialog.dismiss();
-                        } else {
-                            ViewUtils.showToast(
-                                    AddOrientationDialogFragment.this.getActivity(),
-                                    AddOrientationDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
-                        }
-                    }
-                });
-            }
+        dialog.setOnShowListener(dialog1 -> {
+            Button addButton = ((AlertDialog) dialog1)
+                    .getButton(DialogInterface.BUTTON_POSITIVE);
+            addButton.setOnClickListener(view -> {
+                if (AddOrientationDialogFragment.this.checkDialogInputs()) {
+                    AddOrientationDialogFragment.this.horizontalDistance = ViewUtils.readDouble(AddOrientationDialogFragment.this.horizontalDistanceEditText);
+                    AddOrientationDialogFragment.this.zenithalAngle = ViewUtils.readDouble(AddOrientationDialogFragment.this.zenithalAngleEditText);
+                    AddOrientationDialogFragment.this.horizontalDirection = ViewUtils.readDouble(AddOrientationDialogFragment.this.horizontalDirectionEditText);
+                    AddOrientationDialogFragment.this.listener.onDialogAdd(AddOrientationDialogFragment.this);
+                    dialog1.dismiss();
+                } else {
+                    ViewUtils.showToast(
+                            AddOrientationDialogFragment.this.getActivity(),
+                            AddOrientationDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
+                }
+            });
         });
         return dialog;
     }

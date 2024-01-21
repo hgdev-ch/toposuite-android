@@ -64,43 +64,29 @@ public class EditMeasureDialogFragment extends DialogFragment {
         this.genEditMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(R.string.measure_edit).setView(this.layout)
-                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                EditMeasureDialogFragment.this.listener.onDialogCancel(EditMeasureDialogFragment.this);
-            }
-        });
+                .setPositiveButton(R.string.edit, (dialog, id) -> {
+                    // overridden below because the dialog dismiss itself
+                    // without a call to dialog.dismiss()...
+                    // thus, it is impossible to handle error on user input
+                    // without closing the dialog otherwise
+                }).setNegativeButton(R.string.cancel, (dialog, which) -> EditMeasureDialogFragment.this.listener.onDialogCancel(EditMeasureDialogFragment.this));
         Dialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (EditMeasureDialogFragment.this.checkDialogInputs()) {
-                            EditMeasureDialogFragment.this.point =
-                                    (Point) EditMeasureDialogFragment.this.pointSpinner.getSelectedItem();
-                            EditMeasureDialogFragment.this.listener.onDialogEdit(EditMeasureDialogFragment.this);
-                            dialog.dismiss();
-                        } else {
-                            ViewUtils.showToast(
-                                    EditMeasureDialogFragment.this.getActivity(),
-                                    EditMeasureDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
-                        }
-                    }
-                });
-            }
+        dialog.setOnShowListener(dialog1 -> {
+            Button addButton = ((AlertDialog) dialog1)
+                    .getButton(DialogInterface.BUTTON_POSITIVE);
+            addButton.setOnClickListener(view -> {
+                if (EditMeasureDialogFragment.this.checkDialogInputs()) {
+                    EditMeasureDialogFragment.this.point =
+                            (Point) EditMeasureDialogFragment.this.pointSpinner.getSelectedItem();
+                    EditMeasureDialogFragment.this.listener.onDialogEdit(EditMeasureDialogFragment.this);
+                    dialog1.dismiss();
+                } else {
+                    ViewUtils.showToast(
+                            EditMeasureDialogFragment.this.getActivity(),
+                            EditMeasureDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
+                }
+            });
         });
 
         return dialog;

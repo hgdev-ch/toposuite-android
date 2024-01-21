@@ -60,12 +60,9 @@ public class SettingsActivity extends TopoSuiteActivity {
         public void onCreatePreferences(Bundle bundle, String key) {
             this.addPreferencesFromResource(R.xml.preferences);
             Preference pref = this.findPreference(KEY_ABOUT);
-            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    SettingsFragment.this.startAboutActivity();
-                    return true;
-                }
+            pref.setOnPreferenceClickListener(preference -> {
+                SettingsFragment.this.startAboutActivity();
+                return true;
             });
         }
 

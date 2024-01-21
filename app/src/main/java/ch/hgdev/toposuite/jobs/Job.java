@@ -254,12 +254,7 @@ public class Job {
      */
     public static ArrayList<Job> getJobsList() {
         ArrayList<Job> jobs = new ArrayList<>();
-        String[] filenameList = new File(App.publicDataDirectory).list(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String filename) {
-                return Files.getFileExtension(filename).equalsIgnoreCase(Job.EXTENSION);
-            }
-        });
+        String[] filenameList = new File(App.publicDataDirectory).list((dir, filename) -> Files.getFileExtension(filename).equalsIgnoreCase(Job.EXTENSION));
         if ((filenameList != null) && (filenameList.length > 0)) {
             Arrays.sort(filenameList);
 

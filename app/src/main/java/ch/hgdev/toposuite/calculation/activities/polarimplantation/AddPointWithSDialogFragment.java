@@ -70,48 +70,34 @@ public class AddPointWithSDialogFragment extends DialogFragment {
         this.genAddMeasureView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(R.string.dialog_add_point).setView(this.layout)
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AddPointWithSDialogFragment.this.listener
-                                .onDialogCancel(AddPointWithSDialogFragment.this);
-                    }
-                });
+                .setPositiveButton(R.string.add, (dialog, id) -> {
+                    // overridden below because the dialog dismiss itself
+                    // without a call to dialog.dismiss()...
+                    // thus, it is impossible to handle error on user input
+                    // without closing the dialog otherwise
+                }).setNegativeButton(R.string.cancel, (dialog, which) -> AddPointWithSDialogFragment.this.listener
+                        .onDialogCancel(AddPointWithSDialogFragment.this));
         Dialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (AddPointWithSDialogFragment.this.checkDialogInputs()) {
-                            AddPointWithSDialogFragment.this.s = ViewUtils.readDouble(
-                                    AddPointWithSDialogFragment.this.sEditText);
-                            AddPointWithSDialogFragment.this.point =
-                                    (Point) AddPointWithSDialogFragment.this.pointSpinner
-                                            .getSelectedItem();
-                            AddPointWithSDialogFragment.this.listener
-                                    .onDialogAdd(AddPointWithSDialogFragment.this);
-                            dialog.dismiss();
-                        } else {
-                            ViewUtils.showToast(
-                                    AddPointWithSDialogFragment.this.getActivity(),
-                                    AddPointWithSDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
-                        }
-                    }
-                });
-            }
+        dialog.setOnShowListener(dialog1 -> {
+            Button addButton = ((AlertDialog) dialog1)
+                    .getButton(DialogInterface.BUTTON_POSITIVE);
+            addButton.setOnClickListener(view -> {
+                if (AddPointWithSDialogFragment.this.checkDialogInputs()) {
+                    AddPointWithSDialogFragment.this.s = ViewUtils.readDouble(
+                            AddPointWithSDialogFragment.this.sEditText);
+                    AddPointWithSDialogFragment.this.point =
+                            (Point) AddPointWithSDialogFragment.this.pointSpinner
+                                    .getSelectedItem();
+                    AddPointWithSDialogFragment.this.listener
+                            .onDialogAdd(AddPointWithSDialogFragment.this);
+                    dialog1.dismiss();
+                } else {
+                    ViewUtils.showToast(
+                            AddPointWithSDialogFragment.this.getActivity(),
+                            AddPointWithSDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
+                }
+            });
         });
 
         return dialog;

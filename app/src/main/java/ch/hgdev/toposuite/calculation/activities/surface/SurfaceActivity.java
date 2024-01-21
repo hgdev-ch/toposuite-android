@@ -73,19 +73,9 @@ public class SurfaceActivity extends TopoSuiteActivity implements
 
         FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
 
-        this.pointsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SurfaceActivity.this.showEditPointDialog(position);
-            }
-        });
+        this.pointsListView.setOnItemClickListener((parent, view, position, id) -> SurfaceActivity.this.showEditPointDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  SurfaceActivity.this.showAddPointDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> SurfaceActivity.this.showAddPointDialog()
         );
 
         // check if we create a new surface calculation or if we modify an

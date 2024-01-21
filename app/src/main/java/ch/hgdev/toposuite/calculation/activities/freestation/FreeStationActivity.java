@@ -51,19 +51,9 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
 
-        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FreeStationActivity.this.showEditMeasureDialog(position);
-            }
-        });
+        this.measuresListView.setOnItemClickListener((parent, view, position, id) -> FreeStationActivity.this.showEditMeasureDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  FreeStationActivity.this.showAddMeasureDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> FreeStationActivity.this.showAddMeasureDialog()
         );
 
         Bundle bundle = this.getIntent().getExtras();

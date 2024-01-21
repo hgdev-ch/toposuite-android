@@ -68,46 +68,32 @@ public class EditPointDialogFragment extends DialogFragment {
         this.genEditPointView();
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(R.string.dialog_edit_point).setView(this.layout)
-                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // overridden below because the dialog dismiss itself
-                        // without a call to dialog.dismiss()...
-                        // thus, it is impossible to handle error on user input
-                        // without closing the dialog otherwise
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                EditPointDialogFragment.this.listener
-                        .onDialogCancel(EditPointDialogFragment.this);
-            }
-        });
+                .setPositiveButton(R.string.edit, (dialog, id) -> {
+                    // overridden below because the dialog dismiss itself
+                    // without a call to dialog.dismiss()...
+                    // thus, it is impossible to handle error on user input
+                    // without closing the dialog otherwise
+                }).setNegativeButton(R.string.cancel, (dialog, which) -> EditPointDialogFragment.this.listener
+                        .onDialogCancel(EditPointDialogFragment.this));
         Dialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(final DialogInterface dialog) {
-                Button addButton = ((AlertDialog) dialog)
-                        .getButton(DialogInterface.BUTTON_POSITIVE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (EditPointDialogFragment.this.checkDialogInputs()) {
-                            EditPointDialogFragment.this.altitude = ViewUtils.readDouble(EditPointDialogFragment.this.altitudeEditText);
-                            EditPointDialogFragment.this.number = ViewUtils.readString(EditPointDialogFragment.this.numberEditText);
-                            EditPointDialogFragment.this.east = ViewUtils.readDouble(EditPointDialogFragment.this.eastEditText);
-                            EditPointDialogFragment.this.north = ViewUtils.readDouble(EditPointDialogFragment.this.northEditText);
-                            EditPointDialogFragment.this.listener.onDialogEdit(EditPointDialogFragment.this);
-                            dialog.dismiss();
-                        } else {
-                            ViewUtils.showToast(
-                                    EditPointDialogFragment.this.getActivity(),
-                                    EditPointDialogFragment.this.getActivity().getString(
-                                            R.string.error_fill_data));
-                        }
-                    }
-                });
-            }
+        dialog.setOnShowListener(dialog1 -> {
+            Button addButton = ((AlertDialog) dialog1)
+                    .getButton(DialogInterface.BUTTON_POSITIVE);
+            addButton.setOnClickListener(view -> {
+                if (EditPointDialogFragment.this.checkDialogInputs()) {
+                    EditPointDialogFragment.this.altitude = ViewUtils.readDouble(EditPointDialogFragment.this.altitudeEditText);
+                    EditPointDialogFragment.this.number = ViewUtils.readString(EditPointDialogFragment.this.numberEditText);
+                    EditPointDialogFragment.this.east = ViewUtils.readDouble(EditPointDialogFragment.this.eastEditText);
+                    EditPointDialogFragment.this.north = ViewUtils.readDouble(EditPointDialogFragment.this.northEditText);
+                    EditPointDialogFragment.this.listener.onDialogEdit(EditPointDialogFragment.this);
+                    dialog1.dismiss();
+                } else {
+                    ViewUtils.showToast(
+                            EditPointDialogFragment.this.getActivity(),
+                            EditPointDialogFragment.this.getActivity().getString(
+                                    R.string.error_fill_data));
+                }
+            });
         });
 
         return dialog;

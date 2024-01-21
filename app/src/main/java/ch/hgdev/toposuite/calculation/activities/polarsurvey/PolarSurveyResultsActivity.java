@@ -186,19 +186,12 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
                 .setMessage(R.string.save_all_points)
                 .setIcon(R.drawable.ic_dialog_warning)
                 .setPositiveButton(R.string.save_all,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                PolarSurveyResultsActivity.this.savePoints();
-                                PolarSurveyResultsActivity.this.adapter.notifyDataSetChanged();
-                            }
+                        (dialog, which) -> {
+                            PolarSurveyResultsActivity.this.savePoints();
+                            PolarSurveyResultsActivity.this.adapter.notifyDataSetChanged();
                         })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    // do nothing
                 });
         builder.create().show();
     }

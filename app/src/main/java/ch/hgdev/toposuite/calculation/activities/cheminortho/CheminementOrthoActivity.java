@@ -120,19 +120,9 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.measuresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheminementOrthoActivity.this.showEditMeasureDialog(position);
-            }
-        });
+        this.measuresListView.setOnItemClickListener((parent, view, position, id) -> CheminementOrthoActivity.this.showEditMeasureDialog(position));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View v) {
-                                                  CheminementOrthoActivity.this.showAddMeasureDialog();
-                                              }
-                                          }
+        addButton.setOnClickListener(v -> CheminementOrthoActivity.this.showAddMeasureDialog()
         );
 
         Bundle bundle = this.getIntent().getExtras();

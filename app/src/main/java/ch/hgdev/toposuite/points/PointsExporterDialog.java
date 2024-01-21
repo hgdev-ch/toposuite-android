@@ -57,20 +57,10 @@ public class PointsExporterDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_export_points, container, false);
 
         Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PointsExporterDialog.this.dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> PointsExporterDialog.this.dismiss());
 
         Button exportButton = (Button) view.findViewById(R.id.export_button);
-        exportButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PointsExporterDialog.this.performExportAction();
-            }
-        });
+        exportButton.setOnClickListener(v -> PointsExporterDialog.this.performExportAction());
 
         this.formatSpinner = (Spinner) view.findViewById(R.id.format_spinner);
 
@@ -149,14 +139,13 @@ public class PointsExporterDialog extends DialogFragment {
             SupportedPointsFileTypes type = SupportedPointsFileTypes.valueOf(format);
 
             switch (type) {
-                case CSV:
-                    lines = SharedResources.getSetOfPoints().saveAsCSV(
-                            this.getActivity(), AppUtils.publicDataDirectory(this.getActivity()), filename);
-                    break;
-                default:
+                case CSV -> lines = SharedResources.getSetOfPoints().saveAsCSV(
+                        this.getActivity(), AppUtils.publicDataDirectory(this.getActivity()), filename);
+                default -> {
                     ViewUtils.showToast(this.getActivity(),
                             this.getActivity().getString(R.string.error_unsupported_format));
                     return;
+                }
             }
         } catch (IOException e) {
             this.closeOnError(e.getMessage());
