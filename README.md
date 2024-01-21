@@ -1,6 +1,6 @@
 # TOPOSUITE FOR ANDROID
 
-Copyright(C) 2014-2019, CRAG (Commission paritaire  Romande d'Apprentissage de
+Copyright(C) 2014-2024, CRAG (Commission paritaire  Romande d'Apprentissage de
 Géomaticien(ne)s)
 
 <a href="https://play.google.com/store/apps/details?id=ch.hgdev.toposuite">
@@ -16,29 +16,32 @@ Géomaticien(ne)s)
   />
 </a>
 
-TopoSuite for Android is an application developed by
-[hgdev](https://hgdev.ch/) and commissioned by the CRAG (Commission paritaire
-Romande d'Apprentissage de  Géomaticien(ne)s).
+TopoSuite for Android is an application developed by Robin Hahling and Kevin
+Gillieron, commissioned by the CRAG (Commission paritaire Romande
+d'Apprentissage de  Géomaticien(ne)s)
 
-The application development is currently sponsored by the CRAG,
-[CF-Geo](http://www.cf-geo.ch/), [CEPM](http://www.cepm.ch/),
-[CPLN](http://www.cpln.ch/), [EPCA](http://www.epcasion.ch/) and
-[Pro-Geo](http://www.pro-geo.ch/). If you are interested in seeing more features
-or improvements to this application, please,
-[contact us](https://hgdev.ch/contact.html).
+The application development is sponsored by:
+* CRAG (Commission Paritaire  Romande d'Apprentissage de Géomaticie(ne)s)
+* Swiss Centre for Geomatics Education - https://geo-education.ch/
+* Centre d'Enseignement Professionnel de Morges (CEPM) - https://www.cepm.ch
+* Centre de Formation Professionnelle Neuchâtelois (CPNE) - https://www.cpne.ch/
+* École Professionnelle Commerciale et Artisanale, Sion (EPCA) - https://www.epcasion.ch/
+* Professionnels Géomatique Suisse, association (PGS) - https://www.pro-geo.ch/
+* Direction du cadastre et de la géoinformation (DCG) - https://www.vd.ch/dcg
+* Association Faîtière Géomaticiens / Géomaticiennes Suisse (AFG-CH) - https://www.formation-geomatique.ch/
 
 This application is free software licensed under the GPLv2 license (see
-LICENSE).  This means that you can freely use, study, redistribute and modify
-this program.  You must, however, publish any changes to the source code and
+LICENSE). This means that you can freely use, study, redistribute and modify
+this program. You must, however, publish any changes to the source code and
 make them available under the same license.
 
 ## ABOUT
 
-TopoSuite is an application for land surveyors running on Android 4.0.3 and
-later versions. It is useful for determining new geographical points based on
+TopoSuite is an application for land surveyors running on Android 11 and later
+versions. It is useful for determining new geographical points based on
 measurements and it offers various calculations possibilities.
 
-Here is a list of supported calculations:
+Below is a list of supported calculations:
 
 * Polar calculations
     * station orientation
@@ -67,10 +70,10 @@ Here is a list of supported calculations:
     * circular elements resolution
 
 Data, such as points, may be imported into the application. Supported input
-files are CSV (with ";" as a separator for now), LTOP and PTP. The list of
-points can be exported to CSV and shared through e-mail, etc.
+files are CSV, LTOP and PTP. The list of points can be exported to CSV and
+shared through e-mail, etc.
 
-It is currently available in English and French (German planned).
+It is available in English, French, German and Italian.
 
 ## LIMITATIONS
 
@@ -93,5 +96,4 @@ this piece of software is useful to you, feel free to contribute by making a
 donation. If you feel like a feature is missing and you would like to have it
 implemented, consider sponsoring the development of this feature. Several
 organizations have already contributed to the development of this application.
-Why not yours? Feel free to [contact us](https://hgdev.ch/contact.html)
-about this.
+Why not yours?

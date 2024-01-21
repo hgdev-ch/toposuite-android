@@ -49,30 +49,16 @@ public class MainActivity extends TopoSuiteActivity {
                 .append("</h1>")
                 .append("<p>")
                 .append(App.getContext().getString(R.string.app_website))
-                .append("&nbsp;<a href='https://toposuite.hgdev.ch'>toposuite.hgdev.ch</a>")
-                .append("</p>")
-                .append("<p>")
-                .append(App.getContext().getString(R.string.contact))
-                .append("&nbsp;<a href='mailto:toposuite@hgdev.ch'>toposuite@hgdev.ch</a>")
+                .append("<br/><a href='https://github.com/hgdev-ch/toposuite-android'>github.com/hgdev-ch/toposuite-android</a>")
                 .append("</p>")
                 .append("<p>")
                 .append(String.format(App.getContext().getString(R.string.app_copyright),
                         AppUtils.getYear(),
                         App.getContext().getString(R.string.crag)))
                 .append("</p></div><br/><p style='clear: both;'>")
-                .append(App.getContext().getString(R.string.developed_by))
-                .append(":<br/>")
-                .append("<img src='file:///android_asset/hgdev_logo.png' alt='")
-                .append(App.getContext().getString(R.string.app_developer))
-                .append("'/><br/>")
-                .append(String.format(
-                        App.getContext().getString(R.string.app_developer_full_info),
-                        App.getContext().getString(R.string.app_developer),
-                        "<a href='"
-                                + App.getContext().getString(R.string.app_developer_webpage_url)
-                                + "'>"
-                                + App.getContext().getString(
-                                        R.string.app_developer_webpage_url_short) + "</a>"))
+                .append("<p>")
+                .append(App.getContext().getString(R.string.created_by))
+                .append("</p>")
                 .append("<div>");
 
         // sponsors list, in a two column tables (first one for the logo, second
@@ -92,25 +78,32 @@ public class MainActivity extends TopoSuiteActivity {
                 .append("</td></tr>");
 
         // CEPM
-        html.append("<tr><td></td><td>" + App.getContext().getString(R.string.cepm))
+        html.append("<tr><td>")
+                .append("<img src='file:///android_asset/cepm.png' alt='")
+                .append(App.getContext().getString(R.string.cepm))
+                .append("'/></td><td>")
+                .append(App.getContext().getString(R.string.cepm))
                 .append(" - " + "<a href='"
                         + App.getContext().getString(R.string.cepm_webpage_url) + "'>"
                         + App.getContext().getString(R.string.cepm_webpage_url_short) + "</a>")
                 .append("</td></tr>");
-
-        // CPLN
+        // CPNE
         html.append("<tr><td>")
-                .append("<img src='file:///android_asset/cpln_logo.png' alt='")
-                .append(App.getContext().getString(R.string.cfgeo))
+                .append("<img src='file:///android_asset/cpne.png' alt='")
+                .append(App.getContext().getString(R.string.cpne))
                 .append("'/></td><td>")
-                .append(App.getContext().getString(R.string.cpln))
+                .append(App.getContext().getString(R.string.cpne))
                 .append(" - " + "<a href='"
-                        + App.getContext().getString(R.string.cpln_webpage_url) + "'>"
-                        + App.getContext().getString(R.string.cpln_webpage_url_short) + "</a>")
+                        + App.getContext().getString(R.string.cpne_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.cpne_webpage_url_short) + "</a>")
                 .append("</td></tr>");
 
         // EPCA
-        html.append("<tr><td></td><td>" + App.getContext().getString(R.string.epca))
+        html.append("<tr><td>")
+                .append("<img src='file:///android_asset/epca.png' alt='")
+                .append(App.getContext().getString(R.string.epca))
+                .append("'/></td><td>")
+                .append(App.getContext().getString(R.string.epca))
                 .append(" - " + "<a href='"
                         + App.getContext().getString(R.string.epca_webpage_url) + "'>"
                         + App.getContext().getString(R.string.epca_webpage_url_short) + "</a>")
@@ -118,24 +111,35 @@ public class MainActivity extends TopoSuiteActivity {
 
         // PGS-SO
         html.append("<tr><td>")
-                .append("<img src='file:///android_asset/pgs_logo.png' alt='")
-                .append(App.getContext().getString(R.string.pgsso))
+                .append("<img src='file:///android_asset/pgs.png' alt='")
+                .append(App.getContext().getString(R.string.pgs))
                 .append("'/></td><td>")
-                .append(App.getContext().getString(R.string.pgsso))
+                .append(App.getContext().getString(R.string.pgs))
                 .append(" - " + "<a href='"
                         + App.getContext().getString(R.string.pgs_webpage_url) + "'>"
                         + App.getContext().getString(R.string.pgs_webpage_url_short) + "</a>")
                 .append("</td></tr>");
 
-        // OIT-VD
+        // DCG
         html.append("<tr><td>")
-                .append("<img src='file:///android_asset/vd_logo.png' alt='")
-                .append(App.getContext().getString(R.string.oit_vd))
+                .append("<img src='file:///android_asset/dcg.png' alt='")
+                .append(App.getContext().getString(R.string.dcg))
                 .append("'/></td><td>")
-                .append(App.getContext().getString(R.string.oit_vd))
+                .append(App.getContext().getString(R.string.dcg))
                 .append(" - " + "<a href='"
-                        + App.getContext().getString(R.string.oit_vd_webpage_url) + "'>"
-                        + App.getContext().getString(R.string.oit_vd_webpage_url_short) + "</a>")
+                        + App.getContext().getString(R.string.dcg_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.dcg_webpage_url_short) + "</a>")
+                .append("</td></tr>");
+
+        // AFG
+        html.append("<tr><td>")
+                .append("<img src='file:///android_asset/afg.png' alt='")
+                .append(App.getContext().getString(R.string.afg))
+                .append("'/></td><td>")
+                .append(App.getContext().getString(R.string.afg))
+                .append(" - " + "<a href='"
+                        + App.getContext().getString(R.string.afg_webpage_url) + "'>"
+                        + App.getContext().getString(R.string.afg_webpage_url_short) + "</a>")
                 .append("</td></tr>");
 
         // end of sponsors list
