@@ -17,12 +17,6 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class LimitDisplacementResultsActivity extends TopoSuiteActivity implements MergePointsDialog.MergePointsDialogListener {
-    private TextView limitDisplacementLabelTextView;
-    private TextView pointWestTextView;
-    private TextView pointEastTextView;
-    private TextView distParaSouthTextView;
-    private TextView distLonWestTextView;
-    private TextView distLonEastTextView;
 
     private LimitDisplacement limDispl;
 
@@ -31,12 +25,12 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_limit_displacement_results);
 
-        this.limitDisplacementLabelTextView = (TextView) this.findViewById(R.id.limit_displ_results_label);
-        this.pointWestTextView = (TextView) this.findViewById(R.id.point_west);
-        this.pointEastTextView = (TextView) this.findViewById(R.id.point_east);
-        this.distParaSouthTextView = (TextView) this.findViewById(R.id.distance_para_south);
-        this.distLonWestTextView = (TextView) this.findViewById(R.id.distance_lon_west);
-        this.distLonEastTextView = (TextView) this.findViewById(R.id.distance_lon_east);
+        TextView limitDisplacementLabelTextView = (TextView) this.findViewById(R.id.limit_displ_results_label);
+        TextView pointWestTextView = (TextView) this.findViewById(R.id.point_west);
+        TextView pointEastTextView = (TextView) this.findViewById(R.id.point_east);
+        TextView distParaSouthTextView = (TextView) this.findViewById(R.id.distance_para_south);
+        TextView distLonWestTextView = (TextView) this.findViewById(R.id.distance_lon_west);
+        TextView distLonEastTextView = (TextView) this.findViewById(R.id.distance_lon_east);
 
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
@@ -49,15 +43,15 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
                 return;
             }
 
-            this.limitDisplacementLabelTextView.setText(String.format(this.getString(
+            limitDisplacementLabelTextView.setText(String.format(this.getString(
                     R.string.limit_displ_results_label),
                     DisplayUtils.formatSurface(this.limDispl.getSurface())));
-            this.pointWestTextView.setText(
+            pointWestTextView.setText(
                     DisplayUtils.formatPoint(this, this.limDispl.getNewPointX()));
-            this.pointEastTextView.setText(DisplayUtils.formatPoint(this, this.limDispl.getNewPointY()));
-            this.distParaSouthTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToSouthLimitAD()));
-            this.distLonWestTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToWestLimitAX()));
-            this.distLonEastTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToEastLimitDY()));
+            pointEastTextView.setText(DisplayUtils.formatPoint(this, this.limDispl.getNewPointY()));
+            distParaSouthTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToSouthLimitAD()));
+            distLonWestTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToWestLimitAX()));
+            distLonEastTextView.setText(DisplayUtils.formatDistance(this.limDispl.getDistanceToEastLimitDY()));
         }
     }
 

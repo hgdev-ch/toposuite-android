@@ -60,8 +60,6 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
 
     private ListView measuresListView;
 
-    private FloatingActionButton addButton;
-
     private int originSelectedPosition;
     private int extremitySelectedPosition;
 
@@ -91,7 +89,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
         this.measuredDistEditText.setInputType(App.getInputTypeCoordinate());
 
         this.measuresListView = (ListView) this.findViewById(R.id.points_list);
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
 
         this.originSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -162,7 +160,7 @@ public class LeveOrthoActivity extends TopoSuiteActivity implements AddMeasureDi
             }
         });
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   LeveOrthoActivity.this.showAddMeasureDialog();

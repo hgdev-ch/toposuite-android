@@ -55,7 +55,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private int selectedPointId;
     private ListView pointsListView;
     private ArrayListOfPointsAdapter adapter;
-    private FloatingActionButton addButton;
     private ShareActionProvider shareActionProvider;
 
     private boolean shouldShowImportDialog;
@@ -69,8 +68,8 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         this.pointsListView = (ListView) this.findViewById(R.id.apm_list_of_points);
         this.registerForContextMenu(this.pointsListView);
 
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   PointsManagerActivity.this.showAddPointDialog();

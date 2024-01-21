@@ -46,7 +46,7 @@ public class AlphanumComparator implements Comparator<Point>
      * Length of string is passed in for improved efficiency (only need to
      * calculate it once)
      **/
-    private final String getChunk(String s, int slength, int marker) {
+    private String getChunk(String s, int slength, int marker) {
         StringBuilder chunk = new StringBuilder();
         char c = s.charAt(marker);
         chunk.append(c);

@@ -58,7 +58,6 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     private EditText iEditText;
     private EditText unknownOrientEditText;
     private ListView pointsListView;
-    private FloatingActionButton addButton;
     private ArrayListOfPointsWithSAdapter adapter;
 
     private Point station;
@@ -81,7 +80,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
         this.unknownOrientEditText = (EditText) this.findViewById(R.id.unknown_orientation);
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.pointsListView = (ListView) this.findViewById(R.id.list_of_points);
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
         this.unknownOrientEditText.setInputType(App.getInputTypeCoordinate());
@@ -113,7 +112,7 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   PolarImplantationActivity.this.showAddPointDialog();

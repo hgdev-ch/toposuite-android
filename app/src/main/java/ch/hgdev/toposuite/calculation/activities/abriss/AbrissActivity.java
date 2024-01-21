@@ -42,7 +42,6 @@ public class AbrissActivity extends TopoSuiteActivity implements
     private TextView stationPointTextView;
     private Spinner stationSpinner;
     private ListView orientationsListView;
-    private FloatingActionButton addButton;
 
     private int stationSelectedPosition;
     private Abriss abriss;
@@ -56,7 +55,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.stationPointTextView = (TextView) this.findViewById(R.id.station_point);
         this.orientationsListView = (ListView) this.findViewById(R.id.orientations_list);
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_orientation_button);
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_orientation_button);
 
         this.stationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -84,7 +83,7 @@ public class AbrissActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   AbrissActivity.this.showAddOrientationDialog();

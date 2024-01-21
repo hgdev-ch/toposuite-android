@@ -59,11 +59,6 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
 
     /**
-     * The left items list that contains the app main menus.
-     */
-    private ListView drawerListLeftMenu;
-
-    /**
      * The right items list that contains the list of available calculations.
      */
     private ExpandableListView drawerListRightMenu;
@@ -81,8 +76,11 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
         this.drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 
         // set the content of the left sliding menu
-        this.drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
-        this.drawerListLeftMenu.setAdapter(new ArrayAdapter<>(this,
+        /**
+         * The left items list that contains the app main menus.
+         */
+        ListView drawerListLeftMenu = (ListView) this.findViewById(R.id.left_drawer);
+        drawerListLeftMenu.setAdapter(new ArrayAdapter<>(this,
                 R.layout.drawer_list_item,
                 new ActivityItem[]{
                         new ActivityItem(this.getString(R.string.home), MainActivity.class),
@@ -101,8 +99,8 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
         this.drawerListRightMenu = (ExpandableListView) this.findViewById(R.id.right_drawer);
         this.createRightMenuItems();
 
-        this.drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(
-                this.drawerListLeftMenu));
+        drawerListLeftMenu.setOnItemClickListener(new DrawerItemClickListener(
+                drawerListLeftMenu));
 
         // the drawerToggle handles the actions when a sliding menu is opened or
         // closed

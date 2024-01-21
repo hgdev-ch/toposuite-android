@@ -51,7 +51,6 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     private TextView calcDistTextView;
 
     private ListView measuresListView;
-    private FloatingActionButton addButton;
 
     private int originSelectedPosition;
     private int extremitySelectedPosition;
@@ -73,7 +72,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
         this.calcDistTextView = (TextView) this.findViewById(R.id.calculated_distance);
 
         this.measuresListView = (ListView) this.findViewById(R.id.points_list);
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
 
         this.originSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -122,7 +121,7 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
             }
         });
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   OrthogonalImplantationActivity.this.showAddMeasureDialog();

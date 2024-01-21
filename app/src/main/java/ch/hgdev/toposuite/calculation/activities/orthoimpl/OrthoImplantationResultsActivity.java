@@ -12,10 +12,7 @@ import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
-    private TextView baseTextView;
     private ListView resultsListView;
-
-    private ArrayListOfResultsAdapter adapter;
 
     private OrthogonalImplantation orthImpl;
 
@@ -24,7 +21,7 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_ortho_implantation_results);
 
-        this.baseTextView = (TextView) this.findViewById(R.id.orthogonal_implantation);
+        TextView baseTextView = (TextView) this.findViewById(R.id.orthogonal_implantation);
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
@@ -37,7 +34,7 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
                 builder.append("-");
                 builder.append(this.orthImpl.getOrthogonalBase().getExtremity());
 
-                this.baseTextView.setText(builder.toString());
+                baseTextView.setText(builder.toString());
                 this.drawList();
             } catch (CalculationException e) {
                 Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
@@ -52,7 +49,7 @@ public class OrthoImplantationResultsActivity extends TopoSuiteActivity {
     }
 
     private void drawList() {
-        this.adapter = new ArrayListOfResultsAdapter(this, R.layout.orth_impl_results_list_item, this.orthImpl.getResults());
-        this.resultsListView.setAdapter(this.adapter);
+        ArrayListOfResultsAdapter adapter = new ArrayListOfResultsAdapter(this, R.layout.orth_impl_results_list_item, this.orthImpl.getResults());
+        this.resultsListView.setAdapter(adapter);
     }
 }

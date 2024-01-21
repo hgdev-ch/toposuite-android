@@ -16,7 +16,6 @@ public class PolarImplantationResultsActivity extends TopoSuiteActivity {
     private ListView resultsListView;
 
     private PolarImplantation polarImplantation;
-    private ArrayListOfResultsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +42,9 @@ public class PolarImplantationResultsActivity extends TopoSuiteActivity {
     }
 
     private void displayResults() {
-        this.adapter = new ArrayListOfResultsAdapter(this,
+        ArrayListOfResultsAdapter adapter = new ArrayListOfResultsAdapter(this,
                 R.layout.polar_implantation_results_list_item,
                 this.polarImplantation.getResults());
-        this.resultsListView.setAdapter(this.adapter);
+        this.resultsListView.setAdapter(adapter);
     }
 }

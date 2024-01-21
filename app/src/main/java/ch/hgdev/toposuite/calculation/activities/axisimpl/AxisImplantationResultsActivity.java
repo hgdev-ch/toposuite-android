@@ -13,21 +13,17 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class AxisImplantationResultsActivity extends TopoSuiteActivity {
 
-    private TextView axisImplantationPointsTextView;
-    private TextView axisImplantationStationTextView;
     private ListView resultsListView;
 
     private AxisImplantation axisImpl;
-
-    private ArrayListOfResultsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_axis_implantation_results);
 
-        this.axisImplantationPointsTextView = (TextView) this.findViewById(R.id.axis_implantation_points);
-        this.axisImplantationStationTextView = (TextView) this.findViewById(R.id.axis_implantation_station);
+        TextView axisImplantationPointsTextView = (TextView) this.findViewById(R.id.axis_implantation_points);
+        TextView axisImplantationStationTextView = (TextView) this.findViewById(R.id.axis_implantation_station);
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
@@ -38,8 +34,8 @@ public class AxisImplantationResultsActivity extends TopoSuiteActivity {
             builder.append(this.axisImpl.getOrthogonalBase().getOrigin());
             builder.append("-");
             builder.append(this.axisImpl.getOrthogonalBase().getExtremity());
-            this.axisImplantationPointsTextView.setText(builder.toString());
-            this.axisImplantationStationTextView.setText(this.axisImpl.getStation().toString());
+            axisImplantationPointsTextView.setText(builder.toString());
+            axisImplantationStationTextView.setText(this.axisImpl.getStation().toString());
         } catch (CalculationException e) {
             Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
             ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
@@ -53,9 +49,9 @@ public class AxisImplantationResultsActivity extends TopoSuiteActivity {
     }
 
     private void drawList() {
-        this.adapter = new ArrayListOfResultsAdapter(this,
+        ArrayListOfResultsAdapter adapter = new ArrayListOfResultsAdapter(this,
                 R.layout.orth_impl_results_list_item,
                 this.axisImpl.getResults());
-        this.resultsListView.setAdapter(this.adapter);
+        this.resultsListView.setAdapter(adapter);
     }
 }

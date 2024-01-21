@@ -610,29 +610,6 @@ public class FreeStation extends Calculation {
      * @author HGdev
      */
     private class IntermediateResults implements Serializable {
-        /**
-         * Fictive gisement. (this attribute is used from the outside)
-         */
-        @SuppressWarnings("unused")
-        private final double gisFict;
-
-        /**
-         * Fictive distance. (this attribute is used from the outside)
-         */
-        @SuppressWarnings("unused")
-        private final double distFict;
-
-        /**
-         * Cadastral gisement. (this attribute is used from the outside)
-         */
-        @SuppressWarnings("unused")
-        private final double gisCadast;
-
-        /**
-         * Cadastral distance. (this attribute is used from the outside)
-         */
-        @SuppressWarnings("unused")
-        private final double distCadast;
 
         /**
          * Rotation between fictive and cadastral coordinates. (this attribute
@@ -649,11 +626,19 @@ public class FreeStation extends Calculation {
 
         private IntermediateResults(double _gisFict, double _distFict,
                                     double _gisCadast, double _distCadast) {
-            this.gisFict = _gisFict;
-            this.distFict = _distFict;
+            /**
+             * Fictive gisement. (this attribute is used from the outside)
+             */
+            /**
+             * Fictive distance. (this attribute is used from the outside)
+             */
 
-            this.gisCadast = _gisCadast;
-            this.distCadast = _distCadast;
+            /**
+             * Cadastral gisement. (this attribute is used from the outside)
+             */
+            /**
+             * Cadastral distance. (this attribute is used from the outside)
+             */
 
             this.rotation = MathUtils.IGNORE_DOUBLE;
             this.constant = MathUtils.IGNORE_DOUBLE;

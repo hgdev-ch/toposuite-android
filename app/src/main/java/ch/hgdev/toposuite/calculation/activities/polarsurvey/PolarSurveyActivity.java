@@ -70,9 +70,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
     private EditText iEditText;
     private EditText unknownOrientEditText;
     private ListView determinationsListView;
-    private FloatingActionButton addButton;
     private ArrayListOfDeterminationsAdapter adapter;
-    private CheckBox z0CheckBox;
 
     private Point station;
     private double z0;
@@ -97,8 +95,8 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
         this.unknownOrientEditText = (EditText) this.findViewById(R.id.unknown_orientation);
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.determinationsListView = (ListView) this.findViewById(R.id.determinations_list);
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_orientation_button);
-        this.z0CheckBox = (CheckBox) this.findViewById(R.id.checkbox_z0);
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_orientation_button);
+        CheckBox z0CheckBox = (CheckBox) this.findViewById(R.id.checkbox_z0);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
         this.unknownOrientEditText.setInputType(App.getInputTypeCoordinate());
@@ -131,7 +129,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   PolarSurveyActivity.this.showAddDeterminationDialog();
@@ -177,7 +175,7 @@ public class PolarSurveyActivity extends TopoSuiteActivity implements
                             Logger.ErrLabel.CALCULATION_INVALID_TYPE,
                             "trying to get Z0 from a calculation that does not compute one");
                 }
-                this.z0CheckBox.setChecked(true);
+                z0CheckBox.setChecked(true);
                 this.unknownOrientEditText.setEnabled(false);
             }
         } else {

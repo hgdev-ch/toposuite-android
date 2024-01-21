@@ -65,7 +65,6 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
     private int centerCSelectedPosition;
     private Point centerCPoint;
     private TextView centerCTextView;
-    private double radiusC;
     private EditText radiusCEditText;
     private Spinner byPointSpinner;
     private int byPointSelectedPosition;
@@ -545,9 +544,9 @@ public class LineCircleIntersectionActivity extends TopoSuiteActivity implements
         }
 
         this.centerCPoint = (Point) this.centerCSpinner.getItemAtPosition(this.centerCSelectedPosition);
-        this.radiusC = ViewUtils.readDouble(this.radiusCEditText);
+        double radiusC = ViewUtils.readDouble(this.radiusCEditText);
 
-        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1, this.centerCPoint, this.radiusC);
+        this.lineCircleIntersection.initAttributes(p1, p2, displacement, gisement, distP1, this.centerCPoint, radiusC);
 
         try {
             this.lineCircleIntersection.compute();

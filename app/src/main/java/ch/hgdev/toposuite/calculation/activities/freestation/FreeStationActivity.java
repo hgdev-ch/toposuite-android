@@ -35,7 +35,6 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
     private EditText stationEditText;
     private EditText iEditText;
     private ListView measuresListView;
-    private FloatingActionButton addButton;
 
     private ArrayListOfMeasuresAdapter adapter;
     private FreeStation freeStation;
@@ -48,7 +47,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
         this.stationEditText = (EditText) this.findViewById(R.id.station_edit_text);
         this.iEditText = (EditText) this.findViewById(R.id.i);
         this.measuresListView = (ListView) this.findViewById(R.id.determinations_list);
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_determination_button);
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_determination_button);
 
         this.iEditText.setInputType(App.getInputTypeCoordinate());
 
@@ -59,7 +58,7 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
             }
         });
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   FreeStationActivity.this.showAddMeasureDialog();

@@ -28,7 +28,6 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
 
-    private TextView baseTextView;
     private ListView resultsListView;
 
     private ArrayListOfResultsAdapter adapter;
@@ -43,7 +42,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_leve_ortho_results);
 
-        this.baseTextView = (TextView) this.findViewById(R.id.base);
+        TextView baseTextView = (TextView) this.findViewById(R.id.base);
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
         Bundle bundle = this.getIntent().getExtras();
@@ -56,7 +55,7 @@ public class LeveOrthoResultsActivity extends TopoSuiteActivity implements
             builder.append("-");
             builder.append(this.leveOrtho.getOrthogonalBase().getExtremity());
 
-            this.baseTextView.setText(builder.toString());
+            baseTextView.setText(builder.toString());
             this.registerForContextMenu(this.resultsListView);
             this.drawList();
 

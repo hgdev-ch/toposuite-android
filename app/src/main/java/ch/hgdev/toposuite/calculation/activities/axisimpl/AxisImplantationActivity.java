@@ -50,8 +50,6 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
     private static final String EXTREMITY_SELECTED_POSITION = "extremity_selected_position";
     private static final String MEASURES_LIST_LABEL = "measures_list";
 
-    private CheckBox checkboxZ0;
-
     private Spinner stationSpinner;
     private Spinner originSpinner;
     private Spinner extremitySpinner;
@@ -64,8 +62,6 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
     private EditText unknownOrientationEditText;
 
     private ListView measuresListView;
-
-    private FloatingActionButton addButton;
 
     private AxisImplantation axisImpl;
 
@@ -81,7 +77,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_axis_implantation);
 
-        this.checkboxZ0 = (CheckBox) this.findViewById(R.id.checkbox_z0);
+        CheckBox checkboxZ0 = (CheckBox) this.findViewById(R.id.checkbox_z0);
         this.stationSpinner = (Spinner) this.findViewById(R.id.station_spinner);
         this.originSpinner = (Spinner) this.findViewById(R.id.origin_spinner);
         this.extremitySpinner = (Spinner) this.findViewById(R.id.extremity_spinner);
@@ -91,7 +87,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
         this.stationTextView = (TextView) this.findViewById(R.id.station_point);
         this.measuresListView = (ListView) this.findViewById(R.id.measures_list);
         this.unknownOrientationEditText = (EditText) this.findViewById(R.id.unknown_orientation);
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_measure_button);
 
         this.unknownOrientationEditText.setInputType(App.getInputTypeCoordinate());
 
@@ -168,7 +164,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
             }
         });
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   AxisImplantationActivity.this.showAddMeasureDialog();
@@ -221,7 +217,7 @@ public class AxisImplantationActivity extends TopoSuiteActivity implements Measu
                             AxisImplantationActivity.AXIS_IMPL_ACTIVITY
                                     + "trying to get Z0 from a calculation that does not compute one");
                 }
-                this.checkboxZ0.setChecked(true);
+                checkboxZ0.setChecked(true);
                 this.unknownOrientationEditText.setEnabled(false);
             }
 

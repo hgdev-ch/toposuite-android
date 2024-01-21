@@ -20,12 +20,10 @@ import ch.hgdev.toposuite.utils.DisplayUtils;
  */
 public class ArrayListOfJobsAdapter extends ArrayAdapter<Job> {
     private final ArrayList<Job> jobs;
-    private final Context context;
 
     public ArrayListOfJobsAdapter(@NonNull  Context context, int textViewResourceId, @NonNull ArrayList<Job> jobs) {
         super(context, textViewResourceId, jobs);
         this.jobs = jobs;
-        this.context = context;
     }
 
     @Override

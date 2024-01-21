@@ -38,7 +38,6 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     public static final String POINT_WITH_RADIUS_LABEL = "points_with_radius";
 
     private ListView pointsListView;
-    private FloatingActionButton addButton;
     private EditText nameEditText;
     private EditText descriptionEditText;
     private TextView surfaceTextView;
@@ -72,7 +71,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
         this.descriptionEditText.setHint(
                 this.getString(R.string.description) + this.getString(R.string.optional_prths));
 
-        this.addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
+        FloatingActionButton addButton = (FloatingActionButton) this.findViewById(R.id.add_point_button);
 
         this.pointsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -81,7 +80,7 @@ public class SurfaceActivity extends TopoSuiteActivity implements
             }
         });
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   SurfaceActivity.this.showAddPointDialog();

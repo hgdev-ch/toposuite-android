@@ -50,7 +50,6 @@ public class EditPointDialogFragment extends DialogFragment {
     }
 
     public static final String POINT_POSITION = "Point position";
-    private Bundle bundle;
     private EditPointDialogListener listener;
     private String number;
     private double altitude;
@@ -129,10 +128,10 @@ public class EditPointDialogFragment extends DialogFragment {
      * Initializes class attributes.
      */
     private void initAttributes() {
-        this.bundle = this.getArguments();
+        Bundle bundle = this.getArguments();
 
         Point point = Iterables.get(SharedResources.getSetOfPoints(),
-                this.bundle.getInt(EditPointDialogFragment.POINT_POSITION));
+                bundle.getInt(EditPointDialogFragment.POINT_POSITION));
         this.number = point.getNumber();
         this.east = point.getEast();
         this.north = point.getNorth();

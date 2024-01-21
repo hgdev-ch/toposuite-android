@@ -250,7 +250,7 @@ public class CircleActivity extends TopoSuiteActivity implements MergePointsDial
         return super.onOptionsItemSelected(item);
     }
 
-    private final ArrayAdapter<Point> initSpinners() {
+    private ArrayAdapter<Point> initSpinners() {
         List<Point> points = new ArrayList<>();
         points.add(new Point(false));
         points.addAll(SharedResources.getSetOfPoints());
@@ -263,7 +263,7 @@ public class CircleActivity extends TopoSuiteActivity implements MergePointsDial
         return a;
     }
 
-    private final void showMergePointsDialog() {
+    private void showMergePointsDialog() {
         MergePointsDialog dialog = new MergePointsDialog();
 
         Bundle args = new Bundle();
@@ -281,7 +281,7 @@ public class CircleActivity extends TopoSuiteActivity implements MergePointsDial
         dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
     }
 
-    private final void itemSelected() {
+    private void itemSelected() {
         if ((this.pointASelectedPosition != 0)
                 && (this.pointBSelectedPosition != 0)
                 && (this.pointCSelectedPosition != 0)) {

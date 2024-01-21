@@ -28,11 +28,6 @@ import ch.hgdev.toposuite.utils.ViewUtils;
 
 public class CheminementOrthoResultsActivity extends TopoSuiteActivity implements
         MergePointsDialog.MergePointsDialogListener {
-    private TextView baseTextView;
-    private TextView scaleTextView;
-    private TextView fsTextView;
-    private TextView fLatTextView;
-    private TextView fLonTextView;
 
     private ListView resultsListView;
 
@@ -48,11 +43,11 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_cheminement_ortho_results);
 
-        this.baseTextView = (TextView) this.findViewById(R.id.base);
-        this.scaleTextView = (TextView) this.findViewById(R.id.scale_factor);
-        this.fsTextView = (TextView) this.findViewById(R.id.fs);
-        this.fLatTextView = (TextView) this.findViewById(R.id.flat);
-        this.fLonTextView = (TextView) this.findViewById(R.id.flon);
+        TextView baseTextView = (TextView) this.findViewById(R.id.base);
+        TextView scaleTextView = (TextView) this.findViewById(R.id.scale_factor);
+        TextView fsTextView = (TextView) this.findViewById(R.id.fs);
+        TextView fLatTextView = (TextView) this.findViewById(R.id.flat);
+        TextView fLonTextView = (TextView) this.findViewById(R.id.flon);
 
         this.resultsListView = (ListView) this.findViewById(R.id.results_list);
 
@@ -67,11 +62,11 @@ public class CheminementOrthoResultsActivity extends TopoSuiteActivity implement
                 builder.append("-");
                 builder.append(this.cheminOrtho.getOrthogonalBase().getExtremity());
 
-                this.baseTextView.setText(builder.toString());
-                this.scaleTextView.setText(DisplayUtils.formatDistance(this.cheminOrtho.getScale()));
-                this.fsTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getFs())));
-                this.fLonTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getfE())));
-                this.fLatTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getfN())));
+                baseTextView.setText(builder.toString());
+                scaleTextView.setText(DisplayUtils.formatDistance(this.cheminOrtho.getScale()));
+                fsTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getFs())));
+                fLonTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getfE())));
+                fLatTextView.setText(DisplayUtils.formatDifferences(MathUtils.mToCm(this.cheminOrtho.getfN())));
 
                 this.registerForContextMenu(this.resultsListView);
                 this.drawList();

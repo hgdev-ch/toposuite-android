@@ -40,7 +40,6 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements Me
     private int centerOneSelectedPosition;
     private Point centerOnePoint;
     private TextView centerOneTextView;
-    private double radiusOne;
     private EditText radiusOneEditText;
     private Spinner byPointOneSpinner;
     private int byPointOneSelectedPosition;
@@ -51,7 +50,6 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements Me
     private int centerTwoSelectedPosition;
     private Point centerTwoPoint;
     private TextView centerTwoTextView;
-    private double radiusTwo;
     private EditText radiusTwoEditText;
     private Spinner byPointTwoSpinner;
     private int byPointTwoSelectedPosition;
@@ -410,14 +408,14 @@ public class CirclesIntersectionActivity extends TopoSuiteActivity implements Me
         }
 
         this.centerOnePoint = (Point) this.centerOneSpinner.getItemAtPosition(this.centerOneSelectedPosition);
-        this.radiusOne = ViewUtils.readDouble(this.radiusOneEditText);
+        double radiusOne = ViewUtils.readDouble(this.radiusOneEditText);
         this.centerTwoPoint = (Point) this.centerTwoSpinner.getItemAtPosition(this.centerTwoSelectedPosition);
-        this.radiusTwo = ViewUtils.readDouble(this.radiusTwoEditText);
+        double radiusTwo = ViewUtils.readDouble(this.radiusTwoEditText);
 
         this.circlesIntersection.setCenterFirst(this.centerOnePoint);
-        this.circlesIntersection.setRadiusFirst(this.radiusOne);
+        this.circlesIntersection.setRadiusFirst(radiusOne);
         this.circlesIntersection.setCenterSecond(this.centerTwoPoint);
-        this.circlesIntersection.setRadiusSecond(this.radiusTwo);
+        this.circlesIntersection.setRadiusSecond(radiusTwo);
 
         try {
             this.circlesIntersection.compute();

@@ -45,14 +45,7 @@ public class MergePointsDialog extends DialogFragment {
      */
     private static final int           MERGE_MODE_ALTITUDE_ONLY    = 2;
 
-    private TextView                   pointNumberTextView;
-    private TextView                   actualPointTextView;
-    private TextView                   newPointTextView;
-    private TextView                   pointDifferencesTextView;
-    private Spinner                    mergeTypeSpinner;
-
     private MergePointsDialogListener  listener;
-    private ArrayAdapter<CharSequence> adapter;
 
     private int                        selectedMode                = 0;
     private Point                      oldPt;
@@ -107,26 +100,26 @@ public class MergePointsDialog extends DialogFragment {
                 false,
                 false);
 
-        this.pointNumberTextView = (TextView) view.findViewById(
+        TextView pointNumberTextView = (TextView) view.findViewById(
                 R.id.point_number);
-        this.pointNumberTextView.setText(
+        pointNumberTextView.setText(
                 String.format(
                         this.getActivity().getString(
                                 R.string.existing_point_number), pointNumber));
 
-        this.actualPointTextView = (TextView) view.findViewById(
+        TextView actualPointTextView = (TextView) view.findViewById(
                 R.id.actual_point);
-        this.actualPointTextView.setText(
+        actualPointTextView.setText(
                 DisplayUtils.formatPoint(this.getActivity(), this.oldPt));
 
-        this.newPointTextView = (TextView) view.findViewById(
+        TextView newPointTextView = (TextView) view.findViewById(
                 R.id.old_point);
-        this.newPointTextView.setText(DisplayUtils.formatPoint(
+        newPointTextView.setText(DisplayUtils.formatPoint(
                 this.getActivity(), this.newPt));
 
-        this.pointDifferencesTextView = (TextView) view.findViewById(
+        TextView pointDifferencesTextView = (TextView) view.findViewById(
                 R.id.point_differences);
-        this.pointDifferencesTextView.setText(this.calculateDifferences());
+        pointDifferencesTextView.setText(this.calculateDifferences());
 
         Button meanButton = (Button) view.findViewById(R.id.mean_button);
         meanButton.setOnClickListener(new OnClickListener() {
@@ -152,17 +145,17 @@ public class MergePointsDialog extends DialogFragment {
             }
         });
 
-        this.mergeTypeSpinner = (Spinner) view.findViewById(R.id.merge_type_spinner);
+        Spinner mergeTypeSpinner = (Spinner) view.findViewById(R.id.merge_type_spinner);
 
-        this.adapter = ArrayAdapter.createFromResource(
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this.getActivity(),
                 R.array.merge_modes,
                 android.R.layout.simple_spinner_dropdown_item);
-        this.adapter.setDropDownViewResource(
+        adapter.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
-        this.mergeTypeSpinner.setAdapter(this.adapter);
+        mergeTypeSpinner.setAdapter(adapter);
 
-        this.mergeTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+        mergeTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 MergePointsDialog.this.selectedMode = pos;
