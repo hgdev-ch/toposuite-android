@@ -5,7 +5,6 @@ import ch.hgdev.toposuite.dao.CalculationsDataSource;
 import ch.hgdev.toposuite.dao.PointsDataSource;
 import ch.hgdev.toposuite.dao.collections.DAOMapperArrayList;
 import ch.hgdev.toposuite.dao.collections.DAOMapperTreeSet;
-import ch.hgdev.toposuite.dao.collections.Searcher;
 import ch.hgdev.toposuite.points.Point;
 import ch.hgdev.toposuite.utils.AlphanumComparator;
 

@@ -1,6 +1,5 @@
 package ch.hgdev.toposuite.calculation.activities.leveortho;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import android.view.ContextMenu;

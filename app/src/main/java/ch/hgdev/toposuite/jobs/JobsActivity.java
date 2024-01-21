@@ -1,7 +1,6 @@
 package ch.hgdev.toposuite.jobs;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
