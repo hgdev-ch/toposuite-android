@@ -76,13 +76,11 @@ public class HistoryActivity extends TopoSuiteActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.delete_button:
-                this.clearHistory();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.delete_button) {
+            this.clearHistory();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -96,17 +94,15 @@ public class HistoryActivity extends TopoSuiteActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-            case R.id.delete_button:
-                Calculation calc = SharedResources.getCalculationsHistory().get((int) info.id);
-                this.adapter.remove(calc);
-                this.adapter.notifyDataSetChanged();
-                SharedResources.getCalculationsHistory().remove(info.id);
+        if (item.getItemId() == R.id.delete_button) {
+            Calculation calc = SharedResources.getCalculationsHistory().get((int) info.id);
+            this.adapter.remove(calc);
+            this.adapter.notifyDataSetChanged();
+            SharedResources.getCalculationsHistory().remove(info.id);
 
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     /**

@@ -210,46 +210,44 @@ public class CircleActivity extends TopoSuiteActivity implements MergePointsDial
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.save_button:
-                if ((this.pointASelectedPosition == 0)
-                        || (this.pointBSelectedPosition == 0)
-                        || (this.pointCSelectedPosition == 0)
-                        || (this.pointNumberEditText.length() == 0)
-                        || (this.circle == null)) {
+        if (id == R.id.save_button) {
+            if ((this.pointASelectedPosition == 0)
+                    || (this.pointBSelectedPosition == 0)
+                    || (this.pointCSelectedPosition == 0)
+                    || (this.pointNumberEditText.length() == 0)
+                    || (this.circle == null)) {
 
-                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-                    return true;
-                }
-
-                String num = ViewUtils.readString(this.pointNumberEditText);
-                if (num.isEmpty()) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-                    return true;
-                }
-
-                this.circle.setPointNumber(num);
-                try {
-                    this.circle.compute();
-
-                    if (SharedResources.getSetOfPoints().find(this.circle.getPointNumber()) == null) {
-                        SharedResources.getSetOfPoints().add(this.circle.getCenter());
-                        this.circle.getCenter().registerDAO(PointsDataSource.getInstance());
-
-                        ViewUtils.showToast(this, this.getString(R.string.point_add_success));
-                    } else {
-                        this.showMergePointsDialog();
-                    }
-                } catch (CalculationException e) {
-                    Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
-                    ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
-                    return false;
-                }
-
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            }
+
+            String num = ViewUtils.readString(this.pointNumberEditText);
+            if (num.isEmpty()) {
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+                return true;
+            }
+
+            this.circle.setPointNumber(num);
+            try {
+                this.circle.compute();
+
+                if (SharedResources.getSetOfPoints().find(this.circle.getPointNumber()) == null) {
+                    SharedResources.getSetOfPoints().add(this.circle.getCenter());
+                    this.circle.getCenter().registerDAO(PointsDataSource.getInstance());
+
+                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+                } else {
+                    this.showMergePointsDialog();
+                }
+            } catch (CalculationException e) {
+                Logger.log(Logger.ErrLabel.CALCULATION_COMPUTATION_ERROR, e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_computation_exception));
+                return false;
+            }
+
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private final ArrayAdapter<Point> initSpinners() {

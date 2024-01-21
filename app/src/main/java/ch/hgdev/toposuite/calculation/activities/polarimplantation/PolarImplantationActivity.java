@@ -237,17 +237,15 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.run_calculation_button:
-                if (this.checkInputs()) {
-                    this.showPolarImplantationResultActivity();
-                } else {
-                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.run_calculation_button) {
+            if (this.checkInputs()) {
+                this.showPolarImplantationResultActivity();
+            } else {
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+            }
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -261,45 +259,41 @@ public class PolarImplantationActivity extends TopoSuiteActivity implements
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-            case R.id.delete_button:
-                this.adapter.remove(this.adapter.getItem(info.position));
-                this.adapter.notifyDataSetChanged();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.delete_button) {
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
-        switch (view.getId()) {
-            case R.id.checkbox_z0:
-                if (checked) {
-                    if (MathUtils.isIgnorable(this.z0)) {
-                        ViewUtils.showToast(this,
-                                this.getString(R.string.error_no_suitable_calculation_found));
-                    } else {
-                        this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
-                        this.unknownOrientEditText.setEnabled(false);
-                        this.stationSpinner.setSelection(
-                                this.stationAdapter.getPosition(this.z0Station));
-                        this.stationSpinner.setEnabled(false);
-                        if (!MathUtils.isIgnorable(this.instrumentHeight)) {
-                            this.iEditText.setText(
-                                    DisplayUtils.toStringForEditText(this.instrumentHeight));
-                            this.iEditText.setEnabled(false);
-                        }
-                    }
+        if (view.getId() == R.id.checkbox_z0) {
+            if (checked) {
+                if (MathUtils.isIgnorable(this.z0)) {
+                    ViewUtils.showToast(this,
+                            this.getString(R.string.error_no_suitable_calculation_found));
                 } else {
-                    this.unknownOrientEditText.setText("");
-                    this.unknownOrientEditText.setEnabled(true);
-                    this.stationSpinner.setSelection(0);
-                    this.stationSpinner.setEnabled(true);
-                    this.iEditText.setText("");
-                    this.iEditText.setEnabled(true);
+                    this.unknownOrientEditText.setText(DisplayUtils.toStringForEditText(this.z0));
+                    this.unknownOrientEditText.setEnabled(false);
+                    this.stationSpinner.setSelection(
+                            this.stationAdapter.getPosition(this.z0Station));
+                    this.stationSpinner.setEnabled(false);
+                    if (!MathUtils.isIgnorable(this.instrumentHeight)) {
+                        this.iEditText.setText(
+                                DisplayUtils.toStringForEditText(this.instrumentHeight));
+                        this.iEditText.setEnabled(false);
+                    }
                 }
-                break;
+            } else {
+                this.unknownOrientEditText.setText("");
+                this.unknownOrientEditText.setEnabled(true);
+                this.stationSpinner.setSelection(0);
+                this.stationSpinner.setEnabled(true);
+                this.iEditText.setText("");
+                this.iEditText.setEnabled(true);
+            }
         }
     }
 

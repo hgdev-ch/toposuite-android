@@ -205,45 +205,43 @@ public class LimitDisplacementActivity extends TopoSuiteActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.run_calculation_button:
-                if ((this.pointASelectedPosition == 0)
-                        || (this.pointBSelectedPosition == 0)
-                        || (this.pointCSelectedPosition == 0)
-                        || (this.pointDSelectedPosition == 0)
-                        || (ViewUtils.readString(this.pointWestNumberEditText).isEmpty())
-                        || (ViewUtils.readString(this.pointEastNumberEditText).isEmpty())
-                        || (ViewUtils.readDouble(this.imposedSurfaceEditText) == MathUtils.IGNORE_DOUBLE)) {
-                    ViewUtils.showToast(this, this.getText(R.string.error_fill_data));
-                    return true;
-                }
-
-                Point pointA = this.adapter.getItem(this.pointASelectedPosition);
-                Point pointB = this.adapter.getItem(this.pointBSelectedPosition);
-                Point pointC = this.adapter.getItem(this.pointCSelectedPosition);
-                Point pointD = this.adapter.getItem(this.pointDSelectedPosition);
-                double surface = ViewUtils.readDouble(this.imposedSurfaceEditText);
-                String pointXNumber = ViewUtils.readString(this.pointWestNumberEditText);
-                String pointYNumber = ViewUtils.readString(this.pointEastNumberEditText);
-
-                if (this.limDispl == null) {
-                    this.limDispl = new LimitDisplacement(pointA, pointB, pointC, pointD, surface, pointXNumber, pointYNumber, true);
-                } else {
-                    this.limDispl.setPointA(pointA);
-                    this.limDispl.setPointB(pointB);
-                    this.limDispl.setPointC(pointC);
-                    this.limDispl.setPointD(pointD);
-                    this.limDispl.setSurface(surface);
-                    this.limDispl.setPointXNumber(pointXNumber);
-                    this.limDispl.setPointYNumber(pointYNumber);
-                }
-
-                this.startLimitDisplacementResultsActivity();
-
+        if (id == R.id.run_calculation_button) {
+            if ((this.pointASelectedPosition == 0)
+                    || (this.pointBSelectedPosition == 0)
+                    || (this.pointCSelectedPosition == 0)
+                    || (this.pointDSelectedPosition == 0)
+                    || (ViewUtils.readString(this.pointWestNumberEditText).isEmpty())
+                    || (ViewUtils.readString(this.pointEastNumberEditText).isEmpty())
+                    || (ViewUtils.readDouble(this.imposedSurfaceEditText) == MathUtils.IGNORE_DOUBLE)) {
+                ViewUtils.showToast(this, this.getText(R.string.error_fill_data));
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            }
+
+            Point pointA = this.adapter.getItem(this.pointASelectedPosition);
+            Point pointB = this.adapter.getItem(this.pointBSelectedPosition);
+            Point pointC = this.adapter.getItem(this.pointCSelectedPosition);
+            Point pointD = this.adapter.getItem(this.pointDSelectedPosition);
+            double surface = ViewUtils.readDouble(this.imposedSurfaceEditText);
+            String pointXNumber = ViewUtils.readString(this.pointWestNumberEditText);
+            String pointYNumber = ViewUtils.readString(this.pointEastNumberEditText);
+
+            if (this.limDispl == null) {
+                this.limDispl = new LimitDisplacement(pointA, pointB, pointC, pointD, surface, pointXNumber, pointYNumber, true);
+            } else {
+                this.limDispl.setPointA(pointA);
+                this.limDispl.setPointB(pointB);
+                this.limDispl.setPointC(pointC);
+                this.limDispl.setPointD(pointD);
+                this.limDispl.setSurface(surface);
+                this.limDispl.setPointXNumber(pointXNumber);
+                this.limDispl.setPointYNumber(pointYNumber);
+            }
+
+            this.startLimitDisplacementResultsActivity();
+
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

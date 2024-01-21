@@ -103,49 +103,45 @@ public class JobsActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.rename_job_button:
-                this.renameJob();
+        if (id == R.id.rename_job_button) {
+            this.renameJob();
+            return true;
+        } else if (id == R.id.save_job_button) {
+            if (Job.getCurrentJobName() == null) {
+                ViewUtils.showToast(this, this.getString(R.string.error_job_no_name));
                 return true;
-            case R.id.save_job_button:
-                if (Job.getCurrentJobName() == null) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_job_no_name));
-                    return true;
-                }
-                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                    this.saveJob();
-                } else {
-                    AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
-                            String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-                }
-                return true;
-            case R.id.clear_job_button:
-                this.clearJob();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            }
+            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
+                this.saveJob();
+            } else {
+                AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
+                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+            }
+            return true;
+        } else if (id == R.id.clear_job_button) {
+            this.clearJob();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int position = (int) info.id;
-        switch (item.getItemId()) {
-            case R.id.delete_button:
+        if (item.getItemId() == R.id.delete_button) {
+            if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                JobsActivity.this.deleteJob(position);
+            } else {
+                AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                        String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
                 if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
                     JobsActivity.this.deleteJob(position);
-                } else {
-                    AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                            String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-                    if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                        JobsActivity.this.deleteJob(position);
-                    }
                 }
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+            }
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     @Override

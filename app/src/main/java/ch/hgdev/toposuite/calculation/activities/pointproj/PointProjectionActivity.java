@@ -263,69 +263,60 @@ public class PointProjectionActivity extends TopoSuiteActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.run_calculation_button:
-                if ((this.point1SelectedPosition == 0)
-                        || (this.pointSelectedPosition == 0)
-                        || (this.pointNumberEditText.length() == 0)
-                        || ((this.selectedMode == Mode.LINE) && (this.point2SelectedPosition == 0))
-                        || ((this.selectedMode == Mode.GISEMENT) &&
-                        (this.gisementEditText.length() == 0))) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-                    return true;
-                }
-
-                Point p1 = (Point) this.point1Spinner.getItemAtPosition(this.point1SelectedPosition);
-
-                double displ = ViewUtils.readDouble(this.displacementEditText);
-                String ptNumber = ViewUtils.readString(this.pointNumberEditText);
-
-                Point p = (Point) this.pointSpinner.getItemAtPosition(this.pointSelectedPosition);
-
-                PointProjectionOnALine ppoal;
-                if (this.selectedMode == Mode.GISEMENT) {
-                    double gisement = ViewUtils.readDouble(this.gisementEditText);
-                    ppoal = new PointProjectionOnALine(ptNumber, p1, gisement, p, displ, this.selectedMode, true);
-                } else {
-                    Point p2 = (Point) this.point2Spinner.getItemAtPosition(this.point2SelectedPosition);
-                    ppoal = new PointProjectionOnALine(ptNumber, p1, p2, p, displ, this.selectedMode, true);
-                }
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(PointProjectionActivity.POINT_PROJ_CALCULATION, ppoal);
-
-                Intent resultsActivityIntent = new Intent(this, PointProjectionResultActivity.class);
-                resultsActivityIntent.putExtras(bundle);
-                this.startActivity(resultsActivityIntent);
-
+        if (id == R.id.run_calculation_button) {
+            if ((this.point1SelectedPosition == 0)
+                    || (this.pointSelectedPosition == 0)
+                    || (this.pointNumberEditText.length() == 0)
+                    || ((this.selectedMode == Mode.LINE) && (this.point2SelectedPosition == 0))
+                    || ((this.selectedMode == Mode.GISEMENT) &&
+                    (this.gisementEditText.length() == 0))) {
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            }
+
+            Point p1 = (Point) this.point1Spinner.getItemAtPosition(this.point1SelectedPosition);
+
+            double displ = ViewUtils.readDouble(this.displacementEditText);
+            String ptNumber = ViewUtils.readString(this.pointNumberEditText);
+
+            Point p = (Point) this.pointSpinner.getItemAtPosition(this.pointSelectedPosition);
+
+            PointProjectionOnALine ppoal;
+            if (this.selectedMode == Mode.GISEMENT) {
+                double gisement = ViewUtils.readDouble(this.gisementEditText);
+                ppoal = new PointProjectionOnALine(ptNumber, p1, gisement, p, displ, this.selectedMode, true);
+            } else {
+                Point p2 = (Point) this.point2Spinner.getItemAtPosition(this.point2SelectedPosition);
+                ppoal = new PointProjectionOnALine(ptNumber, p1, p2, p, displ, this.selectedMode, true);
+            }
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(PointProjectionActivity.POINT_PROJ_CALCULATION, ppoal);
+
+            Intent resultsActivityIntent = new Intent(this, PointProjectionResultActivity.class);
+            resultsActivityIntent.putExtras(bundle);
+            this.startActivity(resultsActivityIntent);
+
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
+        int id = view.getId();
 
-        switch (view.getId()) {
-            case R.id.mode_gisement:
-                if (checked) {
-                    this.point2SpinnerLayout.setVisibility(View.GONE);
-                    this.point2Layout.setVisibility(View.GONE);
-                    this.gisementLayout.setVisibility(View.VISIBLE);
-                    this.selectedMode = PointProjectionOnALine.Mode.GISEMENT;
-                }
-                break;
-            case R.id.mode_line:
-                if (checked) {
-                    this.point2SpinnerLayout.setVisibility(View.VISIBLE);
-                    this.point2Layout.setVisibility(View.VISIBLE);
-                    this.gisementLayout.setVisibility(View.GONE);
-                    this.selectedMode = PointProjectionOnALine.Mode.LINE;
-                }
-                break;
-            default:
-                Logger.log(Logger.ErrLabel.INPUT_ERROR, "unknown mode selected");
+        if ((id == R.id.mode_gisement) && checked) {
+            this.point2SpinnerLayout.setVisibility(View.GONE);
+            this.point2Layout.setVisibility(View.GONE);
+            this.gisementLayout.setVisibility(View.VISIBLE);
+            this.selectedMode = PointProjectionOnALine.Mode.GISEMENT;
+        } else if ((id == R.id.mode_line) && checked) {
+            this.point2SpinnerLayout.setVisibility(View.VISIBLE);
+            this.point2Layout.setVisibility(View.VISIBLE);
+            this.gisementLayout.setVisibility(View.GONE);
+            this.selectedMode = PointProjectionOnALine.Mode.LINE;
         }
+        Logger.log(Logger.ErrLabel.INPUT_ERROR, "unknown mode selected");
     }
 }

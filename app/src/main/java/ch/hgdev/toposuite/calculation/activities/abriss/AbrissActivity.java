@@ -162,35 +162,32 @@ public class AbrissActivity extends TopoSuiteActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.run_calculation_button:
-                Point station = (Point) this.stationSpinner.getSelectedItem();
+        if (item.getItemId() == R.id.run_calculation_button) {
+            Point station = (Point) this.stationSpinner.getSelectedItem();
 
-                if (station.getNumber().isEmpty()) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_no_station_selected));
-                    return true;
-                }
-
-                if (this.orientationsListView.getChildCount() == 0) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_at_least_one_orientation));
-                    return true;
-                }
-
-                this.abriss.setStation(station);
-                this.abriss.getMeasures().clear();
-                this.abriss.getMeasures().addAll(this.adapter.getMeasures());
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(AbrissActivity.ABRISS_CALCULATION, this.abriss);
-
-                Intent resultsActivityIntent = new Intent(this, AbrissResultsActivity.class);
-                resultsActivityIntent.putExtras(bundle);
-                this.startActivity(resultsActivityIntent);
+            if (station.getNumber().isEmpty()) {
+                ViewUtils.showToast(this, this.getString(R.string.error_no_station_selected));
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            }
+
+            if (this.orientationsListView.getChildCount() == 0) {
+                ViewUtils.showToast(this, this.getString(R.string.error_at_least_one_orientation));
+                return true;
+            }
+
+            this.abriss.setStation(station);
+            this.abriss.getMeasures().clear();
+            this.abriss.getMeasures().addAll(this.adapter.getMeasures());
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(AbrissActivity.ABRISS_CALCULATION, this.abriss);
+
+            Intent resultsActivityIntent = new Intent(this, AbrissResultsActivity.class);
+            resultsActivityIntent.putExtras(bundle);
+            this.startActivity(resultsActivityIntent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -203,15 +200,12 @@ public class AbrissActivity extends TopoSuiteActivity implements
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-
-        switch (item.getItemId()) {
-            case R.id.delete_button:
-                this.adapter.remove(this.adapter.getItem(info.position));
-                this.adapter.notifyDataSetChanged();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.delete_button) {
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     /**

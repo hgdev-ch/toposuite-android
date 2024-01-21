@@ -81,15 +81,13 @@ public class AbrissResultsActivity extends TopoSuiteActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.toggle_button:
-                this.abriss.getResults().get(info.position).toggle();
-                this.adapter.notifyDataSetChanged();
-                this.runCalculation();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.toggle_button) {
+            this.abriss.getResults().get(info.position).toggle();
+            this.adapter.notifyDataSetChanged();
+            this.runCalculation();
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     private void displayResults() {

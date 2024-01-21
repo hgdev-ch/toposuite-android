@@ -215,30 +215,28 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.run_calculation_button:
-                Point p1 = (Point) this.originSpinner.getSelectedItem();
-                Point p2 = (Point) this.extremitySpinner.getSelectedItem();
+        if (id == R.id.run_calculation_button) {
+            Point p1 = (Point) this.originSpinner.getSelectedItem();
+            Point p2 = (Point) this.extremitySpinner.getSelectedItem();
 
-                if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty()) || (this.adapter.getCount() < 2)) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-                    return true;
-                }
-
-                this.cheminOrtho.getMeasures().clear();
-                this.cheminOrtho.getMeasures().addAll(this.adapter.getMeasures());
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO, this.cheminOrtho);
-
-                Intent resultsActivityIntent = new Intent(this, CheminementOrthoResultsActivity.class);
-                resultsActivityIntent.putExtras(bundle);
-                this.startActivity(resultsActivityIntent);
-
+            if ((p1.getNumber().isEmpty()) || (p2.getNumber().isEmpty()) || (this.adapter.getCount() < 2)) {
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            }
+
+            this.cheminOrtho.getMeasures().clear();
+            this.cheminOrtho.getMeasures().addAll(this.adapter.getMeasures());
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(CheminementOrthoActivity.CHEMINEMENT_ORTHO, this.cheminOrtho);
+
+            Intent resultsActivityIntent = new Intent(this, CheminementOrthoResultsActivity.class);
+            resultsActivityIntent.putExtras(bundle);
+            this.startActivity(resultsActivityIntent);
+
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -252,14 +250,12 @@ public class CheminementOrthoActivity extends TopoSuiteActivity implements
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-            case R.id.delete_button:
-                this.adapter.remove(this.adapter.getItem(info.position));
-                this.adapter.notifyDataSetChanged();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.delete_button) {
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     private void drawList() {

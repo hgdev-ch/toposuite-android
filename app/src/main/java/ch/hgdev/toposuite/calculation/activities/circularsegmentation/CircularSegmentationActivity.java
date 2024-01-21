@@ -140,17 +140,15 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.run_calculation_button:
-                if (this.checkInputs()) {
-                    this.showCircularSegmentationResultActivity();
-                } else {
-                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.run_calculation_button) {
+            if (this.checkInputs()) {
+                this.showCircularSegmentationResultActivity();
+            } else {
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+            }
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -165,25 +163,21 @@ public class CircularSegmentationActivity extends TopoSuiteActivity {
      */
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.mode_segment:
-                if (checked) {
-                    this.arcLengthLayout.setVisibility(View.GONE);
-                    this.segmentLayout.setVisibility(View.VISIBLE);
-                    this.selectedMode = Mode.SEGMENT;
-                }
-                break;
-            case R.id.mode_arc_length:
-                if (checked) {
-                    this.arcLengthLayout.setVisibility(View.VISIBLE);
-                    this.segmentLayout.setVisibility(View.GONE);
-                    this.selectedMode = Mode.ARCLENGTH;
-                }
-                break;
-            default:
-                Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
+        int id = view.getId();
+        if (id == R.id.mode_segment) {
+            if (checked) {
+                this.arcLengthLayout.setVisibility(View.GONE);
+                this.segmentLayout.setVisibility(View.VISIBLE);
+                this.selectedMode = Mode.SEGMENT;
+            }
+        } else if (id == R.id.mode_arc_length) {
+            if (checked) {
+                this.arcLengthLayout.setVisibility(View.VISIBLE);
+                this.segmentLayout.setVisibility(View.GONE);
+                this.selectedMode = Mode.ARCLENGTH;
+            }
         }
+        Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unknown mode selected");
     }
 
     /**

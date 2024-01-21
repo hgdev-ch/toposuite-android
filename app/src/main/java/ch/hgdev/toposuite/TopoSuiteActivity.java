@@ -155,21 +155,19 @@ public abstract class TopoSuiteActivity extends AppCompatActivity {
             return true;
         }
 
-        switch (item.getItemId()) {
-            case R.id.toggle_right_menu_button:
-                if (this.drawerLayout.isDrawerVisible(Gravity.LEFT)) {
-                    this.drawerLayout.closeDrawer(Gravity.LEFT);
-                }
+        if (item.getItemId() == R.id.toggle_right_menu_button) {
+            if (this.drawerLayout.isDrawerVisible(Gravity.LEFT)) {
+                this.drawerLayout.closeDrawer(Gravity.LEFT);
+            }
 
-                if (this.drawerLayout.isDrawerVisible(Gravity.RIGHT)) {
-                    this.drawerLayout.closeDrawer(Gravity.RIGHT);
-                } else {
-                    this.drawerLayout.openDrawer(Gravity.RIGHT);
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            if (this.drawerLayout.isDrawerVisible(Gravity.RIGHT)) {
+                this.drawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                this.drawerLayout.openDrawer(Gravity.RIGHT);
+            }
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

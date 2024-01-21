@@ -196,14 +196,12 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.delete_button:
-                this.adapter.remove(this.adapter.getItem(info.position));
-                this.adapter.notifyDataSetChanged();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.delete_button) {
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -242,29 +240,27 @@ public class OrthogonalImplantationActivity extends TopoSuiteActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.run_calculation_button:
-                if ((this.originSelectedPosition == 0)
-                        || (this.extremitySelectedPosition == 0)
-                        || (this.adapter.getCount() == 0)) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-                    return true;
-                }
-
-                this.orthoImpl.getMeasures().clear();
-                this.orthoImpl.getMeasures().addAll(this.adapter.getPoints());
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(OrthogonalImplantationActivity.ORTHO_IMPLANTATION, this.orthoImpl);
-
-                Intent resultsActivityIntent = new Intent(this, OrthoImplantationResultsActivity.class);
-                resultsActivityIntent.putExtras(bundle);
-                this.startActivity(resultsActivityIntent);
-
+        if (id == R.id.run_calculation_button) {
+            if ((this.originSelectedPosition == 0)
+                    || (this.extremitySelectedPosition == 0)
+                    || (this.adapter.getCount() == 0)) {
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            }
+
+            this.orthoImpl.getMeasures().clear();
+            this.orthoImpl.getMeasures().addAll(this.adapter.getPoints());
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(OrthogonalImplantationActivity.ORTHO_IMPLANTATION, this.orthoImpl);
+
+            Intent resultsActivityIntent = new Intent(this, OrthoImplantationResultsActivity.class);
+            resultsActivityIntent.putExtras(bundle);
+            this.startActivity(resultsActivityIntent);
+
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void drawList() {

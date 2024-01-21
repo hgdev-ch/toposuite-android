@@ -95,21 +95,20 @@ public class TriangleSolverActivity extends TopoSuiteActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.clear_button:
-                this.clearInputs();
-                return true;
-            case R.id.run_calculation_button:
-                if (!this.chickenRun() || !this.areAllSidesAndAnglesPositives()) {
-                    ViewUtils.showToast(this,
-                            this.getString(R.string.error_impossible_calculation));
-                } else {
-                    this.updateResults();
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.clear_button) {
+            this.clearInputs();
+            return true;
         }
+        if (id == R.id.run_calculation_button) {
+            if (!this.chickenRun() || !this.areAllSidesAndAnglesPositives()) {
+                ViewUtils.showToast(this,
+                        this.getString(R.string.error_impossible_calculation));
+            } else {
+                this.updateResults();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

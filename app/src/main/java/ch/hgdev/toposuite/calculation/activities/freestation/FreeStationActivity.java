@@ -136,37 +136,33 @@ public class FreeStationActivity extends TopoSuiteActivity implements MeasureDia
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-            case R.id.delete_button:
-                this.adapter.remove(this.adapter.getItem(info.position));
-                this.adapter.notifyDataSetChanged();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.delete_button) {
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.run_calculation_button:
-                if (this.checkInputs()) {
-                    // update I and station number
-                    this.freeStation.setI(ViewUtils.readDouble(this.iEditText));
-                    this.freeStation.setStationNumber(ViewUtils.readString(this.stationEditText));
+        if (id == R.id.run_calculation_button) {
+            if (this.checkInputs()) {
+                // update I and station number
+                this.freeStation.setI(ViewUtils.readDouble(this.iEditText));
+                this.freeStation.setStationNumber(ViewUtils.readString(this.stationEditText));
 
-                    this.freeStation.getMeasures().clear();
-                    this.freeStation.getMeasures().addAll(this.adapter.getMeasures());
+                this.freeStation.getMeasures().clear();
+                this.freeStation.getMeasures().addAll(this.adapter.getMeasures());
 
-                    this.startFreeStationResultsActivity();
-                } else {
-                    ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                this.startFreeStationResultsActivity();
+            } else {
+                ViewUtils.showToast(this, this.getString(R.string.error_fill_data));
+            }
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

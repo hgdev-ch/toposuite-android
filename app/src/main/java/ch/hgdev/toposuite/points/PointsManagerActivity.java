@@ -112,30 +112,29 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        switch (id) {
-            case R.id.delete_points_button:
-                this.removeAllPoints();
-                return true;
-            case R.id.export_points_button:
-                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                    this.showExportDialog();
-                } else {
-                    AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
-                            String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-                }
-                return true;
-            case R.id.import_points_button:
-                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    this.showImportDialog();
-                } else {
-                    AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                            String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.delete_points_button) {
+            this.removeAllPoints();
+            return true;
         }
+        if (id == R.id.export_points_button) {
+            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
+                this.showExportDialog();
+            } else {
+                AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
+                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+            }
+            return true;
+        }
+        if (id == R.id.import_points_button) {
+            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
+                this.showImportDialog();
+            } else {
+                AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
+                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -237,16 +236,14 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         Point point;
-        switch (item.getItemId()) {
-            case R.id.delete_button:
-                point = SharedResources.getSetOfPoints().get((int) info.id);
-                this.adapter.remove(point);
-                this.adapter.notifyDataSetChanged();
-                SharedResources.getSetOfPoints().remove(point);
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.delete_button) {
+            point = SharedResources.getSetOfPoints().get((int) info.id);
+            this.adapter.remove(point);
+            this.adapter.notifyDataSetChanged();
+            SharedResources.getSetOfPoints().remove(point);
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     /**

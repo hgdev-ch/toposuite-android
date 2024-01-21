@@ -79,38 +79,36 @@ public class PointProjectionResultActivity extends TopoSuiteActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id) {
-            case R.id.save_button:
-                if (SharedResources.getSetOfPoints().find(
-                        this.ppoal.getProjPt().getNumber()) == null) {
-                    SharedResources.getSetOfPoints().add(this.ppoal.getProjPt());
-                    this.ppoal.getProjPt().registerDAO(PointsDataSource.getInstance());
+        if (id == R.id.save_button) {
+            if (SharedResources.getSetOfPoints().find(
+                    this.ppoal.getProjPt().getNumber()) == null) {
+                SharedResources.getSetOfPoints().add(this.ppoal.getProjPt());
+                this.ppoal.getProjPt().registerDAO(PointsDataSource.getInstance());
 
-                    ViewUtils.showToast(this, this.getString(R.string.point_add_success));
-                } else {
-                    // this point already exists
-                    MergePointsDialog dialog = new MergePointsDialog();
+                ViewUtils.showToast(this, this.getString(R.string.point_add_success));
+            } else {
+                // this point already exists
+                MergePointsDialog dialog = new MergePointsDialog();
 
-                    Bundle args = new Bundle();
-                    args.putString(
-                            MergePointsDialog.POINT_NUMBER,
-                            this.ppoal.getNumber());
+                Bundle args = new Bundle();
+                args.putString(
+                        MergePointsDialog.POINT_NUMBER,
+                        this.ppoal.getNumber());
 
-                    args.putDouble(MergePointsDialog.NEW_EAST,
-                            this.ppoal.getProjPt().getEast());
-                    args.putDouble(MergePointsDialog.NEW_NORTH,
-                            this.ppoal.getProjPt().getNorth());
-                    args.putDouble(MergePointsDialog.NEW_ALTITUDE,
-                            this.ppoal.getProjPt().getAltitude());
+                args.putDouble(MergePointsDialog.NEW_EAST,
+                        this.ppoal.getProjPt().getEast());
+                args.putDouble(MergePointsDialog.NEW_NORTH,
+                        this.ppoal.getProjPt().getNorth());
+                args.putDouble(MergePointsDialog.NEW_ALTITUDE,
+                        this.ppoal.getProjPt().getAltitude());
 
-                    dialog.setArguments(args);
-                    dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
-                }
+                dialog.setArguments(args);
+                dialog.show(this.getSupportFragmentManager(), "MergePointsDialogFragment");
+            }
 
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

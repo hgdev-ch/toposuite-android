@@ -88,13 +88,11 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.save_button:
-                this.saveAllPoints();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.save_button) {
+            this.saveAllPoints();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -108,13 +106,11 @@ public class CircularSegmentationResultsActivity extends TopoSuiteActivity imple
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-            case R.id.save_button:
-                this.savePoint(info.position);
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.save_button) {
+            this.savePoint(info.position);
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     @Override

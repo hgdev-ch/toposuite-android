@@ -70,13 +70,11 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.save_button:
-                this.saveAllPoints();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.save_button) {
+            this.saveAllPoints();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -89,22 +87,22 @@ public class PolarSurveyResultsActivity extends TopoSuiteActivity implements
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        int id = item.getItemId();
 
-        switch (item.getItemId()) {
-            case R.id.save_button:
-                if (this.savePoint(info.position)) {
-                    ViewUtils.showToast(this,
-                            this.getString(R.string.point_add_success));
-                }
-                this.adapter.notifyDataSetChanged();
-                return true;
-            case R.id.delete_button:
-                this.adapter.remove(this.adapter.getItem(info.position));
-                this.adapter.notifyDataSetChanged();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (id == R.id.save_button) {
+            if (this.savePoint(info.position)) {
+                ViewUtils.showToast(this,
+                        this.getString(R.string.point_add_success));
+            }
+            this.adapter.notifyDataSetChanged();
+            return true;
         }
+        if (id == R.id.delete_button) {
+            this.adapter.remove(this.adapter.getItem(info.position));
+            this.adapter.notifyDataSetChanged();
+            return true;
+        }
+        return super.onContextItemSelected(item);
     }
 
     /**

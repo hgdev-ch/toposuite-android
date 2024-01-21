@@ -89,22 +89,20 @@ public class CircularCurvesSolverActivity extends TopoSuiteActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.clear_button:
-                this.clearInputs();
-                this.clearResults();
-                return true;
-            case R.id.run_calculation_button:
-                if (this.chickenRun()) {
-                    this.updateResults();
-                } else {
-                    ViewUtils.showToast(this,
-                            this.getText(R.string.error_impossible_calculation));
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.clear_button) {
+            this.clearInputs();
+            this.clearResults();
+            return true;
+        } else if (id == R.id.run_calculation_button) {
+            if (this.chickenRun()) {
+                this.updateResults();
+            } else {
+                ViewUtils.showToast(this,
+                        this.getText(R.string.error_impossible_calculation));
+            }
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

@@ -84,28 +84,24 @@ public class FreeStationResultsActivity extends TopoSuiteActivity implements Mer
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.save_button:
-                this.savePoint(this.freeStation.getStationResult());
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.save_button) {
+            this.savePoint(this.freeStation.getStationResult());
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-            case R.id.toggle_button:
-                this.freeStation.getResults().get(info.position).toggle();
-                this.adapter.notifyDataSetChanged();
-                this.runCalculation();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        if (item.getItemId() == R.id.toggle_button) {
+            this.freeStation.getResults().get(info.position).toggle();
+            this.adapter.notifyDataSetChanged();
+            this.runCalculation();
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     @Override

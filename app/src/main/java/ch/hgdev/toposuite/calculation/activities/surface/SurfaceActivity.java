@@ -146,19 +146,17 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.run_calculation_button:
-                if (this.checkInputs()) {
-                    this.runCalculation();
-                    this.updateResults();
-                } else {
-                    ViewUtils.showToast(
-                            this, this.getText(R.string.error_three_points_required));
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.run_calculation_button) {
+            if (this.checkInputs()) {
+                this.runCalculation();
+                this.updateResults();
+            } else {
+                ViewUtils.showToast(
+                        this, this.getText(R.string.error_three_points_required));
+            }
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -172,20 +170,18 @@ public class SurfaceActivity extends TopoSuiteActivity implements
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-            case R.id.delete_button:
-                this.adapter.remove(this.adapter.getItem(info.position));
+        if (item.getItemId() == R.id.delete_button) {
+            this.adapter.remove(this.adapter.getItem(info.position));
 
-                // update the vertices number
-                for (int i = info.position; i < this.adapter.getCount(); i++) {
-                    this.adapter.getItem(i).setVertexNumber(
-                            this.adapter.getItem(i).getVertexNumber() - 1);
-                }
-                this.adapter.notifyDataSetChanged();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+            // update the vertices number
+            for (int i = info.position; i < this.adapter.getCount(); i++) {
+                this.adapter.getItem(i).setVertexNumber(
+                        this.adapter.getItem(i).getVertexNumber() - 1);
+            }
+            this.adapter.notifyDataSetChanged();
+            return true;
         }
+        return super.onContextItemSelected(item);
     }
 
     @Override

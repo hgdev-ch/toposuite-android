@@ -70,14 +70,12 @@ public class LimitDisplacementResultsActivity extends TopoSuiteActivity implemen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.save_button:
-                this.savePoint(this.limDispl.getNewPointX());
-                this.savePoint(this.limDispl.getNewPointY());
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (id == R.id.save_button) {
+            this.savePoint(this.limDispl.getNewPointX());
+            this.savePoint(this.limDispl.getNewPointY());
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
