@@ -184,7 +184,7 @@ public class PolarImplantation extends Calculation {
      *
      * @author HGdev
      */
-    public class Result implements Serializable {
+    public static class Result implements Serializable {
         private final String pointNumber;
         private final double horizDir;
         private final double horizDist;

@@ -279,7 +279,7 @@ public class Abriss extends Calculation {
         return false;
     }
 
-    public class Result implements Serializable {
+    public static class Result implements Serializable {
         private final Point orientation;
         private final double distance;
         private final double unknownOrientation;

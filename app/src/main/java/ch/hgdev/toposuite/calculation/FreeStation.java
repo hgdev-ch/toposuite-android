@@ -609,7 +609,7 @@ public class FreeStation extends Calculation {
      *
      * @author HGdev
      */
-    private class IntermediateResults implements Serializable {
+    private static class IntermediateResults implements Serializable {
 
         /**
          * Rotation between fictive and cadastral coordinates. (this attribute

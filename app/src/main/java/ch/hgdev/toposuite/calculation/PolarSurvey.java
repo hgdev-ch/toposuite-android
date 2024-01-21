@@ -250,7 +250,7 @@ public class PolarSurvey extends Calculation {
      *
      * @author HGdev
      */
-    public class Result implements Serializable {
+    public static class Result implements Serializable {
         private final String determinationNumber;
         private final double east;
         private final double north;
