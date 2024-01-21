@@ -1,18 +1,20 @@
 # TOPOSUITE FOR ANDROID
 
+![](app/src/main/assets/toposuite_logo.png)
+
 Copyright(C) 2014-2024, CRAG (Commission paritaire  Romande d'Apprentissage de
 Géomaticien(ne)s)
 
 <a href="https://play.google.com/store/apps/details?id=ch.hgdev.toposuite">
   <img
-    alt="TopoSuite on the Play Store"
-    src="https://toposuite.hgdev.ch/img/google-play.png"
+    alt="TopoSuite on the Google Play"
+    src="resources/images/google_play.png"
   />
 </a>
 <a href="https://f-droid.org/repository/browse/?fdid=ch.hgdev.toposuite">
   <img
     alt="TopoSuite on the F-Droid"
-    src="https://toposuite.hgdev.ch/img/f-droid.png"
+    src="resources/images/fdroid.png"
   />
 </a>
 
