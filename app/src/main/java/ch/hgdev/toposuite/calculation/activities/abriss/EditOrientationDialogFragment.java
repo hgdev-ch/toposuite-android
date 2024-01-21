@@ -140,8 +140,7 @@ public class EditOrientationDialogFragment extends DialogFragment {
         this.orientationView = new TextView(this.getActivity());
 
         this.orientationSpinner = new Spinner(this.getActivity());
-        List<Point> points = new ArrayList<>();
-        points.addAll(SharedResources.getSetOfPoints());
+        List<Point> points = new ArrayList<>(SharedResources.getSetOfPoints());
         ArrayAdapter<Point> a = new ArrayAdapter<>(this.getActivity(), R.layout.spinner_list_item, points);
 
         this.orientationSpinner.setAdapter(a);
