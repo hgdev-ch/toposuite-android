@@ -37,8 +37,8 @@
 	<string name="cepm_webpage_url">http://www.cepm.ch/</string>
 	<string name="cepm_webpage_url_short">www.cepm.ch</string>
 	<string name="cfgeo">Centro di Formazione Geomatica Svizzera (CF-geo)</string>
-	<string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
-	<string name="cfgeo_webpage_url_short">www.cf-geo.ch</string>
+	<string name="cfgeo_webpage_url">https://geo-education.ch/?lang=it</string>
+	<string name="cfgeo_webpage_url_short">geo-education.ch</string>
 	<string name="chemin_ortho_base_label">Camminamento ortogonale dalla base</string>
 	<string name="choose_value">Scegliete un valore</string>
 	<string name="chord_of_label">Corda (OF) [m]</string>

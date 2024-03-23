@@ -37,8 +37,8 @@
 	<string name="cepm_webpage_url">https://www.cepm.ch/</string>
 	<string name="cepm_webpage_url_short">www.cepm.ch</string>
 	<string name="cfgeo">Bildungszentrum Geomatik Schweiz (BIZ-geo)</string>
-	<string name="cfgeo_webpage_url">http://www.cf-geo.ch/</string>
-	<string name="cfgeo_webpage_url_short">www.cf-geo.ch</string>
+	<string name="cfgeo_webpage_url">https://geo-education.ch/</string>
+	<string name="cfgeo_webpage_url_short">geo-education.ch</string>
 	<string name="chemin_ortho_base_label">Orthogonales Vorwärtsgehen von der Basis</string>
 	<string name="choose_value">Wählen Sie einen Wert</string>
 	<string name="chord_of_label">Kreissehne (OF) [m]</string>
