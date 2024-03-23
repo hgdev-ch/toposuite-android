@@ -5,13 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.ShareCompat;
-import androidx.core.content.FileProvider;
-import androidx.core.view.MenuItemCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.ShareActionProvider;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.ShareActionProvider;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.view.MenuItemCompat;
 
 import com.google.common.base.Joiner;
 import com.google.common.io.Files;
@@ -110,12 +110,7 @@ public class JobsActivity extends TopoSuiteActivity implements
                 ViewUtils.showToast(this, this.getString(R.string.error_job_no_name));
                 return true;
             }
-            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                this.saveJob();
-            } else {
-                AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
-                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-            }
+            this.saveJob();
             return true;
         } else if (id == R.id.clear_job_button) {
             this.clearJob();
@@ -129,67 +124,24 @@ public class JobsActivity extends TopoSuiteActivity implements
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int position = (int) info.id;
         if (item.getItemId() == R.id.delete_button) {
-            if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                JobsActivity.this.deleteJob(position);
-            } else {
-                AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                        String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-                if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    JobsActivity.this.deleteJob(position);
-                }
-            }
+            JobsActivity.this.deleteJob(position);
             return true;
         }
         return super.onContextItemSelected(item);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (AppUtils.Permission.valueOf(requestCode)) {
-            case READ_EXTERNAL_STORAGE -> {
-                if (!AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
-                }
-            }
-            case WRITE_EXTERNAL_STORAGE -> {
-                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                    this.saveJob();
-                } else {
-                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
-                }
-            }
-            default -> super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     /**
      * Draw the main table containing all the points.
      */
     private void drawList() {
-        if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-            this.drawJobsList();
-        } else {
-            AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                    String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-            if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                this.drawJobsList();
-            }
-        }
+        this.drawJobsList();
     }
 
     private void drawJobsList() {
         this.adapter = new ArrayListOfJobsAdapter(this, R.layout.jobs_list_item, Job.getJobsList());
         this.jobsListView.setAdapter(this.adapter);
         this.jobsListView.setOnItemClickListener((parent, view, position, id) -> {
-            if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                JobsActivity.this.importJob(position);
-            } else {
-                AppUtils.requestPermission(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                        String.format(JobsActivity.this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-                if (AppUtils.isPermissionGranted(JobsActivity.this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    JobsActivity.this.importJob(position);
-                }
-            }
+            JobsActivity.this.importJob(position);
         });
     }
 
@@ -271,7 +223,7 @@ public class JobsActivity extends TopoSuiteActivity implements
         }
 
         try {
-            FileOutputStream outputStream = new FileOutputStream(new File(AppUtils.publicDataDirectory(this), filename));
+            FileOutputStream outputStream = new FileOutputStream(new File(AppUtils.publicDataDirectory(), filename));
             outputStream.write(Job.getCurrentJobAsJson().getBytes());
             outputStream.close();
             ViewUtils.showToast(this, this.getString(R.string.success_export_job_dialog));

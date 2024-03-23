@@ -180,8 +180,9 @@ public class App extends Application {
         App.currentJobName = null;
 
         // init the public data directory path
-        App.publicDataDirectory = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/" + App.PUBLIC_DIR;
+        App.publicDataDirectory = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS
+        ).getAbsolutePath() + "/" + App.PUBLIC_DIR;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 

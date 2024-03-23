@@ -91,7 +91,7 @@ public class PointsImporterDialog extends DialogFragment {
 
         List<String> files = new ArrayList<>();
 
-        String pubDir = AppUtils.publicDataDirectory(PointsImporterDialog.this.getActivity());
+        String pubDir = AppUtils.publicDataDirectory();
         if (pubDir != null) {
             String[] filesList = new File(pubDir).list((dir, filename) -> SupportedPointsFileTypes.isSupported(
                     Files.getFileExtension(filename)));
@@ -122,7 +122,7 @@ public class PointsImporterDialog extends DialogFragment {
                     return;
                 }
 
-                String pubDir = AppUtils.publicDataDirectory(PointsImporterDialog.this.getActivity());
+                String pubDir = AppUtils.publicDataDirectory();
                 if (pubDir != null) {
                     File f = new File(pubDir, filename);
 
@@ -200,7 +200,7 @@ public class PointsImporterDialog extends DialogFragment {
             if (SupportedPointsFileTypes.isSupported(ext)) {
                 try {
                     Job.deleteCurrentJob();
-                    InputStream inputStream = new FileInputStream(new File(AppUtils.publicDataDirectory(callingActivity), filename));
+                    InputStream inputStream = new FileInputStream(new File(AppUtils.publicDataDirectory(), filename));
                     List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                     if (!errors.isEmpty()) {
                         PointsImporterDialog.this.errMsg = PointsImporter.formatErrors(filename, errors);

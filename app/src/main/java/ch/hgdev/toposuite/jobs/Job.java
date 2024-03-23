@@ -247,7 +247,6 @@ public class Job {
 
     /**
      * Get a list of existing jobs.
-     * Note: {@link ch.hgdev.toposuite.utils.AppUtils.Permission#READ_EXTERNAL_STORAGE} is required.
      *
      * @return A list of jobs.
      */

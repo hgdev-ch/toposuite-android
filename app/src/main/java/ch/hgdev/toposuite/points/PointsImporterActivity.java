@@ -5,11 +5,11 @@ import android.content.ContentResolver;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AlertDialog;
 import android.util.Pair;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 
 import com.google.common.io.Files;
 import com.google.common.io.LineReader;
@@ -25,7 +25,6 @@ import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
 import ch.hgdev.toposuite.transfer.SupportedPointsFileTypes;
-import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -58,12 +57,7 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
         this.mime = this.getIntent().getType();
         this.filename = this.dataUri.getLastPathSegment();
         if (this.dataUri != null) {
-            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                this.importPoints();
-            } else {
-                AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-            }
+            this.importPoints();
         }
     }
 
@@ -82,21 +76,6 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
     public void onImportDialogError(String message) {
         ViewUtils.showToast(this, message);
         this.finish();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (AppUtils.Permission.valueOf(requestCode)) {
-            case READ_EXTERNAL_STORAGE:
-                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    this.importPoints();
-                } else {
-                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
-                    this.finish();
-                }
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     private void importPoints() {

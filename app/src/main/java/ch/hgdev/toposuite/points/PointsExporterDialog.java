@@ -139,7 +139,7 @@ public class PointsExporterDialog extends DialogFragment {
 
             switch (type) {
                 case CSV -> lines = SharedResources.getSetOfPoints().saveAsCSV(
-                        this.getActivity(), AppUtils.publicDataDirectory(this.getActivity()), filename);
+                        this.getActivity(), AppUtils.publicDataDirectory(), filename);
                 default -> {
                     ViewUtils.showToast(this.getActivity(),
                             this.getActivity().getString(R.string.error_unsupported_format));

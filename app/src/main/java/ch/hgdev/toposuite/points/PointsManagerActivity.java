@@ -5,15 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.ShareCompat;
-import androidx.core.content.FileProvider;
-import androidx.core.view.MenuItemCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.ShareActionProvider;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -22,6 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.ShareActionProvider;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.view.MenuItemCompat;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +35,6 @@ import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.jobs.Job;
 import ch.hgdev.toposuite.transfer.ExportDialogListener;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
-import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -109,21 +109,11 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             return true;
         }
         if (id == R.id.export_points_button) {
-            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                this.showExportDialog();
-            } else {
-                AppUtils.requestPermission(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE,
-                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-            }
+            this.showExportDialog();
             return true;
         }
         if (id == R.id.import_points_button) {
-            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                this.showImportDialog();
-            } else {
-                AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-            }
+            this.showImportDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -163,7 +153,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
 
                 PointsManagerActivity.this.adapter.clear();
                 ArrayList<Point> points = new ArrayList<>(SharedResources.getSetOfPoints());
-                for (Point p:points) {
+                for (Point p : points) {
                     if (p.getNumber().contains(query)) {
                         PointsManagerActivity.this.adapter.add(p);
                     }
@@ -257,27 +247,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private void showImportDialog() {
         PointsImporterDialog dialog = new PointsImporterDialog();
         dialog.show(this.getSupportFragmentManager(), "ImportDialogFragment");
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (AppUtils.Permission.valueOf(requestCode)) {
-            case READ_EXTERNAL_STORAGE -> {
-                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    this.shouldShowImportDialog = true;
-                } else {
-                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
-                }
-            }
-            case WRITE_EXTERNAL_STORAGE -> {
-                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.WRITE_EXTERNAL_STORAGE)) {
-                    this.shouldShowExportDialog = true;
-                } else {
-                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_export));
-                }
-            }
-            default -> super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     /**

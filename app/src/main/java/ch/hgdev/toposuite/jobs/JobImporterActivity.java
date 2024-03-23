@@ -4,10 +4,10 @@ import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AlertDialog;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 
 import com.google.common.base.Joiner;
 import com.google.common.io.Files;
@@ -23,7 +23,6 @@ import ch.hgdev.toposuite.R;
 import ch.hgdev.toposuite.TopoSuiteActivity;
 import ch.hgdev.toposuite.dao.SQLiteTopoSuiteException;
 import ch.hgdev.toposuite.transfer.ImportDialogListener;
-import ch.hgdev.toposuite.utils.AppUtils;
 import ch.hgdev.toposuite.utils.Logger;
 import ch.hgdev.toposuite.utils.ViewUtils;
 
@@ -52,12 +51,7 @@ public class JobImporterActivity extends TopoSuiteActivity implements ImportDial
         Uri dataUri = this.getIntent().getData();
         if (dataUri != null) {
             this.path = dataUri.getPath();
-            if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                this.importJob();
-            } else {
-                AppUtils.requestPermission(this, AppUtils.Permission.READ_EXTERNAL_STORAGE,
-                        String.format(this.getString(R.string.need_storage_access), AppUtils.getAppName()));
-            }
+            this.importJob();
         }
     }
 
@@ -74,21 +68,6 @@ public class JobImporterActivity extends TopoSuiteActivity implements ImportDial
     @Override
     public void onImportDialogError(String message) {
         ViewUtils.showToast(this, message);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (AppUtils.Permission.valueOf(requestCode)) {
-            case READ_EXTERNAL_STORAGE:
-                if (AppUtils.isPermissionGranted(this, AppUtils.Permission.READ_EXTERNAL_STORAGE)) {
-                    this.importJob();
-                } else {
-                    ViewUtils.showToast(this, this.getString(R.string.error_impossible_to_import));
-                    this.finish();
-                }
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     private void importJob() {

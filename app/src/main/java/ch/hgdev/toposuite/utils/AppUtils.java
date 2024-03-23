@@ -1,20 +1,15 @@
 package ch.hgdev.toposuite.utils;
 
-import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import android.util.SparseArray;
 
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.EnumSet;
 import java.util.Locale;
 
 import ch.hgdev.toposuite.App;
@@ -27,97 +22,6 @@ import ch.hgdev.toposuite.R;
  * @author HGdev
  */
 public class AppUtils {
-    /**
-     * App defined constants to use for requesting permissions.
-     */
-    public enum Permission {
-        // calendar
-        READ_CALENDAR(0x100),
-        WRITE_CALENDAR(0x101),
-
-        // camera
-        CAMERA(0x200),
-
-        // contacts
-        READ_CONTACTS(0x300),
-        WRITE_CONTACTS(0x301),
-        GET_ACCOUNTS(0x302),
-
-        // location
-        ACCESS_FINE_LOCATION(0x400),
-        ACCESS_COARSE_LOCATION(0x401),
-
-        // microphone
-        RECORD_AUDIO(0x500),
-
-        // phone
-        READ_PHONE_STATE(0x600),
-        CALL_PHONE(0x601),
-        READ_CALL_LOG(0x602),
-        WRITE_CALL_LOG(0x603),
-        ADD_VOICEMAIL(0x604),
-        USE_SIP(0x605),
-        PROCESS_OUTGOING_CALLS(0x606),
-
-        // sensors
-        BODY_SENSORS(0x700),
-
-        // sms
-        SEND_SMS(0x800),
-        RECEIVE_SMS(0x801),
-        READ_SMS(0x802),
-        RECEIVE_WAP_PUSH(0x803),
-        RECEIVE_MMS(0x804),
-
-        // storage
-        READ_EXTERNAL_STORAGE(0x900),
-        WRITE_EXTERNAL_STORAGE(0x901);
-
-        private final int value;
-        private final String name;
-        private static final SparseArray<Permission> lookup = new SparseArray<>();
-
-        static {
-            for (Permission p : EnumSet.allOf(Permission.class))
-                lookup.put(p.value, p);
-        }
-
-        Permission(int value) {
-            this.value = value;
-            switch (value) {
-                case 0x100 -> name = android.Manifest.permission.READ_CALENDAR;
-                case 0x101 -> name = android.Manifest.permission.WRITE_CALENDAR;
-                case 0x200 -> name = android.Manifest.permission.CAMERA;
-                case 0x300 -> name = android.Manifest.permission.READ_CONTACTS;
-                case 0x301 -> name = android.Manifest.permission.WRITE_CONTACTS;
-                case 0x302 -> name = android.Manifest.permission.GET_ACCOUNTS;
-                case 0x400 -> name = android.Manifest.permission.ACCESS_FINE_LOCATION;
-                case 0x401 -> name = android.Manifest.permission.ACCESS_COARSE_LOCATION;
-                case 0x500 -> name = android.Manifest.permission.RECORD_AUDIO;
-                case 0x600 -> name = android.Manifest.permission.READ_PHONE_STATE;
-                case 0x601 -> name = android.Manifest.permission.CALL_PHONE;
-                case 0x602 -> name = android.Manifest.permission.READ_CALL_LOG;
-                case 0x603 -> name = android.Manifest.permission.WRITE_CALL_LOG;
-                case 0x604 -> name = android.Manifest.permission.ADD_VOICEMAIL;
-                case 0x605 -> name = android.Manifest.permission.USE_SIP;
-                case 0x606 -> name = android.Manifest.permission.PROCESS_OUTGOING_CALLS;
-                case 0x700 -> name = android.Manifest.permission.BODY_SENSORS;
-                case 0x800 -> name = android.Manifest.permission.SEND_SMS;
-                case 0x801 -> name = android.Manifest.permission.RECEIVE_SMS;
-                case 0x802 -> name = android.Manifest.permission.READ_SMS;
-                case 0x803 -> name = android.Manifest.permission.RECEIVE_WAP_PUSH;
-                case 0x804 -> name = android.Manifest.permission.RECEIVE_MMS;
-                case 0x900 -> name = android.Manifest.permission.READ_EXTERNAL_STORAGE;
-                case 0x901 -> name = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-                default -> name = ""; // this cannot happen anyway
-            }
-        }
-
-        public static Permission valueOf(int value) {
-            return lookup.get(value);
-        }
-    }
-
     /**
      * Return the current year.
      *
@@ -170,46 +74,6 @@ public class AppUtils {
         return version;
     }
 
-    /**
-     * Helper function to ask the user for permission. On API < 23, this does nothing. On API > 23,
-     * the user is dialog to ask for the permission only if it has not already been granted.
-     * <p>
-     * The user need to override onRequestPermissionsResult() to handle the user's answer to the
-     * request. In other words, the calling activity needs to implement
-     * ActivityCompat.OnRequestPermissionsResultCallback.
-     * <p>
-     * The activity is terminated if the user refuses to give permission.
-     *
-     * @param activity   The activity that needs to get the permission. It needs to implement
-     *                   ActivityCompat.OnRequestPermissionsResultCallback to handle user response.
-     * @param permission The permission to be requested to the user.
-     * @param message    A short message explaining the user why this permission is required.
-     */
-    public static void requestPermission(final @NonNull Activity activity, final Permission permission, final @NonNull String message) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission.name)) {
-            new AlertDialog.Builder(activity)
-                    .setMessage(message)
-                    .setPositiveButton(R.string.ok, (dialog, which) -> ActivityCompat.requestPermissions(activity, new String[]{permission.name}, permission.value))
-                    .setNegativeButton(R.string.cancel, (dialog, which) -> activity.finish())
-                    .create()
-                    .show();
-        } else {
-            ActivityCompat.requestPermissions(activity, new String[]{permission.name}, permission.value);
-        }
-    }
-
-    /**
-     * Allows to verify if the specified permission has been granted.
-     *
-     * @param activity   The activity from which this method is called.
-     * @param permission The permission to check against.
-     * @return True of the permission has been granted.
-     */
-    public static boolean isPermissionGranted(final @NonNull Activity activity, final Permission permission) {
-        return ContextCompat.checkSelfPermission(activity, permission.name) == PackageManager.PERMISSION_GRANTED;
-    }
-
-
     public static String serializeDate(final @NonNull Date d) {
         SimpleDateFormat sdf = new SimpleDateFormat(App.ISO8601_DATE_FORMAT, Locale.US);
         return sdf.format(d);
@@ -246,25 +110,18 @@ public class AppUtils {
     }
 
     /**
-     * Return path to public data directory used by Toposuite. The path is only returned if it
-     * exists and that the application has at least read access to it.
-     * If write external storage permission is granted and the path does not yet exist,
-     * this function creates the directory.
+     * Return path to public data directory used by Toposuite. If the path does not yet exist, this
+     * function creates the directory.
      *
-     * @param activity Calling activity.
      * @return Path to the public data directory or null.
      */
-    public static String publicDataDirectory(@NonNull Activity activity) {
-        if (AppUtils.isPermissionGranted(activity, Permission.READ_EXTERNAL_STORAGE)) {
-            File dir = new File(App.publicDataDirectory);
-            if (dir.exists()) {
-                return dir.getAbsolutePath();
-            }
-            if (AppUtils.isPermissionGranted(activity, Permission.WRITE_EXTERNAL_STORAGE)) {
-                if (dir.mkdirs()) {
-                    return dir.getAbsolutePath();
-                }
-            }
+    public static String publicDataDirectory() {
+        File dir = new File(App.publicDataDirectory);
+        if (dir.exists()) {
+            return dir.getAbsolutePath();
+        }
+        if (dir.mkdirs()) {
+            return dir.getAbsolutePath();
         }
         return null;
     }
