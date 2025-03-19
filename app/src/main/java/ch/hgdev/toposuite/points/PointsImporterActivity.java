@@ -2,6 +2,7 @@ package ch.hgdev.toposuite.points;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -9,15 +10,12 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Pair;
 import android.widget.ProgressBar;
-import android.content.Intent;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
-import com.google.common.io.Files;
 import com.google.common.io.LineReader;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
