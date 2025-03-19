@@ -20,7 +20,8 @@ android {
             minifyEnabled true
         }
         debug {
-            testCoverageEnabled = true
+            enableUnitTestCoverage true
+            enableAndroidTestCoverage true
         }
     }
     compileOptions {
