@@ -30,70 +30,30 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
-                <action android:name="android.intent.action.SENDTO" />
-
+                <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
-
-                <!--
-                    Work around Android stupid PatternMatcher in order to allow opening files with
-                    "." in their name.
-                -->
-                <data android:host="*"/>
-                <data android:mimeType="*/*"/>
-                <data android:mimeType="application/octet-stream" />
-                <data android:mimeType="text/comma-separated-values" />
-                <data android:mimeType="text/coo" />
+                
+                <!-- CSV files -->
                 <data android:mimeType="text/csv" />
-                <data android:mimeType="text/koo" />
-                <data android:mimeType="text/ptp" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.COO"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.CSV"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.KOO"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.PTP"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.coo"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.csv"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.koo"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.ptp"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.COO"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.CSV"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.KOO"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.PTP"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.coo"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.csv"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.koo"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.ptp"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.COO"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.CSV"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.KOO"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.PTP"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.coo"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.csv"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.koo"/>
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.ptp"/>
-                <data android:pathPattern=".*\\..*\\..*\\.COO"/>
-                <data android:pathPattern=".*\\..*\\..*\\.CSV"/>
-                <data android:pathPattern=".*\\..*\\..*\\.KOO"/>
-                <data android:pathPattern=".*\\..*\\..*\\.PTP"/>
-                <data android:pathPattern=".*\\..*\\..*\\.coo"/>
-                <data android:pathPattern=".*\\..*\\..*\\.koo"/>
-                <data android:pathPattern=".*\\..*\\..*\\.ptp"/>
-                <data android:pathPattern=".*\\..*\\.COO"/>
-                <data android:pathPattern=".*\\..*\\.CSV"/>
-                <data android:pathPattern=".*\\..*\\.KOO"/>
-                <data android:pathPattern=".*\\..*\\.PTP"/>
-                <data android:pathPattern=".*\\..*\\.coo"/>
-                <data android:pathPattern=".*\\..*\\.csv"/>
-                <data android:pathPattern=".*\\..*\\.koo"/>
-                <data android:pathPattern=".*\\..*\\.ptp"/>
-                <data android:pathPattern=".*\\.COO"/>
-                <data android:pathPattern=".*\\.CSV"/>
-                <data android:pathPattern=".*\\.KOO"/>
-                <data android:pathPattern=".*\\.PTP"/>
-                <data android:pathPattern=".*\\.coo"/>
-                <data android:pathPattern=".*\\.csv"/>
-                <data android:pathPattern=".*\\.koo"/>
-                <data android:pathPattern=".*\\.ptp"/>
-                <data android:scheme="file"/>
+                <data android:mimeType="text/comma-separated-values" />
+                
+                <!-- COO/KOO/PTP files -->
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="application/octet-stream" />
+                
+                <!-- For direct file access (older Android versions) -->
+                <data android:scheme="file" />
+                <!-- For content providers (newer Android versions) -->
+                <data android:scheme="content" />
+            </intent-filter>
+            
+            <!-- Add a separate intent filter specifically for sharing -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/csv" />
+                <data android:mimeType="text/comma-separated-values" />
+                <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
         <activity
