@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import com.google.common.io.Files;
 import com.google.common.io.LineReader;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -55,49 +56,65 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
         this.progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         // detect if another app is sending data to this activity
-        this.dataUri = this.getIntent().getData();
+        Intent intent = this.getIntent();
+        this.dataUri = intent.getData();
         
-        // Also check for SEND action which might use EXTRA_STREAM instead of getData()
-        if (this.dataUri == null && Intent.ACTION_SEND.equals(getIntent().getAction())) {
-            this.dataUri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
+        // Check for SEND action which might use EXTRA_STREAM instead of getData()
+        if (this.dataUri == null && Intent.ACTION_SEND.equals(intent.getAction())) {
+            try {
+                this.dataUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+            } catch (Exception e) {
+                Logger.log(Logger.ErrLabel.IO_ERROR, "Failed to get EXTRA_STREAM: " + e.getMessage());
+            }
         }
         
         if (this.dataUri != null) {
-            ContentResolver resolver = getContentResolver();
-            this.mime = resolver.getType(this.dataUri);
-            if (this.mime == null) {
-                this.mime = getIntent().getType();
-            }
-            
-            // Get the filename - differs between file:// and content:// URIs
-            if ("file".equals(this.dataUri.getScheme())) {
-                this.filename = this.dataUri.getLastPathSegment();
-            } else {
-                // For content:// URIs, try to get the display name
-                try (Cursor cursor = resolver.query(this.dataUri, null, null, null, null)) {
-                    if (cursor != null && cursor.moveToFirst()) {
-                        int displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                        if (displayNameIndex != -1) {
-                            this.filename = cursor.getString(displayNameIndex);
-                        }
-                    }
-                } catch (Exception e) {
-                    Logger.log(Logger.ErrLabel.IO_ERROR, "Failed to query content URI: " + e.getMessage());
+            try {
+                ContentResolver resolver = getContentResolver();
+                this.mime = resolver.getType(this.dataUri);
+                if (this.mime == null) {
+                    this.mime = intent.getType() != null ? intent.getType() : "";
                 }
                 
-                // Fallback if we couldn't get the name
-                if (this.filename == null) {
-                    this.filename = this.dataUri.getLastPathSegment();
-                }
+                // Get the filename - differs between file:// and content:// URIs
+                this.filename = getFileNameFromUri(this.dataUri);
+                this.importPoints();
+            } catch (Exception e) {
+                Logger.log(Logger.ErrLabel.IO_ERROR, "Failed to process Uri: " + e.getMessage());
+                ViewUtils.showToast(this, this.getString(R.string.error_points_import));
+                this.finish();
             }
-            
-            this.importPoints();
         } else {
             // No data provided, inform the user and close
-            //ViewUtils.showToast(this, this.getString(R.string.error_no_file_selected));
-            ViewUtils.showToast(this, "no file selected");
+            ViewUtils.showToast(this, "No file selected");
             this.finish();
         }
+    }
+    
+    private String getFileNameFromUri(Uri uri) {
+        String result = null;
+        if ("file".equals(uri.getScheme())) {
+            result = uri.getLastPathSegment();
+        } else {
+            // For content:// URIs, try to get the display name
+            try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (displayNameIndex != -1) {
+                        result = cursor.getString(displayNameIndex);
+                    }
+                }
+            } catch (Exception e) {
+                Logger.log(Logger.ErrLabel.IO_ERROR, "Failed to query content URI: " + e.getMessage());
+            }
+        }
+        
+        // Fallback if we couldn't get the name
+        if (result == null) {
+            result = uri.getLastPathSegment();
+        }
+        
+        return result;
     }
 
     @Override
@@ -125,26 +142,46 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
             // first line of the file.
             try {
                 ContentResolver cr = this.getContentResolver();
-                InputStreamReader in = new InputStreamReader(cr.openInputStream(this.dataUri));
-                LineReader lr = new LineReader(in);
-                String firstLine = lr.readLine();
-
-                if (firstLine == null) {
-                    ViewUtils.showToast(this, this.getString(
-                            R.string.error_unsupported_format));
+                InputStream inputStream = cr.openInputStream(this.dataUri);
+                if (inputStream == null) {
+                    ViewUtils.showToast(this, this.getString(R.string.error_unsupported_format));
                     return;
-                } else if ((firstLine.length() >= 4)
-                        && firstLine.substring(0, 4).equals("$$PK")) {
-                    // fix the MIME type
-                    this.mime = "text/ltop";
-                } else {
-                    // small hack for handling PTP files because there is no
-                    // proper way to detect them
-                    this.mime = "text/ptp";
+                }
+                
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                LineReader lineReader = new LineReader(inputStreamReader);
+                try {
+                    String firstLine = lineReader.readLine();
+                    
+                    if (firstLine == null) {
+                        ViewUtils.showToast(this, this.getString(R.string.error_unsupported_format));
+                        return;
+                    } else if ((firstLine.length() >= 4) && firstLine.substring(0, 4).equals("$$PK")) {
+                        // fix the MIME type
+                        this.mime = "text/ltop";
+                    } else {
+                        // small hack for handling PTP files because there is no
+                        // proper way to detect them
+                        this.mime = "text/ptp";
+                    }
+                } finally {
+                    inputStreamReader.close();
                 }
             } catch (IOException e) {
-                Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                Logger.log(Logger.ErrLabel.IO_ERROR, "Error reading file: " + e.getMessage());
                 ViewUtils.showToast(this, e.getMessage());
+                this.finish();
+                return;
+            } catch (SecurityException e) {
+                Logger.log(Logger.ErrLabel.IO_ERROR, "No permission to read file: " + e.getMessage());
+                ViewUtils.showToast(this, "No permission to read file");
+                this.finish();
+                return;
+            } catch (Exception e) {
+                Logger.log(Logger.ErrLabel.IO_ERROR, "Unexpected error: " + e.getMessage());
+                ViewUtils.showToast(this, "Error accessing file");
+                this.finish();
+                return;
             }
         }
         this.importFromExternalFile();
@@ -175,8 +212,13 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
             ContentResolver cr = PointsImporterActivity.this.getContentResolver();
             
             // Get extension from filename or content type
-            String ext = this.filename != null ? 
-                Files.getFileExtension(this.filename).toLowerCase() : "";
+            String ext = "";
+            if (this.filename != null && !this.filename.isEmpty()) {
+                int lastDot = this.filename.lastIndexOf('.');
+                if (lastDot > 0) {
+                    ext = this.filename.substring(lastDot + 1).toLowerCase();
+                }
+            }
                 
             if (ext.isEmpty() && this.mime != null && !this.mime.isEmpty()) {
                 // Try to get extension from MIME type
@@ -208,10 +250,16 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
                     }
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                    this.errMsg = this.getString(R.string.error_points_import);
+                    this.errMsg = this.getString(R.string.error_points_import) + ": " + e.getMessage();
                 } catch (SQLiteTopoSuiteException e) {
                     Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
-                    this.errMsg = this.getString(R.string.error_points_import);
+                    this.errMsg = this.getString(R.string.error_points_import) + ": " + e.getMessage();
+                } catch (SecurityException e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+                    this.errMsg = "No permission to access file";
+                } catch (Exception e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, "Unexpected error: " + e.getMessage());
+                    this.errMsg = "Error processing file: " + e.getMessage();
                 }
             } else {
                 Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unsupported file format: " + ext);
