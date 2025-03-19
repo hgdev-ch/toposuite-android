@@ -2,11 +2,14 @@ package ch.hgdev.toposuite.points;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.util.Pair;
 import android.widget.ProgressBar;
+import android.content.Intent;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -51,13 +54,49 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
         this.progress.setCancelable(false);
         this.progress.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-
         // detect if another app is sending data to this activity
         this.dataUri = this.getIntent().getData();
-        this.mime = this.getIntent().getType();
-        this.filename = this.dataUri.getLastPathSegment();
+        
+        // Also check for SEND action which might use EXTRA_STREAM instead of getData()
+        if (this.dataUri == null && Intent.ACTION_SEND.equals(getIntent().getAction())) {
+            this.dataUri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
+        }
+        
         if (this.dataUri != null) {
+            ContentResolver resolver = getContentResolver();
+            this.mime = resolver.getType(this.dataUri);
+            if (this.mime == null) {
+                this.mime = getIntent().getType();
+            }
+            
+            // Get the filename - differs between file:// and content:// URIs
+            if ("file".equals(this.dataUri.getScheme())) {
+                this.filename = this.dataUri.getLastPathSegment();
+            } else {
+                // For content:// URIs, try to get the display name
+                try (Cursor cursor = resolver.query(this.dataUri, null, null, null, null)) {
+                    if (cursor != null && cursor.moveToFirst()) {
+                        int displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                        if (displayNameIndex != -1) {
+                            this.filename = cursor.getString(displayNameIndex);
+                        }
+                    }
+                } catch (Exception e) {
+                    Logger.log(Logger.ErrLabel.IO_ERROR, "Failed to query content URI: " + e.getMessage());
+                }
+                
+                // Fallback if we couldn't get the name
+                if (this.filename == null) {
+                    this.filename = this.dataUri.getLastPathSegment();
+                }
+            }
+            
             this.importPoints();
+        } else {
+            // No data provided, inform the user and close
+            //ViewUtils.showToast(this, this.getString(R.string.error_no_file_selected));
+            ViewUtils.showToast(this, "no file selected");
+            this.finish();
         }
     }
 
@@ -134,49 +173,57 @@ public class PointsImporterActivity extends TopoSuiteActivity implements ImportD
 
         new Thread(() -> {
             ContentResolver cr = PointsImporterActivity.this.getContentResolver();
-            String ext = Files.getFileExtension(PointsImporterActivity.this.filename);
-            if (ext.isEmpty()) {
-                // attempt to detect type via mime then
-                ext = PointsImporterActivity.this.mime.substring(PointsImporterActivity.this.mime.lastIndexOf("/") + 1);
-
-                // ugly hack to support ES File Explorer and
-                // Samsung's file explorer that set the MIME
-                // type of a CSV file to
-                // "text/comma-separated-values" instead of
-                // "text/csv"
-                if (ext.equalsIgnoreCase("comma-separated-values")) {
+            
+            // Get extension from filename or content type
+            String ext = this.filename != null ? 
+                Files.getFileExtension(this.filename).toLowerCase() : "";
+                
+            if (ext.isEmpty() && this.mime != null && !this.mime.isEmpty()) {
+                // Try to get extension from MIME type
+                if (this.mime.equals("text/csv") || this.mime.contains("comma-separated-values")) {
                     ext = "csv";
+                } else if (this.mime.equals("text/ltop")) {
+                    ext = "ltop";
+                } else if (this.mime.equals("text/ptp")) {
+                    ext = "ptp";
+                } else if (this.mime.contains("coo")) {
+                    ext = "coo";
+                } else if (this.mime.contains("koo")) {
+                    ext = "koo";
                 }
             }
 
-            // make sure the file format is supported
+            // Make sure the file format is supported
             if (SupportedPointsFileTypes.isSupported(ext)) {
                 try {
                     Job.deleteCurrentJob();
-                    InputStream inputStream = cr.openInputStream(PointsImporterActivity.this.dataUri);
+                    InputStream inputStream = cr.openInputStream(this.dataUri);
+                    if (inputStream == null) {
+                        throw new IOException("Could not open input stream from URI");
+                    }
+                    
                     List<Pair<Integer, String>> errors = PointsImporter.importFromFile(inputStream, ext);
                     if (!errors.isEmpty()) {
-                        PointsImporterActivity.this.errMsg = PointsImporter.formatErrors(ext, errors);
+                        this.errMsg = PointsImporter.formatErrors(this.filename != null ? this.filename : ext, errors);
                     }
                 } catch (IOException e) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
-                    PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
+                    this.errMsg = this.getString(R.string.error_points_import);
                 } catch (SQLiteTopoSuiteException e) {
                     Logger.log(Logger.ErrLabel.SQL_ERROR, e.getMessage());
-                    PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(R.string.error_points_import);
+                    this.errMsg = this.getString(R.string.error_points_import);
                 }
             } else {
-                Logger.log(Logger.ErrLabel.INPUT_ERROR, "unsupported file format: " + ext);
-                PointsImporterActivity.this.errMsg = PointsImporterActivity.this.getString(
-                        R.string.error_unsupported_format);
+                Logger.log(Logger.ErrLabel.INPUT_ERROR, "Unsupported file format: " + ext);
+                this.errMsg = this.getString(R.string.error_unsupported_format);
             }
 
-            PointsImporterActivity.this.runOnUiThread(() -> {
-                PointsImporterActivity.this.progress.dismiss();
-                if (PointsImporterActivity.this.errMsg.isEmpty()) {
-                    PointsImporterActivity.this.onImportDialogSuccess(PointsImporterActivity.this.successMsg);
+            this.runOnUiThread(() -> {
+                this.progress.dismiss();
+                if (this.errMsg.isEmpty()) {
+                    this.onImportDialogSuccess(this.successMsg);
                 } else {
-                    PointsImporterActivity.this.onImportDialogError(PointsImporterActivity.this.errMsg);
+                    this.onImportDialogError(this.errMsg);
                 }
             });
         }).start();
