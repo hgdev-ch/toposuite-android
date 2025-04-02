@@ -35,7 +35,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'com.google.guava:guava:33.0.0-android'
-    implementation 'androidx.test:runner:1.6.1'
+    implementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
 }
