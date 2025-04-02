@@ -16,9 +16,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.ShareActionProvider;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.ShareCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.view.MenuItemCompat;
 
@@ -53,7 +51,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     private int selectedPointId;
     private ListView pointsListView;
     private ArrayListOfPointsAdapter adapter;
-    private ShareActionProvider shareActionProvider;
+    private File tmpPointsFile;
 
     private boolean shouldShowImportDialog;
     private boolean shouldShowExportDialog;
@@ -116,6 +114,10 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             this.showImportDialog();
             return true;
         }
+        if (id == R.id.share_job_button) {
+            this.sharePoints();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -163,10 +165,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             }
         });
 
-        MenuItem itemShare = menu.findItem(R.id.share_job_button);
-        this.shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(itemShare);
-        this.updateShareIntent();
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -182,7 +180,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             ViewUtils.showToast(this, this.getString(R.string.point_already_exists));
         }
         this.showAddPointDialog();
-        this.updateShareIntent();
+        this.prepareSharingFile();
         ViewUtils.unlockScreenOrientation(this);
     }
 
@@ -199,7 +197,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
         point.setAltitude(dialog.getAltitude());
         this.editPoint(point);
         this.drawList();
-        this.updateShareIntent();
+        this.prepareSharingFile();
     }
 
     @Override
@@ -226,17 +224,6 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
             return true;
         }
         return super.onContextItemSelected(item);
-    }
-
-    /**
-     * Call to update the share intent
-     *
-     * @param shareIntent The share intent.
-     */
-    private void setShareIntent(Intent shareIntent) {
-        if (this.shareActionProvider != null) {
-            this.shareActionProvider.setShareIntent(shareIntent);
-        }
     }
 
     private void showExportDialog() {
@@ -338,30 +325,52 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     }
 
     /**
-     * Update the share intent.
+     * Share points with other applications
      */
-    private void updateShareIntent() {
+    private void sharePoints() {
+        if (this.tmpPointsFile != null && this.tmpPointsFile.exists()) {
+            try {
+                Uri fileUri = FileProvider.getUriForFile(this, this.getPackageName(), this.tmpPointsFile);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/csv");
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                Intent chooser = Intent.createChooser(intent, getString(R.string.share_points));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(chooser);
+                } else {
+                    ViewUtils.showToast(this, getString(R.string.error_no_app_for_sharing));
+                }
+            } catch (Exception e) {
+                Logger.log(Logger.ErrLabel.IO_ERROR, "Failed to share points: " + e.getMessage());
+                ViewUtils.showToast(this, getString(R.string.error_failed_to_share));
+            }
+        } else {
+            this.prepareSharingFile();
+            this.sharePoints();
+        }
+    }
+
+    /**
+     * Prepare the file for sharing.
+     */
+    private void prepareSharingFile() {
         try {
             final File tmpPointsPath = new File(this.getCacheDir(), "points");
             if (!tmpPointsPath.exists()) {
                 if (!tmpPointsPath.mkdir()) {
                     Logger.log(Logger.ErrLabel.IO_ERROR, "failed to create directory " + tmpPointsPath.getAbsolutePath());
+                    return;
                 }
             }
             String currentJobName = Job.getCurrentJobName();
             String name = (currentJobName == null) || (currentJobName.isEmpty()) ? "points" : currentJobName;
-            final File tmpPointsFile = new File(tmpPointsPath, name + ".csv");
-            SharedResources.getSetOfPoints().saveAsCSV(this, tmpPointsFile);
-            final Uri uri = FileProvider.getUriForFile(this, this.getPackageName(), tmpPointsFile);
-            final Intent sendIntent = ShareCompat.IntentBuilder.from(this)
-                    .setType("text/csv")
-                    .setStream(uri).getIntent()
-                    .setAction(Intent.ACTION_SEND)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
-                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            this.setShareIntent(sendIntent);
+            this.tmpPointsFile = new File(tmpPointsPath, name + ".csv");
+            SharedResources.getSetOfPoints().saveAsCSV(this, this.tmpPointsFile);
         } catch (IOException e) {
             Logger.log(Logger.ErrLabel.IO_ERROR, e.getMessage());
+            this.tmpPointsFile = null;
         }
     }
 
@@ -379,7 +388,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
     public void onImportDialogSuccess(String message) {
         ViewUtils.showToast(this, message);
         this.drawList();
-        this.updateShareIntent();
+        this.prepareSharingFile();
     }
 
     @Override
@@ -391,7 +400,7 @@ public class PointsManagerActivity extends TopoSuiteActivity implements
                 .setPositiveButton(R.string.ok,
                         (dialog, which) -> {
                             PointsManagerActivity.this.drawList();
-                            PointsManagerActivity.this.updateShareIntent();
+                            PointsManagerActivity.this.prepareSharingFile();
                         });
         builder.create().show();
     }

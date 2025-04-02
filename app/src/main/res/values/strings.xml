@@ -134,6 +134,8 @@
 	<string name="error_same_points">The points must be different!</string>
 	<string name="error_three_points_required">At least three points should be provided!</string>
 	<string name="error_unsupported_format">Unsupported format!</string>
+	<string name="error_no_app_for_sharing">No application available for sharing</string>
+	<string name="error_failed_to_share">Failed to share file</string>
 	<string name="exception_invalid_format_values">This line contains invalid values!</string>
 	<string name="exception_invalid_format_values_number">This line contains an invalid number of values!</string>
 	<string name="excircle_label">Excircle radius [m]</string>
@@ -299,6 +301,7 @@
 	<string name="segment_surface_label">Segment surface [m²]</string>
 	<string name="select_files_3dots">Select a file…</string>
 	<string name="share">Share</string>
+	<string name="share_points">Share points</string>
 	<string name="sides_label">Sides</string>
 	<string name="slope_label">Slope [%]</string>
 	<string name="sn_label">sN [cm]:</string>
