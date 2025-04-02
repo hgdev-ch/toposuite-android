@@ -294,6 +294,9 @@ Dieses Programm wird in der Hoffnung verteilt, dass es für Sie nutzvoll ist, je
 	<string name="segment_surface_label">Oberfläche Segment [m²]</string>
 	<string name="select_files_3dots">Eine Datei auswählen…</string>
 	<string name="share">Seiten</string>
+	<string name="share_points">Punkte teilen</string>
+	<string name="error_no_app_for_sharing">Keine Anwendung zum Teilen verfügbar</string>
+	<string name="error_failed_to_share">Fehler beim Teilen der Datei</string>
 	<string name="sides_label">Teilen</string>
 	<string name="slope_label">Neigung [%]</string>
 	<string name="sn_label">sN [cm]:</string>

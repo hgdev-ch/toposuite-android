@@ -131,6 +131,8 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="error_same_points">I punti devono essere differenti!</string>
 	<string name="error_three_points_required">Bisogna fornire almeno tre punti!</string>
 	<string name="error_unsupported_format">Formato non supportato!</string>
+	<string name="error_no_app_for_sharing">Nessuna applicazione disponibile per la condivisione</string>
+	<string name="error_failed_to_share">Impossibile condividere il file</string>
 	<string name="exception_invalid_format_values">La riga contiene dei valori non validi!</string>
 	<string name="exception_invalid_format_values_number">La riga contiene un numero errato di valori!</string>
 	<string name="excircle_label">Raggio del cerchio circoscritto [m]</string>
@@ -296,6 +298,7 @@ ma SENZA NESSUNA GARANZIA; senza neanche la garanzia implicita di COMMERCIALIZZA
 	<string name="segment_surface_label">Superficie segmento [m²]</string>
 	<string name="select_files_3dots">Selezionare un file…</string>
 	<string name="share">Lati</string>
+	<string name="share_points">Condividere i punti</string>
 	<string name="sides_label">Condividere</string>
 	<string name="slope_label">Pendenza [%]</string>
 	<string name="sn_label">sN [cm]:</string>
